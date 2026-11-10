@@ -170,3 +170,7 @@ Example response:
 `createdNotificationCount` is the number of users who received the notification. A successful request returns the `201` status.
 
 To delete a notification, send a `DELETE` request to `/rest/v1/notifications/<notificationId>`. A successful request returns the `204` status.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

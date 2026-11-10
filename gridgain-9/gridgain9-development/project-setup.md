@@ -91,3 +91,7 @@ The `gridgain-hibernate`, `spring-data-ignite`, and `spring-boot-starter-ignite-
 
 - [How to Configure Logging for the Java Thin Client](../gridgain9-get-started/how-to-guides/configuring-java-client-logging.md)
 - [Connect With the Java Thin Client](../gridgain9-get-started/learning-paths/distributed-sql-foundations/connect-java-thin-client.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

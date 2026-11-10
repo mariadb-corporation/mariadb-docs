@@ -180,3 +180,7 @@ These methods have the following limitations:
 ## See Also
 
 - [Cache Sizing and Expiry](../../gridgain8-get-started/learning-paths/cache-centric-foundations/cache-sizing-and-expiry.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

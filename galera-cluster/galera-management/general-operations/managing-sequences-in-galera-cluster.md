@@ -7,7 +7,7 @@ description: >-
 
 # Managing Sequences in Galera Cluster
 
-[Sequences](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sequences/sequence-overview) allows for the generation of unique integers independent of any specific table. While standard sequences function normally in a standalone MariaDB server, using them in a [MariaDB Galera Cluster](../../readme/mariadb-galera-cluster-usage-guide.md) requires specific configurations to ensure conflict-free operation and optimal performance.
+[Sequences](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sequences/sequence-overview) allows for the generation of unique integers independent of any specific table. While standard sequences function normally in a standalone MariaDB server, using them in a [MariaDB Galera Cluster](../../mariadb-galera-cluster-usage-guide.md) requires specific configurations to ensure conflict-free operation and optimal performance.
 
 {% hint style="success" %}
 **Streaming Replication Support in MariaDB**
@@ -123,3 +123,5 @@ COMMIT;
 | `ERROR 1213: Deadlock found when trying to get lock` | The sequence was likely defined with `INCREMENT BY 1` (default), causing nodes to contend for the same value. | Alter the sequence to use the Galera offset logic: `ALTER SEQUENCE my_seq INCREMENT BY 0;`                 |
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

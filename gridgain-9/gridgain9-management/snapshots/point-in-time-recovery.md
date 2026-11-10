@@ -40,3 +40,7 @@ Point in time recovery may take a long time. You can monitor current replication
 ```
 recovery tables state --id=944e4abe-b655-4283-9d78-449b5186a7ac
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

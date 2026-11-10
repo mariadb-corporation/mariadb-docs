@@ -42,3 +42,7 @@ Monitor node startup, initialize a cluster, and verify health using REST endpoin
 Export GridGain 9 metrics over OTLP to Prometheus, then connect Grafana to visualize cluster performance with a prebuilt dashboard.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

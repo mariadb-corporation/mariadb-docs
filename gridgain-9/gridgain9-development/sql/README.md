@@ -31,3 +31,7 @@ GridGain 9 uses Apache Calcite as its SQL engine, providing distributed, transac
 Use the Java SQL API in GridGain 9 to create tables, run queries, work with statements and parameters, execute scripts, and cancel queries.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

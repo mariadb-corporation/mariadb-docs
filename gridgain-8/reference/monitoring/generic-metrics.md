@@ -982,3 +982,7 @@ In the histogram, `bounds` is metadata, separate from the actual time values, an
 The last bucket always includes infinity, so in our example the final bucket is `60000 and higher`. Any value higher than 60000 is put into that bucket.
 
 If a value for the histogram above is `1500` milliseconds, it falls into the `1000 - 3000` bucket and increments the `value` for that bucket (`"value":1`).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

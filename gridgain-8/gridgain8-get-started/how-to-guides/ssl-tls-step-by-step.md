@@ -658,3 +658,7 @@ REST can also use a secured connection to cluster. In this case, you will need t
 
 - [JDBC driver](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/SQL/JDBC/jdbc-driver) - Additional thin JDBC driver parameters.
 - [ODBC connection string and DSN](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/SQL/ODBC/connection-string-dsn) - Full ODBC connection string reference.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

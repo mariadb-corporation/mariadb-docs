@@ -140,3 +140,7 @@ int count = ignite.affinity("customers").partitions();
 - [Understand How Your Cache Is Distributed](../learning-paths/cache-centric-foundations/understand-cache-distribution.md) introduces partitions, the `Affinity` API, and the relationship between partition count and node count.
 - [Verify Colocation Is Working](../learning-paths/data-locality/verify-colocation.md) teaches the per-partition verification techniques that confirm a partition-count choice produces an even distribution.
 - [How to Debug a Hot Partition](debug-hot-partition.md) handles the case where the count is correct but a single partition takes disproportionate traffic because of key skew.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

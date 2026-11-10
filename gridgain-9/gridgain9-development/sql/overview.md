@@ -21,3 +21,7 @@ GridGain 9 SQL engine has the following advantages:
 ## See Also
 
 - [Create Tables and Query Data With SQL](../../gridgain9-get-started/learning-paths/distributed-sql-foundations/query-music-store-sql.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

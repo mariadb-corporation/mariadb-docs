@@ -103,3 +103,7 @@ A range such as *Mechanical to Code* means that the effort depends on what you u
 | Vector search limits | You use vectors with more than 4096 dimensions, or request more than 10000 neighbors | Config-only | [Vector Search Limits](configuration-and-defaults.md#vector-search-limits) |
 | Stale system properties | Your startup scripts set an unsupported Apache Ignite property | Config-only | [Startup Messages for Stale Properties](configuration-and-defaults.md#startup-messages-for-stale-properties) |
 | Control Center agent and OpenCensus | Your 8.9 node loads `control-center-agent` or `ignite-opencensus` | Mechanical | [Distribution and Packaging Changes](platform-and-modules.md#distribution-and-packaging-changes) |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

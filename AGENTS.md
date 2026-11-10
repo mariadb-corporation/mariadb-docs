@@ -41,13 +41,11 @@ space** — see *Non-space directories* below. Full breakdown and sub-structure:
 | Platform | `platform/` | MariaDB Enterprise Platform | ~820 |
 | MaxScale | `maxscale/` | MaxScale proxy | ~780 |
 | Connectors | `connectors/` | C, C++, Java, ODBC, Python, Node.js, .NET, R2DBC | ~290 |
-| Analytics | `analytics/` | ColumnStore / analytics | ~190 |
 | MariaDB Cloud | `mariadb-cloud/` | Cloud / DBaaS | ~135 |
 | Tools | `tools/` | Enterprise Manager, MCP server, Operator, AI-RAG | ~130 |
 | General Resources | `general-resources/` | About, community, style, legal | ~130 |
 | Galera Cluster | `galera-cluster/` | Galera replication | ~95 |
 | Help Tables | `help-tables/` | **Generated** SQL help tables | 2 |
-| Home | `home/` | Landing / portal | 4 |
 
 > `tools/` is documentation content (a space), **not** a scripts directory.
 

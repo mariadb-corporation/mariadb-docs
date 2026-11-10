@@ -403,3 +403,7 @@ GridGain 9 with RocksDB persistent storage provides a powerful way to maintain d
 
 - [RocksDB Documentation](https://rocksdb.org/docs/)
 - [Chinook Database Project](https://github.com/lerocha/chinook-database)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

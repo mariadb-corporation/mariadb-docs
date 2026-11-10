@@ -149,3 +149,7 @@ GridGain is compatible with Apache Ignite integrations. Below is a list of popul
 - [Hibernate L2 Cache](hibernate-l2-cache.md)
 - [MyBatis L2 Cache](https://ignite.apache.org/docs/latest/extensions-and-integrations/mybatis-l2-cache)
 - [Cassandra](cassandra-store.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

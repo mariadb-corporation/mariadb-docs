@@ -100,3 +100,7 @@ How data archiving in GridGain 9 removes aged data from primary storage after mo
 Use the GridGain 9 REST API to monitor and manage a cluster over HTTP, run SQL statements and scripts, page through results, and generate a Java client.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -44,3 +44,7 @@ Reference for GridGain 9 per-node configuration parameters, including network, s
 Reference for GridGain 9 CLI configuration parameters, including color themes, pager settings, and how to manage parameters and configuration profiles.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

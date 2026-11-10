@@ -89,3 +89,7 @@ GridGain collections can be in configured in API via `CollectionConfiguration` (
 | `setOffHeapMaxMemory(long)` | Sets offheap maximum memory size. | `0` (unlimited) |
 | `setBackups(int)` | Sets number of backups. | `0` |
 | `setNodeFilter(IgnitePredicate<ClusterNode>)` | Sets optional predicate specifying on which nodes entries should be stored. | |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

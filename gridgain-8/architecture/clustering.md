@@ -81,3 +81,7 @@ Applications should avoid activating a cluster if it had been activated before. 
 ### Existing Clusters
 
 If a persistent cluster is restarted, it will auto-activate upon reaching its baseline topology. Avoid manual activation of existing clusters. Manual activation may lead to the different nodes activating separately from the cluster. This will prevent these nodes from re-joining the cluster and/or cause permanent data loss.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

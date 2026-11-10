@@ -56,3 +56,7 @@ A lightweight client that connects over a binary protocol with a limited but bro
 
 **WAL (write-ahead log)**
 The log GridGain writes changes to before applying them, used to recover a consistent state after a crash when native persistence is enabled.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -115,3 +115,7 @@ Histogram metrics are exported as JSON strings, and typically look like this:
 {% endcode %}
 
 For information about JSON histograms, see [Working with Histograms](../../reference/monitoring/generic-metrics.md#histograms).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

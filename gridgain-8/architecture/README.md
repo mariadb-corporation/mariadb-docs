@@ -93,3 +93,7 @@ Multiversion concurrency control (MVCC) in GridGain 8, enabled through the TRANS
 GridGain's storage architecture — the multi-tiered memory architecture, native persistence for durable on-disk storage, and swapping as an extension of memory.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

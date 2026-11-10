@@ -51,3 +51,7 @@ Protect GridGain data in transit and at rest — SSL/TLS for nodes and clients, 
 Harden a GridGain deployment and stay compliant — cluster hardening practices, event-based auditing, and the list of fixed security vulnerabilities.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

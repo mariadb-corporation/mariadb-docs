@@ -93,3 +93,7 @@ Configure monitoring of a GridGain 8 cluster with Grafana and Prometheus, using 
 Track the system and user time GridGain 8 spends on transactions, and configure logging thresholds and sampling for long-running transactions.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

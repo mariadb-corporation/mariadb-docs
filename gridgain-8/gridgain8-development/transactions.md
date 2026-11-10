@@ -899,3 +899,7 @@ You can also use the [control script](../reference/cli-tool/README.md#transactio
 
 - [Use Transactions With the Cache API](../gridgain8-get-started/learning-paths/cache-centric-foundations/cache-transactions.md)
 - [Atomic Operations Across Keys: The Transaction Problem](../gridgain8-get-started/learning-paths/beyond-key-value/cross-partition-transactions.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

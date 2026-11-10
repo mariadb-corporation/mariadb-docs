@@ -61,3 +61,7 @@ The license file lists its features as `<enabled-feature name="..."/>` entries a
 | Entry compression | `compression` | `compression` or `ultimate` |
 
 In every row, a license with the `ultimate` feature is also accepted. Before you upgrade, compare the features of your license with your configuration, and contact MariaDB [support](https://mariadb.com/support/) if a feature is missing. A license file that works on 8.9 is accepted by 8.10 as a file, and the checks above decide only which features it enables.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -258,3 +258,7 @@ If you want to enable Data Center Replication during the upgrade, below is a mod
 The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://www.gridgain.com/docs/latest/getting-started/what-is-gridgain) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

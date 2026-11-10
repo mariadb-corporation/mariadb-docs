@@ -76,3 +76,5 @@ Once deployed, you can leverage these advanced features:
 4. Query: Ask questions against your data and receive citation-backed answers
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

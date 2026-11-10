@@ -58,3 +58,5 @@ The engine reports these as not supported inplace, so an explicit `ALGORITHM=INP
 A table copy writes every row into the new table with the TTL expiry it already had, so the copy does not start a row's clock again. A TTL that the `ALTER` sets or changes, on the table or on a `TTL` column, applies to rows written after it. A table converted to TidesDB from another engine has no expiries to keep, so its rows take their TTL from the time of the conversion.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

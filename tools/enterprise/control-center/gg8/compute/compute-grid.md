@@ -127,3 +127,7 @@ Sometimes, GridGain has to run internal tasks while handling distributed computi
 | EXPORT_EXCLUDE_INTERNAL_TASKS | If `true`, internal tasks will be excluded. Otherwise, all unfiltered tasks are monitored. Default value is `true`. |
 | EXPORT_IGNORED_TASKS | The filter for compute tasks to not be monitored. Can be a regular expression. |
 | EXPORT_MONITORED_TASKS | The filter for compute tasks to be monitored. Can be a regular expression. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

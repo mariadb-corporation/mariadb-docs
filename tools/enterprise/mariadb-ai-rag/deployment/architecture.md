@@ -126,3 +126,5 @@ This layer ensures the API remains responsive by offloading resource-intensive t
 4. Citations: The system automatically inserts raw citation markers into the response, converted by a citation processor into footnotes or superscripts for user verification.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

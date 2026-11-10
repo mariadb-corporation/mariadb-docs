@@ -750,9 +750,9 @@ The deeper reframing is this. The cluster is not just storage. It is a Java runt
 
 Other surfaces this tutorial deferred:
 
-- **`ComputeTask` and `ComputeTaskAdapter`**, the task-based form of compute that supports failover and multi-stage workflows. The closure pattern you used (`IgniteCallable`) is sufficient for stateless one-shot work. Tasks are the right shape for jobs that need retry and partial-failure semantics (coming soon). In the meantime, see [MapReduce API](../../../gridgain8-development/distributed-computing/map-reduce.md).
-- **Failover and retry semantics for compute**, including job timeouts, node failure handling, and split-brain considerations (coming soon). In the meantime, see [Fault Tolerance](../../../gridgain8-development/distributed-computing/fault-tolerance.md) and the [job failure handling](../../../gridgain8-development/distributed-computing/map-reduce.md#handling-job-failures) in the MapReduce API.
-- **Custom load balancing SPIs** that pick which node receives a given closure when broadcast targeting is too coarse and affinity targeting does not fit (coming soon). In the meantime, see [Load Balancing](../../../gridgain8-development/distributed-computing/load-balancing.md).
+- **`ComputeTask` and `ComputeTaskAdapter`**, the task-based form of compute that supports failover and multi-stage workflows. The closure pattern you used (`IgniteCallable`) is sufficient for stateless one-shot work. Tasks are the right shape for jobs that need retry and partial-failure semantics. See [MapReduce API](../../../gridgain8-development/distributed-computing/map-reduce.md).
+- **Failover and retry semantics for compute**, including how jobs are rerouted when a node fails and how to fail over a job that throws an exception. See [Fault Tolerance](../../../gridgain8-development/distributed-computing/fault-tolerance.md) and the [job failure handling](../../../gridgain8-development/distributed-computing/map-reduce.md#handling-job-failures) in the MapReduce API.
+- **Load balancing SPIs** that pick which node receives a given closure when broadcast targeting is too coarse and affinity targeting does not fit. See [Load Balancing](../../../gridgain8-development/distributed-computing/load-balancing.md).
 
 The next tutorial in this learning path, [Beyond Cache: The Persistence Problem](native-persistence-beyond-cache.md), takes a different angle. After running queries and shipping compute, the question that has not been asked yet is what happens to the cache when the cluster restarts. Native persistence answers that.
 
@@ -761,3 +761,7 @@ The next tutorial in this learning path, [Beyond Cache: The Persistence Problem]
 - [From Key-Value to SQL: The JOIN Problem](from-keyvalue-to-sql.md) is the project this tutorial extends. It teaches the SQL surface and colocation declaration this tutorial reuses.
 - [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md) is the cluster topology this tutorial runs against. It introduces the partition mental model and ships the three-node compose with the `BasicAddressResolver` configuration.
 - [Affinity-Aware Compute at Scale](../data-locality/affinity-aware-compute.md) is the design-driven companion. Same APIs, scale experiment from 1,000 to 100,000 customers.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

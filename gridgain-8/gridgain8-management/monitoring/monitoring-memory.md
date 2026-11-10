@@ -68,3 +68,7 @@ You can obtain metrics for the caches associated with a particular cache group t
 
 - To calculate the total cluster size, sum `DataStorageMetricsMXBean.getTotalAllocatedSize` across all nodes.
 - The current cache size is the sum of `CacheGroupMetricsMXBean.getTotalAllocatedSize` across all nodes. Again, there must be only one cache within the cache group for this metric to be meaningful.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

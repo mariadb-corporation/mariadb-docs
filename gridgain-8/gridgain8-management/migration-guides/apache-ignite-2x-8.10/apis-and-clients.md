@@ -105,3 +105,7 @@ If you maintain custom SPI implementations, adapt to these interface changes:
 - GridGain 8.10 rejects Ignite 2 nodes at join, so you cannot test a plugin against a mixed cluster.
 
 Custom `control.sh` command plugins are also unsupported (see [CLI Changes](operations.md#cli-changes)).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

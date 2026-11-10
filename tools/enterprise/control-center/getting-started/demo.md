@@ -135,3 +135,7 @@ To explore more Control Center features you can:
 
 - [Connect your personal GridGain cluster](connect/connect-gridgain-cluster.md)
 - [Install Control Center on-premise](../installation/install-binary.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

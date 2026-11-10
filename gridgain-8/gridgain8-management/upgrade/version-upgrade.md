@@ -27,3 +27,7 @@ Updating node version is as simple as replacing the GridGain binaries with a new
 GridGain is tested for safe upgrade compatibility with recent versions. For the list of versions, check the [release notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/gridgain-8/8.10/release-notes_8.10.0) for the version you intend to update to.
 
 If your planned update is not on the list, you may need to perform additional work to safely migrate to the new version.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

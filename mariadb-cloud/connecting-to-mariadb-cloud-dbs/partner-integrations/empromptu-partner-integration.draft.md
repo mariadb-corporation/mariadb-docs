@@ -24,7 +24,7 @@ This page includes links to Empromptu documentation and interfaces.
 
 Empromptu builds production-ready AI features — such as AI-powered assistants, document processing, and predictive analytics — that run on real backends rather than throwaway prototypes. Those applications need a reliable, fully managed SQL database.
 
-MariaDB Cloud Serverless provides that database on demand. It scales automatically with your workload and requires no capacity planning, so an application built on Empromptu has a managed MariaDB database behind it from the first request. For more about the underlying service, see "[MariaDB Cloud Serverless](../../readme/serverless.md)".
+MariaDB Cloud Serverless provides that database on demand. It scales automatically with your workload and requires no capacity planning, so an application built on Empromptu has a managed MariaDB database behind it from the first request. For more about the underlying service, see "[MariaDB Cloud Serverless](../../serverless.md)".
 
 ### How the Integration Works
 
@@ -54,7 +54,7 @@ Empromptu always opens in a new browser tab. Your MariaDB Cloud session is unaff
 
 Applications built in Empromptu are deployed on MariaDB Cloud Serverless. By default they use the Free Developer Tier, which every MariaDB Cloud account includes and which is capped at 10 MCU-hours per month.
 
-For details of the tier and its limits, see "[MariaDB Cloud Serverless](../../readme/serverless.md)".
+For details of the tier and its limits, see "[MariaDB Cloud Serverless](../../serverless.md)".
 
 ### Account and Sign-In
 
@@ -75,9 +75,11 @@ Usage and billing for your MariaDB Cloud databases are always managed in the Mar
 ### Next Steps
 
 * [Empromptu](https://empromptu.ai/)
-* [MariaDB Cloud Serverless](../../readme/serverless.md)
+* [MariaDB Cloud Serverless](../../serverless.md)
 * [Quickstart](../../quickstart/)
 * [Billing](../../cloud-usage/billing.md)
 * [AI Agents & Copilot](../../cloud-ai/README.md)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

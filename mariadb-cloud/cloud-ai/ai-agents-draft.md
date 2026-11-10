@@ -89,3 +89,5 @@ You can also call the built-in agents through the Copilot REST API, for example 
 <!-- TODO: link the Copilot section of the public API reference. Egor (2026-10-26): the Copilot API keeps its name; only the custom-agent endpoints (/copilot/v1/agent create, import, generate, rebuild, and so on) are deprecated and removed at AI Retrieval GA; built-in agent endpoints such as chat and sessions stay. Decide whether ai-api-guide.md stays (Egor questioned it). -->
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

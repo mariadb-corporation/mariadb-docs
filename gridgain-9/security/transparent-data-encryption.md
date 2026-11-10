@@ -162,3 +162,7 @@ In GridGain 9, you can create and maintain the configuration in either JSON or H
 ```
 
 Then, change the currently used provider to a provider with the new key.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

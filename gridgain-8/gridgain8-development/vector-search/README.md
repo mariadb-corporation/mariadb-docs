@@ -118,3 +118,7 @@ The COSINE, EUCLIDEAN, DOT_PRODUCT, and MAXIMUM_INNER_PRODUCT similarity functio
 Configure quantized index storage, HNSW build parameters, segment and query-thread tuning, and node-wide vector system properties.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -82,3 +82,7 @@ Monitor a GridGain 9 cluster with metrics, system views, and exporters, and lear
 Guides for migrating to GridGain 9, including from GridGain 8.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

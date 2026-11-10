@@ -9,6 +9,10 @@ icon: chart-pie-simple-circle-currency
 
 # MariaDB Exa
 
+{% hint style="info" %}
+📄 Read offline: [mariadb-exa.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-exa.pdf) (~30 pages, 0.5 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
+
 ## Overview
 
 MariaDB Exa is powered by [Exasol](https://www.exasol.com/analytics-engine/). MariaDB Exa is a high-performance, in-memory, MPP (Massively Parallel Processing) analytical database designed for fast, large-scale SQL analytics.

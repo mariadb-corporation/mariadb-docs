@@ -211,3 +211,7 @@ See [Software Identification](software-identification.md) for details.
 
 - [How to Start a Cluster With Docker Compose](../../gridgain9-get-started/start-cluster-docker-compose.md)
 - [Start Your Local GridGain 9 Development Cluster](../../gridgain9-get-started/start-local-cluster.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

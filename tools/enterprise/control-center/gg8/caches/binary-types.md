@@ -53,3 +53,7 @@ To restore the previously removed metadata for a binary type (see [Remove Binary
    2. Click **Select** and select the required file using your file system navigator.
 
       The metadata for the selected binary type is restored in your cluster.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

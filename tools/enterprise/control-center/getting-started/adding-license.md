@@ -39,3 +39,7 @@ Once Control Center is licensed, it is available for any user to work with.
 Now Control Center is available for any user to work with.
 
 - [Connect a pre-made cluster](demo.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

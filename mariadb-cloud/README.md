@@ -9,18 +9,18 @@ icon: cloud-sun
 # MariaDB Cloud
 
 {% hint style="info" %}
-📄 Read offline: [mariadb-mariadb-cloud.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-mariadb-cloud.pdf) (~300 pages, 5.5 MB). The PDF is a point-in-time snapshot; this site is always current.
+📄 Read offline: [mariadb-mariadb-cloud.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-mariadb-cloud.pdf) (~390 pages, 11.5 MB). The PDF is a point-in-time snapshot; this site is always current.
 {% endhint %}
 
 ## Overview
 
-MariaDB Cloud (previously called SkySQL) is an AI-driven, fully managed Database-as-a-Service (DBaaS), designed to deploy MariaDB and MySQL-compatible workloads across diverse environments including multiple data centers, regions, and cloud providers. It now offers both traditional provisioned and serverless deployment options, catering to a wide range of use cases and workload patterns while preventing over-provisioning. With the addition of the no-code AI Agent builder, developers can easily provide natural language interfaces to their end users to ask questions of the data without SQL expertise.
+MariaDB Cloud (previously called SkySQL) is an AI-driven, fully managed Database-as-a-Service (DBaaS), designed to deploy MariaDB and MySQL-compatible workloads across diverse environments including multiple data centers, regions, and cloud providers. It now offers both traditional provisioned and serverless deployment options, catering to a wide range of use cases and workload patterns while preventing over-provisioning. With AI Retrieval, developers can add natural language access to their documents and MariaDB databases, so that end users can ask questions without SQL expertise.
 
 Originally developed by [MariaDB](http://mariadb.com), MariaDB Cloud is aimed to be the most comprehensive cloud platform for MariaDB. Its robust feature set is the result of years of insights gathered from hundreds of customers running mission-critical workloads.
 
 MariaDB Cloud provides MariaDB and MySQL-compatible workloads with enterprise-grade and production-ready features:
 
-* [Serverless deployment for instant autoscaling](readme/serverless.md#intelligent-scaling)
+* [Serverless deployment for instant autoscaling](serverless.md#intelligent-scaling)
 * [AI Retrieval over your documents and databases](cloud-ai/ai-retrieval/)
 * [Automated complex database configurations](cloud-management/config/)
 * [Cloud-native capabilities with auto-scaling](cloud-management/autonomously-scale-compute-storage.md)
@@ -105,3 +105,5 @@ graph TD
 * [MariaDB Cloud Datasheet](https://mariadb.com/resources/datasheets/mariadb-cloud/)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

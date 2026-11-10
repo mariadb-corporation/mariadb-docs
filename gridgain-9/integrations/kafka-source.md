@@ -131,3 +131,7 @@ The above data type conversions have been tested for all standard serializers an
 - JSON with schema
 - Avro
 - Protobuf
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

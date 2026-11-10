@@ -248,3 +248,7 @@ License can be updated either by uploading the file or by pasting it as a text.
 
 - [Monitoring](dashboard-overview-gg9.md)
 - [Querying](../queries/querying-gg9.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

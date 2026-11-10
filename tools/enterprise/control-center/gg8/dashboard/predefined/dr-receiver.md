@@ -36,3 +36,7 @@ This widget helps you examine the DR topology and receiver node configurations. 
 ## Remote Senders
 
 This widget lists the clusters (data centers) that serve as senders to the current receiver cluster. It provides the [Replication Progress](#replication-progress) statistics in a tabular form, per sender cluster.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

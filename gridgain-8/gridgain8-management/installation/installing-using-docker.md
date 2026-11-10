@@ -254,3 +254,7 @@ See [Software Identification](../software-identification.md) for details.
 ## See Also
 
 - [Start a Local Cache Development Cluster](../../gridgain8-get-started/quick-start/start-local-cache-cluster.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

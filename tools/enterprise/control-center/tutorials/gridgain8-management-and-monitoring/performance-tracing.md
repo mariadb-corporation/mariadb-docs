@@ -71,3 +71,7 @@ Before you proceed with the tutorial's next part, disable tracing for transactio
 In the next part, you back up and restore the cluster:
 
 - [Part 6: Create cluster backups](backups.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

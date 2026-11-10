@@ -141,3 +141,7 @@ Each Kafka worker exposes REST API to manage Kafka Connectors (available on port
 ## See Also
 
 - [How to run the GridGain Kafka Connector on Amazon MSK](../../gridgain8-get-started/how-to-guides/example-running-on-amazon-msk.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

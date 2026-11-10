@@ -308,3 +308,7 @@ To set a custom expire time, set the system variable: `IGNITE_REST_SESSION_TIMEO
 -DIGNITE_REST_SESSION_TIMEOUT=3600
 ```
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

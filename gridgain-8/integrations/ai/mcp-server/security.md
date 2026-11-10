@@ -126,3 +126,7 @@ Before you let an assistant use the server, check the following:
 - Remove user-defined functions with side effects from the cluster.
 - Limit the properties that the nodes publish in `SYS.NODE_ATTRIBUTES`.
 - Keep the audit log, and keep the audit folder private.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

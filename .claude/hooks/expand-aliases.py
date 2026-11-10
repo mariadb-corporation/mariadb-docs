@@ -56,7 +56,7 @@ PREFIX = r'(^[ \t]*\[[^\]]*\]:[ \t]*|\]\(|url="|href=")'
 # examples. Every other README.md is fair game (DOCS-6481).
 EXCLUDE_DIRS = ("dev-docs/", ".claude/")
 EXCLUDE_EXACT = ("README.md", "pdf/README.md")
-EXCLUDE_SUFFIX = ("/CONTRIBUTING.md", "/general-resources/about/readme/about-links.md")
+EXCLUDE_SUFFIX = ("/CONTRIBUTING.md", "/general-resources/about/about-links.md")
 
 
 def die(msg):

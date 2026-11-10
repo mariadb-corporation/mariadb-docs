@@ -50,3 +50,7 @@ This section covers the Control Center features available for GridGain 8 cluster
 {% content-ref url="auth/authorization-permissions.md" %}
 [auth/authorization-permissions.md](auth/authorization-permissions.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

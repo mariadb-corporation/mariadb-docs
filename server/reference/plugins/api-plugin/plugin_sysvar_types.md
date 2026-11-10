@@ -124,3 +124,6 @@ Defined in plugin.h:360
 
 `double`. **See also**: [MYSQL_SYSVAR_DOUBLE](plugin_sysvar_macros.md#mysql_sysvar_double)
 
+<sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

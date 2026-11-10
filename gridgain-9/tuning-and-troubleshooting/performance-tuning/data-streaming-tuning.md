@@ -71,3 +71,7 @@ The following DataStreamer options can be tuned to improve throughput and reduce
 | [pageSize](../../gridgain9-development/data-streaming.md#configuring-data-streamer) | 1000 | Number of records per streaming page. Larger values reduce the number of round trips, which can improve latency, but increase memory usage per operation. |
 
 Start with moderate increases and benchmark each change, as optimal values depend on record size, cluster topology, and available resources.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

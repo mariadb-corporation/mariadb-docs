@@ -457,3 +457,7 @@ Your cluster is now accepting client connections on ports 10800-10802. You can c
 
 - [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md) - Tutorial that walks through this setup with deeper context, loads the Music Store dataset, and introduces cluster concepts.
 - [How to Work with the GridGain CLI](cli-tool-step-by-step.md) - Interactive SQL, cluster inspection, output formatting, and profiles.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -869,3 +869,7 @@ The next tutorial in the path, [Real-Time Event Processing: The Streaming Proble
 
 - [Compute Where the Data Lives](colocated-compute.md) is the previous shift in the cluster's role: from storage to in-place computation. Coordination primitives often pair with compute, for example a worker that uses `IgniteSemaphore` to bound concurrent calls into a downstream system.
 - [Beyond Cache: The Persistence Problem](native-persistence-beyond-cache.md) makes the cluster a durable store. Combined with this tutorial, the cluster is a durable coordination service. Queues, sets, and atomics survive a cluster restart when persistence is enabled on the data region the primitive's backing cache lands in. Locks, semaphores, and count-down latches live in a volatile data region and do not survive.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

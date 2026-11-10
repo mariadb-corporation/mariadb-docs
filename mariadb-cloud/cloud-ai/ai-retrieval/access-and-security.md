@@ -75,15 +75,15 @@ To control what a database knowledge base can read, create a dedicated user:
 
 ### Network Access for Database Knowledge Bases
 
-A database knowledge base connects to your service from outside the network of the service. Add this address of AI Retrieval to the IP allowlist of the service, or the connection fails:
+A database knowledge base connects to your service from outside the network of the service. A new service accepts connections from any address (**Open to all: 0.0.0.0/0**), so you do not need to change anything. If you restrict the IP allowlist of the service with **Allow access only to the following**, add this address of AI Retrieval to it, or the connection fails:
 
 ```
 34.41.226.174/32
 ```
 
-<!-- Egor gave this address on 2026-10-22 (Slack DM, 15:17 India time) as the production address for database knowledge bases. It is the address that the portal shows today in the AI Agents datasource dialog. The portal will show it in the knowledge base form later. Egor wants it in this guide. Keep the address out of research notes that are committed. -->
+To change the allowlist, open the service, select **Manage**, and then **Manage allowlist**.
 
-<!-- TODO: Database knowledge bases are not documented yet. The source is on the unmerged branch feature/MCDEV-3646-DBKB of skysql-gen-ai and in skysql-microservices ai-service. Confirm this section against the merged code and the final create form. -->
+<!-- Egor gave this address on 2026-10-22 (Slack DM, 15:17 India time) as the production address for database knowledge bases. It is the address that the portal shows today in the AI Agents datasource dialog. The portal will show it in the knowledge base form later. Egor wants it in this guide. Keep the address out of research notes that are committed. -->
 
 ## Data Residency
 
@@ -107,3 +107,5 @@ The create form marks where each embedding model runs. Text that is sent to a mo
 {% endcontent-ref %}
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

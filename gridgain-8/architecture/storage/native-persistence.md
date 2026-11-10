@@ -484,3 +484,7 @@ The following table describes native persistence properties.
 ## See Also
 
 - [Beyond Cache: The Persistence Problem](../../gridgain8-get-started/learning-paths/beyond-key-value/native-persistence-beyond-cache.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

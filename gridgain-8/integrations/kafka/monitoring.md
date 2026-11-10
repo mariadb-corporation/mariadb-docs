@@ -41,3 +41,7 @@ The Event ID uniquely identifies a problem and the logged event category indicat
 GridGain Kafka Connector's lifetime is managed by the Kafka Connect framework.
 
 The Connector converts all caught exceptions to [Kafka Errors](https://kafka.apache.org/0100/javadoc/org/apache/kafka/connect/errors/package-summary.html). The framework would either retry the operation or restart the Connector depending on the error.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

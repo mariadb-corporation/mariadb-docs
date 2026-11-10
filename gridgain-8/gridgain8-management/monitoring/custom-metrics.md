@@ -65,3 +65,7 @@ Reading custom metrics does not require a permission.
 - Custom metrics are not persisted. Register them again after a node restarts.
 - Custom metrics cannot be configured.
 - The API is available in Java only. Thin clients, the .NET and C++ APIs, and the REST API do not support custom metrics.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

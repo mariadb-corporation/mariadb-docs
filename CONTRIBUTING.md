@@ -35,19 +35,24 @@ The Bot expands it to: `[Securing Communications](https://app.gitbook.com/o/diTp
 
 | Alias | Target Space |
 | :--- | :--- |
-| `{home}` | Home / Landing |
 | `{server}` | MariaDB Server |
 | `{maxscale}` | MariaDB MaxScale |
 | `{galera}` | Galera Cluster |
-| `{analytics}` | Analytics (ColumnStore) |
 | `{columnstore}` | ColumnStore |
 | `{connectors}` | Connectors (Java, ODBC, etc.) |
+| `{gridgain}` | GridGain (overview of GridGain 8 and 9) |
+| `{gridgain8}` | GridGain 8 |
+| `{gridgain9}` | GridGain 9 |
 | `{skysql}` | MariaDB Cloud (legacy alias — SkySQL was renamed MariaDB Cloud) |
 | `{platform}` | MariaDB Enterprise Platform |
 | `{mariadb-cloud}` | MariaDB Cloud |
 | `{tools}` | Tools |
 | `{release-notes}` | Release Notes |
 | `{general-resources}` | General Resources |
+| `{exa}` | Exa |
+| `{ai-tools}` | AI Tools |
+| `{raft-cluster}` | Raft Cluster |
+| `{get-started}` | Get Started (the site's home page, `/docs/`) |
 
 ⚠️ Important: Link Validity
 
@@ -61,6 +66,6 @@ Before you start making larger contributions, make yourself familiar with [the b
 
 The source format of pages is Markdown. How to format text is [on this GitBook page](https://gitbook.com/docs/creating-content/formatting/markdown). A Markdown cheat sheet with a 10-minute tutorial and a Markdown "playground" [can be found here](https://commonmark.org/help/).
 
-Read our [style guide](https://mariadb.com/docs/general-resources/about/readme/documentation-style-guide), too. (It's short!)
+Read our [style guide](https://mariadb.com/docs/general-resources/about/documentation-style-guide), too. (It's short!)
 
-Also see the [About Links](https://mariadb.com/docs/general-resources/about/readme/about-links) page. It has useful information for when you are adding links to other pages.
+Also see the [About Links](https://mariadb.com/docs/general-resources/about/about-links) page. It has useful information for when you are adding links to other pages.

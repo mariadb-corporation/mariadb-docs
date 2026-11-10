@@ -435,3 +435,5 @@ MariaDB Cloud adds three default warning alerts to services with MariaDB Exa ena
 When an alert fires, consider scaling the Exa node to a bigger size. See [Scaling MariaDB Exa](../quickstart/htap-mariadb-exa.md#scaling-mariadb-exa).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

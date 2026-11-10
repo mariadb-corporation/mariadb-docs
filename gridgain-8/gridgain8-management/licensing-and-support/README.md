@@ -40,3 +40,7 @@ GridGain's Major.Minor.Maintenance versioning convention, the standard support l
 GridGain Software Identification (SWID) tags — ISO 19770-2 XML artifacts that identify the product for software asset management tools, and where to find them.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

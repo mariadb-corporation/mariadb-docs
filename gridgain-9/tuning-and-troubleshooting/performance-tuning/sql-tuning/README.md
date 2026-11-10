@@ -34,3 +34,7 @@ How to use the GridGain 9 SQL EXPLAIN command to read query execution plans, dia
 Ways to improve GridGain 9 SQL performance: batching statements, avoiding slow correlated subqueries, timing requests in the CLI, and dropping cached plans.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

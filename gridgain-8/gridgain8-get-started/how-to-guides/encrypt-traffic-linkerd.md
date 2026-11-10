@@ -320,3 +320,7 @@ The license Secret is missing, mounted at the wrong path, or expired. Confirm th
 
 - [How to Encrypt Cluster Traffic with Istio mTLS on Kubernetes](encrypt-traffic-istio.md) - A fuller mesh that also encrypts thin-client and external traffic and exposes an HTTPS gateway.
 - [Linkerd automatic mTLS reference](https://linkerd.io/2/features/automatic-mtls/) - How Linkerd issues and rotates workload certificates.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

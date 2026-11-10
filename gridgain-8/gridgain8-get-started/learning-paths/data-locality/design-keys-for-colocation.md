@@ -1007,3 +1007,7 @@ Three mechanisms declare cache-to-cache colocation. All three produce identical 
 
 - [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md) introduced the `Affinity` API and the 3-node cluster used here.
 - [From Key-Value to SQL: The JOIN Problem](../beyond-key-value/from-keyvalue-to-sql.md) uses `@AffinityKeyMapped` as a JOIN-correctness fix, the same mechanism from a different direction.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

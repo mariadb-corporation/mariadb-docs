@@ -280,7 +280,7 @@ Identify your primary architectural challenge below to discover the best-fit rep
 Zero data loss and automatic failover. If one server dies, another takes over instantly without impacting the application.
 {% endhint %}
 
-* [Galera Cluster (Virtually Synchronous)](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide): The "gold standard" for local high availability. It is a synchronous, multi-primary solution where every node has the exact same data at the same time.
+* [Galera Cluster (Virtually Synchronous)](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-guide): The "gold standard" for local high availability. It is a synchronous, multi-primary solution where every node has the exact same data at the same time.
   * _Trade-off:_ Write latency is dictated by the slowest node, as all active nodes must acknowledge the transaction.
 * [MariaDB Enterprise Cluster (Quorum/Raft](https://mariadb.com/resources/blog/redefining-high-availability-introducing-mariadb-advanced-cluster-technical-preview/)): _(Enterprise Technical Preview)_ Designed for environments that need HA but cannot afford Galera's write latency. It requires acknowledgment from only a _majority_ (quorum) of nodes to commit a write, effectively ignoring network lag from the slowest data centers.
 * [Semisynchronous Replication](semisynchronous-replication.md): A middle ground where the primary server waits for at least one replica to acknowledge receipt of the data before confirming a "success" to the client. It prevents data loss during a crash without the full performance overhead of Galera.
@@ -342,3 +342,5 @@ Once you select your replication strategy, you must configure how data changes a
 [Statement-Based Replication (SBR)](unsafe-statements-for-statement-based-replication.md) should generally be avoided in HA setups due to reliability concerns, acting only as a fallback for specific bulk-update operations.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

@@ -7,6 +7,10 @@ icon: robot
 
 # AI Tools
 
+{% hint style="info" %}
+📄 Read offline: [mariadb-ai-tools.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-ai-tools.pdf) (~6 pages, 0.2 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
+
 The shop's search box now finds the desk lamp when a customer asks for "something to light my desk", and a coding agent wrote most of the code behind it. That's the first of two jobs agents do with MariaDB. One helps you build, on your machine, against a sandbox server. The other acts on live data in production, such as a support bot that looks up an order, and it needs access you can control and audit. These pages cover the tools for both, plus the retrieval pipelines that sit between your data and a language model.
 
 Vector search itself isn't on this list, because it's built into MariaDB Server. Its reference stays with the [server documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/vectors).
@@ -81,3 +85,7 @@ Retrieval-augmented generation (RAG) answers a question by first finding the rig
 ## Keep Going
 
 <table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>MariaDB AI Plugins</strong></td><td>What the <code>dev</code>, <code>sql</code>, and <code>contributor</code> plugins install, and which agents they support.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/community/mariadb-ai-plugins">mariadb-ai-plugins</a></td></tr><tr><td><strong>Choose an MCP Server</strong></td><td>Compare the four MariaDB MCP servers by where they run and who they are for.</td><td><a href="choose-an-mcp-server.md">choose-an-mcp-server.md</a></td></tr><tr><td><strong>MariaDB Enterprise MCP Server</strong></td><td>Give production agents one authenticated, governed endpoint to your databases.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-enterprise-mcp-server">mariadb-enterprise-mcp-server</a></td></tr><tr><td><strong>MariaDB Cloud MCP Server</strong></td><td>Launch and query MariaDB Cloud databases from your AI tools.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd/cloud-ai/mcp-server">mcp-server</a></td></tr><tr><td><strong>MariaDB AI RAG</strong></td><td>Run document ingestion, embedding, hybrid search, and answer generation on your own infrastructure.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-ai-rag">mariadb-ai-rag</a></td></tr><tr><td><strong>LangChain MariaDB</strong></td><td>Use MariaDB as the vector store and chat history store for a LangChain application.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/other/langchain-mariadb">langchain-mariadb</a></td></tr></tbody></table>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

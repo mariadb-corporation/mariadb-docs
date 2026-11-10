@@ -11,3 +11,7 @@ GridGain Data Lake Accelerator is a solution architecture that adds a low-latenc
 - [Data Loading and Synchronization](data-loading-and-synchronization.md)
 - [Cross-Database Queries](cross-database-queries.md)
 - [FAQ](faq.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

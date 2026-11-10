@@ -12,3 +12,7 @@ In a distributed database, schema design is performance design. You analyze acce
 | [Design a Schema for Distributed SQL](schema-distributed-sql.md) | 75 min | Intermediate |
 | [Implement Schema With Java Annotations](schema-java-annotations.md) | 60 min | Intermediate |
 | [Choose the Right Data Access Pattern](data-access-patterns.md) | 75 min | Intermediate |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

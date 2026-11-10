@@ -40,3 +40,7 @@ See [Tools and Resources](tools-and-resources.md) for the full list.
   - Java 17 or later, to run the JAR from the download package.
 
 The server does not need a GridGain installation on its machine.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

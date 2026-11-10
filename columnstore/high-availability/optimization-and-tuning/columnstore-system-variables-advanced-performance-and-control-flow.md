@@ -78,3 +78,5 @@ ColumnStore 23.10.4 changed the shipped defaults of `NumBlocksPct` from `50` to 
 * `DBRMSnapshotInterval` (in the `SystemConfig` section): Controls how often workernode@1 calls `saveState()` to store a copy of the Extent Map. Setting this value to something small implicitly affects `do_confirm()` , which is called synchronously on every Extent Map change and blocks all writes whilst it is working. The default is `100000`.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

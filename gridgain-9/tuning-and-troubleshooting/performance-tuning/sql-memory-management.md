@@ -78,3 +78,7 @@ node config update ignite.sql.offloadingDataDir="/home/GG9/offloadingFolder"
 ```
 
 Node restart is required to update this configuration.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

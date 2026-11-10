@@ -52,3 +52,7 @@ Configure how GridGain persists cache data to external stores — third-party da
 Configuring near caches in GridGain to store recently or frequently accessed data on the local node, statically and dynamically.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

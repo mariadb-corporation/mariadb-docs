@@ -1305,3 +1305,7 @@ At 100,000 customers the pull-to-client approach moves 12 MB to answer a ten-row
 
 - [Verify Colocation Is Working](verify-colocation.md) built the `ScanQuery.setLocal(true)` pattern this tutorial uses as the unit of local work.
 - [Design Keys for Colocation](design-keys-for-colocation.md) declared the `@AffinityKeyMapped` contract that makes Customer and Invoice colocate.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

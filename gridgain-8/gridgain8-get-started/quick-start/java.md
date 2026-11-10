@@ -184,3 +184,7 @@ From here, you may want to:
 ## Running GridGain with Java 17 or Later
 
 {% include "../../.gitbook/includes/gg8-java9.md" %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

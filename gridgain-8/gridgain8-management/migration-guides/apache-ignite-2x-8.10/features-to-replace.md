@@ -62,3 +62,7 @@ Configure entry compression through [`CacheConfiguration.setEntryCompressionConf
 *Verify:* disk usage on staging stays within budget with entry compression.
 
 **Performance Statistics**: Applies if you use `--performance-statistics` or `PerformanceStatisticsMBean`. They are absent. Use JMX metrics or an external APM. *Verify:* the profiling data you rely on is available from the replacement.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

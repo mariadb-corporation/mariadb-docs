@@ -165,3 +165,7 @@ To delete an artifact, click ⋮ and select **Remove**. If you selected several 
 Artifacts that have dependents cannot be removed. You must delete the dependent deployment units first - see [Checking Dependent List](#checking-dependent-list) to find them.
 
 ![Delete artifact](../../../../.gitbook/assets/cc-gg9-du_delete_artifact.png)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -42,6 +42,8 @@ The Docker images for MariaDB Enterprise Server include all storage engines that
 * [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md)
 * [MRG\_MYISAM](../../../server-usage/storage-engines/merge.md)
 * [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/)
+* [PERFORMANCE\_SCHEMA](../../../server-usage/storage-engines/performance_schema-storage-engine.md)
+* [SEQUENCE](../../../server-usage/storage-engines/sequence-storage-engine.md)
 
 You can check which storage engines are installed by connecting to the Docker container and executing the [SHOW ENGINES](../../../reference/sql-statements/administrative-sql-statements/show/show-engines.md) statement.
 
@@ -59,28 +61,44 @@ FROM information_schema.ALL_PLUGINS
 WHERE PLUGIN_STATUS = 'NOT INSTALLED';
 ```
 
+The available plugins differ between releases and between image tiers. For example, the `-standard` images also include the S3 storage engine, HashiCorp Key Management, and cracklib password check plugins. The following output is from the default `12.3` image:
+
 ```
-+---------------------------+----------------+------------------------+
-| PLUGIN_NAME               | PLUGIN_VERSION | PLUGIN_LIBRARY         |
-+---------------------------+----------------+------------------------+
-| pam                       | 1.0            | auth_pam_v1.so         |
-| LOCALES                   | 1.0            | locales.so             |
-| BLACKHOLE                 | 1.0            | ha_blackhole.so        |
-| SQL_ERROR_LOG             | 1.0            | sql_errlog.so          |
-| METADATA_LOCK_INFO        | 0.1            | metadata_lock_info.so  |
-| pam                       | 2.0            | auth_pam.so            |
-| SERVER_AUDIT              | 1.4            | server_audit.so        |
-| file_key_management       | 1.0            | file_key_management.so |
-| QUERY_RESPONSE_TIME       | 1.0            | query_response_time.so |
-| QUERY_RESPONSE_TIME_AUDIT | 1.0            | query_response_time.so |
-+---------------------------+----------------+------------------------+
++--------------------------------+----------------+-------------------------+
+| PLUGIN_NAME                    | PLUGIN_VERSION | PLUGIN_LIBRARY          |
++--------------------------------+----------------+-------------------------+
+| SQL_ERROR_LOG                  | 1.0            | sql_errlog.so           |
+| raft                           | 1.0            | raft.so                 |
+| RAFT_LATENCY_STATS             | 1.0            | raft.so                 |
+| RAFT_CERT_FAILURES             | 1.0            | raft.so                 |
+| RAFT_CLUSTER_CONNECTIONS       | 1.0            | raft.so                 |
+| RAFT_TIMERS                    | 1.0            | raft.so                 |
+| RAFT_RPC_SENT                  | 1.0            | raft.so                 |
+| RAFT_SERVER_INSTANCES          | 1.0            | raft.so                 |
+| RAFT_FOLLOWER_INFO             | 1.0            | raft.so                 |
+| RAFT_STATUS                    | 1.0            | raft.so                 |
+| file_key_management            | 2.0            | file_key_management.so  |
+| file_key_management_keys       | 2.0            | file_key_management.so  |
+| password_reuse_check           | 2.0            | password_reuse_check.so |
+| QUERY_RESPONSE_TIME            | 1.0            | query_response_time.so  |
+| QUERY_RESPONSE_TIME_READ       | 1.0            | query_response_time.so  |
+| QUERY_RESPONSE_TIME_WRITE      | 1.0            | query_response_time.so  |
+| QUERY_RESPONSE_TIME_READ_WRITE | 1.0            | query_response_time.so  |
+| QUERY_RESPONSE_TIME_AUDIT      | 1.0            | query_response_time.so  |
+| pam                            | 1.0            | auth_pam_v1.so          |
+| METADATA_LOCK_INFO             | 0.1            | metadata_lock_info.so   |
+| LOCALES                        | 1.0            | locales.so              |
+| SERVER_AUDIT                   | 1.8            | server_audit.so         |
+| pam                            | 2.0            | auth_pam.so             |
+| caching_sha2_password          | 1.0            | auth_mysql_sha2.so      |
+| parsec                         | 1.0            | auth_parsec.so          |
+| BLACKHOLE                      | 1.0            | ha_blackhole.so         |
++--------------------------------+----------------+-------------------------+
 ```
 
 ### Repositories
 
-The MariaDB Enterprise Docker Registry contains a single repository, which provides images for MariaDB Enterprise Server:
-
-* `enterprise-server`
+The images for MariaDB Enterprise Server are in the `enterprise-server` repository of the MariaDB Enterprise Docker Registry. The registry also has repositories for other products, such as MariaDB MaxScale and MariaDB Enterprise Kubernetes Operator. For those images, see [Docker Images](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-enterprise-operator/docker-images).
 
 ### Tags
 
@@ -89,8 +107,12 @@ The `enterprise-server` repository in the MariaDB Enterprise Docker Registry con
 | Type of release?        | Tags                                                                                                  | Description                                                                                                                                                                                                                                                                                       |
 | ----------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Latest release series   | <ul><li><code>latest</code></li></ul>                                                                 | This tag refers to the most recent image for the latest MariaDB Enterprise Server release series.                                                                                                                                              |
-| Specific release series | <ul><li><code>11.8</code></li><li><code>11.4</code></li><li><code>10.6</code></li></ul>               | These tags refer to the images for the most recent minor release of each specific MariaDB Enterprise Server release series.                                                                                                                                                                       |
+| Specific release series | <ul><li><code>12.3</code></li><li><code>11.8</code></li><li><code>11.4</code></li><li><code>10.6</code></li></ul> | These tags refer to the images for the most recent minor release of each specific MariaDB Enterprise Server release series.                                                                                                                                                                       |
 | Specific minor release  | <ul><li><code>11.8.3-1</code></li><li><code>11.4.8-5</code></li><li><code>10.6.23-19</code></li></ul> | These tags refer to images for specific MariaDB Enterprise Server minor releases. The listed tags are examples of minor releases. For a full list of minor releases, see [MariaDB Enterprise Server All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases). |
+
+{% hint style="info" %}
+The version numbers in the **Specific minor release** row are examples, not a complete or current list. For every MariaDB Enterprise Server release, see [MariaDB Enterprise Server All Releases](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases).
+{% endhint %}
 
 ## Examples
 
@@ -212,7 +234,7 @@ docker ps \
 
 ```
 CONTAINER ID   IMAGE                                         COMMAND                  CREATED          STATUS                      PORTS      NAMES
-3082ab69e565   docker.mariadb.com/enterprise-server:11.8   "/es-entrypoint.sh -…"   12 seconds ago   Up 11 seconds               3306/tcp   mariadb-es-11.8
+3082ab69e565   docker.mariadb.com/enterprise-server:11.8   "docker-entrypoint.s…"   12 seconds ago   Up 11 seconds               3306/tcp   mariadb-es-11.8
 ```
 
 ### Create a Container with Host Networking
@@ -250,29 +272,13 @@ docker ps \
 
 ### Environment Variables
 
-A Docker container can be configured to perform the following tasks using environment variables:
+A Docker container can be configured with environment variables when it initializes, for example to set the password for the `root` database user, or to create a custom database and a user account for it.
 
-* Create a custom database
-* Create a custom database user account with a custom password
-* Initialize the timezone tables
-* Set the host for the `root` database user
-* Set the password for the `root` database user
+For the full list of environment variables, see [MariaDB Docker Image Environment Variables](mariadb-server-docker-official-image-environment-variables.md). That page also shows which variables the Enterprise Server images support, and from which release.
 
-The following table contains details about the environment variables that are supported:
-
-| Environment Variable                 | Description                                                                                                                                                                                                                                                                                                                                                                                           | Default    | Allowed Values                                                                              |
-| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------- |
-| `MARIADB_DATABASE`                   | When the `MARIADB_DATABASE` environment variable is set to a valid database name, create the specified database if it does not already exist.                                                                                                                                                                                                                                                         | No default | Any valid database name                                                                     |
-| `MARIADB_INITDB_SKIP_TZINFO`         | By default, the entrypoint script automatically loads the timezone data needed for the `CONVERT_TZ()` function. If it is not needed, any non-empty value disables timezone loading.                                                                                                                                                                                                                   | No default | <ul><li><code>0</code></li><li><code>1</code></li></ul>                                     |
-| `MARIADB_PASSWORD`                   | When the `MARIADB_USER` and `MARIADB_PASSWORD` environment variables are both set, create a user account with the specified user name and password.                                                                                                                                                                                                                                                   | No default | Any valid password                                                                          |
-| `MARIADB_ROOT_HOST`                  | When the `MARIADB_ROOT_HOST` environment variable is set to a valid hostname, the `root` user account will be restricted to logins from that hostname.                                                                                                                                                                                                                                                | `%`        | Any valid hostname                                                                          |
-| `MARIADB_ROOT_PASSWORD`              | When the `MARIADB_ROOT_PASSWORD` environment variable is set to `RANDOM`, a random password is generated for the `root` user account. When the `MARIADB_ROOT_PASSWORD` environment variable is set to `EMPTY`, the `root` user account uses an empty password. When the `MARIADB_ROOT_PASSWORD` environment variable is set to a valid password, the `root` user account uses the specified password. | No default | <ul><li><code>RANDOM</code></li><li><code>EMPTY</code></li><li>Any valid password</li></ul> |
-| `MARIADB_ROOT_TLS_CLIENT_AUTH`       | When set to a true value, the `root` user is created with an X.509 `REQUIRE` clause and no password, so it authenticates with a TLS client certificate instead of a password. The option alone satisfies the requirement to specify a root password option. The three `MARIADB_ROOT_TLS_*` variables also accept a `_FILE` suffix (for example, `MARIADB_ROOT_TLS_SUBJECT_FILE`) to read the value from a file. The password validation plugins `simple_password_check` and `cracklib_password_check` are disabled, as they refuse passwordless accounts. The account is created for `MARIADB_ROOT_HOST`: nothing is created for `root` when `MARIADB_ROOT_HOST` is empty or `localhost`, and `root@localhost` is left untouched. | No default | <ul><li><code>1</code></li><li><code>true</code></li><li><code>yes</code></li><li><code>on</code></li></ul> (case-insensitive) |
-| `MARIADB_ROOT_TLS_ISSUER`            | Issuer the `root` user certificate must have, in OpenSSL one-line format (for example, `/CN=my-ca`). Only used when `MARIADB_ROOT_TLS_CLIENT_AUTH` is enabled. If neither `MARIADB_ROOT_TLS_SUBJECT` nor `MARIADB_ROOT_TLS_ISSUER` is set, the account is created with `REQUIRE X509`. | No default | Any valid certificate issuer |
-| `MARIADB_ROOT_TLS_SUBJECT`           | Subject the `root` user certificate must have, in OpenSSL one-line format (for example, `/CN=root`). Only used when `MARIADB_ROOT_TLS_CLIENT_AUTH` is enabled. Can be combined with `MARIADB_ROOT_TLS_ISSUER`. | No default | Any valid certificate subject |
-| `MARIADB_USER`                       | When the `MARIADB_USER` and `MARIADB_PASSWORD` environment variables are both set, create a user account with the specified user name and password.                                                                                                                                                                                                                                                   | No default | Any valid user name                                                                         |
-| `MARIADB_UNIX_SOCKET_AUTHENTICATION` | When set to 1, enables Unix socket-based authentication for the root user, allowing passwordless access when connecting locally as the mysql system user. This option is mutually exclusive with all MARIADB_ROOT_PASSWORD* variables.                                                                                                                                                                | Empty      | 1,0                                                                                         |
-| `SKIP_INIT_WSREP_OFF`                | By default, the temporary server used for initialization is started with Galera Cluster replication explicitly turned off (--wsrep_on=OFF). If this variable is set, that flag is omitted, allowing the temporary server to start with wsrep enabled.                                                                                                                                                 | No default | Any non-empty value                                                                         |
+{% hint style="warning" %}
+The images enforce a [password policy](mariadb-server-docker-official-image-environment-variables.md#password-policy-in-the-enterprise-server-images). If a password set by an environment variable doesn't meet it, initialization fails and the container exits.
+{% endhint %}
 
 To create a Docker container using environment variables, execute [`docker run`](https://docs.docker.com/engine/reference/commandline/run/), environment variables and specify each environment variable using the `--env` option:
 
@@ -467,7 +473,7 @@ docker ps \
 
 ```
 CONTAINER ID   IMAGE                                         COMMAND                  CREATED         STATUS                            PORTS       NAMES
-3082ab69e565   docker.mariadb.com/enterprise-server:11.8   "/es-entrypoint.sh -…"   2 minutes ago   Exited (143) About a minute ago               mariadb-es-11.8
+3082ab69e565   docker.mariadb.com/enterprise-server:11.8   "docker-entrypoint.s…"   2 minutes ago   Exited (143) About a minute ago               mariadb-es-11.8
 ```
 
 ### View Container Logs
@@ -479,3 +485,5 @@ docker logs mariadb-es-11.8
 ```
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

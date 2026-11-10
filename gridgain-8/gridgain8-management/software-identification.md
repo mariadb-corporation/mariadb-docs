@@ -72,3 +72,7 @@ The `edition` attribute of the `Meta` element and the `tagId` encode the edition
 - `Enterprise` (`com.gridgain.gridgain-enterprise_8.10.0`)
 
 The `version` attribute encodes the full version including major and minor components. These can be mapped to end-of-standard-support (EOS) dates using the [Versioning and Support Lifecycle](versioning-and-support-lifecycle.md) page.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

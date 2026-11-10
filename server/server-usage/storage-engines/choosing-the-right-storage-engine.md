@@ -23,7 +23,7 @@ CONNECT, Mroonga, MyRocks, OQGRAPH, SphinxSE, and VIDEX are community contributi
 
 ### Scaling, Partitioning
 
-When you want to split your database load on several servers or optimize for scaling. We also suggest looking at [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide), a synchronous multi-master cluster.
+When you want to split your database load on several servers or optimize for scaling. We also suggest looking at [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide), a synchronous multi-master cluster.
 
 * [Spider](spider/) uses partitioning to provide data sharding through multiple servers.
 * [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) utilizes a massively parallel distributed data architecture and is designed for big data scaling to process petabytes of data.

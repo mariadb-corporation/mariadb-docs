@@ -242,3 +242,7 @@ To force the update earlier, you can use the `sql planner invalidate-cache` CLI 
 ```
 sql planner invalidate-cache --tables=PUBLIC.Person
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

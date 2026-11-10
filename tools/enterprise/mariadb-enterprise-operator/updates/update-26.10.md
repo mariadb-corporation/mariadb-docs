@@ -88,3 +88,5 @@ spec:
 Refer to the [MariaDB upgrade documentation](https://mariadb.com/docs/server/server-management/install-and-upgrade-mariadb/upgrading/upgrading-from-to-specific-versions/upgrading-from-mariadb-11-8-to-mariadb-12-3) for the upgrade path from 11.8 to 12.3. A replica upgraded to 12.3 resets the `master_use_gtid` setting of its replication connection to the default ([MDEV-39788](https://jira.mariadb.org/browse/MDEV-39788)): check it after the upgrade if you rely on it.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

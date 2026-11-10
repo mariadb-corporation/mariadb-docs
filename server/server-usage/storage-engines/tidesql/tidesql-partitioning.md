@@ -39,3 +39,5 @@ A partitioned table cannot carry a vector index. See [TideSQL Vector Search](tid
 {% endhint %}
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

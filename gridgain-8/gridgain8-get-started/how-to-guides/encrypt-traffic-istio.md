@@ -432,3 +432,7 @@ The ingress gateway is not running. The default Istio profile installs it; the m
 
 - [How to Encrypt Inter-Node Cluster Traffic with Linkerd on Kubernetes](encrypt-traffic-linkerd.md) - The same goal with a lighter-weight mesh, focused on inter-node traffic.
 - [Istio PeerAuthentication reference](https://istio.io/latest/docs/reference/config/security/peer_authentication/) - All mTLS modes and scoping options.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

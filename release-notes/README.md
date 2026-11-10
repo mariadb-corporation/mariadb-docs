@@ -7,7 +7,7 @@ description: >-
 # MariaDB Release Notes
 
 {% hint style="info" %}
-📄 Read offline: [mariadb-release-notes.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-release-notes.pdf) (~5,700 pages, 93 MB). The PDF is a point-in-time snapshot; this site is always current.
+📄 Read offline: [mariadb-release-notes.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-release-notes.pdf) (~6,700 pages, 139 MB). The PDF is a point-in-time snapshot; this site is always current.
 {% endhint %}
 
 Release dates for upcoming MariaDB Enterprise Server releases can be found [here](enterprise-server/about/enterprise-server-release-schedule.md#next-scheduled-releases). Release dates for MariaDB Community Server releases can be found [on Jira](https://jira.mariadb.org/).

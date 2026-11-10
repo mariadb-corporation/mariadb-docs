@@ -144,3 +144,7 @@ SELECT * FROM system.transactions;
 GridGain also provides [metrics](../reference/monitoring/metrics-list.md) for transaction monitoring. These metrics track the count of active, committed, and aborted transactions, measure lock wait times, and calculate conflict rates. You can use these metrics to identify patterns in transaction behavior and spot potential issues.
 
 Common issues include high abort rates, which typically indicate lock contention between transactions. Review your transaction access patterns to see if transactions are consistently accessing the same hot rows. Timeout errors suggest either that your timeout configuration is too aggressive or that queries need optimization. Slow commits can indicate network latency issues or problems with replication health.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -354,3 +354,7 @@ This view shows only the currently active transactions.
 | STORAGE_PROFILE | STRING | The name of the storage profile used by the distribution zone. |
 | IS_DEFAULT_PROFILE | BOOLEAN | If the storage profile is used by default. |
 | ZONE_ID | INT32 | Unique zone identifier. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

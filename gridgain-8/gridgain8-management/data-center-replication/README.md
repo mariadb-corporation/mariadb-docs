@@ -47,3 +47,7 @@ How to configure GridGain data center replication — cluster IDs, sender and re
 How to manage and monitor GridGain data center replication — starting, stopping, pausing, JMX beans, events, failure scenarios, and sender storage management.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

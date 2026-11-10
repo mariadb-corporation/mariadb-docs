@@ -26,3 +26,7 @@ Use [Kafka Connector Quick Start](quick-start.md) to learn how to install, confi
 Example: [Persisting Ignite Data in Relational Database with Kafka Connector](example-persisting-to-database.md)
 
 Example: [Ignite Data Replication with Kafka Connector](example-data-replication.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

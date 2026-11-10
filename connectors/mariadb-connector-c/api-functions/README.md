@@ -124,3 +124,5 @@ The MariaDB Connector/C API provides functions for establishing connections, exe
 | [`mysql_warning_count()`](mysql_warning_count.md) | Retrieves the warning count from the most recent query execution; use SHOW WARNINGS for the full warning message text. |
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

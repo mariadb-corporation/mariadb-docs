@@ -202,3 +202,7 @@ kubectl delete -f crd.yaml
 {% hint style="info" %}
 Deleting the CRD removes the `GridGain9Cluster` API entirely. Make sure all custom resources are deleted first to avoid stuck objects.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

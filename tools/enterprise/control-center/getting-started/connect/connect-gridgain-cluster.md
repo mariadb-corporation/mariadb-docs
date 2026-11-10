@@ -123,3 +123,7 @@ You can change the cluster name from the context menu in **My Cluster** tab both
 ```
 
 If you don't set the cluster name, an auto-generated name is displayed instead.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

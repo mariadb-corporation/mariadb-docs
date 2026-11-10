@@ -92,3 +92,7 @@ Reference of GridGain 9 exception codes grouped by component, with descriptions 
 Definitions of key GridGain 9 terms, from caches and cluster nodes to distribution zones, RAFT, and storage types.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

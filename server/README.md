@@ -9,7 +9,7 @@ icon: server
 # MariaDB Server Documentation
 
 {% hint style="info" %}
-📄 Read offline: [mariadb-server.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-server.pdf) (~6,200 pages, 80 MB). The PDF is a point-in-time snapshot; this site is always current.
+📄 Read offline: [mariadb-server.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-server.pdf) (~7,300 pages, 106 MB). The PDF is a point-in-time snapshot; this site is always current.
 {% endhint %}
 
 {% columns %}
@@ -109,3 +109,5 @@ Access the comprehensive MariaDB Server reference. Find detailed documentation o
 {% endcolumns %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

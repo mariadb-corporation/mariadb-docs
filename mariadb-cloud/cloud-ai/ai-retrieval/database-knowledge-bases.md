@@ -16,7 +16,7 @@ For a short walkthrough, see [Quickstart](quickstart.md#create-a-database-knowle
 ## Before You Begin
 
 * You need a MariaDB service that holds the data, and a database user that can read it. AI Retrieval sees only the tables and columns that this user can see. To limit what a knowledge base can read, see [Access and Security](access-and-security.md#database-knowledge-bases).
-* Add the AI Retrieval IP address to the IP allowlist of the service. See [Network Access for Database Knowledge Bases](access-and-security.md#network-access-for-database-knowledge-bases).
+* If the service restricts connections with an IP allowlist, add the AI Retrieval IP address to it. See [Network Access for Database Knowledge Bases](access-and-security.md#network-access-for-database-knowledge-bases).
 
 ## Create a Database Knowledge Base
 
@@ -25,12 +25,17 @@ For a short walkthrough, see [Quickstart](quickstart.md#create-a-database-knowle
 3. Enter a **Name**, and optionally a **Description**.
 4. Under **Datasource**, select your service. The hostname, the port, and the credentials of the service are filled in. You can change them, for example to use a user with fewer privileges.
 5. Select **Fetch schemas**, and select the **Schema** whose tables the knowledge base can query. If the list cannot be loaded, enter the schema name.
-6. Optionally, expand **Advanced Options** and set these options:
+6. Under **Tables**, check the tables that the knowledge base can use. All tables of the schema are included at first. Clear the check box of a table to leave it out, or expand a table to leave out some of its columns. **Exclude all tables** and **Include all tables** change every table at once. Keep at least one table and one of its columns. In an expanded table, each column also has an optional **Description** and, for text columns, a **Literals index** option. For what these do, see [Edit Descriptions and Columns](#edit-descriptions-and-columns).
+7. Optionally, expand **Advanced Options** and set these options:
+   * **Custom Instructions**: business terminology, domain context, and query conventions that AI Retrieval follows when it writes queries. For example: "revenue" always means net revenue after refunds, and test accounts are always filtered out.
    * **Default max rows**, under **SQL Limits**: the most rows that a question returns, unless the question sets its own limit. The default is 20, and the value can be from 1 to 10,000.
-   * **Golden Queries**: pairs of a question and its SQL query. AI Retrieval uses them as examples when it writes queries, so that it learns the terms and patterns of your data. Select **Add Example** to add a pair.
-7. Select **Create Knowledge Base**.
+8. Select **Create Knowledge Base**.
 
-<figure><img src="../../.gitbook/assets/ai-retrieval-database-create.png" alt="The Create Knowledge Base form with Database Knowledge Base selected, the service docs-demo-kb, the schema shop, and its four tables listed."><figcaption><p>The Create Knowledge Base form for a database knowledge base</p></figcaption></figure>
+A column that you leave out is not described to the model, but the database user can still read it. Grant the user only the columns that the knowledge base should reach.
+
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-tables.png" alt="The Tables section of the Create Knowledge Base form with the customers table expanded. Each of its columns id, name, country, and signed_up has a check box, its data type, a Description field, and a Literals index option."><figcaption><p>The Tables section with a table expanded</p></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-create.png" alt="The Create Knowledge Base form with Database Knowledge Base selected, the service docs-demo, the schema shop, and its four tables listed."><figcaption><p>The Create Knowledge Base form for a database knowledge base</p></figcaption></figure>
 
 AI Retrieval connects to the database and synchronizes its schema. This usually takes a few minutes. If no database is connected within 15 minutes, the setup is marked as failed. When the knowledge base is ready, use **Test** to ask a question, or **Connect** to call it from your application.
 
@@ -56,7 +61,7 @@ Synchronize the schema again after you change the tables of the database. Some c
 
 Customize the semantic map only when you want to change what AI Retrieval uses, for example to correct a description or to keep a table out of every query.
 
-<figure><img src="../../.gitbook/assets/ai-retrieval-database-kb-ready.png" alt="The page of a Ready database knowledge base, with its data source, the statistics of 4 tables, 16 columns, and 0 golden queries, and the Schema Annotations table that lists the tables orders, order_items, customers, and products, each with the status Retrievable."><figcaption><p>The page of a database knowledge base, with the Schema Annotations table</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-kb-ready.png" alt="The page of a Ready database knowledge base, with its data source, the statistics of 4 tables, 16 columns, and 0 golden queries, and the Schema Annotations table that lists the tables orders, customers, order_items, and products, each with the status Retrievable."><figcaption><p>The page of a database knowledge base, with the Schema Annotations table</p></figcaption></figure>
 
 ### Choose How Each Table Is Used
 
@@ -103,7 +108,7 @@ The results show the **Generated SQL** and the rows that it returned. If more ro
 
 The Test drawer has two tabs, **Retrieve** and **Retrieve & Generate**.
 
-<figure><img src="../../.gitbook/assets/ai-retrieval-database-test.png" alt="The Test Knowledge Base drawer of a database knowledge base on the Retrieve tab, with the question Which customer ordered the most widgets, the generated SQL query, and a table of 5 rows with the columns customer and widgets_ordered."><figcaption><p>The Test drawer of a database knowledge base</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-test.png" alt="The Test Knowledge Base drawer of a database knowledge base on the Retrieve tab, with the question Which customer ordered the most widgets, the generated SQL query, and one row with the columns customer_id, name, and widget_quantity."><figcaption><p>The Test drawer of a database knowledge base</p></figcaption></figure>
 
 ## Query a Database Knowledge Base with the API
 
@@ -149,3 +154,5 @@ The database user is the main control over what a knowledge base can read. Use a
 {% endcontent-ref %}
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

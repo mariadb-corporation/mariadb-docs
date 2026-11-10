@@ -279,3 +279,5 @@ Compare the output between Step 3 and Step 4.
 2. Networking matters. Since `VIDEX-Server` is often in a container, `localhost/127.0.0.1` may not refer to what you expect. The routable IP is recommended for reachability, as it ensures that both _MariaDB-VIDEX_ and the container can reach it.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

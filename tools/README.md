@@ -8,7 +8,7 @@ description: >-
 # Tools
 
 {% hint style="info" %}
-📄 Read offline: [mariadb-tools.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-tools.pdf) (~610 pages, 23 MB). The PDF is a point-in-time snapshot; this site is always current.
+📄 Read offline: [mariadb-tools.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-tools.pdf) (~1,500 pages, 67 MB). The PDF is a point-in-time snapshot; this site is always current.
 {% endhint %}
 
 ## Enterprise Tools
@@ -92,3 +92,5 @@ MariaDB Shell is an interactive client for MariaDB Server with SQL and Python mo
 {% endcontent-ref %}
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

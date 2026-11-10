@@ -171,3 +171,5 @@ A TideSQL table is one column family for its rows, plus one more column family f
 * [Table Options](tidesql-table-options.md) for the per-table knobs available at `CREATE TABLE`.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

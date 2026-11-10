@@ -23,3 +23,7 @@ GridGain 8's native vector search capability is documented separately. See [Vect
 - [How to Build a Low-Code RAG Application With GridGain and Langflow](../../gridgain8-get-started/how-to-guides/langflow-rag-tutorial.md)
 - [How to Build a Machine Learning Feature Store With GridGain and Feast](../../gridgain8-get-started/how-to-guides/feast-feature-store-tutorial.md)
 - [How to Cache Machine Learning Predictions With GridGain and BigQuery](../../gridgain8-get-started/how-to-guides/cache-ml-predictions-bigquery.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

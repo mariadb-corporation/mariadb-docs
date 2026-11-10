@@ -191,3 +191,7 @@ Here is an example a source file:
 1,John,2019-01-01 00:00:00.0
 ```
 {% endcode %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

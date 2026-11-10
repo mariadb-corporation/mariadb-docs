@@ -344,19 +344,6 @@ Read-only datacenter segment identifier. The identifier can be either a human-re
 | Range        | Human-readable string (max 15 chars) or UUID |
 | Default      | (unset)                                      |
 
-### raft-key-rotation-check-interval
-
-Interval, in seconds, at which the plugin checks for a rotated binary log master key and gives the updated key to the Raft server. Effective only when `encrypt_binlog` is `ON`. See [Raft Event Log Encryption](mariadb-raft-cluster-quickstart-guide.md#raft-event-log-encryption).
-
-| Property     | Value                                 |
-| ------------ | ------------------------------------- |
-| Command Line | --raft-key-rotation-check-interval=#  |
-| Scope        | Global                                |
-| Dynamic      | Yes                                   |
-| Data Type    | Numeric (s)                           |
-| Range        | 1 to 4294967295                       |
-| Default      | 60                                    |
-
 ## TLS Variables
 
 {% hint style="info" %}
@@ -593,3 +580,5 @@ Maximum depth for certificate chain verification. This variable is read-only and
 | Default      | 9               |
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

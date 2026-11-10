@@ -16,3 +16,7 @@ The pages in this section explain how to build, install, and use the driver:
 - [Querying and Modifying Data](querying-modifying-data.md) — connecting to a cluster and running SQL queries through ODBC.
 - [Error Codes](error-codes.md) — the error codes returned by the driver.
 - [Specification](specification.md) — ODBC interface conformance levels and supported features.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

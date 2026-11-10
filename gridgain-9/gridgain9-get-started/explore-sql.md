@@ -1035,3 +1035,7 @@ Happy querying!
 ## See Also
 
 - [Create Tables and Query Data With SQL](learning-paths/distributed-sql-foundations/query-music-store-sql.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

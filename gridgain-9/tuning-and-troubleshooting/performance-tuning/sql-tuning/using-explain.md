@@ -759,3 +759,7 @@ The actual table scans happen in *Fragments 1 through 3*, each responsible for o
 - *Fragment#3* covers the `USERS` table. Like the others, it's distributed and reads from table partitions spread across the cluster.
 
 Each fragment includes metadata such as the nodes it's executed on, how data is partitioned, and how results are sent between fragments. This layout provides a clear view of not only how the query is logically processed, but also how the workload is split and coordinated in a distributed environment.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

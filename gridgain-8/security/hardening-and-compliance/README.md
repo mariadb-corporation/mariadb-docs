@@ -40,3 +40,7 @@ Use GridGain's event-based auditing to track user actions and export event infor
 Full list of CVEs fixed across all GridGain 8 versions, with published dates, CVSS base scores, and the releases that contain each fix.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

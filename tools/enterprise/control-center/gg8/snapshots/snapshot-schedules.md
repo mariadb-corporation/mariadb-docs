@@ -142,3 +142,7 @@ To permanently delete a schedule:
 
 1. From the schedule's context menu, select **Remove**.
 2. In the confirmation dialog that opens, click **Remove**.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

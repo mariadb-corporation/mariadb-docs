@@ -325,3 +325,7 @@ The following C data types listed in the [specification](https://docs.microsoft.
 | `SQL_C_TYPE_TIMESTAMP` | YES |
 | `SQL_C_NUMERIC` | YES |
 | `SQL_C_GUID` | YES |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

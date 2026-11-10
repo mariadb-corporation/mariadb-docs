@@ -64,3 +64,5 @@ Watch the error log for `encryption_key_get failed` after a key rotation.
 The envelope carries no integrity check, so encryption keeps row data confidential but does not authenticate it. If the keyring returns different bytes for a key id and version than the rows were written with, reading those rows fails with error 192 as above, except that roughly one row in 256 still passes the cipher's padding check and is returned with wrong contents instead of an error.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

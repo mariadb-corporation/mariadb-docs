@@ -327,3 +327,7 @@ If some nodes cannot be returned, exclude them from the baseline topology before
 ### Clusters with Both In-memory and Persistent Caches
 
 In clusters where there are both in-memory regions and persistent regions, in-memory caches are treated the same way as in pure in-memory clusters with partition loss policy set to `READ_WRITE_SAFE`, and persistent caches are treated the same way as in persistent clusters.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

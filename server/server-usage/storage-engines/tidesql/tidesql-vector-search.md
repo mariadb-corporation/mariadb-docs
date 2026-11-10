@@ -53,3 +53,5 @@ All DML works on vector-indexed tables. INSERT adds the vector to the graph, DEL
 A partitioned table cannot carry a vector index, and MariaDB's MHNSW implementation supports one vector index per table.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

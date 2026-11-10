@@ -103,3 +103,7 @@ Practical tips for configuring GridGain 9 cluster storage, local paths, heap usa
 Techniques for analyzing and improving GridGain 9 SQL query performance, starting with the EXPLAIN command.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

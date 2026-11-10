@@ -46,3 +46,7 @@ To view the details of a particular event, select the event in the table. A deta
 When applying filters, you can narrow down events not only by type, user, node name, or time period, but also by event attributes. This allows for more precise control when analyzing cluster activity.
 
 ![](../../../../.gitbook/assets/cc-gg9-events_filter.png)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

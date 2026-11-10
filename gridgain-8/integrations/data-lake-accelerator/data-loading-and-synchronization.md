@@ -18,3 +18,7 @@ Hive Store better suits deployments without Spark and it can also import a Hive 
 ## Bi-Directional Synchronization With Apache Sqoop
 
 The [Sqoop integration](synchronizing-with-sqoop.md) can be used to synchronize two stores. The synchronization can be set to send updates from GridGain to Hadoop, from Hadoop to GridGain, or in a bi-directional mode.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -167,3 +167,7 @@ pushed down, while the remaining branches are executed by the server.
 
 * [Query Optimizer](query-optimizer/README.md) — internals of how the optimizer works
 * [The Optimizer Cost Model from MariaDB 11.0](query-optimizer/the-optimizer-cost-model-from-mariadb-11-0.md) — how storage-engine operations are turned into comparable costs, the full list of cost variables, and how to change them
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

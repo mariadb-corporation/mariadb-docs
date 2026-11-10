@@ -94,3 +94,7 @@ A fully functional demo project is available on GitHub in the [Prediction cache 
 
 - [Prediction cache demo](https://github.com/GridGain-Demos/prediction_cache_ga) - The full sample project with setup and run instructions.
 - [Google BigQuery](https://cloud.google.com/bigquery) - The data warehouse and BigQuery ML platform used to train and generate predictions.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

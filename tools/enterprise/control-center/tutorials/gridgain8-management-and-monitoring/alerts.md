@@ -89,3 +89,7 @@ You now have two alert configurations:
 In the next part, you use tracing to investigate performance bottlenecks and hot spots in cluster operations:
 
 - [Part 5: Trace operation performance](performance-tracing.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -180,13 +180,12 @@ SPACE_DIRS = {
     'SsmexDFPv2xG2OTyO5yV': 'server',
     '3VYeeVGUV4AMqrA3zwy7': 'galera-cluster',
     '0pSbu5DcMSW4KwAkUcmX': 'maxscale',
-    'rBEU9juWLfTDcdwF3Q14': 'analytics',
     'vPz15Lz0Iw3P3yKR3Prd': 'mariadb-cloud',
-    'gmXC0YXB3rRhXvpg5mb1': 'home',
     'JqgUabdZsoY5EiaJmqgn': 'platform',
     'CjGYMsT2MVP4nd3IyW2L': 'connectors',
     'ArQLGGUSG0VzKl1t2Y53': 'gridgain-8',
     'oHbGEk22iR73P3x6DryR': 'gridgain-9',
+    'aCh6jmvBjQASgok5pZEH': 'gridgain',
     'kuTXWg0NDbRx6XUeYpGD': 'tools',
     'aEnK0ZXmUbJzqQrTjFyb': 'release-notes',
     'WCInJQ9cmGjq1lsTG91E': 'general-resources',
@@ -198,7 +197,7 @@ SPACE_DIRS = {
 }
 # An {alias} placeholder is expanded the way expand-gitbook-aliases.yml expands
 # it, read out of that workflow rather than copied, so the two cannot drift.
-# {general-resources} carries a path of its own (/about/readme), which this keeps.
+# An alias that carries a path of its own keeps it.
 ALIAS_WORKFLOW = '.github/workflows/expand-gitbook-aliases.yml'
 ALIAS_RULE = re.compile(r'\[\{\]([a-z-]+)\[\}\]#\\1https://app\.gitbook\.com/'
                         r'(?:o/[A-Za-z0-9]+/)?s/([^#]+)#g')

@@ -126,3 +126,7 @@ bin/ignite.sh
 Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

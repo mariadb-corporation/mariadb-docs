@@ -67,15 +67,16 @@ A database knowledge base reads the tables of a MariaDB service that already hol
 3. Enter a **Name**.
 4. Under **Datasource**, select your service. The hostname, the port, and the credentials of the service are filled in, and you can change them.
 5. Select **Fetch schemas**, and select the **Schema** that holds your tables. If the list is empty, enter the schema name.
-6. Select **Create Knowledge Base**.
-7. AI Retrieval connects to the database and builds the semantic map automatically, from the tables that the user can see. You do not need to do anything. Wait until the knowledge base shows **Ready**.
-8. Select **Test**, and ask a question about your data.
+6. Under **Tables**, all tables of the schema are included. Clear the check box of a table to leave it out, or expand a table to leave out some of its columns.
+7. Select **Create Knowledge Base**.
+8. AI Retrieval connects to the database and builds the semantic map automatically, from the tables that the user can see. You do not need to do anything. Wait until the knowledge base shows **Ready**.
+9. Select **Test**, and ask a question about your data.
 
-<figure><img src="../../.gitbook/assets/ai-retrieval-database-create.png" alt="The Create Knowledge Base form with Database Knowledge Base selected, the service docs-demo-kb, the schema shop, and its four tables listed."><figcaption><p>The Create Knowledge Base form for a database knowledge base</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-create.png" alt="The Create Knowledge Base form with Database Knowledge Base selected, the service docs-demo, the schema shop, and its four tables listed."><figcaption><p>The Create Knowledge Base form for a database knowledge base</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/ai-retrieval-database-kb-ready.png" alt="The page of a Ready database knowledge base, with its data source, the statistics of 4 tables, 16 columns, and 0 golden queries, and the Schema Annotations table that lists the tables orders, order_items, customers, and products, each with the status Retrievable."><figcaption><p>A Ready database knowledge base</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-kb-ready.png" alt="The page of a Ready database knowledge base, with its data source, the statistics of 4 tables, 16 columns, and 0 golden queries, and the Schema Annotations table that lists the tables orders, customers, order_items, and products, each with the status Retrievable."><figcaption><p>A Ready database knowledge base</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/ai-retrieval-database-test.png" alt="The Test Knowledge Base drawer of a database knowledge base on the Retrieve tab, with the question Which customer ordered the most widgets, the generated SQL query, and a table of 5 rows with the columns customer and widgets_ordered."><figcaption><p>The Test drawer with the generated SQL and the rows that it returned</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-test.png" alt="The Test Knowledge Base drawer of a database knowledge base on the Retrieve tab, with the question Which customer ordered the most widgets, the generated SQL query, and one row with the columns customer_id, name, and widget_quantity."><figcaption><p>The Test drawer with the generated SQL and the rows that it returned</p></figcaption></figure>
 
 For access requirements, such as the IP allowlist and restricting what the knowledge base can read, see [Access and Security](access-and-security.md).
 
@@ -95,3 +96,5 @@ For access requirements, such as the IP allowlist and restricting what the knowl
 {% endcontent-ref %}
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

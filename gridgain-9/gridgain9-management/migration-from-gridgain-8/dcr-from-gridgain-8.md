@@ -887,3 +887,7 @@ DR connector loses network connectivity with the source GridGain 8 cluster or th
 *Action:*
 
 No action is needed. Network connection is reestablished automatically.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

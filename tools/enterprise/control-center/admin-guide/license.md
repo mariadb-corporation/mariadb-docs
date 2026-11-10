@@ -97,3 +97,7 @@ Instead of [Uploading License via UI](#uploading-license-via-ui) every time you 
 When the watcher discovers a new or updated license file, it will validate the license and, if the file is validated successfully, apply the new license. If the file fails validation, the old license will remain in power.
 
 If you decide to update the license via UI while the file watcher is enabled, Control Center will store the manually uploaded license at `control.license.path`. If `control-center-license.xml` is already stored there, it will be renamed to `control-center-license.bak.xml`.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

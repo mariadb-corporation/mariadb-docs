@@ -93,3 +93,7 @@ A fully functional demo project is available on GitHub in the [Feast demo](https
 
 - [Feast](https://feast.dev/) - The feature store platform used for storing, managing, and serving features.
 - [GridGain Feast CGM demo](https://github.com/GridGain-Demos/ignite_feast_cgm_demo) - The demonstration project with sample code and setup instructions.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

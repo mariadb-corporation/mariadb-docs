@@ -213,3 +213,7 @@ In `langchain-gridgain` 2.x, the checkpointer and the memory store were part of 
 ```
 
 The classes, their behavior, and the stored data are unchanged. `GridGainNodeCache` was never released in `langchain-gridgain`. It is available starting with `langgraph-checkpoint-gridgain` 3.0.0. The `langchain_gridgain` package does not import them anymore, and there is no `langgraph_checkpoint_gridgain` module.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

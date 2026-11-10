@@ -27,6 +27,7 @@ member_anchors = load(HERE / 'fix_plugin_api_member_anchors.py',
 summary = load(HERE / 'add_server_plugin_api_to_summary.py', 'summary')
 drop_api = load(HERE / 'drop_plugin_api_md.py', 'drop_api')
 alerts = load(HERE / 'fix_plugin_api_alerts.py', 'alerts')
+footer = load(HERE / 'add_footer_to_server_plugin_api.py', 'footer')
 
 FRONTMATTER = '---\ndescription: >-\n  Generated page.\n---\n\n'
 
@@ -356,6 +357,36 @@ class Alerts(unittest.TestCase):
     def test_idempotent(self):
         once = alerts.convert('> [!WARNING]\n> x\n')
         self.assertEqual(alerts.convert(once), once)
+
+
+class Footer(TempDir):
+    """License line and feedback form on every generated page (DOCS-7073)."""
+
+    END = ('\n\n<sub>_This page is licensed: GPLv2_</sub>\n\n'
+           '{% @marketo/form formId="4316" %}\n')
+
+    def test_footer_follows_the_last_line(self):
+        # moxygen ends a page with a blank line; it becomes the gap above the
+        # license line, so the diff only adds lines.
+        self.assertEqual(footer.add_footer('# Page\n\n* [a](a.md)\n\n'),
+                         '# Page\n\n* [a](a.md)' + self.END)
+
+    def test_trailing_whitespace_is_trimmed(self):
+        self.assertEqual(footer.add_footer('text  \n\n\n\n'), 'text' + self.END)
+        self.assertEqual(footer.add_footer('text'), 'text' + self.END)
+
+    def test_footered_page_is_unchanged(self):
+        once = footer.add_footer(FRONTMATTER + '# Page\n\nBody.\n')
+        self.assertEqual(footer.add_footer(once), once)
+        self.assertEqual(once.count('@marketo/form'), 1)
+
+    def test_fix_dir_reports_only_changed_pages(self):
+        new = self.page('new.md', '# New\n\nBody.\n\n')
+        done = self.page('done.md', '# Done' + self.END)
+        self.assertEqual(footer.fix_dir(self.dir), [new])
+        self.assertEqual(new.read_text(), '# New\n\nBody.' + self.END)
+        self.assertEqual(done.read_text(), '# Done' + self.END)
+        self.assertEqual(footer.fix_dir(self.dir), [])
 
 
 if __name__ == '__main__':

@@ -69,3 +69,7 @@ User authentication and authorization for Control Center is as follows:
 
 - [How to Authenticate to Control Center With Kerberos](kerberos-authentication.md)
 - [How to Integrate Control Center With LDAP](ldap-authentication.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

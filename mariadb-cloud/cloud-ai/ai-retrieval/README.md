@@ -85,7 +85,7 @@ For a document knowledge base, Retrieve & Generate can stream the answer as it i
 
 * Document knowledge bases run on AWS, in the region that you select. Database knowledge bases are available in every region. See [Supported Models, Formats, and Regions](supported-models-formats-and-regions.md#supported-regions).
 * For a document knowledge base, the vector store must be a MariaDB service, Provisioned or Serverless, in the same cloud and region as the knowledge base, running MariaDB 11.8 or later. You can select an existing service or let MariaDB Cloud provision a new Serverless service.
-* For a database knowledge base, you need a MariaDB service with your data, a database user that can read it, and the AI Retrieval IP address in the IP allowlist of the service. See [Access and Security](access-and-security.md#database-knowledge-bases).
+* For a database knowledge base, you need a MariaDB service with your data, a database user that can read it, and, if the service restricts connections with an IP allowlist, the AI Retrieval IP address in that allowlist. See [Access and Security](access-and-security.md#database-knowledge-bases).
 * Your role decides what you can do with knowledge bases. See [Access and Security](access-and-security.md#roles-and-permissions).
 * You need an API key to call the REST API from an application. See [Access and Security](access-and-security.md#api-keys-and-authentication).
 
@@ -155,3 +155,5 @@ AI Retrieval limits request rates, document sizes, and concurrent ingestion for 
 {% endcontent-ref %}
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

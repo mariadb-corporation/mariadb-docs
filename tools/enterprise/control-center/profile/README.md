@@ -11,3 +11,7 @@ This section describes how you can view and edit profile data and manage teams. 
 {% content-ref url="teams.md" %}
 [teams.md](teams.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

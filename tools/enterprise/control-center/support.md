@@ -11,3 +11,7 @@ GridGain Control Center is a tool that helps you manage local installations of G
 Contact us at [MariaDB support](https://mariadb.com/support/).
 
 Make sure to include cluster information, and the description of your issue in your message to help our team identify what is happening.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

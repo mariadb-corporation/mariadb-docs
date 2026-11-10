@@ -393,3 +393,7 @@ ReplicaManager → TxManager → TableManager → SqlQueryProcessor
 - [Data Partitioning](storage/data-partitioning.md) for partition distribution and replication
 - [Transactions](transactions.md) for transaction processing and MVCC
 - [Data Consistency and Replication](data-consistency-and-replication.md) for the consistency model
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

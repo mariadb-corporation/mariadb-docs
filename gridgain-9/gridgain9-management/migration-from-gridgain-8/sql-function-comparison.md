@@ -150,3 +150,7 @@ The following functions have direct equivalent in GridGain 9 and no actions are 
 - UPPER
 - WEEK
 - YEAR
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

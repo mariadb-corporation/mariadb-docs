@@ -691,3 +691,7 @@ Continue to [Create Tables and Query Data with SQL](learning-paths/distributed-s
 
 - [How to Start a Cluster with Docker Compose](start-cluster-docker-compose.md) for the full cluster lifecycle: stop, restart, destroy, troubleshooting
 - [How to Work with the GridGain CLI](cli-tool-step-by-step.md) for deeper coverage of the CLI tool
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
