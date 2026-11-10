@@ -170,7 +170,7 @@ When a failover occurs, the connector cannot know if the last request has been r
 
 ## Configuration
 
-(See [About MariaDB java connector](about-mariadb-connector-j.md) for all connection parameters)\
+(See [About MariaDB java connector](about-mariadb-connector-j/README.md) for all connection parameters)\
 JDBC connection string format is :
 
 ```java

@@ -30,7 +30,7 @@ To install MariaDB Connector/J with [Maven](https://maven.apache.org/what-is-mav
 </dependency>
 ```
 
-Ensure to replace the  `$VERSION` with a valid MariaDB Connector/J version number. See [About MariaDB Connector/J: Java Compatibility](about-mariadb-connector-j.md) to determine which MariaDB Connector/J release series supports your Java version.
+Ensure to replace the  `$VERSION` with a valid MariaDB Connector/J version number. See [About MariaDB Connector/J: Java Compatibility](about-mariadb-connector-j/README.md) to determine which MariaDB Connector/J release series supports your Java version.
 
 ### Installing MariaDB Connector/J with Gradle
 
@@ -40,7 +40,7 @@ To install MariaDB Connector/J with [Gradle](https://gradle.org/), add the follo
 implementation 'org.mariadb.jdbc:mariadb-java-client:$VERSION'
 ```
 
-Ensure to replace the  `$VERSION` with a valid MariaDB Connector/J version number. See [About MariaDB Connector/J: Java Compatibility](about-mariadb-connector-j.md) to determine which MariaDB Connector/J release series supports your Java version.
+Ensure to replace the  `$VERSION` with a valid MariaDB Connector/J version number. See [About MariaDB Connector/J: Java Compatibility](about-mariadb-connector-j/README.md) to determine which MariaDB Connector/J release series supports your Java version.
 
 [Gradle configuration](java-connector-using-gradle.md).
 
