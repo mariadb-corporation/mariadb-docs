@@ -7,7 +7,7 @@ description: >-
 
 ## What are Sanitizers?
 
-Sanitizers find server bugs bug instrumenting the runtime MariaDB during compile time, and performing runtime checks on the executed test. Sanitizers detect a variety of implementation defects:
+Sanitizers find server bugs by instrumenting the runtime MariaDB during compile time, and performing runtime checks on the executed test. Sanitizers detect a variety of implementation defects:
 
 The sanitizers for clang are:
 
@@ -16,7 +16,7 @@ The sanitizers for clang are:
 * [ThreadSanitizer (aka TSAN)](https://clang.llvm.org/docs/ThreadSanitizer.html)
 * [MemorySanitizer (aka MSAN)](https://clang.llvm.org/docs/MemorySanitizer.html)
 
-As sanitizers are the equalivent of code assertions, their validity shouldn't be quickly dismissed.
+As sanitizers are the equivalent of code assertions, their validity shouldn't be quickly dismissed.
 
 Undefined behavior is coding behavior that violates C/C++ standards. Without a defined behavior any compiler can choose how the code compiles, which may not be how the user expects, and may not be the same in a future version of the compiler.
 
@@ -56,7 +56,7 @@ Important to note MSAN requires instrumented c++ and system libraries to have a 
 
 The time consuming aspect of building with MSAN is having [instrumented system libraries](https://github.com/MariaDB/buildbot/blob/main/ci_build_images/msan.instrumentedlibs.sh). To help with this MariaDB Foundation has built the MSAN container for `buildbot`, but this is reusable locally.
 
-The MariaDB Buildbot MSAN container, `quay.io/mariadb-foundation/bb-worker:debian12-msan-clang-20` is a container with:
+The MariaDB Buildbot MSAN container, `quay.io/mariadb-foundation/bb-worker:debian13-msan-clang-22` is a container with:
 
 * the instrumented libraries required for MSAN
 * a very modern `clang` version
@@ -164,7 +164,7 @@ cmake \
       /source
 ```
 
-MSAN is a clang only and other compilers will not work.
+MSAN is a clang-only option, and other compilers will not work.
 
 | CMake Options                                         | Why                                                                                                                                                 |
 | ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -172,10 +172,9 @@ MSAN is a clang only and other compilers will not work.
 | `UPDATE_SUBMODULES=OFF`                               | The source directory is read-only so cannot be updated from within the container                                                                    |
 | `CMAKE_{EXE,MODULE}_LINKER_FLAGS`                     | links executables and shared libraries against the instrumented libraries with a `rpath` so a `LD_LIBRARY_PATH` environment variable isn't required |
 | `WITH_ZLIB=bundled`, `WITH_NUMA`, `WITH_SYSTEMD`      | All libraries uninstrumented                                                                                                                        |
-| `HAVE_LIBAIO_H=0 / CMAKE_DISABLE_FIND_PACKAGE_LIBAIO` | AIO isn't MSAN-instrumented                                                                                                                 |
-| `CMAKE_DISABLE_FIND_PACKAGE_URING=NO`                 | Uninstrumented [MDEV-36482](https://jira.mariadb.org/browse/MDEV-36482), and required `seccomp` adjustment or `--privileged` to work                |
-| `PLUGIN_COLUMNSTORE`                                  | Dependency on boost libraries are instrumented                                                                                                      |
-| `PLUGIN_{ROCKSDB,COLUMNSTORE,DUCKDB}=NO`              | Modifies source directory                                                                                                                           |
+| `CMAKE_DISABLE_FIND_PACKAGE_LIBAIO=1`                 | AIO isn't MSAN-instrumented                                                                                                                 |
+| `CMAKE_DISABLE_FIND_PACKAGE_URING=1`                  | Uninstrumented [MDEV-36482](https://jira.mariadb.org/browse/MDEV-36482), and required `seccomp` adjustment or `--privileged` to work                |
+| `PLUGIN_{ROCKSDB,COLUMNSTORE,DUCKDB}=NO`              | Building them modifies the source directory. ColumnStore also depends on Boost libraries, which aren't MSAN-instrumented |
 | `WITH_DBUG_TRACE=OFF`                                 | reduce runtime overhead if `CMAKE_BUILD_TYPE=Debug` chosen                                                                                          |
 
 Run the build stage:
