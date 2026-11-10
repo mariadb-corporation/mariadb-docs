@@ -219,7 +219,7 @@ A refused assignment or revocation is recorded as a [`USER_OPERATION_REFUSED`](.
 
 ## Upgrading from Earlier Releases
 
-This section applies to GridGain 9.2. Earlier releases treated user and role names as case-insensitive. When you upgrade a cluster (on commit of the rolling upgrade), GridGain runs a one-time migration, tracked by the `roleNamesMigrationVersion` [cluster configuration parameter](../reference/configuration/cluster-configuration-parameters.md):
+This section applies to GridGain 9.2. Earlier releases treated user and role names as case-insensitive. When you commit the rolling upgrade of a cluster, GridGain runs a one-time migration, tracked by the `roleNamesMigrationVersion` [cluster configuration parameter](../reference/configuration/cluster-configuration-parameters.md):
 
 - Existing role names become upper case, and the role assignments of basic-authentication users are updated to match. The `system` role keeps the name `system`, including when it was stored in another case. If two roles would end up with the same name after upper-casing, the upgrade fails and reports the conflicting names.
 - Existing user names keep their stored spelling. In SQL, quote the old spelling to manage such a user: `ALTER USER "alice"`, `DROP USER "alice"`. Unquoted `alice` means `ALICE`.

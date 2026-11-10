@@ -209,8 +209,8 @@ INSERT INTO test.employees (id, username, salary) VALUES
 
 With these policies in place:
 
-- If user connects to the cluster using `JACK` credentials, the query `SELECT * FROM employees` returns all three rows.
-- If user connects to the cluster using `SARAH` credentials, the query returns only the row where `username = 'SARAH'`.
+- If a user connects to the cluster using `JACK` credentials, the query `SELECT * FROM employees` returns all three rows.
+- If a user connects to the cluster using `SARAH` credentials, the query returns only the row where `username = 'SARAH'`.
 - The same rules apply to `UPDATE`, `DELETE`, and `INSERT`; for example, `SARAH` cannot insert or update a row whose `username` is not `SARAH`.
 {% endtab %}
 
