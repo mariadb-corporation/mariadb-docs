@@ -186,6 +186,12 @@ GRANT MANAGER to Jack;
 GRANT DEVELOPER to Sarah;
 GRANT PRIVILEGES SELECT_FROM_TABLE ON TEST TO DEVELOPER, MANAGER;
 
+-- Add some data to the table
+INSERT INTO test.employees (id, username, salary) VALUES
+        (1, 'JACK', 100),
+        (2, 'SARAH', 200),
+        (3, 'BOB', 150);
+
 -- Turn on row-level security. At this point no policy exists,
 -- so regular users see no rows at all.
 ALTER TABLE test.employees SET ROW LEVEL SECURITY ON;
@@ -199,12 +205,6 @@ CREATE POLICY managers_all ON test.employees
 CREATE POLICY developers_own ON test.employees
         TO DEVELOPER
         USING (CURRENT_USER = username);
-
--- Add some data to the table
-INSERT INTO test.employees (id, username, salary) VALUES
-        (1, 'JACK', 100),
-        (2, 'SARAH', 200),
-        (3, 'BOB', 150);
 ```
 
 With these policies in place:
@@ -232,6 +232,12 @@ GRANT MANAGER to Jack;
 GRANT DEVELOPER to Sarah;
 GRANT PRIVILEGES SELECT_FROM_TABLE ON TEST TO DEVELOPER, MANAGER;
 
+-- Add some data to the table
+INSERT INTO test.employees (id, username, salary) VALUES
+        (1, 'jack', 100),
+        (2, 'sarah', 200),
+        (3, 'bob', 150);
+
 -- Turn on row-level security. At this point no policy exists,
 -- so regular users see no rows at all.
 ALTER TABLE test.employees SET ROW LEVEL SECURITY ON;
@@ -245,12 +251,6 @@ CREATE POLICY managers_all ON test.employees
 CREATE POLICY developers_own ON test.employees
         TO DEVELOPER
         USING (CURRENT_USER = username);
-
--- Add some data to the table
-INSERT INTO test.employees (id, username, salary) VALUES
-        (1, 'jack', 100),
-        (2, 'sarah', 200),
-        (3, 'bob', 150);
 ```
 
 With these policies in place:

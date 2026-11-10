@@ -243,13 +243,13 @@ Supported DML privileges:
 - Applies to all current and future tables in schema `STATICDATA`:
 
   ```sql
-  GRANT SELECT_FROM_TABLE ON STATICDATA TO ROLE analyst;
+  GRANT PRIVILEGES SELECT_FROM_TABLE ON STATICDATA TO analyst;
   ```
 
 - Mixed case requires quoting:
 
   ```sql
-  GRANT UPDATE_TABLE ON "StaticData" TO ROLE data_editor;
+  GRANT PRIVILEGES UPDATE_TABLE ON "StaticData" TO data_editor;
   ```
 
 {% hint style="info" %}
