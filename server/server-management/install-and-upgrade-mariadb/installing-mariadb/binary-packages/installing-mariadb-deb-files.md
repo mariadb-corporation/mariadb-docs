@@ -59,7 +59,7 @@ The repository examples below refer to this file with `signed-by`. See [GPG](gpg
 
 One way to add an `apt` repository is by using the [add-apt-repository](https://manpages.ubuntu.com/manpages/noble/man1/add-apt-repository.1.html) command, which writes the repository line to a source list file in `/etc/apt/sources.list.d/`.
 
-For example, if you wanted to use the repository to install [MariaDB 11.8]({release-notes}/community-server/11.8/what-is-mariadb-118) on Ubuntu 24.04 LTS (Noble), then you could use the following commands to add the MariaDB `apt` repository:
+For example, if you wanted to use the repository to install [MariaDB 11.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/what-is-mariadb-118) on Ubuntu 24.04 LTS (Noble), then you could use the following commands to add the MariaDB `apt` repository:
 
 ```bash
 sudo apt-get install software-properties-common
@@ -76,7 +76,7 @@ sudo apt update
 
 Another way to add an `apt` repository is by creating a [source list](https://manpages.ubuntu.com/manpages/noble/man5/sources.list.5.html) file in `/etc/apt/sources.list.d/`. The MariaDB Repository Configuration Tool generates a file in the Deb822 format, which current Debian and Ubuntu releases support.
 
-For example, if you wanted to use the repository to install [MariaDB 11.8]({release-notes}/community-server/11.8/what-is-mariadb-118) on Ubuntu 24.04 LTS (Noble), then you could create the `mariadb.sources` file in `/etc/apt/sources.list.d/` with the following contents to add the MariaDB `apt` repository:
+For example, if you wanted to use the repository to install [MariaDB 11.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/what-is-mariadb-118) on Ubuntu 24.04 LTS (Noble), then you could create the `mariadb.sources` file in `/etc/apt/sources.list.d/` with the following contents to add the MariaDB `apt` repository:
 
 ```
 # MariaDB 11.8 repository list
@@ -155,7 +155,7 @@ And then, you can remove the repository for the old version by executing the [ad
 sudo add-apt-repository --remove 'deb [signed-by=/etc/apt/keyrings/mariadb-keyring.pgp] https://deb.mariadb.org/11.4/ubuntu noble main'
 ```
 
-After that, you can add the repository for the new version with the [add-apt-repository](https://manpages.ubuntu.com/manpages/noble/man1/add-apt-repository.1.html) command. For example, if you wanted to use the repository to install [MariaDB 11.8]({release-notes}/community-server/11.8/what-is-mariadb-118) on Ubuntu 24.04 LTS (Noble), then you could use the following commands to add the MariaDB `apt` repository:
+After that, you can add the repository for the new version with the [add-apt-repository](https://manpages.ubuntu.com/manpages/noble/man1/add-apt-repository.1.html) command. For example, if you wanted to use the repository to install [MariaDB 11.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/what-is-mariadb-118) on Ubuntu 24.04 LTS (Noble), then you could use the following commands to add the MariaDB `apt` repository:
 
 ```bash
 sudo apt-get install software-properties-common
@@ -168,11 +168,11 @@ And then you would have to update the package cache by executing the following c
 sudo apt update
 ```
 
-After that, the repository should refer to [MariaDB 11.8]({release-notes}/community-server/11.8/what-is-mariadb-118) and you can [upgrade to the new version of MariaDB](installing-mariadb-deb-files.md#upgrading-to-a-new-version-of-mariadb).
+After that, the repository should refer to [MariaDB 11.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/what-is-mariadb-118) and you can [upgrade to the new version of MariaDB](installing-mariadb-deb-files.md#upgrading-to-a-new-version-of-mariadb).
 
 **Updating a Source List File**
 
-If you added the `apt` repository by creating a [source list](https://manpages.ubuntu.com/manpages/noble/man5/sources.list.5.html) file in `/etc/apt/sources.list.d/`, then you can update the major release that the repository uses by updating the source list file in-place. For example, if you wanted to change the repository from MariaDB 11.4 to [MariaDB 11.8]({release-notes}/community-server/11.8/what-is-mariadb-118), and if the source list file was at `/etc/apt/sources.list.d/mariadb.sources`, then you could execute the following:
+If you added the `apt` repository by creating a [source list](https://manpages.ubuntu.com/manpages/noble/man5/sources.list.5.html) file in `/etc/apt/sources.list.d/`, then you can update the major release that the repository uses by updating the source list file in-place. For example, if you wanted to change the repository from MariaDB 11.4 to [MariaDB 11.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/what-is-mariadb-118), and if the source list file was at `/etc/apt/sources.list.d/mariadb.sources`, then you could execute the following:
 
 ```bash
 sudo sed -i 's/11\.4/11.8/g' /etc/apt/sources.list.d/mariadb.sources
@@ -377,7 +377,7 @@ While it is not recommended, it is possible to download and install the`.deb` pa
 
 A tarball that contains the `.deb` packages can be downloaded from the [MariaDB downloads page](https://mariadb.com/downloads/community/community-server/). Choose the version, your distribution, and the DEB package type, then copy the download link.
 
-For example, to install the [MariaDB 11.8.9]({release-notes}/community-server/11.8/11.8.9) `.deb` packages on Ubuntu 24.04 LTS (Noble), you could execute the following, with `<download-url>` replaced by the link you copied:
+For example, to install the [MariaDB 11.8.9](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.9) `.deb` packages on Ubuntu 24.04 LTS (Noble), you could execute the following, with `<download-url>` replaced by the link you copied:
 
 ```bash
 sudo apt-get update
