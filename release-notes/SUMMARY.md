@@ -2983,6 +2983,7 @@
     * [mariadb-mtk 3.7.37 Release Notes](tools/mtk/3.7.37.md)
 * [GridGain 9 Release Notes](gridgain-9/README.md)
   * [GridGain 9.1](gridgain-9/9.1/README.md)
+    * [GridGain 9.1.29 Release Notes](gridgain-9/9.1.29/release-notes_9.1.29.md)
     * [GridGain 9.1.28 Release Notes](gridgain-9/9.1.28/release-notes_9.1.28.md)
     * [GridGain 9.1.27 Release Notes](gridgain-9/9.1.27/release-notes_9.1.27.md)
     * [GridGain 9.1.26 Release Notes](gridgain-9/9.1.26/release-notes_9.1.26.md)
