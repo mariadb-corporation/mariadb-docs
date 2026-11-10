@@ -247,7 +247,7 @@ MariaDB Enterprise Server 12.3 is not a rebuild of Community Server 12.3. The di
 | Videx storage engine                               | Not shipped            | Available                   |
 | Sphinx, OQGraph, Mroonga storage engines           | Not shipped            | Available                   |
 
-For the full list of differences, see [MariaDB Enterprise Server Differences](../about/mariadb-enterprise-server-differences/).
+For the full list of differences, see [MariaDB Enterprise Server Differences]({server}/editions-and-compatibility/mariadb-enterprise-server-differences).
 
 ## New System and Status Variables
 

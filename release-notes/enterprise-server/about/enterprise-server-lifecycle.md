@@ -33,7 +33,7 @@ Releases of MariaDB Enterprise Server are predictable because,
 * Critical fixes from newer release series are selectively backported.
 * Enterprise-grade testing drives a low defect rate.
 * Specific changes present in each release are communicated.
-* A [Software Bill of Materials (SBOM)](sbom.md) is published for every release.
+* A [Software Bill of Materials (SBOM)]({server}/editions-and-compatibility/sbom) is published for every release.
 
 Additional information on the release cycle for MariaDB Enterprise Server can be found in [MariaDB Corporation Engineering Policy](https://mariadb.com/engineering-policies/).
 
