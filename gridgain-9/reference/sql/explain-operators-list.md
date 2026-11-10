@@ -8,15 +8,25 @@ description: >-
 
 This section enumerates all operators for the `EXPLAIN` statement with their semantic and supported attributes.
 
-## ColocatedHashAggregate
+## HashAggregate
 
 The aggregate operation groups input data on one or more sets of grouping keys, calculating each aggregation function for each combination of grouping key.
-Colocated aggregate assumes that the data is already distributed according to grouping keys, therefore aggregation can be completed locally in a single pass.
 The hash aggregate operation maintains a hash table for each grouping set to coalesce equivalent tuples.
 The output rows are composed as follow: first come columns participated in grouping keys in the order they enumerated in `group` attribute, then come results of accumulators in the order they enumerated in `aggregation` attribute.
 
+The `phase` attribute shows the role the operator plays in a two-phase aggregation:
+
+- No `phase` attribute: single-phase aggregation.
+The data is already distributed according to grouping keys, or has been gathered on one node, so the aggregation completes in a single pass.
+- `phase: PARTIAL`: the first phase of a two-phase aggregation.
+Data is pre-aggregated, and the result is sent through an `Exchange` to the node where the `FINAL` phase is executed.
+- `phase: FINAL`: the second phase of a two-phase aggregation.
+All pre-aggregated data is merged together, and the final result is returned.
+
 Attributes:
 
+- `phase`: Phase of a two-phase aggregation, `PARTIAL` or `FINAL`.
+Not shown for a single-phase aggregation.
 - `group`: Set of grouping columns.
 - `aggregation`: List of accumulators.
 - `est`: Estimated number of output rows.
@@ -25,34 +35,35 @@ Optional.
 - `fieldNames`: List of names of columns in produced rows.
 Optional.
 
-## ColocatedSortAggregate
+Example of a two-phase aggregation for `SELECT col1, COUNT(*) FROM t GROUP BY col1`:
+
+```text
+HashAggregate
+    phase: FINAL
+    group: [COL1]
+    aggregation: [$SUM0(EXPR$1)]
+  Exchange
+      distribution: single
+    HashAggregate
+        phase: PARTIAL
+        group: [COL1]
+        aggregation: [COUNT()]
+      TableScan
+          table: PUBLIC.T
+```
+
+## StreamAggregate
 
 The aggregate operation groups input data on one or more sets of grouping keys, calculating each aggregation function for each combination of grouping key.
-Colocated aggregate assumes that the data is already distributed according to grouping keys, therefore aggregation can be completed locally in a single pass.
-The sort aggregate operation leverages data ordered by the grouping expressions to calculate data each grouping set tuple-by-tuple in streaming fashion.
+The stream aggregate operation leverages data ordered by the grouping expressions to calculate data each grouping set tuple-by-tuple in streaming fashion.
 The output rows are composed as follow: first come columns participated in grouping keys in the order they enumerated in `group` attribute, then come results of accumulators in the order they enumerated in `aggregation` attribute.
+
+The `phase` attribute has the same meaning as for [HashAggregate](#hashaggregate).
 
 Attributes:
 
-- `group`: Set of grouping columns.
-- `aggregation`: List of accumulators.
-- `collation`: List of columns and expected order of sorting this operator is rely on.
-- `est`: Estimated number of output rows.
-- `groupSets`: List of group key definitions for advanced grouping, like CUBE or ROLLUP.
-Optional.
-- `fieldNames`: List of names of columns in produced rows.
-Optional.
-
-## MapHashAggregate
-
-The aggregate operation groups input data on one or more sets of grouping keys, calculating each aggregation function for each combination of grouping key.
-Map aggregate is a first phase of 2-phase aggregation.
-During first phase, data is pre-aggregated, and result is sent to the where REDUCE is executed.
-The hash aggregate operation maintains a hash table for each grouping set to coalesce equivalent tuples.
-The output rows are composed as follow: first come columns participated in grouping keys in the order they enumerated in `group` attribute, then come results of accumulators in the order they enumerated in `aggregation` attribute.
-
-Attributes:
-
+- `phase`: Phase of a two-phase aggregation, `PARTIAL` or `FINAL`.
+Not shown for a single-phase aggregation.
 - `group`: Set of grouping columns.
 - `aggregation`: List of accumulators.
 - `est`: Estimated number of output rows.
@@ -61,61 +72,7 @@ Optional.
 - `fieldNames`: List of names of columns in produced rows.
 Optional.
 
-## ReduceHashAggregate
-
-The aggregate operation groups input data on one or more sets of grouping keys, calculating each aggregation function for each combination of grouping key.
-Reduce aggregate is a second phase of 2-phase aggregation.
-During second phase, all pre-aggregated data is merged together, and final result is returned.
-The hash aggregate operation maintains a hash table for each grouping set to coalesce equivalent tuples.
-The output rows are composed as follow: first come columns participated in grouping keys in the order they enumerated in `group` attribute, then come results of accumulators in the order they enumerated in `aggregation` attribute.
-
-Attributes:
-
-- `group`: Set of grouping columns.
-- `aggregation`: List of accumulators.
-- `est`: Estimated number of output rows.
-- `groupSets`: List of group key definitions for advanced grouping, like CUBE or ROLLUP.
-Optional.
-- `fieldNames`: List of names of columns in produced rows.
-Optional.
-
-## MapSortAggregate
-
-The aggregate operation groups input data on one or more sets of grouping keys, calculating each aggregation function for each combination of grouping key.
-Map aggregate is a first phase of 2-phase aggregation.
-During first phase, data is pre-aggregated, and result is sent to the where REDUCE is executed.
-The sort aggregate operation leverages data ordered by the grouping expressions to calculate data each grouping set tuple-by-tuple in streaming fashion.
-The output rows are composed as follow: first come columns participated in grouping keys in the order they enumerated in `group` attribute, then come results of accumulators in the order they enumerated in `aggregation` attribute.
-
-Attributes:
-
-- `group`: Set of grouping columns.
-- `aggregation`: List of accumulators.
-- `collation`: List of columns and expected order of sorting this operator is rely on.
-- `est`: Estimated number of output rows.
-- `groupSets`: List of group key definitions for advanced grouping, like CUBE or ROLLUP.
-Optional.
-- `fieldNames`: List of names of columns in produced rows.
-Optional.
-
-## ReduceSortAggregate
-
-The aggregate operation groups input data on one or more sets of grouping keys, calculating each aggregation function for each combination of grouping key.
-Reduce aggregate is a second phase of 2-phase aggregation.
-During second phase, all pre-aggregated data is merged together, and final result is returned.
-The sort aggregate operation leverages data ordered by the grouping expressions to calculate data each grouping set tuple-by-tuple in streaming fashion.
-The output rows are composed as follow: first come columns participated in grouping keys in the order they enumerated in `group` attribute, then come results of accumulators in the order they enumerated in `aggregation` attribute.
-
-Attributes:
-
-- `group`: Set of grouping columns.
-- `aggregation`: List of accumulators.
-- `collation`: List of columns and expected order of sorting this operator is rely on.
-- `est`: Estimated number of output rows.
-- `groupSets`: List of group key definitions for advanced grouping, like CUBE or ROLLUP.
-Optional.
-- `fieldNames`: List of names of columns in produced rows.
-Optional.
+- `collation`: Optional. Sort order of the rows the operator produces. Shown only when it differs from the order of the operator's input. For example, `StreamAggregate` over an index on `(DEPT_ID, NAME)` that groups by `DEPT_ID` shows `collation: [DEPT_ID ASC]`. The sorted input, for example from an `IndexScan` or a `Sort`, is what makes a stream aggregate possible.
 
 ## ColocatedIntersect
 

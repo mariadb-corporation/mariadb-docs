@@ -132,21 +132,20 @@ WHERE company = 'TechNova';
 
 You can see the `useSecondaryStorage: true` explanation when using secondary storage, for example:
 
-```
-╔═════════════════════════════════════════════╗
-║ PLAN                                        ║
-╠═════════════════════════════════════════════╣
-║ Exchange                                    ║
-║     distribution: single                    ║
-║     est. row count: 1                       ║
-║   TableScan                                 ║
-║       table: [PUBLIC, PERSON]               ║
-║       filters: =(COMPANY, _UTF-8'TechNova') ║
-║       fields: [$f0, $f1]                    ║
-║       projects: [NAME, AGE]                 ║
-║       useSecondaryStorage: true             ║
-║       est. row count: 1                     ║
-╚═════════════════════════════════════════════╝
+```text
+╔═══════════════════════════════════════════════╗
+║ PLAN                                          ║
+╠═══════════════════════════════════════════════╣
+║ Exchange                                      ║
+║     distribution: single                      ║
+║     est: (rows=1)                             ║
+║   TableScan                                   ║
+║       table: PUBLIC.PERSON                    ║
+║       useSecondaryStorage: true               ║
+║       predicate: =(COMPANY, _UTF-8'TechNova') ║
+║       fieldNames: [NAME, AGE]                 ║
+║       est: (rows=1)                           ║
+╚═══════════════════════════════════════════════╝
 ```
 
 ## Mixed Workloads

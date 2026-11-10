@@ -403,11 +403,15 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
 ```
 
 ```text
-KeyValueGet
-    table: PUBLIC.ALBUM
-    fieldNames: [ALBUMID, ARTISTID, TITLE]
-    key: [5, 1]
-    est: (rows=1)
+╔════════════════════════════════════════════╗
+║ PLAN                                       ║
+╠════════════════════════════════════════════╣
+║ KeyValueGet                                ║
+║     table: PUBLIC.ALBUM                    ║
+║     fieldNames: [ALBUMID, ARTISTID, TITLE] ║
+║     key: [5, 1]                            ║
+║     est: (rows=347)                        ║
+╚════════════════════════════════════════════╝
 ```
 
 A `KeyValueGet`: no partition scan, no table scan, just a direct read from the one partition that owns the row.
@@ -420,17 +424,24 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
 ```
 
 ```text
-Exchange
-    distribution: single
-    est: (rows=1)
-  TableScan
-      table: PUBLIC.ALBUM
-      predicate: =(ARTISTID, 1)
-      fieldNames: [ALBUMID, ARTISTID, TITLE]
-      est: (rows=1)
+╔══════════════════════════════════════════════╗
+║ PLAN                                         ║
+╠══════════════════════════════════════════════╣
+║ Exchange                                     ║
+║     distribution: single                     ║
+║     est: (rows=116)                          ║
+║   IndexScan                                  ║
+║       table: PUBLIC.ALBUM                    ║
+║       index: IFK_ALBUMARTISTID               ║
+║       type: SORTED                           ║
+║       predicate: =(ARTISTID, 1)              ║
+║       searchBounds: <1>                      ║
+║       fieldNames: [ALBUMID, ARTISTID, TITLE] ║
+║       est: (rows=116)                        ║
+╚══════════════════════════════════════════════╝
 ```
 
-Colocation column only. The query routes to the single partition that stores `ArtistId = 1`. GridGain 9 uses a `TableScan` within that partition. The routing behavior is what matters: one partition, not all of them.
+Colocation column only. The query routes to the single partition that stores `ArtistId = 1`, and the planner reads it through the `IFK_ALBUMARTISTID` index (`searchBounds` on `ArtistId`) instead of scanning the table. The routing behavior is what matters: one partition, not all of them.
 
 Now query by a non-colocation PK column:
 
@@ -440,14 +451,18 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
 ```
 
 ```text
-Exchange
-    distribution: single
-    est: (rows=1)
-  TableScan
-      table: PUBLIC.ALBUM
-      predicate: =(ALBUMID, 5)
-      fieldNames: [ALBUMID, ARTISTID, TITLE]
-      est: (rows=1)
+╔══════════════════════════════════════════════╗
+║ PLAN                                         ║
+╠══════════════════════════════════════════════╣
+║ Exchange                                     ║
+║     distribution: single                     ║
+║     est: (rows=116)                          ║
+║   TableScan                                  ║
+║       table: PUBLIC.ALBUM                    ║
+║       predicate: =(ALBUMID, 5)               ║
+║       fieldNames: [ALBUMID, ARTISTID, TITLE] ║
+║       est: (rows=116)                        ║
+╚══════════════════════════════════════════════╝
 ```
 
 GridGain 9 produces a `TableScan` here. The planner cannot route to a single partition because `AlbumId` alone does not identify one, so the scan fans out to every partition. There is no secondary index on `AlbumId` to help.
@@ -679,29 +694,43 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
 ```
 
 ```text
-Exchange
-    distribution: single
-    est: (rows=347)
-  Project
-      fieldNames: [NAME, TITLE]
-      est: (rows=347)
-    MergeJoin
-        predicate: =(ARTISTID$0, ARTISTID)
-        type: inner
-        est: (rows=347)
-      IndexScan
-          table: PUBLIC.ALBUM
-          index: IFK_ALBUMARTISTID
-          type: SORTED
-          collation: [ARTISTID ASC]
-          est: (rows=347)
-      Sort
-          collation: [ARTISTID ASC]
-          est: (rows=1)
-        TableScan
-            table: PUBLIC.ARTIST
-            predicate: =(ARTISTID, 1)
-            est: (rows=1)
+╔═════════════════════════════════════════════════════════╗
+║ PLAN                                                    ║
+╠═════════════════════════════════════════════════════════╣
+║ Exchange                                                ║
+║     distribution: single                                ║
+║     est: (rows=1)                                       ║
+║   Project                                               ║
+║       fieldNames: [NAME, TITLE]                         ║
+║       projection: [NAME, TITLE]                         ║
+║       collation: []                                     ║
+║       est: (rows=1)                                     ║
+║     MergeJoin                                           ║
+║         predicate: =(ARTISTID$0, ARTISTID)              ║
+║         fieldNames: [ARTISTID, TITLE, ARTISTID$0, NAME] ║
+║         type: inner                                     ║
+║         est: (rows=1)                                   ║
+║       IndexScan                                         ║
+║           table: PUBLIC.ALBUM                           ║
+║           index: IFK_ALBUMARTISTID                      ║
+║           type: SORTED                                  ║
+║           predicate: =(ARTISTID, 1)                     ║
+║           searchBounds: <1>                             ║
+║           fieldNames: [ARTISTID, TITLE]                 ║
+║           collation: [ARTISTID ASC]                     ║
+║           est: (rows=116)                               ║
+║       Sort                                              ║
+║           collation: [ARTISTID ASC]                     ║
+║           est: (rows=1)                                 ║
+║         IndexScan                                       ║
+║             table: PUBLIC.ARTIST                        ║
+║             index: ARTIST_PK                            ║
+║             type: HASH                                  ║
+║             predicate: =(ARTISTID, 1)                   ║
+║             searchBounds: <1>                           ║
+║             fieldNames: [ARTISTID, NAME]                ║
+║             est: (rows=1)                               ║
+╚═════════════════════════════════════════════════════════╝
 ```
 
 A `MergeJoin` between `Album` (IndexScan on `IFK_ALBUMARTISTID`) and `Artist`. The single `Exchange` at the top collects results to the coordinator, but there is no Exchange between the join inputs. Both tables are colocated by `ArtistId`, so the join executes locally on one node without moving data.
@@ -718,46 +747,84 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
 ```
 
 ```text
-Project
-    fieldNames: [FIRSTNAME, NAME]
-    est: (rows=1)
-  MergeJoin
-      predicate: =(CUSTOMERID, CUSTOMERID$0)
-      est: (rows=1)
-    Exchange                          <-- data movement
-        distribution: single
-      Sort
-        TableScan
-            table: PUBLIC.CUSTOMER
-            predicate: =(CUSTOMERID, 1)
-            est: (rows=1)
-    HashJoin
-        predicate: =(INVOICEID, INVOICEID$0)
-        est: (rows=1)
-      Exchange                        <-- data movement
-          distribution: single
-        IndexScan
-            table: PUBLIC.INVOICE
-            index: IFK_INVOICECUSTOMERID
-            est: (rows=1)
-      MergeJoin
-          predicate: =(TRACKID, TRACKID$0)
-          est: (rows=1)
-        Exchange                      <-- data movement
-            distribution: single
-          IndexScan
-              table: PUBLIC.INVOICELINE
-              index: IFK_INVOICELINETRACKID
-              est: (rows=1)
-        Exchange                      <-- data movement
-            distribution: single
-          Sort
-            TableScan
-                table: PUBLIC.TRACK
-                est: (rows=1)
+╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ PLAN                                                                                                      ║
+╠═══════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ Project                                                                                                   ║
+║     fieldNames: [FIRSTNAME, NAME]                                                                         ║
+║     projection: [FIRSTNAME, NAME]                                                                         ║
+║     est: (rows=410544)                                                                                    ║
+║   MergeJoin                                                                                               ║
+║       predicate: =(TRACKID$0, TRACKID)                                                                    ║
+║       fieldNames: [TRACKID, NAME, INVOICEID, TRACKID$0, INVOICEID$0, CUSTOMERID, CUSTOMERID$0, FIRSTNAME] ║
+║       collation: []                                                                                       ║
+║       type: inner                                                                                         ║
+║       est: (rows=410544)                                                                                  ║
+║     Exchange                                                                                              ║
+║         collation: [TRACKID ASC]                                                                          ║
+║         distribution: single                                                                              ║
+║         est: (rows=3503)                                                                                  ║
+║       Sort                                                                                                ║
+║           collation: [TRACKID ASC]                                                                        ║
+║           est: (rows=3503)                                                                                ║
+║         TableScan                                                                                         ║
+║             table: PUBLIC.TRACK                                                                           ║
+║             fieldNames: [TRACKID, NAME]                                                                   ║
+║             est: (rows=3503)                                                                              ║
+║     HashJoin                                                                                              ║
+║         predicate: =(INVOICEID$0, INVOICEID)                                                              ║
+║         fieldNames: [INVOICEID, TRACKID, INVOICEID$0, CUSTOMERID, CUSTOMERID$0, FIRSTNAME]                ║
+║         type: inner                                                                                       ║
+║         est: (rows=781)                                                                                   ║
+║       Exchange                                                                                            ║
+║           collation: [TRACKID ASC]                                                                        ║
+║           distribution: single                                                                            ║
+║           est: (rows=2240)                                                                                ║
+║         IndexScan                                                                                         ║
+║             table: PUBLIC.INVOICELINE                                                                     ║
+║             index: IFK_INVOICELINETRACKID                                                                 ║
+║             type: SORTED                                                                                  ║
+║             fieldNames: [INVOICEID, TRACKID]                                                              ║
+║             collation: [TRACKID ASC]                                                                      ║
+║             est: (rows=2240)                                                                              ║
+║       MergeJoin                                                                                           ║
+║           predicate: =(CUSTOMERID$0, CUSTOMERID)                                                          ║
+║           fieldNames: [INVOICEID, CUSTOMERID, CUSTOMERID$0, FIRSTNAME]                                    ║
+║           collation: []                                                                                   ║
+║           type: inner                                                                                     ║
+║           est: (rows=2)                                                                                   ║
+║         Exchange                                                                                          ║
+║             collation: [CUSTOMERID ASC]                                                                   ║
+║             distribution: single                                                                          ║
+║             est: (rows=137)                                                                               ║
+║           IndexScan                                                                                       ║
+║               table: PUBLIC.INVOICE                                                                       ║
+║               index: IFK_INVOICECUSTOMERID                                                                ║
+║               type: SORTED                                                                                ║
+║               predicate: =(CUSTOMERID, 1)                                                                 ║
+║               searchBounds: <1>                                                                           ║
+║               fieldNames: [INVOICEID, CUSTOMERID]                                                         ║
+║               collation: [CUSTOMERID ASC]                                                                 ║
+║               est: (rows=137)                                                                             ║
+║         Exchange                                                                                          ║
+║             collation: [CUSTOMERID ASC]                                                                   ║
+║             distribution: single                                                                          ║
+║             est: (rows=1)                                                                                 ║
+║           Sort                                                                                            ║
+║               collation: [CUSTOMERID ASC]                                                                 ║
+║               est: (rows=1)                                                                               ║
+║             IndexScan                                                                                     ║
+║                 table: PUBLIC.CUSTOMER                                                                    ║
+║                 index: CUSTOMER_PK                                                                        ║
+║                 type: HASH                                                                                ║
+║                 predicate: =(CUSTOMERID, 1)                                                               ║
+║                 searchBounds: <1>                                                                         ║
+║                 fieldNames: [CUSTOMERID, FIRSTNAME]                                                       ║
+║                 est: (rows=1)                                                                             ║
+╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 ```
 
-This plan shows four `Exchange` nodes (marked with arrows), each representing data moving between nodes. The planner joins Customer to the rest of the query rather than to Invoice first, so the local Customer-Invoice pair is not visible in this plan. The structural lesson is that joining tables that are not placed by the same column value forces data movement, and the InvoiceLine and Track inputs both need Exchanges for that reason.
+This plan shows four `Exchange` nodes: one above the Track branch, one above the InvoiceLine `IndexScan`, and one above each input of the Customer-Invoice `MergeJoin`. Each represents data moving between nodes. The planner gathers the filtered Customer and Invoice rows before joining them, so the local Customer-Invoice pair is not visible in this plan. The structural lesson is that joining tables that are not placed by the same column value forces data movement, and the InvoiceLine and Track inputs both need Exchanges for that reason.
 
 Of the tables in this query, only Customer and Invoice are a colocated pair (by `CustomerId`). InvoiceLine is grouped by `InvoiceId`, so it is not placed with its Invoice or Customer, and Track is grouped by `AlbumId`, so the InvoiceLine-to-Track join has no shared placement either. Colocation does not chain from Customer through Invoice to InvoiceLine, and the planner must shuffle data to complete these joins.
 

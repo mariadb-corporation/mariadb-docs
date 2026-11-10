@@ -765,87 +765,71 @@ GROUP BY
 ```
 
 ```
-╔═════════════════════════════════════════════════════════════════════════════╗
-║ PLAN                                                                        ║
-╠═════════════════════════════════════════════════════════════════════════════╣
-║ Project                                                                     ║
-║     fields: [INVOICEID, LINEITEMCOUNT, INVOICETOTAL, TRACKNAME, ALBUMTITLE] ║
-║     exprs: [INVOICEID, LINEITEMCOUNT, INVOICETOTAL, TRACKNAME, ALBUMTITLE]  ║
-║     est. row count: 9955526                                                 ║
-║   ColocatedHashAggregate                                                    ║
-║       group: [INVOICEID, TRACKNAME, ALBUMTITLE]                             ║
-║       aggs: [COUNT(), SUM($f4)]                                             ║
-║       est. row count: 9955526                                               ║
-║     Project                                                                 ║
-║         fields: [INVOICEID, TRACKNAME, ALBUMTITLE, $f4]                     ║
-║         exprs: [INVOICEID, NAME, TITLE, *(UNITPRICE, QUANTITY)]             ║
-║         est. row count: 20400668                                            ║
-║       MergeJoin                                                             ║
-║           condition: =(TRACKID0, TRACKID)                                   ║
-║           joinType: inner                                                   ║
-║           leftCollation: [TRACKID ASC]                                      ║
-║           rightCollation: [NAME ASC]                                        ║
-║           est. row count: 20400668                                          ║
-║         HashJoin                                                            ║
-║             condition: =(ALBUMID, ALBUMID0)                                 ║
-║             joinType: inner                                                 ║
-║             est. row count: 182331                                          ║
-║           Exchange                                                          ║
-║               distribution: single                                          ║
-║               est. row count: 3503                                          ║
-║             Sort                                                            ║
-║                 collation: [TRACKID ASC]                                    ║
-║                 est. row count: 3503                                        ║
-║               TableScan                                                     ║
-║                   table: [PUBLIC, TRACK]                                    ║
-║                   fields: [TRACKID, NAME, ALBUMID]                          ║
-║                   est. row count: 3503                                      ║
-║           Exchange                                                          ║
-║               distribution: single                                          ║
-║               est. row count: 347                                           ║
-║             TableScan                                                       ║
-║                 table: [PUBLIC, ALBUM]                                      ║
-║                 fields: [ALBUMID, TITLE]                                    ║
-║                 est. row count: 347                                         ║
-║         Exchange                                                            ║
-║             distribution: single                                            ║
-║             est. row count: 746                                             ║
-║           Sort                                                              ║
-║               collation: [TRACKID ASC]                                      ║
-║               est. row count: 746                                           ║
-║             IndexScan                                                       ║
-║                 table: [PUBLIC, INVOICELINE]                                ║
-║                 index: IDX_INVOICELINE_INVOICE_TRACK                        ║
-║                 type: SORTED                                                ║
-║                 searchBounds: [ExactBounds [bound=1], null]                 ║
-║                 filters: =(INVOICEID, 1)                                    ║
-║                 fields: [INVOICEID, TRACKID, UNITPRICE, QUANTITY]           ║
-║                 collation: [INVOICEID ASC, TRACKID ASC]                     ║
-║                 est. row count: 746                                         ║
-╚═════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ PLAN                                                                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ Project                                                                                                     ║
+║     fieldNames: [INVOICEID, LINEITEMCOUNT, INVOICETOTAL, TRACKNAME, ALBUMTITLE]                             ║
+║     projection: [INVOICEID, LINEITEMCOUNT, INVOICETOTAL, TRACKNAME, ALBUMTITLE]                             ║
+║     est: (rows=13347)                                                                                       ║
+║   HashAggregate                                                                                             ║
+║       fieldNames: [INVOICEID, TRACKNAME, ALBUMTITLE, LINEITEMCOUNT, INVOICETOTAL]                           ║
+║       group: [INVOICEID, TRACKNAME, ALBUMTITLE]                                                             ║
+║       aggregation: [COUNT(), SUM($f4)]                                                                      ║
+║       est: (rows=13347)                                                                                     ║
+║     Project                                                                                                 ║
+║         fieldNames: [INVOICEID, TRACKNAME, ALBUMTITLE, $f4]                                                 ║
+║         projection: [INVOICEID, NAME, TITLE, *(UNITPRICE, QUANTITY)]                                        ║
+║         est: (rows=27350)                                                                                   ║
+║       HashJoin                                                                                              ║
+║           predicate: =(ALBUMID, ALBUMID$0)                                                                  ║
+║           fieldNames: [TRACKID, NAME, ALBUMID, INVOICEID, TRACKID$0, UNITPRICE, QUANTITY, ALBUMID$0, TITLE] ║
+║           type: inner                                                                                       ║
+║           est: (rows=27350)                                                                                 ║
+║         HashJoin                                                                                            ║
+║             predicate: =(TRACKID$0, TRACKID)                                                                ║
+║             fieldNames: [TRACKID, NAME, ALBUMID, INVOICEID, TRACKID$0, UNITPRICE, QUANTITY]                 ║
+║             type: inner                                                                                     ║
+║             est: (rows=525)                                                                                 ║
+║           Exchange                                                                                          ║
+║               distribution: single                                                                          ║
+║               est: (rows=3503)                                                                              ║
+║             TableScan                                                                                       ║
+║                 table: PUBLIC.TRACK                                                                         ║
+║                 fieldNames: [TRACKID, NAME, ALBUMID]                                                        ║
+║                 est: (rows=3503)                                                                            ║
+║           Exchange                                                                                          ║
+║               distribution: single                                                                          ║
+║               est: (rows=1)                                                                                 ║
+║             TableScan                                                                                       ║
+║                 table: PUBLIC.INVOICELINE                                                                   ║
+║                 predicate: =(INVOICEID, 1)                                                                  ║
+║                 fieldNames: [INVOICEID, TRACKID, UNITPRICE, QUANTITY]                                       ║
+║                 est: (rows=1)                                                                               ║
+║         Exchange                                                                                            ║
+║             distribution: single                                                                            ║
+║             est: (rows=347)                                                                                 ║
+║           TableScan                                                                                         ║
+║               table: PUBLIC.ALBUM                                                                           ║
+║               fieldNames: [ALBUMID, TITLE]                                                                  ║
+║               est: (rows=347)                                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 ```
 
 #### Key Observations in the Execution Plan
 
-*ColocatedHashAggregate Operation*: The plan uses a `ColocatedHashAggregate` operation, which indicates GridGain recognizes that portions of the aggregation can happen on colocated data before results are combined. This reduces network transfer during the `GROUP BY` operation.
+*HashAggregate Operation*: The plan uses a single `HashAggregate` with no `phase` attribute. A plan with a `phase` line shows a two-phase aggregation, where a `PARTIAL` aggregate runs on each node and a `FINAL` aggregate combines the results. Here the aggregation runs once, after the join results have been gathered on one node.
 
-*Exchange Operations*: Several `Exchange(distribution=[single])` operations appear in the plan, indicating data movement between nodes is still necessary. These operations are applied to the Album table, Track table, and InvoiceLine filtered results.
+*Exchange Operations*: Three `Exchange` operators with `distribution: single` appear in the plan, one each for the Track, InvoiceLine (filtered by `InvoiceId = 1`), and Album inputs. Each one gathers the rows of a table on a single node because the join keys do not match how the tables are colocated.
 
-*Join Implementation*: The plan shows a combination of `HashJoin` and `MergeJoin` operations rather than nested loop joins. The optimizer has determined these join types are more efficient for the data volumes involved:
+*Join Implementation*: Both joins are `HashJoin` operations:
 
-* HashJoin for joining Track with Album
-* MergeJoin for joining the above result with InvoiceLine
+* The first joins Track with the filtered InvoiceLine rows on `TRACKID`.
+* The second joins that result with Album on `ALBUMID`.
 
-*Efficient Data Access*: The query uses an `IndexScan` with the `IDX_INVOICELINE_INVOICE_TRACK` index rather than a full table scan on InvoiceLine. This provides:
+*Full Table Scans*: All three inputs use a `TableScan`. The filter `InvoiceId = 1` is applied as a predicate during the InvoiceLine scan.
 
-* Efficient filtering with `searchBounds: [ExactBounds [bound=1], null]` for InvoiceId = 1
-* Pre-sorted results with `collation: [INVOICEID ASC, TRACKID ASC]`
-
-*Row Count Estimation*: There appears to be a significant increase in estimated row counts after joins:
-
-* Initial InvoiceLine filtered rows: 746
-* After HashJoin with Album: 182,331
-* After MergeJoin with Track: 20,400,668
+*Row Count Estimation*: The estimates grow after the joins: 1 row from the filtered InvoiceLine scan, 525 after the join with Track, and 27,350 after the join with Album. The estimates come from table statistics and are approximate.
 
 ### Improved Cololocation Strategy
 
@@ -863,7 +847,7 @@ CREATE TABLE InvoiceLine (
 ) COLOCATE BY (TrackId) ZONE Chinook;
 ```
 
-And run `EXPLAIN PLAN FOR` again...
+And run `EXPLAIN PLAN FOR` again. The plan is:
 
 ```sql
 EXPLAIN PLAN FOR
@@ -884,79 +868,60 @@ GROUP BY
 ```
 
 ```
-╔═════════════════════════════════════════════════════════════════════════════╗
-║ PLAN                                                                        ║
-╠═════════════════════════════════════════════════════════════════════════════╣
-║ Project                                                                     ║
-║     fields: [INVOICEID, LINEITEMCOUNT, INVOICETOTAL, TRACKNAME, ALBUMTITLE] ║
-║     exprs: [INVOICEID, LINEITEMCOUNT, INVOICETOTAL, TRACKNAME, ALBUMTITLE]  ║
-║     est. row count: 1                                                       ║
-║   ColocatedHashAggregate                                                    ║
-║       group: [INVOICEID, TRACKNAME, ALBUMTITLE]                             ║
-║       aggs: [COUNT(), SUM($f4)]                                             ║
-║       est. row count: 1                                                     ║
-║     Project                                                                 ║
-║         fields: [INVOICEID, TRACKNAME, ALBUMTITLE, $f4]                     ║
-║         exprs: [INVOICEID, NAME, TITLE, *(UNITPRICE, QUANTITY)]             ║
-║         est. row count: 1                                                   ║
-║       MergeJoin                                                             ║
-║           condition: =(ALBUMID0, ALBUMID)                                   ║
-║           joinType: inner                                                   ║
-║           leftCollation: [ALBUMID ASC]                                      ║
-║           rightCollation: [TRACKID ASC]                                     ║
-║           est. row count: 1                                                 ║
-║         Exchange                                                            ║
-║             distribution: single                                            ║
-║             est. row count: 1                                               ║
-║           Sort                                                              ║
-║               collation: [ALBUMID ASC]                                      ║
-║               est. row count: 1                                             ║
-║             TableScan                                                       ║
-║                 table: [PUBLIC, ALBUM]                                      ║
-║                 fields: [ALBUMID, TITLE]                                    ║
-║                 est. row count: 1                                           ║
-║         HashJoin                                                            ║
-║             condition: =(TRACKID, TRACKID0)                                 ║
-║             joinType: inner                                                 ║
-║             est. row count: 1                                               ║
-║           Exchange                                                          ║
-║               distribution: single                                          ║
-║               est. row count: 1                                             ║
-║             IndexScan                                                       ║
-║                 table: [PUBLIC, TRACK]                                      ║
-║                 index: IDX_TRACK_ALBUMID_NAME                               ║
-║                 type: SORTED                                                ║
-║                 fields: [TRACKID, NAME, ALBUMID]                            ║
-║                 collation: [ALBUMID ASC, NAME ASC]                          ║
-║                 est. row count: 1                                           ║
-║           Exchange                                                          ║
-║               distribution: single                                          ║
-║               est. row count: 1                                             ║
-║             TableScan                                                       ║
-║                 table: [PUBLIC, INVOICELINE]                                ║
-║                 filters: =(INVOICEID, 1)                                    ║
-║                 fields: [INVOICEID, TRACKID, UNITPRICE, QUANTITY]           ║
-║                 est. row count: 1                                           ║
-╚═════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ PLAN                                                                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ Project                                                                                                     ║
+║     fieldNames: [INVOICEID, LINEITEMCOUNT, INVOICETOTAL, TRACKNAME, ALBUMTITLE]                             ║
+║     projection: [INVOICEID, LINEITEMCOUNT, INVOICETOTAL, TRACKNAME, ALBUMTITLE]                             ║
+║     est: (rows=13347)                                                                                       ║
+║   HashAggregate                                                                                             ║
+║       fieldNames: [INVOICEID, TRACKNAME, ALBUMTITLE, LINEITEMCOUNT, INVOICETOTAL]                           ║
+║       group: [INVOICEID, TRACKNAME, ALBUMTITLE]                                                             ║
+║       aggregation: [COUNT(), SUM($f4)]                                                                      ║
+║       est: (rows=13347)                                                                                     ║
+║     Project                                                                                                 ║
+║         fieldNames: [INVOICEID, TRACKNAME, ALBUMTITLE, $f4]                                                 ║
+║         projection: [INVOICEID, NAME, TITLE, *(UNITPRICE, QUANTITY)]                                        ║
+║         est: (rows=27350)                                                                                   ║
+║       HashJoin                                                                                              ║
+║           predicate: =(ALBUMID, ALBUMID$0)                                                                  ║
+║           fieldNames: [TRACKID, NAME, ALBUMID, INVOICEID, TRACKID$0, UNITPRICE, QUANTITY, ALBUMID$0, TITLE] ║
+║           type: inner                                                                                       ║
+║           est: (rows=27350)                                                                                 ║
+║         HashJoin                                                                                            ║
+║             predicate: =(TRACKID, TRACKID$0)                                                                ║
+║             fieldNames: [TRACKID, NAME, ALBUMID, INVOICEID, TRACKID$0, UNITPRICE, QUANTITY]                 ║
+║             type: inner                                                                                     ║
+║             est: (rows=525)                                                                                 ║
+║           Exchange                                                                                          ║
+║               distribution: single                                                                          ║
+║               est: (rows=3503)                                                                              ║
+║             TableScan                                                                                       ║
+║                 table: PUBLIC.TRACK                                                                         ║
+║                 fieldNames: [TRACKID, NAME, ALBUMID]                                                        ║
+║                 est: (rows=3503)                                                                            ║
+║           Exchange                                                                                          ║
+║               distribution: single                                                                          ║
+║               est: (rows=1)                                                                                 ║
+║             TableScan                                                                                       ║
+║                 table: PUBLIC.INVOICELINE                                                                   ║
+║                 predicate: =(INVOICEID, 1)                                                                  ║
+║                 fieldNames: [INVOICEID, TRACKID, UNITPRICE, QUANTITY]                                       ║
+║                 est: (rows=1)                                                                               ║
+║         Exchange                                                                                            ║
+║             distribution: single                                                                            ║
+║             est: (rows=347)                                                                                 ║
+║           TableScan                                                                                         ║
+║               table: PUBLIC.ALBUM                                                                           ║
+║               fieldNames: [ALBUMID, TITLE]                                                                  ║
+║               est: (rows=347)                                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 ```
 
 #### Key Observations in the Execution Plan
 
-*ColocatedHashAggregate Operation*: The plan uses a `ColocatedHashAggregate` operation, which indicates GridGain recognizes that portions of the aggregation can happen on colocated data before results are combined. This reduces network transfer during the `GROUP BY` operation.
-
-*Improved Row Count Estimates*: Notice the dramatic improvement in row count estimates, which now show just 1 row at each step. This indicates the optimizer has much better statistics and understanding of the actual data distribution compared to the original plan that estimated millions of rows.
-
-*Join Implementation*: The plan shows a combination of `HashJoin` and `MergeJoin` operations:
-
-* HashJoin for joining Track with InvoiceLine
-* MergeJoin for joining the above result with Album
-
-*Efficient Index Usage*: The query now uses the composite index `IDX_TRACK_ALBUMID_NAME` on the Track table, providing:
-
-* Efficient sorted access by AlbumId and Name
-* Direct access to the fields needed for the join and select operations
-
-*Exchange Operations*: While Exchange operations still appear in the plan, the estimated row counts are now minimal (just 1 row per exchange). This suggests much less data movement between nodes compared to the original plan where millions of rows were estimated to be transferred.
+The plan has the same shape as the one for the `InvoiceId` layout: a single `HashAggregate` over two `HashJoin` operators, with an `Exchange` with `distribution: single` above each of the Track, InvoiceLine, and Album scans. The only difference is the order of the operands in the first join predicate, `=(TRACKID, TRACKID$0)` instead of `=(TRACKID$0, TRACKID)`.
 
 #### Colocation Impact
 

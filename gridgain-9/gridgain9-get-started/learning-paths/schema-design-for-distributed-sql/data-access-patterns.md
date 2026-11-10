@@ -1290,9 +1290,8 @@ Cleanup: restored original company
         index: IFK_ALBUMARTISTID
         type: SORTED
         predicate: =(ARTISTID, 1)
-        searchBounds: [ExactBounds [bound=1]]
+        searchBounds: <1>
         fieldNames: [ALBUMID, ARTISTID, TITLE]
-        collation: [ARTISTID ASC]
         est: (rows=116)
 ```
 {% endcode %}
