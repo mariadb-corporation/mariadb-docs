@@ -169,7 +169,7 @@ We want users with role `MANAGER` to see all rows of the table, and the users wi
 
 {% tabs %}
 {% tab title="9.2" %}
-User and role names are case-sensitive, and SQL converts unquoted identifiers to upper case. The script below therefore creates the users `JACK` and `SARAH` and the roles `MANAGER` and `DEVELOPER`, and the users log in with these exact names. `CURRENT_USER` returns the name as stored, so the data uses the same spelling.
+User and role names are case-sensitive, and SQL converts unquoted identifiers to upper case. The script below therefore creates the users `JACK` and `SARAH` and the roles `MANAGER` and `DEVELOPER`, and users log in with these exact names. `CURRENT_USER` returns the name as stored, so the `username` data uses the same spelling.
 
 Run the following script as an administrator.
 
@@ -215,6 +215,8 @@ With these policies in place:
 {% endtab %}
 
 {% tab title="9.1" %}
+User and role names are case-insensitive, so the names in the script and at login match regardless of case. `CURRENT_USER` returns the name in lower case, so the `username` data must be lower case.
+
 Run the following script as an administrator.
 
 ```sql

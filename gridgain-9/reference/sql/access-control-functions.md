@@ -34,11 +34,11 @@ Parameters:
 
 {% tabs %}
 {% tab title="9.2" %}
-User names are case-sensitive, and an unquoted name is converted to upper case: `user1` creates the user `USER1`. To keep the exact spelling, quote the name (`"user1"`). Use the same spelling to log in, alter, and drop the user.
+User names are case-sensitive. An unquoted name is converted to upper case, so `CREATE USER user1` creates the user `USER1`. To keep the exact spelling, quote the name: `"user1"`. Use the same spelling to log in, alter, and drop the user.
 {% endtab %}
 
 {% tab title="9.1" %}
-User names are case-insensitive.
+User names are case-insensitive: `user1` and `USER1` refer to the same user.
 {% endtab %}
 {% endtabs %}
 
@@ -162,11 +162,11 @@ Parameters:
 
 {% tabs %}
 {% tab title="9.2" %}
-Role names are case-sensitive, and an unquoted name is converted to upper case. To refer to the built-in `system` role, quote it: `"system"`.
+Role names are case-sensitive. An unquoted name is converted to upper case, so `CREATE ROLE manager` creates the role `MANAGER`. To refer to the built-in `system` role, quote it: `"system"`.
 {% endtab %}
 
 {% tab title="9.1" %}
-Role names are case-insensitive.
+Role names are case-insensitive: `manager` and `MANAGER` refer to the same role.
 {% endtab %}
 {% endtabs %}
 

@@ -285,11 +285,11 @@ If a cluster license expires, the nodes will stop and fail to restart with a `Li
 |providers.name|default|The name of the authentication provider.|A valid string|
 |providers.type|basic|The authentication provider type.|basic, ldap|
 |providers.users||The list of users registered with the specific provider.||
-|providers.users.displayName|ignite|GridGain 9.2: The user name as it was supplied when the user was created. GridGain 9.1: Case-sensitive user name.|A valid username|
+|providers.users.displayName|ignite|The user name as entered when the user was created. Used for display only: the user is identified by `username` parameter.|A valid username|
 |providers.users.password|********|User password.|A valid password|
 |providers.users.passwordEncoding|PLAIN|User password's encoding.|PLAIN, BCRYPT|
 |providers.users.roles|system|The list of roles assigned to the user.|A valid role|
-|providers.users.username|ignite|GridGain 9.2: The user name. User names are case-sensitive. GridGain 9.1: Case-insensitive user name.|A valid user name|
+|providers.users.username|ignite|The user name that identifies the user. Case-sensitive. In 9.1, case-insensitive.|A valid user name|
 |LDAP authentication parameters (`ldap` provider type only)||||
 |providers.url||The URL of the LDAP server.|A valid `ldap://` or `ldaps://` URL|
 |providers.userSearch.dn||The DN of the container to search for users.|A valid DN|
@@ -303,15 +303,15 @@ If a cluster license expires, the nodes will stop and fail to restart with a `Li
 |providers.roleMapping.groupName||The name of the LDAP group mapped to GridGain roles.|A valid group name|
 |providers.roleMapping.roles||The list of GridGain roles assigned to users in the LDAP group.|A list of valid roles|
 |Authorization parameters||||
-|roles.displayName|system|GridGain 9.2: The role name as it was supplied when the role was created. GridGain 9.1: Case-sensitive role name.|A valid role name|
-|roles.name|system|GridGain 9.2: The role name. Role names are case-sensitive. GridGain 9.1: Case-insensitive role name.|A valid role name|
+|roles.displayName|system|The role name as entered when the role was created. Used for display only: the role is identified by `roles.name` parameter.|A valid role name|
+|roles.name|system|The role name that identifies the role. Case-sensitive. In 9.1, case-insensitive.|A valid role name|
 |roles.privileges||A list of [privileges](../../security/user-permissions-and-roles.md) available to users with the role.||
 |roles.privileges.action|""|The action the privilege relates to.|A valid action|
 |roles.privileges.name|""|A privilege name on privilege list .|A valid name|
 |roles.privileges.on|""|The name of the object the privilege applies to.|A valid object name or empty|
 |Security parameters||||
 |enabled|false|Whether authentication is enabled.|true, false|
-|roleNamesMigrationVersion|1 on new clusters, 0 on clusters created by earlier releases until upgrade|GridGain 9.2: The version of the one-time migration that converts role names to the case-sensitive scheme. GridGain sets it when you commit the rolling upgrade. Do not change it manually: the value cannot be decreased or set above the current version. GridGain 9.1: Not available.|0, 1|
+|roleNamesMigrationVersion|1 on new clusters, 0 on clusters created by earlier releases until upgrade|The version of the role name migration. When you commit the rolling upgrade, GridGain converts existing role names to upper case and sets this value. Do not change it manually. Available for 9.2 clusters only.|0, 1|
 |JWT parameters||||
 |jwt.keyTtl|1209600000|TTL for JWT security tokens.|A valid LONG value|
 |jwt.ttl|28800000|The frequency of private key updates used to issue JWT tokens.|A valid LONG value|

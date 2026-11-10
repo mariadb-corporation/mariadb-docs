@@ -193,15 +193,17 @@ GridGain protects two built-in roles: the `system` super role, which cluster ini
 
 {% tabs %}
 {% tab title="9.2" %}
-User and role names are case-sensitive, so `system` and `SYSTEM` are different roles. The `system` restrictions apply to the exact name `system` only; `SYSTEM` is an ordinary role that you can create, drop, grant privileges to and assign. The `gridgain-system-bypass` restrictions apply in any letter case.
+User and role names are case-sensitive, so `system` and `SYSTEM` are different roles. The `system` restrictions apply only to the exact name `system`; `SYSTEM` is an ordinary role that you can create, drop, grant privileges to, and assign. The `gridgain-system-bypass` restrictions are case-insensitive.
 
-In SQL, unquoted identifiers are converted to upper case, so you must quote the super role: `DROP ROLE "system"` targets the super role, while `DROP ROLE system` targets the ordinary role `SYSTEM`. Quoting is not needed over the REST API. `SHOW` commands print role names as stored, so the super role appears as `system`.
+In SQL, an unquoted identifier is converted to upper case, so quote the super role: `DROP ROLE "system"` targets the super role, while `DROP ROLE system` targets the ordinary role `SYSTEM`. Quoting is not needed over the REST API. `SHOW` commands print role names as stored, so the super role appears as `system`.
 
 The operations below are refused over both SQL and the REST API:
 {% endtab %}
 
 {% tab title="9.1" %}
-The operations below are refused whatever letter case you use, over both SQL and the REST API:
+Role names are case-insensitive, so the restrictions on `system` and `gridgain-system-bypass` apply regardless of case.
+
+The operations below are refused over both SQL and the REST API:
 {% endtab %}
 {% endtabs %}
 
@@ -216,17 +218,6 @@ The privilege check runs before these restrictions, so holding `GRANT_ROLE`, `RE
 Changing the privileges of the `system` role is also refused, as described for the `WRITE_SECURITY_CONFIG` action in [Cluster Configuration](#cluster-configuration).
 
 A refused assignment or revocation is recorded as a [`USER_OPERATION_REFUSED`](../gridgain9-development/events/available-events.md) event.
-
-## Upgrading from Earlier Releases
-
-This section applies to GridGain 9.2. Earlier releases treated user and role names as case-insensitive. When you commit the rolling upgrade of a cluster, GridGain runs a one-time migration, tracked by the `roleNamesMigrationVersion` [cluster configuration parameter](../reference/configuration/cluster-configuration-parameters.md):
-
-- Existing role names become upper case, and the role assignments of basic-authentication users are updated to match. The `system` role keeps the name `system`, including when it was stored in another case. If two roles would end up with the same name after upper-casing, the upgrade fails and reports the conflicting names.
-- Existing user names keep their stored spelling. In SQL, quote the old spelling to manage such a user: `ALTER USER "alice"`, `DROP USER "alice"`. Unquoted `alice` means `ALICE`.
-- LDAP `roleMapping` values and [row-level security](row-level-security.md) policies are not changed. A mapping or policy that names a role in a different case than the migrated role stops matching it. Review them after the upgrade, and recreate policies that name `system` with `TO "system"`.
-- Existing JWT tokens are not rewritten. A token that carries `SYSTEM` loses the super role's privileges until the user logs in again.
-- During the rolling upgrade, role lookups stay case-insensitive until the migration completes.
-- Rolling back to an earlier release after the migration requires an operator plan, because the stored role names have changed.
 
 ## Object Permission Hierarchy
 
