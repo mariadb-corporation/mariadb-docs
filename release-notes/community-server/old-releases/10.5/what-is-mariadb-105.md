@@ -12,7 +12,7 @@ MariaDB 10.5 is no longer maintained. Please use a [more recent release](../../.
 
 ## Implemented Features
 
-See the [Differences in MariaDB Enterprise Server 10.5]({server}/editions-and-compatibility/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-10.5) page for items that are different between MariaDB Community Server 10.5 and MariaDB Enterprise Server 10.5.
+See the [Differences in MariaDB Enterprise Server 10.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-10.5) page for items that are different between MariaDB Community Server 10.5 and MariaDB Enterprise Server 10.5.
 
 ### ColumnStore
 

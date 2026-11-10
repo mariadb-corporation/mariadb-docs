@@ -11,4 +11,4 @@ These pages describe how MariaDB Enterprise Server releases are supported and sc
 * [Enterprise Server Lifecycle](enterprise-server-lifecycle.md)
 * [Enterprise Server Release Schedule](enterprise-server-release-schedule.md)
 
-For how MariaDB Enterprise Server differs from MariaDB Community Server, and for the Software Bill of Materials (SBOM) that ships with each release, see [Editions & Compatibility]({server}/editions-and-compatibility) in the MariaDB Server documentation.
+For how MariaDB Enterprise Server differs from MariaDB Community Server, and for the Software Bill of Materials (SBOM) that ships with each release, see [Editions & Compatibility](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility) in the MariaDB Server documentation.

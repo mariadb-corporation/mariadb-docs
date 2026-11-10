@@ -8,7 +8,7 @@ The most recent release of [MariaDB 10.4](what-is-mariadb-104.md) is:[**MariaDB 
 
 ## Implemented Features
 
-See the [Differences in MariaDB Enterprise Server 10.4]({server}/editions-and-compatibility/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-10.4) page for items that are different between MariaDB Community Server 10.4 and MariaDB Enterprise Server 10.4.
+See the [Differences in MariaDB Enterprise Server 10.4](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-10.4) page for items that are different between MariaDB Community Server 10.4 and MariaDB Enterprise Server 10.4.
 
 ### Authentication
 
