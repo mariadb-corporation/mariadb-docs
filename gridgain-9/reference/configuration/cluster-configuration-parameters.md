@@ -88,6 +88,22 @@ bin/gridgain9 cluster config show > cluster-config.conf
 
 ## Configuration Parameters
 
+### Data Center Replication Configuration
+
+```json
+{
+  "ignite" : {
+    "dcr" : {
+      "sourceClusterAddressAllowList" : [ ]
+    }
+  }
+}
+```
+
+|Property|Default|Description|Acceptable Values|
+|---|---|---|---|
+|sourceClusterAddressAllowList|[]|Source cluster addresses that data center replications can connect to. If empty, any address is allowed except IP addresses in the link-local, any-local, and multicast ranges and the IP addresses of known cloud instance metadata services. Host names are not resolved. If not empty, only the listed addresses are allowed. For details, see [Restricting Source Cluster Addresses](../../gridgain9-management/data-center-replication/configuring-replication.md#restricting-source-cluster-addresses).|An array of `host` or `host:port` strings. An entry without a port matches any port|
+
 ### Encryption Configuration
 
 ```json
@@ -167,6 +183,8 @@ bin/gridgain9 cluster config show > cluster-config.conf
 |---|---|---|---|
 |content|""|License content; a JSON string.|A JSON string with valid constraints|
 |signature|""|Signature for the license content.|A valid HEX string|
+
+When security is enabled, changing the `ignite.license` part of the cluster configuration requires the `MANAGE_LICENSE` privilege in addition to `WRITE_CLUSTER_CONFIG`. For details, see [User Permissions and Roles](../../security/user-permissions-and-roles.md#cluster-management).
 
 {% hint style="info" %}
 If a cluster license expires, the nodes will stop and fail to restart with a `License is expired` validation error. To recover the cluster, set the `GG_LICENSE_OVERRIDE` environment variable on every node to the path of a valid license file, then start the nodes. Each node applies the override license and persists it to the cluster configuration. Unset the variable after a successful start.

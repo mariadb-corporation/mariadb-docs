@@ -2264,6 +2264,24 @@ SHA1( string | binary )
 
 `VARCHAR(40)` (nullable) - Hexadecimal string representation
 
+### SHA2
+
+Computes the SHA-2 hash of a string or binary value.
+
+```sql
+SHA2( string | binary, hash_len )
+```
+
+**Arguments**
+
+- string - String expression to hash. Accepts `VARCHAR` or `CHAR` data types.
+- binary - Binary expression to hash. Accepts `VARBINARY` or `BINARY` types.
+- hash_len - Hash length in bits. Accepts integer types. Supported values: `224`, `256`, `384`, and `512`. `0` is the same as `256`.
+
+**Return Type**
+
+`VARCHAR(128)` (nullable) - Hexadecimal string representation
+
 ### SOUNDEX
 
 Returns the Soundex code of a string (phonetic algorithm).
