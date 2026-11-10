@@ -628,6 +628,8 @@ This option defines the hostname or IP address to use when **connecting to a loc
 
 {% hint style="warning" %}
 **The mariadb-backup client cannot create backups from a remote server.** Therefore, this option does not allow you to back up a remote server. `mariadb-backup` must always be run on the same server where the database files reside. The `--host` option is used only to establish the client connection for managing locks and retrieving metadata. The actual data files are always read from the local filesystem. Attempting to use this option to back up a remote host results in a backup of the local machine's data, associated with the remote machine's binary log coordinates.
+
+To store the backup on a different machine, run `mariadb-backup` on the database server and stream the backup to the other machine. See [Streaming a Backup to Another Host](mariadb-backup-options.md#streaming-a-backup-to-another-host).
 {% endhint %}
 
 ```bash
@@ -1655,16 +1657,43 @@ Streams backup files to stdout.
 Using this command option, you can set `mariadb-backup` to stream the backup files to `stdout` in the given format. The supported format is `xbstream`.
 
 ```bash
-mariadb-backup --stream=xbstream > backup.xb
+mariadb-backup --backup --stream=xbstream > backup.xb
 ```
 
-To extract all files from the xbstream archive into a directory use the `mbstream` utility
+To extract all files from the xbstream archive into a directory, use the `mbstream` utility. It's installed with `mariadb-backup`. The `-C` option names the directory to extract into, which must already exist. Without `-C`, `mbstream` extracts into the current directory.
 
 ```bash
-mbstream  -x < backup.xb
+mbstream -x -C /var/mariadb/backup < backup.xb
 ```
 
-If a backup is streamed, then `mariadb-backup` records the format in the `xtrabackup_info` file.
+If a backup is streamed, then `mariadb-backup` records the format in the [`mariadb_backup_info`](files-created-by-mariadb-backup.md) file (`xtrabackup_info` before MariaDB 11.1).
+
+#### Streaming a Backup to Another Host
+
+`mariadb-backup` must run on the database server, because it reads the data files from the local filesystem (see [`--host`](mariadb-backup-options.md#h-host)). To store the backup on a different machine, pipe the stream to that machine and extract it there with `mbstream`. The receiving machine needs `mbstream`, but no MariaDB Server.
+
+The following example uses SSH, which encrypts the backup in transit. Run it on the database server:
+
+```bash
+mariadb-backup --backup --stream=xbstream \
+   | ssh user@backup-host "mkdir -p /var/mariadb/backup && mbstream -x -C /var/mariadb/backup"
+```
+
+On a trusted network, you can use `nc` (netcat) instead. It doesn't encrypt the stream. Start the listener on the receiving machine first:
+
+```bash
+nc -l 9999 | mbstream -x -C /var/mariadb/backup
+```
+
+Then start the backup on the database server:
+
+```bash
+mariadb-backup --backup --stream=xbstream | nc backup-host 9999
+```
+
+`nc` options vary between implementations. Some need `nc -l -p 9999` to listen, or an option to close the connection when the input ends. Check `man nc` on both machines.
+
+After the transfer, prepare the backup as usual with [`--prepare`](mariadb-backup-options.md#prepare). To prepare it on the receiving machine, install `mariadb-backup` there.
 
 ### `--tables`
 
