@@ -402,6 +402,8 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "EXPLAIN PLAN FOR SELECT * FROM Album WHERE AlbumId = 5 AND ArtistId = 1;"
 ```
 
+{% tabs %}
+{% tab title="9.2" %}
 ```text
 ╔════════════════════════════════════════════╗
 ║ PLAN                                       ║
@@ -413,6 +415,18 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
 ║     est: (rows=347)                        ║
 ╚════════════════════════════════════════════╝
 ```
+{% endtab %}
+
+{% tab title="9.1" %}
+```text
+KeyValueGet
+    table: PUBLIC.ALBUM
+    fieldNames: [ALBUMID, ARTISTID, TITLE]
+    key: [5, 1]
+    est: (rows=1)
+```
+{% endtab %}
+{% endtabs %}
 
 A `KeyValueGet`: no partition scan, no table scan, just a direct read from the one partition that owns the row.
 
@@ -423,6 +437,8 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "EXPLAIN PLAN FOR SELECT * FROM Album WHERE ArtistId = 1;"
 ```
 
+{% tabs %}
+{% tab title="9.2" %}
 ```text
 ╔══════════════════════════════════════════════╗
 ║ PLAN                                         ║
@@ -442,6 +458,23 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
 ```
 
 Colocation column only. The query routes to the single partition that stores `ArtistId = 1`, and the planner reads it through the `IFK_ALBUMARTISTID` index (`searchBounds` on `ArtistId`) instead of scanning the table. The routing behavior is what matters: one partition, not all of them.
+{% endtab %}
+
+{% tab title="9.1" %}
+```text
+Exchange
+    distribution: single
+    est: (rows=1)
+  TableScan
+      table: PUBLIC.ALBUM
+      predicate: =(ARTISTID, 1)
+      fieldNames: [ALBUMID, ARTISTID, TITLE]
+      est: (rows=1)
+```
+
+Colocation column only. The query routes to the single partition that stores `ArtistId = 1`. GridGain 9 uses a `TableScan` within that partition. The routing behavior is what matters: one partition, not all of them.
+{% endtab %}
+{% endtabs %}
 
 Now query by a non-colocation PK column:
 
@@ -450,6 +483,8 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "EXPLAIN PLAN FOR SELECT * FROM Album WHERE AlbumId = 5;"
 ```
 
+{% tabs %}
+{% tab title="9.2" %}
 ```text
 ╔══════════════════════════════════════════════╗
 ║ PLAN                                         ║
@@ -464,6 +499,21 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
 ║       est: (rows=116)                        ║
 ╚══════════════════════════════════════════════╝
 ```
+{% endtab %}
+
+{% tab title="9.1" %}
+```text
+Exchange
+    distribution: single
+    est: (rows=1)
+  TableScan
+      table: PUBLIC.ALBUM
+      predicate: =(ALBUMID, 5)
+      fieldNames: [ALBUMID, ARTISTID, TITLE]
+      est: (rows=1)
+```
+{% endtab %}
+{% endtabs %}
 
 GridGain 9 produces a `TableScan` here. The planner cannot route to a single partition because `AlbumId` alone does not identify one, so the scan fans out to every partition. There is no secondary index on `AlbumId` to help.
 
@@ -693,6 +743,8 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "EXPLAIN PLAN FOR SELECT a.Name, al.Title FROM Artist a JOIN Album al ON a.ArtistId = al.ArtistId WHERE a.ArtistId = 1;"
 ```
 
+{% tabs %}
+{% tab title="9.2" %}
 ```text
 ╔═════════════════════════════════════════════════════════╗
 ║ PLAN                                                    ║
@@ -732,6 +784,36 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
 ║             est: (rows=1)                               ║
 ╚═════════════════════════════════════════════════════════╝
 ```
+{% endtab %}
+
+{% tab title="9.1" %}
+```text
+Exchange
+    distribution: single
+    est: (rows=347)
+  Project
+      fieldNames: [NAME, TITLE]
+      est: (rows=347)
+    MergeJoin
+        predicate: =(ARTISTID$0, ARTISTID)
+        type: inner
+        est: (rows=347)
+      IndexScan
+          table: PUBLIC.ALBUM
+          index: IFK_ALBUMARTISTID
+          type: SORTED
+          collation: [ARTISTID ASC]
+          est: (rows=347)
+      Sort
+          collation: [ARTISTID ASC]
+          est: (rows=1)
+        TableScan
+            table: PUBLIC.ARTIST
+            predicate: =(ARTISTID, 1)
+            est: (rows=1)
+```
+{% endtab %}
+{% endtabs %}
 
 A `MergeJoin` between `Album` (IndexScan on `IFK_ALBUMARTISTID`) and `Artist`. The single `Exchange` at the top collects results to the coordinator, but there is no Exchange between the join inputs. Both tables are colocated by `ArtistId`, so the join executes locally on one node without moving data.
 
@@ -746,6 +828,8 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "EXPLAIN PLAN FOR SELECT c.FirstName, t.Name FROM Customer c JOIN Invoice i ON c.CustomerId = i.CustomerId JOIN InvoiceLine il ON i.InvoiceId = il.InvoiceId JOIN Track t ON il.TrackId = t.TrackId WHERE c.CustomerId = 1;"
 ```
 
+{% tabs %}
+{% tab title="9.2" %}
 ```text
 ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║ PLAN                                                                                                      ║
@@ -825,6 +909,52 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
 ```
 
 This plan shows four `Exchange` nodes: one above the Track branch, one above the InvoiceLine `IndexScan`, and one above each input of the Customer-Invoice `MergeJoin`. Each represents data moving between nodes. The planner gathers the filtered Customer and Invoice rows before joining them, so the local Customer-Invoice pair is not visible in this plan. The structural lesson is that joining tables that are not placed by the same column value forces data movement, and the InvoiceLine and Track inputs both need Exchanges for that reason.
+{% endtab %}
+
+{% tab title="9.1" %}
+```text
+Project
+    fieldNames: [FIRSTNAME, NAME]
+    est: (rows=1)
+  MergeJoin
+      predicate: =(CUSTOMERID, CUSTOMERID$0)
+      est: (rows=1)
+    Exchange                          <-- data movement
+        distribution: single
+      Sort
+        TableScan
+            table: PUBLIC.CUSTOMER
+            predicate: =(CUSTOMERID, 1)
+            est: (rows=1)
+    HashJoin
+        predicate: =(INVOICEID, INVOICEID$0)
+        est: (rows=1)
+      Exchange                        <-- data movement
+          distribution: single
+        IndexScan
+            table: PUBLIC.INVOICE
+            index: IFK_INVOICECUSTOMERID
+            est: (rows=1)
+      MergeJoin
+          predicate: =(TRACKID, TRACKID$0)
+          est: (rows=1)
+        Exchange                      <-- data movement
+            distribution: single
+          IndexScan
+              table: PUBLIC.INVOICELINE
+              index: IFK_INVOICELINETRACKID
+              est: (rows=1)
+        Exchange                      <-- data movement
+            distribution: single
+          Sort
+            TableScan
+                table: PUBLIC.TRACK
+                est: (rows=1)
+```
+
+This plan shows four `Exchange` nodes (marked with arrows), each representing data moving between nodes. The planner joins Customer to the rest of the query rather than to Invoice first, so the local Customer-Invoice pair is not visible in this plan. The structural lesson is that joining tables that are not placed by the same column value forces data movement, and the InvoiceLine and Track inputs both need Exchanges for that reason.
+{% endtab %}
+{% endtabs %}
 
 Of the tables in this query, only Customer and Invoice are a colocated pair (by `CustomerId`). InvoiceLine is grouped by `InvoiceId`, so it is not placed with its Invoice or Customer, and Track is grouped by `AlbumId`, so the InvoiceLine-to-Track join has no shared placement either. Colocation does not chain from Customer through Invoice to InvoiceLine, and the planner must shuffle data to complete these joins.
 

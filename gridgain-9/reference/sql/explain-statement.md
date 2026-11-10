@@ -201,6 +201,8 @@ EXPLAIN MAPPING FOR
 
 The resulting output is:
 
+{% tabs %}
+{% tab title="9.2" %}
 ```
 Fragment#3 root
   distribution: single
@@ -276,10 +278,98 @@ Fragment#6
           fieldNames: [USERID, USERNAME]
           est: (rows=10000)
 ```
+{% endtab %}
+
+{% tab title="9.1" %}
+```
+Fragment#0 root
+  distribution: single
+  executionNodes: [node_1]
+  tree:
+    Project
+        fieldNames: [USERNAME, PRODUCTNAME, REVIEWTEXT, RATING]
+        projection: [USERNAME, PRODUCTNAME, REVIEWTEXT, RATING]
+        est: (rows=1)
+      HashJoin
+          predicate: =(USERID$0, USERID)
+          fieldNames: [PRODUCTID, USERID, REVIEWTEXT, RATING, PRODUCTID$0, PRODUCTNAME, USERID$0, USERNAME]
+          type: inner
+          est: (rows=1)
+        HashJoin
+            predicate: =(PRODUCTID, PRODUCTID$0)
+            fieldNames: [PRODUCTID, USERID, REVIEWTEXT, RATING, PRODUCTID$0, PRODUCTNAME]
+            type: inner
+            est: (rows=1)
+          Receiver
+              fieldNames: [PRODUCTID, USERID, REVIEWTEXT, RATING]
+              sourceFragmentId: 1
+              est: (rows=1)
+          Receiver
+              fieldNames: [PRODUCTID, PRODUCTNAME]
+              sourceFragmentId: 2
+              est: (rows=1)
+        Receiver
+            fieldNames: [USERID, USERNAME]
+            sourceFragmentId: 3
+            est: (rows=1)
+
+Fragment#1
+  distribution: random
+  executionNodes: [node_1, node_2, node_3]
+  partitions: [REVIEWS=[node_1={0, 2, 5, 6, 7, 8, 9, 10, 12, 13, 20}, node_2={1, 3, 11, 19, 21, 22, 23, 24}, node_3={4, 14, 15, 16, 17, 18}]]
+  tree:
+    Sender
+        distribution: single
+        targetFragmentId: 0
+        est: (rows=50000)
+      TableScan
+          table: PUBLIC.REVIEWS
+          fieldNames: [PRODUCTID, USERID, REVIEWTEXT, RATING]
+          est: (rows=50000)
+
+Fragment#2
+  distribution: table PUBLIC.PRODUCTS in zone "Default"
+  executionNodes: [node_1, node_2, node_3]
+  partitions: [PRODUCTS=[node_1={0, 2, 5, 6, 7, 8, 9, 10, 12, 13, 20}, node_2={1, 3, 11, 19, 21, 22, 23, 24}, node_3={4, 14, 15, 16, 17, 18}]]
+  tree:
+    Sender
+        distribution: single
+        targetFragmentId: 0
+        est: (rows=1665)
+      TableScan
+          table: PUBLIC.PRODUCTS
+          predicate: =(PRODUCTNAME, ||(_UTF-8'Product_', CAST(?0):VARCHAR CHARACTER SET "UTF-8"))
+          fieldNames: [PRODUCTID, PRODUCTNAME]
+          est: (rows=1665)
+
+Fragment#3
+  distribution: table PUBLIC.USERS in zone "Default"
+  executionNodes: [node_1, node_2, node_3]
+  partitions: [USERS=[node_1={0, 2, 5, 6, 7, 8, 9, 10, 12, 13, 20}, node_2={1, 3, 11, 19, 21, 22, 23, 24}, node_3={4, 14, 15, 16, 17, 18}]]
+  tree:
+    Sender
+        distribution: single
+        targetFragmentId: 0
+        est: (rows=10000)
+      TableScan
+          table: PUBLIC.USERS
+          fieldNames: [USERID, USERNAME]
+          est: (rows=10000)
+```
+{% endtab %}
+{% endtabs %}
 
 where:
 
+{% tabs %}
+{% tab title="9.2" %}
 - **Fragment#3** means fragment with id=3. Fragment IDs do not start at 0: they start after the data sources of the plan, so the ID of the root fragment equals the number of scanned sources. This query reads three tables, so the root fragment is 3 and the scan fragments are 4 to 6
+{% endtab %}
+
+{% tab title="9.1" %}
+- **Fragment#0** means fragment with id=0
+{% endtab %}
+{% endtabs %}
 - A **root** marks a fragment which is considered as root fragment, i.e. a fragment which represents user's cursor
 - A **distribution** attribute provides an insight into which mapping strategy was applied to this particular fragment
 - A **executionNodes** attribute provides a list of nodes this fragment will be executed on
@@ -288,6 +378,8 @@ where:
 
 The output above shows how the query is broken into multiple execution fragments and distributed across the cluster. It gives insight into both the logical execution plan and how it maps to the physical topology.
 
+{% tabs %}
+{% tab title="9.2" %}
 The query starts execution in *Fragment#3*, which serves as the root of the plan — this is where the final result is produced. It runs on a single node (`node1`) and contains the main logic of the query, including the projection and two nested hash joins. Instead of scanning tables directly, it receives data from other fragments through `Receiver` operators. These incoming streams correspond to the `REVIEWS`, `PRODUCTS`, and `USERS` tables.
 
 The actual table scans happen in *Fragments 4 through 6*, each responsible for one of the involved tables. These fragments operate in parallel across the cluster. Each performs a scan on its respective table and then sends the results back to Fragment#3.
@@ -295,5 +387,17 @@ The actual table scans happen in *Fragments 4 through 6*, each responsible for o
 - *Fragment#4* handles the `REVIEWS` table. It runs on all nodes and uses a random distribution strategy. Data is partitioned across nodes, and after scanning the table, results are sent upstream.
 - *Fragment#5* is in charge of the `PRODUCTS` table. It also spans all nodes but follows a zone-based distribution linked to the table's partitioning. There's a filter applied to `PRODUCTNAME`, which limits the amount of data sent to the root.
 - *Fragment#6* covers the `USERS` table. Like the others, it's distributed and reads from table partitions spread across the cluster.
+{% endtab %}
+
+{% tab title="9.1" %}
+The query starts execution in *Fragment#0*, which serves as the root of the plan — this is where the final result is produced. It runs on a single node (`node_1`) and contains the main logic of the query, including the projection and two nested hash joins. Instead of scanning tables directly, it receives data from other fragments through `Receiver` operators. These incoming streams correspond to the `REVIEWS`, `PRODUCTS`, and `USERS` tables.
+
+The actual table scans happen in *Fragments 1 through 3*, each responsible for one of the involved tables. These fragments operate in parallel across the cluster. Each performs a scan on its respective table and then sends the results back to Fragment#0.
+
+- *Fragment#1* handles the `REVIEWS` table. It runs on all nodes and uses a random distribution strategy. Data is partitioned across nodes, and after scanning the table, results are sent upstream.
+- *Fragment#2* is in charge of the `PRODUCTS` table. It also spans all nodes but follows a zone-based distribution linked to the table's partitioning. There's a filter applied to `PRODUCTNAME`, which limits the amount of data sent to the root.
+- *Fragment#3* covers the `USERS` table. Like the others, it's distributed and reads from table partitions spread across the cluster.
+{% endtab %}
+{% endtabs %}
 
 Each fragment includes metadata such as the nodes it's executed on, how data is partitioned, and how results are sent between fragments. This layout provides a clear view of not only how the query is logically processed, but also how the workload is split and coordinated in a distributed environment.

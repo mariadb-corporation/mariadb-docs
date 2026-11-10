@@ -132,6 +132,8 @@ WHERE company = 'TechNova';
 
 You can see the `useSecondaryStorage: true` explanation when using secondary storage, for example:
 
+{% tabs %}
+{% tab title="9.2" %}
 ```text
 ╔═══════════════════════════════════════════════╗
 ║ PLAN                                          ║
@@ -147,6 +149,27 @@ You can see the `useSecondaryStorage: true` explanation when using secondary sto
 ║       est: (rows=1)                           ║
 ╚═══════════════════════════════════════════════╝
 ```
+{% endtab %}
+
+{% tab title="9.1" %}
+```
+╔═════════════════════════════════════════════╗
+║ PLAN                                        ║
+╠═════════════════════════════════════════════╣
+║ Exchange                                    ║
+║     distribution: single                    ║
+║     est. row count: 1                       ║
+║   TableScan                                 ║
+║       table: [PUBLIC, PERSON]               ║
+║       filters: =(COMPANY, _UTF-8'TechNova') ║
+║       fields: [$f0, $f1]                    ║
+║       projects: [NAME, AGE]                 ║
+║       useSecondaryStorage: true             ║
+║       est. row count: 1                     ║
+╚═════════════════════════════════════════════╝
+```
+{% endtab %}
+{% endtabs %}
 
 ## Mixed Workloads
 

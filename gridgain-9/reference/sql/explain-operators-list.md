@@ -8,6 +8,19 @@ description: >-
 
 This section enumerates all operators for the `EXPLAIN` statement with their semantic and supported attributes.
 
+{% hint style="info" %}
+**Version differences.** This page describes GridGain 9.2. In 9.1 and earlier, the aggregate operators have different names and no `phase` attribute:
+
+| 9.1 operator | 9.2 operator |
+| --- | --- |
+| `ColocatedHashAggregate` | `HashAggregate` without `phase` |
+| `MapHashAggregate` | `HashAggregate` with `phase: PARTIAL` |
+| `ReduceHashAggregate` | `HashAggregate` with `phase: FINAL` |
+| `ColocatedSortAggregate` | `StreamAggregate` without `phase` |
+| `MapSortAggregate` | `StreamAggregate` with `phase: PARTIAL` |
+| `ReduceSortAggregate` | `StreamAggregate` with `phase: FINAL` |
+{% endhint %}
+
 ## HashAggregate
 
 The aggregate operation groups input data on one or more sets of grouping keys, calculating each aggregation function for each combination of grouping key.

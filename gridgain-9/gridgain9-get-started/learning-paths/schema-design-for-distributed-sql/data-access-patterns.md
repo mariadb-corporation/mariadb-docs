@@ -1240,6 +1240,8 @@ public class RunService {
 Run the program. Here is the expected output:
 
 {% code title="RunService output" %}
+{% tabs %}
+{% tab title="9.2" %}
 ```text
 --- getArtistName(1) ---
 Result: AC/DC
@@ -1294,6 +1296,66 @@ Cleanup: restored original company
         fieldNames: [ALBUMID, ARTISTID, TITLE]
         est: (rows=116)
 ```
+{% endtab %}
+
+{% tab title="9.1" %}
+```text
+--- getArtistName(1) ---
+Result: AC/DC
+
+--- getAlbum(5, 3) ---
+Result: Album{albumId=5, artistId=3, title='Big Ones'}
+
+--- findAlbumsByArtist(1) ---
+Found 2 albums:
+  Album{albumId=4, artistId=1, title='Let There Be Rock'}
+  Album{albumId=1, artistId=1, title='For Those About To Rock We Salute You'}
+
+--- findAlbumById(5) ---
+Result: Album{albumId=5, artistId=3, title='Big Ones'}
+
+--- getTopSellingTracks(5) ---
+  Iron Maiden                    The Trooper                              sold: 5  revenue: 4.95
+  Heroes                         How to Stop an Exploding Man             sold: 2  revenue: 3.98
+  Aquaman                        Pilot                                    sold: 2  revenue: 3.98
+  Battlestar Galactica           The Woman King                           sold: 2  revenue: 3.98
+  Heroes                         The Fix                                  sold: 2  revenue: 3.98
+
+--- updateAlbumTitle ---
+After SQL update: Album{albumId=5, artistId=3, title='Big Ones (Remastered)'}
+Restored:         Album{albumId=5, artistId=3, title='Big Ones'}
+
+--- createInvoice ---
+First insert:  true
+Second insert: false
+Cleanup: test invoice deleted
+
+--- createInvoiceWithBillingUpdate ---
+Transaction result: true
+Address after: 456 New Billing St
+Cleanup: invoice deleted, address restored
+
+--- updateCustomerWithArtistReference ---
+Before: company='Embraer - Empresa Brasileira de Aeronáutica S.A.'
+After:  company='Fan of AC/DC'
+Cleanup: restored original company
+
+--- EXPLAIN: findAlbumsByArtist ---
+  Exchange
+      distribution: single
+      est: (rows=116)
+    IndexScan
+        table: PUBLIC.ALBUM
+        index: IFK_ALBUMARTISTID
+        type: SORTED
+        predicate: =(ARTISTID, 1)
+        searchBounds: [ExactBounds [bound=1]]
+        fieldNames: [ALBUMID, ARTISTID, TITLE]
+        collation: [ARTISTID ASC]
+        est: (rows=116)
+```
+{% endtab %}
+{% endtabs %}
 {% endcode %}
 
 {% hint style="info" %}
