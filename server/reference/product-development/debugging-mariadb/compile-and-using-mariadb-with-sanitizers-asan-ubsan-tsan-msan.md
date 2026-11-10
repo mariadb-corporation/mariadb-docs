@@ -1,23 +1,24 @@
 ---
 description: >-
-  Guide on compiling MariaDB with various sanitizers like ASAN and UBSAN for
-  debugging and error detection.
+  Guide on compiling MariaDB with various sanitizers like AddressSanitizer, UndefinedBehaviorSanitizer, and MemorySanitizer for debugging and error detection.
 ---
 
 # Compiling and Using MariaDB With Sanitizers (ASAN, UBSAN, TSAN, MSAN)
 
 ## What are Sanitizers?
 
-Sanitizers are open source runtime error detectors developed by Google that are enabled during the compile step. These sanitizers add extra code during compilation that will throw exceptions when certain errors are detected.
-
 Sanitizers find server bugs bug instrumenting the runtime MariaDB during compile time, and performing runtime checks on the executed test. Sanitizers detect a variety of implementation defects:
 
 The sanitizers for clang are:
 
 * [AddressSanitizer (aka ASAN)](https://clang.llvm.org/docs/AddressSanitizer.html)
-* [UndefinedBehaviourSanitizer (aka UBSAN)](https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html)
+* [UndefinedBehaviorSanitizer (aka UBSAN)](https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html)
 * [ThreadSanitizer (aka TSAN)](https://clang.llvm.org/docs/ThreadSanitizer.html)
 * [MemorySanitizer (aka MSAN)](https://clang.llvm.org/docs/MemorySanitizer.html)
+
+As sanitizers are the equalivent of code assertions, their validity shouldn't be quickly dismissed.
+
+Undefined behavior is coding behavior that violates C/C++ standards. Without a defined behavior any compiler can choose how the code compiles, which may not be how the user expects, and may not be the same in a future version of the compiler.
 
 ## How to Compile MariaDB with Sanitizers
 
@@ -65,7 +66,7 @@ The MariaDB Buildbot MSAN container, `quay.io/mariadb-foundation/bb-worker:debia
 The build of this container isn't hard coded to MSAN so it can be used for:
 
 * A general Debian build container
-* Using the `gcc/g++` of Debian (by removing the CC and CXX environment variables
+* Using the `gcc/g++` of Debian (by removing the CC and CXX environment variables)
 * Compiling with a latest `clang`
 * Compiling with the ASAN/UBSAN feature available in the latest `clang`
 
@@ -82,7 +83,7 @@ podman run -v $PWD:/source:z \
   --entrypoint bash \
   --mount=type=tmpfs,tmpfs-size=10G,dst=/build \
   --workdir /build \
-   quay.io/mariadb-foundation/bb-worker:debian12-msan-clang-20
+   quay.io/mariadb-foundation/bb-worker:debian13-msan-clang-22
 ```
 
 The `/build` options for Docker Engine are slightly different as they default to `noexec` and a `root` ownership by default.
@@ -94,7 +95,7 @@ docker run -v $PWD:/source:z \
   --entrypoint bash \
   --tmpfs /build:size=10G,exec,uid=1000 \
   --workdir /build \
-  quay.io/mariadb-foundation/bb-worker:debian12-msan-clang-20
+  quay.io/mariadb-foundation/bb-worker:debian13-msan-clang-22
 ```
 
 The purposes of these, and other options include:
@@ -112,7 +113,7 @@ The purposes of these, and other options include:
 | `--cap-add=SYS_PTRACE`                         | capability for tracing used by `gdb` and `rr`                                     | for debugging                                                                             |
 | Extra options                                  |                                                                                   |                                                                                           |
 | `--name containername`                         | useful if running multiple to keep track                                          | Used as a name for a new session in the container (podman exec -ti containername bash)    |
-| `--shm-size=10g`                               | Size of `/dev/shm` as alternate for mtr tests                                     | Default is usually 64k, this is large enough for most `--big-tests` with some parallelism |
+| `--shm-size=10g`                               | Size of `/dev/shm` as alternate for mtr tests                                     | Default is usually 64k, 10g is large enough for most `--big-tests` with some parallelism  |
 | `--privileged`                                 | Allow `rr` recording                                                              | Note security impacting, don't run untrusted code as root                                 |
 | `-v $DATADIR:/var/lib/mysql:Z`                 | Mount an existing `datadir`                                                       | For testing against some prepared data                                                    |
 
@@ -125,15 +126,17 @@ There are environment variables that affect the `cmake` configure options and `m
 
 ```bash
 CXX=clang++
+CXXFLAGS=
 CC=clang
-MSAN_LIBDIR=/msan-libs
+CFLAGS=
 CMAKE_GENERATOR=Ninja
-MSAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer-20
-WSREP_PROVIDER=/usr/lib/galera/libgalera_smm.so
 MTR_PARALLEL=auto
+WSREP_PROVIDER=/usr/lib/galera/libgalera_smm.so
 ASAN_OPTIONS=quarantine_size_mb=512:atexit=0:detect_invalid_pointer_pairs=3:dump_instruction_bytes=1:allocator_may_return_null=1
 UBSAN_OPTIONS=print_stacktrace=1:report_error_type=1
 MSAN_OPTIONS=abort_on_error=1:poison_in_dtor=0
+MSAN_LIBDIR=/msan-libs
+MSAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer-22
 ```
 
 Note: Galera `WSREP_PROVIDER` isn't instrumented with any sanitizer
@@ -150,36 +153,29 @@ All the following instructions are executed within the container - there is a do
 
 ```bash
 cmake \
-      -DUPDATE_SUBMODULES=OFF \
       -DWITH_MSAN=ON  \
+      -DUPDATE_SUBMODULES=OFF \
       -DCMAKE_{EXE,MODULE}_LINKER_FLAGS="-L${MSAN_LIBDIR} -Wl,-rpath=${MSAN_LIBDIR}" \
-      -DHAVE_CXX_NEW=1  \
-      -DWITH_INNODB_{BZIP2,LZ4,LZMA,LZO,SNAPPY}=OFF \
       -DWITH_ZLIB=bundled  \
       -DWITH_NUMA=NO  \
       -DWITH_SYSTEMD=no \
-      -DHAVE_LIBAIO_H=0    \
       -DCMAKE_DISABLE_FIND_PACKAGE_{URING,LIBAIO}=1  \
-      -DPLUGIN_{MROONGA,ROCKSDB,OQGRAPH}=NO  \
-      -DWITH_EMBEDDED_SERVER=OFF \
+      -DPLUGIN_{ROCKSDB,DUCKDB,COLUMNSTORE}=NO  \
       /source
 ```
 
-MSAN is a clang only compile options and other compilers will not work.
+MSAN is a clang only and other compilers will not work.
 
 | CMake Options                                         | Why                                                                                                                                                 |
 | ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `UPDATE_SUBMODULES=OFF`                               | The source directory is read-only so cannot be updated from within the container                                                                    |
 | `WITH_MSAN=ON`                                        | Enables MSAN build in compile options                                                                                                               |
+| `UPDATE_SUBMODULES=OFF`                               | The source directory is read-only so cannot be updated from within the container                                                                    |
 | `CMAKE_{EXE,MODULE}_LINKER_FLAGS`                     | links executables and shared libraries against the instrumented libraries with a `rpath` so a `LD_LIBRARY_PATH` environment variable isn't required |
-| `WITH_INNODB_{BZIP2,LZ4,LZMA,LZO,SNAPPY}=OFF`         | system libraries for these aren't MSAN-instrumented                                                                                 |
-| `HAVE_CXX_NEW`                                        | Works around a ODR violation                                                                                                                        |
-| `WITH_ZLIB=bundled`                                   | This isn't MSAN-instrumented                                                                                                        |
-| `WITH_NUMA / WITH_SYSTEMD`                            | both uninstrumented                                                                                                                                 |
+| `WITH_ZLIB=bundled`, `WITH_NUMA`, `WITH_SYSTEMD`      | All libraries uninstrumented                                                                                                                        |
 | `HAVE_LIBAIO_H=0 / CMAKE_DISABLE_FIND_PACKAGE_LIBAIO` | AIO isn't MSAN-instrumented                                                                                                                 |
 | `CMAKE_DISABLE_FIND_PACKAGE_URING=NO`                 | Uninstrumented [MDEV-36482](https://jira.mariadb.org/browse/MDEV-36482), and required `seccomp` adjustment or `--privileged` to work                |
-| `PLUGIN_OQGRAPH (and PLUGIN_COLUMNSTORE)`             | Dependency on boost libraries are instrumented                                                                                                      |
-| `WITH_EMBEDDED_SERVER=OFF`                            | reduce build time                                                                                                                                   |
+| `PLUGIN_COLUMNSTORE`                                  | Dependency on boost libraries are instrumented                                                                                                      |
+| `PLUGIN_{ROCKSDB,COLUMNSTORE,DUCKDB}=NO`              | Modifies source directory                                                                                                                           |
 | `WITH_DBUG_TRACE=OFF`                                 | reduce runtime overhead if `CMAKE_BUILD_TYPE=Debug` chosen                                                                                          |
 
 Run the build stage:
@@ -232,7 +228,7 @@ cmake \
 | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `UPDATE_SUBMODULES=OFF`                        | The source directory is read-only so cannot be updated from within the container                                                                          |
 | `WITH_ASAN=ON`                                 | Enables Address Sanitizer build in compile options                                                                                                        |
-| `WITH_ASAN_SCOPE=ON`                          | Enables Address Sanitizer Use after Scope checking                                                                                                        |
+| `WITH_ASAN_SCOPE=ON`                           | Enables Address Sanitizer Use after Scope checking                                                                                                        |
 | `WITH_UBSAN=ON`                                | Enables UBSAN build in compile options                                                                                                                    |
 | `WITH_UNIT_TESTS=OFF or PLUGIN_PERFSCHEMA=OFF` | `clang` is incompatible with performance schema unit tests, at least one must be disabled (ref: [MDEV-22940](https://jira.mariadb.org/browse/MDEV-22940)) |
 
@@ -255,7 +251,7 @@ Likewise for ASAN, should use `ASAN` as the label with the short form of the ASA
 
 ### Using `RR`
 
-In the MSAN container, there is a build version of the latest `rr` at the time of the container build.
+In the MSAN container, there is a build version of the latest `rr` at the time of the container build. The container needs to be executed with `--privileged` to record the execution.
 
 A recording of the execution can be make with the [mariadb-test-run.pl option --rr](../../../clients-and-utilities/testing-tools/mariadb-test/mariadb-test-run-pl-options.md). Or alternately you can execute:
 
@@ -266,7 +262,7 @@ $ rr record sql/mariadbd ......
 To replay a recording adjust per the test worker and instance used in the test:
 
 ```bash
-$ rr replay mysql-test/var/log/mysqld.1.rr/mariadbd-0/
+$ rr replay mysql-test/var/log/mysqld.1.rr/mariadbd-0/mariadbd
 ```
 
 Using curl in the container its possible to save up this directory for another user or developer to use with the same container. This can also be shared with our public ftp server for assistance diagnosing validating a bug report.
