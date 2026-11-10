@@ -167,6 +167,8 @@ When row-level security is enabled but no policy exists yet, regular users see n
 Suppose an `employees` table stores the owning user name in the `username` column.
 We want users with role `MANAGER` to see all rows of the table, and the users with role `DEVELOPER` to see only their own rows.
 
+User and role names are case-sensitive, and SQL converts unquoted identifiers to upper case. The script below therefore creates the users `JACK` and `SARAH` and the roles `MANAGER` and `DEVELOPER`, and the users log in with these exact names. `CURRENT_USER` returns the name as stored, so the data uses the same spelling.
+
 Run the following script as an administrator.
 
 ```sql
@@ -198,16 +200,16 @@ CREATE POLICY developers_own ON test.employees
 
 -- Add some data to the table
 INSERT INTO test.employees (id, username, salary) VALUES
-        (1, 'jack', 100),
-        (2, 'sarah', 200),
-        (3, 'bob', 150);
+        (1, 'JACK', 100),
+        (2, 'SARAH', 200),
+        (3, 'BOB', 150);
 ```
 
 With these policies in place:
 
-- If user connects to the cluster using `Jack` credentials, the query `SELECT * FROM employees` returns all three rows.
-- If user connects to the cluster using `Sarah` credentials, the query returns only the row where `username = 'sarah'`.
-- The same rules apply to `UPDATE`, `DELETE`, and `INSERT`; for example, `Sarah` cannot insert or update a row whose `username` is not `sarah`.
+- If user connects to the cluster using `JACK` credentials, the query `SELECT * FROM employees` returns all three rows.
+- If user connects to the cluster using `SARAH` credentials, the query returns only the row where `username = 'SARAH'`.
+- The same rules apply to `UPDATE`, `DELETE`, and `INSERT`; for example, `SARAH` cannot insert or update a row whose `username` is not `SARAH`.
 
 ## Managing Row-Level Security
 
