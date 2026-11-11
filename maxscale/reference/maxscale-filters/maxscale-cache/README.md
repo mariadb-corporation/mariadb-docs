@@ -487,7 +487,7 @@ If the rule is instead expressed using a regular expression
 
 then the statement will not be parsed.
 
-However, when the [query classifier cache](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#query_classifier_cache_size) was introduced, the parsing cost was significantly reduced and the cost for parsing and regular expression matching is roughly the same.
+However, when the [query classifier cache](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#query_classifier_cache_size) was introduced, the parsing cost was significantly reduced and the cost for parsing and regular expression matching is roughly the same.
 
 In the following is a table with numbers giving a rough picture of the relative cost of different approaches.
 

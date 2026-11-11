@@ -99,7 +99,7 @@ This would in effect allow the user 'john' to only see the database 'shard' on t
 
 ### `allow_duplicates`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
@@ -123,13 +123,13 @@ This parameter was once called `ignore_databases`.
 
 ### `ignore_tables_regex`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
 * Description: Defines a PCRE2 regular expression to ignore specific tables when checking for duplicate databases.
 
-A [PCRE2 regular expression](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md) that is matched against database names when checking for duplicate databases. By default no tables are ignored.
+A [PCRE2 regular expression](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md) that is matched against database names when checking for duplicate databases. By default no tables are ignored.
 
 The following configuration ignores duplicate tables in the databases `db1` and `db2`, and all tables starting with "t" in `db3`.
 
@@ -147,15 +147,15 @@ This parameter was once called `ignore_databases_regex`.
 
 ### `max_sescmd_history`
 
-This parameter has been moved to [the MaxScale core](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#max_sescmd_history) in MaxScale 6.0.
+This parameter has been moved to [the MaxScale core](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#max_sescmd_history) in MaxScale 6.0.
 
 ### `disable_sescmd_history`
 
-This parameter has been moved to [the MaxScale core](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#disable_sescmd_history) in MaxScale 6.0.
+This parameter has been moved to [the MaxScale core](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#disable_sescmd_history) in MaxScale 6.0.
 
 ### `refresh_databases`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -167,7 +167,7 @@ Before MaxScale 6.2.0, this parameter did nothing. Starting with the 6.2.0 relea
 
 ### `refresh_interval`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `300s`
@@ -179,7 +179,7 @@ If no explicit unit is provided, the value is interpreted as seconds in MaxScale
 
 ### `max_staleness`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 150s

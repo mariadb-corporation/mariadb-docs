@@ -903,7 +903,7 @@ The relationships of a server can also be defined at creation time. This allows 
 }
 ```
 
-Refer to the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md) for a full list of server parameters.
+Refer to the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md) for a full list of server parameters.
 
 #### Response
 
@@ -925,7 +925,7 @@ The request body must be a valid JSON document representing the modified server.
 
 ### Modifiable Fields
 
-In addition to the server [parameters](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#server-1), the _services_ and _monitors_ fields of the _relationships_ object can be modified. Removal, addition and modification of the links will change which service and monitors use this server.
+In addition to the server [parameters](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#server-1), the _services_ and _monitors_ fields of the _relationships_ object can be modified. Removal, addition and modification of the links will change which service and monitors use this server.
 
 For example, removing the first value in the _services_ list in the _relationships_ object from the following JSON document will remove the _server1_ from the service _RW-Split-Router_.
 

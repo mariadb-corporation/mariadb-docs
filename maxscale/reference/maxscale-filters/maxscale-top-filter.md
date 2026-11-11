@@ -63,13 +63,13 @@ count=30
 
 ### `match`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
 * Description: Defines a regex pattern that only logs requests that match it, while ignoring others.
 
-[Limits](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions) the queries logged by the filter.
+[Limits](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions) the queries logged by the filter.
 
 ```
 match=select.*from.*customer.*where
@@ -79,24 +79,24 @@ options=case,extended
 
 ### `exclude`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
 * Description: Defines a regex pattern that prevents the filter from logging specific queries.
 
-[Limits](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions) the queries logged by the filter.
+[Limits](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions) the queries logged by the filter.
 
 ### `options`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `ignorecase`, `case`, `extended`
 * Default: `case`
 * Description: Determines how the `match` and `exclude` regex patterns are handled, including case sensitivity and extended syntax.
 
-[Regular expression options](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions) for `match` and `exclude`.
+[Regular expression options](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions) for `match` and `exclude`.
 
 ### `source`
 

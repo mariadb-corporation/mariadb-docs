@@ -322,7 +322,7 @@ The following is the minimal required JSON object for defining a new listener.
 }
 ```
 
-Refer to the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md) for a full list of listener parameters.
+Refer to the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md) for a full list of listener parameters.
 
 #### Response
 

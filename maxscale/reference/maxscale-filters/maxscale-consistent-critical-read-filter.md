@@ -32,7 +32,7 @@ The CCR filter has no mandatory parameters.
 
 ### `time`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `60s`
@@ -58,13 +58,13 @@ After processing a data modifying SQL statement, a counter is set to the value o
 
 ### `match`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
 * Description: Specifies a pattern for statements that cause re-routing of statements.
 
-These [regular expression settings](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions) control which statements trigger statement re-routing. Only non-SELECT statements are inspected. For CCRFilter, the _exclude_-parameter is instead named _ignore_, yet works similarly.
+These [regular expression settings](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions) control which statements trigger statement re-routing. Only non-SELECT statements are inspected. For CCRFilter, the _exclude_-parameter is instead named _ignore_, yet works similarly.
 
 ```
 match=.*INSERT.*
@@ -74,7 +74,7 @@ options=case,extended
 
 ### `ignore`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
@@ -84,7 +84,7 @@ See documentation for [match](maxscale-consistent-critical-read-filter.md#match)
 
 ### `options`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `ignorecase`, `case`, `extended`
@@ -95,7 +95,7 @@ Regular expression options for `match` and `ignore`.
 
 ### `global`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`

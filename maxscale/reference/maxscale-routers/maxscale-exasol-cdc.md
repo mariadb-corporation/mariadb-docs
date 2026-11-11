@@ -112,7 +112,7 @@ odbc_insert_only_tables=audit.events,history.*
 
 ### `odbc_case`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `keep`, `sensitive`, `insensitive`
@@ -130,7 +130,7 @@ database.
 
 ### `odbc_create_table_from_sql`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -144,7 +144,7 @@ The setting becomes `true` if [odbc\_manage\_user\_grants](#odbc_manage_user_gra
 
 ### `odbc_stop_on_error`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
@@ -155,7 +155,7 @@ What should happen when a transaction cannot be applied to Exasol, see
 
 ### `odbc_manage_user_grants`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -184,7 +184,7 @@ The maximum number of accumulated rows that are applied as one batch.
 
 #### `odbc_perf_max_buffer_time`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: `2s`
@@ -194,7 +194,7 @@ The longest time rows are accumulated before they are applied.
 
 #### `odbc_perf_max_buffer_time_in_idle`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: `500ms`
@@ -227,7 +227,7 @@ It is not recommended that this value be changed.
 
 #### `odbc_perf_batch_size`
 
-* Type: [size](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
+* Type: [size](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#sizes)
 * Mandatory: No
 * Dynamic: No
 * Default: `200Mi`

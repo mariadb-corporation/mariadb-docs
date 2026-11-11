@@ -59,7 +59,7 @@ This is the frequency to which a session will be limited over a given time perio
 
 ### `throttling_duration`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: Yes
 * Dynamic: Yes
 * Description: Specifies how long a session can be throttled before being disconnected by MaxScale.
@@ -68,7 +68,7 @@ This defines how long a session is allowed to be throttled before MaxScale disco
 
 ### `sampling_duration`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 250ms
@@ -80,7 +80,7 @@ The lower this value is, the more strict throttling becomes. Conversely, the lon
 
 ### `continuous_duration`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 2s

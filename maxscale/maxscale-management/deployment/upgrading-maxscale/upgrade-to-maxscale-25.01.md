@@ -26,7 +26,7 @@ A complete backup must include both the static configuration and any configurati
 
 * The main configuration file, `/etc/maxscale.cnf`.
 * Any auxiliary static configuration files in `/etc/maxscale.cnf.d/`.
-* The persisted configuration directory. Changes made at runtime through MaxCtrl, the REST API, or the GUI are saved here as individual `.cnf` files and override the static configuration when MaxScale restarts. This directory defaults to `/var/lib/maxscale/maxscale.cnf.d/` and is set by the [`persistdir`](../installation-and-configuration/maxscale-configuration-guide.md#persistdir) parameter in the `[maxscale]` section.
+* The persisted configuration directory. Changes made at runtime through MaxCtrl, the REST API, or the GUI are saved here as individual `.cnf` files and override the static configuration when MaxScale restarts. This directory defaults to `/var/lib/maxscale/maxscale.cnf.d/` and is set by the [`persistdir`](../installation-and-configuration/maxscale-configuration-guide/global-settings.md#persistdir) parameter in the `[maxscale]` section.
 
 ```bash
 sudo cp /etc/maxscale.cnf /data/backups/config/maxscale.cnf

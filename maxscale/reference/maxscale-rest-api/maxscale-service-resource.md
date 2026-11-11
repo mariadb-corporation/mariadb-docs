@@ -1050,15 +1050,15 @@ Create a new service by defining the resource. The posted object must define at 
 * `data.attributes.router`
   * The router module to use
 * `data.attributes.parameters.user`
-  * The [`user`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#user) to use
+  * The [`user`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#user) to use
 * `data.attributes.parameters.password`
-  * The [`password`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#password) to use
+  * The [`password`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#password) to use
 
 The `data.attributes.parameters` object is used to define router and service parameters. All configuration parameters that can be defined in the configuration file can also be added to the parameters object. The exceptions to this are the `type`, `router`, `servers` and `filters` parameters which must not be defined.
 
 As with other REST API resources, the `data.relationships` field defines the relationships of the service to other resources. Services can have two types of relationships: `servers` and `filters` relationships.
 
-If the request body defines a valid `relationships` object, the service is linked to those resources. For servers, this is equivalent to adding the list of server names into the [`servers`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#servers) parameter. For filters, this is equivalent to adding the filters in the `data.relationships.filters.data` array to the [`filters`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#filters) parameter in the order they appear. For other services, this is equivalent to adding the list of server names into the [`targets`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#targets) parameter.
+If the request body defines a valid `relationships` object, the service is linked to those resources. For servers, this is equivalent to adding the list of server names into the [`servers`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#servers) parameter. For filters, this is equivalent to adding the filters in the `data.relationships.filters.data` array to the [`filters`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#filters) parameter in the order they appear. For other services, this is equivalent to adding the list of server names into the [`targets`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#targets) parameter.
 
 The following example defines a new service with both a server and a filter relationship.
 
@@ -1130,7 +1130,7 @@ PATCH /v1/services/:name
 
 The request body must be a JSON object which represents a set of new definitions for the service.
 
-All standard service parameters can be modified. Refer to the [service](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#service) documentation on the details of these parameters.
+All standard service parameters can be modified. Refer to the [service](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#service) documentation on the details of these parameters.
 
 In addition to the standard service parameters, router parameters can be updated at runtime if the router module supports it. Refer to the individual router documentation for more details on whether the router supports it and which parameters can be updated at runtime.
 
@@ -1164,7 +1164,7 @@ The _:type_ in the URI must be either _servers_, _services_ or _filters_, depend
 
 The request body must be a JSON object that defines only the _data_ field. The value of the _data_ field must be an array of relationship objects that define the _id_ and _type_ fields of the relationship. This object will replace the existing relationships of this type for the service.
 
-_Note:_ The order of the values in the `filters` relationship will define the order the filters are set up in. The order in which the filters appear in the array will be the order in which the filters are applied to each query. Refer to the [`filters`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#filters) parameter for more details.
+_Note:_ The order of the values in the `filters` relationship will define the order the filters are set up in. The order in which the filters appear in the array will be the order in which the filters are applied to each query. Refer to the [`filters`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#filters) parameter for more details.
 
 The following is an example request and request body that defines a single server relationship for a service that is equivalent to a `servers=my-server` parameter.
 

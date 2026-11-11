@@ -386,7 +386,7 @@ continues until the total time for a failover or switchover has been spent. If t
 shows warnings or errors about commands timing out, increasing the backend timeout
 settings of the monitor should help. Other settings to look at are `query_retries` and
 `query_retry_timeout`. These are general MaxScale settings described in the
-[Configuration guide](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md).
+[Configuration guide](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md).
 Setting `query_retries` to 2 is a reasonable first try.
 
 If switchover causes the old primary (now replica) to fail replication, then most

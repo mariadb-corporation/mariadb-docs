@@ -78,7 +78,7 @@ servers=MyServer1,MyServer2
 
 ### `monitor_interval`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `2s`
@@ -98,7 +98,7 @@ MaxScale 2.4. In subsequent versions a value without a unit may be rejected.
 
 ### `backend_timeout`
 
-- **Type**: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+- **Type**: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 - **Mandatory**: No
 - **Dynamic**: Yes
 - **Default**: `3s`
@@ -107,7 +107,7 @@ Controls the timeout for communicating with a monitored server. The parameter
 sets the timeout for connecting, writing and reading from a server.
 
 The timeout is specified as documented
-[here](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations).
+[here](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations).
 A value without a unit is rejected. The minimum value is 1 second.
 
 ```
@@ -116,7 +116,7 @@ backend_timeout=3s
 
 ### `backend_connect_timeout`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `3s`
@@ -124,7 +124,7 @@ backend_timeout=3s
 
 This parameter controls the timeout for connecting to a monitored server.
 The timeout is specified as documented
-[here](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+[here](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 A value without a unit is rejected. The minimum value is 1 second.
 
 This parameter has been deprecated since MaxScale 25.10.0 and is an alias of
@@ -136,7 +136,7 @@ backend_connect_timeout=3s
 
 ### `backend_write_timeout`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `3s`
@@ -146,7 +146,7 @@ Deprecated and ignored since MaxScale 25.10.0.
 
 ### `backend_read_timeout`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `3s`
@@ -156,7 +156,7 @@ Deprecated and ignored since MaxScale 25.08.0.
 
 This parameter controls the timeout for reading a query result from a
 monitored server. The timeout is specified as documented
-[here](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+[here](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 A value without a unit is rejected, as are values specified in
 milliseconds. The minimum value is 1 second.
 
@@ -283,7 +283,7 @@ at `/DbData` while both `server2` and `server3` have it mounted on`/data` and th
 
 ### `disk_space_check_interval`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `0s`
@@ -373,7 +373,7 @@ calls as they cause a deadlock:
 
 ### `script_timeout`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `90s`
@@ -391,7 +391,7 @@ sent to it once the execution time is greater than twice the configured timeout.
 
 ### `events`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `master_down`, `master_up`, `slave_down`, `slave_up`, `server_down`, `server_up`, `lost_master`, `lost_slave`, `new_master`, `new_slave`
@@ -424,7 +424,7 @@ descriptions.
 
 ### `journal_max_age`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `28800s`

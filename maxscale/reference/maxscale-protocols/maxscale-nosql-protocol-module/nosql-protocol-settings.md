@@ -54,7 +54,7 @@ Specifies the _password_ of `authentication_user`.
 
 ## `authentication_required`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Default: `false`
 * Description: Determines whether clients are required to authenticate before accessing the service.
@@ -67,7 +67,7 @@ NOTE: All client activity is _always_ subject to authorization performed by the 
 
 ## `authentication_shared`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Default: `false`
 * Description: Controls whether NoSQL account information is stored in a shared or private manner.
@@ -84,7 +84,7 @@ Specifies the _user_ to be used when modifying and accessing the NoSQL account i
 
 ## `authorization_enabled`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Default: `false`
 * Description: Enables or disables NoSQL protocol–level authorization for user management commands.
@@ -95,7 +95,7 @@ NOTE: All client activity is _always_ subject to authorization performed by the 
 
 ## `auto_create_databases`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Default: `true`
 * Description: Controls whether databases are automatically created when required.
@@ -106,7 +106,7 @@ Note that setting this parameter to `true`, without also setting`auto_create_tab
 
 ## `auto_create_tables`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Default: `true`
 * Description: Controls whether tables are automatically created within existing databases when required.
@@ -117,7 +117,7 @@ Note that this applies only if the relevant database already exists. If a databa
 
 ## `cursor_timeout`
 
-* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Default: `60s`
 * Description: Sets the maximum idle time before an inactive cursor is automatically closed.
@@ -126,7 +126,7 @@ Specifies how long a cursor can be idle, that is, not accessed, before it is aut
 
 ## `debug`
 
-* Type: [enum\_mask](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum\_mask](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Values: `none`, `in`, `out`, `back`
 * Default: `none`
@@ -183,7 +183,7 @@ Please see [caching](README.md#caching) for more information.
 
 ## `log_unknown_command`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Default: `false`
 * Description: Determines whether unsupported or unknown client commands are logged for debugging.
@@ -192,7 +192,7 @@ Specifies whether an unknown command should be logged. This is primarily for deb
 
 ## `on_unknown_command`
 
-* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Values: `return_error`, `return_empty`
 * Default: `return_error`
@@ -207,7 +207,7 @@ Enumeration values:
 
 ## `ordered_insert_behavior`
 
-* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Values: `atomic`, `default`
 * Default: `default`
@@ -232,7 +232,7 @@ Specifies the _password_ to be used when connecting to the backend, is the Mongo
 ## `transactions`
 
 * Type:
-  [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+  [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Values: `error`, `ignore`
 * Default: `error`

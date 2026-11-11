@@ -57,7 +57,7 @@ the path must be defined in `script`.
 
 ### TLS for Servers and Listeners
 
-The [ssl](../installation-and-configuration/maxscale-configuration-guide.md#ssl)
+The [ssl](../installation-and-configuration/maxscale-configuration-guide/README.md#ssl)
 setting of servers and listeners is now an enumeration with the values
 `disable`, `allow` and `require`, and the new default is `allow`. With `allow`,
 MaxScale encrypts a connection to a server if the server supports TLS, and a
@@ -83,7 +83,7 @@ the monitor parameters is now a string instead of a boolean.
 If
 [cooperative_monitoring_locks](../../../reference/maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#cooperative_monitoring_locks)
 is used together with
-[passive=true](../installation-and-configuration/maxscale-configuration-guide.md#passive),
+[passive=true](../installation-and-configuration/maxscale-configuration-guide/global-settings.md#passive),
 the monitor no longer acquires any locks, and it releases any locks it holds.
 If all MaxScales are passive, no MaxScale holds the locks and, with the default
 [master_conditions](../../../reference/maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#master_conditions),
@@ -113,7 +113,7 @@ In MaxScale 25.10, only one monitor backend timeout remains: [backend\_timeout](
 
 ### Core Files
 
-MaxScale 25.10 no longer writes a core file when it crashes, because the default of [core\_file](../installation-and-configuration/maxscale-configuration-guide.md#core_file) changed from `true` to `false`. MaxScale still logs the stack trace of all threads when it crashes, which is usually enough to find the cause.
+MaxScale 25.10 no longer writes a core file when it crashes, because the default of [core\_file](../installation-and-configuration/maxscale-configuration-guide/global-settings.md#core_file) changed from `true` to `false`. MaxScale still logs the stack trace of all threads when it crashes, which is usually enough to find the cause.
 
 To keep writing core files, as MaxScale 25.01 does by default, set `core_file` in the `[maxscale]` section of the configuration file:
 

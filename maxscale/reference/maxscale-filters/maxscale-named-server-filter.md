@@ -43,13 +43,13 @@ NamedServerFilter requires at least one _matchXY_ - _targetXY_ pair.
 
 ### `matchXY`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
 * Description: Defines a numbered regex pattern to match SQL queries and apply a corresponding routing target when the pattern is matched.
 
-_matchXY_ defines a [PCRE2 regular expression](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions) against which the incoming SQL query is matched. _XY_ must be a number in the range 01 - 25. Each _match_-setting pairs with a similarly indexed _target_-setting. If one is defined, the other must be defined as well. If a query matches the pattern, the filter attaches a routing hint defined by the _target_-setting to the query. The _options_-parameter affects how the patterns are compiled.
+_matchXY_ defines a [PCRE2 regular expression](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions) against which the incoming SQL query is matched. _XY_ must be a number in the range 01 - 25. Each _match_-setting pairs with a similarly indexed _target_-setting. If one is defined, the other must be defined as well. If a query matches the pattern, the filter attaches a routing hint defined by the _target_-setting to the query. The _options_-parameter affects how the patterns are compiled.
 
 ```
 match01=^SELECT
@@ -58,14 +58,14 @@ options=case,extended
 
 ### `options`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `ignorecase`, `case`, `extended`
 * Default: `ignorecase`
 * Description: Describes the collection and matching process for the matchXY regular expressions (e.g., case sensitivity or extended syntax).
 
-[Regular expression options](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions) for `matchXY`.
+[Regular expression options](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions) for `matchXY`.
 
 ### `targetXY`
 

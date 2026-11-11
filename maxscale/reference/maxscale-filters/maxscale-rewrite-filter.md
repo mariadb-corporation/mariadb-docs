@@ -189,7 +189,7 @@ Default regex\_grammar for templates
 
 ### `case_sensitive`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
@@ -199,7 +199,7 @@ Default case sensitivity for templates
 
 ### `log_replacement`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
@@ -220,7 +220,7 @@ Overrides the global regex\_grammar of a template.
 
 ### `case_sensitive`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: From maxscale.cnf
 * Description: Overrides the global template configuration to specify whether pattern matching is case-sensitive.
 
@@ -228,7 +228,7 @@ Overrides the global case sensitivity of a template.
 
 ### `ignore_whitespace`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: true
 * Description: Specifies whether whitespace differences between the template and SQL input should be ignored during matching.
 
@@ -236,7 +236,7 @@ Ignore whitespace differences in the match template and input sql.
 
 ### `continue_if_matched`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: false
 * Description: Identifies whether to use subsequent templates on a query once the previous template has been matched and replaced.
 
@@ -244,7 +244,7 @@ If a template matches and the replacement is done, continue to the next template
 
 ### `what_if`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: false
 * Description: Simulates replacements without affecting queries and logs any possible changes to the NOTICE level.
 
