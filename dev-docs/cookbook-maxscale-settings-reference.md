@@ -13,7 +13,7 @@ An entry looks like this on the reference page:
 ```markdown
 [**match**](maxscale-filters/maxscale-binlog-filter.md#match)
 
-* Type: [regex](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
@@ -44,6 +44,13 @@ example "MaxScale Readwritesplit Settings").
 Category folders such as `reference/maxscale-routers/` also have a `README.md`, but they sit only
 one level below `reference/`, so they are scanned as before.
 
+The MaxScale Configuration Guide is split the same way, into
+`maxscale-configuration-guide/README.md` plus `global-settings.md` and `service-settings.md`.
+It isn't under `reference/`: it's the script's first default argument, and the argument is the
+folder. A split-page folder given as an argument is grouped like a single file, under its
+top-level directory, so its settings stay under **General** > **MaxScale**. If a split page moves
+or a new top-level page is added, update the default arguments in `main()`.
+
 ## Writing a description
 
 Put a `* Description:` bullet after the other bullets of every setting:
@@ -51,7 +58,7 @@ Put a `* Description:` bullet after the other bullets of every setting:
 ```markdown
 ### `match`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
