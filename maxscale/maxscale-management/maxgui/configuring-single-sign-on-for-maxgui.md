@@ -16,7 +16,7 @@ This page shows how to register MaxScale with an IdP, configure MaxScale, and ma
 
 ## How It Works
 
-1. On the MaxGUI sign-in page, the user selects **Sign In with SSO**. The button is shown only when SSO is configured.
+1. On the MaxGUI sign-in page, the user selects **Sign In with SSO**. The button is shown whenever `admin_oidc_url` is set.
 2. MaxScale redirects the browser to the IdP's authorization endpoint, requesting the `openid` and `profile` scopes.
 3. After the user authenticates, the IdP redirects the browser back to MaxScale's `/landing` page.
 4. With the code flow, MaxScale exchanges the authorization code for an ID token at the IdP's token endpoint, authenticating with the client ID and client secret. It then reads the user's details from the IdP's userinfo endpoint.
@@ -85,7 +85,7 @@ admin_oidc_client_secret=<client secret>
 | [admin\_oidc\_client\_id](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_client_id) | Client ID of the application registered in Step 1. |
 | [admin\_oidc\_client\_secret](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_client_secret) | Client secret of that application. |
 | [admin\_oidc\_flow](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_flow) | `auto` (default) uses the code flow if the IdP supports it, and the implicit flow otherwise. |
-| [admin\_oidc\_extra\_options](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_extra_options) | Extra parameters for the authorization request, such as an Auth0 `audience`. Requires a restart. |
+| [admin\_oidc\_extra\_options](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_extra_options) | Extra parameters for the authorization request, such as an Auth0 `audience`. |
 | [admin\_oidc\_ssl\_insecure](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_ssl_insecure) | Skips TLS certificate checks against the IdP. Use it only for testing with a self-signed IdP. |
 
 {% hint style="warning" %}
@@ -99,7 +99,13 @@ The MaxGUI session lasts as long as [admin\_jwt\_max\_age](../deployment/install
 MaxScale reads the following claims from the ID token and the userinfo response, in this order of precedence:
 
 1. **`permissions`:** an array of [REST API permissions](../../reference/maxscale-rest-api/maxscale-role-resource.md#create-a-role) (`admin`, `edit`, `sql`, `view`). If it holds at least one valid permission, MaxScale uses those permissions directly. The `account` claim, if present, is then used only as the display name.
-2. **`account`:** the name of a MaxScale role, or an array of role names, in which case the first one that exists is used. The user gets that role's permissions, and later changes to the role in MaxScale apply at once. The built-in roles are `admin` (full access) and `basic` (read-only access). You can create other roles with `maxctrl create role`.
+2. **`account`:** the name of a MaxScale role, or an array of role names. The user gets that role's permissions, and later changes to the role in MaxScale apply at once. With an array, MaxScale uses the first entry that names an existing role. With the code flow, MaxScale sorts the entries alphabetically first. With the implicit flow, it keeps the order the IdP sends. The built-in roles are:
+   * `admin`: full access.
+   * `editor`: everything except creating and modifying users.
+   * `basic`: read-only access, plus the Query Editor.
+   * `sql`: the Query Editor only.
+
+   You can create other roles with `maxctrl create role`.
 3. **`sub`:** if neither claim is present, MaxScale looks for a MaxScale user whose name matches the IdP's subject identifier, and uses that user's role. Create such users with [maxctrl create user](../administrative-tools-for-mariadb-maxscale-maxctrl/creating-a-rest-api-user-for-maxscale-with-maxctrl.md).
 
 If none of these matches, sign-in fails, and MaxScale logs an authorization failure for the user.
@@ -156,7 +162,8 @@ exports.onExecutePostLogin = async (event, api) => {
 
 ## Troubleshooting
 
-* **The Sign In with SSO button is missing.** MaxScale could not read the IdP's discovery document. Check the MaxScale log, check that `admin_oidc_url` is the issuer URL, and check that MaxScale can reach the IdP over HTTPS. Use [admin\_oidc\_ssl\_insecure](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_ssl_insecure) only when testing against a self-signed IdP.
+* **The Sign In with SSO button is missing.** `admin_oidc_url` isn't set. MaxGUI shows the button whenever it is set, whether or not MaxScale can reach the IdP.
+* **Selecting Sign In with SSO doesn't open the IdP's sign-in page.** MaxScale could not read the IdP's discovery document. It tries again each time a user selects the button. Check the MaxScale log, check that `admin_oidc_url` is the issuer URL, and check that MaxScale can reach the IdP over HTTPS. Use [admin\_oidc\_ssl\_insecure](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_ssl_insecure) only when testing against a self-signed IdP.
 * **The IdP reports a redirect URI mismatch.** The redirect URI that MaxScale sent doesn't exactly match a registered one. Compare scheme, host, and port with the URL in the browser's address bar, or set [admin\_root\_url](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_root_url).
 * **Sign-in at the IdP succeeds, but MaxGUI rejects the user.** The tokens carry neither a usable `permissions` nor `account` claim, and no MaxScale user matches the `sub` claim. Check which claims the IdP sends, and see [Step 3: Map Users to Permissions](#step-3-map-users-to-permissions).
 * **MaxGUI returns to the sign-in page with an error such as `bad_oidc_server_response` or `userinfo_request_failed`.** The token or userinfo request to the IdP failed. Check that the client secret is correct, and that the application uses `client_secret_basic` authentication. The MaxScale log contains the IdP's response.
