@@ -8,6 +8,16 @@ description: >-
 
 These settings go in the `[maxscale]` section of the MaxScale configuration file and are listed in alphabetical order. For what this section is and its diagnostic options, see [Global Settings](README.md#global-settings). For value types such as durations and sizes, see [Special Parameter Types](README.md#special-parameter-types).
 
+## `admin_audit`
+
+* Type: [boolean](README.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: false
+* Description: Enables the logging of incoming REST API requests for auditing and monitoring purposes.
+
+Enable logging of incoming REST API calls.
+
 ## `admin_audit_exclude_methods`
 
 * Type: [enum](README.md#enumerations)
@@ -32,16 +42,6 @@ Resetting to log all methods can be done in the configuration file by writing `a
 The file where the REST API auditing information is logged.
 
 If a non-default value is used, the directory where the file resides must exist. For example, with `/var/log/maxscale/audit_files/audit.csv`, the directory `/var/log/maxscale/audit_files` must exist.
-
-## `admin_audit`
-
-* Type: [boolean](README.md#booleans)
-* Mandatory: No
-* Dynamic: Yes
-* Default: false
-* Description: Enables the logging of incoming REST API requests for auditing and monitoring purposes.
-
-Enable logging of incoming REST API calls.
 
 ## `admin_auth`
 
@@ -332,10 +332,6 @@ To be secure by default, the GUI is only served over HTTPS connections as it use
 
 To allow use of the GUI without having to configure TLS certificates for the MaxScale REST API, set this parameter to false.
 
-## `admin_ssl_ca_cert`
-
-Deprecated since MariaDB MaxScale 22.08. See `admin_ssl_ca`.
-
 ## `admin_ssl_ca`
 
 * Type: path
@@ -349,6 +345,10 @@ The path to the TLS CA certificate in PEM format.
 If defined, the certificate is used as an additional CA certificate for all outbound HTTP request that are done when e.g. `admin_oidc_url` is defined. This can be used when the OIDC server either uses self-signed certificates or the CA is not trusted by default by the operating system.
 
 This does not enable mTLS in the REST-API which means that client TLS certificates are not validated even if a CA is specified.
+
+## `admin_ssl_ca_cert`
+
+Deprecated since MariaDB MaxScale 22.08. See `admin_ssl_ca`.
 
 ## `admin_ssl_cert`
 
@@ -1108,6 +1108,10 @@ MaxScale versions before 24.08.1 used the path `/var/run/maxscale/` for the PID 
 
 The value of `piddir` should not be changed when MaxScale is installed from a DEB/RPM package and is run as a SystemD service. The SystemD service file in `/lib/systemd/systemd/maxscale.service` depends on the PID file being stored at `/run/maxscale/maxscale.pid`. However, if `piddir` must be modified to point to a non-default location, it must also be modified in the SystemD service file configuration to point to the new location.
 
+## `query_classifier`
+
+Deprecated since MariaDB MaxScale 23.08.
+
 ## `query_classifier_args`
 
 Deprecated since MariaDB MaxScale 23.08.
@@ -1146,10 +1150,6 @@ Using `maxctrl show threads` it is possible to check what the actual size of the
 | QC cache hits      | How many times the classification result has been found from the cache.                                                 |
 | QC cache misses    | How many times the classification result has not been found from the cache, but the classification had to be performed. |
 | QC cache evictions | How many times a cache entry has had to be removed from the cache, in order to make place for another.                  |
-
-## `query_classifier`
-
-Deprecated since MariaDB MaxScale 23.08.
 
 ## `query_retries`
 
@@ -1268,29 +1268,6 @@ The location where the `.secrets` file is read from. If `secretsdir` is not defi
 
 This parameter was added in MaxScale 6.4.16, 22.08.13, 23.02.10, 23.08.6 and 24.02.2.
 
-## `session_trace_match`
-
-* Type: [regex](README.md#regular-expressions)
-* Mandatory: No
-* Dynamic: Yes
-* Default: None
-* Description: Specifies a refular expression pattern used to filter session trace logs.
-
-If both `session_trace` and `session_trace_match` are defined, and a trace log entry of a session matches the regular expression, the trace log is written to disk and then cleared. This way subsequent matches will only write new log entries.
-
-In MaxScale versions 24.08 and older, the check for the match was done only when the session was stopping.
-
-The most effective way to debug MaxScale related issues is to turn on `log_info` and observe the events written into the MaxScale log. The only problem with this approach is that it can cause a severe performance bottleneck and can easily fill up the disk as the amount of data written to it is significant. With `session_trace` and `session_trace_match`, the content that actually gets logged can be filtered to only what is needed.
-
-For example, the following configuration would only log the trace log messages from sessions that execute SQL queries with syntax errors:
-
-```
-session_trace=1000
-session_trace_match=/You have an error in your SQL syntax/
-```
-
-This could be used to easily identify which applications execute the queries without having to gather the info level log output from all the sessions that connect to MaxScale. For every session that ends up logging a syntax error message, the last 1000 lines of log output done by that session is written into the MaxScale log.
-
 ## `session_trace`
 
 * Type: number
@@ -1317,6 +1294,29 @@ Default is `0`.
 The session trace log is also exposed by REST API and is shown with`maxctrl show sessions`.
 
 The order in which the session trace messages are logged into the log changed in MaxScale 6.4.9 (MXS-4716). Newer versions will log the messages in the "normal log order" of older events coming first and newer events appearing later in the file. Older versions of MaxScale logged the trace dump in the reverse order with the newest messages first and oldest ones last.
+
+## `session_trace_match`
+
+* Type: [regex](README.md#regular-expressions)
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Description: Specifies a refular expression pattern used to filter session trace logs.
+
+If both `session_trace` and `session_trace_match` are defined, and a trace log entry of a session matches the regular expression, the trace log is written to disk and then cleared. This way subsequent matches will only write new log entries.
+
+In MaxScale versions 24.08 and older, the check for the match was done only when the session was stopping.
+
+The most effective way to debug MaxScale related issues is to turn on `log_info` and observe the events written into the MaxScale log. The only problem with this approach is that it can cause a severe performance bottleneck and can easily fill up the disk as the amount of data written to it is significant. With `session_trace` and `session_trace_match`, the content that actually gets logged can be filtered to only what is needed.
+
+For example, the following configuration would only log the trace log messages from sessions that execute SQL queries with syntax errors:
+
+```
+session_trace=1000
+session_trace_match=/You have an error in your SQL syntax/
+```
+
+This could be used to easily identify which applications execute the queries without having to gather the info level log output from all the sessions that connect to MaxScale. For every session that ends up logging a syntax error message, the last 1000 lines of log output done by that session is written into the MaxScale log.
 
 ## `sharedir`
 
@@ -1450,6 +1450,16 @@ The setting of `substitute_variables` will have an effect on all parameters in t
 Log messages to the system journal. This logs messages using the native SystemD journal interface. The logs can be viewed with `journalctl`.
 
 MaxScale 22.08 changed the default value of `syslog` from `true` to `false`. This was done to remove the redundant logging that it caused as both `syslog` and `maxlog` were enabled by default. This caused each message to be logged twice: once into the system journal and once into MaxScale's own logfile.
+
+## `telemetry`
+
+* Type: [boolean](README.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: false
+* Description: Enables sending metrics to OpenTelemetry Collector.
+
+When enabled MaxScale sends telemetry to the OpenTelemetry Collector. For the list of exported metrics, see [MaxScale Telemetry](../../../../reference/maxscale-telemetry.md).
 
 ## `telemetry_attributes`
 
@@ -1648,27 +1658,6 @@ value is `http://localhost:4318/v1/metrics`.
 {% endtab %}
 {% endtabs %}
 
-## `telemetry`
-
-* Type: [boolean](README.md#booleans)
-* Mandatory: No
-* Dynamic: Yes
-* Default: false
-* Description: Enables sending metrics to OpenTelemetry Collector.
-
-When enabled MaxScale sends telemetry to the OpenTelemetry Collector. For the list of exported metrics, see [MaxScale Telemetry](../../../../reference/maxscale-telemetry.md).
-
-## `threads_max`
-
-* Type: positive integer
-* Default: 256
-* Dynamic: No
-* Description: Hard limit for the number of worker threads.
-
-This parameter specifies the hard limit for the number of worker threads, which is specified using [threads](#threads).
-
-At startup, if the value of `threads` is larger than that of `threads_max`, the value of `threads` will be reduced to that. At runtime, an attempt to increase the value of `threads` beyond that of `threads_max` is an error.
-
 ## `threads`
 
 * Type: number or `auto`
@@ -1692,6 +1681,17 @@ threads=auto
 From 23.02 onwards it is possible to change the number threads at runtime. Please see [Threads](README.md#threads) for more details.
 
 Additional threads will be created to execute other internal services within MariaDB MaxScale. This setting is used to configure the number of threads that will be used to manage the user connections.
+
+## `threads_max`
+
+* Type: positive integer
+* Default: 256
+* Dynamic: No
+* Description: Hard limit for the number of worker threads.
+
+This parameter specifies the hard limit for the number of worker threads, which is specified using [threads](#threads).
+
+At startup, if the value of `threads` is larger than that of `threads_max`, the value of `threads` will be reduced to that. At runtime, an attempt to increase the value of `threads` beyond that of `threads_max` is an error.
 
 ## `trace_file_dir`
 
