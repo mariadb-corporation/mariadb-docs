@@ -513,24 +513,21 @@ This parameter allows nested service configurations to be defined without having
 
 **NOTE:** The `targets` parameter is mutually exclusive with the `cluster` and `servers` parameters.
 
-## `user_accounts_file_usage`
+## `user`
 
-* Type: [enum](README.md#enumerations)
-* Mandatory: No
-* Dynamic: No
-* Values: `add_when_load_ok`, `file_only_always`
-* Default: `add_when_load_ok`
-* Description: Specifies when the user accounts file is read instead of or alongside server data.
+* Type: string
+* Mandatory: Yes
+* Dynamic: Yes
+* Description: Username for retrieving user account information from backends.
 
-Defines when _user\_accounts\_file_ is read. The value is an enum, either "add\_when\_load\_ok" (default) or "file\_only\_always".
-
-"add\_when\_load\_ok" means that the file is only read when users are successfully read from a server. The file contents are then added to the server-based data. If reading from server fails (e.g. servers are down), the file is ignored.
-
-"file\_only\_always" means that users are not read from the servers at all and the file contents is all that matters. The state of the servers is ignored. This mode can be useful with the binlog router, as it allows clients to log in and fetch binary logs from MaxScale even when backend servers are down.
+This setting defines the _user_ the service uses to fetch user account information from backends. A _password_ is specified using [password](#password).
 
 ```
-user_accounts_file_usage=file_only_always
+user=maxscale
+password=Mhu87p2D
 ```
+
+See [MySQL protocol authentication documentation](../../../../maxscale-security/authentication-modules.md) for more information (such as required grants) and troubleshooting tips regarding user account management and client authentication.
 
 ## `user_accounts_file`
 
@@ -612,21 +609,24 @@ An example users file is below.
 }
 ```
 
-## `user`
+## `user_accounts_file_usage`
 
-* Type: string
-* Mandatory: Yes
-* Dynamic: Yes
-* Description: Username for retrieving user account information from backends.
+* Type: [enum](README.md#enumerations)
+* Mandatory: No
+* Dynamic: No
+* Values: `add_when_load_ok`, `file_only_always`
+* Default: `add_when_load_ok`
+* Description: Specifies when the user accounts file is read instead of or alongside server data.
 
-This setting defines the _user_ the service uses to fetch user account information from backends. A _password_ is specified using [password](#password).
+Defines when _user\_accounts\_file_ is read. The value is an enum, either "add\_when\_load\_ok" (default) or "file\_only\_always".
+
+"add\_when\_load\_ok" means that the file is only read when users are successfully read from a server. The file contents are then added to the server-based data. If reading from server fails (e.g. servers are down), the file is ignored.
+
+"file\_only\_always" means that users are not read from the servers at all and the file contents is all that matters. The state of the servers is ignored. This mode can be useful with the binlog router, as it allows clients to log in and fetch binary logs from MaxScale even when backend servers are down.
 
 ```
-user=maxscale
-password=Mhu87p2D
+user_accounts_file_usage=file_only_always
 ```
-
-See [MySQL protocol authentication documentation](../../../../maxscale-security/authentication-modules.md) for more information (such as required grants) and troubleshooting tips regarding user account management and client authentication.
 
 ## `version_string`
 

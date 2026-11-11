@@ -759,9 +759,40 @@ SSL-enabled by default and cannot accept both.
 
 ### Settings for TLS/SSL Encryption
 
-#### `ssl_ca_cert`
+#### `ssl`
 
-Deprecated since MariaDB MaxScale 22.08. See `ssl_ca`.
+* Type: [enumeration](#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `disable`, `allow`, `require`
+* Default: `allow`
+* Description: Configures the SSL encryption for connections.
+
+Enables SSL connections when set to `allow` or `require`. The old boolean values
+can still be used and map to `require` (true) and `disable` (false).
+
+In listener configuration, `allow` means that the listener accepts both
+encrypted and unencrypted connections. `disable` only accepts unencrypted
+connections and `require` only accepts encrypted connections.
+
+In server configuration, `disable` only uses unencrypted connections to the
+server. `require` only uses encrypted connections. `allow`-mode is flexible, and
+means that MaxScale generally prefers to use encrypted connections but falls
+back to unencrypted connections if the server does not support encryption. In
+some cases (e.g. the
+[Binlogrouter](../../../../reference/maxscale-routers/maxscale-binlogrouter.md))
+`allow` may default to unencrypted connections. Use `allow` when encryption is
+not essential, or when MariaDB Server SSL support may change while MaxScale is
+running.
+
+Starting with MaxScale 21.06.18, 22.08.15, 23.02.12, 23.08.8, 24.02.4 and
+24.08.1, if SSL is disabled for a listener, MariaDB user accounts that require
+SSL cannot log in through that listener. Any user account with a non-empty
+_ssl\_type_-field in _mysql.user_-table is blocked. This includes users created
+with `REQUIRE SSL` or `REQUIRE X509`.
+
+**From MaxScale 26.10,** the value `allow` is available and is the default.
+In earlier versions the setting is a boolean and the default is `false`.
 
 #### `ssl_ca`
 
@@ -775,15 +806,9 @@ A string giving a file path that identifies an existing readable file. The file 
 
 **NOTE** Up until MariaDB MaxScale 6, the parameter was called `ssl_ca_cert`, which is still accepted as an alias for `ssl_ca`.
 
-#### `ssl_cert_verify_depth`
+#### `ssl_ca_cert`
 
-* Type: number
-* Mandatory: No
-* Dynamic: Yes
-* Default: `9`
-* Description: Specifies the maximum depth of the CA chain during verification.
-
-The maximum length of the certificate authority chain that will be accepted. The default value is 9, same as the OpenSSL default. The configured value must be larger than 0.
+Deprecated since MariaDB MaxScale 22.08. See `ssl_ca`.
 
 #### `ssl_cert`
 
@@ -794,6 +819,16 @@ The maximum length of the certificate authority chain that will be accepted. The
 * Description: Deprecated - use [ssl\_ca](#ssl_ca) instead.
 
 A string giving a file path that identifies an existing readable file. The file must be the SSL certificate MaxScale should use. The certificate must match the key defined in `ssl_key`. This is an optional parameter for listeners and servers.
+
+#### `ssl_cert_verify_depth`
+
+* Type: number
+* Mandatory: No
+* Dynamic: Yes
+* Default: `9`
+* Description: Specifies the maximum depth of the CA chain during verification.
+
+The maximum length of the certificate authority chain that will be accepted. The default value is 9, same as the OpenSSL default. The configured value must be larger than 0.
 
 #### `ssl_cipher`
 
@@ -945,41 +980,6 @@ The default setting (MAX) allows all supported versions. MaxScale supports TLSv1
 In MaxScale versions 6.4.13, 22.08.11, 23.02.7, 23.08.3 and earlier, this setting defined the _only_ allowed TLS version, e.g. `ssl_version=TLSv12` would only enable TLSv12. The interpretation changed in MaxScale versions 6.4.14, 22.08.12, 23.02.8, 23.08.4 to enable the user to disable old versions while allowing multiple recent TLS versions. In these versions, `ssl_version=TLSv1.2` enabled both TLSv1.2 and TLSv1.3.
 
 The interpretation changed again in MaxScale versions 6.4.16, 22.08.13, 23.02.10, 23.08.6, 24.02.2. In these versions the value of `ssl_version` is an enumeration of accepted TLS protocol versions. This means that `admin_ssl_version=TLSv1.2` again only allows TLSv1.2. To retain the behavior from the previous releases where the newer versions were automatically enabled, the protocol versions must be explicitly listed, for example `admin_ssl_version=TLSv1.2,TLSv1.3`. The change was done to make the `ssl_version` behave identically to how the MariaDB [tls\_version](../../../../../server/security/encryption/data-in-transit-encryption/ssltls-system-variables.md#tls_version) parameter works.
-
-#### `ssl`
-
-* Type: [enumeration](#enumerations)
-* Mandatory: No
-* Dynamic: Yes
-* Values: `disable`, `allow`, `require`
-* Default: `allow`
-* Description: Configures the SSL encryption for connections.
-
-Enables SSL connections when set to `allow` or `require`. The old boolean values
-can still be used and map to `require` (true) and `disable` (false).
-
-In listener configuration, `allow` means that the listener accepts both
-encrypted and unencrypted connections. `disable` only accepts unencrypted
-connections and `require` only accepts encrypted connections.
-
-In server configuration, `disable` only uses unencrypted connections to the
-server. `require` only uses encrypted connections. `allow`-mode is flexible, and
-means that MaxScale generally prefers to use encrypted connections but falls
-back to unencrypted connections if the server does not support encryption. In
-some cases (e.g. the
-[Binlogrouter](../../../../reference/maxscale-routers/maxscale-binlogrouter.md))
-`allow` may default to unencrypted connections. Use `allow` when encryption is
-not essential, or when MariaDB Server SSL support may change while MaxScale is
-running.
-
-Starting with MaxScale 21.06.18, 22.08.15, 23.02.12, 23.08.8, 24.02.4 and
-24.08.1, if SSL is disabled for a listener, MariaDB user accounts that require
-SSL cannot log in through that listener. Any user account with a non-empty
-_ssl\_type_-field in _mysql.user_-table is blocked. This includes users created
-with `REQUIRE SSL` or `REQUIRE X509`.
-
-**From MaxScale 26.10,** the value `allow` is available and is the default.
-In earlier versions the setting is a boolean and the default is `false`.
 
 ## Module Types
 
