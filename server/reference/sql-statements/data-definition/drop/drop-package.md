@@ -21,7 +21,7 @@ The `DROP PACKAGE` statement drops a stored package entirely:
 * Drops the package specification (earlier created using the [CREATE PACKAGE](../create/create-package.md) statement).
 * Drops the package implementation, if the implementation was already created using the [CREATE PACKAGE BODY](../create/create-package-body.md) statement.
 
-If [automatic\_sp\_privileges](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#automatic_sp_privileges) is set (the default), privileges on the package and its body are revoked from all accounts. `CREATE OR REPLACE PACKAGE` keeps them. See [Stored Routine Privileges](../../../../server-usage/stored-routines/stored-functions/stored-routine-privileges.md#dropping-stored-routines).
+If [automatic\_sp\_privileges](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#automatic_sp_privileges) is set (the default), privileges on the package and its body are revoked from all accounts and roles. `CREATE OR REPLACE PACKAGE` keeps them. See [Stored Routine Privileges](../../../../server-usage/stored-routines/stored-functions/stored-routine-privileges.md#dropping-stored-routines).
 
 ## See Also
 
