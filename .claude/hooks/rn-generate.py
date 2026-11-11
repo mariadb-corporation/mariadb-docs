@@ -100,8 +100,8 @@ EXCLUSION OF UNHELPFUL ITEMS (--no-correct turns it off)
     Ralf Gebhardt's rule (2026-11-11): an item whose Release Note Summary is
     empty, and whose Jira summary matches `summary ~ assertion`,
     `summary ~ test`, `summary ~ ASAN`, `summary ~ AddressSanitizer`,
-    `summary ~ SIGSEGV`, `summary ~ "signal 11"`, `summary ~ SIGFPE`, or
-    `summary ~ SIGABRT`, is left out.
+    `summary ~ SIGSEGV`, `summary ~ SIGFPE`, or `summary ~ SIGABRT`, is left
+    out.
     Its text would be the Jira summary, which for these items names a debug
     assertion, a test, a sanitizer report, or a crash location rather than
     what the user did or saw. The changelog still lists every one of them.
@@ -112,9 +112,12 @@ EXCLUSION OF UNHELPFUL ITEMS (--no-correct turns it off)
 
     The keywords are Ralf's, taken literally; he added AddressSanitizer,
     SIGFPE, and SIGABRT on 2026-11-11. "signal 11", the same signal as
-    SIGSEGV, was added the same day pending his confirmation; it matched
-    MDEV-31225 and MDEV-41442 in Q4. A fix that gets a CVE is listed in the
-    Security section whatever its Jira summary says.
+    SIGSEGV, is deliberately not a keyword. In Q4 it matched MDEV-31225,
+    whose title names the query that crashes, which Ralf judged useful, and
+    MDEV-41442, which isn't (dropped by hand from 12.3.4). Ralf's call was to
+    stop tuning keywords until releases get AI-written Release Note
+    Summaries. A fix that gets a CVE is listed in the Security section
+    whatever its Jira summary says.
 
     Also `summary ~ "crash log"` (Ralf, 2026-11-11): a title that describes a
     crash report, such as MDEV-39146 "Crash log on 22th/25th Mar 2026 with
@@ -169,7 +172,7 @@ TESTS = {'Tests, MTR', 'CI'}
 DEBUG_RE = re.compile(r'assert|asan|msan|ubsan|valgrind|sanitizer|heap-use-after|use-of-uninit', re.I)
 UNHELPFUL_JQL = ('"Release Note Summary" is EMPTY AND '
                  '(summary ~ assertion OR summary ~ test OR summary ~ ASAN OR summary ~ AddressSanitizer '
-                 'OR summary ~ SIGSEGV OR summary ~ "\\"signal 11\\"" OR summary ~ SIGFPE OR summary ~ SIGABRT '
+                 'OR summary ~ SIGSEGV OR summary ~ SIGFPE OR summary ~ SIGABRT '
                  'OR summary ~ "\\"crash log\\"")')
 LIST_MARKER = re.compile(r'(?:[-*•–]|\d+[.)])\s+')
 COMMON_FIRST_WORDS = {'a', 'an', 'the', 'only', 'this', 'these', 'that', 'those', 'it', 'its', 'they',
