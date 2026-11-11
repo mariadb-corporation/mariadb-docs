@@ -7,6 +7,12 @@ icon: rabbit-running
 
 # Quickstart Guides
 
+Ready to install? The installation guide has step-by-step instructions for single-node and multi-node deployments, with local storage or S3.
+
+{% content-ref url="../management/deployment/install-guide/README.md" %}
+[README.md](../management/deployment/install-guide/README.md)
+{% endcontent-ref %}
+
 {% content-ref url="mariadb-columnstore-guide.md" %}
 [mariadb-columnstore-guide.md](mariadb-columnstore-guide.md)
 {% endcontent-ref %}

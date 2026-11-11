@@ -35,6 +35,13 @@ MariaDB ColumnStore utilizes a distributed architecture with different component
 
 MariaDB ColumnStore is installed as a separate package that integrates with MariaDB Server. The exact installation steps vary depending on your operating system and desired deployment type (single server or distributed cluster).
 
+For step-by-step instructions, see [Installing ColumnStore](../management/deployment/install-guide/README.md). It covers four topologies:
+
+* [Single-node with local storage](../management/deployment/install-guide/singlenode-localstorage/README.md)
+* [Single-node with S3](../management/deployment/install-guide/single-node-s3/README.md)
+* [Multi-node with local storage](../management/deployment/install-guide/multnode-localstorage/README.md)
+* [Multi-node with S3](../management/deployment/install-guide/multinode-s3/README.md)
+
 **General Steps (conceptual):**
 
 1. **Install MariaDB Server:** Ensure you have a compatible MariaDB Server version installed.
@@ -93,7 +100,7 @@ SELECT COUNT(DISTINCT product_name) FROM sales_data;
 ## See Also
 
 * [MariaDB ColumnStore Overview](https://mariadb.com/products/columnstore/)
-* [DigitalOcean: How to Install MariaDB ColumnStore on Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-columnstore-on-ubuntu-20-04)
+* [Installing ColumnStore](../management/deployment/install-guide/README.md)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
