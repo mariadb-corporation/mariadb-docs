@@ -28,6 +28,48 @@ This relies on sensible defaults set by the operator, which may not be suitable 
 
 Refer to the [API reference](../api-reference.md) to better understand the purpose of each field.
 
+### Number of replicas
+
+A Galera cluster needs an odd number of `replicas`, so that a majority of the nodes can always be determined and the cluster avoids split-brain situations. Kubernetes rejects a `MariaDB` with Galera enabled and an even `replicas` value:
+
+```text
+An odd number of MariaDB instances (mariadb.spec.replicas) is required to avoid split brain situations for Galera. Use 'mariadb.spec.replicasAllowEvenNumber: true' to disable this validation.
+```
+
+To run an even number of nodes anyway, set `spec.replicasAllowEvenNumber: true`. This disables the check, but a network partition that splits the cluster into two halves of the same size then leaves neither half with a majority, so both stop accepting writes.
+
+This check is part of the `MariaDB` CRD, so it applies even when the operator is installed in [single namespace](../installation/helm.md#single-namespace) mode, which has no validating webhook.
+
+### Defaults and constraints
+
+These are the defaults for the main `spec.galera` fields:
+
+| Field | Default |
+| --- | --- |
+| `sst` | `mariabackup` (also accepts `rsync` and `mysqldump`) |
+| `availableWhenDonor` | `false` |
+| `replicaThreads` | `1` |
+| `recovery.enabled` | `true` |
+| `recovery.minClusterSize` | `1` |
+| `recovery.clusterMonitorInterval` | `10s` |
+| `recovery.clusterHealthyTimeout` | `30s` |
+| `recovery.clusterBootstrapTimeout` | `10m` |
+| `recovery.clusterUpscaleTimeout` | `5m` |
+| `recovery.clusterDownscaleTimeout` | `5m` |
+| `recovery.podRecoveryTimeout` | `5m` |
+| `recovery.podSyncTimeout` | `5m` |
+
+The operator's validating webhook rejects a `MariaDB` that breaks one of these rules:
+
+* `galera.primary.podIndex` must be a valid `Pod` index, between `0` and `replicas - 1`.
+* `galera.providerOptions` can't contain `ist.recv_addr` (see [Wsrep provider](#wsrep-provider)).
+* `galera.recovery.minClusterSize`, when it's an absolute number, can't be larger than `replicas`.
+* `galera.recovery.forceClusterBootstrapInPod` must name a `Pod` of this `MariaDB`.
+* With `spec.tls.clientAuth`, `spec.tls.galeraSSTEnabled` must be `true`, and the `mysqldump` SST isn't supported. See [TLS client certificate authentication](../security/tls-client-authentication.md#galera).
+* `galera.gtidDomainId` and `galera.serverId`, used by the [multi-cluster](multi-cluster.md) topology, can't be changed after the `MariaDB` has been created.
+
+In [single namespace](../installation/helm.md#single-namespace) mode, there's no validating webhook, so these rules aren't checked when you apply a change.
+
 ## Storage
 
 By default, the operator provisions two PVCs for running Galera:
@@ -104,10 +146,14 @@ spec:
       clusterMonitorInterval: 10s
       clusterHealthyTimeout: 30s
       clusterBootstrapTimeout: 10m
+      clusterUpscaleTimeout: 5m
+      clusterDownscaleTimeout: 5m
       podRecoveryTimeout: 5m
       podSyncTimeout: 5m
   # [...]
 ```
+
+The values in this example are the defaults. `clusterUpscaleTimeout` and `clusterDownscaleTimeout` limit how long the operator waits while it scales the cluster's `StatefulSet` up or down during the recovery process.
 
 The `minClusterSize` field indicates the minimum cluster size (either absolute number of replicas or percentage) for the operator to consider the cluster healthy. If the cluster is unhealthy for more than the period defined in `clusterHealthyTimeout` (`30s` by default), a cluster recovery process is initiated by the operator. The process is explained in the [Galera documentation](https://galeracluster.com/library/documentation/crash-recovery.html) and consists of the following steps:
 
