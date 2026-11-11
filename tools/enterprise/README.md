@@ -32,6 +32,14 @@ MariaDB Enterprise Operator provides a seamless way to run and operate container
 [mariadb-enterprise-operator](mariadb-enterprise-operator/)
 {% endcontent-ref %}
 
+## GridGain 8 Kubernetes Operator
+
+The GridGain 8 Kubernetes Operator provisions and operates GridGain 8 clusters from a `GridGainCluster` custom resource. Helm is the supported install. The 1.0.0 GA release is available only to MariaDB Enterprise Platform Ultimate customers.
+
+{% content-ref url="gridgain8-operator/" %}
+[gridgain8-operator](gridgain8-operator/)
+{% endcontent-ref %}
+
 ## MariaDB Enterprise MCP Server
 
 MariaDB Enterprise MCP (Model Context Protocol) Server is a secure, enterprise-grade application designed to act as the primary interface between AI assistants and MariaDB data ecosystems. This product solves a key challenge: how to allow powerful AI agents to safely and efficiently leverage an organization's most valuable asset—its data.
