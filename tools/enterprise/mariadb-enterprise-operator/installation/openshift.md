@@ -138,16 +138,22 @@ Updates are fully managed by OLM and controlled by the `installPlanApproval` fie
 
 ## Uninstalling
 
-The first step for uninstalling the operator is to delete the `Subscription` object. This will not remove the operator, but it will stop OLM from managing the operator:
+First, look up the name of the `ClusterServiceVersion` (CSV) object that OLM created for the installed operator version. It has the form `mariadb-enterprise-operator.v<version>`, for example `mariadb-enterprise-operator.v26.10.0`. Run the commands in the namespace of the `Subscription`, or add `-n <namespace>`:
+
+```sh
+oc get subscription mariadb-enterprise-operator -o jsonpath='{.status.installedCSV}'
+```
+
+Then delete the `Subscription` object. This doesn't remove the operator, but it stops OLM from managing it:
 
 ```sh
 oc delete subscription mariadb-enterprise-operator
 ```
 
-After that, you can uninstall the `ClusterServiceVersion` (CSV) object that was created by OLM. This will remove the operator from the cluster:
+Finally, delete the CSV, using the name from the first step. This removes the operator from the cluster:
 
 ```sh
-oc delete clusterserviceversion mariadb-enterprise-operator.v1.0.0
+oc delete clusterserviceversion mariadb-enterprise-operator.v<version>
 ```
 
 ## OpenShift console
