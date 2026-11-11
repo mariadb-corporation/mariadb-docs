@@ -22,7 +22,7 @@ As previously mentioned, the agent exposes an API to remotely manage the replica
 
 #### `ServiceAccount` based authentication
 
-The operator uses its `ServiceAccount` token as a mean of  authentication for communicating with the agent, which subsequently verifies the token by creating a [`TokenReview` object](https://kubernetes.io/docs/reference/kubernetes-api/authentication-resources/token-review-v1/). This is the default authentication method and will be automatically applied by setting:
+The operator uses its `ServiceAccount` token as a mean of  authentication for communicating with the agent, which subsequently verifies the token by creating a [`TokenReview` object](https://kubernetes.io/docs/reference/kubernetes-api/authentication-resources/token-review-v1/). This is the default authentication method when the operator watches all namespaces (the [cluster-wide](../installation/helm.md#cluster-wide) deployment mode). To set it explicitly:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -58,6 +58,12 @@ spec:
 ```
 
 Unlike the [`ServiceAccount` based authentication](#serviceaccount-based-authentication), the operator needs to explicitly generate credentials to authenticate. The advantage of this approach is that it is entirely decoupled from Kubernetes and it does not require cluster-wide permissions on the Kubernetes API.
+
+Basic authentication is the default when the operator watches only its own namespace (the [single namespace](../installation/helm.md#single-namespace) deployment mode, `currentNamespaceOnly=true`).
+
+{% hint style="info" %}
+Enable only one authentication method. The validating webhook rejects a `MariaDB` resource that enables both `kubernetesAuth` and `basicAuth`. In single-namespace mode, there's no webhook, so this isn't checked.
+{% endhint %}
 
 
 ## Updates
