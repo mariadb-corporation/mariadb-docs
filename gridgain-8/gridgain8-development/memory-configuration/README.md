@@ -41,3 +41,7 @@ Configuring off-heap memory eviction in GridGain, including the Random-LRU and R
 Configuring page replacement in GridGain when Native Persistence is on, including the Random-LRU, Segmented-LRU, and CLOCK page replacement algorithms.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

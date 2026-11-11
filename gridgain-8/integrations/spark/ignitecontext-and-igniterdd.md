@@ -82,3 +82,7 @@ val result = cacheRdd.sql("select _val from Integer where val > ? and val < ?", 
 There are a couple of examples available on GitHub that demonstrate the usage of `IgniteRDD`:
 
 - [Java Example](https://github.com/apache/ignite-extensions/tree/master/modules/spark-ext/examples/src/main/java/org/apache/ignite/examples/spark/SharedRDDExample.java)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

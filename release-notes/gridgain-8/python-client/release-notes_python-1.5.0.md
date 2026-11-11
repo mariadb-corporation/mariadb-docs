@@ -2,7 +2,6 @@
 description: >-
   PyGridGain 1.5.0 adds support for Python 3.11, 3.12, and 3.13, vector search
   through the VECTOR index type, and disables SSL by default.
-hidden: true
 ---
 
 # PyGridGain 1.5.0 Release Notes
@@ -65,6 +64,10 @@ pip install pygridgain==1.5.0
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

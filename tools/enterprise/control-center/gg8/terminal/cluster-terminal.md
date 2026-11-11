@@ -2,7 +2,6 @@
 description: >-
   Running GridGain 8 control script commands against the selected cluster from
   the Cluster terminal panel in Control Center.
-hidden: true
 ---
 
 # Cluster Terminal for GridGain 8 Clusters
@@ -108,3 +107,7 @@ Reloading the page also clears the output and the list of recent commands.
 ## Permissions
 
 Commands that you run in the terminal are subject to the same [authorization rules](../auth/authorization-permissions.md) as the actions you initiate from the Control Center screens. On a secured cluster, you are prompted for the cluster user name and password, and a command fails if the user you authenticated as lacks the permissions that the command requires.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

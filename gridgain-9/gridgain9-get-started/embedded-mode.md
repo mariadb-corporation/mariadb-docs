@@ -47,13 +47,13 @@ First, you need to add GridGain to your project. The easiest way to do this is b
     <dependency>
         <groupId>org.gridgain</groupId>
         <artifactId>ignite-api</artifactId>
-        <version>9.1</version>
+        <version>9.1.28</version>
     </dependency>
 
     <dependency>
         <groupId>org.gridgain</groupId>
         <artifactId>ignite-runner</artifactId>
-        <version>9.1</version>
+        <version>9.1.28</version>
     </dependency>
 </dependencies>
 ```
@@ -171,3 +171,7 @@ From here, you may want to:
 
 - Check out the [Developers guide](../gridgain9-development/table-api.md) page for more information on available APIs
 - Try out our [examples](https://github.com/apache/ignite-3/tree/main/examples)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

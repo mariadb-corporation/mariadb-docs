@@ -37,7 +37,7 @@ Before starting replication, complete the following:
    ```bash
    gridgain9 cluster init --name <cluster-name> --metastorage-group <node-name> --license <path-to-license> --url http://localhost:10300
    ```
-5. Contact GridGain [support](https://mariadb.com/support/) to enable data center replication for any existing caches you plan to replicate.
+5. Contact MariaDB [support](https://mariadb.com/support/) to enable data center replication for any existing caches you plan to replicate.
 
 ## Type Mapping
 
@@ -887,3 +887,7 @@ DR connector loses network connectivity with the source GridGain 8 cluster or th
 *Action:*
 
 No action is needed. Network connection is reestablished automatically.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

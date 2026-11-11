@@ -3,7 +3,6 @@ description: >-
   GridGain 8.5.8 is a maintenance release with many bug fixes, improved
   messaging, monitoring, and logging, memory-leak and performance fixes, and
   several Web Console improvements.
-hidden: true
 ---
 
 # GridGain 8.5.8 Release Notes
@@ -160,10 +159,14 @@ See the [Rolling Upgrades](https://docs.gridgain.com/docs/rolling-upgrades) page
 
 ## Related Information
 
-[Customer Support](https://www.gridgain.com/services/support)
+[Customer Support](https://mariadb.com/support/)
 
 ### We Value Your Feedback
 
-The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://docs.gridgain.com) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

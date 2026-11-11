@@ -2,7 +2,6 @@
 description: >-
   The My Cluster tab of the Control Center Dashboard shows numeric and tabular
   information for the currently selected GridGain 9 cluster.
-hidden: true
 ---
 
 # My Cluster Tab
@@ -249,3 +248,7 @@ License can be updated either by uploading the file or by pasting it as a text.
 
 - [Monitoring](dashboard-overview-gg9.md)
 - [Querying](../queries/querying-gg9.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

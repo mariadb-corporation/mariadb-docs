@@ -197,7 +197,7 @@ def setting_name(lines, i, headers):
     name = heading.strip("`").strip()
     return name, gitbook_slug(heading), headers.prev().name
 
-def scan_lines(entries, path, lines):
+def scan_lines(entries, path, lines, indented):
     i=0
     end = len(lines)
     headers=Headers()
@@ -213,12 +213,19 @@ def scan_lines(entries, path, lines):
                     relevant_entries = {}
                     entries[group] = relevant_entries
 
-                entry = Entry(name, path, anchor)
-                entry.add(line)
+                # A bullet may continue on indented lines, which are joined to it.
+                bullets = [line]
                 i += 1
-                while i < end and lines[i].startswith("*"):
-                    entry.add(lines[i])
+                while i < end and (lines[i].startswith("*") or (indented[i] and lines[i])):
+                    if lines[i].startswith("*"):
+                        bullets.append(lines[i])
+                    else:
+                        bullets[-1] += " " + lines[i]
                     i += 1
+
+                entry = Entry(name, path, anchor)
+                for bullet in bullets:
+                    entry.add(bullet)
                 relevant_entries[entry.name] = entry
             else:
                 i += 1
@@ -229,6 +236,7 @@ def scan_md_file(entries, path):
     with open(path) as fin:
         try:
             lines=fin.readlines()
+            indented=[line[:1] in (" ", "\t") for line in lines]
             lines=[line.strip() for line in lines]
         except UnicodeDecodeError:
             print("warning Could not decode file, ignoring.", file=sys.stderr)
@@ -237,23 +245,45 @@ def scan_md_file(entries, path):
             print("warning: Could not read file, ignoring.", file=sys.stderr)
             return
 
-    scan_lines(entries, path, lines)
+    scan_lines(entries, path, lines, indented)
+
+def is_split_page(path):
+    # A long page split into a folder (DOCS-6367): page/README.md keeps the
+    # page's URL and the settings move to child pages in the same folder.
+    # Category folders (reference/maxscale-routers/ and so on) have a
+    # README.md too, but sit only one level below the output directory.
+    if not os.path.isfile(os.path.join(path, "README.md")):
+        return False
+    rel = os.path.relpath(path, output_dir)
+    return rel.startswith("..") or rel.count("/") >= 1
+
+def scope_for(entries, name, path):
+    if name=="maxscale-configuration-guide":
+        name="MaxScale"
+    scope="[" + name + "](" + relative_to_output(path) + ")"
+    sub_entries=entries.get(scope)
+    if not sub_entries:
+        sub_entries={}
+        entries[scope] = sub_entries;
+    return sub_entries
 
 def scan_file(entries, path):
     if os.path.isdir(path):
-        scan_path(entries, path)
+        if is_split_page(path):
+            # One scope for the whole folder, titled and linked like the
+            # page was before the split; each entry links to its own file.
+            readme = os.path.join(path, "README.md")
+            sub_entries = scope_for(entries, os.path.basename(path), readme)
+            for file in sorted(os.listdir(path)):
+                if file.endswith(".md"):
+                    scan_md_file(sub_entries, os.path.join(path, file))
+        else:
+            scan_path(entries, path)
     elif path.endswith(".md"):
         name=path.split('/')[-1].replace('.md', '')
         if path.endswith("maxscale-configuration-settings.md"):
             return
-        if name=="maxscale-configuration-guide":
-            name="MaxScale"
-        scope="[" + name + "](" + relative_to_output(path) + ")"
-        sub_entries=entries.get(scope)
-        if not sub_entries:
-            sub_entries={}
-            entries[scope] = sub_entries;
-        scan_md_file(sub_entries, path)
+        scan_md_file(scope_for(entries, name, path), path)
 
 def scan_dir(entries, dir):
     for file in os.listdir(dir):

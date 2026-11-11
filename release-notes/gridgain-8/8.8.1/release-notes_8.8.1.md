@@ -3,7 +3,6 @@ description: >-
   GridGain 8.8.1 introduces managed rolling upgrade, incremental data center replication,
   native persistence defragmentation, transparent data encryption key rotation, data
   compression, and SQL tracing.
-hidden: true
 ---
 
 # GridGain 8.8.1 Release Notes
@@ -483,6 +482,10 @@ To work around this issue, you can first upgrade to GridGain 8.7.21, or a later 
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

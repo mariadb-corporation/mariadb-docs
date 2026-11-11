@@ -43,8 +43,8 @@ using var client = await IgniteClient.StartAsync(clientCfg);
 
 The cluster API lets you inspect the cluster topology, access it through the `IIgnite.Cluster` property:
 
-- `Cluster.GetNodesAsync()` returns all nodes that are part of the [logical topology](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/cluster/cluster-lifecycle#logical-and-physical-topology).
-- `Cluster.LocalNode` returns the local cluster node. On the client side it is `null`; it is populated only when accessed from server-side code inside a [compute job](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/distributed-computing-and-services/distributed-computing/about-distributed-computing) (`IJobExecutionContext.Ignite`) or a [data streamer receiver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/data-streaming) (`IDataStreamerReceiverContext.Ignite`),  where it identifies the node executing that code.
+- `Cluster.GetNodesAsync()` returns all nodes that are part of the [logical topology](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/architecture/cluster/cluster-lifecycle#logical-and-physical-topology).
+- `Cluster.LocalNode` returns the local cluster node. On the client side it is `null`; it is populated only when accessed from server-side code inside a [compute job](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/distributed-computing-and-services/distributed-computing/about-distributed-computing) (`IJobExecutionContext.Ignite`) or a [data streamer receiver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/data-streaming) (`IDataStreamerReceiverContext.Ignite`),  where it identifies the node executing that code.
 
 Each `IClusterNode` exposes its `Id` (a `Guid` that changes after a node restart), `Name` (the consistent ID, stable across restarts), and `Address`.
 
@@ -132,7 +132,7 @@ public class Account
 
 ## SQL API
 
-GridGain 9 is focused on SQL, and SQL API is the primary way to work with the data. You can read more about supported SQL statements in the [SQL Reference](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/sql/ddl) section. Here is how you can send SQL requests:
+GridGain 9 is focused on SQL, and SQL API is the primary way to work with the data. You can read more about supported SQL statements in the [SQL Reference](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/sql/ddl) section. Here is how you can send SQL requests:
 
 {% code title=".NET" %}
 ```csharp
@@ -733,3 +733,7 @@ The following APIs are not supported in Native AOT mode:
 When compiling an application in Native AOT mode, unsupported APIs produce trimming warnings that indicate the issue and suggest compatible alternatives.
 
 For more details refer to the official Microsoft [documentation](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/?utm_source=chatgpt.com&tabs=windows%2Cnet8#publish-native-aot-using-the-cli).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

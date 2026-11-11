@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Run GridGain.NET on Windows, Linux, and macOS with .NET Framework and .NET
   Core, including Java detection and known issues.
@@ -53,3 +52,7 @@ Java `8u151` has a known bug on macOS: [JDK-7131356](https://bugs.openjdk.java.n
 Known [.NET issue (506)](https://github.com/dotnet/standard/issues/506), in some cases additional package reference is required:
 
 - `dotnet add package System.Configuration.ConfigurationManager`
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

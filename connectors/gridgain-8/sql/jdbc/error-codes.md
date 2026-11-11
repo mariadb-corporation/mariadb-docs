@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   ANSI SQLSTATE error codes returned by the GridGain JDBC drivers through
   SQLException, with their descriptions.
@@ -55,3 +54,7 @@ The table below lists all the [ANSI SQLSTATE](https://en.wikipedia.org/wiki/SQLS
 | 40001 | Concurrent update conflict. See [Concurrent Updates](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/transactions/mvcc#concurrent-updates). |
 | 42000 | Query parsing exception. |
 | 50000 | Ignite internal error.<br>The code is not defined by ANSI and refers to an Ignite specific error. Refer to the `java.sql.SQLException` error message for more information. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

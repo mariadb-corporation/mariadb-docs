@@ -3,6 +3,7 @@ description: >-
   GridGain 8.7.32-p1 is a patch release that fixes a possible index corruption
   issue after an index drop with a failed checkpoint.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.7.32-p1 Release Notes
@@ -104,6 +105,10 @@ Your setup may be affected if:
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

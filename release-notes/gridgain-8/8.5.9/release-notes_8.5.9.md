@@ -3,7 +3,6 @@ description: >-
   GridGain 8.5.9 introduces the Snapshot Security feature to protect snapshot
   integrity, along with numerous bug fixes across SQL, storage, discovery, and
   more.
-hidden: true
 ---
 
 # GridGain 8.5.9 Release Notes
@@ -129,10 +128,14 @@ Enable Snapshot Security via the `GG_SNAPSHOT_SECURITY_LEVEL` system property.
 
 ## Related Information
 
-[Customer Support](https://www.gridgain.com/services/support)
+[Customer Support](https://mariadb.com/support/)
 
 ### We Value Your Feedback
 
-The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://docs.gridgain.com) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

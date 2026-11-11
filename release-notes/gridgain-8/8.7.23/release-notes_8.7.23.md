@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.23 adds support for Spark 2.4 and delivers fixes across caching, the control script, SQL, and snapshots.
-hidden: true
 ---
 
 # GridGain 8.7.23 Release Notes
@@ -86,6 +85,10 @@ For a configuration example, see [Client Certificate Authentication](https://www
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

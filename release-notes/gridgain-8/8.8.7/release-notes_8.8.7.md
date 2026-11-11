@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.8.7 extends C++ and Java client interoperability, adds an option to preserve snapshots on cleanup, and changes several default behaviors.
-hidden: true
 ---
 
 # GridGain 8.8.7 Release Notes
@@ -210,6 +209,10 @@ bin/ignite.sh
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

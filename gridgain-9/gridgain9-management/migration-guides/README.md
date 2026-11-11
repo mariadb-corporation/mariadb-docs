@@ -16,3 +16,7 @@ description: >-
 Tools and workflows for migrating a cluster, its persistent data, and its applications from GridGain 8 to GridGain 9.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

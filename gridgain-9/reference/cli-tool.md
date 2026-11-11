@@ -2643,6 +2643,8 @@ These commands help you manage the license on a running cluster.
 
 Updates license.
 
+When security is enabled, the user needs the `MANAGE_LICENSE` privilege. For details, see [User Permissions and Roles](../security/user-permissions-and-roles.md#cluster-management).
+
 **Syntax**
 
 ```
@@ -3655,3 +3657,7 @@ version
 GridGain CLI version 9.1.127-SNAPSHOT
 ```
 {% endcode %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -3,7 +3,6 @@ description: >-
   GridGain 9.0.0 is the first major release of the GridGain 9 platform, rebuilt
   with a new transactional protocol, the Apache Calcite SQL engine, and
   RAFT-based cluster management.
-hidden: true
 ---
 
 # GridGain 9.0.0 Release Notes
@@ -42,7 +41,7 @@ GridGain 9 features the all-new CLI tool that replaces management scripts of pre
 
 ### Upgrading from GridGain 8
 
-GridGain 9 is a major version update that introduces backwards-incompatible changes. However, it is possible to smoothly migrate all of your data, configuration, and code with only minor changes. GridGain offers migration assistance so the users can execute the upgrade to GridGain 9 as easily as possible. Contact [GridGain Support](http://support.gridgain.com/) for details.
+GridGain 9 is a major version update that introduces backwards-incompatible changes. However, it is possible to smoothly migrate all of your data, configuration, and code with only minor changes. GridGain offers migration assistance so the users can execute the upgrade to GridGain 9 as easily as possible. Contact [GridGain Support](https://mariadb.com/support/) for details.
 
 {% hint style="info" %}
 Rolling Upgrade from GridGain 8 to GridGain 9 is not supported. Data Center Replication can be used instead to achieve a zero-downtime upgrade.
@@ -82,4 +81,8 @@ The following features of GridGain 8 are not available in this version, and will
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

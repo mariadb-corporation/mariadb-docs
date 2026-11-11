@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Call Java services from a GridGain.NET application, including service interface
   mapping and method resolution.
@@ -93,3 +92,7 @@ The Java methods are resolved the following way:
 The return type is ignored when resolving the Java method, but it does determine how the .NET side invokes it. If you declare the method with a `Task`, `Task<TResult>`, `ValueTask`, or `ValueTask<TResult>` return type, the proxy returns a task that you can await. With the thin client, the invocation is asynchronous and the calling thread is not blocked; with the thick client shown above, the invocation is synchronous and the result is returned as an already-completed task. The Java service itself stays synchronous in both cases. See [Calling Services](../clients/dotnet-thin-client.md#calling-services) for an example.
 
 See [Platform Interoperability, Type Compatibility section](net-platform-interoperability.md) for details on method arguments and result mapping. Note, that the `params/varargs` are also supported, since in .NET and Java these are syntactic sugar for object arrays.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

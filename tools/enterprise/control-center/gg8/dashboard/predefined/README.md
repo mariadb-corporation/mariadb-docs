@@ -2,7 +2,6 @@
 description: >-
   Dashboards predefined by GridGain Control Center for monitoring GridGain 8
   cluster metrics.
-hidden: true
 ---
 
 # Predefined dashboards for GridGain 8
@@ -16,3 +15,7 @@ You can easily monitor your cluster metrics with dashboards which were predefine
 {% content-ref url="dr-receiver.md" %}
 [dr-receiver.md](dr-receiver.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

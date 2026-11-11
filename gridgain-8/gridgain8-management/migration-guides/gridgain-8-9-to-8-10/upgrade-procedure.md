@@ -301,7 +301,7 @@ The upgrade is complete when data integrity, application functionality, and moni
 
 ## Troubleshooting
 
-These are the problems that come up most often during the upgrade. If you hit something not covered here, contact [GridGain Support](https://mariadb.com/support/). Problems with `Connection to cluster failed`, a refused `finish`, a restarted node missing from the status, and lost partitions are described where they occur. See [Step 5](#step-5-upgrade-the-nodes-one-at-a-time), [Step 6](#step-6-finish-the-rolling-upgrade), and [Application Behavior During a Rolling Upgrade](#application-behavior-during-a-rolling-upgrade).
+These are the problems that come up most often during the upgrade. If you hit something not covered here, contact MariaDB [support](https://mariadb.com/support/). Problems with `Connection to cluster failed`, a refused `finish`, a restarted node missing from the status, and lost partitions are described where they occur. See [Step 5](#step-5-upgrade-the-nodes-one-at-a-time), [Step 6](#step-6-finish-the-rolling-upgrade), and [Application Behavior During a Rolling Upgrade](#application-behavior-during-a-rolling-upgrade).
 
 | Message or symptom | Cause | Fix |
 | --- | --- | --- |
@@ -365,3 +365,7 @@ Enterprise Edition only. Use the copies that you took before the upgrade, as des
 4. Check the data. Run `control.sh --baseline`, compare row counts with the values before the upgrade, and run `control.sh --cache idle_verify`.
 
 Restore the copies of all nodes together, and only copies that were taken in the same stop of the cluster. Do not restore only some of the nodes, and do not mix copies from different moments.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

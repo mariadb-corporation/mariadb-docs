@@ -2852,3 +2852,7 @@ The command arguments are as follows.
 |Argument|Description|
 |---|---|
 |--in|The name of the file to use as a source of the metadata.|
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

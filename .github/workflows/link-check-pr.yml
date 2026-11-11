@@ -300,6 +300,11 @@ jobs:
           # GSSAPI page. The JDK bug tracker answers 403 to lychee and to a browser
           # User-Agent but 200 to plain curl, so it is User-Agent-based bot
           # protection, not a dead page. Same class as www.reddit.com above.
+          #
+          # GG-52371: mvnrepository.com, cited from gridgain-8/gridgain8-get-started/
+          # how-to-guides/prometheus-grafana-step-by-step.md. It answers lychee with
+          # 403 Forbidden (the bot is blocked) while serving 200 to a browser, so
+          # the link is fine and can't be fixed on our side.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -392,6 +397,7 @@ jobs:
             --exclude 'lists\.apache\.org'
             --exclude 'www\.javatpoint\.com'
             --exclude 'openai\.com'
+            --exclude 'mvnrepository\.com'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee

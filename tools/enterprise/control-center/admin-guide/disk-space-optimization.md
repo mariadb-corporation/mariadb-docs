@@ -2,7 +2,6 @@
 description: >-
   Optimizing GridGain Control Center disk space usage by limiting saved data,
   throttling collection, and cleaning up oversized tables.
-hidden: true
 ---
 
 # Disk Space Optimization
@@ -65,3 +64,7 @@ To clean up the tables:
 1. Stop Control Center.
 2. Delete the oversized table (cache) folder. For example, delete `work/db/ggcc_db/cache-QuerySessionCache` to clean up the space occupied by the running query data.
 3. Start Control Center.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

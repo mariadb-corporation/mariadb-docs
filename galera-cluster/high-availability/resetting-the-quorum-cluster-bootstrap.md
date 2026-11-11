@@ -110,3 +110,5 @@ systemctl start mariadb
 They will detect the existing Primary Component, connect to it, and automatically initiate a [State Transfer](state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md) to synchronize their data and rejoin the cluster.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

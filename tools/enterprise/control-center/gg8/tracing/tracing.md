@@ -2,7 +2,6 @@
 description: >-
   Tracing SQL transactions on GridGain 8 clusters — the Tracing screen,
   configuring scopes and sampling rate, and viewing spans.
-hidden: true
 ---
 
 # Tracing SQL Transactions with Control Center
@@ -78,3 +77,7 @@ In the configuration section you can set the “scopes” of transactions you wa
 {% hint style="info" %}
 You can reduce the space the span table occupies on your disk using [Disk Space Optimizations](../../admin-guide/disk-space-optimization.md).
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

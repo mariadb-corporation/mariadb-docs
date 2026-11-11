@@ -3,7 +3,6 @@ description: >-
   How GridGain 8 clusters appear in the Enterprise Manager Databases list:
   cluster health, node rows, metric columns, and opening a cluster in
   GridGain Control Center.
-hidden: true
 ---
 
 # GridGain 8 Clusters
@@ -50,9 +49,7 @@ The status on a cluster row is Control Center's health verdict for the cluster:
 | Red    | `Bad`     | A Control Center health check is failing.                                         |
 | Grey   | `Unknown` | Control Center has no verdict, because the cluster is deactivated or Control Center can't reach it. |
 
-A grey cluster with green nodes is deactivated. A grey cluster with red nodes is one that Control Center can't reach. Control Center's health checks cover alerts, baseline nodes, write availability, partition loss, and partition map exchange.
-
-<!-- DOCS-6280 TODO: link Control Center's cluster health page once the Control Center docs are published. -->
+A grey cluster with green nodes is deactivated. A grey cluster with red nodes is one that Control Center can't reach. Control Center's health checks cover alerts, baseline nodes, write availability, partition loss, and partition map exchange. For details, see [Viewing Cluster Health Details](../../../control-center/gg8/dashboard/my-cluster.md#viewing-cluster-health-details).
 
 ## Actions
 

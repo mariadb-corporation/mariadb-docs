@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.0.13 reworks the Compute API, disables fsync by default, and adds
   SQL memory offloading and partitioned compute jobs.
-hidden: true
 ---
 
 # GridGain 9.0.13 Release Notes
@@ -112,4 +111,8 @@ The following features of GridGain 8 are not available in this version, and will
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

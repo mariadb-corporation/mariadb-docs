@@ -2,7 +2,6 @@
 description: >-
   The default dashboard for GridGain 8 clusters — widgets, templates, time
   periods, filtering, garbage collection, and thread dumps.
-hidden: true
 ---
 
 # Dashboard Overview for GridGain 8 Clusters
@@ -190,3 +189,7 @@ To collect a dump for a specific thread on a selected node in your cluster:
 ## Next Steps
 
 - [Add a widget](configuring-widgets.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

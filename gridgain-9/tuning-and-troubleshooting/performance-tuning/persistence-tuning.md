@@ -42,3 +42,7 @@ GridGain was designed to work on non-rotating devices. It's not recommended to d
 ## MVCC
 
 GridGain utilizes multi version data model, which means multiple copies of the same row exist in the storage. This can quickly exhaust the storage capacity under specific scenarios. Make sure you adjust GC watermark to avoid uncontrollable history growth.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

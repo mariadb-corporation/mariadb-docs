@@ -6,6 +6,8 @@ description: >-
 
 # Installing on Kubernetes
 
+<!-- TODO (not tested): This page was not run on GridGain 9.1.28 (no Kubernetes cluster was available); only the image tag in the recovery-job example was updated to 9.1.28. Run the Helm/manifests steps on a cluster and check the samples, then delete this comment. -->
+
 You can install GridGain 9 and run a GridGain cluster on Kubernetes cluster. This section describes all the necessary steps, as well as provides the configurations and manifests that you can copy and paste into your environment.
 
 {% hint style="info" %}
@@ -26,7 +28,7 @@ The information about versioning and lifecycle of GridGain 9 is available on the
 
 ### Create ConfigMaps
 
-1. Create the GridGain configuration file and get a [license](https://www.gridgain.com/tryfree). The minimum node configuration is as follows:
+1. Create the GridGain configuration file and get a GridGain 9 license. The minimum node configuration is as follows:
 
    {% code title="gridgain-config.conf" %}
    ```javascript
@@ -371,7 +373,7 @@ kubectl apply -f service.yaml
              - name: GRIDGAIN_WORK_DIR
                value: /gg9-work
            # GridGains Docker image and it's version.
-           image: gridgain/gridgain9:9.1
+           image: gridgain/gridgain9:latest
            ports:
            - containerPort: 10300
            - containerPort: 10800
@@ -470,7 +472,7 @@ kubectl apply -f service.yaml
            command:
            - /bin/sh
            # Specify the Docker image with the GridGain 9 CLI and its version.
-           image: gridgain/gridgain9:9.1
+           image: gridgain/gridgain9:latest
            imagePullPolicy: IfNotPresent
            name: cluster-init
            resources: {}
@@ -650,7 +652,7 @@ To enable KEDA scaling for your cluster:
             #   fsGroup: 0
             containers:
               - name: recovery
-                image: gridgain/gridgain9:9.1.21
+                image: gridgain/gridgain9:9.1.28
                 command: ["/bin/bash", "/scripts/recovery.sh"]
                 volumeMounts:
                 - name: script-vol
@@ -761,3 +763,7 @@ The updated configuration will take effect after the pods are recreated by the K
 {% hint style="warning" %}
 While it is technically possible to make the node configuration writable by using an init container that copies the mounted configuration from one location to another (and pointing GridGain 9 to this new location), we **strongly discourage** this approach. It is not native to the Kubernetes model, and any changes made to the configuration will be lost during pod restarts or re-deployments.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

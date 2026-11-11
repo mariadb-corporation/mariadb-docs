@@ -12,7 +12,13 @@ description: >-
 MariaDB MaxScale is an advanced proxy, router, and load balancer:
 
 * MaxScale performs automated failover for MariaDB replication. When the primary server fails, MaxScale promotes a replica to be the new primary and redirects the remaining replicas to it.
-* MaxScale's ReadWriteSplit router performs query-based load balancing. ReadWriteSplit routes each write statement to the current primary server and load balances read statements by routing them to the replica servers.
+* MaxScale's ReadWriteSplit router performs query-based load balancing.
+  ReadWriteSplit routes each write statement to the current primary server
+  and load balances read statements by routing them to the replica servers.
+  When used together with automated failover, ReadWriteSplit can make primary
+  failures fully transparent to the application. For a tutorial on setting
+  this up, see
+  [Using MariaDB Monitor With ReadWriteSplit](../mariadb-maxscale-tutorials/automatic-failover-with-mariadb-monitor.md#using-mariadb-monitor-with-readwritesplit).
 * MaxScale's ReadConnRoute router performs connection-based load balancing. ReadConnRoute routes each connection to a single primary or replica node, depending on configuration.
 * MaxScale can import data from Kafka and export data into Kafka. MaxScale's KafkaCDC router streams data from MariaDB database products to a Kafka broker. MaxScale's KafkaImporter router streams data from Kafka to MariaDB database products.
 * MaxScale provides built-in mechanisms to perform server maintenance without disrupting applications or clients. Servers can be set to maintenance mode using the command-line interface with MaxCtrl, a web browser with MaxGUI, or REST API.

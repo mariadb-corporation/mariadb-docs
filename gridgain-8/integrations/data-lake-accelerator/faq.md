@@ -34,3 +34,7 @@ A simple, generic approach is best:
 - If high-latency (dozens of seconds, minutes, hours) and batch processing are reasonable/required for another set of operations then continue using your data lake (Hadoop).
 
 Consider Spark integrations for federated-queries (aka. cross-database queries).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

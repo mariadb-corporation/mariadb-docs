@@ -1,7 +1,6 @@
 ---
 description: >-
   Deploying your code to a GridGain 9 cluster using GridGain Control Center.
-hidden: true
 ---
 
 # Code Deployment
@@ -11,3 +10,7 @@ This section details the process of deploying your code to the cluster using the
 {% content-ref url="code-deployment-gg9.md" %}
 [code-deployment-gg9.md](code-deployment-gg9.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

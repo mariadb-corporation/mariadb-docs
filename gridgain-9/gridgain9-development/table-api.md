@@ -1230,3 +1230,12 @@ var partitionDistribution = table!.PartitionDistribution;
 {% endtabs %}
 
 For more details on data partitioning, see the following [article](../architecture/storage/data-partitioning.md).
+
+## See Also
+
+- [Work With RecordView and KeyValueView](../gridgain9-get-started/learning-paths/distributed-sql-foundations/recordview-keyvalueview.md)
+- [Choose the Right Data Access Pattern](../gridgain9-get-started/learning-paths/schema-design-for-distributed-sql/data-access-patterns.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

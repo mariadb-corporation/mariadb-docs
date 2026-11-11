@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Use GridGain.NET as an Entity Framework 6 second-level cache that stores query
   results in a distributed Ignite cache.
@@ -160,3 +159,7 @@ private class MyDbConfiguration : OtherDbConfiguration
 }
 ```
 {% endcode %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

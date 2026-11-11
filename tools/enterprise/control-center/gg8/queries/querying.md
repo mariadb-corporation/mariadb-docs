@@ -2,12 +2,11 @@
 description: >-
   Executing SQL and scan queries against GridGain 8 clusters from the Control
   Center Queries screen, plus the queries log and query statistics.
-hidden: true
 ---
 
 # Queries Screen for GridGain 8 Clusters
 
-The **Queries** screen allows you to execute SQL queries against the GridGain 8 (Apache Ignite 2) cluster and view results. You can also view running queries and query statistics.
+The **Queries** screen allows you to execute SQL queries against the GridGain 8 cluster and view results. You can also view running queries and query statistics.
 
 ![](../../../../.gitbook/assets/cc-gg8-queries_screen.png)
 
@@ -36,7 +35,7 @@ When you use the CREATE TABLE command to create a table, GridGain creates an und
 
 ### SQL Queries
 
-Control Center allows you to execute both DML and DDL statements supported by GridGain/Apache Ignite. See the SQL Reference guide for details.
+Control Center allows you to execute both DML and DDL statements supported by GridGain. See the SQL Reference guide for details.
 
 To execute a SQL statement, click the `+` icon in the queries tab bar and select **SQL query** from the dropdown list. Then, enter a statement in the query editor, and click **Execute**.
 
@@ -206,3 +205,7 @@ The statistics include the following:
 ![](../../../../.gitbook/assets/cc-gg8-query-statistics.png)
 
 You can find the queries that match a specific text string by using the **Filters** field. Simply enter the text in the input field, and the list is filtered as you type.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

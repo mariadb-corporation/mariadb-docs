@@ -33,3 +33,7 @@ Enable metric sources on a node or across the cluster, and configure JMX, LogPus
 Best practices for monitoring a production GridGain 9 cluster: which metrics to watch, the alerts to configure, and how to diagnose problems.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

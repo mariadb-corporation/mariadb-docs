@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.3 delivers new features and improvements, including checkpoint interval randomization and off-heap storage of deletion tombstones.
-hidden: true
 ---
 
 # GridGain 8.8.3 Release Notes
@@ -218,6 +217,10 @@ Rolling upgrades from GridGain 8.7.9 and earlier to current GridGain version fai
 To work around this issue, you can first upgrade to GridGain 8.7.21, or a later 8.7.x version, and then to current version.
 
 ## We Value Your Feedback
-Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

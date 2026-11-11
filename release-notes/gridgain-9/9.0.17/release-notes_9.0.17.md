@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.0.17 simplifies cluster initialization and adds a multicast node
   finder.
-hidden: true
 ---
 
 # GridGain 9.0.17 Release Notes
@@ -130,4 +129,8 @@ The legacy column remains available for backward compatibility but is **deprecat
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

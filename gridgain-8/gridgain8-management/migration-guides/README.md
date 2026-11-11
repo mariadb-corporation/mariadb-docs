@@ -12,8 +12,8 @@ The following guides are available:
 
 {% columns %}
 {% column %}
-{% content-ref url="apache-ignite-2x/" %}
-[Apache Ignite 2](apache-ignite-2x/)
+{% content-ref url="apache-ignite-2x-8.10/" %}
+[Apache Ignite 2](apache-ignite-2x-8.10/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -45,3 +45,7 @@ How to upgrade a GridGain 8.9.x cluster to 8.10: choosing a rolling or offline p
 How Oracle Coherence Data Grid concepts map to GridGain — entry processors, queries, indexing, locking, transactions, affinity colocation, and binary objects.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

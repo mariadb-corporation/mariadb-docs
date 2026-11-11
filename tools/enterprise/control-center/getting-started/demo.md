@@ -2,7 +2,6 @@
 description: >-
   Run GridGain's preconfigured demo cluster and streaming application, and
   attach it to Control Center.
-hidden: true
 ---
 
 # Connecting to Demo Cluster
@@ -130,9 +129,13 @@ SELECT * FROM Trade ORDER BY order_date DESC LIMIT 10;
 
 ## Next Steps
 
-Now you have a working cluster with some simulated load. Feel free to explore and try various Control Center features. GridGain nodes you launched are running GridGain Community, but you can do the same steps by starting Apache Ignite or GridGain Ultimate nodes.
+Now you have a working cluster with some simulated load. Feel free to explore and try various Control Center features. The demo nodes run GridGain Ultimate Edition. To monitor your own cluster, you need a GridGain 8 or GridGain 9 cluster with an Enterprise or Ultimate Edition license. To obtain one, [contact support](../support.md).
 
 To explore more Control Center features you can:
 
 - [Connect your personal GridGain cluster](connect/connect-gridgain-cluster.md)
 - [Install Control Center on-premise](../installation/install-binary.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

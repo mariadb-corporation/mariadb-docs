@@ -1,9 +1,9 @@
 # Table of contents
 
 * [MariaDB Galera Cluster](README.md)
-  * [MariaDB Galera Cluster Overview](readme/mariadb-galera-cluster-usage-guide.md)
-  * [What is MariaDB Galera Cluster?](readme/mariadb-galera-cluster-guide.md)
-  * [What is Galera Replication?](readme/about-galera-replication.md)
+* [MariaDB Galera Cluster Overview](mariadb-galera-cluster-usage-guide.md)
+* [What is MariaDB Galera Cluster?](mariadb-galera-cluster-guide.md)
+* [What is Galera Replication?](about-galera-replication.md)
 * [Quickstart Guides](galera-cluster-quickstart-guides/README.md)
   * [MariaDB Galera Cluster Guide](galera-cluster-quickstart-guides/mariadb-galera-cluster-guide.md)
   * [MariaDB Galera Cluster Replication Guide](galera-cluster-quickstart-guides/mariadb-galera-cluster-replication-guide.md)
@@ -99,4 +99,3 @@
     * [ssl\_key](reference/wsrep-variable-details/ssl_key.md)
   * [Galera Cluster System Tables](reference/galera-cluster-system-tables.md)
   * [Known Limitations](reference/mariadb-galera-cluster-known-limitations.md)
-  * [MariaDB Advanced Cluster: Team FAQ & Architectural Guide](reference/mariadb-advanced-cluster-team-faq-and-architectural-guide.md)

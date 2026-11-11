@@ -187,7 +187,7 @@ All data residing on a service's storage is deleted at time of service deletion.
 
 ### Will all my data be encrypted?
 
-Yes. By default, MariaDB Cloud encrypts all data-in-transit using standard SSL/TSL. While not recommended, you can disable SSL/TLS connections while launching a database service. MariaDB Cloud leverages HashiCorp Vault for certificate and key management. Certificates and keys are not customer-configurable at this time.
+Yes. By default, MariaDB Cloud encrypts all data-in-transit using standard SSL/TSL. While not recommended, you can disable SSL/TLS connections while launching a database service. MariaDB Cloud leverages HashiCorp Vault for certificate and key management. Certificates and keys are not customer-configurable.
 
 All data-at-rest is encrypted using standard cloud encryption options.
 
@@ -222,3 +222,5 @@ MariaDB Cloud offers a full range of professional services, including:
 * Assistance with your MariaDB Cloud proof-of-concept
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

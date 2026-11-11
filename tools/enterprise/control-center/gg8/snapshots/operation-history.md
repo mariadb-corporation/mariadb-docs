@@ -2,7 +2,6 @@
 description: >-
   Viewing the history of snapshot operations for GridGain 8 clusters on the
   Operation History tab of the Snapshots screen.
-hidden: true
 ---
 
 # Snapshot Operation History for GridGain 8 Clusters
@@ -40,3 +39,7 @@ You can hide/show the operation list columns:
 
 1. Click `⋮` in the list title bar.
 2. In the column list that opens, select or clear check boxes by the relevant column names.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

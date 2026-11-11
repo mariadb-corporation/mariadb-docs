@@ -175,3 +175,11 @@ client.setBasePath("http://localhost:10300");
 ClusterConfigurationApi clusterConfigurationApi = new ClusterConfigurationApi(client);
 String configuration = clusterConfigurationApi.getClusterConfiguration();
 ```
+
+## See Also
+
+- [How to Manage Cluster Lifecycle With the REST API](../gridgain9-get-started/how-to-guides/manage-cluster-lifecycle-rest-api.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

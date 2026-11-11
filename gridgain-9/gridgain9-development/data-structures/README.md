@@ -21,3 +21,7 @@ GridGain 9 provides distributed data structures that let you store and share dat
 Create and use distributed maps in GridGain 9 to store key-value pairs, with synchronous and asynchronous put, get, remove, and destroy operations.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

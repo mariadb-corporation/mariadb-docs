@@ -2,7 +2,6 @@
 description: >-
   Viewing partition distribution for GridGain 9 tables and distribution zones,
   and recovering lost partitions from the Disaster Recovery tab.
-hidden: true
 ---
 
 # Tables
@@ -109,3 +108,7 @@ During the **Reset** and **Restart** operations the state of the selected partit
 ![Disaster recovery tab](../../../../.gitbook/assets/cc-gg9-dis_recovery_after_reset.png)
 
 You also can perform recovery operations via Gridgain CLI commands.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

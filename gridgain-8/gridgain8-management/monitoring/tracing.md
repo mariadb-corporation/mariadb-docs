@@ -24,9 +24,13 @@ The following Ignite APIs are instrumented for tracing:
 To view traces, export them into external system (see the [Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center) documentation).
 You can use one of the OpenCensus exporters or write your own, but in any case, you need to write code that registers an exporter in Ignite.
 
+{% hint style="info" %}
+Control Center receives traces from a node only when the `ignite-opencensus` module is enabled on it. This also applies if you configure a custom `TracingSpi` implementation.
+{% endhint %}
+
 ## Configuring Tracing
 
-Enable OpenCensus tracing in the node configuration. All nodes in the cluster must use the same tracing configuration. The module is enabled by default if you use the GridGain binary distribution. If you use Maven to start GridGain nodes, add the following property to your cluster configuration:
+Enable OpenCensus tracing in the node configuration. All nodes in the cluster must use the same tracing configuration. The `ignite-opencensus` module is disabled by default. [Enable it](../../gridgain8-development/project-setup.md#enabling-modules) on every node, or a node configured with `OpenCensusTracingSpi` fails at startup with `ClassNotFoundException`. If you use Maven to start GridGain nodes, add the following property to your cluster configuration:
 
 {% tabs %}
 {% tab title="XML" %}
@@ -84,6 +88,10 @@ control.bat --tracing-configuration set --scope TX --sampling-rate 0.05
 {% endtab %}
 {% endtabs %}
 
+{% hint style="info" %}
+The `--tracing-configuration` command is experimental. Without the `IGNITE_ENABLE_EXPERIMENTAL_COMMAND` system property, `control.sh` prints `For use experimental command add IGNITE_ENABLE_EXPERIMENTAL_COMMAND=true...` and does nothing. Pass the property through the `CONTROL_JVM_OPTS` environment variable, for example `CONTROL_JVM_OPTS=-DIGNITE_ENABLE_EXPERIMENTAL_COMMAND=true ./control.sh --tracing-configuration ...`. The message tells you to add it to `JVM_OPTS` inside the `control.sh` script; an exported `JVM_OPTS` environment variable has no effect on `control.sh`.
+{% endhint %}
+
 The `--scope` parameter specifies the API you want to trace.
 The following APIs are instrumented for tracing:
 
@@ -137,3 +145,11 @@ The trace contains spans associated with the following operations:
 * close (`transactions.close`).
 
 The commit operation, in turn, consists of two operations: prepare and finish. You can click on each span to view the annotations and tags attached to it.
+
+## See Also
+
+- [Use Tracing to Resolve Performance Issues in GridGain](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center/tutorials/gridgain8-management-and-monitoring/performance-tracing)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

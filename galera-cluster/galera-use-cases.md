@@ -374,8 +374,8 @@ For most applications, using `readwritesplit` is the safest, most reliable, and 
 
 ## See Also
 
-* [What is MariaDB Galera Cluster?](readme/mariadb-galera-cluster-guide.md)
-* [About Galera Replication](readme/about-galera-replication.md)
+* [What is MariaDB Galera Cluster?](mariadb-galera-cluster-guide.md)
+* [About Galera Replication](about-galera-replication.md)
 * [Codership: Using Galera Cluster](https://codership.com/content/using-galera-cluster)
 * [Getting Started with MariaDB/Galera Cluster](galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster.md)
 * [MariaDB Galera Cluster and M/S replication](https://www.youtube.com/watch?v=Nd0nvltLPdQ) (video)

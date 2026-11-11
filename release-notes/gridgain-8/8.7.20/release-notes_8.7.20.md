@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.20 delivers fixes and improvements across discovery, SQL, the storage engine, thin clients, and data replication.
-hidden: true
 ---
 
 # GridGain 8.7.20 Release Notes
@@ -49,6 +48,10 @@ If you are on a version that is not listed, contact GridGain for the information
 `8.5.12`, `8.5.13`, `8.5.14`, `8.5.15`, `8.5.16`, `8.5.17`, `8.5.18`, `8.5.19`, `8.5.20`, `8.5.22`, `8.7.2`, `8.7.2-p12`, `8.7.3`, `8.7.4`, `8.7.5`, `8.7.6`, `8.7.7`, `8.7.8`, `8.7.9`, `8.7.10`, `8.7.11`, `8.7.12`, `8.7.13`, `8.7.14`, `8.7.15`, `8.7.16`, `8.7.17`, `8.7.18`, `8.7.19`, `8.7.19-p1`
 
 ## We Value Your Feedback
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

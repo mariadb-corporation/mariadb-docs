@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   How GridGain.NET interoperates with Java and C++ through the common binary format,
   including identifier mapping, type and collection compatibility, and mixed-platform clusters.
@@ -192,3 +191,7 @@ Blog post with detailed walk-through: [Multi-Platform Ignite Cluster: Java + .NE
 The `ICompute.ExecuteJavaTask` methods work without limitations in any cluster. Other `ICompute` methods will execute
 closures only on .NET nodes.
 </content>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

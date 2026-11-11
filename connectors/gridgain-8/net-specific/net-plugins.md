@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Extend GridGain.NET with custom plugins using the plugin configuration and provider
   APIs, and interact with Java plugins through the platform target interfaces.
@@ -135,3 +134,7 @@ Other `IPlatformTarget` methods provide an efficient way to exchange any kind of
 A detailed walk-through plugin example can be found in [this blog post](https://ptupitsyn.github.io/Ignite-Plugin/).
 {% endhint %}
 </content>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

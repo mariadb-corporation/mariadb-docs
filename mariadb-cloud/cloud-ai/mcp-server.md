@@ -18,7 +18,7 @@ The MariaDB Cloud MCP Server acts as an intermediary, allowing AI applications l
 The MariaDB Cloud MCP Server provides a comprehensive set of features designed to boost developer productivity and streamline database management:
 
 * **Launch and Manage Serverless Database Instances:** Programmatically launch and manage new serverless MariaDB database instances directly within MariaDB Cloud.
-* **Interact with AI-Powered Database Agents:** Seamlessly connect and interact with AI Agents (Developer Copilot, DBA Copilot, and Custom agents) to use natural language queries for database operations.
+* **Interact with AI-Powered Database Agents:** Seamlessly connect and interact with the built-in AI Agents (Developer Agent, Data Agent, and DBA Agent) to use natural language queries for database operations.
 * **Execute SQL Queries Directly:** Run SQL queries on your MariaDB Cloud instances through a unified interface.
 * **Flexible Deployment:** Can be installed and integrated with various MCP client tools and IDEs.
 
@@ -52,3 +52,5 @@ Once your MCP Server is set up, you can start using AI Agents.
 Checking this demo video for further info: [MariaDB Cloud MCP Server Demo](https://www.youtube.com/watch?v=S5SR9qfXOBs\&t=1s)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

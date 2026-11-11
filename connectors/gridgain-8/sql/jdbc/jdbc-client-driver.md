@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Reference for the GridGain JDBC Client Driver, which connects to the cluster
   through a client node, including supported parameters and streaming mode.
@@ -209,3 +208,7 @@ conn.createStatement().
 ```java
 conn.createStatement().execute("DELETE FROM Person WHERE age = 25");
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -211,7 +211,7 @@ _Star replication: every primary replicates with every other, so all nodes conve
 * Provides read and write scaling.
 * Doesn’t handle conflicts before [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) were added in MariaDB Enterprise Server 12.3.
 * Have to use replication filters to avoid duplication of data.
-* [MariaDB Galera Cluster](../../architecture/topologies/galera-cluster/README.md), which is a [virtually synchronous](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/about-galera-replication) multi-primary (multi-master) cluster for MariaDB, has a similar configuration and can handle conflicts.
+* [MariaDB Galera Cluster](../../architecture/topologies/galera-cluster/README.md), which is a [virtually synchronous](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/about-galera-replication) multi-primary (multi-master) cluster for MariaDB, has a similar configuration and can handle conflicts.
 
 ### Multi-Source Replication
 

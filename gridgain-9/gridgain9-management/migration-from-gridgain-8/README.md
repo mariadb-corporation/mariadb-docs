@@ -91,3 +91,7 @@ Near-zero downtime migration from GridGain 8 to GridGain 9 using one-way data ce
 How SQL functions and data types map from GridGain 8 to the Calcite-based GridGain 9 engine: renamed, removed, and directly equivalent functions.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

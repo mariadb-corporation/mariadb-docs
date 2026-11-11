@@ -7,7 +7,7 @@ description: >-
 
 This guide describes how to upgrade a GridGain 8.9.39 cluster and its applications to GridGain 8.10. GridGain 8.10 raises the Java baseline to Java 17, removes several modules and integrations, moves key dependencies to current versions, and changes a small number of defaults.
 
-If you are migrating from Apache Ignite 2.x, see [Migrating from Apache Ignite 2](../apache-ignite-2x/README.md) instead.
+If you are migrating from Apache Ignite 2.x, see [Migrating from Apache Ignite 2](../apache-ignite-2x-8.10/README.md) instead.
 
 {% columns %}
 {% column %}
@@ -92,3 +92,7 @@ Java thin client timeouts, DNS resolution and transactions, and .NET and C++ cli
 Deprecated APIs, changes that need no action, and the new features of 8.10.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

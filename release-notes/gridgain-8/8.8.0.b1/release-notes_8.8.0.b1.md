@@ -4,6 +4,7 @@ description: >-
   Replication, Managed Rolling Upgrade, Spring 5.2.0 support, and metrics framework
   improvements.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.8.0.b1 BETA Release Notes
@@ -211,6 +212,10 @@ To workaround this issue, change the configuration of the server nodes to rebala
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) page for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

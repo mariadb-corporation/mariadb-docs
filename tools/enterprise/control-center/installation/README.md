@@ -2,7 +2,6 @@
 description: >-
   Installing and updating GridGain Control Center from the binary package,
   Docker, or Kubernetes, including Cloud Connector setup.
-hidden: true
 ---
 
 # Installation and Update Guide
@@ -32,3 +31,7 @@ For automated deployment and configuration using the REST API, see [Automated De
 {% content-ref url="update.md" %}
 [update.md](update.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

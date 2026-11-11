@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   The ODBC connection string format, the connection string and DSN arguments
   supported by the GridGain ODBC driver, and how to configure a DSN.
@@ -119,3 +118,7 @@ description=<Insert your description here>
 driver=Apache Ignite
 <Other arguments here...>
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

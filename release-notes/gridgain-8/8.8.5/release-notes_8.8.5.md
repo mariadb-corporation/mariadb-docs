@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.8.5 adds a GZIP compression option, new index-reader and WAL-reader debug tools, and the Continuous Query API in the Java thin client.
-hidden: true
 ---
 
 # GridGain 8.8.5 Release Notes
@@ -263,6 +262,10 @@ To work around this issue, you can first upgrade to GridGain 8.7.21, or a later 
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

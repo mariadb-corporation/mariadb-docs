@@ -9,7 +9,10 @@ description: >-
 
 ## Overview
 
-The Query Log All (QLA) filter logs query content. Logs are written to a file in CSV format. Log elements are configurable and include the time submitted and the SQL statement text, among others.
+The Query Log All (QLA) filter logs query content. Logs are written to a file in
+CSV format, or to [Kafka](https://kafka.apache.org/). Log elements are
+configurable and include the time submitted and the SQL statement text, among
+others.
 
 ## Configuration
 
@@ -167,7 +170,7 @@ source_exclude=/(^127[.]0[.]0[.]1)|(^192[.]168[.]0[.]109)/
 * Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
-* Values: `session`, `unified`, `stdout`
+* Values: `session`, `unified`, `stdout`, `kafka`
 * Default: `session`
 * Description: Defines the logging output type, such as per-session files, a unified log file, or standard output.
 
@@ -178,6 +181,22 @@ The type of log file to use.
 | session | Write to session-specific files |
 | unified | Use one file for all sessions   |
 | stdout  | Same as unified, but to stdout  |
+| kafka   | Send log events to Kafka        |
+
+**From MaxScale 26.10,** the value `kafka` is available.
+
+If you enable Kafka logging, you need to also configure
+[Kafka bootstrap servers](#kafka_bootstrap_servers) and [topic](#kafka_topic).
+Depending on the Kafka broker configuration, the various other [Kafka
+settings](#kafka-settings) may also be required.
+
+When Kafka logging is enabled, MaxScale attempts to send query events to the
+Kafka broker. If the Kafka event production fails for any reason, MaxScale will
+simply log the error to the MaxScale general log and continue.  The Kafka
+messages MaxScale sends always contain the client session id as message key. If
+`log_data` includes `session`, then the session is also included in the message
+text. Kafka message timestamps match the time MaxScale receives the query from
+the client.
 
 ### `log_data`
 
@@ -212,6 +231,23 @@ Type of data to log in the log files.
 The durations _reply\_time_ and _total\_reply\_time_ are by default in milliseconds, but can be specified to another unit using _duration\_unit_.
 
 The log entry is written when the last reply from the server is received. Prior to version 6.2 the entry was written when the query was received from the client, or if _reply\_time_ was specified, on first reply from the server.
+
+If you enable SQL query logging, the log entries contain the entire SQL
+query. If the queries themselves are large (e.g. inserts with thousands of
+elements), the log entries end up equally long. This can cause slowdown and high
+disk space usage on the MaxScale host.
+
+{% tabs %}
+{% tab title="Current" %}
+The filter limits the length of the logged query to 1024 characters by
+default. Queries longer than the limit are only partially logged. See
+[logged_query_max_length](#logged_query_max_length) for more information.
+{% endtab %}
+
+{% tab title="< 26.10" %}
+The filter does not limit the length of the logged query.
+{% endtab %}
+{% endtabs %}
 
 **NOTE** The _error\_msg_ is the raw message from the server. Even if _use\_canonical\_form_ is set the error message may contain user defined constants. For example:
 
@@ -285,6 +321,211 @@ Default value is `" "` (one space). SQL-queries may include line breaks, which, 
 ```
 newline_replacement=" NL "
 ```
+
+### `logged_query_max_length`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: count
+* Mandatory: No
+* Dynamic: Yes
+* Default: `1024`
+* Description: Limits the number of characters logged for a single query; `0` removes the limit.
+
+Limits the length of the logged SQL query when `log_data` includes `query`. If
+`logged_query_max_length` is set to N, the filter only logs up to N characters
+of any query. If `newline_replacement` is enabled, as it is by default, the
+length limit takes effect before the filter replaces newlines. This means that
+the final length of the logged query may be greater than N. This deviation
+depends on the number of newlines in the query and the length of the value of
+`newline_replacement`.
+
+Use this setting to ensure that large queries do not cause the log file to
+consume too much space. Setting `logged_query_max_length=0` removes the length
+limit, causing the filter to always log the entire query.
+
+```
+logged_query_max_length=100
+```
+
+### Kafka settings
+
+{% hint style="info" %}
+These settings are available from MaxScale 26.10.
+{% endhint %}
+
+These settings resemble the equivalent settings in the
+[KafkaCDC Router](../maxscale-routers/maxscale-kafkacdc.md#settings). Although
+these settings can be modified during runtime, this is typically ill-advised, as
+any modifications only affect new client sessions. Define at least
+`kafka_bootstrap_servers` and `kafka_topic` when logging events to Kafka. Kafka
+logging only activates when the value of `log_type` includes `kafka`.
+
+#### `kafka_bootstrap_servers`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the comma-separated list of Kafka brokers, in `host:port` format, that the filter sends log events to.
+
+The list of Kafka brokers to use in `host:port` format. Multiple values can be
+separated with commas.
+
+```
+kafka_bootstrap_servers=127.0.0.1:9092
+```
+
+#### `kafka_topic`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the Kafka topic where the filter publishes log events.
+
+The Kafka topic where the log events are published.
+
+```
+kafka_topic=maxscale_qlalogs
+```
+
+#### `kafka_enable_idempotence`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `false`
+* Description: Enables the idempotent Kafka producer mode, which avoids duplicate log events caused by broker outages or network errors.
+
+Enable idempotent producer mode. This feature requires Kafka version 0.11 or
+newer to work. When enabled, the Kafka producer enters a strict mode which
+avoids event duplication due to broker outages or other network errors.
+
+#### `kafka_ssl`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `false`
+* Description: Enables SSL for the connections to the Kafka broker.
+
+Enable SSL for Kafka connections.
+
+#### `kafka_ssl_ca`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the CA certificate file, in PEM format, used for Kafka SSL connections.
+
+Path to the certificate authority file in PEM format. If this is not provided,
+the default system certificates will be used.
+
+#### `kafka_ssl_cert`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the client certificate file, in PEM format, used for Kafka SSL connections; `kafka_ssl_key` must also be set.
+
+Path to the public certificate in PEM format. The client must provide a
+certificate if the Kafka server performs authentication of the client
+certificates. This feature is enabled by default in Kafka and is controlled by
+[ssl.endpoint.identification.algorithm](https://kafka.apache.org/documentation/#brokerconfigs_ssl.endpoint.identification.algorithm).
+
+If `kafka_ssl_cert` is provided, `kafka_ssl_key` must also be provided.
+
+#### `kafka_ssl_key`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the client private key file, in PEM format, used for Kafka SSL connections; `kafka_ssl_cert` must also be set.
+
+Path to the private key in PEM format. If `kafka_ssl_key` is provided,
+`kafka_ssl_cert` must also be provided.
+
+#### `kafka_sasl_user`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the username for SASL authentication with the Kafka broker; `kafka_sasl_password` must also be set.
+
+Username for SASL authentication. If `kafka_sasl_user` is provided,
+`kafka_sasl_password` must also be provided.
+
+#### `kafka_sasl_password`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the password for SASL authentication with the Kafka broker; `kafka_sasl_user` must also be set.
+
+Password for SASL authentication. If `kafka_sasl_password` is provided,
+`kafka_sasl_user` must also be provided.
+
+#### `kafka_sasl_mechanism`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`
+* Default: `PLAIN`
+* Description: Selects the SASL mechanism used for authenticating with the Kafka broker.
+
+The SASL mechanism used. The default value `PLAIN` uses plaintext
+authentication. You should enable SSL whenever plaintext authentication is
+used. The value that should be used depends on the SASL mechanism used by the
+Kafka broker.
 
 ## Limitations
 

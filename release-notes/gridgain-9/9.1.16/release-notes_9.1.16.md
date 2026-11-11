@@ -3,7 +3,6 @@ description: >-
   GridGain 9.1.16 brings a large number of new features, including a reworked
   JDBC driver, Java records support, custom object mapping in .NET, and new
   configuration options and metrics.
-hidden: true
 ---
 
 # GridGain 9.1.16 Release Notes
@@ -44,7 +43,7 @@ public record Person(
 ) {}
 ```
 
-For more information about using records, see [Record API documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/table-api).
+For more information about using records, see [Record API documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/table-api).
 
 ### Custom Object Mapping in .NET
 
@@ -109,7 +108,7 @@ You can now configure heartbeats in [ODBC driver](https://app.gitbook.com/o/diTp
 
 ### String Configuration Support
 
-When starting the node in [embedded mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-get-started/embedded-mode), you can now provide configuration in string format. Previously, it was required to provide configuration as a path to the file.
+When starting the node in [embedded mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-get-started/embedded-mode), you can now provide configuration in string format. Previously, it was required to provide configuration as a path to the file.
 
 For example:
 
@@ -226,4 +225,8 @@ There are known issues with the performance of SQL read-write transactions in co
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -3,7 +3,6 @@ description: >-
   GridGain 8.7.37 adds data streaming to the .NET thin client, extends the .NET
   streaming API, and delivers improvements and fixed issues across the Community,
   Enterprise, and Ultimate editions.
-hidden: true
 ---
 
 # GridGain 8.7.37 Release Notes
@@ -189,6 +188,10 @@ bin/ignite.sh
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

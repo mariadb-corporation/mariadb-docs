@@ -40,3 +40,7 @@ Configure a near cache in GridGain 9 to store frequently accessed data locally, 
 Configure data expiry in GridGain 9 with a dedicated TIMESTAMP column and the EXPIRE AT keyword, and enable or disable expiration on existing tables.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -1,12 +1,11 @@
 ---
 description: >-
-  Using GridGain Control Center with GridGain 9 and Apache Ignite 3 clusters.
-hidden: true
+  Using GridGain Control Center with GridGain 9 clusters.
 ---
 
 # GridGain 9
 
-This section covers the Control Center features available for GridGain 9 and Apache Ignite 3 clusters.
+This section covers the Control Center features available for GridGain 9 clusters.
 
 {% content-ref url="dashboard/" %}
 [dashboard](dashboard/)
@@ -32,8 +31,8 @@ This section covers the Control Center features available for GridGain 9 and Apa
 [events/events.md](events/events.md)
 {% endcontent-ref %}
 
-{% content-ref url="data-schema-import/data-schema-import.md" %}
-[data-schema-import/data-schema-import.md](data-schema-import/data-schema-import.md)
+{% content-ref url="data-schema-import.md" %}
+[data-schema-import.md](data-schema-import.md)
 {% endcontent-ref %}
 
 {% content-ref url="tables/tables.md" %}
@@ -51,3 +50,7 @@ This section covers the Control Center features available for GridGain 9 and Apa
 {% content-ref url="auth/authorization-permissions.md" %}
 [auth/authorization-permissions.md](auth/authorization-permissions.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

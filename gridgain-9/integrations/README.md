@@ -86,3 +86,7 @@ Use GridGain 9 with Hibernate as a query database and a second-level (L2) cache 
 Deploy and manage GridGain 9 clusters on Kubernetes with the GridGain Kubernetes Operator.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

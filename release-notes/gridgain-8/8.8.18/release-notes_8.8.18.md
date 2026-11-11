@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.8.18 moves DR metrics to a common metrics manager, adds a control script
   command to read an arbitrary metric, updates Spring, and includes many fixes.
-hidden: true
 ---
 
 # GridGain 8.8.18 Release Notes
@@ -265,6 +264,10 @@ To run .NET SDK commands, install the .NET SDK. For more details, click [here](h
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

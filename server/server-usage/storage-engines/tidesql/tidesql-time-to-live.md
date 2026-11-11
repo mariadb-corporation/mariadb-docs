@@ -71,3 +71,5 @@ An UPDATE on a table with a `TTL` option or `TTL` column, or in a session with `
 Starting with TideSQL 5.2.0, an `ALTER TABLE` that copies the table writes every row into the new table with the expiry it already had, so a copy does not start a row's clock again. A TTL the `ALTER` sets or changes, on the table or on a `TTL` column, applies to rows written after it, the same as a TTL changed in place. A table converted to TideSQL from another engine has no expiries to keep, so its rows take their TTL from the time of the conversion. An `ALTER TABLE ... ADD INDEX` built in place gives each new index entry its row's expiry, so the entry expires with its row, and a query answered from that index alone never returns an expired row.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

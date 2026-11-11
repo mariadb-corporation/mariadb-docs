@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.6 brings a fix to a possible race during TCP connection and improvements on communication SPI configuration.
-hidden: true
 ---
 
 # GridGain 8.9.6 Release Notes
@@ -230,6 +229,10 @@ Starting with GridGain 8.8.17, the `GridGain.Ignite` dependency is not included 
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

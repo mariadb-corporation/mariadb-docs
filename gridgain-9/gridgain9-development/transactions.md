@@ -283,3 +283,11 @@ Transaction label will be visible in:
 - **Log messages** - When transactions timeout, fail, or produce warnings, the label is included in log output for easy identification
 - **System views** - Labels are visible in transaction system views for monitoring active and historical transactions
 - **Diagnostic outputs** - Labels help correlate transaction activity across distributed nodes
+
+## See Also
+
+- [Use Transactions in GridGain 9](../gridgain9-get-started/learning-paths/distributed-sql-foundations/use-transactions.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

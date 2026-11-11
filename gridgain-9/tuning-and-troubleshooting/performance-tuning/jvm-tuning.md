@@ -66,3 +66,7 @@ G1 garbage collector is NUMA-aware since release 14. It can be enabled with:
 ```
 -XX:+UseNUMA
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

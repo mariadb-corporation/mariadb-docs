@@ -2,7 +2,6 @@
 description: >-
   PyGridGain 1.2.0 adds SSL/TLS certificates with passwords, improves the SQL
   API, introduces the AuthenticationError class, and deprecates the SqlQuery API.
-hidden: true
 ---
 
 # PyGridGain 1.2.0 Release Notes
@@ -97,6 +96,10 @@ In PyGridGain earlier than 1.2.0 version, the `schema` argument of the `Client.s
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

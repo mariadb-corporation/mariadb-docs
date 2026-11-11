@@ -2,7 +2,6 @@
 description: >-
   PyGridGain 1.4.0 adds Python 3.10 support, a handshake timeout, monitoring and
   event handling, transactions, and expiry policy configuration.
-hidden: true
 ---
 
 # PyGridGain 1.4.0 Release Notes
@@ -137,6 +136,10 @@ pip install pygridgain==1.4.0
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -190,11 +190,6 @@ The following options and system variables are related to using MariaDB on Windo
 
 The following options are related to [replication](../../ha-and-performance/standard-replication/) and the [binary log](../server-monitoring-logs/binary-log/). Options that are also system variables are listed after:
 
-#### `--abort-slave-event-count`
-
-* Command line: `--abort-slave-event-count=#`
-* Description: Option used by mysql-test for debugging and testing of replication.
-
 #### `--binlog-do-db`
 
 * Command line: `--binlog-do-db=name`
@@ -218,11 +213,6 @@ The following options are related to [replication](../../ha-and-performance/stan
 * Command line: `--binlog-row-event-max-size=#`
 * Description: The maximum size of a row-based [binary log](../server-monitoring-logs/binary-log/) event in bytes. Rows will be grouped into events smaller than this size if possible. The value has to be a multiple of 256. Available as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_row_event_max_size) from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0).
 * Default value `8192`
-
-#### `--disconnect-slave-event-count`
-
-* Command line: `--disconnect-slave-event-count=#`
-* Description: Option used by mysql-test for debugging and testing of replication.
 
 #### `--flashback`
 
@@ -303,20 +293,10 @@ The following options are related to [replication](../../ha-and-performance/stan
 * Command line: `--master-user=name`
 * Description: The username the replica thread will use for authentication when connecting to the primary. The user must have FILE privilege. If the primary user is not set, user test is assumed. The value in master.info will take precedence if it can be read.
 
-#### `--max-binlog-dump-events`
-
-* Command line: `--max-binlog-dump-events=#`
-* Description: Option used by mysql-test for debugging and testing of replication.
-
 #### `--replicate-same-server-id`
 
 * Command line: `--replicate-same-server-id`
 * Description: In replication, if set to 1, do not skip events having our server id. Default value is 0 (to break infinite loops in circular replication). Can't be set to 1 if [log-slave-updates](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) is used. Added as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#replicate_same_server_id) in [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120).
-
-#### `--sporadic-binlog-dump-fail`
-
-* Command line: `--sporadic-binlog-dump-fail`
-* Description: Option used by mysql-test for debugging and testing of replication.
 
 #### `--sysdate-is-now`
 
@@ -908,21 +888,58 @@ Some options and system variables related to [Galera Cluster](../../architecture
 
 ## Options When Debugging mariadbd
 
+These options are for developers and for the MariaDB test suite (`mariadb-test`). Don't use them on a production server.
+
+Options marked **debug builds only** exist only in a server compiled as a debug build (`-DCMAKE_BUILD_TYPE=Debug`). The release packages are not debug builds; there, the server rejects these options as unknown. Options marked **no effect in release builds** are accepted by every server but do nothing unless it is a debug build.
+
+The old MySQL 5.5 names of some of these options, without the `debug-` prefix (`--abort-slave-event-count`, `--disconnect-slave-event-count`, `--exit-info`, `--max-binlog-dump-events` and `--sporadic-binlog-dump-fail`), do nothing. The server accepts them only so that old option files still work, and writes a warning to the [error log](../server-monitoring-logs/error-log.md) when it finds one.
+
+#### `--debug-abort-slave-event-count`
+
+* Command line: `--debug-abort-slave-event-count=#`
+* Description: Stops the replica SQL thread after it has read this many events from the relay log, as if the next event could not be read. The thread stops with the error "Could not parse relay log event entry". Used by `mariadb-test` to test replication recovery. `0` disables it. No effect in release builds.
+* Default: `0`
+
+#### `--debug-assert`
+
+* Command line: `--debug-assert`, `--skip-debug-assert`
+* Description: Whether a failed debug assertion (`DBUG_ASSERT`) stops the server. With `--skip-debug-assert`, the server prints the failed assertion (file, line and condition) to standard error, which is normally the [error log](../server-monitoring-logs/error-log.md), and continues. Debug builds only.
+* Default: `ON`
+
 #### `--debug-assert-if-crashed-table`
 
-* Description: Do an assert in handler::print\_error() if we get a crashed table.
+* Command line: `--debug-assert-if-crashed-table`
+* Description: Assert when [Aria](../../server-usage/storage-engines/aria/) finds a crashed table, or when a storage engine error forces a transaction rollback. Fatal storage engine errors are also written to the [error log](../server-monitoring-logs/error-log.md). Debug builds only.
+* Default: `OFF`
+
+#### `--debug-assert-on-error`
+
+* Command line: `--debug-assert-on-error`
+* Description: Assert when the server detects a locking error, such as wrong mutex usage or an inconsistent table lock. It also turns on [--debug-assert-if-crashed-table](#debug-assert-if-crashed-table). Debug builds only.
+* Default: `OFF`
+
+#### `--debug-assert-on-not-freed-memory`
+
+* Command line: `--debug-assert-on-not-freed-memory`, `--skip-debug-assert-on-not-freed-memory`
+* Description: Assert when the server's per-connection memory accounting is inconsistent, for example when temporary space is still counted as in use when a connection is reset. Debug builds only.
+* Default: `ON`
 
 #### `--debug-binlog-fsync-sleep`
 
-* Description: `--debug-binlog-fsync-sleep=#`If not set to zero, sets the number of micro-seconds to sleep after running fsync() on the [binary log](../server-monitoring-logs/binary-log/) to flush transactions to disk. This can thus be used to artificially increase the perceived cost of such an fsync().
+* Command line: `--debug-binlog-fsync-sleep=#`
+* Description: Sleep for this many microseconds after each `fsync()` on the [binary log](../server-monitoring-logs/binary-log/), to make the `fsync()` look more expensive than it is. `0` disables it. Debug builds only. Also a [system variable](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug_binlog_fsync_sleep).
+* Default: `0`
 
-#### `--debug-crc-break`
+#### `--debug-disconnect-slave-event-count`
 
-* Description: `--debug-crc-break=#`Call my\_debug\_put\_break\_here() if crc matches this number (for debug).
+* Command line: `--debug-disconnect-slave-event-count=#`
+* Description: Makes the replica I/O thread act as if the connection to the primary failed after it has received this many events, and again that many events after each reconnect. Used by `mariadb-test` to test replication recovery. `0` disables it. No effect in release builds.
+* Default: `0`
 
-#### `--debug-flush`
+#### `--debug-exit-info`
 
-* Description: Default debug log with flush after write.
+* Command line: `--debug-exit-info[=#]`, `-T [#]`
+* Description: Sets internal test flags, a bitmask whose bits are not documented and can change between versions. When the server shuts down, it also reports files left open and prints its resource usage. Use at your own risk.
 
 #### `--debug-gdb`
 
@@ -933,13 +950,28 @@ Some options and system variables related to [Galera Cluster](../../architecture
   * On Windows, the server doesn't install its own unhandled-exception filter, so an attached debugger or Windows Error Reporting handles the crash.
   * It doesn't turn off [--stack-trace](mariadbd-options.md#stack-trace). Use `--skip-stack-trace` for that.
 
+#### `--debug-max-binlog-dump-events`
+
+* Command line: `--debug-max-binlog-dump-events=#`
+* Description: Has no effect. The server accepts the option, but no code uses its value.
+* Default: `0`
+
 #### `--debug-no-sync`
 
-* Description: `debug-no-sync[=#]`Disables system sync calls. Only for running tests or debugging!
+* Command line: `--debug-no-sync`
+* Description: Disables system sync calls. Use it only for running tests or for debugging.
+* Default: `OFF`
+
+#### `--debug-sporadic-binlog-dump-fail`
+
+* Command line: `--debug-sporadic-binlog-dump-fail`
+* Description: On a primary, makes every second binary log dump request from a replica fail with the error `Master failed COM_BINLOG_DUMP to test if slave can recover`, to test that replicas recover. No effect in release builds.
+* Default: `OFF`
 
 #### `--debug-sync-timeout`
 
-* Description: `debug-sync-timeout[=#]`Enable the debug sync facility and optionally specify a default wait timeout in seconds. A zero value keeps the facility disabled.
+* Command line: `--debug-sync-timeout[=#]`
+* Description: Enable the [Debug Sync facility](../../clients-and-utilities/testing-tools/mariadb-test/the-debug-sync-facility.md) and optionally specify a default wait timeout in seconds. A zero value keeps the facility disabled. Debug builds only.
 
 #### `--gdb`
 
@@ -950,15 +982,14 @@ Some options and system variables related to [Galera Cluster](../../architecture
 
 * Description: Don't print Notes to the [error log](../server-monitoring-logs/error-log.md) during startup.
 
-#### `--thread-alarm`
-
-* Description: Enable/disable system thread alarm calls. Should only be turned off (`--disable-thread-alarm`) when running tests or debugging!
-
 ### Debugging Options and System Variables
 
 * [core-file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file)
 * [debug](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug-debug_dbug)
+* [debug-binlog-fsync-sleep](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug_binlog_fsync_sleep)
+* [debug-mutex-deadlock-detector](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug_mutex_deadlock_detector)
 * [debug-no-thread-alarm](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug_no_thread_alarm)
+* [debug-sync](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug_sync)
 
 ## Other Options
 
@@ -984,11 +1015,6 @@ Options that are also system variables are listed after:
 * Command line: `--des-key-file=name`
 * Description: Load keys for [des\_encrypt()](../../reference/sql-functions/secondary-functions/encryption-hashing-and-compression-functions/des_encrypt.md) and [des\_decrypt()](../../reference/sql-functions/secondary-functions/encryption-hashing-and-compression-functions/des_decrypt.md) from the given file.
 * Removed: MariaDB 13.0, together with the `DES_ENCRYPT()`/`DES_DECRYPT()` functions and the `FLUSH DES_KEY_FILE` statement.
-
-#### `--exit-info`
-
-* Command line: `--exit-info[=#]`
-* Description: Used for debugging. Use at your own risk.
 
 #### `--getopt-prefix-matching`
 

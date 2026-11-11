@@ -240,7 +240,7 @@ This behavior depends on the router implementation but the general rule of thumb
 
 Readconnroute will always use primary servers before secondary servers as long as they match the configured server type.
 
-Readwritesplit will pick servers that have the same rank as the current primary. Read the [readwritesplit documentation on server ranks](maxscale-routers/maxscale-readwritesplit.md#server-ranks) for a detailed description of the behavior.
+Readwritesplit will pick servers that have the same rank as the current primary. Read the [readwritesplit documentation on server ranks](maxscale-routers/maxscale-readwritesplit/README.md#server-ranks) for a detailed description of the behavior.
 
 The following example server configuration demonstrates how `rank` can be used to exclude `DR-site` servers from routing.
 
@@ -329,3 +329,5 @@ To disable this and log in directly using the client credentials, add `use_servi
 Comma-separated list of labels that are assigned for this server. These are user-defined labels that by default aren't interpreted by MaxScale. Some router modules may use them to customize the routing or to provide other mechanisms that otherwise depend on user-defined parameters.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

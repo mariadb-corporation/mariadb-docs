@@ -67,3 +67,7 @@ These node-wide system properties, available since 8.10, set defaults for vector
 | `GRIDGAIN_VECTOR_BINARY_QUANTIZATION` | `true` or `false` (`false`) | Stores `BINARY` codes for every vector index left at `ENGINE_DEFAULT`. Applies only to indexes built after it is set. An index that names its own storage keeps it. Set it the same on every node, or nodes answer the same query with different recall. |
 | `GRIDGAIN_VECTOR_NOCOPY_SCORER` | `true` or `false` (`false`) | Turns on the no-copy vector scorer. Takes effect only with the `ignite-lucene-10-java22` module on Java 22 to 25, with the JVM started with `--add-modules jdk.incubator.vector`. Read once at node startup. For details, see [Enabling the No-Copy Vector Scorer](README.md#enabling-the-no-copy-vector-scorer). |
 | `GRIDGAIN_VECTOR_INDEX_RAM_BUFFER_MB` | 1 or more (16) | Size in megabytes of the on-heap buffer a vector index fills before it flushes a segment. A larger buffer uses more heap but makes fewer segments. Each vector index has its own buffer, so the node needs this much heap for each vector-indexed type. A value of 0 or less fails the vector index at creation. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -3,6 +3,7 @@ description: >-
   MariaDB Cloud AI Agents (Tech Preview, 1M tokens/month free): Developer
   Copilot, DBA Copilot, and user-created Custom DB Agents for natural-language
   queries on MySQL or MariaDB schemas.
+hidden: true
 ---
 
 # AI Agents
@@ -13,7 +14,7 @@ This capability is currently in Tech Preview and is free to use. We provide up t
 
 MariaDB Cloud offers two types of AI Agents:
 
-* **Built-in Agents:** These are preconfigured agents designed to help developers and DBAs maximize the value of MariaDB Cloud. Currently, we have two agents: Developer Copilot and DBA Copilot. The Developer Copilot assists users in answering questions about MySQL, MariaDB, and MariaDB Cloud, in general. The DBA Copilot enables DBA tasks like performance tuning or debugging errors. They are tailored to enhance developer/DBA productivity.
+* **Built-in Agents:** These are preconfigured agents designed to help developers and DBAs maximize the value of MariaDB Cloud. There are three agents: Developer Copilot, DBA Copilot, and Chat With Your App Data. The Developer Copilot assists users in answering questions about MySQL, MariaDB, and MariaDB Cloud, in general. The DBA Copilot enables DBA tasks like performance tuning or debugging errors. Chat With Your App Data lets you ask questions about your application databases in natural language; the generated SQL runs against your data. They are tailored to enhance developer/DBA productivity.
 * **User-Created Custom DB Agents:** These are agents on your schemas/datasets permitting natural language queries over complex databases with high accuracy, consistency, and ease. The databases these agents operate on can be managed within MariaDB Cloud or external MySQL or MariaDB DBs.
 
 ## Why AI Agents?
@@ -404,3 +405,5 @@ Your trained agent is now ready for deployment—capable of transforming natural
 In the Edit agent window, select the radio box "Published" to deploy the agent and make it available through the AI Agent APIs.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

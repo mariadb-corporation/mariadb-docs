@@ -2,7 +2,6 @@
 description: >-
   Installing the GridGain Cloud Connector on Kubernetes with a Helm chart,
   including configuration, upgrade, and uninstall.
-hidden: true
 ---
 
 # Deploying Cloud Connector on Kubernetes with a Helm Chart
@@ -99,3 +98,7 @@ helm uninstall my-release
 For more information about available options and values, refer to the Helm chart [documentation on Artifact Hub](https://artifacthub.io/packages/helm/gridgain/cc-spring-app).
 
 If you have questions or concerns, [open an issue](https://github.com/gridgain/helm-charts/issues) in our GitHub repository.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

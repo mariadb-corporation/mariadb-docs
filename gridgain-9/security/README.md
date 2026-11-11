@@ -56,3 +56,7 @@ Control who can connect to a GridGain 9 cluster and what they may do — authent
 Protect GridGain 9 data in transit and at rest — SSL/TLS for nodes and clients, and transparent data encryption.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

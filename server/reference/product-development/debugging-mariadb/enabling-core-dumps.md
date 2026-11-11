@@ -12,7 +12,14 @@ description: >-
 
 Core dumps are enabled by default on **Windows**, so **this step can be skipped on Windows**. See [MDEV-18439](https://jira.mariadb.org/browse/MDEV-18439) for more information.
 
-In order to enable core dumps, you need to set the [core\_file](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file) system variable either on the command-line or in a relevant server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). For example:
+On Linux, whether a crash produces a core file is decided by the operating system: the core file size limit of the `mariadbd` process and the `kernel.core_pattern` setting (see [Core Files on Linux](#core-files-on-linux)). When `mariadbd` crashes, it raises the fatal signal again after printing its crash report, so the kernel can write a core dump whether or not [core\_file](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file) is set. Enabling [core\_file](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file) also does the following:
+
+* It tries to raise the core file size limit of the `mariadbd` process to unlimited. Unless `mariadbd` runs as `root`, this works only if the hard limit is already unlimited.
+* It keeps the process dumpable after `mariadbd` switches from `root` to another user, as it does when [mariadbd-safe](../../../server-management/starting-and-stopping-mariadb/mariadbd-safe.md) starts it. Without this, Linux doesn't write a core file of a process that changed its user (see [Core Dumps and setuid on Linux](#core-dumps-and-setuid-on-linux)).
+
+The MariaDB [systemd](../../../server-management/starting-and-stopping-mariadb/systemd/README.md) service starts `mariadbd` as the `mysql` user, so only the first point applies there, and the core file size limit is better set in the service (see [Running mariadbd Using systemd](#running-mariadbd-using-systemd)). On Windows, [core\_file](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file) is what writes the minidump file.
+
+To enable it, set the [core\_file](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file) system variable either on the command-line or in a relevant server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). For example:
 
 ```
 [mariadb]
@@ -95,6 +102,16 @@ Using `sudo systemctl edit mariadb.service` add the contents:
 LimitCORE=infinity
 ```
 
+Then restart the service with `sudo systemctl restart mariadb.service`.
+
+The `mariadb.service` unit doesn't set `LimitCORE` itself, so unless you add it, the service uses the system-wide systemd default. To check the limit that applies:
+
+```
+systemctl show mariadb.service -p LimitCORE -p LimitCORESoft
+```
+
+If it shows `0` or a small value, either add `LimitCORE=infinity` for the MariaDB service as above, or raise the default for all services by setting `DefaultLimitCORE=infinity` in `/etc/systemd/system.conf` and running `sudo systemctl daemon-reexec`. A changed default applies to services started afterwards, so restart MariaDB too.
+
 See [systemd: Configuring the Core File Size](../../../server-management/starting-and-stopping-mariadb/systemd/configuring.md#configuring-the-core-file-size) for more details.
 
 #### Running MariaDB Containers
@@ -161,18 +178,29 @@ The value of `kernel.core_pattern` is printed to the [error log](../../../server
 
 **Note:** Ensure that you have enough free disk space in the path pointed to by `kernel.core_pattern`.
 
-#### Extracting Linux core dumps with systemd-coredump
+#### Extracting Linux Core Dumps with systemd-coredump
 
 Core dump management can be automated using [systemd](../../../server-management/starting-and-stopping-mariadb/systemd/README.md), which then centrally manages all core dump files and provides information about detected core dumps and access to collected core files using the [coredumpctl](https://www.freedesktop.org/software/systemd/man/coredumpctl.html) utility.
 
-This is enabled per default on Red Hat Enterprise Linux 8 and CentOS 8, and maybe other contemporary Linux distribution releases by now, too. It can be easily checked for by looking at the `kernel.core_pattern setting`. If it looks like this systemd-coredump is enabled:
+This is enabled by default on Red Hat Enterprise Linux 8 and later and on distributions derived from it. To check whether it is enabled, look at the `kernel.core_pattern` setting. If it looks like this, systemd-coredump is enabled:
 
 ```
 # sysctl kernel.core_pattern
 kernel.core_pattern = |/usr/lib/systemd/systemd-coredump %P %u %g %s %t %c %h %e
 ```
 
-On other distributions like Ubuntu (at least up to 21.10) it is not enabled by default, but can be set up manually.
+Other distributions can pipe core dumps to a different handler, or have the kernel write core files itself. The `kernel.core_pattern` setting shows which applies.
+
+{% hint style="info" %}
+When `kernel.core_pattern` starts with a pipe (`|`), the kernel doesn't write a core file itself. It passes the core to the program named after the pipe. With systemd-coredump, that means:
+
+* No core file appears in the data directory, even with [core\_file](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file) enabled. systemd-coredump stores the core in `/var/lib/systemd/coredump/` instead, compressed, and deletes it after a few days by default.
+* Cores larger than the `ProcessSizeMax` and `ExternalSizeMax` limits in [coredump.conf](https://www.freedesktop.org/software/systemd/man/latest/coredump.conf.html) aren't stored. The largest buffers, such as the InnoDB buffer pool, are left out of core files (see [What's Included in Core Files](#whats-included-in-core-files)), but a busy `mariadbd` process can still exceed the limits, so raise both if `coredumpctl list` doesn't show `present` in the `COREFILE` column.
+
+To get a core file, for example to send it to a support engineer, extract it with `coredumpctl dump`, as shown below. You don't need to change `kernel.core_pattern`.
+
+The `Core pattern:` line that `mariadbd` writes to the [error log](../../../server-management/server-monitoring-logs/error-log.md) when it crashes shows which case applies.
+{% endhint %}
 
 To see all recent core dumps on the system you can then simply run
 
@@ -198,6 +226,15 @@ using the process id number from the PID column, or when you just want to retrie
 # coredumpctl dump -o mariadb.core /usr/sbin/mariadbd
 ```
 
+`coredumpctl info` shows the details of the most recent crash, including the `Storage` line with the path of the stored, compressed core file. The path of `mariadbd` depends on the distribution:
+
+```
+# coredumpctl info mariadbd
+...
+      Storage: /var/lib/systemd/coredump/core.mariadbd.<uid>.<boot-id>.<pid>.<timestamp>.zst (present)
+...
+```
+
 Starting with `systemd` 248 it is also possible to invoke the `gdb` debugger directly using the new `--debugger-arguments=...` option, e.g. making the extraction of all thread backtraces from the most recent MariaDB server crash a one liner without even having to extract the core dump file first (requires `gdb` to be installed):
 
 ```
@@ -208,7 +245,7 @@ This requires `systemd` 248 or later, as shipped with Ubuntu 22.04, Debian 12, a
 
 ### Core Dumps and setuid on Linux
 
-Since `mariadbd` executes [setuid](https://linux.die.net/man/2/setuid), you may have to set `fs.suid_dumpable=2` to allow core dumps on Linux. You can check the current `fs.suid_dumpable` value by using the [sysctl](https://linux.die.net/man/8/sysctl) utility. For example:
+When `mariadbd` is started as `root`, for example by [mariadbd-safe](../../../server-management/starting-and-stopping-mariadb/mariadbd-safe.md), it switches to the `mysql` user with [setuid](https://linux.die.net/man/2/setuid), and you may have to set `fs.suid_dumpable=2` to allow core dumps on Linux. This doesn't apply to the MariaDB systemd service, which starts `mariadbd` as the `mysql` user. You can check the current `fs.suid_dumpable` value by using the [sysctl](https://linux.die.net/man/8/sysctl) utility. For example:
 
 ```
 sysctl fs.suid_dumpable
@@ -268,9 +305,9 @@ On Windows, the core file is created as a [minidump file](https://docs.microsoft
 
 For details on how to configure and read the [minidump file](https://docs.microsoft.com/en-us/windows/desktop/debug/minidump-files), see [How to read the small memory dump file that is created by Windows if a crash occurs](https://support.microsoft.com/en-us/help/315263/how-to-read-the-small-memory-dump-file-that-is-created-by-windows-if-a).
 
-## Core Files on Kubernetes
+## Core Files in Containers
 
-See the IBM [Core Dump Handler](https://github.com/IBM/core-dump-handler) project.
+`kernel.core_pattern` is a host setting, so the host decides what happens to the core dump of a `mariadbd` process in a container. See [Running MariaDB Containers](#running-mariadb-containers). If the host uses systemd-coredump, [systemd-coredump](https://www.freedesktop.org/software/systemd/man/latest/systemd-coredump.html) describes how it handles the core dumps of processes in containers.
 
 ## Core Files and Address Sanitizer (ASAN)
 
@@ -297,11 +334,11 @@ Sep 25 10:41:19 srv1 mysqld: 2018-09-25 10:41:19 0 [Warning] InnoDB: Failed to s
 
 In those cases, the core dump may exclude some additional data. If that is not a concern, then the warning can be ignored. The problem can be fixed by upgrading to a Linux kernel version in which the bug is fixed.
 
+Leaving these buffers out also keeps most table data out of core files ([MDEV-10814](https://jira.mariadb.org/browse/MDEV-10814)), but not all of it: a core file still contains the data that queries were processing at the time of the crash, and memory that was reused can hold earlier data. Treat core files as confidential.
+
 ## See Also
 
 * [How to Produce a Full Stack Trace for mariadbd](how-to-produce-a-full-stack-trace-for-mariadbd.md)
-* [HowTo: Debug Crashed Linux Application Core Files Like A Pro](https://www.cyberciti.biz/tips/linux-core-dumps.html)
-* [Getting MySQL Core file on Linux](https://www.percona.com/blog/2011/08/26/getting-mysql-core-file-on-linux/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

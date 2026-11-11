@@ -219,3 +219,7 @@ GridGain 9.1.4 introduced *Zone-based Replication* and uses it by default. GridG
 *Table-based Replication* is deprecated in 9.1.11 and was removed in GridGain 9.1.15. If your cluster still uses *Table-based Replication*, you must migrate to new replication mode. There is no automatic migration tool, so you must create a new cluster and move your data there.
 
 If the 9.1.15+ node is still using *Table-based Replication* for persistent storage, it will not start with the `UNSUPPORTED_TABLE_BASED_REPLICATION_ERR` error.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

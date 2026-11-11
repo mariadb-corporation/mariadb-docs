@@ -2,7 +2,6 @@
 description: >-
   Setting up the Cloud Connector so Control Center can monitor GridGain 9
   clusters without exposing cluster ports to the internet.
-hidden: true
 ---
 
 # Setting Up Cloud Connector with GridGain 9 and Control Center
@@ -121,4 +120,8 @@ sudo service gridgain-cloud-connector start
 
 ## Attach the Cluster to Control Center
 
-To start using the connector with Control Center and your cluster, refer to the documentation on attaching a [Gridgain 9](../../getting-started/connect/connect-gridgain9-cluster.md) or [Apache Ignite 3](../../getting-started/connect/connect-ignite-3-cluster.md#by-using-the-custom-connector) cluster.
+To start using the connector with Control Center and your cluster, refer to the documentation on attaching a [GridGain 9](../../getting-started/connect/connect-gridgain9-cluster.md) cluster.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -4,6 +4,7 @@ description: >-
   tracking for transactions and a new clustername REST command, along with
   several bug fixes.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.5.8-p5 Release Notes
@@ -164,10 +165,14 @@ $ curl http://localhost:8080/ignite?cmd=clustername
 
 ## Related Information
 
-[Customer Support](https://www.gridgain.com/services/support)
+[Customer Support](https://mariadb.com/support/)
 
 ### We Value Your Feedback
 
-The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://docs.gridgain.com) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

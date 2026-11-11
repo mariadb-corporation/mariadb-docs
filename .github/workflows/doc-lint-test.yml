@@ -468,7 +468,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
   # Unit tests for the Python helpers under .github/scripts/ (test_*.py), starting with
-  # cloud_release_announce.py (DOCS-6936). That script decides what gets posted to a
+  # release_announce.py (DOCS-6936, DOCS-7076). That script decides what gets posted to a
   # company-wide channel, on pushes to main only, so a PR is the one place a regression in it
   # can be caught before it posts -- or fails to post -- for real.
   scripts-test:

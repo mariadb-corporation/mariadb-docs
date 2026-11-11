@@ -245,3 +245,11 @@ Follow these steps:
 - Import the `yaml` file in **Configuration → Templates → Import**.
 
 - Link the template to the target host.
+
+## See Also
+
+- [How to Monitor GridGain 9 With Prometheus and Grafana](../../gridgain9-get-started/how-to-guides/prometheus-grafana-step-by-step.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

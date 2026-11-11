@@ -487,6 +487,15 @@ description: >-
 * Default: `10, 1000ms, 10000ms`
 * Description: Manages how frequently repeated errors or warnings are logged.
 
+[**log\_timestamp\_format**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#log_timestamp_format)
+
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `default`, `datetime`, `iso_8601`
+* Default: `default`
+* Description: Selects the timestamp format used in log messages.
+
 [**log\_warn\_super\_user**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#log_warn_super_user)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
@@ -516,7 +525,7 @@ description: >-
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `10`
+* Default: `0` from 26.10.0, `10` until 25.10
 * Description: Maximum number of authentication failures before temporarily blocking a host.
 
 [**max\_connect\_errors**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#max_connect_errors)
@@ -524,7 +533,7 @@ description: >-
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `0`
+* Default: `100` from 26.10.0, `0` until 25.10.
 * Description: Maximum number of aborted connection attempts before temporarily blocking a host.
 
 [**maxlog**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#maxlog)
@@ -694,6 +703,14 @@ description: >-
 * Default: `default`
 * Description: Defines which SQL language mode the query classifier should expect.
 
+[**statistics**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#statistics)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: true
+* Description: Enables tracking of query statistics such as query execution latency.
+
 [**substitute\_variables**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#substitute_variables)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
@@ -726,26 +743,54 @@ description: >-
 * Mandatory: No
 * Description: Global attributes to send with every metric.
 
-[**telemetry\_sql\_count**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry_sql_count)
+[**telemetry\_logs\_url**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry_logs_url)
 
-* Type: count
+* Type: string
 * Mandatory: No
 * Dynamic: Yes
-* Default: `50`
+* Default: `""`
+* Description: Defines the URL where OpenTelemetry logs are sent, overriding the one derived from `telemetry_url`.
+
+[**telemetry\_metrics\_url**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry_metrics_url)
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Defines the URL where OpenTelemetry metrics are sent, overriding the one derived from `telemetry_url`.
+
+[**telemetry\_signals**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry_signals)
+
+* Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `metrics`, `logs`
+* Default: `metrics,logs`
+* Description: Specifies which telemetry signals, metrics and logs, are sent.
+
+[**telemetry\_sql\_count**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry_sql_count)
+
+* Type: number
+* Mandatory: No
+* Dynamic: Yes
+* Default: 50
+* Description: Defines the maximum number of the most used SQL query digests that are sent as metrics.
 
 [**telemetry\_sql\_exclude**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry_sql_exclude)
 
 * Type: [regex](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `""`
+* Default: None
+* Description: Defines a regular expression that excludes matching SQL query digests from the metrics.
 
 [**telemetry\_sql\_match**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry_sql_match)
 
 * Type: [regex](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `""`
+* Default: None
+* Description: Defines a regular expression that selects the SQL query digests that are sent as metrics.
 
 [**telemetry\_ssl\_ca**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry_ssl_ca)
 
@@ -792,7 +837,7 @@ description: >-
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `http://localhost:4318/v1/metrics`
+* Default: `http://localhost:4318`
 * Description: Defines the OpenTelemetry endpoint where MaxScale pushes metrics.
 
 [**threads**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#threads)
@@ -840,6 +885,15 @@ description: >-
 * Default: `30s`
 * Description: Maximum frequency for refreshing user accounts from backend servers after authentication failures.
 
+[**worker\_assignment**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#worker_assignment)
+
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `local`, `roundrobin`
+* Default: `local`
+* Description: Selects how new client connections are assigned to worker threads.
+
 [**writeq\_high\_water**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#writeq_high_water)
 
 * Type: [size](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
@@ -855,6 +909,16 @@ description: >-
 * Dynamic: Yes
 * Default: `1024`
 * Description: Low water mark to disable network write throttling.
+
+#### Listener
+
+[**sni\_mapping\_file**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sni_mapping_file)
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: none
+* Description: Defines the path to a JSON file that maps SNI hostnames to certificates and services.
 
 #### Service
 
@@ -1189,6 +1253,7 @@ description: >-
 * Type: string
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Defines the host where the KMIP server is.
 
 [**kmip.key**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#settings-for-kmip-key-manager)
 
@@ -1208,11 +1273,12 @@ description: >-
 
 [**ssl**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#ssl)
 
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [enumeration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: false
-* Description: Enables SSL encryption for connections when set to true.
+* Values: `disable`, `allow`, `require`
+* Default: `allow`
+* Description: Configures the SSL encryption for connections.
 
 [**ssl\_ca**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#ssl_ca)
 
@@ -1609,7 +1675,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Values: `password`, `password_2FA`, `suid`
-* Default: `password`
+* Default: `suid`
 * Description: Defines the PAM authentication mode for client login.
 
 [**pam\_use\_cleartext\_plugin**](maxscale-authenticators/maxscale-pam-authenticator.md#pam_use_cleartext_plugin)
@@ -1759,6 +1825,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `10000`
+* Description: Defines the maximum number of queries faster than `min_query_duration` that are remembered so that their cache lookups can be skipped.
 
 [**min\_query\_duration**](maxscale-filters/maxscale-cache.md#min_query_duration)
 
@@ -1766,6 +1833,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `0s` (no limit)
+* Description: Defines the minimum time a query must take on the backend for its result to be stored in the cache.
 
 [**rules**](maxscale-filters/maxscale-cache.md#rules)
 
@@ -1833,6 +1901,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: 127.0.0.1:10800
+* Description: Defines the comma-separated list of GridGain endpoints.
 
 [**max\_value\_size**](maxscale-filters/maxscale-cache.md#max_value_size)
 
@@ -1840,6 +1909,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: 1Mi
+* Description: Defines the maximum size of a value that can be stored in GridGain.
 
 [**partition\_awareness**](maxscale-filters/maxscale-cache.md#partition_awareness)
 
@@ -1847,6 +1917,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
+* Description: Enables GridGain partition awareness, so that requests go directly to the node that owns the data.
 
 [**password**](maxscale-filters/maxscale-cache.md#password)
 
@@ -1854,6 +1925,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines the password used for authenticating with GridGain.
 
 [**ssl**](maxscale-filters/maxscale-cache.md#ssl)
 
@@ -1861,6 +1933,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
+* Description: Enables SSL when connecting to the GridGain server.
 
 [**ssl\_ca**](maxscale-filters/maxscale-cache.md#ssl_ca)
 
@@ -1868,6 +1941,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines the CA certificate used for the SSL connection to the GridGain server.
 
 [**ssl\_cert**](maxscale-filters/maxscale-cache.md#ssl_cert)
 
@@ -1875,6 +1949,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines the SSL client certificate used when connecting to the GridGain server.
 
 [**ssl\_key**](maxscale-filters/maxscale-cache.md#ssl_key)
 
@@ -1882,6 +1957,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines the SSL client private key used when connecting to the GridGain server.
 
 [**user**](maxscale-filters/maxscale-cache.md#user)
 
@@ -1889,6 +1965,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines the user used for authenticating with GridGain.
 
 **`storage_memcached`**
 
@@ -2256,6 +2333,89 @@ description: >-
 
 #### [maxscale-query-log-all-filter](maxscale-filters/maxscale-query-log-all-filter.md)
 
+**Kafka settings**
+
+[**kafka\_bootstrap\_servers**](maxscale-filters/maxscale-query-log-all-filter.md#kafka_bootstrap_servers)
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the comma-separated list of Kafka brokers, in `host:port` format, that the filter sends log events to.
+
+[**kafka\_enable\_idempotence**](maxscale-filters/maxscale-query-log-all-filter.md#kafka_enable_idempotence)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `false`
+* Description: Enables the idempotent Kafka producer mode, which avoids duplicate log events caused by broker outages or network errors.
+
+[**kafka\_sasl\_mechanism**](maxscale-filters/maxscale-query-log-all-filter.md#kafka_sasl_mechanism)
+
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`
+* Default: `PLAIN`
+* Description: Selects the SASL mechanism used for authenticating with the Kafka broker.
+
+[**kafka\_sasl\_password**](maxscale-filters/maxscale-query-log-all-filter.md#kafka_sasl_password)
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the password for SASL authentication with the Kafka broker; `kafka_sasl_user` must also be set.
+
+[**kafka\_sasl\_user**](maxscale-filters/maxscale-query-log-all-filter.md#kafka_sasl_user)
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the username for SASL authentication with the Kafka broker; `kafka_sasl_password` must also be set.
+
+[**kafka\_ssl**](maxscale-filters/maxscale-query-log-all-filter.md#kafka_ssl)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `false`
+* Description: Enables SSL for the connections to the Kafka broker.
+
+[**kafka\_ssl\_ca**](maxscale-filters/maxscale-query-log-all-filter.md#kafka_ssl_ca)
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the CA certificate file, in PEM format, used for Kafka SSL connections.
+
+[**kafka\_ssl\_cert**](maxscale-filters/maxscale-query-log-all-filter.md#kafka_ssl_cert)
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the client certificate file, in PEM format, used for Kafka SSL connections; `kafka_ssl_key` must also be set.
+
+[**kafka\_ssl\_key**](maxscale-filters/maxscale-query-log-all-filter.md#kafka_ssl_key)
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the client private key file, in PEM format, used for Kafka SSL connections; `kafka_ssl_cert` must also be set.
+
+[**kafka\_topic**](maxscale-filters/maxscale-query-log-all-filter.md#kafka_topic)
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the Kafka topic where the filter publishes log events.
+
 **Settings**
 
 [**append**](maxscale-filters/maxscale-query-log-all-filter.md#append)
@@ -2311,9 +2471,17 @@ description: >-
 * Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
-* Values: `session`, `unified`, `stdout`
+* Values: `session`, `unified`, `stdout`, `kafka`
 * Default: `session`
 * Description: Defines the logging output type, such as per-session files, a unified log file, or standard output.
+
+[**logged\_query\_max\_length**](maxscale-filters/maxscale-query-log-all-filter.md#logged_query_max_length)
+
+* Type: count
+* Mandatory: No
+* Dynamic: Yes
+* Default: `1024`
+* Description: Limits the number of characters logged for a single query; `0` removes the limit.
 
 [**match**](maxscale-filters/maxscale-query-log-all-filter.md#match)
 
@@ -2900,6 +3068,53 @@ description: >-
 * Dynamic: Yes
 * Description: Disables automatic primary and replica role assignment in a Galera cluster; when enabled, only the Synced status is assigned.
 
+[**external\_replication\_monitor**](maxscale-monitors/galera-monitor.md#external_replication_monitor)
+
+* Type: Monitor name
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Introduced: MaxScale 26.10
+* Description: Names the monitor of an external cluster from which the Galera primary replicates, which enables external replication management.
+
+[**external\_replication\_primary\_role**](maxscale-monitors/galera-monitor.md#external_replication_primary_role)
+
+* Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `primary`, `replica`, `running`
+* Default: `primary`
+* Introduced: MaxScale 26.10
+* Description: Defines the ordered list of server roles the monitor looks for when selecting the external server to replicate from.
+
+[**replication\_master\_ssl**](maxscale-monitors/galera-monitor.md#replication_master_ssl)
+
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `auto`
+* Values: `auto`, `off`, `on`
+* Introduced: MaxScale 26.10
+* Description: Controls the `MASTER_SSL` option in the `CHANGE MASTER TO` commands the monitor generates for external replication.
+
+[**replication\_password**](maxscale-monitors/galera-monitor.md#replication_password)
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Introduced: MaxScale 26.10
+* Description: Specifies the password of the user the monitor uses when it sets up external replication.
+
+[**replication\_user**](maxscale-monitors/galera-monitor.md#replication_user)
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Introduced: MaxScale 26.10
+* Description: Specifies the user the monitor uses when it sets up external replication.
+
 [**root\_node\_as\_master**](maxscale-monitors/galera-monitor.md#root_node_as_master)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
@@ -2965,6 +3180,23 @@ description: >-
 * Dynamic: Yes
 * Default: `false`
 * Description: Ensures that the primary server is always writable by automatically disabling read-only mode during monitoring.
+
+[**external\_replication\_monitor**](maxscale-monitors/mariadb-monitor.md#external_replication_monitor)
+
+* Type: Monitor name
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Description: Names the monitor of an external cluster from which the primary replicates, which enables external replication management.
+
+[**external\_replication\_primary\_role**](maxscale-monitors/mariadb-monitor.md#external_replication_primary_role)
+
+* Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `primary`, `replica`, `running`
+* Default: `primary`
+* Description: Defines the ordered list of server roles the monitor looks for when selecting the external server to replicate from.
 
 [**failcount**](maxscale-monitors/mariadb-monitor.md#failcount)
 
@@ -3131,7 +3363,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: `90s`
-* Description: Sets the maximum time allowed for a failover operation before it is terminated and automatic failover is disabled.
+* Description: Sets the maximum time a failover operation may take, counted from when the new primary has processed its relay log.
 
 [**handle\_events**](maxscale-monitors/mariadb-monitor.md#handle_events)
 
@@ -3140,6 +3372,14 @@ description: >-
 * Dynamic: Yes
 * Default: `true`
 * Description: Manages whether the monitor tracks and updates scheduled events on servers during offers, demotions, and rejoins.
+
+[**heal\_primary\_truncated\_binlog**](maxscale-monitors/mariadb-monitor.md#heal_primary_truncated_binlog)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `false`
+* Description: Allows the monitor to heal a primary that lost transactions during crash recovery by having it replicate them from a more advanced replica.
 
 [**master\_failure\_timeout**](maxscale-monitors/mariadb-monitor.md#master_failure_timeout)
 
@@ -3159,10 +3399,11 @@ description: >-
 
 [**replication\_master\_ssl**](maxscale-monitors/mariadb-monitor.md#replication_master_ssl)
 
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `auto`
+* Values: `auto`, `off`, `on`
 * Description: Enables SSL encryption for replication by configuring generated replication commands to use secure connections.
 
 [**replication\_password**](maxscale-monitors/mariadb-monitor.md#replication_password)
@@ -3187,6 +3428,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Lists servers that are never automatically selected as primary for failover, switchover or primary selection.
 
 [**switchover\_on\_low\_disk\_space**](maxscale-monitors/mariadb-monitor.md#switchover_on_low_disk_space)
 
@@ -3203,6 +3445,14 @@ description: >-
 * Dynamic: Yes
 * Default: `90s`
 * Description: Defines the maximum time allowed for switchover and rejoin operations before timing out.
+
+[**switchover\_wait\_for\_trx**](maxscale-monitors/mariadb-monitor.md#switchover_wait_for_trx)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `true`
+* Description: Controls whether switchover waits for open transactions to finish before proceeding.
 
 [**verify\_master\_failure**](maxscale-monitors/mariadb-monitor.md#verify_master_failure)
 
@@ -3383,6 +3633,14 @@ description: >-
 * Default: `""`
 * Description: Specifies the password used for backend connections when the MongoDB client is unauthenticated.
 
+[**transactions**](maxscale-protocols/maxscale-nosql-protocol-module.md#transactions)
+
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Values: `error`, `ignore`
+* Default: `error`
+* Description: Controls whether the transaction related commands result in an error or are silently ignored.
+
 [**user**](maxscale-protocols/maxscale-nosql-protocol-module.md#user)
 
 * Type: string
@@ -3393,95 +3651,6 @@ description: >-
 ### reference/maxscale-routers
 
 #### [maxscale-binlogrouter](maxscale-routers/maxscale-binlogrouter.md)
-
-**ODBC replication to Exasol**
-
-[**odbc\_case**](maxscale-routers/maxscale-binlogrouter.md#odbc_case)
-
-* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
-* Mandatory: No
-* Dynamic: No
-* Values: `keep`, `sensitive`, `insensitive`
-* Default: `keep`
-
-[**odbc\_connection\_str**](maxscale-routers/maxscale-binlogrouter.md#odbc_connection_str)
-
-* Type: string
-* Mandatory: No
-* Dynamic: No
-* Default: `""`
-
-[**odbc\_create\_table\_from\_sql**](maxscale-routers/maxscale-binlogrouter.md#odbc_create_table_from_sql)
-
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
-* Mandatory: No
-* Dynamic: No
-* Default: `false`
-
-[**odbc\_include\_tables**](maxscale-routers/maxscale-binlogrouter.md#odbc_include_tables)
-
-* Type: stringlist
-* Mandatory: No
-* Dynamic: No
-* Default: `""`
-
-[**odbc\_insert\_only\_tables**](maxscale-routers/maxscale-binlogrouter.md#odbc_insert_only_tables)
-
-* Type: stringlist
-* Mandatory: No
-* Dynamic: No
-* Default: `""`
-
-[**odbc\_manage\_user\_grants**](maxscale-routers/maxscale-binlogrouter.md#odbc_manage_user_grants)
-
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
-* Mandatory: No
-* Dynamic: No
-* Default: `false`
-
-[**odbc\_perf\_batch\_size**](maxscale-routers/maxscale-binlogrouter.md#odbc_perf_batch_size)
-
-* Type: [size](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
-* Mandatory: No
-* Dynamic: No
-* Default: `200Mi`
-
-[**odbc\_perf\_max\_buffered\_rows**](maxscale-routers/maxscale-binlogrouter.md#odbc_perf_max_buffered_rows)
-
-* Type: count
-* Mandatory: No
-* Dynamic: No
-* Default: `750000`
-
-[**odbc\_perf\_max\_idle\_rows**](maxscale-routers/maxscale-binlogrouter.md#odbc_perf_max_idle_rows)
-
-* Type: count
-* Mandatory: No
-* Dynamic: No
-* Default: `400000`
-
-[**odbc\_perf\_ncycles**](maxscale-routers/maxscale-binlogrouter.md#odbc_perf_ncycles)
-
-* Type: count
-* Mandatory: No
-* Dynamic: No
-* Minimum: `1`
-* Maximum: `4`
-* Default: `4`
-
-[**odbc\_perf\_nthreads**](maxscale-routers/maxscale-binlogrouter.md#odbc_perf_nthreads)
-
-* Type: count
-* Mandatory: No
-* Dynamic: No
-* Default: `0`
-
-[**odbc\_stop\_on\_error**](maxscale-routers/maxscale-binlogrouter.md#odbc_stop_on_error)
-
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
-* Mandatory: No
-* Dynamic: No
-* Default: `true`
 
 **Settings**
 
@@ -3719,6 +3888,117 @@ description: >-
 * Dynamic: No
 * Description: Defines the service that Diff will operate on.
 
+#### [maxscale-exasol-cdc](maxscale-routers/maxscale-exasol-cdc.md)
+
+**Settings**
+
+[**odbc\_case**](maxscale-routers/maxscale-exasol-cdc.md#odbc_case)
+
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: No
+* Values: `keep`, `sensitive`, `insensitive`
+* Default: `keep`
+* Description: Exasol identifier comparison
+
+[**odbc\_connection\_string**](maxscale-routers/maxscale-exasol-cdc.md#odbc_connection_string)
+
+* Type: string
+* Mandatory: No
+* Dynamic: No
+* Default: `""`
+* Description: The ODBC connection string for Exasol.
+
+[**odbc\_create\_table\_from\_sql**](maxscale-routers/maxscale-exasol-cdc.md#odbc_create_table_from_sql)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: No
+* Default: `false`
+* Description: Create tables from `CREATE TABLE`
+
+[**odbc\_include\_tables**](maxscale-routers/maxscale-exasol-cdc.md#odbc_include_tables)
+
+* Type: stringlist
+* Mandatory: No
+* Dynamic: No
+* Default: `""` (all tables)
+* Description: The schemas and tables to replicate
+
+[**odbc\_insert\_only\_tables**](maxscale-routers/maxscale-exasol-cdc.md#odbc_insert_only_tables)
+
+* Type: stringlist
+* Mandatory: No
+* Dynamic: No
+* Default: `""`
+* Description: Tables whose data is kept in Exasol when it is deleted in MariaDB
+
+[**odbc\_manage\_user\_grants**](maxscale-routers/maxscale-exasol-cdc.md#odbc_manage_user_grants)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: No
+* Default: `false`
+* Description: Whether to replicate users, roles and grants
+
+[**odbc\_stop\_on\_error**](maxscale-routers/maxscale-exasol-cdc.md#odbc_stop_on_error)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: No
+* Default: `true`
+* Description: Whether to stop replication on an error
+
+**Tuning**
+
+[**odbc\_perf\_batch\_size**](maxscale-routers/maxscale-exasol-cdc.md#odbc_perf_batch_size)
+
+* Type: [size](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
+* Mandatory: No
+* Dynamic: No
+* Default: `200Mi`
+* Description: Network request payload size
+
+[**odbc\_perf\_max\_buffer\_time**](maxscale-routers/maxscale-exasol-cdc.md#odbc_perf_max_buffer_time)
+
+* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: No
+* Default: `2s`
+* Description: Longest time rows are accumulated before pipeline processing
+
+[**odbc\_perf\_max\_buffer\_time\_in\_idle**](maxscale-routers/maxscale-exasol-cdc.md#odbc_perf_max_buffer_time_in_idle)
+
+* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: No
+* Default: `500ms`
+* Description: Longest time rows are accumulated with an idle pipeline
+
+[**odbc\_perf\_max\_buffered\_rows**](maxscale-routers/maxscale-exasol-cdc.md#odbc_perf_max_buffered_rows)
+
+* Type: count
+* Mandatory: No
+* Dynamic: No
+* Default: `750000`
+* Description: Max rows to buffer before pipeline processing
+
+[**odbc\_perf\_ncycles**](maxscale-routers/maxscale-exasol-cdc.md#odbc_perf_ncycles)
+
+* Type: count
+* Mandatory: No
+* Dynamic: No
+* Default: `4`, range 1 to 4
+* Description: Number of parallel cycles
+
+[**odbc\_perf\_nthreads**](maxscale-routers/maxscale-exasol-cdc.md#odbc_perf_nthreads)
+
+* Type: count
+* Mandatory: No
+* Dynamic: No
+* Default: `0` (no limit)
+* Description: Threads in pipeline
+
 #### [maxscale-exasolrouter](maxscale-routers/maxscale-exasolrouter.md)
 
 **Settings**
@@ -3732,12 +4012,29 @@ description: >-
 * Default: `read_only`
 * Description: Determines whether the Exasolrouter appears as read-only or read-write to other MaxScale components.
 
-[**connection\_string**](maxscale-routers/maxscale-exasolrouter.md#connection_string)
+[**gtid\_poll\_interval**](maxscale-routers/maxscale-exasolrouter.md#gtid_poll_interval)
 
-* Type: string
-* Mandatory: Yes
+* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: 1s
+* Description: Sets how often the GTID position is polled when `gtid_polling` is enabled.
+
+[**gtid\_polling**](maxscale-routers/maxscale-exasolrouter.md#gtid_polling)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: true
+* Description: Determines whether MaxScale polls the GTID position that `exasol_cdc` writes into Exasol, for use in SmartRouter causal reads.
+
+[**impersonate**](maxscale-routers/maxscale-exasolrouter.md#impersonate)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
 * Dynamic: No
-* Description: Specifies the Exasol ODBC connection string used to connect to the database.
+* Default: false
+* Description: Determines whether the Exasol session of a client assumes the identity of the authenticated MariaDB user by using `IMPERSONATE`.
 
 [**kill\_connection\_timeout**](maxscale-routers/maxscale-exasolrouter.md#kill_connection_timeout)
 
@@ -3747,13 +4044,28 @@ description: >-
 * Default: 10s
 * Description: Sets how long an unused kill connection is kept alive after the last KILL command. A value of `0` closes it immediately after each use.
 
-[**login\_timeout**](maxscale-routers/maxscale-exasolrouter.md#login_timeout)
+[**odbc\_connection\_string**](maxscale-routers/maxscale-exasolrouter.md#odbc_connection_string)
+
+* Type: string
+* Mandatory: Yes
+* Dynamic: No
+* Description: Specifies the Exasol ODBC connection string used to connect to the database.
+
+[**odbc\_login\_timeout**](maxscale-routers/maxscale-exasolrouter.md#odbc_login_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
-* Dynamic: No
+* Dynamic: Yes
 * Default: 30s
 * Description: Sets the login timeout for a connection, overriding `LOGINTIMEOUT` in the connection string. A value of `0` leaves the connection string value in effect.
+
+[**odbc\_query\_timeout**](maxscale-routers/maxscale-exasolrouter.md#odbc_query_timeout)
+
+* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: 30s
+* Description: Sets the query timeout for a connection, overriding `QUERYTIMEOUT` in the connection string. A value of `0` leaves the connection string value in effect.
 
 [**preprocessor**](maxscale-routers/maxscale-exasolrouter.md#preprocessor)
 
@@ -3772,14 +4084,6 @@ description: >-
 * Default: `<maxscale-libdir>/python3/site-packages`
 * Description: Specifies the directory that SQLGlot is loaded from when `preprocessor` is `internal`.
 
-[**query\_timeout**](maxscale-routers/maxscale-exasolrouter.md#query_timeout)
-
-* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
-* Mandatory: No
-* Dynamic: No
-* Default: 30s
-* Description: Sets the query timeout for a connection, overriding `QUERYTIMEOUT` in the connection string. A value of `0` leaves the connection string value in effect.
-
 [**quote\_identifiers**](maxscale-routers/maxscale-exasolrouter.md#quote_identifiers)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
@@ -3787,6 +4091,50 @@ description: >-
 * Dynamic: No
 * Default: true
 * Description: Determines whether the router quotes identifiers when converting a `COM_INIT_DB` packet to `OPEN SCHEMA`, and when transpiling internally with `preprocessor` set to `disabled`.
+
+#### [maxscale-gridgainrouter](maxscale-routers/maxscale-gridgainrouter.md)
+
+**Settings**
+
+[**appearance**](maxscale-routers/maxscale-gridgainrouter.md#appearance)
+
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: No
+* Values: `read_only`, `read_write`
+* Default: `read_only`
+* Description: Determines whether the router appears as read-only or read-write to other MaxScale components.
+
+[**kill\_connection\_timeout**](maxscale-routers/maxscale-gridgainrouter.md#kill_connection_timeout)
+
+* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: No
+* Default: 10s
+* Description: Sets how long an unused kill connection is kept alive after the last `KILL` command; `0` closes it immediately after each use.
+
+[**odbc\_connection\_string**](maxscale-routers/maxscale-gridgainrouter.md#odbc_connection_string)
+
+* Type: string
+* Mandatory: Yes
+* Dynamic: No
+* Description: Specifies the ODBC connection string used to connect to GridGain.
+
+[**odbc\_login\_timeout**](maxscale-routers/maxscale-gridgainrouter.md#odbc_login_timeout)
+
+* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: 30s
+* Description: Sets the login timeout for a connection.
+
+[**odbc\_query\_timeout**](maxscale-routers/maxscale-gridgainrouter.md#odbc_query_timeout)
+
+* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: 30s
+* Description: Sets the query timeout for a connection.
 
 #### [maxscale-kafkacdc](maxscale-routers/maxscale-kafkacdc.md)
 
@@ -3887,6 +4235,14 @@ description: >-
 * Dynamic: No
 * Default: `""`
 * Description: Specifies the path to the client SSL private key for Kafka connections.
+
+[**lower\_case\_table\_names**](maxscale-routers/maxscale-kafkacdc.md#lower_case_table_names)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: No
+* Default: `false`
+* Description: Enables conversion of database and table names to lowercase.
 
 [**match**](maxscale-routers/maxscale-kafkacdc.md#match)
 
@@ -4133,11 +4489,11 @@ description: >-
 * Default: `running`
 * Description: Specifies which server roles are eligible for connections when establishing new router sessions.
 
-#### [maxscale-readwritesplit](maxscale-routers/maxscale-readwritesplit.md)
+#### [maxscale-readwritesplit](maxscale-routers/maxscale-readwritesplit/README.md)
 
-**Settings**
+**MaxScale Readwritesplit Settings**
 
-[**causal\_reads**](maxscale-routers/maxscale-readwritesplit.md#causal_reads)
+[**causal\_reads**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#causal_reads)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -4146,7 +4502,7 @@ description: >-
 * Default: `none`
 * Description: Controls causal read behavior to ensure reads reflect prior writes despite replication lag.
 
-[**causal\_reads\_timeout**](maxscale-routers/maxscale-readwritesplit.md#causal_reads_timeout)
+[**causal\_reads\_timeout**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#causal_reads_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -4154,7 +4510,7 @@ description: >-
 * Default: 10s
 * Description: Defines how long to wait for replica synchronization when using causal reads before timing out.
 
-[**delayed\_retry**](maxscale-routers/maxscale-readwritesplit.md#delayed_retry)
+[**delayed\_retry**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#delayed_retry)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4162,7 +4518,7 @@ description: >-
 * Default: false
 * Description: Enables retrying failed queries for a limited time before returning an error if no server becomes available.
 
-[**delayed\_retry\_timeout**](maxscale-routers/maxscale-readwritesplit.md#delayed_retry_timeout)
+[**delayed\_retry\_timeout**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#delayed_retry_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -4170,7 +4526,7 @@ description: >-
 * Default: 10s
 * Description: Specifies how long to wait before returning an error to the client when delayed retries are enabled.
 
-[**lazy\_connect**](maxscale-routers/maxscale-readwritesplit.md#lazy_connect)
+[**lazy\_connect**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#lazy_connect)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4178,7 +4534,7 @@ description: >-
 * Default: false
 * Description: Enables on-demand creation of backend connections instead of opening all connections at session start.
 
-[**master\_accept\_reads**](maxscale-routers/maxscale-readwritesplit.md#master_accept_reads)
+[**master\_accept\_reads**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#master_accept_reads)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4186,7 +4542,7 @@ description: >-
 * Default: false
 * Description: Determines whether the primary server can be used to handle read queries alongside replicas.
 
-[**master\_failure\_mode**](maxscale-routers/maxscale-readwritesplit.md#master_failure_mode)
+[**master\_failure\_mode**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#master_failure_mode)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -4195,7 +4551,7 @@ description: >-
 * Default: `fail_on_write` (MaxScale 23.08: `fail_instantly`)
 * Description: Defines how the router handles primary server failure and client behavior during write operations.
 
-[**master\_reconnection**](maxscale-routers/maxscale-readwritesplit.md#master_reconnection)
+[**master\_reconnection**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#master_reconnection)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4203,7 +4559,7 @@ description: >-
 * Default: true (>= MaxScale 24.02), false(<= MaxScale 23.08)
 * Description: Controls whether a session can reconnect to a new primary server if the current one becomes unavailable.
 
-[**max\_replication\_lag**](maxscale-routers/maxscale-readwritesplit.md#max_replication_lag)
+[**max\_replication\_lag**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#max_replication_lag)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -4211,7 +4567,7 @@ description: >-
 * Default: 0s
 * Description: Sets the maximum allowed replication lag for replicas to be eligible for routing read queries.
 
-[**max\_slave\_connections**](maxscale-routers/maxscale-readwritesplit.md#max_slave_connections)
+[**max\_slave\_connections**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#max_slave_connections)
 
 * Type: integer
 * Mandatory: No
@@ -4221,7 +4577,7 @@ description: >-
 * Default: 255
 * Description: Limits the maximum number of replica connections a session can use simultaneously.
 
-[**retry\_failed\_reads**](maxscale-routers/maxscale-readwritesplit.md#retry_failed_reads)
+[**retry\_failed\_reads**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#retry_failed_reads)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4229,7 +4585,7 @@ description: >-
 * Default: true
 * Description: Determines whether failed autocommit read queries are retried on another replica.
 
-[**slave\_connections**](maxscale-routers/maxscale-readwritesplit.md#slave_connections)
+[**slave\_connections**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#slave_connections)
 
 * Type: integer
 * Mandatory: No
@@ -4237,7 +4593,7 @@ description: >-
 * Default: 255
 * Description: Specifies the initial number of replica connections a session creates for routing read queries.
 
-[**slave\_selection\_criteria**](maxscale-routers/maxscale-readwritesplit.md#slave_selection_criteria)
+[**slave\_selection\_criteria**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#slave_selection_criteria)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -4246,7 +4602,7 @@ description: >-
 * Default: `least_current_operations`
 * Description: Defines the criteria used to select replica servers for routing read queries and balancing load.
 
-[**strict\_multi\_stmt**](maxscale-routers/maxscale-readwritesplit.md#strict_multi_stmt)
+[**strict\_multi\_stmt**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#strict_multi_stmt)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4254,7 +4610,7 @@ description: >-
 * Default: false
 * Description: Ensures that all queries after a multi-statement query are routed to the primary to maintain session consistency.
 
-[**strict\_sp\_calls**](maxscale-routers/maxscale-readwritesplit.md#strict_sp_calls)
+[**strict\_sp\_calls**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#strict_sp_calls)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4262,7 +4618,7 @@ description: >-
 * Default: false
 * Description: Ensures that queries following a stored procedure call are routed to the primary to maintain consistency.
 
-[**strict\_tmp\_tables**](maxscale-routers/maxscale-readwritesplit.md#strict_tmp_tables)
+[**strict\_tmp\_tables**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#strict_tmp_tables)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4270,7 +4626,7 @@ description: >-
 * Default: true (>= MaxScale 24.02), false (<= MaxScale 23.08)
 * Description: Controls whether temporary tables block reconnections, ensuring they are not lost during primary node failovers.
 
-[**sync\_transaction**](maxscale-routers/maxscale-readwritesplit.md#sync_transaction)
+[**sync\_transaction**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#sync_transaction)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -4279,7 +4635,7 @@ description: >-
 * Default: `none`
 * Description: Defines how transactions are synchronized across replicas, with options for no synchronization, soft (non-blocking), or hard (blocking) synchronization.
 
-[**sync\_transaction\_count**](maxscale-routers/maxscale-readwritesplit.md#sync_transaction_count)
+[**sync\_transaction\_count**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#sync_transaction_count)
 
 * Type: integer
 * Mandatory: No
@@ -4289,7 +4645,7 @@ description: >-
 * Default: 1
 * Description: Specifies the minimum number of backend servers required to understand a transaction before it is considered committed.
 
-[**sync\_transaction\_max\_lag**](maxscale-routers/maxscale-readwritesplit.md#sync_transaction_max_lag)
+[**sync\_transaction\_max\_lag**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#sync_transaction_max_lag)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -4297,7 +4653,32 @@ description: >-
 * Default: 0s
 * Description: Sets the maximum allowed transaction synchronization latency in soft mode before triggering synchronization.
 
-[**sync\_transaction\_timeout**](maxscale-routers/maxscale-readwritesplit.md#sync_transaction_timeout)
+[**sync\_transaction\_percent**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#sync_transaction_percent)
+
+* Type: [percent](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#percent)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `100%`
+* Description: Sets the percentage of transactions that are synchronized.
+
+[**sync\_transaction\_probe**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#sync_transaction_probe)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `true`
+* Description: Controls whether replication lag is probed by synchronizing a transaction even if the maximum lag is not reached.
+
+[**sync\_transaction\_throttle\_rate**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#sync_transaction_throttle_rate)
+
+* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Min: `1ms`
+* Default: `5ms`
+* Description: Sets how much the commit wait of each transaction grows per minute while a server is being throttled.
+
+[**sync\_transaction\_timeout**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#sync_transaction_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -4305,7 +4686,7 @@ description: >-
 * Default: 10s
 * Description: Sets the maximum time a transaction waits for synchronization before returning or closing the connection.
 
-[**transaction\_replay**](maxscale-routers/maxscale-readwritesplit.md#transaction_replay)
+[**transaction\_replay**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#transaction_replay)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4313,7 +4694,7 @@ description: >-
 * Default: false
 * Description: Enables replay of interrupted transactions, automatically retrying them on a replacement server if the current one fails.
 
-[**transaction\_replay\_attempts**](maxscale-routers/maxscale-readwritesplit.md#transaction_replay_attempts)
+[**transaction\_replay\_attempts**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#transaction_replay_attempts)
 
 * Type: integer
 * Mandatory: No
@@ -4321,7 +4702,7 @@ description: >-
 * Default: 5
 * Description: Determines the maximum number of times a transaction will be retried during replay before failing.
 
-[**transaction\_replay\_checksum**](maxscale-routers/maxscale-readwritesplit.md#transaction_replay_checksum)
+[**transaction\_replay\_checksum**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#transaction_replay_checksum)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -4330,7 +4711,7 @@ description: >-
 * Default: `full`
 * Description: Specifies the method for calculating transaction checksums to verify replayed transactions; `full` ensures complete consistency.
 
-[**transaction\_replay\_max\_size**](maxscale-routers/maxscale-readwritesplit.md#transaction_replay_max_size)
+[**transaction\_replay\_max\_size**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#transaction_replay_max_size)
 
 * Type: [size](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
 * Mandatory: No
@@ -4338,7 +4719,7 @@ description: >-
 * Default: 1 MiB
 * Description: Sets the maximum transaction size (in bytes) that can be replayed; larger transactions are not replayed.
 
-[**transaction\_replay\_retry\_on\_deadlock**](maxscale-routers/maxscale-readwritesplit.md#transaction_replay_retry_on_deadlock)
+[**transaction\_replay\_retry\_on\_deadlock**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#transaction_replay_retry_on_deadlock)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4346,7 +4727,7 @@ description: >-
 * Default: false
 * Description: Automatically retries transactions that encounter a deadlock until they succeed or a checksum error occurs.
 
-[**transaction\_replay\_retry\_on\_mismatch**](maxscale-routers/maxscale-readwritesplit.md#transaction_replay_retry_on_mismatch)
+[**transaction\_replay\_retry\_on\_mismatch**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#transaction_replay_retry_on_mismatch)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4354,7 +4735,7 @@ description: >-
 * Default: false
 * Description: Retries transactions that fail due to checksum mismatches during replay, subject to the set limits.
 
-[**transaction\_replay\_safe\_commit**](maxscale-routers/maxscale-readwritesplit.md#transaction_replay_safe_commit)
+[**transaction\_replay\_safe\_commit**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#transaction_replay_safe_commit)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4362,7 +4743,7 @@ description: >-
 * Default: true
 * Description: Prevents replaying transactions that are about to commit to avoid duplicates; enabled by default.
 
-[**transaction\_replay\_timeout**](maxscale-routers/maxscale-readwritesplit.md#transaction_replay_timeout)
+[**transaction\_replay\_timeout**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#transaction_replay_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -4370,7 +4751,7 @@ description: >-
 * Default: 30s (>= MaxScale 24.02), 0s (<= MaxScale 23.08)
 * Description: Sets the maximum duration for attempting transaction replay; set to `0` to disable.
 
-[**use\_sql\_variables\_in**](maxscale-routers/maxscale-readwritesplit.md#use_sql_variables_in)
+[**use\_sql\_variables\_in**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#use_sql_variables_in)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -4434,6 +4815,40 @@ description: >-
 #### [maxscale-smartrouter](maxscale-routers/maxscale-smartrouter.md)
 
 **Settings**
+
+[**causal\_reads**](maxscale-routers/maxscale-smartrouter.md#causal_reads)
+
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `none`, `local`
+* Default: `none`
+* Description: Controls whether a read routed to a cluster other than the master waits until that cluster has applied the latest write of the session.
+
+[**causal\_reads\_on\_timeout**](maxscale-routers/maxscale-smartrouter.md#causal_reads_on_timeout)
+
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `master`, `stale`, `error`
+* Default: `master`
+* Description: Determines whether a read that times out waiting for a cluster is routed to the master, routed to the cluster anyway, or returns an error.
+
+[**causal\_reads\_timeout**](maxscale-routers/maxscale-smartrouter.md#causal_reads_timeout)
+
+* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: 10s
+* Description: Sets how long a read waits for a cluster to catch up with the latest write of the session before `causal_reads_on_timeout` is applied.
+
+[**eviction\_schedule**](maxscale-routers/maxscale-smartrouter.md#eviction_schedule)
+
+* Type: stringlist of [durations](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `2m,5m,10m,20m`
+* Description: Specifies the intervals at which cached query performance measurements are re-measured to decide whether the entry stays in the cache.
 
 [**master**](maxscale-routers/maxscale-smartrouter.md#master)
 

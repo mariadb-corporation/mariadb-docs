@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.5.22 is a maintenance release with fixes for communication, discovery, thin clients, partition map exchange, and integrations.
-hidden: true
 ---
 
 # GridGain 8.5.22 Release Notes
@@ -34,6 +33,10 @@ Below is a list of versions that are compatible with the current version. You ca
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

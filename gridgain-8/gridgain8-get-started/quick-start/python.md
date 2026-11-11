@@ -27,7 +27,7 @@ and:
 
 |Software|Requirement|
 |---|---|
-|Python|Version 3.4 or above|
+|Python|Version 3.11 or later|
 
 ### (Optional) Open Ports
 
@@ -87,3 +87,7 @@ To run this, you can save the example as a text file (hello.py for example) and 
 `python hello.py`
 
 Or you can enter the example into your Python interpreter/shell (IDLE on Windows, for example) and modify/execute it there.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

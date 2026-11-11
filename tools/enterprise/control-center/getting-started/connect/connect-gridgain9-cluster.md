@@ -2,7 +2,6 @@
 description: >-
   Attaching a GridGain 9 cluster to Control Center, including secured clusters,
   Docker deployments, and NAT or load-balancer setups.
-hidden: true
 ---
 
 # Attaching a GridGain 9 Cluster
@@ -16,7 +15,7 @@ Make sure that Control Center supports the [specific GridGain 9 version](../../R
 You can attach as many clusters as your license supports.
 
 {% hint style="info" %}
-To attach a GridGain 8 cluster, follow [this instruction](connect-gridgain-cluster.md). To attach an Apache Ignite cluster, follow [this instruction](connect-ignite-cluster.md).
+To attach a GridGain 8 cluster, follow [this instruction](connect-gridgain-cluster.md).
 {% endhint %}
 
 ## Start the Cluster
@@ -97,3 +96,7 @@ Its status is `Uninitialized`. You must [initialize the cluster](../../gg9/dashb
       ip a
       ```
 2. Use the address, e.g., `http://192.168.1.16:10300`, to attach the cluster to Control Center.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -1,6 +1,5 @@
 ---
 description: A list of all GridGain Control Center Agent releases
-hidden: true
 ---
 
 # All Releases
@@ -19,3 +18,7 @@ Control Center Agent version numbers track the Apache Ignite version they suppor
 - [2.10.0.0](2.10.0.0.md)
 - [2.9.0.0](2.9.0.0.md)
 - [2.8.1.2](2.8.1.2.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -2,7 +2,6 @@
 description: >-
   Running GridGain Control Center and a GridGain cluster in Kubernetes with TLS
   encryption at every step, from certificate generation to cluster attachment.
-hidden: true
 ---
 
 # Running Control Center and GridGain with Encryption
@@ -726,3 +725,7 @@ INFO:
 >>> | https://www.gridgain.com/docs/control-center/latest/connect-gridgain-cluster                      |
 >>> +---------------------------------------------------------------------------------------------------+
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

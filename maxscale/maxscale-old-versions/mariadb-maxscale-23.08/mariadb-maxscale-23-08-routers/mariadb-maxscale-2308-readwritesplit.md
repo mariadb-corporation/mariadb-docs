@@ -785,7 +785,7 @@ being routed almost exclusively to the primary server.
 **Note:** The `session_track_system_variables` parameter must include`last_gtid` in its list of tracked system variables.
 
 **Note:** This feature also enables multi-statement execution of SQL in the
-protocol. This is equivalent to using `allowMultiQueries=true` in [Connector/J](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-j/about-mariadb-connector-j#allowmultiqueries)
+protocol. This is equivalent to using `allowMultiQueries=true` in [Connector/J](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-j/about-mariadb-connector-j/connection-parameters#allowmultiqueries)
 or using `CLIENT_MULTI_STATEMENTS` and `CLIENT_MULTI_RESULTS` in the\
 Connector/C. The _Implementation of causal\_reads_ section explains why this is
 necessary.
@@ -1468,3 +1468,5 @@ variables to the primary.
 CC BY-SA / Gnu FDL
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

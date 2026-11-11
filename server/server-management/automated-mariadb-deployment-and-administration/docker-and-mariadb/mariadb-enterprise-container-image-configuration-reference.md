@@ -15,15 +15,9 @@ The MariaDB Enterprise Docker Registry provides Docker images for MariaDB Enterp
 
 ### Environment Variables
 
-MariaDB Enterprise Server containers are primarily configured using [environment variables](mariadb-enterprise-docker-registry-for-mariadb-enterprise-server.md#environment-variables) during initialization:
+MariaDB Enterprise Server containers are primarily configured using environment variables during initialization, for example `MARIADB_ROOT_PASSWORD`, `MARIADB_DATABASE`, `MARIADB_USER`, and `MARIADB_PASSWORD`.
 
-* `MARIADB_ROOT_PASSWORD`: Specifies the password for the MariaDB `root` user. It can be set to a specific string, `RANDOM` to generate a password, or `EMPTY` for no password.
-* `MARIADB_DATABASE`: If provided, the container creates this database on startup if it does not already exist.
-* `MARIADB_USER` and `MARIADB_PASSWORD`: These must be used together to create a non-root user account with the specified credentials.
-* `MARIADB_ROOT_HOST`: Defines the host from which the `root` user is allowed to connect, defaulting to `%` (any host).
-* `MARIADB_UNIX_SOCKET_AUTHENTICATION`: When set to `1`, this enables Unix socket-based authentication for the root user, allowing passwordless access when connecting locally.
-* `MARIADB_INITDB_SKIP_TZINFO`: Setting this to any non-empty value prevents the automatic loading of timezone data into the system tables.
-* `SKIP_INIT_WSREP_OFF`: When set, the temporary server used during initialization is allowed to start with Galera Cluster replication (`wsrep`) enabled.
+For the full list, see [MariaDB Docker Image Environment Variables](mariadb-server-docker-official-image-environment-variables.md). That page also shows which variables the Enterprise Server images support, and from which release, and describes the images' [password policy](mariadb-server-docker-official-image-environment-variables.md#password-policy-in-the-enterprise-server-images).
 
 ## MariaDB Prometheus Exporter
 
@@ -94,3 +88,5 @@ To enable this functionality, the MariaDB Custom Resource must be configured to 
 The core MaxScale images do not rely on Docker-specific environment variables for internal configuration. Instead, MaxScale is configured using standard `.cnf` files or through the REST API. For monitoring deployments, it is paired with the MaxScale Prometheus Exporter as detailed above.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

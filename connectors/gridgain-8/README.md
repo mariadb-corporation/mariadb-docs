@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Client libraries and drivers for connecting applications to a GridGain 8
   cluster — thin clients, the .NET and C++ platform APIs, and the JDBC and ODBC
@@ -29,3 +28,7 @@ GridGain 8 provides a range of clients and drivers so your applications can conn
 {% content-ref url="sql/odbc/README.md" %}
 [ODBC Driver](sql/odbc/README.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

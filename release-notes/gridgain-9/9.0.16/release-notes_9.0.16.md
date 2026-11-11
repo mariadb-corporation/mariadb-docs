@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.0.16 is a stability release that standardizes system view column
   names, adds the INDEX_COLUMNS system view, and updates DCR command syntax.
-hidden: true
 ---
 
 # GridGain 9.0.16 Release Notes
@@ -15,7 +14,7 @@ GridGain 9.0.16 is a stability release that is dedicated to improving user exper
 
 ### DCR Syntax Changes
 
-With this release, all [Data Center Replication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/data-center-replication/configuring-replication) commands are updated to consistently use the `--name` parameter to specify the replication name. Previous behavior is temporarily supported for backwards compatibility, but is deprecated and will be removed at some point later.
+With this release, all [Data Center Replication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-management/backup-and-replication/data-center-replication/configuring-replication) commands are updated to consistently use the `--name` parameter to specify the replication name. Previous behavior is temporarily supported for backwards compatibility, but is deprecated and will be removed at some point later.
 
 ### Standardized System Views
 
@@ -23,7 +22,7 @@ Prior to this release, different system views could have slightly different name
 
 Old system view names remain temporarily available for backwards compatibility, but are deprecated and will be removed at some point later.
 
-Refer to the [System Views](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/system-views) documentation for current system views. The [System View Changes in GridGain 9.0.16](#system-view-changes-in-gridgain-9.0.16) section provides information on system view changes in this release.
+Refer to the [System Views](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/monitoring/system-views) documentation for current system views. The [System View Changes in GridGain 9.0.16](#system-view-changes-in-gridgain-9.0.16) section provides information on system view changes in this release.
 
 ## New Features
 
@@ -153,4 +152,8 @@ The table below includes the changes you need to do to continue using system vie
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

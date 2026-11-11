@@ -81,3 +81,5 @@ Galera Cluster assigns each transaction a global ordinal sequence number, or [se
 The procedure is deterministic and all [replicas](../galera-management/configuration/configuring-mariadb-galera-cluster.md#mandatory-options) receive transactions in the same order. Thus, all nodes reach the [same decision](../high-availability/understanding-quorum-monitoring-and-recovery.md) about the outcome of the transaction. The node that started the transaction can then notify the client application whether or not it has committed the transaction.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

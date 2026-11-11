@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.28 adds .NET thin client transactions, a Java thin client async API, and SFTP snapshot storage, plus many fixes across integrations, thin clients, and data replication.
-hidden: true
 ---
 
 # GridGain 8.7.28 Release Notes
@@ -307,6 +306,10 @@ the old default. Example:
 ```
 
 ## We Value Your Feedback
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

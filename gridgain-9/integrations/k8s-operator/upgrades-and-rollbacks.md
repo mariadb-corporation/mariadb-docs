@@ -6,6 +6,8 @@ description: >-
 
 # Upgrades and Rollbacks
 
+<!-- TODO (not tested): This page was not run (no Kubernetes cluster was available); only the sample image.tag was updated to 9.1.28. Run an upgrade and a rollback with the operator and check the samples, then delete this comment. -->
+
 {% hint style="warning" %}
 Upgrading GridGain through kubernetes operator is an experimental feature.
 {% endhint %}
@@ -47,7 +49,7 @@ To upgrade the GridGain version, change the `image.tag` field and apply the upda
 ```yaml
 spec:
   image:
-    tag: "9.1.21"
+    tag: "9.1.28"
   upgradeConfig:
     nodeTimeoutSeconds: 600
     clusterTimeoutSeconds: 1800
@@ -130,3 +132,7 @@ The operator tracks upgrade state in several status fields:
 | lastFailedImage | The image that caused the most recent rollback, used to reset the rollback counter when the user switches to a different image. |
 | lastUpgradeSuccessful | Whether the most recent upgrade completed successfully. |
 | rollbackCount | Number of consecutive rollback attempts for the current target, capped at 3. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

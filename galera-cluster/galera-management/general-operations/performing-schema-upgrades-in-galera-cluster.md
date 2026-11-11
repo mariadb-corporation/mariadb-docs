@@ -167,3 +167,5 @@ NBO is the best method for:
 To ensure cluster stability, it is recommended to enable NBO only for specific sessions running compatible DDL rather than on a server-wide basis. SQL statements such as `CREATE TABLE` and `ANALYZE TABLE` should always be executed using the Total Order Isolation (TOI) method to avoid schema conflict
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

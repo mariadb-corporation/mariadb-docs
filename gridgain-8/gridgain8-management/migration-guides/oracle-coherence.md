@@ -462,3 +462,7 @@ GridGain also provides Thin Clients - lightweight GridGain clients that connect 
 Unlike Coherence, which only supports proprietary XML configuration syntax, GridGain supports standard Spring XML configuration syntax. In addition to the XML configuration, GridGain allows configuring the grid directly from code.
 
 For more information about GridGain configuration, refer to [Understanding Configuration](../cluster-configuration/understanding-configuration.md).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

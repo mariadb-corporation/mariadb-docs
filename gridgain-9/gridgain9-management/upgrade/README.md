@@ -43,3 +43,7 @@ Move a GridGain 9 cluster between versions without downtime by rolling nodes one
 How GridGain 9 clients and servers upgrade independently, the compatibility model between versions, and the recommended client-upgrade procedure.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

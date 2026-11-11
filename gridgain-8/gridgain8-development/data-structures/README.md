@@ -78,3 +78,11 @@ GridGain's counting distributed semaphore restricts access to a resource or sync
 The distributed atomic sequence provided by IgniteCacheAtomicSequence is an efficient data structure for implementing a cluster-wide ID generator.
 {% endcolumn %}
 {% endcolumns %}
+
+## See Also
+
+- [Distributed Primitives: The Coordination Problem](../../gridgain8-get-started/learning-paths/beyond-key-value/distributed-data-structures.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

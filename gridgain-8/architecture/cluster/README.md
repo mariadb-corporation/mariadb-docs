@@ -40,3 +40,7 @@ The baseline topology is the set of server nodes that hold data and controls whe
 How GridGain helps you detect and mitigate network segmentation (the split-brain problem) using the Topology Validator and SegmentationResolver APIs.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

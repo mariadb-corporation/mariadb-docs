@@ -89,7 +89,7 @@ Queries in GridGain 8 do not preserve transactional boundaries. As a result, if 
 In most scenarios read operations can be executed safely, but in high-load environments multiple queries may start affecting each other.
 
 {% hint style="info" %}
-As all SQL operations are transactional in [GridGain 9](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/sql/overview), this behavior changes and concurrent queries are safe to execute.
+As all SQL operations are transactional in [GridGain 9](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/sql/overview), this behavior changes and concurrent queries are safe to execute.
 {% endhint %}
 
 ## Working in Multiple Timezones
@@ -97,3 +97,7 @@ As all SQL operations are transactional in [GridGain 9](https://app.gitbook.com/
 Each GridGain cluster exists in one timezone. All `DATE`, `TIME` or `TIMESTAMP` operations are performed relative to this specific timezone. However, because clients can operate in different timezones, GridGain converts time for operations performed from thin clients to represent a local user's timezone.
 
 For operations performed directly on caches, cluster's timezone is used. If you perform direct cache operations from multiple time zones, make sure you keep track of the timezone users are in.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

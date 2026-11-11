@@ -52,3 +52,7 @@ How to implement, deploy, access, and re-deploy GridGain services, including dep
 Overview of code deployment in GridGain, covering how user code and classes are made available across cluster nodes.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

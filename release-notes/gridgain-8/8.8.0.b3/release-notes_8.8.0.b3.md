@@ -3,6 +3,7 @@ description: >-
   GridGain 8.8.0.b3 is a beta release providing early access to new features such as
   PDS defragmentation status and Transparent Data Encryption CLI management.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.8.0.b3 BETA Release Notes
@@ -216,6 +217,10 @@ bin/ignite.sh
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

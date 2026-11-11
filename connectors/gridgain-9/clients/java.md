@@ -60,7 +60,7 @@ try (org.apache.ignite.client.IgniteClient client = org.apache.ignite.client.Ign
 
 ## Authentication
 
-To pass [authentication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/authentication-and-authorization/authentication#basic-authentication) information, use the `IgniteClientAuthenticator` class and pass it to `IgniteClient` builder:
+To pass [authentication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/security/authentication-and-authorization/authentication#basic-authentication) information, use the `IgniteClientAuthenticator` class and pass it to `IgniteClient` builder:
 
 {% code title="Java" %}
 ```java
@@ -169,3 +169,7 @@ try (IgniteClient client = IgniteClient.builder()
 | operationTimeout | Operation timeout, in milliseconds. |
 | backgroundReconnectInterval | Background reconnect interval, in milliseconds. |
 | retryPolicy | Retry policy. By default, all read operations are retried up to 16 times, and write operations are not retried. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

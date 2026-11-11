@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.0.11 adds high availability distribution zones alongside stability
   and performance improvements.
-hidden: true
 ---
 
 # GridGain 9.0.11 Release Notes
@@ -79,4 +78,8 @@ The following features of GridGain 8 are not available in this version, and will
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

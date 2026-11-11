@@ -1,12 +1,11 @@
 ---
 description: >-
-  Using GridGain Control Center with GridGain 8 and Apache Ignite 2 clusters.
-hidden: true
+  Using GridGain Control Center with GridGain 8 clusters.
 ---
 
 # GridGain 8
 
-This section covers the Control Center features available for GridGain 8 and Apache Ignite 2 clusters.
+This section covers the Control Center features available for GridGain 8 clusters.
 
 {% content-ref url="dashboard/" %}
 [dashboard](dashboard/)
@@ -36,8 +35,8 @@ This section covers the Control Center features available for GridGain 8 and Apa
 [terminal/cluster-terminal.md](terminal/cluster-terminal.md)
 {% endcontent-ref %}
 
-{% content-ref url="data-schema-import/data-schema-import.md" %}
-[data-schema-import/data-schema-import.md](data-schema-import/data-schema-import.md)
+{% content-ref url="data-schema-import.md" %}
+[data-schema-import.md](data-schema-import.md)
 {% endcontent-ref %}
 
 {% content-ref url="compute/compute-grid.md" %}
@@ -51,3 +50,7 @@ This section covers the Control Center features available for GridGain 8 and Apa
 {% content-ref url="auth/authorization-permissions.md" %}
 [auth/authorization-permissions.md](auth/authorization-permissions.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

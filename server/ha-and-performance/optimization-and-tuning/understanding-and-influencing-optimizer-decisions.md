@@ -152,7 +152,7 @@ documentation.
 
 {% hint style="warning" %}
 **`PUSHED SELECT` does not always mean a ColumnStore table is involved.**
-ColumnStore's [Query Accelerator](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/use-cases/query-accelerator.md)
+ColumnStore's [Query Accelerator](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/use-cases/query-accelerator)
 feature can push down a query against plain `ENGINE=InnoDB` tables — with no
 ColumnStore table anywhere in the query — once the session or global variable
 `columnstore_innodb_queries_use_mcs` is enabled. If `EXPLAIN` reports
@@ -167,3 +167,7 @@ pushed down, while the remaining branches are executed by the server.
 
 * [Query Optimizer](query-optimizer/README.md) — internals of how the optimizer works
 * [The Optimizer Cost Model from MariaDB 11.0](query-optimizer/the-optimizer-cost-model-from-mariadb-11-0.md) — how storage-engine operations are turned into comparable costs, the full list of cost variables, and how to change them
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -2,7 +2,6 @@
 description: >-
   Adding, configuring, and editing dashboard widgets for GridGain 8 clusters —
   gauges, nodes, metrics, heat maps, rebalance, SQL query, and caches widgets.
-hidden: true
 ---
 
 # Configuring Widgets for GridGain 8 Clusters
@@ -60,7 +59,7 @@ The following information is available in the **Nodes** widget:
 | Host | The name of the host where the node is running. |
 | Online | Whether the node is online or offline:<br>- "Online" — the node is up and connected to the cluster.<br>- "Offline" — the node is registered in the baseline topology but is either shut down or not connected to the cluster. |
 | Type | The type of node: Coordinator, Server, or Client. |
-| Version | The version of GridGain/Apache Ignite that was used to launch the node. If you are using the Rolling Upgrades feature that is available in GridGain Enterprise Edition, one cluster might have nodes with different versions. |
+| Version | The version of GridGain that was used to launch the node. If you are using the Rolling Upgrades feature that is available in GridGain Enterprise Edition, one cluster might have nodes with different versions. |
 | IP | The IP address of the machine where the node is running. |
 | JVM PID | The PID of the JVM. |
 | Mac | The MAC address of the node. |
@@ -267,3 +266,7 @@ To remove a widget from the dashboard:
 
 1. Open the widget's context menu.
 2. Select **Remove**.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

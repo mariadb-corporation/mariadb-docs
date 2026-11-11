@@ -2,7 +2,6 @@
 description: >-
   The functional architecture of GridGain Control Center and the Control Center
   Agent, for single-binary and Docker deployments.
-hidden: true
 ---
 
 # Architecture Overview
@@ -51,3 +50,7 @@ Backend (BE) / Agent interaction:
 1. Agent initiates connection and cluster registration in CC.
 2. Agent initiates a bidirectional WS connection and sends the cluster info: topology, metrics, traces, etc.
 3. BE sends commands; e.g., "get metrics requested by user."
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

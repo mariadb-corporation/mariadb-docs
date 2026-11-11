@@ -55,3 +55,7 @@ Replace the client artifact in each application as part of its normal deployment
 ### Plan for Reconnection During Cluster Upgrades
 
 Long-lived client connections will drop when the node they are connected to restarts. Applications must be prepared to reconnect as required.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

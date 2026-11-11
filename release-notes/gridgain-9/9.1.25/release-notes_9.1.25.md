@@ -3,7 +3,6 @@ description: >-
   GridGain 9.1.25 introduces row-level security, adds experimental CDC support
   for Microsoft SQL Server as a source and a new GridGain 9 sink, and improves
   client data freshness.
-hidden: true
 ---
 
 # GridGain 9.1.25 Release Notes
@@ -39,7 +38,7 @@ cdc source create --name mssql_source --type mssql --tables dbo.ACCOUNTS \
   --experimental
 ```
 
-See [Replicating from Microsoft SQL Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/change-data-capture#replicating-from-microsoft-sql-server) for setup steps, source parameters, and current limitations.
+See [Replicating from Microsoft SQL Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-management/backup-and-replication/change-data-capture#replicating-from-microsoft-sql-server) for setup steps, source parameters, and current limitations.
 
 ### GridGain 9 CDC Sink
 
@@ -57,7 +56,7 @@ The `gridgain_9` sink does not create the destination table - the table must alr
 cdc sink create --name gg9_sink --type gridgain_9 --parameters targetTable=PUBLIC.ACCOUNTS --experimental
 ```
 
-See [GridGain 9 sink](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/change-data-capture#create-the-gridgain-9-sink) for details.
+See [GridGain 9 sink](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-management/backup-and-replication/change-data-capture#create-the-gridgain-9-sink) for details.
 
 ### Row-Level Security (RLS)
 
@@ -75,9 +74,9 @@ ALTER POLICY active_only USING STATUS = 'ACTIVE' AND REGION = 'EU';
 
 Row filtering is applied consistently across read and write paths, including SQL queries, key-value and record views, table and index scans, continuous queries, the data streamer, and near caches.
 
-The configured policies are exposed through the new [`POLICIES`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/system-views#policies) system view (schema, table, policy name, assigned roles, and condition).
+The configured policies are exposed through the new [`POLICIES`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/monitoring/system-views#policies) system view (schema, table, policy name, assigned roles, and condition).
 
-See [Row-Level Security](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/authentication-and-authorization/row-level-security) for the full policy syntax, the `POLICIES` system view, and the required privileges.
+See [Row-Level Security](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/security/authentication-and-authorization/row-level-security) for the full policy syntax, the `POLICIES` system view, and the required privileges.
 
 ### Configurable Observable Timestamp Delay
 
@@ -128,4 +127,8 @@ Currently, data rebalance may cause partition distribution to change and cause i
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

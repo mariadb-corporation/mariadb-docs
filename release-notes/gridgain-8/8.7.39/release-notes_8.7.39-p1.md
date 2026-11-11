@@ -1,6 +1,7 @@
 ---
 description: GridGain 8.7.39-p1 is a patch release dedicated to fixing rebalance issues.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.7.39-p1 Release Notes
@@ -122,6 +123,10 @@ bin/ignite.sh
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

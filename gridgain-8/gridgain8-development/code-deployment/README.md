@@ -29,3 +29,7 @@ Deploying user code in GridGain by configuring UriDeploymentSpi to load librarie
 How peer class loading deploys user classes from a local node to remote nodes in GridGain, including deployment modes and user versions.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

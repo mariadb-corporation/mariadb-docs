@@ -424,10 +424,29 @@ The suffix can be upper or lower-case.
   * `d:t:i:o,/tmp/mariadbd.trace` (Unix) or `d:t:i:O,\mariadbd.trace` (Windows)
 * Debug Options: See the option flags on the [mysql\_debug](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/api-functions/mysql_debug) page
 
+#### `debug_binlog_fsync_sleep`
+
+* Description: Extra time, in microseconds, to sleep after each `fsync()` of the [binary log](../../../server-management/server-monitoring-logs/binary-log/). Use it to artificially increase the cost of binary log flushes when testing. `0` adds no sleep. Debug builds only (built with `-DCMAKE_BUILD_TYPE=Debug`).
+* Command line: `--debug-binlog-fsync-sleep=#`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `numeric`
+* Default Value: `0`
+* Range: `0` to `4294967295`
+
+#### `debug_mutex_deadlock_detector`
+
+* Description: Enables checking for wrong mutex usage, such as mutexes locked in an inconsistent order. Available only in a server built with safe mutexes, which debug builds (`-DCMAKE_BUILD_TYPE=Debug`) use on all platforms except Windows.
+* Command line: `--debug-mutex-deadlock-detector[={0|1}]`
+* Scope: Global
+* Dynamic: No
+* Data Type: `boolean`
+* Default Value: `ON`
+
 #### `debug_no_thread_alarm`
 
 * Description: Disable system thread alarm calls. Disabling it may be useful in debugging or testing, never do it in production.
-* Command line: `--debug-no-thead-alarm=#`
+* Command line: `--debug-no-thread-alarm[={0|1}]`
 * Scope: Global
 * Dynamic: No
 * Data Type: `boolean`
@@ -436,7 +455,7 @@ The suffix can be upper or lower-case.
 
 #### `debug_sync`
 
-* Description: Used in debugging to show the interface to the [Debug Sync facility](../../../clients-and-utilities/testing-tools/mariadb-test/the-debug-sync-facility.md). MariaDB needs to be configured with -DENABLE\_DEBUG\_SYNC=1 for this variable to be available.
+* Description: Used in debugging to show the interface to the [Debug Sync facility](../../../clients-and-utilities/testing-tools/mariadb-test/the-debug-sync-facility.md). Available in debug builds only (`-DCMAKE_BUILD_TYPE=Debug`).
 * Scope: Session
 * Dynamic: Yes
 * Data Type: `string`
@@ -1320,19 +1339,26 @@ The suffix can be upper or lower-case.
       * Either the default `master.info` file or the file that is configured by the [master\_info\_file](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#master-info-file) option.
       * Either the default `relay-log.info` file or the file that is configured by the [relay\_log\_info\_file](../../standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable.
     * Information about a master's [binary log dump thread](../../standard-replication/replication-threads.md#binary-log-dump-thread).
+    * Connections aborted due to "Too many connections" errors.
+    * Connections closed normally without authentication.
   * log\_warnings >= 3
     * All errors and warnings during [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) repair and auto recover.
     * Information about old-style language options.
     * Information about [progress of InnoDB online DDL](../../../server-usage/storage-engines/innodb/innodb-online-ddl/).
   * log\_warnings >=4
-    * Connections aborted due to "Too many connections" errors.
-    * Connections closed normally without authentication.
     * Connections aborted due to [KILL](../../../reference/sql-statements/administrative-sql-statements/kill.md).
     * Connections closed due to released connections, such as when [completion\_type](server-system-variables.md#completion_type) is set to `RELEASE`.
     * Could not read packet: (a lot more information)
     * All read/write errors for a connection are logged to the error log.
   * log\_warnings >=9
     * Information about initializing plugins.
+
+{% hint style="info" %}
+Connections that authenticate and then close normally are not written to the error log at any `log_warnings` level (from MariaDB 10.4.29, 10.5.20, 10.6.13, 10.11.3).
+
+Messages about aborted connections are controlled by the global value of `log_warnings` only. Changing the session value has no effect on them.
+{% endhint %}
+
 * Command line: `-W [level]` or `--log-warnings[=level]`
 * Scope: Global, Session
 * Dynamic: Yes

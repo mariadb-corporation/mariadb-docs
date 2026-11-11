@@ -108,3 +108,7 @@ As a result, you can make estimates for your requirements, depending on the numb
 {% hint style="info" %}
 Always add at least 10 percent on top of your estimate as a safety margin.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

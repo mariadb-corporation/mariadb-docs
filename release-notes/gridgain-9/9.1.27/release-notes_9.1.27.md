@@ -3,7 +3,6 @@ description: >-
   GridGain 9.1.27 restricts server-side file access for SQL COPY, adds SQL over
   the management REST API, changes the default deadlock prevention policy, and
   hardens role and credential handling.
-hidden: true
 ---
 
 # GridGain 9.1.27 Release Notes
@@ -20,7 +19,7 @@ The `COPY` command previously authorized only the table side of a statement. A f
 
 Server-side file and object-store access is now disabled entirely by default. To re-enable it:
 
-- Set `importExport.fileAccessEnabled` to `true` in the [node configuration](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/configuration/node-configuration-parameters).
+- Set `importExport.fileAccessEnabled` to `true` in the [node configuration](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/configuration/node-configuration-parameters).
 - List the directories `COPY` command may read from and write to in `importExport.importRoots`. An empty list allows no local file access.
 - Grant `COPY_FROM_FILE` privilege to read a server-side location, or `COPY_TO_FILE` to write one.
 
@@ -40,7 +39,7 @@ Under wait-die, the requesting transaction was aborted. A younger transaction th
 
 Under wound-wait, the holding transaction is aborted instead. An older transaction that needs a lock held by a younger one kills the younger transaction and proceeds, and a younger transaction that meets an older holder waits for the lock to be released.
 
-No configuration change is required. The practical difference is that a transaction can now be aborted while it is not waiting for anything: it is killed because an older transaction needs a row it already holds. Applications that retry on lock conflicts should expect the abort on either side of the conflict, not only on the transaction that requested the lock. See [Deadlock Prevention](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/transactions#deadlock-prevention).
+No configuration change is required. The practical difference is that a transaction can now be aborted while it is not waiting for anything: it is killed because an older transaction needs a row it already holds. Applications that retry on lock conflicts should expect the abort on either side of the conflict, not only on the transaction that requested the lock. See [Deadlock Prevention](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/transactions#deadlock-prevention).
 
 ### Built-In Roles Can No Longer Be Assigned, Revoked, or Dropped
 
@@ -65,7 +64,7 @@ One response shape covers every kind of statement, reporting a row set, an affec
 
 A `cursorId` is valid only on the node that issued it, so paging requests must go to that same node.
 
-See [Running SQL](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/rest-api#running-sql).
+See [Running SQL](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/rest-api#running-sql).
 
 ### Connect Timeout for the C++ Client
 
@@ -73,7 +72,7 @@ The C++ client can now limit how long it waits for the handshake that follows a 
 
 ### Low Watermark Progress Metrics
 
-A new `low.watermark` metric source reports whether the low watermark is still advancing and what is holding it back: `Current`, `SinceLastUpdateMillis`, `BlockingLockCount`, and `BlockingLockLagMillis`. See [Available Metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list).
+A new `low.watermark` metric source reports whether the low watermark is still advancing and what is holding it back: `Current`, `SinceLastUpdateMillis`, `BlockingLockCount`, and `BlockingLockLagMillis`. See [Available Metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/monitoring/metrics-list).
 
 ### Table Schema Version in SYSTEM.TABLES
 
@@ -154,3 +153,7 @@ Currently, data rebalance may cause partition distribution to change and cause i
 ## We Value Your Feedback
 
 Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

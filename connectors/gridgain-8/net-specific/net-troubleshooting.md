@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Troubleshooting techniques and common issues for building and running GridGain.NET
   applications, including console output, exception details, and .NET and JVM diagnostics.
@@ -221,3 +220,7 @@ Because both runtimes share one process:
 - Correlate results when investigating hangs or high CPU:
   - If Java threads are blocked in interop frames such as PlatformCallbackUtils, inspect the corresponding .NET threads and their stacks for the actual cause.
 </content>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

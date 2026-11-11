@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.4 is a maintenance release that adds on-the-fly service redeployment, cluster activation and deactivation events, JMX node exclusion, and JAR support in UriDeploymentSpi.
-hidden: true
 ---
 
 # GridGain 8.7.4 Release Notes
@@ -182,10 +181,14 @@ perform automated upgrades and for details about version compatibility.
 
 ## Related Information
 
-[Customer Support](https://www.gridgain.com/services/support)
+[Customer Support](https://mariadb.com/support/)
 
 ### We Value Your Feedback
 
-The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://apacheignite.readme.io/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -20,7 +20,7 @@ Each GridGain distribution includes a [SWID tag](software-identification.md) enc
 
 Standard support for GridGain minor versions lasts for at least 2 years from the minor version release date. Issues found in a minor version will be fixed in a maintenance release for the minor version, or in a future minor version.
 
-After standard support ends, new releases and patches are no longer provided. Customers with an active support subscription can contact GridGain support regarding their issues after the end of standard support.
+After standard support ends, new releases and patches are no longer provided. Customers with an active support subscription can contact MariaDB [support](https://mariadb.com/support/) regarding their issues after the end of standard support.
 
 The following support options are available for Standard and Premium support customers:
 
@@ -48,3 +48,7 @@ The following support options are available for Standard and Premium support cus
 ### GridGain Web Console Releases: Extended Support
 
 Standard support for GridGain Web Console has ended on October 2, 2021.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

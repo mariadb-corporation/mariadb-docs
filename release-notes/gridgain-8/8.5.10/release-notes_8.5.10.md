@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.5.10 introduces substantial improvements to Data Center Replication, including a disk-based sender store, new start/stop and pause/resume semantics, replication events, and JMX management.
-hidden: true
 ---
 
 # GridGain 8.5.10 Release Notes
@@ -252,10 +251,14 @@ If you want to enable Data Center Replication during the upgrade, below is a mod
 
 ## Related Information
 
-[Customer Support](https://www.gridgain.com/services/support)
+[Customer Support](https://mariadb.com/support/)
 
 ### We Value Your Feedback
 
-The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://www.gridgain.com/docs/latest/getting-started/what-is-gridgain) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

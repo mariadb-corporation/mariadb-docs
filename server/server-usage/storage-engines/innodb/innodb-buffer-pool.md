@@ -38,9 +38,9 @@ Crash recovery buffers redo log records in blocks taken from the buffer pool, so
 {% hint style="warning" %}
 **Using ColumnStore?**
 
-The standard recommendation to use a large portion of your RAM for the InnoDB buffer pool does not apply if you are also running [MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) on the same server. ColumnStore reserves 75% of system RAM by default. Over-allocating the InnoDB buffer pool in a combined environment will likely trigger the Linux OOM killer.
+The standard recommendation to use a large portion of your RAM for the InnoDB buffer pool does not apply if you are also running [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud) on the same server. ColumnStore reserves 75% of system RAM by default. Over-allocating the InnoDB buffer pool in a combined environment will likely trigger the Linux OOM killer.
 
-Please refer to the [ColumnStore Memory Requirements](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/high-availability/mariadb-columnstore-performance-related-configuration-settings#innodb-buffer-pool-sizing-with-columnstore) for accurate sizing and validation instructions.
+Please refer to the [ColumnStore Memory Requirements](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/high-availability/mariadb-columnstore-performance-related-configuration-settings#innodb-buffer-pool-sizing-with-columnstore) for accurate sizing and validation instructions.
 {% endhint %}
 
 The buffer pool can be set dynamically. See [Setting Innodb Buffer Pool Size Dynamically](../../../ha-and-performance/optimization-and-tuning/system-variables/setting-innodb-buffer-pool-size-dynamically.md).

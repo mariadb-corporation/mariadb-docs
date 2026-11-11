@@ -7,6 +7,10 @@ icon: server
 
 # GridGain 9
 
+{% hint style="info" %}
+📄 Read offline: [mariadb-gridgain-9.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-gridgain-9.pdf) (~1,170 pages, 14 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
+
 ## What Is GridGain?
 
 GridGain is a unified real-time platform for storing and processing data at scale.
@@ -124,3 +128,7 @@ Reference material for GridGain 9: CLI, REST API, SQL syntax, configuration para
 Integrate GridGain 9 with external systems and frameworks, including Apache Kafka, Spring Boot, Spring Data, and Hibernate.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

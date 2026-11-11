@@ -90,7 +90,7 @@ Cellular affinity is an experimental mode in Apache Ignite. As such, it is not i
 
 ### Service Interceptors
 
-GridGain supports service interceptors starting with version 8.10.0-b1. See [Service Call Interceptors](../gridgain8-development/services/services.md#service-call-interceptors).
+GridGain supports service interceptors starting with version 8.10.0. See [Service Call Interceptors](../gridgain8-development/services/services.md#service-call-interceptors).
 
 ### Service Call Context
 
@@ -107,3 +107,7 @@ From here, you may want to:
 - Learn about key [concepts](concepts.md) in GridGain.
 
 - Learn how to [install](../gridgain8-management/installation/README.md) GridGain.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

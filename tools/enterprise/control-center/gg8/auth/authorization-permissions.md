@@ -2,7 +2,6 @@
 description: >-
   Cluster permissions required for Control Center actions on secured GridGain 8
   clusters — caches, queries, snapshots, compute, and more.
-hidden: true
 ---
 
 # Authorization and Permissions
@@ -127,3 +126,7 @@ The [snapshot schedule](../snapshots/snapshot-schedules.md) actions require the 
 ## Tracing Actions
 
 The [change tracing configuration](../tracing/tracing.md) action requires the TRACING_CONFIGURATION_UPDATE permission.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

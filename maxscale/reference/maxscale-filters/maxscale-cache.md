@@ -283,6 +283,7 @@ Available since MaxScale 25.10.4.
 * Mandatory: No
 * Dynamic: No
 * Default: `0s` (no limit)
+* Description: Defines the minimum time a query must take on the backend for its result to be stored in the cache.
 
 Specifies the minimum duration a query must take on the backend for its
 result to be stored in the cache. If a query executes faster than this, its
@@ -322,6 +323,7 @@ Available since MaxScale 25.10.4.
 * Mandatory: No
 * Dynamic: No
 * Default: `10000`
+* Description: Defines the maximum number of queries faster than `min_query_duration` that are remembered so that their cache lookups can be skipped.
 
 The maximum number of queries — observed to be faster than
 [min\_query\_duration](maxscale-cache.md#min_query_duration) — that
@@ -398,6 +400,23 @@ An enumeration option specifying how data is shared between threads. The allowed
 
 * `shared`: The cached data is shared between threads. On the one hand it implies that there will be synchronization between threads, on the other hand that all threads will use data fetched by any thread.
 * `thread_specific`: The cached data is specific to a thread. On the one hand it implies that no synchronization is needed between threads, on the other hand that the very same data may be fetched and stored multiple times.
+
+The above applies to `storage_inmemory`. With a shared storage
+(`storage_redis`, `storage_gridgain`) the cached data is held by the
+storage server and is the same for all threads, irrespective of the value
+of `cached_data`; data stored by one thread is used by all. The value only
+affects the bookkeeping MaxScale itself does. With `thread_specific`:
+
+* the queries known to be faster than
+  [min\_query\_duration](maxscale-cache.md#min_query_duration) are
+  remembered by each thread separately, so each thread must learn them, and
+* an entry that has become stale may be refreshed once per thread, instead
+  of once.
+
+The number of connections to the storage server does not depend on
+`cached_data`: `storage_redis` uses one connection per client session and
+`storage_gridgain` one per thread. `storage_gridgain` can only be used with
+`cached_data=thread_specific`.
 
 ```
 cached_data=shared
@@ -517,6 +536,10 @@ An enumeration option specifying how the cache should invalidate cache entries.
 ```
 
 The effect of `current` depends upon the value of `cached_data`. If the value is `shared`, that is, all threads share the same cache, then the effect of an invalidation is immediately visible to all sessions, as there is just one cache. However, if the value is `thread_specific`, then an invalidation will affect only the cache that the session happens to be using.
+
+This applies to `storage_inmemory`. With `storage_redis` the invalidation
+is performed in the storage server, so it is immediately visible to all
+sessions, irrespective of the value of `cached_data`.
 
 If it is important and _sufficient_ that an application immediately sees a change that it itself has caused, then a combination of `invalidate=current` and `cached_data=thread_specific` can be used.
 
@@ -724,6 +747,10 @@ SET @maxscale.cache.populate=FALSE;
 
 What caching approach is used and how different users are treated has a significant impact on the behaviour of the cache. In the following the implication of different combinations is explained.
 
+The table and the following subsections describe `storage_inmemory`. With a
+shared storage the cached data is not duplicated across threads; see
+[cached\_data](maxscale-cache.md#cached_data).
+
 | cached\_data/users | mixed                                                                                                                          | isolated                                                                                                                        |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
 | thread\_specific   | No thread contention. Data/work duplicated across threads. May cause unintended sharing.                                       | No thread contention. Data/work duplicated across threads and users. No unintended sharing. Requires the most amount of memory. |
@@ -737,7 +764,7 @@ Invalidation takes place only in the current cache, so how _visible_ the invalid
 
 The invalidation is visible only to the sessions that are handled by the same worker thread where the invalidation occurred. Sessions of the same or other users that are handled by different worker threads will not see the new value before the TTL causes the value to be refreshed.
 
-#### `cache_data=shared`
+#### `cached_data=shared`
 
 The invalidation is immediately visible to all sessions of all users.
 
@@ -1081,7 +1108,8 @@ The only _local_ storage implementation is `storage_inmemory` that simply stores
 
 There are three _shared_ storages; `storage_memcached`, `storage_redis` and `storage_gridgain`
 that are implemented using [memcached](https://memcached.org/), [redis](https://redis.io/) and
-[gridgain](https://www.gridgain.com/) respectively.
+[gridgain](https://www.gridgain.com/) respectively. The `storage_memcached` storage is
+available until MaxScale 25.10.
 
 The shared storages are accessed across the network and consequently it is _not_ self-evident that their use will provide any performance benefit. Namely, irrespective of whether the data is fetched from the cache or from the server there will be a network hop and often that network hop is, as far as the performance goes, what costs the most.
 
@@ -1135,6 +1163,7 @@ storage_gridgain.endpoints=127.0.0.1
 * Mandatory: No
 * Dynamic: No
 * Default: 127.0.0.1:10800
+* Description: Defines the comma-separated list of GridGain endpoints.
 
 An endpoint is specified as `<host>[:<port>[..<port_range>]]` and several
 endpoints can be specified, separated by a comma.
@@ -1145,6 +1174,7 @@ endpoints can be specified, separated by a comma.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines the user used for authenticating with GridGain.
 
 The user to be used when authenticating with GridGain.
 
@@ -1154,6 +1184,7 @@ The user to be used when authenticating with GridGain.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines the password used for authenticating with GridGain.
 
 The password to be used when authenticating with GridGain.
 
@@ -1163,6 +1194,7 @@ The password to be used when authenticating with GridGain.
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
+* Description: Enables SSL when connecting to the GridGain server.
 
 If `true`, SSL will be used in the communication with GridGain in which case
 the `ssl_` settings should be specified as well.
@@ -1173,6 +1205,7 @@ the `ssl_` settings should be specified as well.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines the SSL client certificate used when connecting to the GridGain server.
 
 The SSL client certificate that MaxScale should use with the GridGain server. The certificate must
 match the key defined in `ssl_key`.
@@ -1183,6 +1216,7 @@ match the key defined in `ssl_key`.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines the SSL client private key used when connecting to the GridGain server.
 
 The SSL client private key MaxScale should use with the GridGain server.
 
@@ -1192,6 +1226,7 @@ The SSL client private key MaxScale should use with the GridGain server.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines the CA certificate used for the SSL connection to the GridGain server.
 
 The Certificate Authority (CA) certificate for the CA that signed the certificate
 specified with `ssl_cert`.
@@ -1202,6 +1237,7 @@ specified with `ssl_cert`.
 * Mandatory: No
 * Dynamic: No
 * Default: 1Mi
+* Description: Defines the maximum size of a value that can be stored in GridGain.
 
 The default maximum size of a value to be stored in GridGain.
 
@@ -1211,6 +1247,7 @@ The default maximum size of a value to be stored in GridGain.
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
+* Description: Enables GridGain partition awareness, so that requests go directly to the node that owns the data.
 
 [Partition awareness](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/thin-clients/getting-started-with-thin-clients#partition-awareness)
 allows a thin GridGain client to send query requests directly to the node that
@@ -1226,6 +1263,10 @@ owns the queried data and should usually be enabled.
 The data in the GridGain server is _not_ encrypted.
 
 ### `storage_memcached`
+
+{% hint style="info" %}
+This storage module is available until MaxScale 25.10.
+{% endhint %}
 
 This storage module uses [memcached](https://memcached.org/) for storing the cached data.
 

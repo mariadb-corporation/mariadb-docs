@@ -180,19 +180,24 @@ SPACE_DIRS = {
     'SsmexDFPv2xG2OTyO5yV': 'server',
     '3VYeeVGUV4AMqrA3zwy7': 'galera-cluster',
     '0pSbu5DcMSW4KwAkUcmX': 'maxscale',
-    'rBEU9juWLfTDcdwF3Q14': 'analytics',
     'vPz15Lz0Iw3P3yKR3Prd': 'mariadb-cloud',
-    'gmXC0YXB3rRhXvpg5mb1': 'home',
     'JqgUabdZsoY5EiaJmqgn': 'platform',
     'CjGYMsT2MVP4nd3IyW2L': 'connectors',
-    'BfPLkyMnD0BAfMCRhZKr': 'gridgain-9',
+    'ArQLGGUSG0VzKl1t2Y53': 'gridgain-8',
+    'oHbGEk22iR73P3x6DryR': 'gridgain-9',
+    'aCh6jmvBjQASgok5pZEH': 'gridgain',
     'kuTXWg0NDbRx6XUeYpGD': 'tools',
     'aEnK0ZXmUbJzqQrTjFyb': 'release-notes',
     'WCInJQ9cmGjq1lsTG91E': 'general-resources',
+    'COKIFe0hm2r19L2bFQTW': 'exa',
+    'y3YOhOKd2kxEEm0gLKs4': 'ai-tools',
+    'AmWSwHTrMJB8ojX2p6gW': 'raft-cluster',
+    'RaYUwfaLLE1EkMr1e8Ud': 'columnstore',
+    '1H8tuThi64HJmOJHG6nV': 'get-started',
 }
 # An {alias} placeholder is expanded the way expand-gitbook-aliases.yml expands
 # it, read out of that workflow rather than copied, so the two cannot drift.
-# {general-resources} carries a path of its own (/about/readme), which this keeps.
+# An alias that carries a path of its own keeps it.
 ALIAS_WORKFLOW = '.github/workflows/expand-gitbook-aliases.yml'
 ALIAS_RULE = re.compile(r'\[\{\]([a-z-]+)\[\}\]#\\1https://app\.gitbook\.com/'
                         r'(?:o/[A-Za-z0-9]+/)?s/([^#]+)#g')
@@ -212,8 +217,6 @@ def aliases(base):
 # Space ids a link may carry that name no space in this repo, with the reason.
 # Identified through the GitBook API (getSpaceById), 2026-09-25.
 FOREIGN_SPACES = {
-    # {columnstore}: in the alias map, but no directory here and no link uses it.
-    '2I4jZ8pGq8bT4w5n3q6r': 'the ColumnStore space, not synced to this repo',
     # Only ever in ~/reusable/ include URLs, which are not pages.
     'GxVnu02ec8KJuFSxmB93': 'the private Marketing space (reusable blocks)',
 }
@@ -638,6 +641,25 @@ def unpublished(path, base):
     return relpath(path, base).startswith(UNPUBLISHED)
 
 
+def git_ignored(root):
+    """Resolved paths of the .md files under root that git ignores.
+
+    `new` walks the working tree but its baseline is a clean worktree, which
+    never contains ignored files. So a dead anchor in a writer's ignored notes
+    (a gitignored `working/` folder, say) had no baseline twin and was reported
+    as a regression, blocking a commit that never touched it (DOCS-7039).
+    --exclude-standard honours .gitignore, .git/info/exclude and the user's
+    core.excludesFile alike. Outside a git work tree this returns nothing, so
+    the walk keeps every file, as it did before.
+    """
+    ls = subprocess.run(['git', '-C', str(root), 'ls-files', '-z', '--others',
+                         '--ignored', '--exclude-standard', '--', '*.md'],
+                        capture_output=True, text=True)
+    if ls.returncode != 0:
+        return set()
+    return {(root / p).resolve() for p in ls.stdout.split('\0') if p}
+
+
 def md_files(root, base):
     """Published .md files under root, each real file once.
 
@@ -652,11 +674,12 @@ def md_files(root, base):
     if root.is_file():
         return [] if unpublished(root, base) else [root]
     out, seen = [], set()
+    ignored = git_ignored(root)
     for p in sorted(root.rglob('*.md')):
         if unpublished(p, base):
             continue
         real = p.resolve()
-        if real in seen:
+        if real in seen or real in ignored:
             continue
         seen.add(real)
         out.append(p)

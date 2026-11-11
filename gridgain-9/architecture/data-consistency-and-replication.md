@@ -146,3 +146,7 @@ The default configuration uses only 1 replica, which provides no fault tolerance
 Keep default quorum settings unless you have specific requirements, as GridGain calculates sensible defaults based on replica count. Understand that higher quorum reduces risk of data loss during failures but increases the risk of unavailability since more replicas must be online to accept writes.
 
 When planning distribution zones, group related tables in the same zone for colocation benefits, which improves query performance by reducing cross-partition operations. Consider creating separate zones for data with different consistency requirements - for example, you might use strong consistency for critical transactional data and [high availability mode](high-availability-mode.md) for caching or non-critical data.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

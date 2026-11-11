@@ -3,7 +3,6 @@ description: >-
   GridGain 9.1.28 hardens security around the distributed map, thin-client
   metadata, and LDAP role mapping, corrects the REST transactions API path, and
   deprecates the RocksDB partition storage engine.
-hidden: true
 ---
 
 # GridGain 9.1.28 Release Notes
@@ -26,11 +25,11 @@ Several access checks that were previously missing are now enforced. Review them
 
 ### REST Transactions API Path Corrected
 
-The management REST API served its transactions endpoints on a path that differed from the published OpenAPI specification. The endpoints are now served on the path the specification documents. A client that hard-coded the previous path must be updated. See [management REST API](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/rest-api).
+The management REST API served its transactions endpoints on a path that differed from the published OpenAPI specification. The endpoints are now served on the path the specification documents. A client that hard-coded the previous path must be updated. See [management REST API](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/rest-api).
 
 ### Deprecations and Removals
 
-The RocksDB partition storage engine is now deprecated and will be removed in a future release. Migrate profiles that use it to the `aipersist` or `aimem` storage engines. See [RocksDB storage engine](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/storage/engines/rocksdb-persistent-storage).
+The RocksDB partition storage engine is now deprecated and will be removed in a future release. Migrate profiles that use it to the `aipersist` or `aimem` storage engines. See [RocksDB storage engine](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/architecture/storage/engines/rocksdb-persistent-storage).
 
 ## New Features
 
@@ -40,11 +39,11 @@ The .NET client now ships an Entity Framework Core provider, letting you use Gri
 
 ### Receiver Execution Options in the Java Thin Client
 
-The Java thin client data streamer now accepts `ReceiverExecutionOptions`, giving you control over how a stream receiver runs. See [Data Streamer](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/data-streaming).
+The Java thin client data streamer now accepts `ReceiverExecutionOptions`, giving you control over how a stream receiver runs. See [Data Streamer](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/data-streaming).
 
 ### LDAP Connect and Read Timeouts
 
-LDAP binds are now bounded by JNDI connect and read timeouts, so a slow or unresponsive directory server can no longer stall authentication indefinitely. See [Authentication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/authentication-and-authorization/authentication).
+LDAP binds are now bounded by JNDI connect and read timeouts, so a slow or unresponsive directory server can no longer stall authentication indefinitely. See [Authentication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/security/authentication-and-authorization/authentication).
 
 ## Improvements and Fixed Issues
 
@@ -138,3 +137,7 @@ Currently, data rebalance may cause partition distribution to change and cause i
 ## We Value Your Feedback
 
 Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

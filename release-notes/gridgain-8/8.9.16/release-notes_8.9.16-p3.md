@@ -3,6 +3,7 @@ description: >-
   GridGain 8.9.16-p3 is a patch release that fixes issues with checkpointing and
   improves partition eviction logging.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.9.16-p3 Release Notes
@@ -206,4 +207,8 @@ Starting with GridGain 8.8.17, the `GridGain.Ignite` dependency is not included 
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: support@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -34,3 +34,7 @@ The following pages help you with migrating your cluster to GridGain 9:
 - [Migrate persistent data](persistent-data-migration.md)
 - [Data Center Replication Between GridGain 8 and GridGain 9](dcr-from-gridgain-8.md)
 - [Migrate codebase](codebase-migration.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

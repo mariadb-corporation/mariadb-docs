@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.6 adds a Python client and extended bootstrap configuration support, along with various SQL, storage, and client fixes.
-hidden: true
 ---
 
 # GridGain 9.1.6 Release Notes
@@ -106,4 +105,8 @@ There are known issues with the performance of SQL read-write transactions in co
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

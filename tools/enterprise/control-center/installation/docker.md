@@ -2,7 +2,6 @@
 description: >-
   How to run GridGain Control Center with Docker, using docker-compose to start
   the Control Center Frontend and Backend containers.
-hidden: true
 ---
 
 # Control Center Docker Image
@@ -315,4 +314,8 @@ To migrate data from an existing Control Center installation to a new version:
 
 - [Change Configuration Parameters](../admin-guide/configuration.md) - make sure you [optimize the disk space utilization](../admin-guide/disk-space-optimization.md)
 - [Add a License](../getting-started/adding-license.md)
-- Connect a [GridGain](../getting-started/connect/connect-gridgain-cluster.md) cluster or an [Apache Ignite](../getting-started/connect/connect-ignite-cluster.md) cluster
+- Connect a [GridGain 8](../getting-started/connect/connect-gridgain-cluster.md) or [GridGain 9](../getting-started/connect/connect-gridgain9-cluster.md) cluster
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

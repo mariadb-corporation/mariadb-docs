@@ -236,3 +236,7 @@ They are part of the server, so the assistant can read them even when the cluste
 
 Each resource is a Markdown document.
 Some hosts do not show resources to the user and let the assistant read them when it needs them.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

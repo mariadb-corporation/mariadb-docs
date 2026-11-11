@@ -102,3 +102,5 @@ CREATE TABLE docs (
 Index entries are maintained inside the same transaction as the row change. An insert tokenizes the document and writes one entry per unique term, a delete removes the entries, and an update that changes the indexed columns or the primary key removes the old entries and writes new ones. An update on a table with a `TTL` option or `TTL` column, in a session with a non-zero `tidesdb_ttl`, or of a row that already carries an expiry from an earlier session TTL, also rewrites the row's entries with its new expiry, or with none. The document count and total word count for BM25 are maintained atomically in the data column family, and the average document length is derived from them at query time.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

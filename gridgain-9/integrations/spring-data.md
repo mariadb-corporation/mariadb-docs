@@ -50,7 +50,7 @@ The `pom.xml` example below shows how you can add spring support:
     <dependency>
         <groupId>org.gridgain</groupId>
         <artifactId>spring-data-ignite</artifactId>
-        <version>9.1</version>
+        <version>9.1.28</version>
     </dependency>
 
     <!-- Spring Boot Starter for JDBC -->
@@ -343,3 +343,7 @@ spring.datasource.username=myuser
 spring.datasource.password=mypassword
 ```
 {% endcode %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

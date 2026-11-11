@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Deployment options for GridGain.NET applications: full binary package, NuGet,
   single-file, custom, and ASP.NET deployments.
@@ -137,3 +136,7 @@ var cfg = new IgniteConfiguration { AutoGenerateIgniteInstanceName = true };
 {% endtabs %}
 
 Refer to the [following StackOverflow discussion](http://stackoverflow.com/questions/42961879/how-do-i-retrieve-a-started-ignite-instance-when-a-website-restart-occurs-in-iis/) for more details.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -228,3 +228,5 @@ WITH aless100 AS (SELECT /*+ qb_name(aless100) */ a FROM t1 WHERE b <100)
 * Implicit names based on aliases are not supported inside view definitions (`CREATE VIEW ...`).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

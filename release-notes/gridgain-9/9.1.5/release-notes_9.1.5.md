@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.5 introduces change data capture, secondary storage archiving, and partition awareness for client SQL, along with Docker Compose changes.
-hidden: true
 ---
 
 # GridGain 9.1.5 Release Notes
@@ -175,4 +174,8 @@ There are known issues with the performance of SQL read-write transactions in co
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

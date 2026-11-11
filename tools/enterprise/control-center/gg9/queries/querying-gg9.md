@@ -2,7 +2,6 @@
 description: >-
   Executing SQL queries against a GridGain 9 cluster from the Control Center
   Queries screen, working with indexes, and using the queries log.
-hidden: true
 ---
 
 # Queries Screen for GridGain 9 Clusters
@@ -18,7 +17,7 @@ The screen consists of two tabs:
 
 You can add multiple tabs to the screen, each containing an SQL expression and the query results (after you have executed the query). To add a tab, click the **+** icon on the tab bar.
 
-The screen also provides **Add Schema** and **Add Data** buttons in the top-right corner, which open the [Data and Schema Import](../data-schema-import/data-schema-import.md) feature for importing schemas from external databases or loading data into the cluster.
+The screen also provides **Add Schema** and **Add Data** buttons in the top-right corner, which open the [Data and Schema Import](../data-schema-import.md) feature for importing schemas from external databases or loading data into the cluster.
 
 ## Defining Queries
 
@@ -124,3 +123,7 @@ To select queries to track:
 ![](../../../../.gitbook/assets/cc-gg9-rq_config.png)
 
 For example, entering "500" in the **Duration** field will track only queries lasting longer than 500 ms. This applies even to queries already in `Running` status when you save the configuration.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

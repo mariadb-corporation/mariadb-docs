@@ -123,3 +123,7 @@ From here, you may want to:
 
 - Read more about using GridGain
 - Explore the [additional examples](https://github.com/gridgain/php-thin-client/tree/master/examples) included with GridGain
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

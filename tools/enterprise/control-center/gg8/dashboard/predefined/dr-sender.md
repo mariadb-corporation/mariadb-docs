@@ -2,7 +2,6 @@
 description: >-
   The DR sender dashboard — statistics for the sender nodes participating in
   GridGain 8 Data Center Replication.
-hidden: true
 ---
 
 # DR Sender Tab for GridGain 8 Clusters
@@ -56,3 +55,7 @@ The list contains the following columns:
 - Sender Hub ID - the sender hub ID
 - Connection - the connection status (Connected/Disconnected)
 - Receiver addresses - IP addresses of the receiver nodes
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

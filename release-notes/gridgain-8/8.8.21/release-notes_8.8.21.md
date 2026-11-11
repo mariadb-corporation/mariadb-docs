@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.21 changes trial license packaging, adds new control script commands, and delivers fixes across Community, Enterprise, and Control Center Agent components.
-hidden: true
 ---
 
 # GridGain 8.8.21 Release Notes
@@ -10,7 +9,7 @@ hidden: true
 In the course of streamlining our licensing and trial policies, GridGain Ultimate® and GridGain Enterprise®  artifacts have been changed. Direct link downloads, Maven and Docker artifacts no longer include a trial license file. A 30-day trial license with no CPU or node limit and a limited uptime is included with the downloads available on the [Try Free](https://www.gridgain.com/tryfree) section of the website.
 If you use a trial license in a production or development environment, you will need to [install](https://www.gridgain.com/docs/latest/installation-guide/licenses) your purchased license files. Otherwise, the cluster will not start after the upgrade is done, and you will see an error message on node startup.
 
-If you have any questions, please contact your GridGain Account Executive or [GridGain Support](https://www.gridgain.com/services/support).
+If you have any questions, please contact MariaDB [support](https://mariadb.com/support/).
 
 These changes do not affect GridGain Community Edition.
 
@@ -181,6 +180,10 @@ Set `<PrivateAssets>None</PrivateAssets>` for the `GridGain.Ignite` dependency i
 To run .NET SDK commands, install the .NET SDK. For more details, click [here](https://docs.microsoft.com/en-us/dotnet/core/install/windows?tabs=net60#dependencies).
 
 ## We Value Your Feedback
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

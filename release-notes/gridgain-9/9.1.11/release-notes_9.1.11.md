@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.11 adds a large number of new metrics and system views, query plan staleness configuration, and CDC failover.
-hidden: true
 ---
 
 # GridGain 9.1.11 Release Notes
@@ -14,7 +13,7 @@ GridGain 9.1.11 is a private release that adds a large number of new metrics, as
 
 ### Extended Metrics and Monitoring
 
-This release adds [new metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#storage.aipersist.checkpoint) for detailed checkpoint phase tracking. You can now also monitor total pages read and written to `aipersist` storage.
+This release adds [new metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/monitoring/metrics-list#storage.aipersist.checkpoint) for detailed checkpoint phase tracking. You can now also monitor total pages read and written to `aipersist` storage.
 
 - `LastCheckpointBeforeLockDuration` - Time spent on pre-lock operations before the last checkpoint (ms).
 - `LastCheckpointDuration` - Total duration of the last checkpoint (ms).
@@ -29,7 +28,7 @@ This release adds [new metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s
 - `PagesRead` - Number of pages read from disk since the last restart.
 - `PagesWritten` - Number of pages written to disk since the last restart.
 
-A [new system view](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/system-views#sql_cached_query_plans) has also been introduced to expose cached SQL query plans.
+A [new system view](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/monitoring/system-views#sql_cached_query_plans) has also been introduced to expose cached SQL query plans.
 
 - `NODE_ID` - ID of the node where the plan is cached.
 - `PLAN_ID` - Internal identifier of the prepared plan.
@@ -78,11 +77,11 @@ ContinuousQueryOptions options = ContinuousQueryOptions.builder().watermark(wm).
 accounts.queryContinuously(subscriber, options);
 ```
 
-For more information, see the [continuous query](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/continuous-queries) documentation.
+For more information, see the [continuous query](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/continuous-queries) documentation.
 
 ### CDC Failover
 
-With this release, [CDC](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/change-data-capture) will automatically switch to a different execution node from the list of execution nodes if the node it is currently running on exits the cluster. The CDC process will only be interrupted if no execution node is available.
+With this release, [CDC](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-management/backup-and-replication/change-data-capture) will automatically switch to a different execution node from the list of execution nodes if the node it is currently running on exits the cluster. The CDC process will only be interrupted if no execution node is available.
 
 ## Improvements and Fixed Issues
 
@@ -156,4 +155,8 @@ There are known issues with the performance of SQL read-write transactions in co
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

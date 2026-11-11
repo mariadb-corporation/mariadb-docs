@@ -1,6 +1,7 @@
 ---
 description: GridGain 8.8.37-p1 is based on GridGain 8.8.37 and updates or removes dependencies to avoid false-positive vulnerability warnings.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.8.37-p1 Release Notes
@@ -147,6 +148,10 @@ Add the `GridGain.Ignite` dependency to your project, so that jars from it are i
 To run .NET SDK commands, install the .NET SDK. For more details, click [here](https://docs.microsoft.com/en-us/dotnet/core/install/windows?tabs=net60#dependencies).
 
 ## We Value Your Feedback
-Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

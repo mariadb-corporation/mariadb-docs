@@ -2,7 +2,6 @@
 description: >-
   Installing GridGain Control Center on an Amazon EC2 Linux instance, including
   folder layout, startup script, systemd service, and origin configuration.
-hidden: true
 ---
 
 # Control Center on AWS EC2 Linux Instances
@@ -182,4 +181,8 @@ server {
 
 - [Change Configuration Parameters](../admin-guide/configuration.md) - make sure you [optimize the disk space utilization](../admin-guide/disk-space-optimization.md)
 - [Add a License](../getting-started/adding-license.md)
-- Connect a [GridGain](../getting-started/connect/connect-gridgain-cluster.md) cluster or an [Apache Ignite](../getting-started/connect/connect-ignite-cluster.md) cluster
+- Connect a [GridGain 8](../getting-started/connect/connect-gridgain-cluster.md) or [GridGain 9](../getting-started/connect/connect-gridgain9-cluster.md) cluster
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

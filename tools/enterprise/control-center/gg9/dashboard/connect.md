@@ -2,7 +2,6 @@
 description: >-
   Connecting to a GridGain 9 cluster from the Java, .NET, .NET LINQ, C++, and
   Python clients, and via the Python DB API.
-hidden: true
 ---
 
 # Connecting to Your Cluster
@@ -237,3 +236,7 @@ For more information on Python client, see this article.
    ```
 
 For more information on Python DB API, see this article.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

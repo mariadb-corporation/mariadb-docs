@@ -122,7 +122,7 @@ For additional configuration options, see [Replication and Binary Log System Var
 [Replication](./) configuration from the primary can be performed as usual. Requirements:
 
 * Replicas must use GTID to connect to the primary (this is the default). The old filename/offset-based replication position is not available when using the new binlog on the primary.
-* Replicas should be upgraded to at least MariaDB 12.3 before switching the primary to the new binlog format.
+* Replicas should be upgraded to at least MariaDB 12.3 before switching the primary to the new binlog format. [Semisynchronous](semisynchronous-replication.md) replicas must run MariaDB 13.2 or later; see [Using Semisynchronous Replication with the InnoDB-Based Binary Log](semisynchronous-replication.md#using-semisynchronous-replication-with-the-innodb-based-binary-log).
 * The primary and replica can independently use either the traditional or new binlog format.
 
 ### Viewing Binlog Events
@@ -428,7 +428,9 @@ Old-style filename/offset replication positions are not supported. Replication m
 
 #### Semi-Synchronous Replication
 
-Semi-synchronous replication is not supported in the initial implementation. The `AFTER_SYNC` option cannot be supported because the traditional 2PC no longer exists. The `--init-rpl-role` option is also not supported.
+Semisynchronous replication works with the InnoDB-based binary log from MariaDB 13.2, with restrictions on the wait point and on the replicas' version. See [Using Semisynchronous Replication with the InnoDB-Based Binary Log](semisynchronous-replication.md#using-semisynchronous-replication-with-the-innodb-based-binary-log).
+
+The `--init-rpl-role` option is not supported.
 
 #### Savepoints Inside Triggers
 
@@ -473,3 +475,5 @@ In the initial version, only InnoDB is available as a storage engine for the bin
 * [InnoDB](../../server-usage/storage-engines/innodb/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

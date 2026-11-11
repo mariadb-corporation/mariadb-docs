@@ -7,15 +7,15 @@ whole-space output has to be generated from source.
 ## Quick start
 
 ```bash
-./pdf/fetch-deps.sh                 # once: fetch the Mermaid bundle
+./pdf/fetch-deps.sh                 # once: fetch the Mermaid bundle and the brand fonts
 python3 pdf/build.py galera-cluster # one space -> dist/mariadb-galera-cluster.pdf
-python3 pdf/build.py --all          # all eleven spaces
+python3 pdf/build.py --all          # every space in ALL_SPACES
 python3 pdf/build.py server --limit 50 --keep-html   # fast iteration
 ```
 
-Requirements: `python3`, `pandoc` 3.x, Chrome or Chromium. Optional but
-recommended: `qpdf` (lossless size pass), `poppler-utils` (page-count
-reporting), `npm` (only for `fetch-deps.sh`).
+Requirements: `python3`, `pandoc` 3.x, Chrome or Chromium, and `npm` for
+`fetch-deps.sh`. Optional but recommended: `qpdf` (lossless size pass),
+`poppler-utils` (page-count reporting).
 
 In CI, `.github/workflows/generate-pdfs.yml` builds every space in parallel and
 attaches the results to a GitHub Release. A full run produces several hundred MB,
@@ -24,7 +24,8 @@ so it is cut per documentation snapshot rather than per push:
 - **Automatically**, at 04:00 UTC on the 15th of each month, so a current
   snapshot exists even in a month when nobody remembers to cut one. Scheduled
   runs publish immediately, because a draft release does not move
-  `releases/latest`, which the documentation home page links to.
+  `releases/latest`, which the Offline Downloads page in General Resources
+  links to.
 - **Manually** (`workflow_dispatch`), to re-cut after a Server release lands.
   Manual runs default to a draft so the output can be checked before it is
   published.
@@ -37,17 +38,26 @@ near-identical release. Pass an explicit `tag` to keep a snapshot separate.
 
 | Space | Doc pages | PDF pages |
 |-------|----------:|----------:|
-| `server` | 4,101 | ~6,540 |
-| `release-notes` | 2,772 | ~5,720 |
-| `maxscale` | 771 | ~5,810 |
-| `platform` | 813 | ~500 |
-| `connectors` | 289 | ~660 |
-| `analytics` | 174 | ~590 |
-| `tools` | 128 | ~610 |
-| `general-resources` | 124 | ~220 |
-| `mariadb-cloud` | 110 | ~300 |
-| `galera-cluster` | 101 | ~270 |
-| `home` | 2 | ~7 |
+| `server` | 4,271 | ~7,340 |
+| `release-notes` | 3,230 | ~6,670 |
+| `maxscale` | 517 | ~4,070 |
+| `gridgain-8` | 341 | ~1,750 |
+| `tools` | 378 | ~1,500 |
+| `gridgain-9` | 196 | ~1,170 |
+| `connectors` | 346 | ~940 |
+| `columnstore` | 164 | ~570 |
+| `platform` | 848 | ~550 |
+| `mariadb-cloud` | 122 | ~390 |
+| `galera-cluster` | 99 | ~260 |
+| `general-resources` | 121 | ~230 |
+| `raft-cluster` | 5 | ~50 |
+| `exa` | 7 | ~30 |
+| `ai-tools` | 2 | ~6 |
+
+Two spaces get no PDF: `get-started` and the `gridgain` hub are navigation
+pages whose entries point into other spaces. The Analytics and Home spaces were
+retired in DOCS-7062; their content lives on in the `columnstore`, `exa` and
+`get-started` spaces.
 
 There is deliberately **no combined all-spaces PDF**: concatenating every space
 produces roughly 16,000 pages, which no reader handles usefully, and three
@@ -162,6 +172,14 @@ Two cases need more than the obvious substitution:
   destination dropped, since sending a reader to a login screen is worse than
   not linking.
 
+The map has to grow with the spaces. Until DOCS-7043 it stopped at the original
+eleven, so about 590 links into ColumnStore, GridGain, Raft Cluster, Exa and AI
+Tools were dropped, and the ColumnStore entry carried an ID that matched no
+space. Take new IDs from the `{alias}` table in `expand-gitbook-aliases.yml`.
+A space's site path is usually its directory name; the GridGain spaces are the
+exception, published under `/docs/gridgain/gridgain-8/…`, and Get Started is
+the site root (`SITE_PATHS`).
+
 This is checked twice, because the failure is invisible in a 6,000-page PDF —
 the link looks fine until someone clicks it. `build.py` warns if any editor URL
 survives in prose, and the workflow fails the build if one reaches the PDF's own
@@ -216,10 +234,12 @@ Two findings from this that are **source** bugs, not PDF bugs:
   than guessing a replacement, so those few are dead in the PDF exactly as they
   are on the site.
 
-## Brand colors and contrast
+## Brand, fonts and contrast
 
-`style.css` uses the MariaDB brand palette (slide 26 of the corporate deck), and
-every text/background pair is checked against WCAG 2.1 AA:
+`style.css` follows the Enterprise Platform 2027 brand
+(<https://mariadb-brand-core.vercel.app/>, DOCS-7043): white pages, Foam panels,
+Trench text, Ultraviolet for links and accents, and the other brand colors in
+small doses. Every text/background pair is checked against WCAG 2.1 AA:
 
 ```bash
 python3 pdf/check_contrast.py     # exits non-zero on any failure; runs in CI
@@ -227,38 +247,51 @@ python3 pdf/check_contrast.py     # exits non-zero on any failure; runs in CI
 
 | Color | Hex | On white | Used for |
 |-------|-----|---------:|----------|
-| Blue Azure | `#0E6488` | 6.57:1 AA | headings, links, default cover |
-| Deep Ocean | `#003545` | 13.16:1 AAA | top-level headings, step labels |
-| Granite | `#424F62` | 8.31:1 AAA | secondary and deep-TOC text |
-| Open Seas | `#00838F` | 4.52:1 AA | rules; small text uses `#00707a` (5.84:1) |
-| Sea Fresh | `#96DDCF` | 1.55:1 | fills only — table headers, step rules, alt cover |
-| Electric Eel | `#ABC74A` | 1.91:1 | decorative rules only, never text |
+| Ultraviolet | `#8328ED` | 6.01:1 AA | links, cover, rules under top-level headings, Note callouts |
+| Trench 950 | `#0C0C0D` | 19.55:1 AAA | text, headings, logo on light backgrounds |
+| neutral 700 | `#514E55` | 8.17:1 AAA | secondary and deep-TOC text, tab labels |
+| Foam 50 | `#F8F6FA` | — | code and panel fills |
+| Kelp | `#26D044` | 2.06:1 | Tip callout bar only, never text |
+| Beacon | `#FFD401` | 1.43:1 | Warning callout bar and the cover rule only, never text |
 
-Three deliberate decisions:
+Wave and Coral are not used: the brand gives them jobs (live data, community)
+that a documentation PDF doesn't have.
 
-- **Never `opacity` for secondary text.** Dimming white to 75% over Blue Azure
-  looks fine on screen and measures 4.45:1 — under the AA floor, and it landed
-  on the 8.5pt legal line where contrast matters most. Secondary cover text uses
-  explicit verified colors instead.
-- **Warning and Important are intentionally off-palette.** The brand has no
-  amber or red; forcing them into blues and greens would make a warning
-  indistinguishable from a note. Being slightly off-brand is the better
-  accessibility outcome. Color is never the only signal regardless — every
-  callout carries a bold `Note:` / `Tip:` / `Warning:` / `Important:` label, so
-  the distinction survives greyscale printing and color-vision deficiency.
-- **Open Seas is darkened for small text.** At 4.52:1 it passes AA by 0.02,
-  which is too fragile for 9pt labels; `#00707a` keeps the hue (185°) and
-  saturation at 5.84:1.
+**Fonts.** Figtree SemiBold for every heading, Geist Regular for reading text,
+Geist Medium for labels and emphasis, Geist Mono for code and eyebrows. All
+three use the SIL Open Font License, so they are embedded in the PDFs.
+`fetch-deps.sh` takes them from npm at pinned versions (`geist` from Vercel,
+`@fontsource/figtree`) into `pdf/vendor/fonts/`, and `build.py` writes the
+`@font-face` rules with absolute paths and waits for `document.fonts.ready`
+before printing. Without the files, a local build falls back to system faces
+with a note; CI fails the PDF instead, by checking `pdffonts` for Figtree and
+Geist.
+
+Decisions worth knowing before changing the stylesheet:
+
+- **No bold.** The brand allows Figtree SemiBold and Geist Regular and Medium,
+  nothing else, so `strong`, table headers and callout labels use Geist Medium.
+- **Headings are Trench, not Ultraviolet.** Ultraviolet means "link" in this
+  layout; a heading in the link color reads as one. Headings keep the source
+  pages' Title Case (house style), although the brand asks for sentence case.
+- **Never `opacity` for secondary text.** Dimmed white falls below AA quickly.
+  The cover uses full white on Ultraviolet (6.01:1) for every line.
+- **Callouts.** Note uses Ultraviolet, Tip Kelp and Warning Beacon, as bars and
+  tints only, with Trench text. Important keeps a dark red: the brand names an
+  error color (Flare) but doesn't publish it. Color is never the only signal —
+  every callout carries a `Note:` / `Tip:` / `Warning:` / `Important:` label.
+- **Inline code is never hyphenated.** `body` sets `hyphens: auto`; code
+  overrides it, because an inserted hyphen changes an identifier.
 
 ### Cover treatments
 
 ```bash
-python3 pdf/build.py server                      # Blue Azure, white text (default)
-python3 pdf/build.py server --cover sea-fresh    # Sea Fresh, Deep Ocean text
+python3 pdf/build.py server                  # Ultraviolet, white text and logo (default)
+python3 pdf/build.py server --cover foam     # Foam, Trench text and logo
 ```
 
-Both exceed AA at every size: Blue Azure/white is 6.57:1, Sea Fresh/Deep Ocean
-is 8.49:1.
+Both use the brand's horizontal lockup from `pdf/assets/`, unmodified: the logo
+is one color only, white on Ultraviolet and Trench on Foam.
 
 The cover also carries a snapshot label, which **defaults to today's date** —
 documentation here is continuously updated, so an undated PDF cannot be placed
@@ -350,6 +383,7 @@ and one bad space should not discard the rest.
 |------|---------|
 | `build.py` | manifest, assembly, Pandoc/Chrome/qpdf pipeline, CLI |
 | `gitbook_preprocess.py` | GitBook-block rewriting, link and asset rewriting |
-| `style.css` | print stylesheet: brand palette, cover, TOC, callouts, tables, code |
+| `style.css` | print stylesheet: brand palette and type, cover, TOC, callouts, tables, code |
 | `check_contrast.py` | asserts every text pair meets WCAG 2.1 AA (runs in CI) |
-| `fetch-deps.sh` | fetches the Mermaid bundle into `pdf/vendor/` (gitignored) |
+| `fetch-deps.sh` | fetches the Mermaid bundle and the brand fonts into `pdf/vendor/` (gitignored) |
+| `assets/` | the brand's horizontal logo lockup, white and Trench |

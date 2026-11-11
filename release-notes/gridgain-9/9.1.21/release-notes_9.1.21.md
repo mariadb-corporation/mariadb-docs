@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.1.21 is a stability and performance release. It requires an explicit
   JitPack repository declaration when running GridGain in embedded mode.
-hidden: true
 ---
 
 # GridGain 9.1.21 Release Notes
@@ -15,7 +14,7 @@ GridGain 9.1.21 is a private release focused on stability and performance, witho
 
 ### Explicit JitPack Dependency
 
-With this release, when running GridGain in [embedded mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-get-started/embedded-mode), you need to explicitly specify the `jitpack.io` repository to allow GridGain to resolve transitive JitPack dependency. Starting from 9.1.21, GridGain depends on an artifact published only on JitPack, so the repository must be reachable from your build.
+With this release, when running GridGain in [embedded mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-get-started/embedded-mode), you need to explicitly specify the `jitpack.io` repository to allow GridGain to resolve transitive JitPack dependency. Starting from 9.1.21, GridGain depends on an artifact published only on JitPack, so the repository must be reachable from your build.
 
 Add the following entry to the `<repositories>` section of your `pom.xml`:
 
@@ -79,4 +78,8 @@ There are known issues with the performance of SQL read-write transactions in co
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

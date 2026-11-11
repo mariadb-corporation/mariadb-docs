@@ -98,3 +98,5 @@ Only when the library's own no-progress budget is spent, with the memtable, flus
 The engine also absorbs transient contention that the library reports as locked, typically a memtable rotation that outran a single call's own retries. The engine's read, write, delete, iterator-open, and iterator-seek calls retry up to 16 times with a short, growing backoff, about 60 milliseconds in total, and stop early if the session is killed. Only then does the statement fail with a lock wait timeout. A commit is never retried, because a failed commit leaves the transaction aborted, and neither is a step to the next or previous entry, because a failed step does not say where it left the iterator. In a query or a write, an iterator call that still fails ends the statement with an error rather than as the end of the data, so a scan does not hand back part of its rows as the whole result.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

@@ -2,7 +2,6 @@
 description: >-
   How to update GridGain Control Center to a more recent version, including
   work folder backup and automatic update application.
-hidden: true
 ---
 
 # Control Center Version Update
@@ -26,3 +25,7 @@ To update to Control Center to a more recent version:
 5. In case of an update failure:
    - Restore from the backup created in Step 1 and run the Control Center version you attempted to update from.
    - Contact us for support.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

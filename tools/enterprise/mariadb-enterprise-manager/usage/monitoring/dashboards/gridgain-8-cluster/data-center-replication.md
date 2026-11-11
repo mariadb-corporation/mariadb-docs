@@ -3,7 +3,6 @@ description: >-
   The GridGain 8 Data Center Replication dashboard in Enterprise Manager:
   sender and receiver throughput, replication backlog, and latency per remote
   data center.
-hidden: true
 ---
 
 # Data Center Replication

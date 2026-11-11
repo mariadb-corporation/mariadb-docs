@@ -2,7 +2,6 @@
 description: >-
   The DR receiver dashboard — statistics for the receiver nodes participating in
   GridGain 8 Data Center Replication.
-hidden: true
 ---
 
 # DR Receiver Tab for GridGain 8 Clusters
@@ -37,3 +36,7 @@ This widget helps you examine the DR topology and receiver node configurations. 
 ## Remote Senders
 
 This widget lists the clusters (data centers) that serve as senders to the current receiver cluster. It provides the [Replication Progress](#replication-progress) statistics in a tabular form, per sender cluster.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

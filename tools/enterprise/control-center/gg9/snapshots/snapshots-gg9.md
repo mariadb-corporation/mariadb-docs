@@ -2,7 +2,6 @@
 description: >-
   Creating, restoring, and removing snapshots for GridGain 9 clusters from the
   Control Center Snapshots screen.
-hidden: true
 ---
 
 # Snapshot Management for GridGain 9 Clusters
@@ -90,3 +89,7 @@ To remove a snapshot:
 
 1. From the context menu of the snapshot you want to remove, select **Remove**.
 2. In the confirmation dialog that opens, click **Remove**.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

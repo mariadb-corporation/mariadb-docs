@@ -163,3 +163,7 @@ No rows affected (0.013 seconds)
 {% endtabs %}
 
 You can also watch a [screencast](https://www.youtube.com/watch?v=FKS8A86h-VY) to learn more about how to use SQLLine.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

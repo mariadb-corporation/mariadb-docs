@@ -77,3 +77,5 @@ A key naming a table, a `UNIQUE` secondary index, and a value, which every write
 The process-wide record of each uncommitted write's key, which lets a Galera applier find and brute-force abort a local transaction it conflicts with. It is the lock-free analogue of a row lock. See [TideSQL Replication and High Availability](tidesql-replication-and-ha.md).
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

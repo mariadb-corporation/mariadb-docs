@@ -101,3 +101,7 @@ Using GridGain cache groups to share internal structures between caches, reducin
 Dictionary-based cache data compression in GridGain using Zstandard or gzip, including configuration, ZSTD dictionary tuning, and limitations.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

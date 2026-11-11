@@ -2,6 +2,7 @@
 description: >-
   GridGain 8.9.16-p2 is a patch release that adds the IGNITE_PDS_FORCED_CHECKPOINT_ON_NODE_STOP system property to force a node to always perform a checkpoint before stopping.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.9.16-p2 Release Notes
@@ -204,4 +205,8 @@ Starting with GridGain 8.8.17, the `GridGain.Ignite` dependency is not included 
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: support@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

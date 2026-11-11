@@ -79,3 +79,7 @@ Nodes broadcast their at-limit state to peers. If the majority of replicas for a
 Writes resume automatically once drive usage drops below the limit, or you raise the limit. For guidance on configuring these limits, see the [Hard Disk Usage Limits](../reference/configuration/node-configuration-parameters.md#hard-disk-usage-limits) section.
 
 Each node also enforces *soft* limits on its partition log storage. Exceeding a soft limit triggers reactive log storage compaction to reclaim space. Client writes are never refused. Keep soft limits below the hard limits so compaction has room to act before admission control engages. For configuration details, see the [Soft Disk Usage Limits](../reference/configuration/node-configuration-parameters.md#soft-disk-usage-limits) section.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -3,7 +3,6 @@ description: >-
   GridGain 8.7.19 adds experimental OpenCensus tracing of the transaction API and
   Java thin client enhancements, together with fixes across SQL, storage, thin
   clients, and data replication.
-hidden: true
 ---
 
 # GridGain 8.7.19 Release Notes
@@ -61,6 +60,10 @@ If you are on a version that is not listed, contact GridGain for the information
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

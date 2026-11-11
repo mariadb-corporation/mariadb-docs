@@ -3,7 +3,6 @@ description: >-
   GridGain 8.7.40 adds extended snapshot compression options and a new option to
   exclude caches from snapshot operations, along with a number of improvements and
   bug fixes.
-hidden: true
 ---
 
 # GridGain 8.7.40 Release Notes
@@ -219,6 +218,10 @@ bin/ignite.sh
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

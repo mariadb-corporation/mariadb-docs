@@ -11,7 +11,7 @@ Through this guide you will learn how to launch two EC2 instances each running a
 You can extend this guide to any number of nodes.
 
 {% hint style="info" %}
-This guide is applicable to [Apache Ignite](https://apacheignite.readme.io) as well.
+This guide is applicable to [Apache Ignite](https://ignite.apache.org/) as well.
 {% endhint %}
 
 We will use two `t2.micro` instances, GridGain, and Java 17.
@@ -379,3 +379,7 @@ client.close();
 ```
 
 This simple piece of code creates a cache in the cluster and puts one key-value pair into it.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

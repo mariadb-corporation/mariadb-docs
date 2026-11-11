@@ -40,3 +40,7 @@ How to reclaim disk space from GridGain persistent storage by scheduling and run
 How GridGain nodes enter maintenance mode, the conditions that trigger it, and the operations available while a node is isolated from the cluster.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

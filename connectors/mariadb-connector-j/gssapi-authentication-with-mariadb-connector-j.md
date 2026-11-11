@@ -36,7 +36,7 @@ DriverManager.getConnection("jdbc:mariadb://db.example.com:3306/db?user=one");
 
 Since the user account is configured to use the [gssapi](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-gssapi) authentication plugin on the server, the Java connector will use GSSAPI authentication when connecting.
 
-The service principal name must be the one defined for the user account on the database server unless a different one is specified with the [servicePrincipalName](about-mariadb-connector-j.md#infrequently-used-parameters) parameter in the connection URL.
+The service principal name must be the one defined for the user account on the database server unless a different one is specified with the [servicePrincipalName](about-mariadb-connector-j/connection-parameters.md#infrequently-used-parameters) parameter in the connection URL.
 
 The database server will wait for a ticket associated with the principal defined in the user ('userOne@EXAMPLE'). It means on the client, the user must have obtained a TGT beforehand.
 

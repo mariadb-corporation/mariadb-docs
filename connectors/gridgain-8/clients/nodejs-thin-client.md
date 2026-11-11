@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   How to install and use the GridGain 8 Node.js thin client: creating a client
   instance, connecting to a cluster, key-value operations, type mapping, scan and
@@ -492,3 +491,7 @@ const igniteClientConfiguration = new IgniteClientConfiguration(
 ### Authorization
 
 For information about authorizing thin client connections, see the [Client Authorization](authorization.md) page.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

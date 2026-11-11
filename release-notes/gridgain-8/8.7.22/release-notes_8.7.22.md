@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.22 adds control script commands for binary metadata and a graceful shutdown policy, along with fixes across SQL, the storage engine, and thin clients.
-hidden: true
 ---
 
 # GridGain 8.7.22 Release Notes
@@ -76,6 +75,10 @@ To workaround this issue, you need to alter the Jetty configuration to use `org.
 For a configuration example, see [Client Certificate Authentication](https://www.gridgain.com/docs/latest/administrators-guide/security/authentication#client-certificate-authentication).
 
 ## We Value Your Feedback
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

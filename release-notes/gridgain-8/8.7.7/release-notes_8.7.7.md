@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.7.7 is a maintenance release that includes many bug fixes.
-hidden: true
 ---
 
 # GridGain 8.7.7 Release Notes
@@ -76,10 +75,14 @@ See the [Rolling Upgrades](https://www.gridgain.com/docs/latest/administrators-g
 
 ## Related Information
 
-[Customer Support](https://www.gridgain.com/services/support)
+[Customer Support](https://mariadb.com/support/)
 
 ### We Value Your Feedback
 
-The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

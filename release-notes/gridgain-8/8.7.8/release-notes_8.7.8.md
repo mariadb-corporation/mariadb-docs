@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.7.8 introduces hash joins, experimental partition awareness for thin
   clients, and major Data Center Replication improvements, along with many fixes.
-hidden: true
 ---
 
 # GridGain 8.7.8 Release Notes
@@ -108,7 +107,7 @@ H2 database engine is used to parse SQL and support execution of distributed SQL
 
 - LIMIT/OFFSET keyword order in the SQL grammar cannot be changed now and is locked to `LIMIT expression [OFFSET expression]`
 
-- INTERVAL type was introduced and is used as a return value type for arithmetic operations on date types. As an example, date subtraction was previously returning difference in days between two dates instead of complete time interval, which can be implemented now using DATEDIFF function. Please consider to replace arithmetic operations with corresponding function from Date and Time functions: https://apacheignite-sql.readme.io/docs/date-and-time-functions.
+- INTERVAL type was introduced and is used as a return value type for arithmetic operations on date types. As an example, date subtraction was previously returning difference in days between two dates instead of complete time interval, which can be implemented now using DATEDIFF function. Please consider to replace arithmetic operations with corresponding function from Date and Time functions: https://ignite.apache.org/docs/ignite2/latest/sql-reference/date-time-functions.
 
 Please refer to http://www.h2database.com/html/changelog.html for versions 1.4.198 and 1.4.199 for the full list of changes.
 
@@ -188,11 +187,15 @@ Repeat this procedure for all nodes in the cluster.
 ## Related Information
 
 Need more details? Please don't hesitate to reach out to the
-[GridGain Customer Support](https://www.gridgain.com/services/support) team.
+[GridGain Customer Support](https://mariadb.com/support/) team.
 
 ### We Value Your Feedback
 
 The GridGain documentation team is focused on constantly improving the product documentation. Your comments and
-suggestions are always welcome. You can reach us here: docs@gridgain.com
+suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

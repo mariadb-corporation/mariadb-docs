@@ -426,3 +426,7 @@ class EventFilter : IEventFilter<CacheEvent>
 unsupported
 {% endtab %}
 {% endtabs %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

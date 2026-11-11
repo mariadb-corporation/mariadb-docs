@@ -26,7 +26,7 @@ To use caches in your project, you need to add a `gridgain-jdbc-cache-store` dep
 <dependency>
     <groupId>org.gridgain</groupId>
     <artifactId>gridgain-jdbc-cache-store</artifactId>
-    <version>9.1</version>
+    <version>9.1.28</version>
 </dependency>
 ```
 
@@ -354,3 +354,7 @@ kvView.put(null, key, value);
 The [`cacheWriteBehindParallelOperations`](https://www.gridgain.com/sdk/gridgain9/latest/javadoc/org/apache/ignite/client/ClientCacheConfiguration.html#cacheWriteBehindParallelOperations\(\)) client configuration option defines the maximum number of parallel write behind operations for the cache (1024 by default). If the write-behind queue is full, new tasks will be performed in `SYNC` mode.
 
 Only operations made from GridGain clients are propagated in asynchronous mode.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -782,7 +782,7 @@ Each GridGain storage engine can have several storage _profiles_.
 
 This section describes internal properties, which are used by a number of GridGain components.
 
-Although you can edit these properties in the same way you edit all others - using the `node config update` CLI command - we suggest that you discuss the proposed changes with the GridGain support team. The properties can apply to a specific node - see below - or to the [cluster as a whole](cluster-configuration-parameters.md#system-configuration).
+Although you can edit these properties in the same way you edit all others - using the `node config update` CLI command - we suggest that you discuss the proposed changes with MariaDB [support](https://mariadb.com/support/). The properties can apply to a specific node - see below - or to the [cluster as a whole](cluster-configuration-parameters.md#system-configuration).
 
 {% hint style="info" %}
 Note that the property names are in `camelCase`.
@@ -848,3 +848,7 @@ Note that the property names are in `camelCase`.
 |expiration.batchSize|1000|The number of items that can be expired at once.|1 - inf|
 |expiration.checkInterval|30000|How often the data is checked for expiration, in milliseconds.|1 - inf|
 |expiration.parallelismLevel|1|The number of threads used for data expiry.|1 - Integer.MAX_VALUE|
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

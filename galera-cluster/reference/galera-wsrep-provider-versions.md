@@ -7,7 +7,7 @@ description: >-
 
 # Galera wsrep Provider Versions
 
-This page maps each release of the Galera wsrep provider to the MariaDB Server version it was first shipped in. The wsrep provider is the `libgalera_smm.so` library that implements [MariaDB Galera Cluster](../readme/mariadb-galera-cluster-usage-guide.md) replication.
+This page maps each release of the Galera wsrep provider to the MariaDB Server version it was first shipped in. The wsrep provider is the `libgalera_smm.so` library that implements [MariaDB Galera Cluster](../mariadb-galera-cluster-usage-guide.md) replication.
 
 These mappings are **platform-independent** — the provider version bundled with a given MariaDB release does not vary by operating system. To build the provider from source, see [Building the Galera wsrep Package on Ubuntu and Debian](../galera-management/installation-and-deployment/advanced-installation-from-source/building-the-galera-wsrep-package-on-ubuntu-and-debian.md) or [Building the Galera wsrep Package on Fedora](../galera-management/installation-and-deployment/advanced-installation-from-source/building-the-galera-wsrep-package-on-fedora.md).
 

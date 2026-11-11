@@ -162,6 +162,7 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | `GG-DCR-11` | There is no specified table on the source cluster. | Check the source table name. |
 | `GG-DCR-12` | Replication to self is not allowed. | Remove the local cluster endpoint from the replication target configuration and use a different remote cluster. |
 | `GG-DCR-13` | A stop was requested for a replication that is already stopped. | No action is required. Check the replication state before issuing a stop request. |
+| `GG-DCR-14` | The source cluster address is not an allowed replication target. Either the address is not listed in `ignite.dcr.sourceClusterAddressAllowList`, or the list is empty and the address is refused by default: a link-local, any-local, or multicast IP address, or a known cloud instance metadata IP address. | Use an allowed address, or add the address to `ignite.dcr.sourceClusterAddressAllowList`. |
 
 ## Distribution Zone Exceptions
 
@@ -237,9 +238,9 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | --- | --- | --- |
 | `GG-LICENSE-1` | Generic license error. | Check the exception message for information on why the error occurred. |
 | `GG-LICENSE-2` | A license is missing for cluster. | Make sure to add the license when initializing the cluster. |
-| `GG-LICENSE-3` | A license has been modified. | Contact GridGain support. |
-| `GG-LICENSE-4` | A license does not contain the required features. | Contact GridGain support. |
-| `GG-LICENSE-5` | Blocked licenses list has been modified. | Contact GridGain support. |
+| `GG-LICENSE-3` | A license has been modified. | Contact MariaDB [support](https://mariadb.com/support/). |
+| `GG-LICENSE-4` | A license does not contain the required features. | Contact MariaDB [support](https://mariadb.com/support/). |
+| `GG-LICENSE-5` | Blocked licenses list has been modified. | Contact MariaDB [support](https://mariadb.com/support/). |
 
 ## Marshalling Exceptions
 
@@ -463,3 +464,7 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | Exception Code | Description | Recommended Action |
 | --- | --- | --- |
 | `UNKNOWN-UNKNOWN{groupCode}-{errorCode}` | The client received an error code it does not recognize. This occurs when an older client connects to a newer server version that introduced error codes unknown to the client. | Update the client to a version compatible with the server to receive proper error details. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

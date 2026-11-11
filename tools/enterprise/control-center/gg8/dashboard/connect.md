@@ -2,7 +2,6 @@
 description: >-
   Connecting to a GridGain 8 cluster from the Java, .NET, C++, Python, and
   Node.js thin clients, JDBC, ODBC, the Java thick client, and the REST API.
-hidden: true
 ---
 
 # Connecting to Your Cluster
@@ -516,3 +515,7 @@ Run the following to test your connection:
    curl "https://${connectionInfo.urls[0]}:8080/ignite?cmd=currentState&sessionToken={sessionToken}"
    ```
    {% endcode %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

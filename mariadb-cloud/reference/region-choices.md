@@ -71,3 +71,5 @@ When deploying a highly available database service, nodes are distributed across
 **MariaDB Enterprise Cluster (Synchronous HA):** When deploying a MariaDB Enterprise Cluster across multiple AZs, you must account for inter-AZ network latency. Because it uses synchronous write-set certification, a transaction is not committed until all nodes in the cluster acknowledge it. The physical distance between Availability Zones in a given region will therefore introduce a slight commit latency to your write transactions.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

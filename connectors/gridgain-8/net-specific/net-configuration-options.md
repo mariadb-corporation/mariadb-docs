@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Ways to configure a GridGain.NET node: programmatically in C#, with application
   or web config files, or with Spring XML.
@@ -165,3 +164,7 @@ var ignite = Ignition.Start("spring-config.xml");
 ```
 {% endtab %}
 {% endtabs %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

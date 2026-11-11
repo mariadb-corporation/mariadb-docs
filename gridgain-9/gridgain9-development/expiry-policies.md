@@ -62,3 +62,7 @@ ALTER TABLE Person DROP EXPIRE;
 ```
 
 You can also drop the column you used to TTL if you no longer need it to save space.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

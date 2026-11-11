@@ -3,10 +3,9 @@ description: >-
   Choose a parsing strategy and a chunking strategy for the documents of a
   MariaDB Cloud AI Retrieval knowledge base, and set the chunk size and overlap.
 icon: scissors
-hidden: true
 ---
 
-<!-- DRAFT for DOCS-6592. Hidden until the Public Preview launch. Moved out of document-knowledge-bases.md at Egor Ustinov's request on 2026-10-20, with guidance added. Open items are marked TODO. -->
+<!-- DOCS-6592. Moved out of document-knowledge-bases.md at Egor Ustinov's request on 2026-10-20, with guidance added. Open items are marked TODO. -->
 
 # Parsing and Chunking
 
@@ -16,23 +15,21 @@ You choose a parsing strategy and a chunking strategy in the **Processing** step
 
 <figure><img src="../../.gitbook/assets/ai-retrieval-upload-processing.png" alt="The Processing step of the Upload Files dialog with the Layout-aware parsing strategy selected and the Structure-Aware chunking strategy."><figcaption><p>The Processing step</p></figcaption></figure>
 
-<!-- TODO: this screenshot shows "Basic" because the test environment has not picked up the rename to "Base" (MCDEV-1484). Recapture it when the environment shows Base. Egor noted that the parser selector may be removed from the portal; ask him before the launch. -->
-
 ## Choose a Parsing Strategy
 
 | Parsing strategy | What it does | Use it for |
 | --- | --- | --- |
 | Layout-aware (default) | Extracts the layout and the text of complex digital documents, where the meaning depends on the structure. | PDF, DOCX, PPTX, and static HTML files with headings, tables, lists, or several columns. |
-| Base | Extracts plain text only. | TXT, Markdown, and JSON files, and digital DOCX or PDF files that contain linear prose. |
+| Basic | Extracts plain text only. | TXT, Markdown, and JSON files, and digital DOCX or PDF files that contain linear prose. |
 
 Both strategies read digital documents only. Scanned documents, which are PDFs that contain only images of pages, are not supported yet. Layout-aware parsing uses OCR to detect the layout of a page, not to read scanned pages.
 
 Which strategy to choose:
 
 * Keep **Layout-aware** when a document has tables, a heading structure, or a page layout that carries meaning. Use it with the **Structure-aware** chunking strategy, which relies on the document structure that Layout-aware parsing extracts.
-* Choose **Base** for files that are plain text already. It does not add anything for a text or Markdown file.
+* Choose **Basic** for files that are plain text already. It does not add anything for a text or Markdown file.
 
-<!-- Billing: Layout-aware parsing consumes 48 MCUs per 1,000 pages and Base 6; see usage-and-billing.md. -->
+<!-- Billing: Layout-aware parsing consumes 48 MCUs per 1,000 pages and Basic 6; see usage-and-billing.md. -->
 
 ## Choose a Chunking Strategy
 
@@ -51,7 +48,7 @@ Which strategy to choose:
 * Start with **Structure-aware**. It needs no tuning, and tables and code stay in one piece.
 
 {% hint style="info" %}
-Use **Structure-aware** chunking with **Layout-aware** parsing. With **Base** parsing, Structure-aware chunking has no document structure to follow and falls back to the **Recursive** strategy.
+Use **Structure-aware** chunking with **Layout-aware** parsing. With **Basic** parsing, Structure-aware chunking has no document structure to follow and falls back to the **Recursive** strategy.
 {% endhint %}
 * Choose **Recursive** for prose that is organized in paragraphs, such as articles and manuals, when you want a size limit that you control.
 * Choose **Sentence-based** when a chunk should never end in the middle of a sentence.
@@ -74,7 +71,7 @@ Guidance:
 * A small chunk matches a question more precisely but carries less context. A large chunk carries more context but can mix several topics, which makes it match less precisely.
 * The overlap repeats the end of one chunk at the start of the next. A larger overlap keeps a sentence that falls on a boundary readable in both chunks, but it creates more chunks to store and to embed.
 * Chunk size has no upper limit other than the limit of the embedding model.
-* When the reranker is on, it reads only the first 512 tokens of each chunk and ignores the rest, so a larger chunk is ranked on its beginning only. Keep the chunk size at 512 tokens or below when you use the reranker. The portal warns you about larger chunk sizes.
+* When the reranker is on, it reads only the first 512 tokens of each chunk and ignores the rest, so a larger chunk is ranked on its beginning only. Keep the chunk size at 512 tokens or below when you use the reranker.
 
 <!-- Source: skysql-ui-client ChunkingFields.vue and src/utils/chunking.ts @ 5356829b; ai-retrieval-cloud chunk_rules.py @ 5393bced; chunking/registry.py and parsers/registry.py @ a66a013d. -->
 
@@ -90,3 +87,5 @@ Guidance:
 {% endcontent-ref %}
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

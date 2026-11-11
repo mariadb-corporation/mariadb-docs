@@ -2,7 +2,6 @@
 description: >-
   Configuring and managing data center replication between GridGain 9 clusters
   from the Control Center Data Replication screen.
-hidden: true
 ---
 
 # Data Center Replication for GridGain 9 Clusters
@@ -80,3 +79,7 @@ To remove a replication, click **Remove** from the ⋮ menu for the selected rep
 ![Remove replication](../../../../.gitbook/assets/cc-gg9-dcr_gg9_remove.png)
 
 To remove multiple replications at once, select the checkboxes next to the replications you want to delete, then open the ⋮ menu and click **Remove**. In this case, the dialog will list the names of the selected replications instead of showing tables.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

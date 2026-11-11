@@ -91,3 +91,7 @@ Understand the Software Identification (SWID) tags that GridGain 9 distributions
 Procedures for upgrading GridGain 9 — full-cluster and rolling upgrades of the cluster, and upgrading client applications.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

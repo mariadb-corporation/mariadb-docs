@@ -3,7 +3,6 @@ description: >-
   The GridGain 8 Persistence dashboard in Enterprise Manager: data volume
   against disk footprint, checkpoints, the write-ahead log, dirty pages, write
   throttling, and page replacement.
-hidden: true
 ---
 
 # Persistence

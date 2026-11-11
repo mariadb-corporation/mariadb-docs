@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.25 improves Control Center Agent flexibility and adds index rebuild metrics, with fixes across SQL, storage, and data replication.
-hidden: true
 ---
 
 # GridGain 8.7.25 Release Notes
@@ -77,6 +76,10 @@ To workaround this issue, you need to alter the Jetty configuration to use `org.
 For a configuration example, see [Client Certificate Authentication](https://www.gridgain.com/docs/latest/administrators-guide/security/authentication#client-certificate-authentication).
 
 ## We Value Your Feedback
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

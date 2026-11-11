@@ -91,3 +91,7 @@ How memory quotas prevent GridGain nodes from running out of memory when SQL que
 Overview of the internal thread pools GridGain maintains, how to size them, and how to create a custom thread pool for compute tasks.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

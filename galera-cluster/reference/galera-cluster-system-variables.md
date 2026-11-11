@@ -507,7 +507,7 @@ More details can be found on this page:
 
 #### `wsrep_slave_threads`
 
-* Description: Number of replica threads used to apply Galera write sets in parallel. The Galera replica threads are able to determine which write sets are safe to apply in parallel. However, if your cluster nodes seem to have frequent consistency problems, then setting the value to `1` will probably fix the problem. See [About Galera Replication: Galera Replica Threads](../readme/about-galera-replication.md#galera-slave-threads) for more information.
+* Description: Number of replica threads used to apply Galera write sets in parallel. The Galera replica threads are able to determine which write sets are safe to apply in parallel. However, if your cluster nodes seem to have frequent consistency problems, then setting the value to `1` will probably fix the problem. See [About Galera Replication: Galera Replica Threads](../about-galera-replication.md#galera-slave-threads) for more information.
 * Command line: `--wsrep-slave-threads=`#
 * Scope: Global
 * Dynamic: Yes

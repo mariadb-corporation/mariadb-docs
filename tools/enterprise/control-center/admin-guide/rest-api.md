@@ -2,7 +2,6 @@
 description: >-
   The GridGain Control Center REST API for user management, cluster attachment,
   alerting configuration, and health monitoring.
-hidden: true
 ---
 
 # REST API
@@ -17,7 +16,7 @@ The REST API includes endpoints for:
 - **Users** - Create, update, and manage user accounts
 - **Teams** - Create teams and manage team membership
 - **Clusters** - Attach clusters and configure sharing
-- **Notifications** - Configure email, SMS, and webhook notification channels
+- **Notifications** - Configure email, SMS, webhook, and in-app notification channels
 - **Alerts** - Set up metric-based alert configurations
 - **Health** - Retrieve cluster health reports
 - **License** - Upload and manage licenses
@@ -123,3 +122,55 @@ Example response:
    "status": "GOOD"
 }
 ```
+
+## Send In-App Notifications
+
+You can send a notification to the **Notifications** panel of Control Center users without configuring an alert. Only administrators can use this endpoint. If another user sends the request, it fails with the `403` status.
+
+```bash
+POST /rest/v1/notifications
+```
+
+| Parameter | Description |
+|---|---|
+| title | Required. The title of the notification. |
+| message | Required. The text of the notification. |
+| targetUrl | Required. A valid URL. When a user clicks the notification, the URL opens in a new browser tab, and the notification is marked as read. |
+| username | The email address of the user who receives the notification. |
+| connectionId | The ID of a cluster connection. The notification is associated with the cluster, and the cluster tag is displayed in the notification. |
+| broadcast | Set to `true` to send the notification to all users. The default value is `false`. When it is `true`, do not set `username` or `connectionId`. |
+
+The recipients depend on the parameters that you set:
+
+- `username` - only the specified user.
+- `connectionId` without `username` - all users who have access to the cluster.
+- `broadcast` set to `true` - all users.
+
+You must set at least one of `username`, `connectionId`, or `broadcast`. Otherwise, the request fails with the `400` status. If the specified `username` does not exist, the request fails with the `404` status.
+
+Example request:
+
+```bash
+curl -X POST \
+  -u "admin@example.com:password" \
+  "https://<control-center-url:port>/rest/v1/notifications" \
+  -H "Content-Type: application/json" \
+  -d '{"connectionId": "<connectionId>", "username": "operator@example.com", "title": "Maintenance window", "message": "The cluster restarts at 22:00.", "targetUrl": "https://example.com/maintenance"}'
+```
+
+Example response:
+
+```json
+{
+  "notificationId": "ed5e4954-fd49-404f-9f55-f70a1b47b177",
+  "createdNotificationCount": 1
+}
+```
+
+`createdNotificationCount` is the number of users who received the notification. A successful request returns the `201` status.
+
+To delete a notification, send a `DELETE` request to `/rest/v1/notifications/<notificationId>`. A successful request returns the `204` status.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

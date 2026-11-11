@@ -28,3 +28,7 @@ How GridGain 9 maintains data consistency through RAFT replication and consensus
 Configure high availability mode on GridGain 9 distribution zones to prioritize partition availability over strict consistency, enabling automatic recovery from majority replica loss.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

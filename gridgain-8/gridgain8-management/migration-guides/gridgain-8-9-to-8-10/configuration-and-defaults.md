@@ -63,3 +63,7 @@ The following system properties are new or removed in 8.10:
 | `IGNITE_TCP_COMM_MSG_QUEUE_WARN_SIZE` | New. When set to a positive number, logs a warning when the outgoing message queue of the TCP communication SPI exceeds it. The default is 0, which prints no warning. |
 | `IGNITE_BPLUS_TREE_DISABLE_METRICS` | New. Disables the metrics of the secondary index B+Trees. The default is `false`. |
 | `IGNITE_LOCAL_STORE_KEEPS_PRIMARY_ONLY` | Removed with local store support. See [Local Store Support Removed](platform-and-modules.md#local-store-support-removed). |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

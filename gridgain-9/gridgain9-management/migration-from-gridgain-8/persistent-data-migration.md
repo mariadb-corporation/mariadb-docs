@@ -13,10 +13,10 @@ There are two options for creating the required GridGain 9 configuration:
 - [Replicating Caches to GridGain 9](#replicating-caches-to-gridgain-9)
 - [Migrating Persistent Data](#migrating-persistent-data)
 
-Regardless of the approach you choose, you need to download the migration tools first:
+Regardless of the approach you choose, you need to obtain the migration tools first:
 
-1. Download the migration tools from the [website](https://www.gridgain.com/tryfree).
-2. Unpack the downloaded archive to your machine.
+1. Obtain the migration tools from GridGain support.
+2. Unpack the archive you received to your machine.
 3. To explore the available commands in help, run the following command from the migration tools directory:
 
    ```bash
@@ -130,3 +130,7 @@ In this case, the migration tools will first display what caches are available, 
 
 Migration tool will store logs in the `USER_HOME/.ignite-migration-tools/logs` folder.
 Alternatively, the logs folder can be configured by using the `IGNITE_MIGRATION_TOOLS_LOGS_DIR` environment variable.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

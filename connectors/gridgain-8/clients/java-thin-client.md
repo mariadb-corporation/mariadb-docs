@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   How to use the GridGain 8 Java thin client: connecting to a cluster, partition awareness, key-value and SQL APIs, transactions, compute, services, data streaming, SSL/TLS, and authentication.
 ---
@@ -1077,3 +1076,7 @@ ClientCacheConfiguration cacheCfg = new ClientCacheConfiguration()
 
 ClientCache<Integer, Integer> cache = client.createCache(cacheCfg);
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

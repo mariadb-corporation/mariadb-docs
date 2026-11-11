@@ -2,7 +2,6 @@
 description: >-
   Adding, configuring, and editing dashboard widgets for GridGain 9 clusters —
   gauges, nodes, metrics, heat maps, SQL query, and system view widgets.
-hidden: true
 ---
 
 # Configuring Widgets for GridGain 9 Clusters
@@ -294,3 +293,7 @@ To remove a widget from the dashboard:
 
 1. Open the widget's context menu.
 2. Select **Remove**.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

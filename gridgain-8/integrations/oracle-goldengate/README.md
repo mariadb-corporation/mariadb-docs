@@ -11,3 +11,7 @@ Oracle GoldenGate integration replicates data from GoldenGate-compatible data so
 - [GridGain Handler](gridgain-handler.md)
 - [Data Source Operation Handler](data-source-operation-handler.md)
 - [GoldenGate Conflicts Resolution](conflict-resolution.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

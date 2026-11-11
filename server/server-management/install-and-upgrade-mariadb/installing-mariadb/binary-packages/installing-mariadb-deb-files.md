@@ -8,7 +8,7 @@ description: >-
 
 ## Installing MariaDB with APT
 
-On Debian, Ubuntu, and other similar Linux distributions, it is highly recommended to install the relevant `.deb` packages from MariaDB's repository using [apt](https://manpages.ubuntu.com/manpages/bionic/man8/apt.8.html), [aptitude](https://manpages.ubuntu.com/manpages/bionic/man8/aptitude-curses.8.html), [Ubuntu Software Center](https://web.archive.org/web/2023/https://help.ubuntu.com/community/UbuntuSoftwareCenter), [Synaptic Package Manager](https://web.archive.org/web/2023/https://help.ubuntu.com/community/SynapticHowto), or another package manager.
+On Debian, Ubuntu, and other similar Linux distributions, it is highly recommended to install the relevant `.deb` packages from MariaDB's repository using [apt](https://manpages.ubuntu.com/manpages/bionic/man8/apt.8.html), [aptitude](https://manpages.ubuntu.com/manpages/bionic/man8/aptitude-curses.8.html), [Ubuntu Software Center](https://web.archive.org/web/20231224042152/https://help.ubuntu.com/community/UbuntuSoftwareCenter), [Synaptic Package Manager](https://web.archive.org/web/20240112002937/https://help.ubuntu.com/community/SynapticHowto), or another package manager.
 
 This page walks you through the simple installation steps using `apt`.
 
@@ -85,23 +85,23 @@ sudo apt update
 
 **Using Ubuntu Software Center**
 
-Another way to add an `apt` repository is by using [Ubuntu Software Center](https://web.archive.org/web/2023/https://help.ubuntu.com/community/UbuntuSoftwareCenter).
+Another way to add an `apt` repository is by using [Ubuntu Software Center](https://web.archive.org/web/20231224042152/https://help.ubuntu.com/community/UbuntuSoftwareCenter).
 
 You can do this by going to the **Software Sources** window. This window can be opened either by navigating to **Edit** > **Software Sources** or by navigating to **System** > **Administration** > **Software Sources**.
 
 Once the **Software Sources** window is open, go to the **Other Software** tab, and click the **Add** button. At that point, you can input the repository information provided by the [MariaDB Repository Configuration Tool](https://downloads.mariadb.org/mariadb/repositories/).
 
-See [here](https://web.archive.org/web/2023/https://help.ubuntu.com/community/UbuntuSoftwareCenter#Managing_software_sources) for more information.
+See [here](https://web.archive.org/web/20231224042152/https://help.ubuntu.com/community/UbuntuSoftwareCenter#Managing_software_sources) for more information.
 
 **Using Synaptic Package Manager**
 
-Another way to add an `apt` repository is by using [Synaptic Package Manager](https://web.archive.org/web/2023/https://help.ubuntu.com/community/SynapticHowto).
+Another way to add an `apt` repository is by using [Synaptic Package Manager](https://web.archive.org/web/20240112002937/https://help.ubuntu.com/community/SynapticHowto).
 
 You can do this by going to the **Software Sources** window. This window can be opened either by navigating to **System** > **Administrator** > **Software Sources** or by navigating to **Settings** > **Repositories**.
 
 Once the **Software Sources** window is open, go to the **Other Software** tab, and click the **Add** button. At that point, you can input the repository information provided by the [MariaDB Repository Configuration Tool](https://downloads.mariadb.org/mariadb/repositories/).
 
-See [here](https://web.archive.org/web/2023/https://help.ubuntu.com/community/SynapticHowto#Managing_Repositories) for more information.
+See [here](https://web.archive.org/web/20240112002937/https://help.ubuntu.com/community/SynapticHowto#Managing_Repositories) for more information.
 
 #### Pinning the MariaDB Repository to the repository of a Specific Minor Release
 
@@ -250,7 +250,7 @@ The process to install MariaDB Galera Cluster with the MariaDB `apt-get` reposit
 
 Galera Cluster support is included in the standard MariaDB Server packages, so you will need to install the `mariadb-server` package, as you normally would.
 
-You also need to install the `galera-4` package to obtain the [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide) 4 wsrep provider library.
+You also need to install the `galera-4` package to obtain the [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide) 4 wsrep provider library.
 
 To install MariaDB Galera Cluster, first you would have to update the package cache by executing the following command:
 
@@ -430,7 +430,7 @@ sudo dpkg --install ./mariadb-server*.deb \
 
 After the installation is complete, you can start MariaDB.
 
-If you are using [MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide), then keep in mind that the first node will have to be [bootstrapped](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster#bootstrapping-a-new-cluster).
+If you are using [MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide), then keep in mind that the first node will have to be [bootstrapped](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster#bootstrapping-a-new-cluster).
 
 ## Upgrading to a new version of MariaDB
 
@@ -458,7 +458,7 @@ For MariaDB, the following DEBs are available:
 
 | Package Name                             | Description                                                                                                                                                                                                                                        |
 | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `galera-4`                               | The WSREP provider for [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide) 4.                                                                                                                       |
+| `galera-4`                               | The WSREP provider for [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide) 4.                                                                                                                       |
 | `libmariadb3`                            | Dynamic client libraries.                                                                                                                                                                                                                          |
 | `libmariadb-dev`                         | Development headers and static libraries.                                                                                                                                                                                                          |
 | `libmariadbclient18`                     | Virtual package to satisfy external depends                                                                                                                                                                                                        |

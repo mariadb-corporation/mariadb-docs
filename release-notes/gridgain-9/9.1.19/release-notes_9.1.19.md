@@ -3,7 +3,6 @@ description: >-
   GridGain 9.1.19 brings more monitoring improvements, an experimental ML
   inference framework, a reworked distributed map API, and fixes including the
   9.1.18 data center replication issue.
-hidden: true
 ---
 
 # GridGain 9.1.19 Release Notes
@@ -150,7 +149,7 @@ In this release, the default failure handler policy was changed to `stop`. Previ
 
 This change means that the failure will now stop the node if an error occurs instead of logging the error and continuing.
 
-To continue operating using the `noop` handler, set it explicitly in [failure handler configuration](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/configuration/node-configuration-parameters#failure-handler-configuration).
+To continue operating using the `noop` handler, set it explicitly in [failure handler configuration](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/configuration/node-configuration-parameters#failure-handler-configuration).
 
 ## New Features
 
@@ -172,7 +171,7 @@ Four prediction modes are available:
 
 All prediction modes also have asynchronous variants.
 
-For more information about GridGain ML, see the [ML documentation section](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/machine-learning/get-started-with-gridgain-ml).
+For more information about GridGain ML, see the [ML documentation section](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/machine-learning/get-started-with-gridgain-ml).
 
 #### Setup Requirements
 
@@ -254,7 +253,7 @@ This release continues to add new metrics to GridGain 9. The following metrics w
 #### Data Center Replication Connector (DR Connector)  Metrics
 
 {% hint style="info" %}
-These metrics were added for [DR connector](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-guides/migration-from-gridgain-8/dcr-from-gridgain-8) only.
+These metrics were added for [DR connector](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-management/migration-guides/migration-from-gridgain-8/dcr-from-gridgain-8) only.
 {% endhint %}
 
 Per-cache metrics (`DrReceiverCacheMetricsMxBean`):
@@ -352,4 +351,8 @@ There are known issues with the performance of SQL read-write transactions in co
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

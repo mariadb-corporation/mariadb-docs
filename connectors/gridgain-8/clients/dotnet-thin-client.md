@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   How to install and use the GridGain 8 .NET/C# thin client: connecting to a cluster, partition awareness, key-value and async APIs, scan and SQL queries, services, SSL/TLS, and authentication.
 ---
@@ -655,3 +654,7 @@ var cacheCfg = new CacheClientConfiguration
 
 ICacheClient<int,int> cache = client.CreateCache<int, int>(cacheCfg);
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -145,3 +145,7 @@ A node that was upgraded but is currently down does not appear as an active clus
 #### Evicting an Unrecoverable Node
 
 A node that the cluster knows about but that has not rejoined fully blocks `upgrade commit`. Remove the node from the cluster following the standard topology-management procedure, then retry commit.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

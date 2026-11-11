@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   How to install and use the GridGain 8 C++ thin client: creating a client
   instance, key-value operations, partition awareness, SSL/TLS, authentication,
@@ -243,3 +242,7 @@ You can also perform transactions with labels:
 transactions::ClientTransaction tx = transactions.withLabel(label).TxStart();
 transactions::ClientTransaction tx = transactions.withLabel(label).TxStart(TransactionConcurrency::OPTIMISTIC, TransactionIsolation::SERIALIZABLE, TX_TIMEOUT);
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

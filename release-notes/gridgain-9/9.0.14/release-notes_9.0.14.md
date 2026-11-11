@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.0.14 introduces the Python DB API driver, point-in-time recovery,
   new transaction timeout parameters, and improved DDL performance.
-hidden: true
 ---
 
 # GridGain 9.0.14 Release Notes
@@ -36,7 +35,7 @@ For more information on using Python DB API, see the [Python Database API Driver
 
 ### Point in Time Recovery
 
-With this release, you can restore data to any point in time above the [low watermark](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/data-distribution/data-partitioning#version-storage). Older data below the low watermark can be restored by using [snapshots](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/snapshots/data-snapshots).
+With this release, you can restore data to any point in time above the [low watermark](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/architecture/data-distribution/data-partitioning#version-storage). Older data below the low watermark can be restored by using [snapshots](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-management/backup-and-replication/snapshots/data-snapshots).
 
 To start point in time recovery, use the `recovery` command, for example:
 
@@ -97,4 +96,8 @@ There are known issues with the performance of SQL read-write transactions in co
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

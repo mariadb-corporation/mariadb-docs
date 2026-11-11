@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   How to set up GridGain for C#/.NET, including prerequisites and installation
   through NuGet or the binary distribution.
@@ -30,3 +29,7 @@ The standard GridGain binary package includes .NET libraries.
 
 1. Download the package from [GridGain downloads](https://www.gridgain.com/resources/download).
 2. Unpack the archive into your chosen installation directory.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

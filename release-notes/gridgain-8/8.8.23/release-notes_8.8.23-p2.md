@@ -1,6 +1,7 @@
 ---
 description: GridGain 8.8.23-p2 fixes a critical issue with complex SQL operations by reverting a previous IN-operator index improvement.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.8.23-p2 Release Notes
@@ -34,6 +35,10 @@ Below is a list of versions that are tested for basic compatibility with the cur
 `2.7.2`, `2.11.0`, `2.12.0`, `2.13.0`
 
 ## We Value Your Feedback
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

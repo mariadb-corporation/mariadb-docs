@@ -2,6 +2,7 @@
 description: >-
   GridGain 8.9.1-p1 is a patch release that fixes an exception that could happen when closing memory trackers when data offloading was happening.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.9.1-p1 Release Notes
@@ -35,3 +36,7 @@ Rolling upgrade is only possible if both nodes have the `IGNITE_EVENT_DRIVEN_SER
 Below is a list of versions that are tested for basic compatibility with the current version. If you are on a version that is not listed, contact GridGain for information on upgrade options.
 
 `2.11.1`, `2.12.0`, `2.13.0`,  `2.14.0`,  `2.15.0`
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

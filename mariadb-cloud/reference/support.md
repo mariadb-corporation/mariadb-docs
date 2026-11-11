@@ -11,7 +11,7 @@ MariaDB Cloud is operated by a team of site reliability engineers (SREs), suppor
 
 ## What Support is Available?
 
-MariaDB Cloud support is offered as two support plans — **Basic** and **Standard** — plus the **Remote DBA (RDBA)** add-on. Which of these are available depends on your organization's [service tier](../readme/service-tiers.md): Foundation organizations can use Basic and Standard support, and Power and PowerPlus organizations can use Basic, Standard, and the RDBA add-on.
+MariaDB Cloud support is offered as two support plans — **Basic** and **Standard** — plus the **Remote DBA (RDBA)** add-on. Which of these are available depends on your organization's [service tier](../service-tiers.md): Foundation organizations can use Basic and Standard support, and Power and PowerPlus organizations can use Basic, Standard, and the RDBA add-on.
 
 Basic support is included with every MariaDB Cloud subscription. Support cases at the Basic level can only be created with the P3 or P4 response SLA.
 
@@ -46,3 +46,5 @@ Support cases are managed through the [Support Portal](https://support.skysql.co
 Users unable to reach the Support Portal can also use [Support Email](mailto:support@skysql.com).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.20 is dedicated to fixing issues and improving stability, with continued new thin client features.
-hidden: true
 ---
 
 # GridGain 8.8.20 Release Notes
@@ -191,6 +190,10 @@ Set `<PrivateAssets>None</PrivateAssets>` for the `GridGain.Ignite` dependency i
 To run .NET SDK commands, install the .NET SDK. For more details, click [here](https://docs.microsoft.com/en-us/dotnet/core/install/windows?tabs=net60#dependencies).
 
 ## We Value Your Feedback
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

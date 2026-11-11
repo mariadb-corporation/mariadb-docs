@@ -2,7 +2,6 @@
 description: >-
   Attaching a GridGain 8 cluster to Control Center: enabling the Control Center
   Agent module, setting the Control Center URI, and configuring the cluster.
-hidden: true
 ---
 
 # Attaching a GridGain 8 Cluster
@@ -10,7 +9,7 @@ hidden: true
 This page explains how to attach a GridGain 8 cluster to Control Center. You can attach as many clusters as your license supports. Control Center allows you to switch between clusters at will.
 
 {% hint style="info" %}
-To attach a GridGain 9 cluster, follow [this instruction](connect-gridgain9-cluster.md). To attach an Apache Ignite cluster, follow [this instruction](connect-ignite-cluster.md).
+To attach a GridGain 9 cluster, follow [this instruction](connect-gridgain9-cluster.md).
 {% endhint %}
 
 The following diagram illustrates how Control Center interacts with the cluster and the web browser.
@@ -124,3 +123,7 @@ You can change the cluster name from the context menu in **My Cluster** tab both
 ```
 
 If you don't set the cluster name, an auto-generated name is displayed instead.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

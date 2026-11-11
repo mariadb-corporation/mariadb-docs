@@ -2,7 +2,6 @@
 description: >-
   The management.sh|bat Control Center Agent management tool: commands,
   connection options, and basic options.
-hidden: true
 ---
 
 # Control Center Agent Management Tool
@@ -74,3 +73,7 @@ Options below specify parameters for connection to a GridGain node by the CLI to
 | --truststore | Path to the truststore file. Can be relative or absolute. |
 | --truststore-password | Truststore password. Can only be in plaintext. |
 | command | Script command. Possible commands are listed in the Command section. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

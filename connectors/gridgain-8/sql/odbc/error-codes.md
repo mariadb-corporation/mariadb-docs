@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   How to retrieve error codes from the GridGain ODBC driver, and a reference of
   the ANSI SQL error codes it returns.
@@ -83,3 +82,7 @@ The table below lists all the error codes supported by Ignite presently. This li
 | HY106 | Fetch type out of range. |
 | HYC00 | Feature is not implemented. |
 | IM001 | Function is not supported. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

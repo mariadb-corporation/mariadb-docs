@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.7.6 is a maintenance release that includes one critical bug fix.
-hidden: true
 ---
 
 # GridGain 8.7.6 Release Notes
@@ -21,10 +20,14 @@ This maintenance release includes one critical bug fix.
 
 ## Related Information
 
-[Customer Support](https://www.gridgain.com/services/support)
+[Customer Support](https://mariadb.com/support/)
 
 ### We Value Your Feedback
 
-The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://docs.gridgain.com) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

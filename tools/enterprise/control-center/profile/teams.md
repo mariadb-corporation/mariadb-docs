@@ -2,7 +2,6 @@
 description: >-
   Creating and managing Control Center teams, adding and promoting members, and
   using the system-managed Global Team.
-hidden: true
 ---
 
 # Managing Teams
@@ -157,3 +156,7 @@ When `account.globalTeam.attachCluster` is `true`, which is the default, Control
 {% endhint %}
 
 This makes Global Team useful for automating cluster access management in large environments. For example, you can attach clusters without generating individual tokens. For details, see [How can I automate connection of clusters to Control Center?](../faq.md#how-can-i-automate-connection-of-clusters-to-control-center)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

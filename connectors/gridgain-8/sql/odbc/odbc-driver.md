@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Overview of the GridGain ODBC driver: cluster configuration, thread-safety,
   prerequisites, and how to build and install the driver on Windows and Linux.
@@ -351,3 +350,7 @@ GridGain can be used with [pyodbc](https://pypi.org/project/pyodbc/). This modul
   ```
 
 For more information on using pyodbc, use the [official documentation](https://github.com/mkleehammer/pyodbc/wiki).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

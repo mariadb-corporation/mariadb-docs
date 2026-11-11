@@ -95,3 +95,7 @@ You can also specify a separate distribution zone for the secondary storage, in 
 ```sql
 CREATE TABLE exampleTable (key INT PRIMARY KEY, my_value VARCHAR) PRIMARY ZONE exampleZone PRIMARY STORAGE PROFILE 'profile1' SECONDARY ZONE columnarZone SECONDARY STORAGE PROFILE 'columnar_storage';
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
