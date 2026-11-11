@@ -72,6 +72,21 @@ REVIEW FLAGS (--flags TSV: key, section, reasons, text)
     previous page, items without a Release Note Summary, and items added from
     the commits. The script never removes a flagged item; the editor decides.
 
+    "Not for binaries" (Ralf Gebhardt, 2026-11-11): release notes are for
+    people who install the packages, and the changelog is for people who
+    build from source. So a fix that only affects building from source, the
+    source packages, or the test suite is removed. This is flagged, not
+    automatic, because no field marks it. Engineers already set Bug Category
+    "Not for Release Notes" on most such fixes, but not all, and the
+    Compiling and Tests, MTR components are not reliable in either
+    direction. MDEV-42175 (Compiling) speeds up the shipped binaries, and
+    MDEV-41505 (Tests, MTR) fixes the server. The flag fires on those
+    components, CI, or wording in the summary or the Release Note Summary:
+    build and source terms, debug-build-only fixes ("Debug assertion only
+    fix", MDEV-40404), and mtr test names such as main.user_limits. A debug
+    assertion on its own is not enough to remove an item. The developer's Bug
+    Category usually says it can also crash a release build.
+
 PROVEN
     On DOCS-7099 (2026-11-10), with --no-correct, 11.8.10 reproduced the
     script's Google Doc exactly (236 of 236 issues, all in the same section);
@@ -110,6 +125,12 @@ KEY_RE = re.compile(r'MDEV-\d+')
 SE = 'Storage Engine - '
 TESTS = {'Tests, MTR', 'CI'}
 DEBUG_RE = re.compile(r'assert|asan|msan|ubsan|valgrind|sanitizer|heap-use-after|use-of-uninit', re.I)
+BUILD_COMPONENTS = TESTS | {'Compiling'}
+BUILD_RE = re.compile(r'\b(compil\w*|cmake\w*|(does|did) not build|fails? to build|can (now )?be built|'
+                      r'srpms?|source rpms?|tar\.gz|tarballs?|buildbot|gitlab ci|mtr|test case|'
+                      r'flaky|sporadic\w*|debug assertion only|debug flag|debug builds? only|'
+                      r'(main|innodb|rpl|binlog|galera\w*|maria|sys_vars|perfschema|encryption|plugins|'
+                      r'period|vcol|s3|connect|mroonga|rocksdb|versioning|parts|json)\.\w+)\b', re.I)
 
 
 def die(msg):
@@ -282,8 +303,9 @@ def main(argv):
             f = i['fields']
             text, has_rns = bullet_text(f)
             why = []
-            if {c['name'] for c in f['components']} & TESTS:
-                why.append('test/CI component')
+            if ({c['name'] for c in f['components']} & BUILD_COMPONENTS
+                    or BUILD_RE.search(f['summary'] + ' ' + (f.get('customfield_13206') or ''))):
+                why.append('not for binaries? build, source, or test only')
             if not has_rns and DEBUG_RE.search(f['summary']):
                 why.append('debug/sanitizer report, no RNS')
             if 'security' in {l.lower() for l in f['labels']}:
@@ -304,7 +326,7 @@ def main(argv):
     count = lambda s: sum(1 for r in rows if s in r[2])
     print(f'{a.version}: {len(chosen)} items in {len(groups)} sections '
           f'(fix version selected {len(selected)}, removed {len(report["removed"])}, '
-          f'added {len(report["added"])}); flags: {count("test/CI")} test/CI, '
+          f'added {len(report["added"])}); flags: {count("not for binaries")} not for binaries, '
           f'{count("debug/sanitizer")} debug/sanitizer, {count("Security label")} Security, '
           f'{count("no RNS")} without RNS', file=sys.stderr)
     for name, lst in report.items():
