@@ -3494,80 +3494,80 @@ description: >-
 * Default: true
 * Description: Manages whether the replication protocol is permitted through this listener.
 
-#### [maxscale-nosql-protocol-module](maxscale-protocols/maxscale-nosql-protocol-module.md)
+#### [maxscale-nosql-protocol-module](maxscale-protocols/maxscale-nosql-protocol-module/README.md)
 
-**Settings**
+**MaxScale NoSQL Protocol Settings**
 
-[**authentication\_db**](maxscale-protocols/maxscale-nosql-protocol-module.md#authentication_db)
+[**authentication\_db**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#authentication_db)
 
 * Type: string
 * Mandatory: No
 * Default: `"NoSQL"`
 * Description: Specifies the database that stores NoSQL account information for authentication.
 
-[**authentication\_key\_id**](maxscale-protocols/maxscale-nosql-protocol-module.md#authentication_key_id)
+[**authentication\_key\_id**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#authentication_key_id)
 
 * Type: string
 * Mandatory: No
 * Default: `""`
 * Description: Specifies the encryption key ID used to encrypt NoSQL account information in the database.
 
-[**authentication\_password**](maxscale-protocols/maxscale-nosql-protocol-module.md#authentication_password)
+[**authentication\_password**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#authentication_password)
 
 * Type: string
 * Mandatory: No
 * Default: `""`
 * Description: Specifies the password for the NoSQL authentication user.
 
-[**authentication\_required**](maxscale-protocols/maxscale-nosql-protocol-module.md#authentication_required)
+[**authentication\_required**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#authentication_required)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `false`
 * Description: Determines whether clients are required to authenticate before accessing the service.
 
-[**authentication\_shared**](maxscale-protocols/maxscale-nosql-protocol-module.md#authentication_shared)
+[**authentication\_shared**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#authentication_shared)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `false`
 * Description: Controls whether NoSQL account information is stored in a shared or private manner.
 
-[**authentication\_user**](maxscale-protocols/maxscale-nosql-protocol-module.md#authentication_user)
+[**authentication\_user**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#authentication_user)
 
 * Type: string
 * Mandatory: Yes, if `authentication_shared` is true.
 * Description: Specifies the user used to access and manage shared NoSQL account information.
 
-[**authorization\_enabled**](maxscale-protocols/maxscale-nosql-protocol-module.md#authorization_enabled)
+[**authorization\_enabled**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#authorization_enabled)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `false`
 * Description: Enables or disables NoSQL protocol–level authorization for user management commands.
 
-[**auto\_create\_databases**](maxscale-protocols/maxscale-nosql-protocol-module.md#auto_create_databases)
+[**auto\_create\_databases**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#auto_create_databases)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `true`
 * Description: Controls whether databases are automatically created when required.
 
-[**auto\_create\_tables**](maxscale-protocols/maxscale-nosql-protocol-module.md#auto_create_tables)
+[**auto\_create\_tables**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#auto_create_tables)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `true`
 * Description: Controls whether tables are automatically created within existing databases when required.
 
-[**cursor\_timeout**](maxscale-protocols/maxscale-nosql-protocol-module.md#cursor_timeout)
+[**cursor\_timeout**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#cursor_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Default: `60s`
 * Description: Sets the maximum idle time before an inactive cursor is automatically closed.
 
-[**debug**](maxscale-protocols/maxscale-nosql-protocol-module.md#debug)
+[**debug**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#debug)
 
 * Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -3575,14 +3575,14 @@ description: >-
 * Default: `none`
 * Description: Manages which protocol events are logged, including incoming commands, backend SQL, and client responses.
 
-[**host**](maxscale-protocols/maxscale-nosql-protocol-module.md#host)
+[**host**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#host)
 
 * Type: string
 * Mandatory: No
 * Default: `"%"`
 * Description: Specifies the host portion of the MariaDB user account created via the NoSQL protocol.
 
-[**id\_length**](maxscale-protocols/maxscale-nosql-protocol-module.md#id_length)
+[**id\_length**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#id_length)
 
 * Type: count
 * Mandatory: No
@@ -3590,21 +3590,21 @@ description: >-
 * \*Default: `35`
 * Description: Sets the length of the `id` column for automatically created tables.
 
-[**internal\_cache**](maxscale-protocols/maxscale-nosql-protocol-module.md#internal_cache)
+[**internal\_cache**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#internal_cache)
 
 * Type: string
 * Mandatory: No
 * Default: ''
 * Description: Specifies the internal cache to use. Only the `cache` filter is supported.
 
-[**log\_unknown\_command**](maxscale-protocols/maxscale-nosql-protocol-module.md#log_unknown_command)
+[**log\_unknown\_command**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#log_unknown_command)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `false`
 * Description: Determines whether unsupported or unknown client commands are logged for debugging.
 
-[**on\_unknown\_command**](maxscale-protocols/maxscale-nosql-protocol-module.md#on_unknown_command)
+[**on\_unknown\_command**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#on_unknown_command)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -3612,7 +3612,7 @@ description: >-
 * Default: `return_error`
 * Description: Defines how the system responds to unrecognized client commands, either with an error or an empty result.
 
-[**ordered\_insert\_behavior**](maxscale-protocols/maxscale-nosql-protocol-module.md#ordered_insert_behavior)
+[**ordered\_insert\_behavior**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#ordered_insert_behavior)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -3620,14 +3620,14 @@ description: >-
 * Default: `default`
 * Description: Controls whether multi-document inserts are performed completely or individually based on the `ordered` setting.
 
-[**password**](maxscale-protocols/maxscale-nosql-protocol-module.md#password)
+[**password**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#password)
 
 * Type: string
 * Mandatory: No
 * Default: `""`
 * Description: Specifies the password used for backend connections when the MongoDB client is unauthenticated.
 
-[**transactions**](maxscale-protocols/maxscale-nosql-protocol-module.md#transactions)
+[**transactions**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#transactions)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -3635,7 +3635,7 @@ description: >-
 * Default: `error`
 * Description: Controls whether the transaction related commands result in an error or are silently ignored.
 
-[**user**](maxscale-protocols/maxscale-nosql-protocol-module.md#user)
+[**user**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#user)
 
 * Type: string
 * Mandatory: No
