@@ -1749,6 +1749,7 @@
       * [MariaDB ColumnStore 1.0.1 Alpha Release Notes](columnstore/old-releases/columnstore-1-0/mariadb-columnstore-101-alpha-release-notes.md)
 * [Galera Cluster Release Notes](galera-cluster/README.md)
   * [Galera Cluster 26.4 Release Notes](galera-cluster/26.4/README.md)
+    * [Galera 26.4.29 Release Notes](galera-cluster/26.4/26.4.29.md)
     * [Galera 26.4.28 Release Notes](galera-cluster/26.4/26.4.28.md)
     * [Galera 26.4.27 Release Notes](galera-cluster/26.4/26.4.27.md)
     * [Galera 26.4.26 Release Notes](galera-cluster/26.4/26.4.26.md)
