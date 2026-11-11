@@ -92,7 +92,7 @@ For a list of optional parameters that all monitors support, read the [Common Mo
 
 ### `disable_master_failback`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: false
 * Dynamic: Yes
 * Description: Prevents MaxScale from restoring the original node to primary status after a failover; the new primary retains the role while running.
@@ -101,7 +101,7 @@ If a node marked as primary inside MaxScale happens to fail and the primary stat
 
 ### `available_when_donor`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: false
 * Dynamic: Yes
 * Description: Allows Galera nodes to continue performing normal operations while acting as donors during non-blocking SST methods, preventing them from losing synchronized or read/write state.
@@ -114,7 +114,7 @@ The current list of non-blocking SST methods are `xtrabackup`, `xtrabackup-v2` a
 
 ### `disable_master_role_setting`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: false
 * Dynamic: Yes
 * Description: Disables automatic primary and replica role assignment in a Galera cluster; when enabled, only the Synced status is assigned.
@@ -123,7 +123,7 @@ This disables the assignment of primary and replica roles to the Galera cluster 
 
 ### `use_priority`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: false
 * Dynamic: Yes
 * Description: Allows the monitor to automatically select the writing node and manage controlled node replacements in a Galera cluster while keeping server priorities into account.
@@ -132,7 +132,7 @@ Enable interaction with server priorities. This will allow the monitor to determ
 
 ### `root_node_as_master`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: false
 * Dynamic: Yes
 * Description: Ensures that only the Galera node with `wsrep_local_index = 0` can be chosen as the primary for writes, enabling many MaxScale instances to use the same primary node.
@@ -147,7 +147,7 @@ This parameter can work with `disable_master_failback` but using them together i
 
 ### `set_donor_nodes`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: false
 * Dynamic: Yes
 * Description: Controls whether the `wsrep_sst_donor` global variable is set on each replica node, listing eligible donor nodes for SST in a sorted order based on priority or `wsrep_local_index`. 
@@ -211,7 +211,7 @@ maxctrl alter server server1 priority=2
 maxctrl alter server server2 priority=1
 ```
 
-This does not affect the Galera Cluster itself, just the roles MaxScale assigns to the servers. If multiple MaxScales monitor the same Galera Cluster without [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#configuration-synchronization), the commands should be run on all MaxScales.
+This does not affect the Galera Cluster itself, just the roles MaxScale assigns to the servers. If multiple MaxScales monitor the same Galera Cluster without [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#configuration-synchronization), the commands should be run on all MaxScales.
 
 ## Bootstrap
 
@@ -228,14 +228,14 @@ This does not affect the Galera Cluster itself, just the roles MaxScale assigns 
 
 Any discovered servers are added to MaxScale as if created via runtime `maxctrl create server ...`. The servers are thus similar to any other runtime configured server and are visible in the GUI and `maxctrl list servers`.
 
-The _address_ and _port_-settings of the discovered servers are set to the values listed in _wsrep\_incoming\_addresses_. Other settings are copied from the server given in the _template_-setting, so that the discovered servers inherit e.g. TLS settings. If no server template is given, discovered servers will use [server default settings](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#server-1). The server template must be a valid, existing server in MaxScale configuration. It need not be monitored by any monitor and its _address_ and _port_-settings can point to a non-existing (but theoretically valid) network address. It can be configured in the config file or created runtime:
+The _address_ and _port_-settings of the discovered servers are set to the values listed in _wsrep\_incoming\_addresses_. Other settings are copied from the server given in the _template_-setting, so that the discovered servers inherit e.g. TLS settings. If no server template is given, discovered servers will use [server default settings](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#server-1). The server template must be a valid, existing server in MaxScale configuration. It need not be monitored by any monitor and its _address_ and _port_-settings can point to a non-existing (but theoretically valid) network address. It can be configured in the config file or created runtime:
 
 ```
 maxctrl create server MyServerTemplate address=123.123.123.123 port=1111 ssl=true ssl_ca=/certs/ca.crt
 maxctrl call command galeramon bootstrap monitor=MyGaleraMonitor template=MyServerTemplate address=192.168.0.4
 ```
 
-Bootstrap is incompatible with [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#configuration-synchronization) and will refuse to run if it is enabled.
+Bootstrap is incompatible with [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#configuration-synchronization) and will refuse to run if it is enabled.
 
 ## Discover-replicas
 
@@ -250,7 +250,7 @@ Bootstrap is incompatible with [configuration synchronization](../../maxscale-ma
 
 Any discovered servers are added to MaxScale as if created via runtime `maxctrl create server ...`. The servers are thus similar to any other runtime configured server and are visible in the GUI and `maxctrl list servers`. The _address_ and _port_-settings of the discovered servers are set to the values listed in _wsrep\_incoming\_addresses_. Other settings are copied from the current primary server, so that the discovered servers inherit e.g. TLS settings. Discovered servers are named _\<monitor\_name>-server_, e.g. _MyGaleraMonitor-server3_.
 
-A server can only be removed if it is not explicitly used by any other module, e.g. a service. Thus, this command is best used when services are configured with the [cluster](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#cluster)-setting as the services will then automatically match any changes in the set of monitored servers.
+A server can only be removed if it is not explicitly used by any other module, e.g. a service. Thus, this command is best used when services are configured with the [cluster](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#cluster)-setting as the services will then automatically match any changes in the set of monitored servers.
 
 ```
 maxctrl call command galeramon discover-replicas monitor=MyGaleraMonitor remove=true
@@ -347,7 +347,7 @@ external_replication_monitor=MyExternalClusterMonitor
 
 #### `external_replication_primary_role`
 
-* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `primary`, `replica`, `running`
@@ -402,7 +402,7 @@ erroneous decryption.
 
 #### `replication_master_ssl`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `auto`

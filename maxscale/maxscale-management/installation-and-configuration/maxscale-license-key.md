@@ -197,7 +197,7 @@ sudo cat /var/log/maxscale/maxscale.log
   installation across MariaDB products
 * [MaxScale Trial](../../maxscale-use-cases/maxscale-trial.md) — evaluating MaxScale
 * [MaxScale Installation Guide](maxscale-installation-guide.md)
-* [MaxScale Configuration Guide](../deployment/installation-and-configuration/maxscale-configuration-guide.md)
+* [MaxScale Configuration Guide](../deployment/installation-and-configuration/maxscale-configuration-guide/README.md)
 * [Setting up MariaDB MaxScale](../../mariadb-maxscale-tutorials/setting-up-mariadb-maxscale.md)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -19,11 +19,11 @@ Note that _readconnroute_ balances _connections_ and not _statements_. When a cl
 
 ## Settings
 
-For more details about the standard service parameters, refer to the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md).
+For more details about the standard service parameters, refer to the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md).
 
 ### `router_options`
 
-* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `master`, `slave`, `synced`, `running`
@@ -54,7 +54,7 @@ When a connection is being created and the candidate server is being chosen, the
 
 ### `master_accept_reads`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
@@ -68,7 +68,7 @@ By default `master_accept_reads=true`.
 
 ### `max_replication_lag`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 0s

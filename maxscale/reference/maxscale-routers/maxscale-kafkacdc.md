@@ -132,7 +132,7 @@ The Kafka topic where the replicated events will be sent. This is a mandatory pa
 
 ### `enable_idempotence`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -148,7 +148,7 @@ When set to true, the producer will ensure that messages are successfully produc
 
 ### `timeout`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `10s`
@@ -185,7 +185,7 @@ The [server\_id](../../../server/ha-and-performance/standard-replication/replica
 
 ### `match`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
@@ -214,7 +214,7 @@ exclude=db1[.](accounts|users)
 
 ### `exclude`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
@@ -228,7 +228,7 @@ The pattern matching works the same way for both of the `exclude` and `match` pa
 
 ### `cooperative_replication`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -244,7 +244,7 @@ This means that multiple MaxScale instances can replicate from the same set of s
 
 ### `send_schema`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
@@ -256,7 +256,7 @@ If this information in these schema change events is not needed or the code that
 
 ### `read_gtid_from_kafka`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
@@ -266,7 +266,7 @@ On startup, the latest GTID is by default read from the Kafka cluster. This make
 
 ### `lower_case_table_names`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -280,7 +280,7 @@ This parameter was added in MaxScale 23.02.19, 24.02.10, 25.01.7, and 25.10.3.
 
 ### `kafka_ssl`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -350,7 +350,7 @@ If `kafka_sasl_password` is provided, `kafka_sasl_user` must also be provided.
 
 ### `kafka_sasl_mechanism`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`

@@ -293,13 +293,15 @@ def scan_dir(entries, dir):
 def scan_path(entries, path):
     if not os.path.exists(path):
         print("warning: " + path + " does not exist.", file=sys.stderr)
-    elif os.path.isdir(path):
+    elif os.path.isdir(path) and not is_split_page(path):
         sub_entries=entries.get(path)
         if not sub_entries:
             sub_entries = {}
             entries[path] = sub_entries
         scan_dir(sub_entries, path)
-    elif os.path.isfile(path):
+    elif os.path.isfile(path) or os.path.isdir(path):
+        # A file, or a split page (DOCS-6367) given directly, such as the
+        # Configuration Guide: group it under its top-level directory.
         i = path.find("/")
         dir=path[:i]
         sub_entries=entries.get(dir)
@@ -351,7 +353,7 @@ def main(argv):
     args=argv[1:]
 
     if not args:
-        args = ("maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md", "reference")
+        args = ("maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide", "reference")
 
     entries = scan_paths(args)
 

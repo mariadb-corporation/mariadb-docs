@@ -10,7 +10,7 @@ description: >-
 MaxScale exports metrics and logs via OpenTelemetry. To enable it, add
 `telemetry=true` under the `[maxscale]` section. To configure where metrics are
 sent, use `telemetry_url`. For more information, refer to the
-[telemetry settings](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry)
+[telemetry settings](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#telemetry)
 in the MaxScale configuration guide.
 
 ## Metrics
@@ -139,7 +139,7 @@ in the MaxScale configuration guide.
     Each data point has a `percentile` attribute (`p50`, `p75`, `p95` or `p99`) and an `sql`
     attribute holding the canonical form of the statement. Only the most frequently executed
     statements are exported, up to
-    [`telemetry_sql_count`](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry_sql_count)
+    [`telemetry_sql_count`](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#telemetry_sql_count)
     (default 50); use `telemetry_sql_match` and `telemetry_sql_exclude` to filter them.
   * Added in: MaxScale 26.10
 

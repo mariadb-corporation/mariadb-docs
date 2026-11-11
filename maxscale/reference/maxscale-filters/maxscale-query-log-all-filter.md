@@ -56,7 +56,7 @@ filebase=/tmp/SqlQueryLog
 
 ### `match`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
@@ -66,7 +66,7 @@ Include queries that match the regex.
 
 ### `exclude`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
@@ -76,7 +76,7 @@ Exclude queries that match the regex.
 
 ### `options`
 
-* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `case`, `ignorecase`, `extended`
@@ -107,7 +107,7 @@ Limit logging to sessions with this client source address.
 
 ### `user_match`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Description: Specifies a regex pattern to include queries only from specific users for logging.
@@ -122,7 +122,7 @@ user_match=/(^alice$)|(^bob$)/
 
 ### `user_exclude`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Description: Defines a regex pattern that prevent requests from specific users from being logged.
@@ -137,7 +137,7 @@ user_exclude=/(^alice$)|(^bob$)/
 
 ### `source_match`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Description: Defines a regex pattern to include only queries from specific client IP addresses or hosts from logging.
@@ -152,7 +152,7 @@ source_match=/(^127[.]0[.]0[.]1)|(^192[.]168[.]0[.]109)/
 
 ### `source_exclude`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Description: Defines a regex pattern for excluding requests from specified client IP addresses or hosts from logging.
@@ -167,7 +167,7 @@ source_exclude=/(^127[.]0[.]0[.]1)|(^192[.]168[.]0[.]109)/
 
 ### `log_type`
 
-* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `session`, `unified`, `stdout`, `kafka`
@@ -200,7 +200,7 @@ the client.
 
 ### `log_data`
 
-* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `service`, `session`, `date`, `user`, `reply_time`, `total_reply_time`, `query`, `default_db`, `num_rows`, `reply_size`, `transaction`, `transaction_time`, `num_warnings`, `error_msg`
@@ -272,7 +272,7 @@ The unit for logging a duration. The unit can be `milliseconds` or `microseconds
 
 ### `use_canonical_form`
 
-* Type: [bool](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [bool](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -282,7 +282,7 @@ When this option is true the canonical form of the query is logged. In the canon
 
 ### `flush`
 
-* Type: [bool](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [bool](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -292,7 +292,7 @@ Flush log files after every write.
 
 ### `append`
 
-* Type: [bool](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [bool](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -406,7 +406,7 @@ kafka_topic=maxscale_qlalogs
 This setting is available from MaxScale 26.10.
 {% endhint %}
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -422,7 +422,7 @@ avoids event duplication due to broker outages or other network errors.
 This setting is available from MaxScale 26.10.
 {% endhint %}
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -515,7 +515,7 @@ Password for SASL authentication. If `kafka_sasl_password` is provided,
 This setting is available from MaxScale 26.10.
 {% endhint %}
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`

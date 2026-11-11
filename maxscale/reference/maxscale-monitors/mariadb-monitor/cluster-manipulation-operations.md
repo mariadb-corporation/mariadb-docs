@@ -317,7 +317,7 @@ e.g. *MyMonitor-server3*.
 
 A server can only be removed if it is not explicitly used by any other module,
 e.g. a service. Thus, this command is best used when services are configured with the
-[cluster](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#cluster)-setting as the
+[cluster](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#cluster)-setting as the
 services will then automatically match any changes in the set of monitored
 servers.
 
@@ -326,7 +326,7 @@ maxctrl call command mariadbmon discover-replicas monitor=MyMonitor remove=true
 ```
 
 Discover-replicas is incompatible with
-[configuration synchronization](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#configuration-synchronization)
+[configuration synchronization](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#configuration-synchronization)
 and will refuse to run if it is enabled.
 
 ### Bootstrap
@@ -358,7 +358,7 @@ values returned by `SHOW REPLICA HOSTS` or `SHOW REPLICA STATUS`.  Other
 settings are copied from the server given in the *template*-setting, so that the
 discovered servers inherit e.g. TLS settings. If no server template is given,
 discovered servers will use
-[server default settings](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#server-1).
+[server default settings](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#server-1).
 The server template must be a valid, existing server in MaxScale configuration.
 It need not be monitored by any monitor and its *address* and *port*-settings
 can point to a non-existing (but theoretically valid) network address. It can be
@@ -378,7 +378,7 @@ maxctrl call command mariadbmon bootstrap monitor=MyMonitor template=MyServerTem
 ```
 
 Bootstrap is incompatible with
-[configuration synchronization](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#configuration-synchronization)
+[configuration synchronization](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#configuration-synchronization)
 and will refuse to run if it is enabled.
 
 ## Manual activation

@@ -195,7 +195,7 @@ The server ID that MaxScale uses when connecting to the primary and when serving
 
 ### `net_timeout`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: `10s`
@@ -205,7 +205,7 @@ Network connection and read timeout for the connection to the primary.
 
 ### `select_master`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -223,7 +223,7 @@ The GTID the replication will start from, will be based on the latest replicated
 
 ### `expiration_mode`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Dynamic: No
 * Values: `purge`, `archive`
 * Default: `purge`
@@ -233,7 +233,7 @@ Choose whether expired logs should be purged or archived.
 
 ### `expire_log_duration`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: `0s`
@@ -259,7 +259,7 @@ The minimum number of log files the automatic purge keeps. At least one file is 
 
 ### `compression_algorithm`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `none`, `zstandard`
@@ -278,7 +278,7 @@ The minimum number of log files that are not compressed. At least one file is no
 
 ### `ddl_only`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: false
@@ -296,7 +296,7 @@ This mode can be used to keep a record of all the schema changes that occur on a
 * Default: `""`
 * Description: Specifies the encryption key ID used to encrypt binary logs, requiring a configured key manager.
 
-Encryption key ID used to encrypt the binary logs. If configured, an [Encryption Key Manager](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md) must also be configured and it must contain the key with the given ID. If the encryption key manager supports versioning, new binary logs will be encrypted using the latest encryption key. Old binlogs will remain encrypted with older key versions and remain readable as long as the key versions used to encrypt them are available.
+Encryption key ID used to encrypt the binary logs. If configured, an [Encryption Key Manager](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md) must also be configured and it must contain the key with the given ID. If the encryption key manager supports versioning, new binary logs will be encrypted using the latest encryption key. Old binlogs will remain encrypted with older key versions and remain readable as long as the key versions used to encrypt them are available.
 
 Once binary log encryption has been enabled, the encryption key ID cannot be changed and the key must remain available to MaxScale in order for replication to work. If an encryption key is not available or the key manager fails to retrieve it, the replication from the currently selected primary server will stop. If the replication is restarted manually, the encryption key retrieval is attempted again.
 
@@ -304,7 +304,7 @@ Re-encryption of binlogs using another encryption key is not possible. However, 
 
 ### `encryption_cipher`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `AES_CBC`, `AES_CTR`, `AES_GCM`
@@ -324,7 +324,7 @@ Possible values are:
 
 ### `rpl_semi_sync_slave_enabled`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Default: false
 * Dynamic: Yes

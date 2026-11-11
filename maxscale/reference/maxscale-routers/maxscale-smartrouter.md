@@ -23,7 +23,7 @@ To use Exasol as the analytical cluster, configure it through the [Exasolrouter]
 
 SmartRouter is configured as a service that either routes to other MaxScale routers or plain servers. Although one can configure SmartRouter to use a plain server directly, we refer to the configured "servers" as clusters.
 
-For details about the standard service parameters, refer to the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md).
+For details about the standard service parameters, refer to the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md).
 
 ### `master`
 
@@ -95,7 +95,7 @@ A complete configuration example can be found at the end of this document.
 This setting is available from MaxScale 26.10.
 {% endhint %}
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `none`, `local`
@@ -127,7 +127,7 @@ change. For details, see [Causal reads](#causal-reads).
 This setting is available from MaxScale 26.10.
 {% endhint %}
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 10s
@@ -144,7 +144,7 @@ rejected.
 This setting is available from MaxScale 26.10.
 {% endhint %}
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `master`, `stale`, `error`
@@ -176,7 +176,7 @@ This feature is only available in MaxScale 26.10.0 and later.
 
 ### `eviction_schedule`
 
-* Type: stringlist of [durations](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: stringlist of [durations](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `2m,5m,10m,20m`

@@ -58,7 +58,7 @@ account         required        pam_unix.so
 
 #### `pam_use_cleartext_plugin`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -77,7 +77,7 @@ authenticator_options=pam_use_cleartext_plugin=1
 
 #### `pam_mode`
 
-* Type: [enumeration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enumeration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `password`, `password_2FA`, `suid`
@@ -136,7 +136,7 @@ authentication implementation. `suid` mode supports two-factor authentication.
 
 #### `pam_backend_mapping`
 
-* Type: [enumeration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enumeration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `none`, `mariadb`
@@ -161,7 +161,7 @@ in to backends.  Passwords for the mapped users can be given in a file, see
 authenticate without a password.  Because of this, normal PAM users and mapped
 users cannot be used on the same listener.
 
-Because the client still needs to authenticate to MaxScale normally, an anonymous user may be required. If the backends do not allow such a user, one can be manually added using the service setting [user\_accounts\_file](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#user_accounts_file).
+Because the client still needs to authenticate to MaxScale normally, an anonymous user may be required. If the backends do not allow such a user, one can be manually added using the service setting [user\_accounts\_file](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#user_accounts_file).
 
 To map usernames, the PAM service needs to use a module such as \_user\_map.so\_. This module is not a standard Linux component and needs to be installed separately. It is included in recent MariaDB Server packages and can also be compiled from source. See [user mapping](../maxscale-listeners.md#user_mapping_file) for more information on how to configure the module. If the goal is to only map users from PAM to MariaDB in MaxScale, then configuring user mapping on just the machine running MaxScale is enough.
 

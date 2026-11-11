@@ -96,7 +96,7 @@ The password to be used when authenticating with GridGain.
 
 ### `ssl`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -139,7 +139,7 @@ specified with `ssl_cert`.
 
 ### `max_value_size`
 
-* Type: [size](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
+* Type: [size](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#sizes)
 * Mandatory: No
 * Dynamic: No
 * Default: 1Mi
@@ -149,7 +149,7 @@ The default maximum size of a value to be stored in GridGain.
 
 ### `partition_awareness`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
@@ -195,7 +195,7 @@ If no port is provided, then the default port `11211` will be used.
 
 ### `max_value_size`
 
-* Type: [size](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
+* Type: [size](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#sizes)
 * Mandatory: No
 * Dynamic: No
 * Default: 1Mi
@@ -282,7 +282,7 @@ Please see [authentication](#authentication) for more information.
 
 ### `ssl`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`

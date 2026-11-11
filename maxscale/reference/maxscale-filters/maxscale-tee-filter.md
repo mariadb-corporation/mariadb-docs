@@ -60,7 +60,7 @@ The service where the filter will duplicate all queries. You can't define both `
 
 ### `match`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
@@ -74,7 +74,7 @@ match=/insert.*into.*order*/
 
 ### `exclude`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
@@ -88,7 +88,7 @@ exclude=/select.*from.*t1/
 
 ### `options`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `ignorecase`, `case`, `extended`
@@ -127,7 +127,7 @@ user=john
 
 ### `sync`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`

@@ -53,7 +53,7 @@ See [Choosing a Mode](#choosing-a-mode).
 
 In an active/passive deployment, you choose which MaxScale is the primary
 manually by using the MaxScale global setting
-[passive](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#passive).
+[passive](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#passive).
 Set _passive_ to `false` on one MaxScale instance and `true` on every other
 MaxScale instance. A passive MaxScale still monitors the cluster and still
 routes queries; it only refrains from performing failover, switchover, and

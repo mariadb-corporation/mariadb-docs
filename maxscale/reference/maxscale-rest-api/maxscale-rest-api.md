@@ -17,13 +17,13 @@ Although JSON does not define a syntax for comments, some of the JSON examples h
 
 ## Configuration
 
-Read the [REST API](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#rest-api-configuration) section of the configuration guide for more details on how to configure the REST API.
+Read the [REST API](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#rest-api-configuration) section of the configuration guide for more details on how to configure the REST API.
 
 ## Authentication
 
 The MaxScale REST API uses [HTTP Basic Access](https://tools.ietf.org/html/rfc2617#section-2) authentication with the MaxScale administrative interface users. The default user is `admin:mariadb`.
 
-It is highly recommended to enable HTTPS on the MaxScale REST API to make the communication between the client and MaxScale secure. Without it, the passwords can be intercepted from the network traffic. Refer to the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_ssl_key) for more details on how to enable HTTPS for the MaxScale REST API.
+It is highly recommended to enable HTTPS on the MaxScale REST API to make the communication between the client and MaxScale secure. Without it, the passwords can be intercepted from the network traffic. Refer to the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#admin_ssl_key) for more details on how to enable HTTPS for the MaxScale REST API.
 
 For more details on how administrative interface users are created and managed, refer to the [MaxCtrl](../maxscale-maxctrl.md) documentation as well as the documentation of the [users](maxscale-admin-user-resource.md) resource.
 
@@ -260,7 +260,7 @@ The following lists the resources and the types of links each resource can have 
 
 ## Common Request Parameters
 
-All parameters that use boolean values use the same rules that are used for the [boolean values](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans) in the MaxScale configuration. For example, both `pretty=off` and `pretty=false` disable the `pretty` option.
+All parameters that use boolean values use the same rules that are used for the [boolean values](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans) in the MaxScale configuration. For example, both `pretty=off` and `pretty=false` disable the `pretty` option.
 
 All the resources that return JSON content also support the following parameters. Parameters are given in the HTTP query string: `https://localhost:8989/v1/servers?pretty=true&fields[servers]=state`.
 

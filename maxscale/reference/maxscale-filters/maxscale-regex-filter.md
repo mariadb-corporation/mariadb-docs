@@ -39,7 +39,7 @@ The Regex filter has two mandatory parameters: _match_ and _replace_.
 
 ### `match`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: Yes
 * Dynamic: Yes
 * Description: Defines the regex pattern in SQL statements that filter should identify and replace.
@@ -53,14 +53,14 @@ options=case
 
 ### `options`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `ignorecase`, `case`, `extended`
 * Default: `ignorecase`
 * Description: Determines how the match regex pattern is compiled, including case sensitivity and extended syntax.
 
-The _options_-parameter affects how the patterns are compiled as [usual](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md).
+The _options_-parameter affects how the patterns are compiled as [usual](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md).
 
 ### `replace`
 
@@ -125,7 +125,7 @@ log_file=/tmp/regexfilter.log
 * Default: None
 * Description: Allows runtime logging of matched and unmatched queries with replacements at the info level for diagnostic purposes.
 
-The optional log\_trace parameter toggles the logging of non-matching and matching queries with their replacements into the log file on the _info_ level. This is the preferred method of diagnosing the matching of queries since the log level can be changed at runtime. For more details about logging levels and session specific logging, please read the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#global-settings).
+The optional log\_trace parameter toggles the logging of non-matching and matching queries with their replacements into the log file on the _info_ level. This is the preferred method of diagnosing the matching of queries since the log level can be changed at runtime. For more details about logging levels and session specific logging, please read the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#global-settings).
 
 ```
 log_trace=true

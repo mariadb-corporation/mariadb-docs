@@ -96,7 +96,7 @@ monitoruser=mymonitoruser
 monitorpw=mymonitorpasswd
 ```
 
-`monitorpw` may be either a plain text password or an encrypted password. See the section [encrypting passwords](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#encrypting-passwords) for more information.
+`monitorpw` may be either a plain text password or an encrypted password. See the section [encrypting passwords](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#encrypting-passwords) for more information.
 
 ### `extra_port`
 
@@ -130,13 +130,13 @@ When a MariaDB-protocol connection is taken from the pool to be used in a new se
 
 ### `persistmaxtime`
 
-* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `0s`
 * Description: Shows how long a connection can stay in the persistent pool before being discarded.
 
-The `persistmaxtime` parameter defaults to zero but can be set to a duration as documented [here](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations). If no explicit unit is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent versions a value without a unit may be rejected. Note that since the granularity of the parameter is seconds, a value specified in milliseconds will be rejected, even if the duration is longer than a second.
+The `persistmaxtime` parameter defaults to zero but can be set to a duration as documented [here](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations). If no explicit unit is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent versions a value without a unit may be rejected. Note that since the granularity of the parameter is seconds, a value specified in milliseconds will be rejected, even if the duration is longer than a second.
 
 A DCB placed in the persistent pool for a server will only be reused if the elapsed time since it joined the pool is less than the given value. Otherwise, the DCB will be discarded and the connection closed.
 
@@ -152,11 +152,11 @@ A DCB placed in the persistent pool for a server will only be reused if the elap
 
 Maximum number of routing connections to this server. Connections held in a pool also count towards this maximum. Does not limit monitor connections or user account fetching. A value of 0 means no limit, which is the default for MaxScale. MaxScle Trial is limited to a maximum of 15 connections per server.
 
-Since every client session can generate a connection to a server, the server may run out of memory when the number of clients is high enough. This setting limits server memory use caused by MaxScale. The effect depends on if the service setting [idle\_session\_pool\_time](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#idle_session_pool_time), i.e. connection sharing, is enabled or not.
+Since every client session can generate a connection to a server, the server may run out of memory when the number of clients is high enough. This setting limits server memory use caused by MaxScale. The effect depends on if the service setting [idle\_session\_pool\_time](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#idle_session_pool_time), i.e. connection sharing, is enabled or not.
 
 If connection sharing is not on, _max\_routing\_connections_ simply sets a limit. Any sessions attempting to exceed this limit will fail to connect to the backend. The client can still connect to MaxScale, but queries will fail.
 
-If connection sharing is on, sessions exceeding the limit will be put on hold until a connection is available. Such sessions will appear unresponsive, as queries will hang, possibly for a long time. The timeout is controlled by [multiplex\_timeout](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#multiplex_timeout).
+If connection sharing is on, sessions exceeding the limit will be put on hold until a connection is available. Such sessions will appear unresponsive, as queries will hang, possibly for a long time. The timeout is controlled by [multiplex\_timeout](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#multiplex_timeout).
 
 ```
 max_routing_connections=1234
@@ -164,7 +164,7 @@ max_routing_connections=1234
 
 ### `proxy_protocol`
 
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -227,7 +227,7 @@ There is no default value, but this parameter must be explicitly specified if th
 
 ### `rank`
 
-* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `primary`, `secondary`
@@ -306,7 +306,7 @@ See [MariaDB Monitor documentation](maxscale-monitors/mariadb-monitor/mariadb-mo
 
 ### `use_service_credentials`
 
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
