@@ -139,6 +139,8 @@ spec:
   # [...]
 ```
 
+If you don't set `maxRetention`, it defaults to `720h` (30 days), so backups older than 30 days are deleted. The operator writes the default into the `Backup` resource, and once `maxRetention` has a value it can't be changed. To use a different retention, set it when you create the `Backup`, or recreate the `Backup`.
+
 #### Compression
 
 You are able to compress backups by providing the compression algorithm you want to use in the  `spec.compression` field:
