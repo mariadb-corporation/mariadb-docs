@@ -83,9 +83,24 @@ REVIEW FLAGS (--flags TSV: key, section, reasons, text)
     MDEV-41505 (Tests, MTR) fixes the server. The flag fires on those
     components, CI, or wording in the summary or the Release Note Summary:
     build and source terms, debug-build-only fixes ("Debug assertion only
-    fix", MDEV-40404), and mtr test names such as main.user_limits. A debug
-    assertion on its own is not enough to remove an item. The developer's Bug
-    Category usually says it can also crash a release build.
+    fix", MDEV-40404), and mtr test names such as main.user_limits.
+
+EXCLUSION OF UNHELPFUL ITEMS (--no-correct turns it off)
+    Ralf Gebhardt's rule (2026-11-11): an item whose Release Note Summary is
+    empty, and whose Jira summary matches `summary ~ assertion`,
+    `summary ~ test`, `summary ~ ASAN`, or `summary ~ SIGSEGV`, is left out.
+    Its text would be the Jira summary, which for these items names a debug
+    assertion, a test, a sanitizer report, or a crash location rather than
+    what the user did or saw. The changelog still lists every one of them.
+    The clause runs in Jira, so it matches exactly what Ralf's filters
+    match, stemming included ("testing" counts as test). The excluded keys
+    are listed on stderr and in the --report JSON. A developer who wants an
+    item listed can write its Release Note Summary.
+
+    The keywords are Ralf's, taken literally. `summary ~ ASAN` does not match
+    "AddressSanitizer", and `summary ~ SIGSEGV` does not match "signal 11".
+    Those items stay unless the rule is widened. A fix that gets a CVE is
+    listed in the Security section whatever its Jira summary says.
 
 PROVEN
     On DOCS-7099 (2026-11-10), with --no-correct, 11.8.10 reproduced the
@@ -125,6 +140,8 @@ KEY_RE = re.compile(r'MDEV-\d+')
 SE = 'Storage Engine - '
 TESTS = {'Tests, MTR', 'CI'}
 DEBUG_RE = re.compile(r'assert|asan|msan|ubsan|valgrind|sanitizer|heap-use-after|use-of-uninit', re.I)
+UNHELPFUL_JQL = ('"Release Note Summary" is EMPTY AND '
+                 '(summary ~ assertion OR summary ~ test OR summary ~ ASAN OR summary ~ SIGSEGV)')
 BUILD_COMPONENTS = TESTS | {'Compiling'}
 BUILD_RE = re.compile(r'\b(compil\w*|cmake\w*|(does|did) not build|fails? to build|can (now )?be built|'
                       r'srpms?|source rpms?|tar\.gz|tarballs?|buildbot|gitlab ci|mtr|test case|'
@@ -238,7 +255,8 @@ def main(argv):
     tagged = {i['key']: i for i in search(tok, f'fixVersion = "{a.version}" ORDER BY key')}
     selected = {k for k, i in tagged.items() if qualifies(i)}
     chosen = {k: tagged[k] for k in selected}
-    report = {'removed': [], 'added': [], 'kept_no_commit': [], 'unresolved_committed': []}
+    report = {'removed': [], 'added': [], 'kept_no_commit': [], 'unresolved_committed': [],
+              'excluded_unhelpful': []}
 
     if not a.no_correct:
         in_rev = git_keys(a.repo, a.rev, '--format=%B')
@@ -261,6 +279,11 @@ def main(argv):
                     report['added'].append([i['key'], [v['name'] for v in f['fixVersions']], f['summary']])
                 elif not f['resolution'] and i['key'].startswith('MDEV-'):
                     report['unresolved_committed'].append([i['key'], f['status']['name'], f['summary']])
+        keys = sorted(chosen, key=key_num)
+        for n in range(0, len(keys), 100):
+            for i in search(tok, f'issuekey in ({",".join(keys[n:n + 100])}) AND {UNHELPFUL_JQL}'):
+                report['excluded_unhelpful'].append([i['key'], i['fields']['summary']])
+                del chosen[i['key']]
         for lst in report.values():
             lst.sort(key=lambda x: key_num(x[0] if isinstance(x, list) else x))
 
@@ -326,7 +349,8 @@ def main(argv):
     count = lambda s: sum(1 for r in rows if s in r[2])
     print(f'{a.version}: {len(chosen)} items in {len(groups)} sections '
           f'(fix version selected {len(selected)}, removed {len(report["removed"])}, '
-          f'added {len(report["added"])}); flags: {count("not for binaries")} not for binaries, '
+          f'added {len(report["added"])}, excluded as unhelpful {len(report["excluded_unhelpful"])}); '
+          f'flags: {count("not for binaries")} not for binaries, '
           f'{count("debug/sanitizer")} debug/sanitizer, {count("Security label")} Security, '
           f'{count("no RNS")} without RNS', file=sys.stderr)
     for name, lst in report.items():
