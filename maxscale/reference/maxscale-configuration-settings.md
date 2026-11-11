@@ -122,7 +122,7 @@ description: >-
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
-* Dynamic: No
+* Dynamic: Yes
 * Default: `24h`
 * Description: Specifies the maximum duration of JWTs issued by the REST API.
 
@@ -154,7 +154,7 @@ description: >-
 
 * Type: string
 * Mandatory: No
-* Dynamic: No
+* Dynamic: Yes
 * Default: `""`
 * Description: Defines additional parameters that should be included in authorization requests for OIDC.
 

@@ -33,6 +33,7 @@
     * [Removing a Server using MaxCtrl](maxscale-management/administrative-tools-for-mariadb-maxscale-maxctrl/removing-a-server-using-maxctrl.md)
   * [MaxGUI](maxscale-management/maxgui/README.md)
     * [Configuring MaxScale for MaxGUI](maxscale-management/maxgui/configuring-maxscale-for-maxgui.md)
+    * [Configuring Single Sign-On for MaxGUI](maxscale-management/maxgui/configuring-single-sign-on-for-maxgui.md)
     * [Setting a Server to Maintenance Mode in MaxScale with MaxGUI](maxscale-management/maxgui/maxgui-setting-a-server-to-maintenance-mode-in-maxscale-with-maxgui.md)
 * [MaxScale Security](maxscale-security/README.md)
   * [Securing Your MaxScale Deployment](maxscale-security/securing-your-maxscale-deployment.md)
