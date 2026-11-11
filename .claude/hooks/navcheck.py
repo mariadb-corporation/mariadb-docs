@@ -326,7 +326,7 @@ def audit(root):
 
     Run by every mode, because a stale entry belongs to the register rather
     than to any one PR's file set -- and because the alternative, a separate
-    audit somebody has to remember, is exactly what Daniel's go-ahead on
+    audit somebody has to remember, is exactly what dbart's go-ahead on
     DOCS-6586 asked this not to be.
     """
     bad = stale(root, entries(root))

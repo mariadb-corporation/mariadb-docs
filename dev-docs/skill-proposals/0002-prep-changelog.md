@@ -30,7 +30,7 @@ The proposal began as Community Server only. Built under DOCS-6612, the skill co
   by series, so `changelog-lines.py connector` infers it from the previous page in the series,
   and `--verify` proves the inference by regenerating that page first. It reproduced 13 of 16
   published pages exactly. The other three differ only by hand edits to commit subjects.
-- **Enterprise Server, as scaffold-and-paste.** The generator stays with Daniel. The skill builds
+- **Enterprise Server, as scaffold-and-paste.** The generator stays with dbart. The skill builds
   the page shell, takes the pasted list, and checks its escaping.
 - **The `mariadb_repo_setup` and `mariadb_es_repo_setup` scripts.** Each has one changelog page for
   every version. The version is a date, and the entries are the script's own `# Notes:` comments.
