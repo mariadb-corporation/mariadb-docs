@@ -31,7 +31,7 @@ In MariaDB 11.6, the default character set changed from `latin1` to `utf8mb4`.
 
 When upgrading to 11.6 or above from a previous release series, this can lead to behavior different from what you've been seeing in the old version.
 
-See [this section](setting-character-sets-and-collations.md#default-character-set-and-collation-changes) for details, including the impact on replicating to older MariaDB (or MySQL) replicas.
+See [this section](setting-character-sets-and-collations.md#default-character-set-and-collation-changes) for details, including the impact on replicating to older MariaDB (or MySQL) slaves.
 {% endhint %}
 
 The character sets and the collations can be specified from the server right down to the column level, as well as for client-server connections. When changing a character set and not specifying a collation, the default collation for the new character set is always used.
@@ -591,7 +591,7 @@ ALTER TABLE table_name
 
 ### Restoring Old Defaults
 
-If you need to maintain compatibility with MariaDB 10.6 replicas or require the specific performance characteristics of the previous defaults, you can configure the server to use the old settings.
+If you need to maintain compatibility with MariaDB 10.6 slaves or require the specific performance characteristics of the previous defaults, you can configure the server to use the old settings.
 
 To return to the `latin1` defaults, add the following lines to your `my.cnf` configuration file:
 

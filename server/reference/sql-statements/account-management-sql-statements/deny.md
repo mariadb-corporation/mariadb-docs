@@ -333,7 +333,7 @@ SELECT User, Host, JSON_PRETTY(JSON_EXTRACT(Priv, '$.denies')) AS denies
 [Mapping the access Field Values to Grants](../../system-tables/the-mysql-database-tables/mysql-global_priv-table.md#mapping-the-access-field-values-to-grants).
 
 Denies survive [FLUSH PRIVILEGES](../administrative-sql-statements/flush-commands/flush.md) and a
-server restart, and replicate to replicas like any other account management statement.
+server restart, and replicate to slaves like any other account management statement.
 
 Column names and routine names in denies are matched case insensitively. Database and table names
 follow [lower\_case\_table\_names](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lower_case_table_names).
