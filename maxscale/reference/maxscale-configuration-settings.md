@@ -1724,11 +1724,11 @@ description: >-
 * Default: None
 * Description: Describes the pattern that is used to match statements in replication events for rewriting.
 
-#### [maxscale-cache](maxscale-filters/maxscale-cache.md)
+#### [maxscale-cache](maxscale-filters/maxscale-cache/README.md)
 
-**Settings**
+**MaxScale Cache Settings**
 
-[**cache\_in\_transactions**](maxscale-filters/maxscale-cache.md#cache_in_transactions)
+[**cache\_in\_transactions**](maxscale-filters/maxscale-cache/cache-settings.md#cache_in_transactions)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -1737,7 +1737,7 @@ description: >-
 * Default: `all_transactions`
 * Description: Manages how the cache is used and updated during transactions.
 
-[**cached\_data**](maxscale-filters/maxscale-cache.md#cached_data)
+[**cached\_data**](maxscale-filters/maxscale-cache/cache-settings.md#cached_data)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -1746,7 +1746,7 @@ description: >-
 * Default: `thread_specific`
 * Description: Determines whether cached data remains thread-specific or shared across threads.
 
-[**clear\_cache\_on\_parse\_errors**](maxscale-filters/maxscale-cache.md#clear_cache_on_parse_errors)
+[**clear\_cache\_on\_parse\_errors**](maxscale-filters/maxscale-cache/cache-settings.md#clear_cache_on_parse_errors)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -1754,7 +1754,7 @@ description: >-
 * Default: `true`
 * Description: Controls whether the cache is cleared when modifying statements are not parsed correctly.
 
-[**debug**](maxscale-filters/maxscale-cache.md#debug)
+[**debug**](maxscale-filters/maxscale-cache/cache-settings.md#debug)
 
 * Type: number
 * Mandatory: No
@@ -1762,7 +1762,7 @@ description: >-
 * Default: `0`
 * Description: Uses a bitmask value to control the cache's debug logging level.
 
-[**enabled**](maxscale-filters/maxscale-cache.md#enabled)
+[**enabled**](maxscale-filters/maxscale-cache/cache-settings.md#enabled)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -1770,7 +1770,7 @@ description: >-
 * Default: `true`
 * Description: Manages whether the cache is enabled or disabled at startup.
 
-[**hard\_ttl**](maxscale-filters/maxscale-cache.md#hard_ttl)
+[**hard\_ttl**](maxscale-filters/maxscale-cache/cache-settings.md#hard_ttl)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -1778,7 +1778,7 @@ description: >-
 * Default: `0s` (no limit)
 * Description: Specifies how long cached data can last before being deleted and reloaded.
 
-[**invalidate**](maxscale-filters/maxscale-cache.md#invalidate)
+[**invalidate**](maxscale-filters/maxscale-cache/cache-settings.md#invalidate)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -1787,7 +1787,7 @@ description: >-
 * Default: `never`
 * Description: Manages how cached data is invalidated when changes occur.
 
-[**max\_count**](maxscale-filters/maxscale-cache.md#max_count)
+[**max\_count**](maxscale-filters/maxscale-cache/cache-settings.md#max_count)
 
 * Type: count
 * Mandatory: No
@@ -1795,7 +1795,7 @@ description: >-
 * Default: `0` (no limit)
 * Description: Specifies the maximum amount of data that cache can store.
 
-[**max\_resultset\_rows**](maxscale-filters/maxscale-cache.md#max_resultset_rows)
+[**max\_resultset\_rows**](maxscale-filters/maxscale-cache/cache-settings.md#max_resultset_rows)
 
 * Type: count
 * Mandatory: No
@@ -1803,7 +1803,7 @@ description: >-
 * Default: `0` (no limit)
 * Description: Defines the maximum number of rows in a result set that can be cached.
 
-[**max\_resultset\_size**](maxscale-filters/maxscale-cache.md#max_resultset_size)
+[**max\_resultset\_size**](maxscale-filters/maxscale-cache/cache-settings.md#max_resultset_size)
 
 * Type: [size](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
 * Mandatory: No
@@ -1811,7 +1811,7 @@ description: >-
 * Default: `0` (no limit)
 * Description: Specifies the maximum result set size that can be cached.
 
-[**max\_size**](maxscale-filters/maxscale-cache.md#max_size)
+[**max\_size**](maxscale-filters/maxscale-cache/cache-settings.md#max_size)
 
 * Type: [size](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
 * Mandatory: No
@@ -1819,7 +1819,7 @@ description: >-
 * Default: `0` (no limit)
 * Description: Defines the maximum total size of the cache.
 
-[**max\_uncached\_query\_count**](maxscale-filters/maxscale-cache.md#max_uncached_query_count)
+[**max\_uncached\_query\_count**](maxscale-filters/maxscale-cache/cache-settings.md#max_uncached_query_count)
 
 * Type: count
 * Mandatory: No
@@ -1827,7 +1827,7 @@ description: >-
 * Default: `10000`
 * Description: Defines the maximum number of queries faster than `min_query_duration` that are remembered so that their cache lookups can be skipped.
 
-[**min\_query\_duration**](maxscale-filters/maxscale-cache.md#min_query_duration)
+[**min\_query\_duration**](maxscale-filters/maxscale-cache/cache-settings.md#min_query_duration)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -1835,7 +1835,7 @@ description: >-
 * Default: `0s` (no limit)
 * Description: Defines the minimum time a query must take on the backend for its result to be stored in the cache.
 
-[**rules**](maxscale-filters/maxscale-cache.md#rules)
+[**rules**](maxscale-filters/maxscale-cache/cache-settings.md#rules)
 
 * Type: path
 * Mandatory: No
@@ -1843,7 +1843,7 @@ description: >-
 * Default: `""` (no rules)
 * Description: Specifies the file path containing caching rules.
 
-[**selects**](maxscale-filters/maxscale-cache.md#selects)
+[**selects**](maxscale-filters/maxscale-cache/cache-settings.md#selects)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -1852,7 +1852,7 @@ description: >-
 * Default: `assume_cacheable`
 * Description: Controls whether SELECT statements are considered to be cacheable or validated before caching.
 
-[**soft\_ttl**](maxscale-filters/maxscale-cache.md#soft_ttl)
+[**soft\_ttl**](maxscale-filters/maxscale-cache/cache-settings.md#soft_ttl)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -1860,7 +1860,7 @@ description: >-
 * Default: `0s` (no limit)
 * Description: Determines how long cached data is used before being refreshed from the backend.
 
-[**storage**](maxscale-filters/maxscale-cache.md#storage)
+[**storage**](maxscale-filters/maxscale-cache/cache-settings.md#storage)
 
 * Type: string
 * Mandatory: No
@@ -1868,7 +1868,7 @@ description: >-
 * Default: `storage_inmemory`
 * Description: Defines the storage module used by the cache.
 
-[**storage\_options**](maxscale-filters/maxscale-cache.md#storage_options)
+[**storage\_options**](maxscale-filters/maxscale-cache/cache-settings.md#storage_options)
 
 * Type: string
 * Mandatory: No
@@ -1876,7 +1876,7 @@ description: >-
 * Default:
 * Description: Deprecated. Previously used to pass configuration options to the storage module.
 
-[**timeout**](maxscale-filters/maxscale-cache.md#timeout)
+[**timeout**](maxscale-filters/maxscale-cache/cache-settings.md#timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -1884,7 +1884,7 @@ description: >-
 * Default: `5s`
 * Description: Specifies the timeout for processes involving external storage backends.
 
-[**users**](maxscale-filters/maxscale-cache.md#users)
+[**users**](maxscale-filters/maxscale-cache/cache-settings.md#users)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -1895,7 +1895,7 @@ description: >-
 
 **`storage_gridgain`**
 
-[**endpoints**](maxscale-filters/maxscale-cache.md#endpoints)
+[**endpoints**](maxscale-filters/maxscale-cache/cache-storage.md#endpoints)
 
 * Type: string
 * Mandatory: No
@@ -1903,7 +1903,7 @@ description: >-
 * Default: 127.0.0.1:10800
 * Description: Defines the comma-separated list of GridGain endpoints.
 
-[**max\_value\_size**](maxscale-filters/maxscale-cache.md#max_value_size)
+[**max\_value\_size**](maxscale-filters/maxscale-cache/cache-storage.md#max_value_size)
 
 * Type: [size](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
 * Mandatory: No
@@ -1911,7 +1911,7 @@ description: >-
 * Default: 1Mi
 * Description: Defines the maximum size of a value that can be stored in GridGain.
 
-[**partition\_awareness**](maxscale-filters/maxscale-cache.md#partition_awareness)
+[**partition\_awareness**](maxscale-filters/maxscale-cache/cache-storage.md#partition_awareness)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -1919,7 +1919,7 @@ description: >-
 * Default: `true`
 * Description: Enables GridGain partition awareness, so that requests go directly to the node that owns the data.
 
-[**password**](maxscale-filters/maxscale-cache.md#password)
+[**password**](maxscale-filters/maxscale-cache/cache-storage.md#password)
 
 * Type: password
 * Mandatory: No
@@ -1927,7 +1927,7 @@ description: >-
 * Default: `""`
 * Description: Defines the password used for authenticating with GridGain.
 
-[**ssl**](maxscale-filters/maxscale-cache.md#ssl)
+[**ssl**](maxscale-filters/maxscale-cache/cache-storage.md#ssl)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -1935,7 +1935,7 @@ description: >-
 * Default: `false`
 * Description: Enables SSL when connecting to the GridGain server.
 
-[**ssl\_ca**](maxscale-filters/maxscale-cache.md#ssl_ca)
+[**ssl\_ca**](maxscale-filters/maxscale-cache/cache-storage.md#ssl_ca)
 
 * Type: path
 * Mandatory: No
@@ -1943,7 +1943,7 @@ description: >-
 * Default: `""`
 * Description: Defines the CA certificate used for the SSL connection to the GridGain server.
 
-[**ssl\_cert**](maxscale-filters/maxscale-cache.md#ssl_cert)
+[**ssl\_cert**](maxscale-filters/maxscale-cache/cache-storage.md#ssl_cert)
 
 * Type: path
 * Mandatory: No
@@ -1951,7 +1951,7 @@ description: >-
 * Default: `""`
 * Description: Defines the SSL client certificate used when connecting to the GridGain server.
 
-[**ssl\_key**](maxscale-filters/maxscale-cache.md#ssl_key)
+[**ssl\_key**](maxscale-filters/maxscale-cache/cache-storage.md#ssl_key)
 
 * Type: path
 * Mandatory: No
@@ -1959,7 +1959,7 @@ description: >-
 * Default: `""`
 * Description: Defines the SSL client private key used when connecting to the GridGain server.
 
-[**user**](maxscale-filters/maxscale-cache.md#user)
+[**user**](maxscale-filters/maxscale-cache/cache-storage.md#user)
 
 * Type: string
 * Mandatory: No
@@ -1969,7 +1969,7 @@ description: >-
 
 **`storage_memcached`**
 
-[**max\_value\_size**](maxscale-filters/maxscale-cache.md#max_value_size)
+[**max\_value\_size**](maxscale-filters/maxscale-cache/cache-storage.md#max_value_size)
 
 * Type: [size](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
 * Mandatory: No
@@ -1977,7 +1977,7 @@ description: >-
 * Default: 1Mi
 * Description: Defines the maximum size of a value that can be stored in the cache.
 
-[**server**](maxscale-filters/maxscale-cache.md#server)
+[**server**](maxscale-filters/maxscale-cache/cache-storage.md#server)
 
 * Type: The Memcached server address specified as `host[:port]`
 * Mandatory: Yes
@@ -1986,7 +1986,7 @@ description: >-
 
 **`storage_redis`**
 
-[**password**](maxscale-filters/maxscale-cache.md#password)
+[**password**](maxscale-filters/maxscale-cache/cache-storage.md#password)
 
 * Type: string
 * Mandatory: No
@@ -1994,14 +1994,14 @@ description: >-
 * Default: `""`
 * Description: Password used for authentication.
 
-[**server**](maxscale-filters/maxscale-cache.md#server)
+[**server**](maxscale-filters/maxscale-cache/cache-storage.md#server)
 
 * Type: The Redis server address specified as `host[:port]`
 * Mandatory: Yes
 * Dynamic: No
 * Description: Defines the Redis server address. The default port is 6379 is used when no port is provided.
 
-[**ssl**](maxscale-filters/maxscale-cache.md#ssl)
+[**ssl**](maxscale-filters/maxscale-cache/cache-storage.md#ssl)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -2009,7 +2009,7 @@ description: >-
 * Default: `false`
 * Description: Enable SSL when connectign to the Redis server.
 
-[**ssl\_ca**](maxscale-filters/maxscale-cache.md#ssl_ca)
+[**ssl\_ca**](maxscale-filters/maxscale-cache/cache-storage.md#ssl_ca)
 
 * Type: Path to existing readable file.
 * Mandatory: No
@@ -2017,7 +2017,7 @@ description: >-
 * Default: `""`
 * Description: Specifies the CA certificate used to verify the Redis server certificate.
 
-[**ssl\_cert**](maxscale-filters/maxscale-cache.md#ssl_cert)
+[**ssl\_cert**](maxscale-filters/maxscale-cache/cache-storage.md#ssl_cert)
 
 * Type: Path to existing readable file.
 * Mandatory: No
@@ -2025,7 +2025,7 @@ description: >-
 * Default: `""`
 * Description: Defines the SSL client certificate used when connecting to the Redis server.
 
-[**ssl\_key**](maxscale-filters/maxscale-cache.md#ssl_key)
+[**ssl\_key**](maxscale-filters/maxscale-cache/cache-storage.md#ssl_key)
 
 * Type: Path to existing readable file.
 * Mandatory: No
@@ -2033,7 +2033,7 @@ description: >-
 * Default: `""`
 * Description: Specifies the private key for the SSL client that is used to connect to the Redis server.
 
-[**username**](maxscale-filters/maxscale-cache.md#username)
+[**username**](maxscale-filters/maxscale-cache/cache-storage.md#username)
 
 * Type: string
 * Mandatory: No
