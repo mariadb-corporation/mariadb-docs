@@ -320,6 +320,23 @@ Then, execute the following command:
 sudo apt-get install mariadb-cracklib-password-check
 ```
 
+{% hint style="warning" %}
+In MariaDB 10.3 and 10.4, the `mariadb-plugin-rocksdb` DEB package includes `/usr/bin/sst_dump`. If the `rocksdb-tools` package provided by your distribution is already installed, installing the plugin fails because both packages provide that file:
+
+```
+trying to overwrite '/usr/bin/sst_dump', which is also in package rocksdb-tools
+```
+
+Remove `rocksdb-tools` and install the plugin again:
+
+```bash
+sudo apt remove rocksdb-tools
+sudo apt install mariadb-plugin-rocksdb
+```
+
+Starting with MariaDB 10.5, on most architectures the plugin package depends on `rocksdb-tools` instead of including its own copy of `sst_dump`, so do not remove it.
+{% endhint %}
+
 ### Installing Older Versions from the Repository
 
 The MariaDB `apt` repository contains the last few versions of MariaDB. To show what versions are available, use the [apt-cache](https://manpages.ubuntu.com/manpages/bionic/man8/apt-cache.8.html) command:

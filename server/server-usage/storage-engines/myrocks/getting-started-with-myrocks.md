@@ -44,6 +44,8 @@ repository using [apt-get](https://wiki.debian.org/apt-get):
 sudo apt-get install mariadb-plugin-rocksdb
 ```
 
+On MariaDB 10.3 and 10.4, this installation can fail if the distribution's `rocksdb-tools` package is installed. See [Installing Plugins with APT](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files.md#installing-plugins-with-apt).
+
 **Installing with zypper**
 
 On SLES, OpenSUSE, and other similar Linux distributions, it is highly recommended to install the relevant [RPM package](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/) from MariaDB's repository using [zypper](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper.md):
