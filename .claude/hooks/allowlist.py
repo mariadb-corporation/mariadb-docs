@@ -74,7 +74,7 @@ WHAT IS DELIBERATELY NOT ACCEPTED
 STALE ENTRIES
     Not handled here -- each guard prunes its own section, because only the
     guard knows what "still true" means. navcheck.py fails on an orphan entry
-    whose page is now listed in SUMMARY.md (Daniel's self-pruning requirement)
+    whose page is now listed in SUMMARY.md (dbart's self-pruning requirement)
     or whose page is gone; shrinkcheck.py fails on a shrink entry whose page is
     gone. There is no "un-shrink" signal, so that half cannot self-prune
     further. postdownload.py fails on a no-standalone entry whose page is gone
