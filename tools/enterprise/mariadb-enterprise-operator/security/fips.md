@@ -40,7 +40,7 @@ fips:
 | `fips.strict` | `false` | Inject `GODEBUG=fips140=only` instead of `fips140=on`, which additionally panics on any non-FIPS-approved cryptographic algorithm. Requires `fips.enabled`. |
 
 {% hint style="warning" %}
-Strict mode (`fips.strict: true`) cannot use password-based authentication, so every `MariaDB` must use [TLS client certificate authentication](tls-client-authentication.md). It does not support [multi-cluster](../topologies/multi-cluster.md) either. Upstream Go does not recommend `fips140=only` for general production use, see the [Go FIPS 140-3 documentation](https://go.dev/doc/security/fips140#the-fips140-godebug-option).
+Strict mode (`fips.strict: true`) cannot use password-based authentication, so every `MariaDB` must use [TLS client certificate authentication](tls-client-authentication.md). It does not support [multi-cluster](../topologies/multi-cluster.md) or the [arbitrator](../topologies/replication.md#two-node-clusters) either. Upstream Go does not recommend `fips140=only` for general production use, see the [Go FIPS 140-3 documentation](https://go.dev/doc/security/fips140#the-fips140-godebug-option).
 {% endhint %}
 
 ### OpenShift

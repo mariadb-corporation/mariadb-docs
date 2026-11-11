@@ -131,6 +131,8 @@ spec:
     semiSyncBootAsReplica: false
     syncBinlog: 1
     standaloneProbes: false
+    gtidDomainId: 0
+    serverIdStartIndex: 10
 ```
 
 * `gtidStrictMode`: Enables GTID strict mode. It is recommended and enabled by default. See [MariaDB documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_strict_mode).
@@ -141,6 +143,10 @@ spec:
 * `semiSyncBootAsReplica`: Determines whether a node boots read-only and with primary-side semi-synchronous replication disabled, so that it is never writable while it is unable to require a replica acknowledgement. It is disabled by default, in which case a node boots as a writable semi-synchronous primary. It requires semi-synchronous replication. See [asynchronous vs semi-synchronous replication](replication.md#asynchronous-vs-semi-synchronous-replication).
 * `syncBinlog`: Number of events after which the binary log is synchronized to disk. See [MariaDB documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#sync_binlog).
 * `standaloneProbes`: Determines whether to use regular non-HA startup and liveness probes. It is disabled by default.
+* `gtidDomainId`: The [`gtid_domain_id`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_domain_id) of all nodes. If it's not set, the server default applies. It can't be changed after the `MariaDB` has been created.
+* `serverIdStartIndex`: The `server_id` of the first `Pod`. Each `Pod` gets this value plus its `Pod` index, so with the default of `10` the `Pods` get `server_id` 10, 11, 12, and so on. It can't be changed after the `MariaDB` has been created.
+
+Plan `gtidDomainId` and `serverIdStartIndex` before you create the `MariaDB`, in particular for a [multi-cluster](multi-cluster.md) topology, where GTID domains and server IDs must not overlap between clusters.
 
 These options are used by the operator to create a replication configuration file that is applied to all nodes in the cluster. When updating any of these options, an [update of the cluster](replication.md#updates) will be triggered in order to apply the new configuration.
 
@@ -305,6 +311,10 @@ spec:
 
 To opt out, set it to `false`.
 
+{% hint style="warning" %}
+The operator implements this feature with its own `preStop` hook in the MariaDB container. While the feature is enabled, you can't define your own `spec.lifecycle.preStop`: the validating webhook rejects the `MariaDB` with `'spec.lifecycle.preStop' cannot be set when 'spec.replication.primary.autoSwitchoverOnGracefulShutdown' is enabled`. Because the feature is enabled by default, this also applies to existing `MariaDB` resources that have a `preStop` hook: their next update is rejected. To keep your own hook, set `autoSwitchoverOnGracefulShutdown: false`.
+{% endhint %}
+
 {% hint style="danger" %}
 Do not run this command directly in a production environment. Try it in a non-production environment first.
 {% endhint %}
@@ -339,6 +349,17 @@ NAME           READY   STATUS    PRIMARY          UPDATES                    AGE
 mariadb-repl   True    Running   mariadb-repl-1   ReplicasFirstPrimaryLast   23m
 ```
 
+The hook only acts on the primary `Pod` of a `MariaDB` with replication. For any other `Pod`, it emits a `TerminateSwitchoverSkipped` event and returns.
+
+The switchover must complete within the `Pod`'s termination grace period minus 5 seconds. With the Kubernetes default of 30 seconds, that's the 25 seconds shown in the event above. If switchovers take longer in your environment, raise `spec.terminationGracePeriodSeconds`.
+
+The new primary is chosen as follows:
+
+* **With MaxScale** (`spec.maxScaleRef` is set): a server that MaxScale reports as ready and that isn't the primary. MaxScale performs the switchover, and the events are `TerminateMaxScaleSwitchoverStarted`, `TerminateMaxScaleSwitchoverSuccess` and `TerminateMaxScaleSwitchoverError`.
+* **Without MaxScale:** a replica `Pod` that is ready, whose IO and SQL threads are running, and whose lag is at most `spec.replication.replica.maxLagSeconds` (`0` if that isn't set). The operator performs the switchover, and the events are `TerminateOperatorSwitchoverStarted`, `TerminateOperatorSwitchoverSuccess` and `TerminateOperatorSwitchoverError`.
+
+If no suitable replica is found in time, the hook emits a `TerminateSwitchoverError` event and the `Pod` shuts down anyway, without a switchover. The primary is then replaced by a regular failover, performed by MaxScale or, if [`autoFailover`](#primary-failover) is enabled, by the operator.
+
 {% hint style="warning" %}
 The primary switchover on graceful shutdown is executed in a `preStop` hook within the primary `Pod`. Consequently, there are no logs available for this operation. However, the operator emits Kubernetes events that can be inspected to observe the progress of the switchover. You can query these events using `kubectl get events` or watch them in real-time with `kubectl get events -w`. Note that Kubernetes events are short-lived, so monitor them while they still exist.
 {% endhint %}
@@ -349,7 +370,7 @@ The primary switchover on graceful shutdown is executed in a `preStop` hook with
 Our recommendation for production environments is to rely on [MaxScale](maxscale.md) for the failover process, as it provides [several advantages](high-availability.md#maxscale).
 {% endhint %}
 
-You can configure the operator to automatically perform a primary failover whenever the current primary becomes unavailable:
+The operator automatically performs a primary failover whenever the current primary becomes unavailable. This is enabled by default (`autoFailover: true`); set `autoFailover: false` to opt out. When `spec.maxScaleRef` is set, MaxScale performs the failover instead, and the operator doesn't act on `autoFailover`:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -422,7 +443,19 @@ spec:
     enabled: true
 ```
 
-This is a specialized, enterprise-only capability. Please reach out to your MariaDB sales representative for guidance on configuring and operating it in production.
+{% hint style="info" %}
+The arbitrator is a Public Preview feature of Enterprise Operator 26.10, and requires MaxScale 26.10. For guidance on operating it in production, reach out to your MariaDB sales representative.
+{% endhint %}
+
+The arbitrator has these requirements, which the validating webhook enforces:
+
+* Replication must be enabled. The arbitrator isn't supported with Galera.
+* `spec.maxScaleRef` must be set, because the arbitrator votes through MaxScale's cooperative monitoring.
+* [TLS client certificate authentication](../security/tls-client-authentication.md) (`spec.tls.clientAuth`) must be disabled, because the arbitrator uses password authentication. For the same reason, it can't be used with [strict FIPS mode](../security/fips.md).
+
+The arbitrator runs as a separate `Pod`, `<mariadb-name>-arbitrator-0`, and isn't counted in `spec.replicas`. The operator registers it with MaxScale so that the monitor counts its lock but never routes traffic to it or promotes it. Unless you set `cooperativeMonitoring` on the `MaxScale` monitor, the operator configures the `majority_of_all` locks.
+
+To keep the vote count safe during updates, use the `ReplicasFirstPrimaryLast` [update strategy](../updates.md#replicasfirstprimarylast).
 
 ## Updates
 
@@ -584,7 +617,11 @@ You have the ability to cancel the scaling out operation by setting `spec.replic
 
 ## Replica recovery
 
-The operator has the ability to automatically recover replicas that become unavailable and report a specific error code in the replication status. For doing so, the operator continuously monitors the replication status of each replica, and whenever a replica reports an error code listed in the table below, the operator will trigger an automated recovery process for that replica:
+The operator has the ability to automatically recover replicas that report a replication error. For doing so, the operator continuously monitors the replication status of each replica:
+
+* If a replica reports an error code listed in the table below, the operator recovers it immediately.
+* If a replica reports any other IO or SQL error, the operator recovers it once the error has lasted longer than `errorDurationThreshold` (`5m` by default).
+
 
 | Error Code | Thread | Description                                                                | Documentation                                                                                                |
 | ---------- | ------ | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
@@ -592,7 +629,11 @@ The operator has the ability to automatically recover replicas that become unava
 
 To perform the recovery, the operator will take a physical backup from a ready replica, restore it to the failed replica PVC, and reconfigure the replica to connect to the primary from the GTID position stored in the backup.
 
-Similarly to the [scaling out](replication.md#scaling-out) operation, you need to define a `PhysicalBackup` template and set a reference to it in the `spec.replication.replica.bootstrapFrom` field of the `MariaDB` CR. Additionally, you need to explicitly enable the replica recovery, as it is disabled by default:
+{% hint style="warning" %}
+Recovery is destructive: the replica's data is replaced by the backup, and with `VolumeSnapshots` its PVC is deleted and provisioned again. Any replication error that persists beyond `errorDurationThreshold` triggers it, not only the errors in the table. Set `errorDurationThreshold` high enough that errors you'd rather fix by hand aren't resolved by a rebuild.
+{% endhint %}
+
+Similarly to the [scaling out](replication.md#scaling-out) operation, you need to define a `PhysicalBackup` template and set a reference to it in the `spec.replication.replica.bootstrapFrom` field of the `MariaDB` CR. Additionally, you need to explicitly enable the replica recovery, as it is disabled by default. The validating webhook rejects `recovery.enabled: true` without `bootstrapFrom`:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -613,7 +654,7 @@ spec:
         errorDurationThreshold: 5m
 ```
 
-The `errorDurationThreshold` option defines the duration after which, a replica reporting an unknown error code will be considered for recovery. This is useful to avoid recovering replicas due to transient issues. It defaults to `5m`.
+The `errorDurationThreshold` option defines the duration after which a replica reporting an error code that isn't in the table above will be recovered. This is useful to avoid recovering replicas due to transient issues. It defaults to `5m`.
 
 We will be simulating a `1236` error in a replica to demonstrate how the recovery process works:
 
