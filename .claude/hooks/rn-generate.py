@@ -53,10 +53,17 @@ LAYOUT (as create_CS_RN_doc_v2() writes it)
     component of "N/A" becomes "OTHER", as on published pages. Sections sort
     alphabetically, ignoring case; items sort by key. The text is the Release
     Note Summary (customfield_13206), else the Jira summary, flattened to one
-    line, without a trailing period (house style), Markdown-escaped outside
-    code spans. One deliberate difference from the script: the storage
-    engines nest under "### Storage Engines", InnoDB first, as on published
-    pages.
+    line (a summary written as a "- " or "1." list loses the markers, its
+    items joined with semicolons), without a trailing period (house style),
+    Markdown-escaped outside
+    code spans. One deliberate difference from the script: component
+    families nest under a parent section (NESTED). The storage engines go
+    under "### Storage Engines", InnoDB first, as on published pages, and
+    that section comes first. "Platform Debian" and its siblings go under
+    "### Platforms" as "#### Debian" and so on. "Plugin - pam" and its
+    siblings go under "### Plugins" as "#### pam Plugin", after the items of
+    the general Plugins component (Daniel, 2026-11-11). Platforms and Plugins
+    sort into place among the other sections.
 
     The page around the list is the previous release's page (--template): its
     header up to "## Notable Items" and its "## Changelog" footer, with the
@@ -88,7 +95,9 @@ REVIEW FLAGS (--flags TSV: key, section, reasons, text)
 EXCLUSION OF UNHELPFUL ITEMS (--no-correct turns it off)
     Ralf Gebhardt's rule (2026-11-11): an item whose Release Note Summary is
     empty, and whose Jira summary matches `summary ~ assertion`,
-    `summary ~ test`, `summary ~ ASAN`, or `summary ~ SIGSEGV`, is left out.
+    `summary ~ test`, `summary ~ ASAN`, `summary ~ AddressSanitizer`,
+    `summary ~ SIGSEGV`, `summary ~ "signal 11"`, `summary ~ SIGFPE`, or
+    `summary ~ SIGABRT`, is left out.
     Its text would be the Jira summary, which for these items names a debug
     assertion, a test, a sanitizer report, or a crash location rather than
     what the user did or saw. The changelog still lists every one of them.
@@ -97,10 +106,16 @@ EXCLUSION OF UNHELPFUL ITEMS (--no-correct turns it off)
     are listed on stderr and in the --report JSON. A developer who wants an
     item listed can write its Release Note Summary.
 
-    The keywords are Ralf's, taken literally. `summary ~ ASAN` does not match
-    "AddressSanitizer", and `summary ~ SIGSEGV` does not match "signal 11".
-    Those items stay unless the rule is widened. A fix that gets a CVE is
-    listed in the Security section whatever its Jira summary says.
+    The keywords are Ralf's, taken literally; he added AddressSanitizer,
+    SIGFPE, and SIGABRT on 2026-11-11. "signal 11", the same signal as
+    SIGSEGV, was added the same day pending his confirmation; it matched
+    MDEV-31225 and MDEV-41442 in Q4. A fix that gets a CVE is listed in the
+    Security section whatever its Jira summary says.
+
+    Also `summary ~ "crash log"` (Ralf, 2026-11-11): a title that describes a
+    crash report, such as MDEV-39146 "Crash log on 22th/25th Mar 2026 with
+    10.11.16", rather than the bug. Among fixed MDEVs with no Release Note
+    Summary resolved since 2025, it matches only that one, so it is narrow.
 
 PROVEN
     On DOCS-7099 (2026-11-10), with --no-correct, 11.8.10 reproduced the
@@ -138,10 +153,22 @@ FIELDS = ('versions,resolutiondate,summary,status,resolution,components,customfi
           'customfield_13206,issuetype,labels,fixVersions,project')
 KEY_RE = re.compile(r'MDEV-\d+')
 SE = 'Storage Engine - '
+# Component families that nest under one parent section: (parent heading, component prefix,
+# subsection heading, the family's general component whose items come first, if any).
+NESTED = [('Storage Engines', SE, '{} Storage Engine', None),
+          ('Platforms', 'Platform ', '{}', None),
+          ('Plugins', 'Plugin - ', '{} Plugin', 'Plugins')]
 TESTS = {'Tests, MTR', 'CI'}
 DEBUG_RE = re.compile(r'assert|asan|msan|ubsan|valgrind|sanitizer|heap-use-after|use-of-uninit', re.I)
 UNHELPFUL_JQL = ('"Release Note Summary" is EMPTY AND '
-                 '(summary ~ assertion OR summary ~ test OR summary ~ ASAN OR summary ~ SIGSEGV)')
+                 '(summary ~ assertion OR summary ~ test OR summary ~ ASAN OR summary ~ AddressSanitizer '
+                 'OR summary ~ SIGSEGV OR summary ~ "\\"signal 11\\"" OR summary ~ SIGFPE OR summary ~ SIGABRT '
+                 'OR summary ~ "\\"crash log\\"")')
+LIST_MARKER = re.compile(r'(?:[-*•–]|\d+[.)])\s+')
+COMMON_FIRST_WORDS = {'a', 'an', 'the', 'only', 'this', 'these', 'that', 'those', 'it', 'its', 'they',
+                      'when', 'if', 'now', 'no', 'not', 'also', 'and', 'but', 'in', 'on', 'for', 'with',
+                      'without', 'after', 'before', 'during', 'fixed', 'added', 'removed', 'previously',
+                      'some', 'all', 'any', 'each', 'every', 'there', 'where', 'which', 'while'}
 BUILD_COMPONENTS = TESTS | {'Compiling'}
 BUILD_RE = re.compile(r'\b(compil\w*|cmake\w*|(does|did) not build|fails? to build|can (now )?be built|'
                       r'srpms?|source rpms?|tar\.gz|tarballs?|buildbot|gitlab ci|mtr|test case|'
@@ -219,9 +246,41 @@ def escape(text):
     return ''.join(out)
 
 
+def flatten(text):
+    """One line from a summary that may be written as a list (MDEV-41140's
+    Release Note Summary is four "- " lines). The markers go and the items
+    are joined with semicolons, without their terminal periods (Daniel's
+    house style for lists), after an intro line and a colon if there is one.
+    An item that starts with a common word is lowercased ("Only the top
+    level" becomes "only the top level"); names and paths keep their case."""
+    lines = [l.strip() for l in text.splitlines() if l.strip()]
+    if not any(LIST_MARKER.match(l) for l in lines):
+        return ' '.join(text.split())
+    intro, items = None, []
+    for l in lines:
+        m = LIST_MARKER.match(l)
+        if m:
+            items.append(l[m.end():].strip())
+        elif items:
+            items[-1] += ' ' + l     # a wrapped item continues
+        else:
+            intro = l if intro is None else intro + ' ' + l
+    items = [' '.join(i.split()).rstrip('.;') for i in items]
+    items = [i if n == 0 and not intro else lower_first(i) for n, i in enumerate(items)]
+    body = '; '.join(items)
+    if intro:
+        body = intro.rstrip('.').rstrip(':') + ': ' + body
+    return ' '.join(body.split())
+
+
+def lower_first(item):
+    word = item.split(' ', 1)[0]
+    return item[0].lower() + item[1:] if word.lower() in COMMON_FIRST_WORDS and word.istitle() else item
+
+
 def bullet_text(f):
     rns = (f.get('customfield_13206') or '').strip()
-    text = ' '.join((rns or f['summary'].strip()).split()).rstrip('.').rstrip()
+    text = flatten(rns or f['summary'].strip()).rstrip('.').rstrip()
     return re.sub(r'^#', r'\\#', escape(text)), bool(rns)
 
 
@@ -292,20 +351,35 @@ def main(argv):
         groups[section(i['fields'])].append(i)
     for s in groups:
         groups[s].sort(key=lambda i: key_num(i['key']))
-    engines = sorted((s for s in groups if s.startswith(SE)), key=lambda s: (s != SE + 'InnoDB', s.lower()))
-    others = sorted((s for s in groups if not s.startswith(SE)), key=str.lower)
+    def parent(s):
+        return next((p for p, prefix, _, general in NESTED if s.startswith(prefix) or s == general), None)
 
     def items(s):
         return '\n'.join(f"* {bullet_text(i['fields'])[0]} ([{i['key']}]({JIRA}/browse/{i['key']}))"
                          for i in groups[s]) + '\n'
 
-    body = ['## Notable Items\n']
-    if engines:
-        body.append('### Storage Engines\n')
-        for s in engines:
-            body += [f'#### {s[len(SE):]} Storage Engine\n', items(s)]
-    for s in others:
-        body += [f'### {s}\n', items(s)]
+    body, order = ['## Notable Items\n'], []
+
+    def nest(p):
+        _, prefix, fmt, general = next(n for n in NESTED if n[0] == p)
+        subs = sorted((s for s in groups if s.startswith(prefix)), key=lambda s: (s != SE + 'InnoDB', s.lower()))
+        body.append(f'### {p}\n')
+        if general in groups:
+            body.append(items(general))
+            order.append(general)
+        for s in subs:
+            body.extend([f'#### {fmt.format(s[len(prefix):])}\n', items(s)])
+            order.append(s)
+
+    top = {parent(s) or s for s in groups}
+    if 'Storage Engines' in top:
+        nest('Storage Engines')
+    for t in sorted(top - {'Storage Engines'}, key=str.lower):
+        if t in {n[0] for n in NESTED}:
+            nest(t)
+        else:
+            body += [f'### {t}\n', items(t)]
+            order.append(t)
 
     pv = re.escape(prev_version)
     head = re.sub(pv, a.version, head)
@@ -321,7 +395,7 @@ def main(argv):
     added = {r[0]: r[1] for r in report['added']}
     prev_keys = set(KEY_RE.findall(template))
     rows = []
-    for s in engines + others:
+    for s in order:
         for i in groups[s]:
             f = i['fields']
             text, has_rns = bullet_text(f)
