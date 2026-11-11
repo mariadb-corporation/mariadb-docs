@@ -35,8 +35,8 @@ To change what the reference page says about a setting, edit its module page and
 
 A long module page can be split into a folder (DOCS-6367): `maxscale-readwritesplit.md` became
 `maxscale-readwritesplit/README.md`, which keeps the URL, plus `readwritesplit-settings.md`,
-which holds the settings. The script treats a folder that has a `README.md` and sits at least
-two levels below `reference/` as **one** module page. Its settings stay under the page's old
+which holds the settings. The script treats a folder that has a `README.md`, has no subfolders,
+and sits at least two levels below `reference/` as **one** module page. Its settings stay under the page's old
 heading (`[maxscale-readwritesplit](…/README.md)`), and each entry links to the file that holds
 it. The group is still the heading one level up, which in a settings child page is its H1 (for
 example "MaxScale Readwritesplit Settings").
@@ -47,7 +47,7 @@ one level below `reference/`, so they are scanned as before.
 The MaxScale Configuration Guide is split the same way, into
 `maxscale-configuration-guide/README.md` plus `global-settings.md` and `service-settings.md`.
 It isn't under `reference/`: it's the script's first default argument, and the argument is the
-folder. A split-page folder given as an argument is grouped like a single file, under its
+folder. A split-page folder (a flat folder with a `README.md`) given as an argument is grouped like a single file, under its
 top-level directory, so its settings stay under **General** > **MaxScale**. If a split page moves
 or a new top-level page is added, update the default arguments in `main()`.
 

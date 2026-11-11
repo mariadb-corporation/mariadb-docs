@@ -252,7 +252,11 @@ def is_split_page(path):
     # page's URL and the settings move to child pages in the same folder.
     # Category folders (reference/maxscale-routers/ and so on) have a
     # README.md too, but sit only one level below the output directory.
+    # A split page is flat, so a folder with subfolders (for example
+    # maxscale-management/) is never one.
     if not os.path.isfile(os.path.join(path, "README.md")):
+        return False
+    if any(os.path.isdir(os.path.join(path, f)) for f in os.listdir(path)):
         return False
     rel = os.path.relpath(path, output_dir)
     return rel.startswith("..") or rel.count("/") >= 1
