@@ -197,8 +197,6 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-  mariaDbRef:
-    name: mariadb-galera
   servers:
     - name: mariadb-0
       address: mariadb-galera-0.mariadb-galera-internal.default.svc.cluster.local
@@ -206,7 +204,12 @@ spec:
       address: mariadb-galera-1.mariadb-galera-internal.default.svc.cluster.local
     - name: mariadb-2
       address: mariadb-galera-2.mariadb-galera-internal.default.svc.cluster.local
+  monitor:
+    module: galeramon
+  # [...]
 ```
+
+`spec.mariaDbRef` and `spec.servers` are mutually exclusive, and exactly one of them is required: the validating webhook rejects a `MaxScale` that sets both, or neither. When you use `spec.servers`, `spec.monitor.module` is required too, and you need to provide the credentials in `spec.auth`, as shown in the next example.
 
 As you could see, you can refer to in-cluser MariaDB servers by providing the DNS names of the `MariaDB` `Pods` as server addresses. In addition, you can also refer to external MariaDB instances running outside of the Kubernetes cluster where the operator was deployed:
 
@@ -216,8 +219,6 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-  mariaDbRef:
-    name: mariadb-galera
   servers:
     - name: mariadb-0
       address: 172.18.0.140
@@ -369,6 +370,8 @@ spec:
 
 Licensing is enforced by the operator: when the image version of a `MaxScale` requires a license and none can be resolved from the operator-level default, the operator emits a `MaxScaleLicenseNotFound` Event and **fails reconciliation** (the `Ready` condition is set to `False`) instead of letting MaxScale start without one. If `spec.licenseSecretKeyRef` is set but its Secret or key cannot be found, reconciliation also fails and the error is reported in the `Ready` condition.
 
+An expired license doesn't fail reconciliation. The operator emits a `MaxScaleLicenseExpired` warning Event with the expiry date and still passes the license to MaxScale. MaxScale itself decides how to behave with an expired license.
+
 {% hint style="info" %}
 Only MaxScale images that require a license, currently 26.10 and later, are licensed by the operator. For older images, such as 25.10.x, and for images whose version cannot be determined from the tag (custom images or digest references), the operator neither injects the default license nor fails when it is missing, so set `spec.licenseSecretKeyRef` explicitly if the MaxScale version requires one.
 {% endhint %}
@@ -441,6 +444,27 @@ spec:
 ```
 
 As you could see, you are also able to limit the number of connections for each component/actor. Bear in mind that, when running in [high availability](maxscale.md#high-availability), you may need to increase this number, as more MaxScale instances implies more connections.
+
+{% hint style="warning" %}
+The `spec.auth` fields can't be changed once they have a value. This includes the user names, the `*MaxConnections` limits, `generate`, `deleteDefaultAdmin` and `adminPasswordSecretKeyRef`. The operator fills in defaults for the fields you leave out, so those are fixed from the first reconciliation on as well. Choose the connection limits before you create the `MaxScale`, with enough headroom for high availability.
+{% endhint %}
+
+## Immutable fields
+
+The validating webhook rejects changes to these `MaxScale` fields after the resource has been created:
+
+* `spec.mariaDbRef`
+* `spec.services[].router`
+* `spec.services[].listener.port`
+* `spec.priorityClassName`
+
+These fields can't be changed once they have a value, whether you set them or the operator filled them in:
+
+* `spec.monitor.module`
+* `spec.serviceAccountName`
+* The `spec.auth` fields described in [Authentication](#authentication)
+
+To change one of them, delete the `MaxScale` and create it again.
 
 ## Kubernetes `Services`
 
@@ -540,7 +564,7 @@ metadata:
   name: maxscale-galera
 spec:
   mariaDbRef:
-    name: mariadb-repl
+    name: mariadb-galera
   replicas: 2
 
   monitor:
@@ -567,6 +591,28 @@ kubectl scale maxscale maxscale-galera --replicas 3
 ```
 
 Or even configuring an `HorizontalPodAutoscaler` to do the job automatically.
+
+### Ephemeral runtime configuration
+
+By default, each MaxScale replica persists its runtime configuration on its configuration volume and loads it again on startup. A copy persisted by an older MaxScale version can then conflict with the configuration synchronized from the cluster, for example after a MaxScale upgrade.
+
+Set `spec.config.ephemeral: true` to avoid this:
+
+```yaml
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: MaxScale
+metadata:
+  name: maxscale-galera
+spec:
+  # [...]
+  replicas: 2
+  config:
+    ephemeral: true
+```
+
+With an ephemeral runtime configuration, MaxScale neither persists nor loads runtime configuration changes from disk. To keep a restarting `Pod` self-sufficient, the operator renders the servers, the monitor and the configuration sync settings into the static configuration, and the `Pod` pulls the rest of the runtime configuration (services, listeners and so on) from the cluster through configuration sync.
+
+`ephemeral` defaults to `false`, and it only takes effect with more than one replica, because it relies on configuration sync.
 
 {% hint style="info" %}
 After updating the operator from a version prior to `26.6.7`, every existing `MaxScale` receives one monitor `PATCH`, because the monitor spec hash (`status.monitorSpec`) now also covers `spec.servers`. As a consequence, `mariadbmon` re-acquires its cooperative monitoring locks and automatic failover is paused for about 5 monitor ticks. This does not trigger a switchover or a rolling update.
@@ -619,9 +665,8 @@ spec:
   guiKubernetesService:
     type: LoadBalancer
     metadata:
-      metadata:
-        annotations:
-          metallb.universe.tf/loadBalancerIPs: 172.18.0.231
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: 172.18.0.231
   # [...]
 ```
 

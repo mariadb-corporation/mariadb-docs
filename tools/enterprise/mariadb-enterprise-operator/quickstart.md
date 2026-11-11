@@ -12,6 +12,13 @@ Before you begin, ensure you meet the following prerequisites:
 
 * Configure your [customer access for docker.mariadb.com](customer-access-to-docker-mariadb-com.md)
 * [Install the MariaDB Enterprise Kubernetes Operator](installation/README.md)
+* Configure a MaxScale Enterprise license. MaxScale 26.10 and later, the default MaxScale version of the operator, doesn't start without one. Create a `Secret` named `enterprise-license-key` with a `license` key in the namespace where the operator is installed:
+
+  ```sh
+  kubectl create secret generic enterprise-license-key --from-literal=license=<key> -n <operator-namespace>
+  ```
+
+  Without a license, the `MaxScale` CR never becomes ready, and the operator emits a `MaxScaleLicenseNotFound` event. See [Licensing](topologies/maxscale.md#licensing) for other ways to provide the license.
 
 The first step will be configuring a `Secret` with the credentials used by the `MariaDB` CR:
 

@@ -106,6 +106,16 @@ spec:
   sourceNamespace: openshift-marketplace
 ```
 
+## MaxScale license
+
+MaxScale Enterprise 26.10 and later requires a license key. With an OLM installation, the operator looks for a default license in a `Secret` named `enterprise-license-key`, with a `license` key, in the namespace where the operator is installed (`openshift-operators` for an [installation in all namespaces](#installation-in-all-namespaces)):
+
+```sh
+oc create secret generic enterprise-license-key --from-literal=license=<key> -n openshift-operators
+```
+
+Alternatively, set `spec.licenseSecretKeyRef` on each `MaxScale` resource. Refer to the [MaxScale documentation](../topologies/maxscale.md#licensing) for further details.
+
 ## Release channels
 
 We maintain support across a variety of OpenShift channels to ensure compatibility with different release schedules and stability requirements. Below, you will find an overview of the specific OpenShift channels we support.
