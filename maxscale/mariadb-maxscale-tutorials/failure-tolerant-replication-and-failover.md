@@ -11,7 +11,7 @@ description: >-
 
 The goal of this guide is to set up a replication cluster managed by MaxScale that is reasonably tolerant of failures. That is, even if one part fails, the cluster continues to work. Additionally, transaction data are preserved whenever possible. All of this works automatically.
 
-This guide assumes that the reader is familiar with MariaDB replication and GTIDs, [MariaDB Monitor](../reference/maxscale-monitors/mariadb-monitor.md), and [failover](automatic-failover-with-mariadb-monitor.md).
+This guide assumes that the reader is familiar with MariaDB replication and GTIDs, [MariaDB Monitor](../reference/maxscale-monitors/mariadb-monitor/README.md), and [failover](automatic-failover-with-mariadb-monitor.md).
 
 ## The Problem with Normal Replication
 
@@ -54,7 +54,7 @@ $ maxctrl list servers
 └──────────┴─────────────────┴──────┴─────────────┴────────┴────────────────────┴─────────┴──────────┘
 ```
 
-At this point, the DBA could forcefully alter the gtid of _server1_, setting it to 1-1-100, which is in _server2_’s binary log, enabling rejoin. This is usually ill-advised, as changing the gtid does not roll back the actual data in _server2_’s database, meaning that data conflicts can still happen, perhaps days later. A more reliable way to handle this case is to rebuild _server1_ from one of the other servers. (MaxScale can help with this process, but it requires configuration and [manual launching](../reference/maxscale-monitors/mariadb-monitor.md#backup-operations).)
+At this point, the DBA could forcefully alter the gtid of _server1_, setting it to 1-1-100, which is in _server2_’s binary log, enabling rejoin. This is usually ill-advised, as changing the gtid does not roll back the actual data in _server2_’s database, meaning that data conflicts can still happen, perhaps days later. A more reliable way to handle this case is to rebuild _server1_ from one of the other servers. (MaxScale can help with this process, but it requires configuration and [manual launching](../reference/maxscale-monitors/mariadb-monitor/README.md#backup-operations).)
 
 If the old primary returns before failover activates, replication can continue regardless of what exact moment the crash happened. **This means that the DBA should configure automatic failover to happen only after the primary has been down so long that the downsides of service outage outweigh the threat of losing data and the need of having to rebuild the old primary.** _monitor\_interval_ \* _failcount_ should at a minimum be large enough that failover does not trigger due to a momentary network failure.
 

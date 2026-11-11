@@ -12,10 +12,10 @@ Using a single MaxScale in a production environment forms a single point of
 failure. You can mitigate this issue by using multiple
 MaxScales with similar configurations. With multiple MaxScales, one MaxScale
 should control the server cluster, i.e. run cluster manipulation commands such
-as [failover](../reference/maxscale-monitors/mariadb-monitor.md#auto_failover).
+as [failover](../reference/maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#auto_failover).
 
 MariaDB recommends using
-[cooperative monitoring](../reference/maxscale-monitors/mariadb-monitor.md#cooperative-monitoring)
+[cooperative monitoring](../reference/maxscale-monitors/mariadb-monitor/README.md#cooperative-monitoring)
 to achieve this. Cooperative monitoring uses locks on the backend servers to
 ensure that the different MaxScale instances agree on the primary MaxScale and
 also on the primary server of the cluster. Only the primary MaxScale can perform
@@ -353,7 +353,7 @@ below. The example shows output when MaxScale is active.
 
 ## Cooperative monitoring and passive-mode
 
-[MariaDB Monitor cooperative monitoring](../reference/maxscale-monitors/mariadb-monitor.md#cooperative-monitoring)
+[MariaDB Monitor cooperative monitoring](../reference/maxscale-monitors/mariadb-monitor/README.md#cooperative-monitoring)
 should generally not be combined with the
 [passive-setting](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#passive).
 

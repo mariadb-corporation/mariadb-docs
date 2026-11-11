@@ -39,7 +39,7 @@ Clicking on the _Create New_ button (Annotation 2) to open a dialog for creating
 
 ### View Replication Status
 
-The replication status of a server monitored by [MariaDB-Monitor](maxscale-monitors/mariadb-monitor.md) can be viewed by mousing over the server name. A tooltip will be displayed with the following information: replication\_state, seconds\_behind\_master, slave\_io\_running, slave\_sql\_running.
+The replication status of a server monitored by [MariaDB-Monitor](maxscale-monitors/mariadb-monitor/README.md) can be viewed by mousing over the server name. A tooltip will be displayed with the following information: replication\_state, seconds\_behind\_master, slave\_io\_running, slave\_sql\_running.
 
 ### How to kill a session
 
@@ -116,7 +116,7 @@ This page visualizes MaxScale configuration as shown in the figure below.
 
 ### Clusters
 
-This page shows all monitor clusters using [mariadbmon](maxscale-monitors/mariadb-monitor.md) module in a card-like view. Clicking on the card will visualize the cluster into a tree graph as shown in the following figure.
+This page shows all monitor clusters using [mariadbmon](maxscale-monitors/mariadb-monitor/README.md) module in a card-like view. Clicking on the card will visualize the cluster into a tree graph as shown in the following figure.
 
 ![](../.gitbook/assets/mariadb-corporation/MaxScale/25.01.2-docs/Documentation/Tutorials/images/MaxGUI-cluster-visualization.png.png)
 
