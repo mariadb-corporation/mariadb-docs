@@ -107,7 +107,19 @@ Two defaults shape that statement:
 
 The engine adds a `select_handler`, so a `SELECT` that touches a DuckDB table is handed to DuckDB whole rather than being executed row by row. Before sending the statement, the engine rewrites MariaDB-specific syntax — `GROUP BY ... WITH ROLLUP`, `CONVERT()`, `STRAIGHT_JOIN`, `REGEXP`, `RLIKE`, `LIMIT offset, count` — into DuckDB equivalents, and strips optimizer hints such as `FORCE INDEX` and `SQL_NO_CACHE`. DuckDB's optimizer then chooses join order and drives hashing, aggregation, and sorting.
 
-Pushdown is declined for statements MariaDB marks as having side effects — user variable reads and assignments, system variable reads, `LAST_INSERT_ID()`, `BENCHMARK()`, `SLEEP()`, `LOAD_FILE()`, locking functions, `SELECT ... INTO`, and the `PROCEDURE` clause. Those statements fall back to a row-by-row table scan.
+Pushdown is declined, and the statement falls back to a row-by-row table scan, when any of the following applies:
+
+* The statement is neither a `SELECT` nor an `INSERT ... SELECT`.
+* The statement is an `INSERT ... SELECT` whose target is a DuckDB table.
+* The statement is an `INSERT ... SELECT` with `ON DUPLICATE KEY UPDATE` or `RETURNING`.
+* The query text cannot be extracted, for example when it contains a string literal with backslash escapes that DuckDB would read differently from MariaDB Server.
+* The query references no DuckDB table.
+* The query is a `UNION`, `EXCEPT`, or `INTERSECT` executed as a prepared statement.
+* The query is a single `SELECT` that MariaDB marks as having side effects: user variable reads and assignments, system variable reads, `LAST_INSERT_ID()`, `BENCHMARK()`, `SLEEP()`, `LOAD_FILE()`, locking functions, `SELECT ... INTO`, and the `PROCEDURE` clause.
+
+{% hint style="warning" %}
+The side-effect check applies only to a single `SELECT`. A `UNION`, `EXCEPT`, or `INTERSECT` that reads or assigns a user variable or calls a function such as `SLEEP()` is still pushed down to DuckDB.
+{% endhint %}
 
 `UPDATE` and `DELETE` on a single table with a simple `WHERE` clause are also pushed down as whole statements.
 
@@ -132,7 +144,7 @@ The fiber runs in its own transaction, so uncommitted changes made by the curren
 * **DDL** — `CREATE TABLE`, `DROP TABLE`, `ALTER TABLE`, `RENAME TABLE`, `TRUNCATE`, and `DROP DATABASE`. `ALTER TABLE ... ENGINE=DuckDB` converts an existing table.
 * **`INSERT`, `UPDATE`, `DELETE`** — translated to DuckDB SQL, either per row or in batches.
 * **`SELECT`** — pushed down whole, including aggregations, joins, window functions, common table expressions, `UNION`, `EXCEPT`, and `INTERSECT`.
-* **`AUTO_INCREMENT`** — supported in `CREATE TABLE`, backed by a DuckDB sequence named `mdb_autoinc_`*`table`*. Each statement reserves a block of `duckdb_autoinc_cache_size` values, so gaps in the sequence are normal. Adding an `AUTO_INCREMENT` column with `ALTER TABLE`, or converting a table that has one, fails with `ER_TABLE_CANT_HANDLE_AUTO_INCREMENT`.
+* **`AUTO_INCREMENT`** — supported in `CREATE TABLE`, backed by a DuckDB sequence named `mdb_autoinc_`*`table`*. Values are handed out from a cached range. When the range runs out, the engine reserves a new block of `duckdb_autoinc_cache_size` values from the sequence (or more, if a single statement needs more), and drops any values left in the old range, so gaps are normal. Adding an `AUTO_INCREMENT` column with `ALTER TABLE`, or converting a table that has one, fails with `ER_TABLE_CANT_HANDLE_AUTO_INCREMENT`.
 * **Column defaults** — literal and expression defaults are forwarded to DuckDB. A default that reads a MariaDB sequence (`NEXT VALUE FOR`) is not forwarded; MariaDB Server evaluates it and supplies the value, and the statement raises a note.
 * **`run_in_duckdb()`** — executes a statement in DuckDB directly. See [Running DuckDB SQL Directly](#running-duckdb-sql-directly).
 
@@ -173,8 +185,11 @@ Each `VARCHAR` column carries a DuckDB collation derived from its MariaDB collat
 | --- | --- |
 | `_bin` | `POSIX` (byte comparison) |
 | `_ai_ci` (accent and case insensitive) | `NOCASE.NOACCENT` |
+| `utf8mb4_general_ci`, `utf8mb4_unicode_ci`, and the matching `utf8mb3` collations | `NOCASE.NOACCENT` |
 | `_as_ci` (accent sensitive, case insensitive) | `NOCASE` |
 | `_as_cs` (accent and case sensitive) | `POSIX` |
+
+The mapping follows the weight levels each collation compares on, not its name. `utf8mb4_general_ci` and `utf8mb4_unicode_ci` compare on primary weights only, so they are accent insensitive as well as case insensitive, and `'a' = 'á'` is true in both MariaDB Server and DuckDB.
 
 DuckDB's `NOCASE` and `NOACCENT` are simple transformations — lowercasing and stripping diacritics — not the Unicode Collation Algorithm weight tables MariaDB uses. Comparison and sort results can therefore differ from the same query on an InnoDB table, particularly for non-ASCII text: German `ß`, Turkish dotted and dotless `i`, and ligatures such as `æ` are the usual examples. `_as_cs` collations sort by UTF-8 byte value rather than by collation weight, which changes `ORDER BY` results.
 
@@ -258,7 +273,7 @@ The plugin adds the following variables. Scope `Global` variables are set for th
 | `duckdb_dml_in_batch` | Global | Boolean | `ON` | Buffer `INSERT`, `UPDATE`, and `DELETE` and apply them at commit. |
 | `duckdb_copy_ddl_in_batch` | Global | Boolean | `ON` | Use batch inserts when a DDL statement copies a table. |
 | `duckdb_update_modified_column_only` | Global | Boolean | `ON` | Send only changed columns in an `UPDATE`. |
-| `duckdb_autoinc_cache_size` | Global | Integer | `1000` | `AUTO_INCREMENT` values reserved from the backing sequence per statement. |
+| `duckdb_autoinc_cache_size` | Global | Integer | `1000` | Number of `AUTO_INCREMENT` values reserved from the backing sequence each time the cached range is refilled. |
 | `duckdb_appender_allocator_flush_threshold` | Global | Bytes | `67108864` (64 MB) | Batch memory at which the appender allocator is flushed. |
 | `duckdb_scheduler_process_partial` | Global | Boolean | `ON` | Process tasks partially before rescheduling them. |
 | `duckdb_use_direct_io` | Global, read only | Boolean | `OFF` | Use direct I/O for DuckDB data files. |
