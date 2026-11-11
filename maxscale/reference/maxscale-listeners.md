@@ -44,7 +44,7 @@ The name of the protocol module used for communication between the client and Ma
 
 Usually this does not need to be defined as the default protocol is the MariaDB network protocol that is used by SQL connections.
 
-For NoSQL client connections, the protocol must be set to `protocol=nosqlprotocol`. For more details on how to configure the NoSQL protocol, refer to the [NoSQL Protocol](maxscale-protocols/maxscale-nosql-protocol-module.md) module documentation.
+For NoSQL client connections, the protocol must be set to `protocol=nosqlprotocol`. For more details on how to configure the NoSQL protocol, refer to the [NoSQL Protocol](maxscale-protocols/maxscale-nosql-protocol-module/README.md) module documentation.
 
 ### `address`
 

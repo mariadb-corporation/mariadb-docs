@@ -3202,7 +3202,7 @@ See [Change Data Capture Protocol](../../../reference/maxscale-protocols/maxscal
 
 ### `nosqlprotocol`
 
-Accepts MongoDB® connections, yet stores and fetches results to/from MariaDB servers. See [NoSQL documentation](../../../reference/maxscale-protocols/maxscale-nosql-protocol-module.md) for more information.
+Accepts MongoDB® connections, yet stores and fetches results to/from MariaDB servers. See [NoSQL documentation](../../../reference/maxscale-protocols/maxscale-nosql-protocol-module/README.md) for more information.
 
 ## TLS/SSL encryption
 
