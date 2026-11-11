@@ -20,7 +20,7 @@ The `DROP PACKAGE BODY` statement drops the package body (that is, the implement
 
 Note, `DROP PACKAGE BODY` drops only the package implementation, but does not drop the package specification. Use [DROP PACKAGE](drop-package.md) to drop the package entirely (i.e. both implementation and specification).
 
-If [automatic\_sp\_privileges](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#automatic_sp_privileges) is set (the default), privileges on the package body are revoked from all accounts. `CREATE OR REPLACE PACKAGE BODY` keeps them. See [Stored Routine Privileges](../../../../server-usage/stored-routines/stored-functions/stored-routine-privileges.md#dropping-stored-routines).
+If [automatic\_sp\_privileges](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#automatic_sp_privileges) is set (the default), privileges on the package body are revoked from all accounts and roles. `CREATE OR REPLACE PACKAGE BODY` keeps them. See [Stored Routine Privileges](../../../../server-usage/stored-routines/stored-functions/stored-routine-privileges.md#dropping-stored-routines).
 
 ## See also
 
