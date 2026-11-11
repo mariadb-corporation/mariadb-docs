@@ -62,7 +62,7 @@ LAYOUT (as create_CS_RN_doc_v2() writes it)
     that section comes first. "Platform Debian" and its siblings go under
     "### Platforms" as "#### Debian" and so on. "Plugin - pam" and its
     siblings go under "### Plugins" as "#### pam Plugin", after the items of
-    the general Plugins component (Daniel, 2026-11-11). "Data Definition -
+    the general Plugins component (dbart, 2026-11-11). "Data Definition -
     Alter Table", "Data Manipulation - Insert", and "Optimizer - CTE" and
     their siblings nest the same way, under "### Data Definition", "### Data
     Manipulation", and "### Optimizer", as "#### Alter Table" and so on. The
@@ -76,7 +76,7 @@ LAYOUT (as create_CS_RN_doc_v2() writes it)
     the unreleased banner after the title, and TBD for the date.
 
 REVIEW FLAGS (--flags TSV: key, section, reasons, text)
-    The patterns Daniel's Q3 editorial pass removed or changed (DOCS-6477,
+    The patterns dbart's Q3 editorial pass removed or changed (DOCS-6477,
     commits cad8b64f8 and 9df256153): Tests/CI components, bare debug
     assertions and sanitizer reports without a Release Note Summary, the
     `Security` label (check against the CVE list), items already on the
@@ -256,7 +256,7 @@ def escape(text):
 def flatten(text):
     """One line from a summary that may be written as a list (MDEV-41140's
     Release Note Summary is four "- " lines). The markers go and the items
-    are joined with semicolons, without their terminal periods (Daniel's
+    are joined with semicolons, without their terminal periods (dbart's
     house style for lists), after an intro line and a colon if there is one.
     An item that starts with a common word is lowercased ("Only the top
     level" becomes "only the top level"); names and paths keep their case."""
