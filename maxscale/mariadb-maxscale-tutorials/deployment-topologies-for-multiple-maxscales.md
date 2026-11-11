@@ -24,7 +24,7 @@ This page assumes you have read [Failover With Multiple MaxScales](failover-with
 | [2 databases + 2 MaxScales + co-located tiebreaker](deployment-topologies-for-multiple-maxscales.md#two-databases-two-maxscales-and-a-co-located-tiebreaker) | 4 | Yes | Yes |
 | [2 Galera nodes + 2 MaxScales + co-located arbitrator](deployment-topologies-for-multiple-maxscales.md#two-galera-nodes-two-maxscales-and-a-co-located-arbitrator) | 4 | Yes | Yes |
 
-The first three use [MariaDB Monitor](../reference/maxscale-monitors/mariadb-monitor.md) with `cooperative_monitoring_locks`. The fourth uses [Galera Monitor](../reference/maxscale-monitors/galera-monitor.md) and relies on a different mechanism entirely — see [How the Galera Case Differs](deployment-topologies-for-multiple-maxscales.md#how-the-galera-case-differs).
+The first three use [MariaDB Monitor](../reference/maxscale-monitors/mariadb-monitor/README.md) with `cooperative_monitoring_locks`. The fourth uses [Galera Monitor](../reference/maxscale-monitors/galera-monitor.md) and relies on a different mechanism entirely — see [How the Galera Case Differs](deployment-topologies-for-multiple-maxscales.md#how-the-galera-case-differs).
 
 ## Two Databases and Two MaxScales
 
@@ -261,11 +261,11 @@ The other partitions work out the same way. If the MaxScale 1 host is isolated, 
 
 The tiebreaker is an ordinary MariaDB server replicating from the primary. Three things make it a tiebreaker rather than a third production node.
 
-**Include it in the monitor.** Locking is on by default for every monitored server, so listing it is all that is needed. Do not add it to [servers\_no\_cooperative\_monitoring\_locks](../reference/maxscale-monitors/mariadb-monitor.md#servers_no_cooperative_monitoring_locks) — that setting would remove it from the majority count, which is the one thing it is there for.
+**Include it in the monitor.** Locking is on by default for every monitored server, so listing it is all that is needed. Do not add it to [servers\_no\_cooperative\_monitoring\_locks](../reference/maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#servers_no_cooperative_monitoring_locks) — that setting would remove it from the majority count, which is the one thing it is there for.
 
 **Keep it out of query routing.** Give the service an explicit `servers` list naming only the full servers. Do not use `cluster=`, which takes the service's targets from the monitor and would include the tiebreaker.
 
-**Keep it out of promotion.** A server sharing a host with MaxScale is a poor primary. [servers\_no\_promotion](../reference/maxscale-monitors/mariadb-monitor.md#servers_no_promotion) excludes it from failover and from automatic primary selection at startup and on topology changes.
+**Keep it out of promotion.** A server sharing a host with MaxScale is a poor primary. [servers\_no\_promotion](../reference/maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#servers_no_promotion) excludes it from failover and from automatic primary selection at startup and on topology changes.
 
 {% code title="maxscale.cnf" %}
 ```ini

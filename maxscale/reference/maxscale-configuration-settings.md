@@ -566,7 +566,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
-* Description: Deprecated - use [cooperative monitoring](maxscale-monitors/mariadb-monitor.md#cooperative-monitoring) instead.
+* Description: Deprecated - use [cooperative monitoring](maxscale-monitors/mariadb-monitor/README.md#cooperative-monitoring) instead.
 
 [**persist\_runtime\_changes**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#persist_runtime_changes)
 
@@ -3136,11 +3136,11 @@ description: >-
 * Dynamic: Yes
 * Description: Allows the monitor to automatically select the writing node and manage controlled node replacements in a Galera cluster while keeping server priorities into account.
 
-#### [mariadb-monitor](maxscale-monitors/mariadb-monitor.md)
+#### [mariadb-monitor](maxscale-monitors/mariadb-monitor/README.md)
 
-**Settings**
+**MaxScale MariaDB Monitor Settings**
 
-[**assume\_unique\_hostnames**](maxscale-monitors/mariadb-monitor.md#assume_unique_hostnames)
+[**assume\_unique\_hostnames**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#assume_unique_hostnames)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -3148,183 +3148,7 @@ description: >-
 * Default: `true`
 * Description: When enabled, the monitor assumes that the server hostnames and ports in the configuration match those provided by the servers, resulting in accurate topology identification and support for cluster actions such as failover and switching.
 
-[**cooperative\_monitoring\_locks**](maxscale-monitors/mariadb-monitor.md#cooperative_monitoring_locks)
-
-* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
-* Mandatory: No
-* Dynamic: Yes
-* Values: `none`, `majority_of_all`, `majority_of_running`
-* Default: `none`
-* Description: Controls how a monitor achieves exclusive locks in multi-MaxScale configurations; decides whether a monitor becomes primary based on the majority of all servers, only running servers, or none at all.
-
-[**enforce\_read\_only\_servers**](maxscale-monitors/mariadb-monitor.md#enforce_read_only_servers)
-
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
-* Mandatory: No
-* Dynamic: Yes
-* Default: `false`
-* Description: Automatically sets `read_only` on any writable servers that are not the primary and are not under maintenance, ensuring that non-primary servers remain read-only.
-
-[**enforce\_read\_only\_slaves**](maxscale-monitors/mariadb-monitor.md#enforce_read_only_slaves)
-
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
-* Mandatory: No
-* Dynamic: Yes
-* Default: `false`
-* Description: Automatically sets `read_only` flag on writable replica servers, allowing only privileged users to write; the primary server is unaffected.
-
-[**enforce\_writable\_master**](maxscale-monitors/mariadb-monitor.md#enforce_writable_master)
-
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
-* Mandatory: No
-* Dynamic: Yes
-* Default: `false`
-* Description: Ensures that the primary server is always writable by automatically disabling read-only mode during monitoring.
-
-[**external\_replication\_monitor**](maxscale-monitors/mariadb-monitor.md#external_replication_monitor)
-
-* Type: Monitor name
-* Mandatory: No
-* Dynamic: Yes
-* Default: None
-* Description: Names the monitor of an external cluster from which the primary replicates, which enables external replication management.
-
-[**external\_replication\_primary\_role**](maxscale-monitors/mariadb-monitor.md#external_replication_primary_role)
-
-* Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
-* Mandatory: No
-* Dynamic: Yes
-* Values: `primary`, `replica`, `running`
-* Default: `primary`
-* Description: Defines the ordered list of server roles the monitor looks for when selecting the external server to replicate from.
-
-[**failcount**](maxscale-monitors/mariadb-monitor.md#failcount)
-
-* Type: number
-* Mandatory: No
-* Dynamic: Yes
-* Default: `5`
-* Description: Specifies how many consecutive monitor cycles a primary must fail before being considered down and requiring failover or primary reselection.
-
-[**maintenance\_on\_low\_disk\_space**](maxscale-monitors/mariadb-monitor.md#maintenance_on_low_disk_space)
-
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
-* Mandatory: No
-* Dynamic: Yes
-* Default: `true`
-* Description: When disk space is low, non-primary servers are automatically put into maintenance mode, which stops them from being used for sessions or failover unless they are manually removed.
-
-[**master\_conditions**](maxscale-monitors/mariadb-monitor.md#master_conditions)
-
-* Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
-* Mandatory: No
-* Dynamic: Yes
-* Values: `none`, `connecting_slave`, `connected_slave`, `running_slave`, `primary_monitor_master`, `disk_space_ok`
-* Default: `primary_monitor_master, disk_space_ok`
-* Description: Specifies additional requirements for a server to be considered primary, such as the availability of connected or running replicas, sufficient disk space, or agreement with supporting monitors.
-
-[**script\_max\_replication\_lag**](maxscale-monitors/mariadb-monitor.md#script_max_replication_lag)
-
-* Type: number
-* Mandatory: No
-* Dynamic: Yes
-* Default: `-1`
-* Description: Sets a replication lag threshold (in seconds) that executes the monitor script when exceeded (`rlag_above`) or returned below (`rlag_below`); negative values disable this feature.
-
-[**slave\_conditions**](maxscale-monitors/mariadb-monitor.md#slave_conditions)
-
-* Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
-* Mandatory: No
-* Dynamic: Yes
-* Values: `none`, `linked_master`, `running_master`, `writable_master`, `primary_monitor_master`
-* Default: `none`
-* Description: Specifies additional requirements for a server to be identified as a Slave, such as being connected to a running or writable primary; several conditions can be coupled using an `enum` mask.
-
-**Settings for Backup operations**
-
-[**backup\_storage\_address**](maxscale-monitors/mariadb-monitor.md#backup_storage_address)
-
-* Type: string
-* Mandatory: No
-* Dynamic: Yes
-* Default: None
-* Description: Provides the backup storage server's hostname or IP address. The server does not have to run MariaDB or be monitored by MaxScale. MaxScale connects via SSH, and the storage must have enough disk space to accommodate all backups.
-
-[**backup\_storage\_path**](maxscale-monitors/mariadb-monitor.md#backup_storage_path)
-
-* Type: path
-* Mandatory: No
-* Dynamic: Yes
-* Default: None
-* Description: Specifies the path to the backup storage host where backups will be saved. The SSH user specified in `ssh_user` must have full read and write access to this directory.
-
-[**mariadb\_backup\_parallel**](maxscale-monitors/mariadb-monitor.md#mariadb_backup_parallel)
-
-* Type: number
-* Mandatory: No
-* Dynamic: Yes
-* Default: `1`
-* Description: Defines the number of parallel threads to use while running `mariadb-backup`. This value is used as the `--parallel=<val>` for `mariadb-backup --backup`. Increasing this value can accelerate backups on systems with multiple CPUs and fast I/O.
-
-[**mariadb\_backup\_use\_memory**](maxscale-monitors/mariadb-monitor.md#mariadb_backup_use_memory)
-
-* Type: string
-* Mandatory: No
-* Dynamic: Yes
-* Default: `1G`
-* Description: Specifies how much memory `mariadb-backup` should use during the `--prepare` phase. This value is specified with the `--use-memory=<val>`. Setting it to an empty string disables the option and allows `mariadb-backup` to utilize the internal default. Increasing RAM can accelerate backup preparation, especially for large datasets.
-
-[**rebuild\_port**](maxscale-monitors/mariadb-monitor.md#rebuild_port)
-
-* Type: number
-* Mandatory: No
-* Dynamic: Yes
-* Default: `4444`
-* Description: Specifies the TCP port on which the source server will listen for the rebuild (SST) connection during a state transfer. This port must be open (not blocked by firewalls) and free (not in use by another process). If another process uses the port when the rebuild begins, MaxScale will attempt to terminate it to free up the port.
-
-[**ssh\_check\_host\_key**](maxscale-monitors/mariadb-monitor.md#ssh_check_host_key)
-
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
-* Mandatory: No
-* Dynamic: Yes
-* Default: `true`
-* Description: Manages whether MaxScale verifies the SSH host key when connecting to a backend server.  When set to `true`, MaxScale requires that the backend server’s host key is already present in the `known_hosts` file of the user running MaxScale. This ensures the authenticity of the server during SSH connections.
-
-[**ssh\_keyfile**](maxscale-monitors/mariadb-monitor.md#ssh_keyfile)
-
-* Type: path
-* Mandatory: No
-* Dynamic: Yes
-* Default: None
-* Description: Specifies the SSH private key file used by MaxScale to authenticate when connecting to backend servers.
-
-[**ssh\_port**](maxscale-monitors/mariadb-monitor.md#ssh_port)
-
-* Type: number
-* Mandatory: No
-* Dynamic: Yes
-* Default: `22`
-* Description: Uses port for SSH connections when executing remote commands on backend servers.
-
-[**ssh\_timeout**](maxscale-monitors/mariadb-monitor.md#ssh_timeout)
-
-* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
-* Mandatory: No
-* Dynamic: Yes
-* Default: `10s`
-* Description: Specifies the maximum duration allowed for SSH commands during a rebuild before timing out.
-
-[**ssh\_user**](maxscale-monitors/mariadb-monitor.md#ssh_user)
-
-* Type: string
-* Mandatory: No
-* Dynamic: Yes
-* Default: None
-* Description: Specifies the SSH username for logging in to backend servers to execute commands.
-
-**Settings for Cluster manipulation operations**
-
-[**auto\_failover**](maxscale-monitors/mariadb-monitor.md#auto_failover)
+[**auto\_failover**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#auto_failover)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -3333,7 +3157,7 @@ description: >-
 * Default: `false`
 * Description: Enables or disables automated primary failover, which allows MaxScale to select a new primary if the current one fails.
 
-[**auto\_rejoin**](maxscale-monitors/mariadb-monitor.md#auto_rejoin)
+[**auto\_rejoin**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#auto_rejoin)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -3341,7 +3165,32 @@ description: >-
 * Default: `false`
 * Description: Allows automatic redirection of servers to duplicate from the current primary, resulting in a 1-primary-N-replicas architecture.
 
-[**demotion\_sql\_file**](maxscale-monitors/mariadb-monitor.md#demotion_sql_file)
+[**backup\_storage\_address**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#backup_storage_address)
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Description: Provides the backup storage server's hostname or IP address. The server does not have to run MariaDB or be monitored by MaxScale. MaxScale connects via SSH, and the storage must have enough disk space to accommodate all backups.
+
+[**backup\_storage\_path**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#backup_storage_path)
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Description: Specifies the path to the backup storage host where backups will be saved. The SSH user specified in `ssh_user` must have full read and write access to this directory.
+
+[**cooperative\_monitoring\_locks**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#cooperative_monitoring_locks)
+
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `none`, `majority_of_all`, `majority_of_running`
+* Default: `none`
+* Description: Controls how a monitor achieves exclusive locks in multi-MaxScale configurations; decides whether a monitor becomes primary based on the majority of all servers, only running servers, or none at all.
+
+[**demotion\_sql\_file**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#demotion_sql_file)
 
 * Type: string
 * Mandatory: No
@@ -3349,7 +3198,23 @@ description: >-
 * Default: None
 * Description: Specifies a SQL file to execute when a server is downgraded; equivalent to `promotion_sql_file`.
 
-[**enforce\_simple\_topology**](maxscale-monitors/mariadb-monitor.md#enforce_simple_topology)
+[**enforce\_read\_only\_servers**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#enforce_read_only_servers)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `false`
+* Description: Automatically sets `read_only` on any writable servers that are not the primary and are not under maintenance, ensuring that non-primary servers remain read-only.
+
+[**enforce\_read\_only\_slaves**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#enforce_read_only_slaves)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `false`
+* Description: Automatically sets `read_only` flag on writable replica servers, allowing only privileged users to write; the primary server is unaffected.
+
+[**enforce\_simple\_topology**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#enforce_simple_topology)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -3357,7 +3222,40 @@ description: >-
 * Default: `false`
 * Description: Promotes a 1-primary-N-replicas cluster configuration, automatically reconnecting servers and deleting unnecessary replication sources to maintain a simple topology.
 
-[**failover\_timeout**](maxscale-monitors/mariadb-monitor.md#failover_timeout)
+[**enforce\_writable\_master**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#enforce_writable_master)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `false`
+* Description: Ensures that the primary server is always writable by automatically disabling read-only mode during monitoring.
+
+[**external\_replication\_monitor**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#external_replication_monitor)
+
+* Type: Monitor name
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Description: Names the monitor of an external cluster from which the primary replicates, which enables external replication management.
+
+[**external\_replication\_primary\_role**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#external_replication_primary_role)
+
+* Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `primary`, `replica`, `running`
+* Default: `primary`
+* Description: Defines the ordered list of server roles the monitor looks for when selecting the external server to replicate from.
+
+[**failcount**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#failcount)
+
+* Type: number
+* Mandatory: No
+* Dynamic: Yes
+* Default: `5`
+* Description: Specifies how many consecutive monitor cycles a primary must fail before being considered down and requiring failover or primary reselection.
+
+[**failover\_timeout**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#failover_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -3365,7 +3263,7 @@ description: >-
 * Default: `90s`
 * Description: Sets the maximum time a failover operation may take, counted from when the new primary has processed its relay log.
 
-[**handle\_events**](maxscale-monitors/mariadb-monitor.md#handle_events)
+[**handle\_events**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#handle_events)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -3373,7 +3271,7 @@ description: >-
 * Default: `true`
 * Description: Manages whether the monitor tracks and updates scheduled events on servers during offers, demotions, and rejoins.
 
-[**heal\_primary\_truncated\_binlog**](maxscale-monitors/mariadb-monitor.md#heal_primary_truncated_binlog)
+[**heal\_primary\_truncated\_binlog**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#heal_primary_truncated_binlog)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -3381,7 +3279,40 @@ description: >-
 * Default: `false`
 * Description: Allows the monitor to heal a primary that lost transactions during crash recovery by having it replicate them from a more advanced replica.
 
-[**master\_failure\_timeout**](maxscale-monitors/mariadb-monitor.md#master_failure_timeout)
+[**maintenance\_on\_low\_disk\_space**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#maintenance_on_low_disk_space)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `true`
+* Description: When disk space is low, non-primary servers are automatically put into maintenance mode, which stops them from being used for sessions or failover unless they are manually removed.
+
+[**mariadb\_backup\_parallel**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#mariadb_backup_parallel)
+
+* Type: number
+* Mandatory: No
+* Dynamic: Yes
+* Default: `1`
+* Description: Defines the number of parallel threads to use while running `mariadb-backup`. This value is used as the `--parallel=<val>` for `mariadb-backup --backup`. Increasing this value can accelerate backups on systems with multiple CPUs and fast I/O.
+
+[**mariadb\_backup\_use\_memory**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#mariadb_backup_use_memory)
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `1G`
+* Description: Specifies how much memory `mariadb-backup` should use during the `--prepare` phase. This value is specified with the `--use-memory=<val>`. Setting it to an empty string disables the option and allows `mariadb-backup` to utilize the internal default. Increasing RAM can accelerate backup preparation, especially for large datasets.
+
+[**master\_conditions**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#master_conditions)
+
+* Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `none`, `connecting_slave`, `connected_slave`, `running_slave`, `primary_monitor_master`, `disk_space_ok`
+* Default: `primary_monitor_master, disk_space_ok`
+* Description: Specifies additional requirements for a server to be considered primary, such as the availability of connected or running replicas, sufficient disk space, or agreement with supporting monitors.
+
+[**master\_failure\_timeout**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#master_failure_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -3389,7 +3320,7 @@ description: >-
 * Default: `10s`
 * Description: Specifies the duration MaxScale waits before considering a primary server as failed.
 
-[**promotion\_sql\_file**](maxscale-monitors/mariadb-monitor.md#promotion_sql_file)
+[**promotion\_sql\_file**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#promotion_sql_file)
 
 * Type: string
 * Mandatory: No
@@ -3397,7 +3328,15 @@ description: >-
 * Default: None
 * Description: Specifies a file of SQL statements to execute on a server during promotion to primary.
 
-[**replication\_master\_ssl**](maxscale-monitors/mariadb-monitor.md#replication_master_ssl)
+[**rebuild\_port**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#rebuild_port)
+
+* Type: number
+* Mandatory: No
+* Dynamic: Yes
+* Default: `4444`
+* Description: Specifies the TCP port on which the source server will listen for the rebuild (SST) connection during a state transfer. This port must be open (not blocked by firewalls) and free (not in use by another process). If another process uses the port when the rebuild begins, MaxScale will attempt to terminate it to free up the port.
+
+[**replication\_master\_ssl**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#replication_master_ssl)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -3406,7 +3345,7 @@ description: >-
 * Values: `auto`, `off`, `on`
 * Description: Enables SSL encryption for replication by configuring generated replication commands to use secure connections.
 
-[**replication\_password**](maxscale-monitors/mariadb-monitor.md#replication_password)
+[**replication\_password**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#replication_password)
 
 * Type: string
 * Mandatory: No
@@ -3414,7 +3353,7 @@ description: >-
 * Default: None
 * Description: Specifies the password used by the replication user for authentication.
 
-[**replication\_user**](maxscale-monitors/mariadb-monitor.md#replication_user)
+[**replication\_user**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#replication_user)
 
 * Type: string
 * Mandatory: No
@@ -3422,7 +3361,15 @@ description: >-
 * Default: None
 * Description: Specifies the username used for replication authentication when configuring replica connections.
 
-[**servers\_no\_promotion**](maxscale-monitors/mariadb-monitor.md#servers_no_promotion)
+[**script\_max\_replication\_lag**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#script_max_replication_lag)
+
+* Type: number
+* Mandatory: No
+* Dynamic: Yes
+* Default: `-1`
+* Description: Sets a replication lag threshold (in seconds) that executes the monitor script when exceeded (`rlag_above`) or returned below (`rlag_below`); negative values disable this feature.
+
+[**servers\_no\_promotion**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#servers_no_promotion)
 
 * Type: string
 * Mandatory: No
@@ -3430,7 +3377,56 @@ description: >-
 * Default: None
 * Description: Lists servers that are never automatically selected as primary for failover, switchover or primary selection.
 
-[**switchover\_on\_low\_disk\_space**](maxscale-monitors/mariadb-monitor.md#switchover_on_low_disk_space)
+[**slave\_conditions**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#slave_conditions)
+
+* Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `none`, `linked_master`, `running_master`, `writable_master`, `primary_monitor_master`
+* Default: `none`
+* Description: Specifies additional requirements for a server to be identified as a Slave, such as being connected to a running or writable primary; several conditions can be coupled using an `enum` mask.
+
+[**ssh\_check\_host\_key**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#ssh_check_host_key)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `true`
+* Description: Manages whether MaxScale verifies the SSH host key when connecting to a backend server.  When set to `true`, MaxScale requires that the backend server’s host key is already present in the `known_hosts` file of the user running MaxScale. This ensures the authenticity of the server during SSH connections.
+
+[**ssh\_keyfile**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#ssh_keyfile)
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Description: Specifies the SSH private key file used by MaxScale to authenticate when connecting to backend servers.
+
+[**ssh\_port**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#ssh_port)
+
+* Type: number
+* Mandatory: No
+* Dynamic: Yes
+* Default: `22`
+* Description: Uses port for SSH connections when executing remote commands on backend servers.
+
+[**ssh\_timeout**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#ssh_timeout)
+
+* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `10s`
+* Description: Specifies the maximum duration allowed for SSH commands during a rebuild before timing out.
+
+[**ssh\_user**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#ssh_user)
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Description: Specifies the SSH username for logging in to backend servers to execute commands.
+
+[**switchover\_on\_low\_disk\_space**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#switchover_on_low_disk_space)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -3438,7 +3434,7 @@ description: >-
 * Default: `false`
 * Description: Enables automatic switchover of a primary server that is low on disk space to a replica without disk space issues.
 
-[**switchover\_timeout**](maxscale-monitors/mariadb-monitor.md#switchover_timeout)
+[**switchover\_timeout**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#switchover_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -3446,7 +3442,7 @@ description: >-
 * Default: `90s`
 * Description: Defines the maximum time allowed for switchover and rejoin operations before timing out.
 
-[**switchover\_wait\_for\_trx**](maxscale-monitors/mariadb-monitor.md#switchover_wait_for_trx)
+[**switchover\_wait\_for\_trx**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#switchover_wait_for_trx)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -3454,7 +3450,7 @@ description: >-
 * Default: `true`
 * Description: Controls whether switchover waits for open transactions to finish before proceeding.
 
-[**verify\_master\_failure**](maxscale-monitors/mariadb-monitor.md#verify_master_failure)
+[**verify\_master\_failure**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#verify_master_failure)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -3462,9 +3458,7 @@ description: >-
 * Default: `true`
 * Description: Enables verification of primary server failure using replica status before triggering automatic failover.
 
-**Settings for Primary server write test**
-
-[**write\_test\_fail\_action**](maxscale-monitors/mariadb-monitor.md#write_test_fail_action)
+[**write\_test\_fail\_action**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#write_test_fail_action)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Default: `log`
@@ -3472,14 +3466,14 @@ description: >-
 * Dynamic: Yes
 * Description: Defines the action to consider when the primary fails a write text, either logging the failure or triggering a failover.
 
-[**write\_test\_interval**](maxscale-monitors/mariadb-monitor.md#write_test_interval)
+[**write\_test\_interval**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#write_test_interval)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Dynamic: Yes
 * Default: 0s
 * Description: Sets the interval after which a write test is performed on the primary if no changes are detected.
 
-[**write\_test\_table**](maxscale-monitors/mariadb-monitor.md#write_test_table)
+[**write\_test\_table**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#write_test_table)
 
 * Type: string
 * Dynamic: Yes

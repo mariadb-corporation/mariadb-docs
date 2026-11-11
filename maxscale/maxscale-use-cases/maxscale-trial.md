@@ -140,7 +140,7 @@ Creating the monitor user is more complicated, because the required GRANTs depen
 both on what monitor is used and on the exact server version. The GRANTs needed
 by the MariaDB Monitor, used for monitoring a regular MariaDB primary/replica
 cluster can be found
-[here](../reference/maxscale-monitors/mariadb-monitor.md#required-grants),
+[here](../reference/maxscale-monitors/mariadb-monitor/README.md#required-grants),
 but for initial testing the user can be given blanket rights:
 
 ```sql

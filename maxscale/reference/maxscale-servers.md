@@ -64,7 +64,7 @@ The absolute path to a UNIX domain socket the MariaDB server is listening on.
 * Default: `""`
 * Description: An alternate hostname or IP address is used for internal communications.
 
-Alternative IP-address or hostname for the server. This is only used by MariaDB Monitor to detect and set up replication. See [MariaDB Monitor documentation](maxscale-monitors/mariadb-monitor.md) for more information.
+Alternative IP-address or hostname for the server. This is only used by MariaDB Monitor to detect and set up replication. See [MariaDB Monitor documentation](maxscale-monitors/mariadb-monitor/README.md) for more information.
 
 ### `monitoruser`
 
@@ -302,7 +302,7 @@ The main use-case of this setting is to enable static roles for servers that hav
 
 Server-specific custom string added to "CHANGE MASTER TO"-commands sent by MariaDB Monitor. Overrides `replication_custom_options` setting set in the monitor. This setting affects the server where the command is ran at, not the source of the replication. That is, if monitor sends a "CHANGE MASTER TO"- command to server A telling it to replicate from server B, the setting value from MaxScale configuration for server A would be used.
 
-See [MariaDB Monitor documentation](maxscale-monitors/mariadb-monitor.md#replication_custom_options) for more information.
+See [MariaDB Monitor documentation](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#replication_custom_options) for more information.
 
 ### `use_service_credentials`
 
