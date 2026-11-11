@@ -62,8 +62,12 @@ LAYOUT (as create_CS_RN_doc_v2() writes it)
     that section comes first. "Platform Debian" and its siblings go under
     "### Platforms" as "#### Debian" and so on. "Plugin - pam" and its
     siblings go under "### Plugins" as "#### pam Plugin", after the items of
-    the general Plugins component (Daniel, 2026-11-11). Platforms and Plugins
-    sort into place among the other sections.
+    the general Plugins component (Daniel, 2026-11-11). "Data Definition -
+    Alter Table", "Data Manipulation - Insert", and "Optimizer - CTE" and
+    their siblings nest the same way, under "### Data Definition", "### Data
+    Manipulation", and "### Optimizer", as "#### Alter Table" and so on. The
+    general Optimizer items come first in their section. These parents sort
+    into place among the other sections.
 
     The page around the list is the previous release's page (--template): its
     header up to "## Notable Items" and its "## Changelog" footer, with the
@@ -156,6 +160,9 @@ SE = 'Storage Engine - '
 # Component families that nest under one parent section: (parent heading, component prefix,
 # subsection heading, the family's general component whose items come first, if any).
 NESTED = [('Storage Engines', SE, '{} Storage Engine', None),
+          ('Data Definition', 'Data Definition - ', '{}', None),
+          ('Data Manipulation', 'Data Manipulation - ', '{}', None),
+          ('Optimizer', 'Optimizer - ', '{}', 'Optimizer'),
           ('Platforms', 'Platform ', '{}', None),
           ('Plugins', 'Plugin - ', '{} Plugin', 'Plugins')]
 TESTS = {'Tests, MTR', 'CI'}
