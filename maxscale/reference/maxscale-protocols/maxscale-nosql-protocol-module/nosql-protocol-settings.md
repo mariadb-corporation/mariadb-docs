@@ -177,7 +177,7 @@ Specifies the length of the id column in tables that are automatically created.
 * Default: ''
 * Description: Specifies the internal cache to use. Only the `cache` filter is supported. 
 
-Specifies what internal cache to use if any. The only permissible value is `cache`, which refers to the [cache filter](../../maxscale-filters/maxscale-cache.md).
+Specifies what internal cache to use if any. The only permissible value is `cache`, which refers to the [cache filter](../../maxscale-filters/maxscale-cache/README.md).
 
 Please see [caching](README.md#caching) for more information.
 

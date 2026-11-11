@@ -95,7 +95,7 @@ no server is designated primary, so at least one MaxScale must be active.
   [kafkacdc](../../../reference/maxscale-routers/maxscale-kafkacdc.md) router
   instead.
 * Memcached is no longer supported as storage for the
-  [cache](../../../reference/maxscale-filters/maxscale-cache.md).
+  [cache](../../../reference/maxscale-filters/maxscale-cache/README.md).
 
 ## Upgrading MariaDB MaxScale from 25.01 to 25.10
 
