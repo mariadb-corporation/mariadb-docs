@@ -60,7 +60,7 @@ It is possible to resize your storage after having provisioned a `MariaDB`. We n
 * PVCs already in use.
 * `StatefulSet` storage size, which will be used when provisioning new replicas.
 
-It is important to note that, for the first case, your `StorageClass` must support volume expansion by declaring the `allowVolumeExpansion = true`. In such case, it will be safe to expand the storage by increasing the `size` and setting `resizeInUseVolumes = true`:
+It is important to note that, for the first case, your `StorageClass` must support volume expansion by declaring the `allowVolumeExpansion = true`. In such case, it will be safe to expand the storage by increasing the `size`. The `resizeInUseVolumes` and `waitForVolumeResize` fields both default to `true`, so you don't need to set them:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -70,11 +70,45 @@ metadata:
 spec:
   storage:
     size: 2Gi
-    resizeInUseVolumes: true
-    waitForVolumeResize: true
+    resizeInUseVolumes: true # default
+    waitForVolumeResize: true # default
 ```
 
-Depending on your storage provider, this operation might take a while, and you can decide to wait for this operation before the `MariaDB` becomes ready by setting `waitForVolumeResize = true`. Operations such as [Galera cluster recovery](./topologies/galera.md#galera-cluster-recovery) and [primary switchover](./topologies/replication.md#primary-switchover) will not be performed if the `MariaDB` resource is not ready.
+Depending on your storage provider, this operation might take a while. With `waitForVolumeResize = true` (the default), the operator waits until the PVCs have been resized before the `MariaDB` becomes ready again. While the resize is in progress, the `MariaDB` isn't ready, so operations such as [Galera cluster recovery](./topologies/galera.md#galera-cluster-recovery) and [primary switchover](./topologies/replication.md#primary-switchover) aren't performed, and no [physical backups](./backup-and-restore/physical_backup.md#scheduling) are scheduled. Set `waitForVolumeResize = false` if you don't want to wait for the PVCs.
+
+Set `resizeInUseVolumes = false` to leave the existing PVCs as they are. The new `size` then only applies to the `StatefulSet`, and so to PVCs created for new replicas.
+
+## Storage constraints
+
+The operator's validating webhook enforces these rules:
+
+* The storage `size` can only be increased. A smaller `size` is rejected with `Storage size cannot be decreased`.
+* `storageClassName` can't be changed after the `MariaDB` has been created.
+* Ephemeral storage only works for standalone `MariaDBs`, without replication or Galera. It can't be combined with `size` or `volumeClaimTemplate`, and it can't be turned on or off after the `MariaDB` has been created.
+
+When the operator is installed in [single namespace](./installation/helm.md#single-namespace) mode, there's no validating webhook, so these rules aren't checked when you apply a change.
+
+## PVC retention policy
+
+By default, the PVCs of a `MariaDB` are kept when the `MariaDB` is deleted or scaled down, and you have to delete them yourself. Use `pvcRetentionPolicy` to change that, for example to delete the PVCs together with the `MariaDB`:
+
+```yaml
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: mariadb-galera
+spec:
+  storage:
+    size: 1Gi
+    pvcRetentionPolicy:
+      whenDeleted: Delete
+      whenScaled: Retain
+```
+
+* `whenDeleted`: What happens to the PVCs when the `MariaDB` is deleted.
+* `whenScaled`: What happens to the PVCs of the removed `Pods` when the `MariaDB` is scaled down.
+
+Both accept `Retain` and `Delete`. The operator passes the policy to the `StatefulSet` as its [`persistentVolumeClaimRetentionPolicy`](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-retention). It's only applied on Kubernetes 1.32 or later; on older versions, the operator ignores the field.
 
 ## Ephemeral storage
 

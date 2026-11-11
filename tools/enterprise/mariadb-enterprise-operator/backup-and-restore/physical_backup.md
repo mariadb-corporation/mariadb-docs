@@ -92,7 +92,17 @@ spec:
 - `onDemand`: Schedule identifier for triggering an on-demand backup. If the identifier is different from the one tracked under `status.lastScheduleOnDemand`, a new physical backup is triggered.
 - `onPrimaryChange`: By setting it to `true`, it schedules a new backup after the  primary `Pod` in the referred `MariaDB` instance is changed. This is particularly useful for [point-in-time recovery](./pitr.md#full-base-backup).
 
-It is very important to note that, by default, backups are only scheduled if the referred `MariaDB` resource is in ready state. You can override this behavior by setting `mariaDbRef.waitForIt=false` which allows backups to be scheduled even if the `MariaDB` resource is not ready.
+It is very important to note that, by default, backups are only scheduled if the referred `MariaDB` resource is in ready state. Setting `mariaDbRef.waitForIt=false` skips this readiness check, so backups can be scheduled even if the `MariaDB` resource is not ready.
+
+`waitForIt=false` only skips the readiness check. Whatever its value, the operator doesn't schedule a backup while the `MariaDB`:
+
+- is suspended
+- is restoring a backup or initializing
+- is switching over its primary
+- is being updated, or has an update pending
+- is resizing its storage
+- has a Galera cluster that isn't ready
+- is replaying binary logs, or has a binary log replay pending
 
 ## Compression
 
@@ -186,6 +196,8 @@ spec:
   # [...]
 ```
 
+If you don't set `maxRetention`, it defaults to `720h` (30 days), so backups older than 30 days are deleted.
+
 When using physical backups based on `mariadb-backup`, the operator will automatically delete backups files in the specified storage older than the retention period. The cleanup process will be performed after each successful backup.
 
 When using `VolumeSnapshots`, the operator will automatically delete the `VolumeSnapshot` resources older than the retention period using the Kubernetes API. The cleanup process will be performed after a `VolumeSnapshot` is successfully created.
@@ -209,14 +221,26 @@ spec:
 ```
 
 The following target policies are available:
-- `Replica`: The backup will be taken in a ready replica. If no ready replicas are available, the backup will not be scheduled.
+- `Replica` (default): The backup will be taken in a ready replica. With replication, the replica must also be replicating without errors. If no such replica is available, the backup will not be scheduled.
 - `PreferReplica`: The backup will be taken in a ready replica if available, otherwise it will be taken in the primary `Pod`.
+
+The target policy only applies to `MariaDB` resources with replication or Galera. A single-instance `MariaDB` has no replicas, so its backups are always taken in its only `Pod`, whatever `target` is set to.
 
 When using the `PreferReplica` target policy, you may be willing to schedule the backups even if the `MariaDB` resource is not ready. In this case, you can set `mariaDbRef.waitForIt=false` to allow scheduling the backup even if no replicas are available.
 
 ## Restoration
 
 Physical backups can only be restored in brand new `MariaDB` instances without any existing data. This means that you cannot restore a physical backup into an existing `MariaDB` instance that already has data.
+
+This also applies to storage left behind by a deleted `MariaDB`. If the storage PVCs of an earlier `MariaDB` with the same name still exist, the restoration doesn't start. The `MariaDB` reports an init error, and the operator emits a `MariaDBInitError` event and keeps retrying:
+
+```bash
+kubectl get events --field-selector involvedObject.name=mariadb-galera
+LAST SEEN   TYPE      REASON             OBJECT                   MESSAGE
+10s         Warning   MariaDBInitError   mariadb/mariadb-galera   Unable to init MariaDB: storage PVCs already exist
+```
+
+Delete the old storage PVCs, then the restoration proceeds. To have the PVCs deleted together with a `MariaDB`, see [PVC retention policy](../storage.md#pvc-retention-policy).
 
 To perform a restoration, you can specify a `PhysicalBackup` as restoration source under the `spec.bootstrapFrom` field in the `MariaDB` resource:
 
@@ -267,6 +291,33 @@ spec:
 
 It is important to note that the `backupContentType` field must be set to `Physical` when restoring from a physical backup. This ensures that the operator uses the correct restoration method.
 
+Similarly, you can restore from an Azure Blob Storage container that was previously used to store the physical backup files. The `azureBlob` fields are the same as in the [`PhysicalBackup` storage](#azure-blob-storage-credentials):
+
+```yaml
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: mariadb-galera
+spec:
+  bootstrapFrom:
+    azureBlob:
+      containerName: physicalbackup
+      serviceURL: https://examplestorageaccount.blob.core.windows.net
+      prefix: mariadb
+      storageAccountName: examplestorageaccount
+      storageAccountKey:
+        name: azurite-key
+        key: storageAccountKey
+      tls:
+        enabled: true
+        caSecretKeyRef:
+          name: azurite-certs
+          key: cert.pem
+    backupContentType: Physical
+  storage:
+    size: 1Gi
+```
+
 To restore a `VolumeSnapshot`, you can provide a reference to a specific `VolumeSnapshot` resource in the `spec.bootstrapFrom` field:
 
 ```yaml
@@ -294,10 +345,20 @@ metadata:
 spec:
   # [...]
   bootstrapFrom:
+    backupRef:
+      name: physicalbackup
+      kind: PhysicalBackup
     targetRecoveryTime: 2025-06-17T08:07:00Z
   # [...]
 ```
 Only backups strictly before or at `targetRecoveryTime` will be matched.
+
+`targetRecoveryTime` selects a backup from a restoration source, so `bootstrapFrom` must always name one. These rules apply to `bootstrapFrom`:
+
+- It must have a source: `backupRef`, `volumeSnapshotRef`, `pointInTimeRecoveryRef`, `s3`, `azureBlob` or `volume`.
+- `volumeSnapshotRef` can't be combined with `s3`, `volume` or `restoreJob`.
+- `pointInTimeRecoveryRef` can't be combined with `backupRef` or `volumeSnapshotRef`.
+- `backupContentType` is inferred from `backupRef.kind` (`Backup` means `Logical`, `PhysicalBackup` means `Physical`), and is `Physical` for `volumeSnapshotRef`. For any other source it defaults to `Logical`, so set `backupContentType: Physical` when you restore a physical backup from `s3` or `azureBlob`. A `backupContentType` that contradicts `backupRef.kind` or `volumeSnapshotRef` is rejected.
 
 ## Timeout
 
@@ -453,7 +514,9 @@ By leaving out the `accessKeyIdSecretKeyRef` and `secretAccessKeySecretKeyRef` c
 ## Staging area
 
 {% hint style="info" %}
-S3 backups based on `mariadb-backup` are the only scenario that requires a staging area.
+Backups based on `mariadb-backup` use a staging area when they're stored in S3 or in Azure Blob Storage. Only S3 backups let you configure it with `stagingStorage`: the operator rejects `stagingStorage` in a `PhysicalBackup` that doesn't use S3. Azure Blob Storage backups always stage to an `emptyDir` volume on the node where the backup `Job` runs, so make sure that the nodes have enough ephemeral storage for your largest backup.
+
+When restoring, `bootstrapFrom.stagingStorage` works for both S3 and Azure Blob Storage.
 {% endhint %}
 
 When using S3 storage for backups, a staging area is used for keeping the external backups while they are being processed. By default, this staging area is an `emptyDir` volume, which means that the backups are temporarily stored in the node's local storage where the `PhysicalBackup` `Job` is scheduled. In production environments, large backups may lead to issues if the node doesn't have sufficient space, potentially causing the backup/restore process to fail.
@@ -548,11 +611,11 @@ In the examples above, a PVC with the default `StorageClass` will be provisioned
 
 The operator is capable of creating [`VolumeSnapshot` resources](https://kubernetes.io/docs/concepts/storage/volume-snapshots/) of the PVCs used by the `MariaDB` `Pods`. This allows you to create point-in-time snapshots of your data in a Kubernetes-native way, leveraging the capabilities of your storage provider.
 
-Most of the fields described in this documentation apply to `VolumeSnapshots`, including scheduling, retention policy, and compression. The main difference with the `mariadb-backup` based backups is that the operator will not create a `Job` to perform the backup, but instead it will create a `VolumeSnapshot` resource directly.
+The scheduling, [retention policy](#retention-policy) (`maxRetention`), [timeout](#timeout) and [target policy](#target-policy) fields apply to `VolumeSnapshots` too. The fields that configure the backup `Job` don't, because no `Job` is created: compression, `stagingStorage`, extra `args`, `successfulJobsHistoryLimit` and `failedJobsHistoryLimit`. The main difference with the `mariadb-backup` based backups is that the operator will not create a `Job` to perform the backup, but instead it will create a `VolumeSnapshot` resource directly.
 
 In order to create consistent, point-in-time snapshots of the `MariaDB` data, the operator will perform the following steps:
-1. Execute a `BACKUP STAGE START` statement followed by `BACKUP STAGE BLOCK_COMMIT` in one of the secondary `Pods`.
-2. Create a `VolumeSnapshot` resource of the data PVC mounted by the `MariaDB` secondary `Pod`.
+1. Execute a `BACKUP STAGE START` statement followed by `BACKUP STAGE BLOCK_COMMIT` in the target `Pod`, which is chosen by the [target policy](#target-policy).
+2. Create a `VolumeSnapshot` resource of the data PVC mounted by the target `Pod`.
 3. Wait until the `VolumeSnapshot` is provisioned by the storage system. When timing out, the operator will delete the `VolumeSnapshot` resource and retry the operation.
 4. Issue a `BACKUP STAGE END` statement.
 
@@ -599,7 +662,7 @@ Alternatively, if you want to keep using the `ReadWriteOncePod` access mode, you
 
 ### `PhysicalBackup` `Jobs` scheduling
 
-`PhysicalBackup` `Jobs` must mount the data PVC used by one of the secondary `MariaDB` `Pods`. To avoid scheduling issues caused by the commonly used `ReadWriteOnce` access mode, the operator schedules backup `Jobs` on the same node as `MariaDB` by default.
+`PhysicalBackup` `Jobs` must mount the data PVC used by the target `MariaDB` `Pod`, which is chosen by the [target policy](#target-policy). To avoid scheduling issues caused by the commonly used `ReadWriteOnce` access mode, the operator schedules backup `Jobs` on the same node as `MariaDB` by default.
 
 If you prefer to disable this behavior and allow `Jobs` to run on any node, you can set `podAffinity=false`:
 

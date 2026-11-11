@@ -366,6 +366,7 @@ The binary logs that exceed the defined retention will be automatically deleted 
 By default, binary logs are never purged from object storage, and there are few considerations regarding configuring a retention policy:
 - The date of the last event in the binary logs is used to determine its age, and therefore whether it should be purged or not.
 - The `maxRetention` field should not be set to a value lower than the `archiveInterval`, as it can lead to situations where binary logs are purged before they can be archived.
+- `maxRetention` is immutable, like [compression](#compression): it can't be added, changed or removed after the `PointInTimeRecovery` has been created. To change it, delete the `PointInTimeRecovery` and create a new one. If you also change `compression`, have the new `PointInTimeRecovery` archive to an empty bucket or prefix, because the binary logs already archived keep their old compression.
 
 ## Binlog inventory
 
@@ -620,6 +621,10 @@ pitr   physicalbackup-daily   2026-02-27T20:10:42Z    false         43h
 ```
 
 After setting `strictMode=false`, if we attempt to create the same `MariaDB` instance as before, it will be successfully provisioned, but with a recovery time of `2026-02-27T20:10:42Z` will be used instead of the requested `2026-02-28T20:10:42Z`.
+
+{% hint style="warning" %}
+With strict mode disabled, if no binary logs are available for the restoration at all, the operator restores only the base backup and replays no binary logs. The `MariaDB` is provisioned without an error. Its `BinlogsReplayed` condition is `True`, with the reason `ReplayBinlogsSkipped` and the message `Replay binlogs skipped`. Check for this reason after a non-strict restoration, and use `strictMode: true` for production recoveries, so that a restoration that can't reach the target time fails instead.
+{% endhint %}
 
 It is important to note that the last recoverable time is stored in the status field of the `PointInTimeRecovery` object, therefore if this object is deleted and recreated, the last recoverable time metadata will be lost, and it will not be available until recomputed. When it comes to restore, this implies that the error will be returned later in the process, when computing the binary log timeline, but the strict mode behaviour still applies. This is the error returned for that scenario:
 
