@@ -197,6 +197,30 @@ _GridGainRouter_ communicates with GridGain using ODBC, so an ODBC driver
 for GridGain is needed. The router has been verified using the Apache Ignite
 ODBC driver.
 
+## Loss of the Connection
+
+{% hint style="info" %}
+This functionality is available from MaxScale 26.10.1.
+{% endhint %}
+
+If the connection to GridGain is lost, for instance because GridGain is
+restarted, the session is closed. The client first gets the error of the
+statement that failed. If the connection is lost while a large result set
+is being sent, the client may instead only notice that the connection is
+closed. That is, the session behaves as a connection to a MariaDB server
+that goes away.
+
+A `COM_PING` is sent to GridGain as the statement `SELECT 1`. If that
+fails, the session is closed without a response, as a server that cannot
+be reached does not answer a ping either.
+
+If _GridGainRouter_ is used via [SmartRouter](maxscale-smartrouter.md) and
+GridGain is not the primary, a lost connection to GridGain does not close
+the session of SmartRouter. It continues using its other targets, and
+reconnects to GridGain the next time a query is to be sent to it. If
+GridGain is then still not available, the session may be closed. If
+GridGain is the primary, the session is closed.
+
 ## Examples
 
 ### Stand-Alone
