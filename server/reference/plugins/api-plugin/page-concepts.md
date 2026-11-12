@@ -64,3 +64,6 @@ The status variables also have a declared data type.
 
 **See also**: [Plugin API Implementation](page-implementation.md) on how the above concepts are implemented.
 
+<sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

@@ -7391,3 +7391,6 @@ Defined in psi/psi_memory.h:78
 
 The flags of the socket instrument to register. **See also**: [PSI_FLAG_GLOBAL](Instrumentation_interface.md#psi_flag_global)
 
+<sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

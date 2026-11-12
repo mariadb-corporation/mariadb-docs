@@ -17,6 +17,16 @@ These events are fired every time a client connects to the cluster, or disconnec
 | CLIENT_CONNECTION_ESTABLISHED | Connection with the client established. Connection info contains information about the client. |
 | CLIENT_CONNECTION_CLOSED | Connection with the client closed. Connection info contains information about the client. |
 
+### Connection Event Structure
+
+Each connection event has the following fields:
+
+| Field Name | Description |
+| --- | --- |
+| connectionId | ID of the client connection. |
+| remoteAddress | Address the client connected from. |
+| clientUserAgent | Type and version of the client, in the `GridGain-<client>/<version>` format, for example `GridGain-Java/9.1.29`. Values longer than 80 characters are truncated, and control characters are replaced with `?`. The field is omitted if the client does not send this information. |
+
 ## Authentication Events
 
 These events are fired when the user performs an action that requires authentication.

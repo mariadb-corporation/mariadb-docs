@@ -42,3 +42,6 @@ A set of services provided by the server to plugins. **See also**: [Plugin Servi
 | [`THD Timezone Service`](plugin_api_service_thd_timezone.md) | THD timezone handling for plugin(s) |
 | [`THD Wait Service`](plugin_api_service_thd_wait.md) | This service provides functions for plugins and storage engines to report when they are going to sleep/stall. |
 
+<sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

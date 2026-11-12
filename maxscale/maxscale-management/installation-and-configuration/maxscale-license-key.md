@@ -42,15 +42,15 @@ Do these steps before you install the license key:
 2. Sign in with your MariaDB ID. If you do not have an account, create one with your email
    address or with your Google, GitHub, or LinkedIn account.
 3. On the **License Products** page, select the **Enterprise** tab. On the card for your
-   subscription, click **View License Keys**. If the card shows **Generate Key** instead, click it
-   first. One key covers all the products in your subscription.
-4. In the list of license keys, click **Copy** or **Download** next to the key. You add it to the
+   subscription, click **View License Keys**. MariaDB issues the key under your support contract,
+   so it is already there. One key covers all the products in your subscription.
+4. In the list of license keys, reveal, copy, or download the key. You add it to the
    configuration file in
    [Install the Key](#install-the-key).
 
 {% hint style="info" %}
-If you do not see a card for your subscription, contact
-[MariaDB](https://mariadb.com/maxscale-contact/). MariaDB then sends you the key directly.
+If the **Enterprise** tab shows **No Enterprise Licenses**, or you need a new key, contact
+[success@mariadb.com](mailto:success@mariadb.com).
 {% endhint %}
 
 ## Install the Key
@@ -165,8 +165,9 @@ enable_feedback=false
   `The license has expired, please contact MariaDB: https://mariadb.com/maxscale-contact/`
   and stops.
 
-To renew the license, generate a new key in the
-[MariaDB License Portal](https://customers.mariadb.com/license/). Then install the new key as
+To renew the license, request a new key from
+[success@mariadb.com](mailto:success@mariadb.com), and then copy it from the
+[MariaDB License Portal](https://customers.mariadb.com/license/). Install the new key as
 described in [Install the Key](#install-the-key), or
 [change it on the running MaxScale](#change-the-key-on-a-running-maxscale).
 
@@ -181,13 +182,13 @@ sudo cat /var/log/maxscale/maxscale.log
 | Log message | Cause and action |
 | ----------- | ---------------- |
 | `Invalid license key.` | MaxScale cannot parse the key, or MariaDB did not sign it. Usually, the key was not copied completely. Copy the full key again. |
-| `License key is not valid.` | The signature or the issuer of the key is not correct, for example because the key was changed after MariaDB issued it. MaxScale then also logs `Invalid license key.` Copy the full key again, or generate a new key. |
+| `License key is not valid.` | The signature or the issuer of the key is not correct, for example because the key was changed after MariaDB issued it. MaxScale then also logs `Invalid license key.` Copy the full key again from the License Portal. |
 | `Invalid license key. If the license key refers to a file, use an absolute path and make sure the file exists.` | The value of `license_key` contains a `/`, but MaxScale cannot use it as a file. The path is relative, or the file does not exist. Use the absolute path to a file that exists. |
 | `Invalid license key file: <error>` | MaxScale cannot read the license key file. Make sure that the `maxscale` user can read the file. |
-| `The MaxScale license period of <duration> has ended. Please renew your MaxScale license: https://mariadb.com/maxscale-contact/` | The license has expired. Generate a new key. |
+| `The MaxScale license period of <duration> has ended. Please renew your MaxScale license: https://mariadb.com/maxscale-contact/` | The license has expired. Request a new key from success@mariadb.com. |
 | `The MaxScale license is not yet valid. Validity starts after <duration>.` | The start date of the license is in the future, or the clock of the host is wrong. Wait until the start date, or correct the clock. |
 | `License key does not have any valid entitlements for MaxScale.` | The license is valid, but it is not for MaxScale. Contact MariaDB. |
-| `License key contains only expired entitlements for MaxScale.` | The license was for MaxScale, but the MaxScale entitlement has expired. Generate a new key. |
+| `License key contains only expired entitlements for MaxScale.` | The license was for MaxScale, but the MaxScale entitlement has expired. Request a new key from success@mariadb.com. |
 | `The license key has no entitlements.` | The key is valid, but it does not give access to any product. Contact MariaDB. |
 
 ## See Also

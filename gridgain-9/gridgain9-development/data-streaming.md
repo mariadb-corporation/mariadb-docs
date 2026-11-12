@@ -238,6 +238,12 @@ The GridGain 9 streaming API supports advanced streaming scenarios by allowing y
 With a receiver, you can stream data in any format, as it is schema-agnostic.
 The receiver also has access to the full GridGain 9 API through the [`DataStreamerReceiverContext`](https://gridgain.com/sdk/gridgain9/latest/javadoc/org/apache/ignite/table/DataStreamerReceiverContext.html).
 
+The data streamer groups items by partition and runs the receiver on the node that holds the primary replica of that partition. To get the partition of the items in the current page, call `DataStreamerReceiverContext.partition()` in Java or read `IDataStreamerReceiverContext.Partition` in .NET.
+
+{% hint style="warning" %}
+During a rolling upgrade, a receiver sent by a node that runs an older version has no partition information. In this case, `partition()` throws `IllegalStateException` in Java, and `Partition` throws `InvalidOperationException` in .NET.
+{% endhint %}
+
 The data streamer controls data flow by requesting items only when partition buffers have space. `DataStreamerOptions.perPartitionParallelOperations` controls how many buffers can be allocated per partition. When buffers are full, the streamer stops requesting more data until some items are processed.
 Additionally, if a `resultSubscriber` is specified, it also applies backpressure on the streamer. If the subscriber is slow at consuming results, the streamer reduces its request rate from the publisher accordingly.
 

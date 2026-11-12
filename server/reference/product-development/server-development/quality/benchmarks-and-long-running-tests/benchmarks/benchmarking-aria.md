@@ -2,9 +2,10 @@
 
 We have not yet had time to benchmark [Aria](../../../../../../server-usage/storage-engines/aria/) properly. Here follows some things that have been discussed on the [maria-discuss](https://launchpad.net/~maria-discuss) email list.
 
-## Aria used for internal temporary tables
+## Aria Used for Internal Temporary Tables
 
-By default Aria (instead of MyISAM) is used for the internal temporary tables when MEMORY tables overflows to disk or MEMORY tables can't be used (for example when you are using temporary results with BLOB's).\
+By default Aria (instead of MyISAM) is used for the internal temporary tables when MEMORY tables overflow to disk or MEMORY tables can't be used (for example, before MariaDB 13.2, when you are using temporary results with BLOBs).
+
 In most cases Aria should give you better performance than using MyISAM, but this is not always the case.
 
 ```

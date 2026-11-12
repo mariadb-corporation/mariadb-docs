@@ -3478,7 +3478,7 @@ Connection based load balancing:
 
 Read/Write aware statement based router:
 
-* [ReadWriteSplit](../../../reference/maxscale-routers/maxscale-readwritesplit.md)
+* [ReadWriteSplit](../../../reference/maxscale-routers/maxscale-readwritesplit/README.md)
 
 Simple sharding on database level:
 

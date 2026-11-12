@@ -383,7 +383,7 @@ Reviews for [replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-
 
 * Google
 
-Table level [encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption), [plugin for secure encryption](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/mariadb-enterprise-server-differences/mariadb-enterprise-server-data-at-rest-encryption/encryption-plugins)
+Table level [encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption), [plugin for secure encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility/mariadb-enterprise-server-differences/mariadb-enterprise-server-data-at-rest-encryption/encryption-plugins)
 
 * [Eperi GmbH](https://eperi.de/)
 
@@ -563,13 +563,13 @@ Declaring many CHARSET objects as const.
 
 The [OQGRAPH](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/oqgraph-storage-engine/installing-oqgraph) storage engine
 
-* [doc](https://openquery.com/graph/doc)
+* [doc](https://web.archive.org/web/20130706034838/http://openquery.com/graph/doc)
 * Created by Arjen Lenz, Open Query
 * License GPL
 
 The [Sphinx](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/sphinx-storage-engine) storage engine
 
-* [current.html](https://sphinxsearch.com/docs/current.html)
+* [current.html](https://web.archive.org/web/20261102011335/http://www.sphinxsearch.com/docs/current.html)
 * Created by Andrew Aksyonoff.
 * License: GPL
 

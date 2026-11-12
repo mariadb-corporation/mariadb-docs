@@ -105,7 +105,7 @@ For more details on configuring jobs refer to the corresponding [API](https://ww
 The `JobExecutionContext` object contains the information about the deployment units the job is using as a collection of `DeploymentUnitInfo` for each deployment unit involved in the job.
 
 - `deploymentUnits()` - the collection of `DeploymentUnitInfo` objects for the deployment units the job is using.
-- `partition()` - the partition this job instance is bound to (non-null only when the job was submitted via `BroadcastJobTarget.table()`).
+- `partition()` - the partition this job instance is bound to (non-null only when the job was submitted via `BroadcastJobTarget.table()`). In .NET jobs, use the `IJobExecutionContext.Partition` property, which is non-null only when the job was submitted via `BroadcastJobTarget.Table()`.
 - `cancellationToken()` - a `CancellationToken` that is canceled when the job itself is canceled. Pass it to SQL queries or to nested compute jobs to propagate cancellation downstream (see [Propagating Cancellation From a Job](#propagating-cancellation-from-a-job)).
 - `isCancelled()` - flag that becomes `true` once the job has been canceled.
 
@@ -211,7 +211,7 @@ To execute the compute task on multiple nodes, you use the same methods as for s
 The `BroadcastJobTarget` object can specify the following:
 
 - `BroadcastJobTarget.nodes()` - the job will be executed on all nodes in the list.
-- `BroadcastJobTarget.table()` - the job will be executed on all nodes that hold partitions of the specified table.
+- `BroadcastJobTarget.table()` - one job instance is executed for every partition of the specified table, on the node that holds the primary replica of that partition. In .NET, use `BroadcastJobTarget.Table()`, which accepts a `QualifiedName` or a table name string.
 
 You can control what nodes the task is executed on by setting the list of nodes:
 
@@ -246,6 +246,15 @@ foreach (IJobExecution<string> jobExecution in execution.JobExecutions)
   string jobResult = await jobExecution.GetResultAsync();
   Console.WriteLine($"Job result from node {jobExecution.Node}: {jobResult}");
 }
+```
+
+To run one job instance for every partition of a table, use `BroadcastJobTarget.Table()`:
+
+```csharp
+IBroadcastExecution<string> tableExecution = await compute.SubmitBroadcastAsync(
+  BroadcastJobTarget.Table("Person"),
+  new JobDescriptor<object, string>("org.example.NodeNameJob"),
+  arg: "Hello");
 ```
 {% endtab %}
 
@@ -370,9 +379,10 @@ Alternatively, you can execute the compute job on all nodes in the cluster that 
 
 ### Partition-Local Queries with BroadcastJobTarget.table()
 
-When using `BroadcastJobTarget.table()`, each job instance is routed to a node holding one partition of the table. Inside the job, call `context.partition()` to discover the assigned partition, then filter rows with the `__PARTITION_ID` virtual SQL column. This guarantees the query reads only local data — no cross-node data movement occurs.
+When using `BroadcastJobTarget.table()`, each job instance is routed to a node holding one partition of the table. Inside the job, call `context.partition()` (`context.Partition` in .NET) to discover the assigned partition, then filter rows with the `__PARTITION_ID` virtual SQL column. This guarantees the query reads only local data — no cross-node data movement occurs.
 
-{% code title="Java" %}
+{% tabs %}
+{% tab title="Java" %}
 ```java
 JobDescriptor<Void, Long> partitionQueryJob = JobDescriptor.builder(PartitionQueryJob.class)
         .units(new DeploymentUnit(DEPLOYMENT_UNIT_NAME, DEPLOYMENT_UNIT_VERSION))
@@ -384,11 +394,32 @@ long totalPersons = partitionCounts.stream().mapToLong(Long::longValue).sum();
 
 System.out.println("\nTotal person count across all partitions: " + totalPersons);
 ```
-{% endcode %}
+{% endtab %}
 
-The `PartitionQueryJob` class uses `context.partition()` to obtain its assigned partition and filters rows with `__PARTITION_ID`:
+{% tab title=".NET" %}
+```csharp
+JobDescriptor<object?, long> jobDesc = JobDescriptor.Of(new PartitionQueryJob())
+    with { DeploymentUnits = [new DeploymentUnit("MyDeploymentUnit")] };
 
-{% code title="Java" %}
+IBroadcastExecution<long> execution = await Client.Compute.SubmitBroadcastAsync(
+    BroadcastJobTarget.Table("Person"), jobDesc, null);
+
+long totalPersons = 0;
+
+foreach (IJobExecution<long> jobExecution in execution.JobExecutions)
+{
+    totalPersons += await jobExecution.GetResultAsync();
+}
+
+Console.WriteLine($"Total person count across all partitions: {totalPersons}");
+```
+{% endtab %}
+{% endtabs %}
+
+The `PartitionQueryJob` class uses `context.partition()` (`context.Partition` in .NET) to obtain its assigned partition and filters rows with `__PARTITION_ID`:
+
+{% tabs %}
+{% tab title="Java" %}
 ```java
 /**
  * Job that counts persons in a single table partition using the {@code __PARTITION_ID} virtual SQL column.
@@ -420,10 +451,31 @@ public static class PartitionQueryJob implements ComputeJob<Void, Long> {
     }
 }
 ```
-{% endcode %}
+{% endtab %}
+
+{% tab title=".NET" %}
+```csharp
+public class PartitionQueryJob : IComputeJob<object?, long>
+{
+    public async ValueTask<long> ExecuteAsync(IJobExecutionContext context, object? arg, CancellationToken cancellationToken)
+    {
+        IPartition partition = context.Partition
+            ?? throw new InvalidOperationException("Submit this job with BroadcastJobTarget.Table().");
+
+        await using IResultSet<IIgniteTuple> resultSet = await context.Ignite.Sql.ExecuteAsync(
+            null, "SELECT COUNT(*) FROM Person WHERE __PARTITION_ID = ?", cancellationToken, partition.Id);
+
+        List<IIgniteTuple> rows = await resultSet.ToListAsync();
+
+        return (long)rows[0][0]!;
+    }
+}
+```
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
-`context.partition()` is always non-null when the job is invoked via `BroadcastJobTarget.table()`, so local execution is guaranteed regardless of partition reassignments.
+`context.partition()` (`context.Partition` in .NET) is always non-null when the job is invoked via `BroadcastJobTarget.table()`.
 {% endhint %}
 
 ## .NET Compute Jobs

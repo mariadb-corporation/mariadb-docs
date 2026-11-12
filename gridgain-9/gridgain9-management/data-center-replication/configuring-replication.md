@@ -48,6 +48,8 @@ dcr create --name replication_name --source-cluster-address=127.0.0.1:10800,127.
 
 This command creates a connection, but does not start replication on its own. The name of the replication will be used later to address it in the commands.
 
+If the replica cluster restricts source cluster addresses, every address you specify must be allowed. For details, see [Restricting Source Cluster Addresses](#restricting-source-cluster-addresses).
+
 ## Starting Replication
 
 ### Active-Passive Replication
@@ -170,6 +172,23 @@ dcr create --name replication_ssl --source-cluster-address=127.0.0.1:10800 --key
 
 dcr start --name replication_ssl --schema=PUBLIC --all
 ```
+
+### Restricting Source Cluster Addresses
+
+By default, a replication can connect to any source cluster address. The only addresses refused by default are IP addresses in the link-local, any-local, and multicast ranges, and the IP addresses of known cloud instance metadata services. Host names are not checked: GridGain does not resolve them, so a host name is accepted even if it resolves to one of these addresses. To limit the addresses that replications on the replica cluster can connect to, set the `ignite.dcr.sourceClusterAddressAllowList` cluster configuration property:
+
+```bash
+cluster config update 'ignite.dcr.sourceClusterAddressAllowList=["10.0.0.5:10800", "dc2.example.com"]'
+```
+
+Each entry is a host name or IP address, optionally followed by a port. An entry without a port allows any port on that host. A source cluster address without a port uses the default port `10800`. GridGain does not resolve host names when it compares addresses, so to allow a host by both its name and its IP address, list both. When the list is not empty, only the listed addresses are allowed, including addresses that are refused by default.
+
+GridGain checks the source cluster addresses when a replication is created or started:
+
+- `dcr create` and `dcr start` fail with the `GG-DCR-14` error if any address is not allowed.
+- If GridGain restarts a replication automatically, for example to retry after an error, and an address is no longer allowed, the replication moves to the `FAILED` state.
+
+Changes to the list take effect without a cluster restart. A replication that is already running keeps running until it is started again, either with `dcr start` (for example, to add tables) or automatically after a node restart or an error. At that point, its addresses are checked against the current list. You can always stop a replication, whatever the list contains.
 
 ## Checking Replication Status
 

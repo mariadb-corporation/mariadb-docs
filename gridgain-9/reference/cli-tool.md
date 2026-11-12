@@ -2643,6 +2643,8 @@ These commands help you manage the license on a running cluster.
 
 Updates license.
 
+When security is enabled, the user needs the `MANAGE_LICENSE` privilege. For details, see [User Permissions and Roles](../security/user-permissions-and-roles.md#cluster-management).
+
 **Syntax**
 
 ```
@@ -2855,7 +2857,7 @@ cdc source create --name=<name> --type=<type> --tables=<tables> [--parameters=<S
 | `‑‑type` | Option | Yes | Type of the CDC source. |
 | `‑‑tables` | Option | Yes | Comma-separated fully-qualified table names that will be parts of the source. |
 | `‑‑parameters` | Option | No | Comma-separated key-value pairs of parameters for the source. For example: 'param1=value1, param2=value2'. If not set, then default parameters will be used. |
-| `‑‑experimental` | Flag | No | Enables experimental source types. Required to create or update a source that uses an experimental type. |
+| `‑‑experimental` | Flag | No | Enables experimental source types. Required to create or update a source that uses an experimental type. No source type currently requires it. |
 | `‑‑url` | Option | No | URL of cluster endpoint. |
 | `‑‑profile` | Option | No | Local CLI profile name. |
 | `‑‑verbose` | Flag | No | Show additional information: logs, REST calls. |
@@ -2892,7 +2894,7 @@ cdc source update --name=<name> --type=<type> --tables=<tables> [--parameters=<S
 | `‑‑type` | Option | Yes | Type of the CDC source. |
 | `‑‑tables` | Option | Yes | Comma-separated fully-qualified table names that will be parts of the source. |
 | `‑‑parameters` | Option | No | Comma-separated key-value pairs of parameters for the source. For example: 'param1=value1, param2=value2'. If not set, then default parameters will be used. |
-| `‑‑experimental` | Flag | No | Enables experimental source types. Required to create or update a source that uses an experimental type. |
+| `‑‑experimental` | Flag | No | Enables experimental source types. Required to create or update a source that uses an experimental type. No source type currently requires it. |
 | `‑‑url` | Option | No | URL of cluster endpoint. |
 | `‑‑profile` | Option | No | Local CLI profile name. |
 | `‑‑verbose` | Flag | No | Show additional information: logs, REST calls. |
@@ -3285,9 +3287,11 @@ cdc replication status --name=myreplication
 
 {% code title="Output" %}
 ```
-Status ok.
+Replication myreplication: RUNNING, running on node1
 ```
 {% endcode %}
+
+The output shows the replication status and the node that runs the replication. For a replication that is not running, it shows the last node that ran it (`last node <node>`), or `no node` if no node is recorded for it.
 
 ---
 
