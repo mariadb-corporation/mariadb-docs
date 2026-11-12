@@ -1,12 +1,12 @@
 ---
 description: >-
-  GridGain 8 Kubernetes Operator provisions and operates GridGain 8 clusters
-  from a GridGainCluster custom resource.
+  MariaDB GridGain 8 Kubernetes Operator provisions and operates GridGain 8
+  clusters from a GridGainCluster custom resource.
 ---
 
-# GridGain 8 Kubernetes Operator
+# MariaDB GridGain 8 Kubernetes Operator
 
-The GridGain 8 Kubernetes Operator runs GridGain 8 on Kubernetes. You declare a `GridGainCluster` custom resource. The operator reconciles a StatefulSet, Services, ConfigMaps, and Secrets so the cluster matches that spec.
+The MariaDB GridGain 8 Kubernetes Operator runs GridGain 8 on Kubernetes. You declare a `GridGainCluster` custom resource. The operator reconciles a StatefulSet, Services, ConfigMaps, and Secrets so the cluster matches that spec.
 
 Install it with Helm. The 1.0.0 GA release is available only to MariaDB Enterprise Platform Ultimate customers.
 

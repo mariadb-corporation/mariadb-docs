@@ -1,17 +1,17 @@
 ---
 description: >-
-  What the GridGain 8 Kubernetes Operator does, how it reconciles clusters, and
-  which capabilities are in the 1.0.0 release.
+  What the MariaDB GridGain 8 Kubernetes Operator does, how it reconciles
+  clusters, and which capabilities are in the 1.0.0 release.
 ---
 
 # Introduction
 
-The GridGain 8 Kubernetes Operator extends the Kubernetes API with a `GridGainCluster` resource (`gridgain.gridgain.com/v1`). You describe the cluster you want. The operator watches that resource and keeps compute, networking, and configuration aligned with it.
+The MariaDB GridGain 8 Kubernetes Operator extends the Kubernetes API with a `GridGainCluster` resource (`gridgain.gridgain.com/v1`). You describe the cluster you want. The operator watches that resource and keeps compute, networking, and configuration aligned with it.
 
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
-  accTitle: GridGain 8 Kubernetes Operator reconciliation loop
+  accTitle: MariaDB GridGain 8 Kubernetes Operator reconciliation loop
   accDescr { A user creates a GridGainCluster resource. The operator validates it and reconciles child Kubernetes objects until the current state matches the spec. }
 
   classDef actorStyle fill:#ffffff,stroke:#333333,stroke-width:1.5px,color:#111;
@@ -22,7 +22,7 @@ flowchart LR
   User(["User"]):::actorStyle
   CR["GridGainCluster"]:::resourceStyle
   WH["Validating webhook"]:::resourceStyle
-  Op["GridGain 8 Kubernetes Operator"]:::operatorStyle
+  Op["Operator"]:::operatorStyle
   STS["StatefulSet, Services, ConfigMaps, Secrets"]:::stateStyle
 
   User --> CR
@@ -44,7 +44,7 @@ The operator does **not** orchestrate backups, VolumeSnapshots, or Prometheus al
 ## Requirements
 
 * A MariaDB Enterprise Platform Ultimate subscription. The 1.0.0 GA release is available only to Ultimate customers.
-* Kubernetes `1.35` or later, on [CNCF-certified](https://www.cncf.io/training/certification/software-conformance/) distributions. This release was tested on Kubernetes `1.35`. Infrastructure issues (misconfigured clusters, CSI, or CNI) are outside the support scope.
+* Kubernetes `1.35` or later (`kubeVersion: ">=1.35.0-0"`), on [CNCF-certified](https://www.cncf.io/training/certification/software-conformance/) distributions. This release was tested on Kubernetes `1.35`. Support covers the three latest Kubernetes versions. Infrastructure issues (misconfigured clusters, CSI, or CNI) are outside the support scope.
 * OpenShift is tested with Helm on OpenShift `4.22.1`. The operator is **not** Red Hat certified and is **not** in the OpenShift catalog. See [Helm](installation/helm.md#openshift).
 * GridGain 8 **8.9.37** or newer. Operator default probes and drain REST require that line.
 * A GridGain license in a Kubernetes Secret.
@@ -65,7 +65,7 @@ This operator is available only with MariaDB Enterprise Platform Ultimate. Repor
 * Operator-managed configuration restarts: one node at a time, highest ordinal first.
 * GridGain **version** changes by scaling to zero, then applying the new image. Mixed-version rolling upgrades are not supported.
 * Drain / supply wait before a voluntary pod deletion (GridGain 8.9.37+).
-* Alpha feature gates (off by default) for auth, TLS, metrics, named caches, persistence, and Control Center. See [Configuration](configuration.md#feature-gates).
+* Feature gates (off by default) for auth, TLS, metrics, named caches, persistence, and Control Center. These are Alpha in the Kubernetes feature-gate sense. See [Configuration](configuration.md#feature-gates).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

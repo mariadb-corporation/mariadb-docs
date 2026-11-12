@@ -1,5 +1,5 @@
 ---
-description: Release notes for the GridGain 8 Kubernetes Operator.
+description: Release notes for the MariaDB GridGain 8 Kubernetes Operator.
 ---
 
-# GridGain 8 Kubernetes Operator Release Notes
+# MariaDB GridGain 8 Kubernetes Operator Release Notes

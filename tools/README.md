@@ -39,9 +39,9 @@ MariaDB Enterprise Operator provides a seamless way to run and operate container
 [mariadb-enterprise-operator](enterprise/mariadb-enterprise-operator/)
 {% endcontent-ref %}
 
-### GridGain 8 Kubernetes Operator
+### MariaDB GridGain 8 Kubernetes Operator
 
-The GridGain 8 Kubernetes Operator provisions and operates GridGain 8 clusters from a `GridGainCluster` custom resource. Helm is the supported install. The 1.0.0 GA release is available only to MariaDB Enterprise Platform Ultimate customers.
+The MariaDB GridGain 8 Kubernetes Operator provisions and operates GridGain 8 clusters from a `GridGainCluster` custom resource. Helm is the supported install. The 1.0.0 GA release is available only to MariaDB Enterprise Platform Ultimate customers.
 
 {% content-ref url="enterprise/gridgain8-operator/" %}
 [gridgain8-operator](enterprise/gridgain8-operator/)

@@ -26,7 +26,9 @@ The customer XML owns Ignite configuration, including authentication and TLS. `s
 
 ## Feature Gates
 
-Uncommitted capabilities are Alpha and **off by default**. Enable them with Helm:
+These gates follow Kubernetes feature-gate **Alpha**: they are **off by default**, they are not a MariaDB product-maturity label, and they are **not supported in production**. Backward compatibility of Alpha features and of their API is not guaranteed. Fields, defaults, and behavior can change or be removed in a later operator release.
+
+Enable them with Helm:
 
 ```yaml
 manager:
@@ -52,7 +54,7 @@ Upgrade, drain, PDB, NetworkPolicy, and `defaultCacheConfiguration` are availabl
 
 While a gate is off, the webhook refuses a **create** that fills the field. Updates ratchet: a field already stored stays admitted if you later turn the gate off. The controller still will not reconcile a live object that fills a disabled gate (`FeatureGateDisabled` event). That matters in single-namespace mode, where the webhook is off.
 
-Native persistence is not fully supported. `persistenceEnabled` stays false unless you opt in through the Persistence gate.
+Persistence is an Alpha feature gate and is not for production. `persistenceEnabled` stays false unless you opt in through that gate.
 
 ## Resources and JVM
 

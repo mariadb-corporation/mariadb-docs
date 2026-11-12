@@ -1,6 +1,6 @@
 ---
 description: >-
-  Custom Resource Definitions and API fields for the GridGain 8 Kubernetes Operator.
+  Custom Resource Definitions and API fields for the MariaDB GridGain 8 Kubernetes Operator.
 ---
 
 # API Reference

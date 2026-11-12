@@ -55,7 +55,7 @@ On OpenShift, apply `gridgaincluster-openshift.yaml` instead of `gridgaincluster
 
 ## Alpha (Enable Named Feature Gates)
 
-See [Configuration](configuration.md#feature-gates). Gates are off by default. Enable the matching Helm `manager.featureGates` values before you apply these files.
+See [Configuration](configuration.md#feature-gates). These gates are Kubernetes Alpha: off by default, not for production, and their API is not guaranteed to stay compatible. Enable the matching Helm `manager.featureGates` values before you apply these files.
 
 | File | Gates |
 | ---- | ----- |

@@ -67,7 +67,7 @@ spec:
     prometheus.io/path: "/metrics"
 ```
 
-The complete cluster is `alpha/gridgaincluster-metrics.yaml` in the [examples catalog](examples-catalog.md). Proof: `curl http://127.0.0.1:9000/metrics` inside the GridGain container.
+The complete cluster is `alpha/gridgaincluster-metrics.yaml` in the [examples catalog](examples-catalog.md). To confirm the exporter, `curl http://127.0.0.1:9000/metrics` inside the GridGain container.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

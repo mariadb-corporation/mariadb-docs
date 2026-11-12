@@ -20,11 +20,11 @@ Use the same Helm release names and namespace as the original install.
 
 ```sh
 helm repo update
-helm upgrade gridgain8-operator-crds gridgain8-operator/gridgain8-operator-crds --version 1.0.0
+helm upgrade gridgain8-operator-crds gridgain8-operator/gridgain8-operator-crds --version <new-version>
 helm upgrade gridgain8-operator gridgain8-operator/gridgain8-operator \
   -n gridgain-k8s-operator-system \
   --reuse-values \
-  --version 1.0.0
+  --version <new-version>
 ```
 
 Upgrade the CRD chart first. If the release notes say the CRDs are unchanged, you can skip that chart.
@@ -59,7 +59,7 @@ kubectl patch gridgaincluster gridgaincluster --type=merge \
 kubectl get pods -l app.kubernetes.io/instance=gridgaincluster
 ```
 
-2. After the pod list is empty, set the new image and the replica count you want in one update. The StatefulSet creates every pod on the new image, ordinal 0 then 1 then 2. There is no rolling walk across versions.
+2. After the pod list is empty, set the new image and the replica count you want in one update. The StatefulSet creates every pod on the new image, ordinal 0 then 1 then 2. There is no mixed-version rolling restart.
 
 ```sh
 kubectl patch gridgaincluster gridgaincluster --type=merge -p '{
@@ -92,7 +92,7 @@ After `status.upgrade.phase` returns to `Complete`, read back a known key.
 
 ## When a Restart Stops Halfway
 
-`status.upgrade.phase` of `Failed` means the walk is frozen. The node that did not become Ready stays the one being updated. Pods that have not moved are still serving. A missing image tag produces this state. It is not a version upgrade.
+`status.upgrade.phase` of `Failed` means the one-node-at-a-time restart is stuck. The node that did not become Ready stays the one being updated. Pods that have not moved are still serving. A missing image tag produces this state. It is not a version upgrade.
 
 The operator does not continue and does not roll back by itself.
 
@@ -107,7 +107,7 @@ kubectl get gridgaincluster gridgaincluster -o jsonpath=\
 3. Write `spec.upgrade.recovery` with that token and one action:
    * `retry` deletes the stuck pod once and gives it one more readiness window.
    * `retryUntilReady` keeps deleting it on a backoff until it is Ready or you stop.
-   * `rollback` walks the workload back to the previous pod template, including the configuration that template mounts.
+   * `rollback` restores the previous pod template, including the configuration that template mounts.
 
 ```sh
 kubectl patch gridgaincluster gridgaincluster --type=merge -p '{

@@ -111,7 +111,7 @@
       * [Migrate external MariaDB into Kubernetes](enterprise/mariadb-enterprise-operator/migrations/migrate-external-mariadb-into-kubernetes.md)
       * [Migrate Embedded MaxScale To MaxScale Resource](enterprise/mariadb-enterprise-operator/migrations/migrate-embedded-maxscale-to-maxscale-resource.md)
       * [Migrate to Primary Switchover on Graceful Shutdown](enterprise/mariadb-enterprise-operator/migrations/migrate-graceful-shutdown-switchover.md)
-  * [GridGain 8 Kubernetes Operator](enterprise/gridgain8-operator/README.md)
+  * [MariaDB GridGain 8 Kubernetes Operator](enterprise/gridgain8-operator/README.md)
     * [Introduction](enterprise/gridgain8-operator/introduction.md)
     * [Docker Images](enterprise/gridgain8-operator/docker-images.md)
     * [Installation](enterprise/gridgain8-operator/installation/README.md)

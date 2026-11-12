@@ -1,12 +1,12 @@
 ---
 description: >-
-  Install, upgrade, and uninstall the GridGain 8 Kubernetes Operator with Helm,
-  including CRDs, OpenShift, and supported Kubernetes versions.
+  Install, upgrade, and uninstall the MariaDB GridGain 8 Kubernetes Operator
+  with Helm, including CRDs, OpenShift, and supported Kubernetes versions.
 ---
 
 # Helm
 
-Helm is the supported way to install the GridGain 8 Kubernetes Operator. The operator is split into two charts so you can manage Custom Resource Definitions independently of the controller.
+Helm is the supported way to install the MariaDB GridGain 8 Kubernetes Operator. The operator is split into two charts so you can manage Custom Resource Definitions independently of the controller.
 
 * `gridgain8-operator-crds`: the `GridGainCluster` CRD.
 * `gridgain8-operator`: the controller, webhook, RBAC, and related resources.
@@ -15,7 +15,7 @@ Helm is the supported way to install the GridGain 8 Kubernetes Operator. The ope
 
 * A MariaDB Enterprise Platform Ultimate subscription. The 1.0.0 GA release is available only to Ultimate customers.
 * Kubernetes `1.35` or later (`kubeVersion: ">=1.35.0-0"`).
-* Helm 3.
+* Helm 3 or later.
 * A Docker pull Secret for `docker.mariadb.com`. See [Customer Access to docker.mariadb.com](../../mariadb-enterprise-operator/customer-access-to-docker-mariadb-com.md).
 
 cert-manager is **not** required. The operator provisions webhook TLS itself. To use cert-manager instead, set `webhook.cert.certManager.enabled=true` after installing cert-manager.
@@ -28,7 +28,7 @@ The operator version is independent of the GridGain 8 image tag. This release is
 | ---------------- | -------------------- | ----- |
 | `1.0.0` | `>=1.35.0-0` | Current `1.x` line. Tested on Kubernetes `1.35`. |
 
-Support follows the same engineering policy as MariaDB Enterprise Kubernetes Operator: the three latest Kubernetes versions on [CNCF-certified](https://www.cncf.io/training/certification/software-conformance/) distributions. Validation is on upstream Kubernetes. Amazon EKS, Google Kubernetes Engine, Azure Kubernetes Service, VMware Tanzu Kubernetes Grid, and other CNCF-certified platforms are in scope. Misconfigured clusters, CSI, and CNI issues are not.
+Support covers the three latest Kubernetes versions on [CNCF-certified](https://www.cncf.io/training/certification/software-conformance/) distributions. This release requires Kubernetes 1.35 or later (`kubeVersion: ">=1.35.0-0"`) and was tested on Kubernetes 1.35. Validation is on upstream Kubernetes. Amazon EKS, Google Kubernetes Engine, Azure Kubernetes Service, VMware Tanzu Kubernetes Grid, and other CNCF-certified platforms are in scope. Misconfigured clusters, CSI, and CNI issues are not.
 
 Pin a release with `--version 1.0.0`. After patch releases exist, `--version "1.*"` installs the latest `1.x` chart.
 
@@ -116,20 +116,11 @@ Do not deploy operands in the `default` or `kube-system` namespaces on OpenShift
 
 ## Upgrading
 
-Upgrade the CRD chart first, then the operator chart. Skip the CRD chart only when the release notes say the CRDs did not change.
+Upgrade the CRD chart first, then the operator chart. Skip the CRD chart only when the release notes say the CRDs did not change. Use `--version <new-version>` for the charts you are installing, not the version already running.
 
-```sh
-helm repo update
-helm upgrade gridgain8-operator-crds gridgain8-operator/gridgain8-operator-crds --version 1.0.0
-helm upgrade gridgain8-operator gridgain8-operator/gridgain8-operator \
-  -n gridgain-k8s-operator-system \
-  --reuse-values \
-  --version 1.0.0
-```
+`--reuse-values` keeps the image tag from the installed chart. To pin a tag, add `--set image.tag=<new-version>`.
 
-`--reuse-values` keeps the image tag from the installed chart. To pin a tag, add `--set image.tag=1.0.0`.
-
-A release that changes the pod template rolls every `GridGainCluster` one node at a time. A one-replica cluster stays `Pending` until you set `spec.upgrade.allowSingleReplicaRoll: true`. Changing the GridGain **image version** is a different procedure: [Updates](../updates.md).
+The full commands and what happens to running clusters are on [Updates](../updates.md#upgrade-the-operator). Changing the GridGain **image version** is a different procedure: [Change the GridGain Server Version](../updates.md#change-the-gridgain-server-version).
 
 ## Uninstalling
 

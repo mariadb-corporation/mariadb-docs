@@ -21,7 +21,7 @@ kubectl describe gridgaincluster gridgaincluster
 | `Provisioning` | Pods are being created. |
 | `Ready` | Desired replicas are Ready. |
 | `Degraded` | Some replicas are not Ready. |
-| `Failed` | The operator stopped progressing. Read `status.upgrade` for a frozen configuration walk. |
+| `Failed` | The operator stopped progressing. Read `status.upgrade` for a stuck configuration restart. |
 | `Terminating` | The custom resource is deleting. |
 
 Also watch `status.replicas`, `status.readyReplicas`, and `status.observedGeneration`.
@@ -39,7 +39,7 @@ Also watch `status.replicas`, `status.readyReplicas`, and `status.observedGenera
 
 ## Upgrade Status
 
-`status.upgrade` reports a configuration walk, not a GridGain version upgrade.
+`status.upgrade` reports a configuration restart, not a GridGain version upgrade.
 
 | Field | Meaning |
 | ----- | ------- |

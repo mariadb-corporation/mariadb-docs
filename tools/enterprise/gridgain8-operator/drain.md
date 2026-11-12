@@ -14,7 +14,7 @@ Default `spec.terminationGracePeriodSeconds` when unset is `600`.
 
 ## Sequence
 
-For a voluntary death of ordinal *k* (configuration restart, retry delete, or replica decrease):
+When the operator deletes pod ordinal *k* (configuration restart, retry delete, or replica decrease):
 
 1. `POST /ignite?cmd=drain&action=start` on the pod REST port `8080`. Readiness becomes 503; kubelet drops the pod from Service endpoints. Cluster protocol continues.
 2. Poll `GET /ignite?cmd=supply-status` until `supplying=false`, bounded by `spec.drain.supplyWaitTimeoutSeconds` (default 3600).
@@ -38,7 +38,7 @@ On abort the operator:
 
 1. Sends `POST cmd=drain&action=stop` unless `spec.drain.undrainOnAbort: false`.
 2. Records `drainReason`, sets `DrainBlocked=True`, and emits Warning `DrainAborted`.
-3. For a configuration walk: phase `Failed` and a recovery token. For scale-down: replica count is held.
+3. For a configuration restart: phase `Failed` and a recovery token. For scale-down: replica count is held.
 
 `undrainOnAbort: false` parks the node NotReady and freezes the PodDisruptionBudget until you intervene. Default is `true`.
 
