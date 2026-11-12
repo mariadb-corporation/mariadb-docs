@@ -7,7 +7,7 @@ description: >-
 # What's New in MariaDB MaxScale 26.10
 
 {% hint style="warning" %}
-**Action required:** This release includes breaking changes and requires a new license key, which you can obtain at https://customers.mariadb.com/license/. Please review the release notes before upgrading.
+**Action required:** MaxScale 26.10 requires a license key and includes breaking changes. Before you upgrade, get a license key from the [MariaDB License Portal](https://customers.mariadb.com/license/) and review the [Upgrade Notes](#upgrade-notes). A production license key and a trial license key both work.
 {% endhint %}
 
 This page describes the features that are new in MaxScale 26.10 compared to MaxScale 25.10. For per-release details, see the [MaxScale release notes](../README.md).
@@ -16,6 +16,7 @@ This page describes the features that are new in MaxScale 26.10 compared to MaxS
 
 Review these changes before upgrading. They can change behavior without any configuration change.
 
+* MaxScale requires a license key and does not start without one. Stop MaxScale before you upgrade the packages, and add `license_key` under `[maxscale]` before you start MaxScale 26.10. See [License Key and Feedback](#license-key-and-feedback) and [Upgrading MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/deployment/upgrading-maxscale#license-key-required).
 * The default of `ssl` for servers and listeners is now `allow` (it was off). See [TLS and security](#tls-and-security).
 * Log timestamps are now ISO 8601 with a UTC offset. Set `log_timestamp_format=datetime` to keep the old format.
 * The default of `max_auth_errors_until_block` changed from 10 to 0, and the default of `max_connect_errors` changed from 0 to 100.
@@ -308,9 +309,9 @@ Jira: MXS-7571, MXS-6090.
 
 ### License Key and Feedback
 
-Jira: MXS-6230.
+Jira: MXS-6274, MXS-6230.
 
-This applies to licensed builds only. `license_key` is mandatory and is a JWT, either the token or an absolute path to a file that contains it. MaxScale verifies the signature locally against a key set embedded at build time. Expiry messages start 180 days before the license expires and become more frequent as it gets closer, and MaxScale shuts down when the license lifetime ends. See [Install a MaxScale License Key](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/installation-and-configuration/maxscale-license-key) for how to install a key.
+Every MaxScale 26.10 package requires a license key. Earlier versions required one only for MaxScale Trial. `license_key` is mandatory and is a JWT, either the token or an absolute path to a file that contains it. MaxScale verifies the signature locally against a key set embedded at build time. Expiry messages start 180 days before the license expires and become more frequent as it gets closer, and MaxScale shuts down when the license lifetime ends. See [Install a MaxScale License Key](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/installation-and-configuration/maxscale-license-key) for how to install a key.
 
 With `enable_feedback=true` (default, not dynamic), MaxScale sends a JSON document with the license id and system information (such as CPU cores, memory, operating system, and backend server versions) 30 seconds after startup. The document is saved as `feedback.json` in the data directory. It is skipped if the content is unchanged or `feedback.json` was written within the last 24 hours.
 
