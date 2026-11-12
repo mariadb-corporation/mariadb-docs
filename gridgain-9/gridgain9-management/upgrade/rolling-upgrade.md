@@ -91,9 +91,30 @@ upgrade commit
 1. The cluster reads the current upgrade state and the list of active nodes.
 2. The cluster validates that every active node is running the target version. If any node is still on the source version, the commit fails with an error listing the offending nodes by name and reported version.
 3. The cluster validates that every node it knows about has rejoined fully. If a node has not rejoined, the commit fails with an error.
-4. The cluster's recorded version is set to the target version, the in-progress flag is cleared, and cluster-wide configuration changes are accepted again.
-5. Cluster-wide features that depend on the new version are activated.
-6. The `upgrade.rolling` metric `State` becomes `NOT_STARTED`.
+4. When upgrading from 9.1, the cluster [converts existing role names](#role-and-user-names-when-upgrading-from-91) to the case-sensitive form used in 9.2. If the conversion fails, the commit fails with an error and the cluster stays on the source version.
+5. The cluster's recorded version is set to the target version, the in-progress flag is cleared, and cluster-wide configuration changes are accepted again.
+6. Cluster-wide features that depend on the new version are activated.
+7. The `upgrade.rolling` metric `State` becomes `NOT_STARTED`.
+
+#### Role and User Names When Upgrading from 9.1
+
+GridGain 9.1 treats user and role names as case-insensitive and stores them in lower case. GridGain 9.2 treats them as case-sensitive and uses them exactly as written. When you commit an upgrade from 9.1, GridGain converts the stored names so that existing users keep their access:
+
+- **Role names** are converted to upper case: the role `admin` becomes `ADMIN`. The roles assigned to users are updated to match. The built-in `system` role keeps its name.
+- **User names** are not changed. Every user created on 9.1 keeps the lower-case name it was stored under, even if it was created with `CREATE USER Alice` or `CREATE USER ALICE`.
+
+Until you commit, the cluster keeps matching role names without regard to case, so nothing changes while you roll the nodes.
+
+After the commit, check the following:
+
+- **Log in with the stored name.** A user stored as `alice` must log in as `alice`. Logging in as `ALICE` or `Alice` worked on 9.1 and now fails with an invalid-credentials error. Update client connection settings, scripts, and applications that use a different spelling. To see the stored names, run `SHOW USERS`.
+- **Quote user names in SQL.** SQL converts an unquoted name to upper case, so `DROP USER alice` looks for the user `ALICE`, which does not exist. Write `DROP USER "alice"`, `ALTER USER "alice" SET PASSWORD '...'`, and `GRANT ADMIN TO "alice"`. Role names do not need quotes, because the converted names are upper case.
+- **Quote `system` in SQL.** An unquoted `system` is read as `SYSTEM`, which is an ordinary role and not the built-in super role. Write `"system"`.
+- **Expect `CURRENT_USER` to return the stored name.** For users created on 9.1 it is lower case. Row-level security policies that compare `CURRENT_USER` to data must use the same spelling.
+
+To switch a user to a different spelling, for example upper case, create a new user with the new name, grant it the same roles, and drop the old user. User names cannot be renamed.
+
+The conversion state is stored in the [`roleNamesMigrationVersion`](../../reference/configuration/cluster-configuration-parameters.md) cluster configuration parameter. Do not change it manually.
 
 ## Monitoring Update Progress
 

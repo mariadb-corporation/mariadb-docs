@@ -74,6 +74,10 @@ You can change the password for the default user by updating cluster configurati
 cluster config update  ignite.security.authentication.providers.default.users.ignite.password=myPass
 ```
 
+{% hint style="info" %}
+User names are case-sensitive. A user created on 9.1 keeps the lower-case name it was stored under after you upgrade to 9.2, and must log in with exactly that name. For details, see [Role and User Names When Upgrading from 9.1](../gridgain9-management/upgrade/rolling-upgrade.md#role-and-user-names-when-upgrading-from-91).
+{% endhint %}
+
 ## LDAP Authentication
 
 {% hint style="info" %}

@@ -215,7 +215,7 @@ With these policies in place:
 {% endtab %}
 
 {% tab title="9.1" %}
-User and role names are case-insensitive, so the names in the script and at login match regardless of case. `CURRENT_USER` returns the name in lower case, so the `username` data must be lower case.
+User names are case-insensitive, so the names at login match regardless of case. `CURRENT_USER` returns the name in lower case, so the `username` data must be lower case. A policy matches a role by its exact spelling: it applies only to users who have the role assigned with the same spelling that `CREATE POLICY` uses. SQL converts unquoted role names to upper case, so the script below works. A role assigned over the REST API in lower case does not match a policy that names it in SQL without quotes.
 
 Run the following script as an administrator.
 

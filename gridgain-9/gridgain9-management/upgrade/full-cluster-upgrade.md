@@ -79,6 +79,10 @@ Confirm that every node is an active member of the cluster and that the cluster 
 
 Run a sample of read operations against pre-existing tables to confirm that the data is accessible.
 
+#### Verify User and Role Names
+
+If you upgraded from 9.1, run `SHOW USERS` and confirm that users can log in with the names it shows. User names keep their 9.1 lower-case spelling, and role names are now upper case. Quote user names in SQL, for example `DROP USER "alice"`. For details, see [Role and User Names When Upgrading from 9.1](rolling-upgrade.md#role-and-user-names-when-upgrading-from-91).
+
 #### Verify Cluster Health Metrics
 
 Check the standard cluster health metrics. Persistent state recovery happens during node startup; errors surfaced during this phase usually point at storage or cluster-state issues.
@@ -91,6 +95,11 @@ When you start a cluster on new binaries against existing persistent state, the 
 - Replays the cluster metadata log, re-applying schemas, indexes, and distribution zones.
 - Reopens the persistent storage files. There is no on-disk format check; the cluster relies on the new binaries being able to read state written by the previous version.
 - Re-forms the cluster topology over the standard inter-node connections.
+- When upgrading from 9.1, converts existing role names to the case-sensitive form used in 9.2. The conversion runs once, when the cluster configuration is first loaded on the new version, and does not depend on the recorded cluster version. User names are not changed. See [Role and User Names When Upgrading from 9.1](rolling-upgrade.md#role-and-user-names-when-upgrading-from-91).
+
+{% hint style="warning" %}
+If two existing role names differ only in letter case, or a role name conflicts with a built-in role, the conversion fails and the node does not start. The error names the roles. Before upgrading, run `SHOW ROLES` on 9.1 and make sure no role names conflict. In a rolling upgrade, the same problem makes `upgrade commit` fail and the cluster stays on the source version.
+{% endhint %}
 
 ### Note on the Recorded Cluster Version
 
