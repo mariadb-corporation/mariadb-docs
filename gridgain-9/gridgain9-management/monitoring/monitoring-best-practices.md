@@ -67,7 +67,7 @@ These metrics tell you how much resource headroom each node has.
 | `os.CpuLoad` and `os.LoadAverage` | Host CPU pressure. | Sustained high values compared to `os.AvailableProcessors`. |
 | `thread.pools.<name>.QueueSize` | Executor queue depth. | Sustained saturated pools, especially partition and query pools. |
 | `storage.aipersist.checkpoint.SpeedBasedThrottlingPercentage` | Write throttling caused by checkpointing. | Frequent or rising throttling, which means write pressure. |
-| `storage.aipersist.<region>.PageReplacements` | Page cache evictions. | Sustained high values, which mean the data region is too small. |
+| [`storage.aipersist.profiles.<profile>.PageReplacements`](../../reference/monitoring/metrics-list.md#storage.aipersist.profiles.-profile) (`storage.aipersist.<profile>.PageReplacements` in GridGain 9.1) | Page cache evictions. | Sustained high values, which mean the data region is too small. |
 
 ### Latency
 
@@ -150,7 +150,7 @@ Track these signals for capacity planning:
 
 * Disk growth: `storage.aipersist.StorageSize` and `log.storage.TotalLogStorageSize` against disk capacity.
 * Checkpoint duration trend.
-* Page cache evictions: `storage.aipersist.<region>.PageReplacements`.
+* Page cache evictions: [`storage.aipersist.profiles.<profile>.PageReplacements`](../../reference/monitoring/metrics-list.md#storage.aipersist.profiles.-profile) (`storage.aipersist.<profile>.PageReplacements` in GridGain 9.1).
 * Cache effectiveness: SQL plan cache hit ratio and cache hit percentage.
 * Throughput baselines: `transactions.TotalCommits` and `client.handler.RequestsProcessed`.
 
