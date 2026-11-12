@@ -765,7 +765,7 @@ Each GridGain storage engine can have several storage _profiles_.
 |profiles||The list of available storage profiles.||
 |engine||The storage engine.|aimem, aipersist, rocksdb|
 |name||User-defined profile name.|A valid name|
-|profiles.aipersist.replacementMode|CLOCK|Sets the page replacement algorithm. `RANDOM_LRU` and `SEGMENTED_LRU` are deprecated. Use `CLOCK`.|CLOCK, RANDOM_LRU (deprecated), SEGMENTED_LRU (deprecated)|
+|profiles.aipersist.replacementMode|CLOCK|Sets the page replacement algorithm. Use `CLOCK`. `RANDOM_LRU` and `SEGMENTED_LRU` are deprecated since 9.1.27 and removed in 9.2.|CLOCK|
 |profiles.aipersist.sizeBytes|-1|Memory (RAM) region size in bytes. When set to -1 will be computed automatically equal to 20% of the available memory.|Min 256Mb, max defined by the addressable memory limit of the OS, or -1.|
 |profiles.aimem.initSizeBytes|-1|Initial memory region size in bytes, when the used memory size exceeds this value, new chunks of memory will be allocated. When set to -1 `aimem.maxSizeBytes` value will be used instead.|Min 256Mb, max defined by the addressable memory limit of the OS, or -1.|
 |profiles.aimem.maxSizeBytes|-1|Maximum memory region size in bytes. When set to -1 will be computed automatically equal to 20% of the available memory.|Min 256Mb, max defined by the addressable memory limit of the OS, or -1.|
