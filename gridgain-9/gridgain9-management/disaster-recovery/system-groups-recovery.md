@@ -30,6 +30,10 @@ If a node tries to start when CMG is available, but MG is not, the log shows `Me
 Exercise caution when applying disaster recovery commands to system node groups. These commands might result in _split brain_ (split your cluster into two clusters). Use the recovery commands as the last resort, only if the majority for CMG/MG is lost permanently.
 {% endhint %}
 
+{% hint style="info" %}
+When authorization is enabled, `recovery cluster reset` requires the `RESET_CLUSTER` privilege, and `recovery cluster migrate` requires the `MIGRATE_CLUSTER` privilege on the old cluster, the one that `--old-cluster-url` points to. Without the privilege, the request fails with HTTP status `403`. See [User Permissions and Roles](../../security/user-permissions-and-roles.md#cluster-management).
+{% endhint %}
+
 ## Cluster Management Group
 
 If CMG loses majority:
