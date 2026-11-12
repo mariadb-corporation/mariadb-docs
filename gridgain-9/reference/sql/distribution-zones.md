@@ -9,7 +9,7 @@ description: >-
 This section describes GridGain 9 distribution zones. In GridGain 9, you can fine-tune distribution of your partitions on nodes for better performance and stability.
 
 {% hint style="info" %}
-**GridGain 9.1:** In 9.1, `CREATE ZONE`, `ALTER ZONE`, and `DROP ZONE` accept a schema-qualified zone name, such as `PUBLIC.myZone`. Zones are not schema-scoped, so the qualifier is ignored and only the last part is used as the zone name. For example, `a.b.c` creates a zone named `c`. In 9.2 and later, a schema-qualified name is rejected with a parse error.
+**GridGain 9.1:** In 9.1, `CREATE ZONE`, `ALTER ZONE`, and `DROP ZONE` accept a schema-qualified zone name, such as `PUBLIC.myZone`. Zones are not schema-scoped, so the qualifier is ignored and only the last part is used as the zone name. For example, `a.b.c` creates a zone named `c`. In 9.2, a schema-qualified name is rejected with a parse error.
 
 To write statements that work in both versions, always use a simple zone name: `myZone` (case-insensitive) or `"myZone"` (case-sensitive). In 9.1, the new name in `ALTER ZONE ... RENAME TO` must already be a simple name.
 {% endhint %}
