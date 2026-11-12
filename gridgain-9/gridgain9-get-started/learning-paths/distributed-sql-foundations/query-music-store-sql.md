@@ -493,6 +493,47 @@ JOIN Album al ON a.ArtistId = al.ArtistId
 WHERE a.Name = 'Led Zeppelin';
 ```
 
+{% tabs %}
+{% tab title="9.2" %}
+```text
+╔═════════════════════════════════════════════════════════╗
+║ PLAN                                                    ║
+╠═════════════════════════════════════════════════════════╣
+║ Exchange                                                ║
+║     distribution: single                                ║
+║     est: (rows=116)                                     ║
+║   Project                                               ║
+║       fieldNames: [ARTIST, ALBUM]                       ║
+║       projection: [NAME, TITLE]                         ║
+║       collation: []                                     ║
+║       est: (rows=116)                                   ║
+║     MergeJoin                                           ║
+║         predicate: =(ARTISTID$0, ARTISTID)              ║
+║         fieldNames: [ARTISTID, TITLE, ARTISTID$0, NAME] ║
+║         type: inner                                     ║
+║         est: (rows=116)                                 ║
+║       IndexScan                                         ║
+║           table: PUBLIC.ALBUM                           ║
+║           index: IFK_ALBUMARTISTID                      ║
+║           type: SORTED                                  ║
+║           fieldNames: [ARTISTID, TITLE]                 ║
+║           collation: [ARTISTID ASC]                     ║
+║           est: (rows=347)                               ║
+║       Sort                                              ║
+║           collation: [ARTISTID ASC]                     ║
+║           est: (rows=92)                                ║
+║         TableScan                                       ║
+║             table: PUBLIC.ARTIST                        ║
+║             predicate: =(NAME, _UTF-8'Led Zeppelin')    ║
+║             fieldNames: [ARTISTID, NAME]                ║
+║             est: (rows=92)                              ║
+╚═════════════════════════════════════════════════════════╝
+```
+
+The only `Exchange` sits at the top of the plan, where the coordinator collects the final rows. No `Exchange` appears between the two inputs of the `MergeJoin`, so Artist and Album join locally on each node. The planner reads Album through the `IFK_ALBUMARTISTID` index, which returns rows already sorted by `ArtistId`, and adds a `Sort` above the Artist `TableScan` so both inputs arrive in the same order. Both tables are colocated by `ArtistId`, which is the join key.
+{% endtab %}
+
+{% tab title="9.1" %}
 ```text
 ╔═════════════════════════════════════════════════════════╗
 ║ PLAN                                                    ║
@@ -522,6 +563,8 @@ WHERE a.Name = 'Led Zeppelin';
 ```
 
 The only `Exchange` sits at the top of the plan, where the coordinator collects the final rows. No `Exchange` appears between the two `TableScan` inputs of the `HashJoin`, so Artist and Album join locally on each node. Both tables are colocated by `ArtistId`, which is the join key.
+{% endtab %}
+{% endtabs %}
 
 Now add Track, which is colocated by `AlbumId`, a different column. `EXPLAIN` shows the difference:
 
@@ -535,6 +578,84 @@ ORDER BY al.Title, t.Name
 LIMIT 10;
 ```
 
+{% tabs %}
+{% tab title="9.2" %}
+```text
+╔═════════════════════════════════════════════════════════════════════════════════════════╗
+║ PLAN                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════╣
+║ Limit                                                                                   ║
+║     fetch: 10                                                                           ║
+║     est: (rows=10)                                                                      ║
+║   Exchange                                                                              ║
+║       collation: [ALBUM ASC, TRACK ASC]                                                 ║
+║       distribution: single                                                              ║
+║       est: (rows=10)                                                                    ║
+║     Sort                                                                                ║
+║         collation: [ALBUM ASC, TRACK ASC]                                               ║
+║         fetch: 10                                                                       ║
+║         est: (rows=10)                                                                  ║
+║       Project                                                                           ║
+║           fieldNames: [ARTIST, ALBUM, TRACK]                                            ║
+║           projection: [NAME$0, TITLE, NAME]                                             ║
+║           collation: []                                                                 ║
+║           est: (rows=60716)                                                             ║
+║         MergeJoin                                                                       ║
+║             predicate: =(ALBUMID$0, ALBUMID)                                            ║
+║             fieldNames: [ALBUMID, NAME, ALBUMID$0, ARTISTID, TITLE, ARTISTID$0, NAME$0] ║
+║             type: inner                                                                 ║
+║             est: (rows=60716)                                                           ║
+║           IndexScan                                                                     ║
+║               table: PUBLIC.TRACK                                                       ║
+║               index: IFK_TRACKALBUMID                                                   ║
+║               type: SORTED                                                              ║
+║               fieldNames: [ALBUMID, NAME]                                               ║
+║               collation: [ALBUMID ASC]                                                  ║
+║               est: (rows=3503)                                                          ║
+║           Sort                                                                          ║
+║               collation: [ALBUMID ASC]                                                  ║
+║               est: (rows=116)                                                           ║
+║             Exchange                                                                    ║
+║                 collation: []                                                           ║
+║                 distribution: table PUBLIC.TRACK in zone MUSICSTORE by [ALBUMID]        ║
+║                 est: (rows=116)                                                         ║
+║               MergeJoin                                                                 ║
+║                   predicate: =(ARTISTID$0, ARTISTID)                                    ║
+║                   fieldNames: [ALBUMID, ARTISTID, TITLE, ARTISTID$0, NAME]              ║
+║                   type: inner                                                           ║
+║                   est: (rows=116)                                                       ║
+║                 IndexScan                                                               ║
+║                     table: PUBLIC.ALBUM                                                 ║
+║                     index: IFK_ALBUMARTISTID                                            ║
+║                     type: SORTED                                                        ║
+║                     fieldNames: [ALBUMID, ARTISTID, TITLE]                              ║
+║                     collation: [ARTISTID ASC]                                           ║
+║                     est: (rows=347)                                                     ║
+║                 Sort                                                                    ║
+║                     collation: [ARTISTID ASC]                                           ║
+║                     est: (rows=92)                                                      ║
+║                   TableScan                                                             ║
+║                       table: PUBLIC.ARTIST                                              ║
+║                       predicate: =(NAME, _UTF-8'Led Zeppelin')                          ║
+║                       fieldNames: [ARTISTID, NAME]                                      ║
+║                       est: (rows=92)                                                    ║
+╚═════════════════════════════════════════════════════════════════════════════════════════╝
+```
+
+Read the plan from bottom to top. An `IndexScan` of ALBUM and a sorted `TableScan` of ARTIST feed a `MergeJoin` on `ARTISTID`, the same local join as in the two-table plan. An `Exchange` then redistributes the joined rows with `distribution: table PUBLIC.TRACK in zone MUSICSTORE by [ALBUMID]`, which sends each row to the partition that holds the matching Track rows. A second `MergeJoin` combines that result with the Track `IndexScan` on `ALBUMID`. The top `Exchange` collects the final rows on the coordinator. The `Exchange` by `[ALBUMID]` is the one that shows the colocation boundary.
+
+{% hint style="info" %}
+**MergeJoin** walks two inputs that are already sorted on the join key and matches rows in a single pass. The planner reads an index, or adds a `Sort`, to produce that order.
+
+**HashJoin** builds an in-memory hash table from one input and probes it with the other. It handles unsorted inputs at the cost of memory proportional to the smaller input. Watch for HashJoin on large tables; it can cause memory pressure under high concurrency.
+
+**Exchange** is the network operator. It transfers rows between nodes. Every Exchange in a plan represents data moving across the network. Its position relative to join operators tells you whether the engine moved data *before* the join (expensive: shuffles raw rows) or *after* (cheap: collects final results).
+
+For the full operator reference, see the [EXPLAIN operators reference](../../../reference/sql/explain-operators-list.md).
+{% endhint %}
+{% endtab %}
+
+{% tab title="9.1" %}
 ```text
 ╔═════════════════════════════════════════════════════════════════════════════════════════╗
 ║ PLAN                                                                                    ║
@@ -598,6 +719,8 @@ Read the plan from bottom to top. Two `TableScan` operators read ALBUM and ARTIS
 
 For the full operator reference, see the [EXPLAIN operators reference](../../../reference/sql/explain-operators-list.md).
 {% endhint %}
+{% endtab %}
+{% endtabs %}
 
 In Step 4, the single-table plan had one `Exchange` that collected results. The two-table plan also has one Exchange, at the top, because Artist and Album are colocated by the join key. The three-table plan has more `Exchange` operators, including one between the Artist-Album join and the Track join that redistributes rows by `AlbumId`, because Track is partitioned by `AlbumId`, not `ArtistId`. Colocation helps the join it was designed for and does not extend to the next table.
 
@@ -611,6 +734,47 @@ WHERE t.GenreId = 1
 LIMIT 10;
 ```
 
+{% tabs %}
+{% tab title="9.2" %}
+```text
+╔══════════════════════════════════════════════════════════════════════════════╗
+║ PLAN                                                                         ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Limit                                                                        ║
+║     fetch: 10                                                                ║
+║     est: (rows=10)                                                           ║
+║   Project                                                                    ║
+║       fieldNames: [TRACK, UNITPRICE, QUANTITY]                               ║
+║       projection: [NAME, UNITPRICE, QUANTITY]                                ║
+║       est: (rows=391944)                                                     ║
+║     HashJoin                                                                 ║
+║         predicate: =(TRACKID$0, TRACKID)                                     ║
+║         fieldNames: [TRACKID, UNITPRICE, QUANTITY, TRACKID$0, NAME, GENREID] ║
+║         type: inner                                                          ║
+║         est: (rows=391944)                                                   ║
+║       Exchange                                                               ║
+║           distribution: single                                               ║
+║           est: (rows=2240)                                                   ║
+║         TableScan                                                            ║
+║             table: PUBLIC.INVOICELINE                                        ║
+║             fieldNames: [TRACKID, UNITPRICE, QUANTITY]                       ║
+║             est: (rows=2240)                                                 ║
+║       Exchange                                                               ║
+║           distribution: single                                               ║
+║           est: (rows=1166)                                                   ║
+║         IndexScan                                                            ║
+║             table: PUBLIC.TRACK                                              ║
+║             index: IFK_TRACKGENREID                                          ║
+║             type: SORTED                                                     ║
+║             predicate: =(GENREID, 1)                                         ║
+║             searchBounds: <1>                                                ║
+║             fieldNames: [TRACKID, NAME, GENREID]                             ║
+║             est: (rows=1166)                                                 ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+```
+{% endtab %}
+
+{% tab title="9.1" %}
 ```text
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║ PLAN                                                                         ║
@@ -644,6 +808,8 @@ LIMIT 10;
 ║             est: (rows=1166)                                                 ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 ```
+{% endtab %}
+{% endtabs %}
 
 The structure flipped. Two `Exchange` operators now appear below the `HashJoin`, one for each table input. The planner must pull all matching InvoiceLine rows (estimated 2,240) and all matching Track rows (estimated 1,166) to a single node before the join can execute. That is a full data shuffle for a query that returns 10 rows.
 
@@ -785,6 +951,68 @@ HAVING COUNT(i.InvoiceId) >= 10
 ORDER BY Revenue DESC;
 ```
 
+{% tabs %}
+{% tab title="9.2" %}
+```text
+╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ PLAN                                                                                             ║
+╠══════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ Sort                                                                                             ║
+║     collation: [REVENUE DESC]                                                                    ║
+║     est: (rows=41)                                                                               ║
+║   Project                                                                                        ║
+║       fieldNames: [COUNTRY, ORDERS, REVENUE]                                                     ║
+║       projection: [COUNTRY, ORDERS, CAST($f2):DECIMAL(10, 2) NOT NULL]                           ║
+║       est: (rows=41)                                                                             ║
+║     Filter                                                                                       ║
+║         predicate: >=(ORDERS, 10)                                                                ║
+║         est: (rows=41)                                                                           ║
+║       Project                                                                                    ║
+║           projection: [COUNTRY, CAST(ORDERS):BIGINT NOT NULL, CAST($f2):DECIMAL(20, 2) NOT NULL] ║
+║           est: (rows=82)                                                                         ║
+║         HashAggregate                                                                            ║
+║             phase: FINAL                                                                         ║
+║             group: [COUNTRY]                                                                     ║
+║             aggregation: [$SUM0(ORDERS), SUM($f2)]                                               ║
+║             est: (rows=82)                                                                       ║
+║           Exchange                                                                               ║
+║               distribution: single                                                               ║
+║               est: (rows=82)                                                                     ║
+║             HashAggregate                                                                        ║
+║                 phase: PARTIAL                                                                   ║
+║                 fieldNames: [COUNTRY, ORDERS, $f2]                                               ║
+║                 group: [COUNTRY]                                                                 ║
+║                 aggregation: [COUNT(), SUM(TOTAL)]                                               ║
+║                 est: (rows=82)                                                                   ║
+║               Project                                                                            ║
+║                   fieldNames: [COUNTRY, TOTAL]                                                   ║
+║                   projection: [COUNTRY, TOTAL]                                                   ║
+║                   collation: []                                                                  ║
+║                   est: (rows=412)                                                                ║
+║                 MergeJoin                                                                        ║
+║                     predicate: =(CUSTOMERID$0, CUSTOMERID)                                       ║
+║                     fieldNames: [CUSTOMERID, TOTAL, CUSTOMERID$0, COUNTRY]                       ║
+║                     type: inner                                                                  ║
+║                     est: (rows=412)                                                              ║
+║                   IndexScan                                                                      ║
+║                       table: PUBLIC.INVOICE                                                      ║
+║                       index: IFK_INVOICECUSTOMERID                                               ║
+║                       type: SORTED                                                               ║
+║                       fieldNames: [CUSTOMERID, TOTAL]                                            ║
+║                       collation: [CUSTOMERID ASC]                                                ║
+║                       est: (rows=412)                                                            ║
+║                   Sort                                                                           ║
+║                       collation: [CUSTOMERID ASC]                                                ║
+║                       est: (rows=59)                                                             ║
+║                     TableScan                                                                    ║
+║                         table: PUBLIC.CUSTOMER                                                   ║
+║                         fieldNames: [CUSTOMERID, COUNTRY]                                        ║
+║                         est: (rows=59)                                                           ║
+╚══════════════════════════════════════════════════════════════════════════════════════════════════╝
+```
+{% endtab %}
+
+{% tab title="9.1" %}
 ```text
 ╔════════════════════════════════════════════════════════════════════════════╗
 ║ PLAN                                                                       ║
@@ -835,14 +1063,41 @@ ORDER BY Revenue DESC;
 ║                       est: (rows=59)                                       ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 ```
+{% endtab %}
+{% endtabs %}
 
 A new pattern. Read from the bottom:
 
+{% tabs %}
+{% tab title="9.2" %}
+- The `MergeJoin` between INVOICE and CUSTOMER has no Exchange between its inputs (colocated by `CustomerId`).
+- Above that, a `HashAggregate` with `phase: PARTIAL` runs the COUNT and SUM locally on each node.
+- The results cross the Exchange to a `HashAggregate` with `phase: FINAL`, which combines the per-node partial aggregates into the final answer.
+{% endtab %}
+
+{% tab title="9.1" %}
 - The `HashJoin` between INVOICE and CUSTOMER has no Exchange between its inputs (colocated by `CustomerId`).
 - Above that, `MapHashAggregate` runs the COUNT and SUM locally on each node.
 - The results cross the Exchange to `ReduceHashAggregate`, which combines the per-node partial aggregates into the final answer.
+{% endtab %}
+{% endtabs %}
 - The `Filter` at the top applies the `HAVING` clause after the aggregation is complete.
 
+{% tabs %}
+{% tab title="9.2" %}
+This is a two-phase aggregation: compute locally, combine centrally.
+
+{% hint style="info" %}
+
+**HashAggregate** with `phase: PARTIAL` computes partial results (COUNT, SUM) on each node using only local data.
+
+**HashAggregate** with `phase: FINAL` collects those partial results across the Exchange and combines them into the final answer.
+
+This two-phase pattern means each node processes only its own partition, regardless of cluster size. See the [EXPLAIN operators reference](../../../reference/sql/explain-operators-list.md) for the full list of aggregation operators.
+{% endhint %}
+{% endtab %}
+
+{% tab title="9.1" %}
 This is a map-reduce pattern: compute locally, combine centrally.
 
 {% hint style="info" %}
@@ -853,6 +1108,8 @@ This is a map-reduce pattern: compute locally, combine centrally.
 
 This two-phase pattern means each node processes only its own partition, regardless of cluster size. See the [EXPLAIN operators reference](../../../reference/sql/explain-operators-list.md) for the full list of aggregation operators.
 {% endhint %}
+{% endtab %}
+{% endtabs %}
 
 Combine the three-table join with aggregation to rank the top 10 artists by catalog value:
 
@@ -940,7 +1197,15 @@ Throughout this tutorial, `EXPLAIN` revealed how the engine handles each type of
 - **Primary key operations** use direct key access (`KeyValueModify` for writes) to route straight to the owning node (Step 3).
 - **Unindexed filters** produce a `TableScan` across every partition. Create indexes for columns you filter on frequently (Step 4).
 - **Colocated joins** (tables partitioned by the same join key, such as Artist and Album) execute locally with no Exchange between the join inputs. Joins that add a table partitioned by a different column, such as Track, shuffle data through an Exchange below the join. Colocation does not chain through a middle table (Step 5).
+{% tabs %}
+{% tab title="9.2" %}
+- **Distributed aggregation** runs in two phases: a `HashAggregate` with `phase: PARTIAL` computes locally, and a `HashAggregate` with `phase: FINAL` combines results across the Exchange (Step 6).
+{% endtab %}
+
+{% tab title="9.1" %}
 - **Distributed aggregation** uses a map-reduce pattern: `MapHashAggregate` computes locally, `ReduceHashAggregate` combines results across the Exchange (Step 6).
+{% endtab %}
+{% endtabs %}
 
 Two other GridGain-specific behaviors to remember:
 
@@ -950,7 +1215,15 @@ Two other GridGain-specific behaviors to remember:
 Data locality is the thread running through every plan you read in this tutorial:
 
 - **Colocated joins** between a true pair, such as Artist and Album, execute on each node without crossing the network between join inputs.
+{% tabs %}
+{% tab title="9.2" %}
+- **Two-phase aggregation** computes partial results locally, then combines them across the Exchange.
+{% endtab %}
+
+{% tab title="9.1" %}
 - **Map-reduce aggregation** computes partial results locally, then combines them across the Exchange.
+{% endtab %}
+{% endtabs %}
 - **Primary key operations** route directly to the node that owns the key.
 
 The same principle extends beyond SQL: the Compute API pushes application code to the node that owns the data, eliminating the network round-trip. See [About Distributed Computing](../../../gridgain9-development/distributed-computing/about-distributed-computing.md) for that pattern.
