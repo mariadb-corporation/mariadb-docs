@@ -1185,6 +1185,10 @@ Not supported in C++.
 
 ## Partition API
 
+{% hint style="warning" %}
+**Upgrading from GridGain 9.1:** the `PartitionManager` API has been deprecated since 9.1.16 and was removed in 9.2.0. Replace calls to `Table.partitionManager()` (Java) and `ITable.PartitionManager` (.NET) with `Table.partitionDistribution()` and `ITable.PartitionDistribution`. For details, see the [`PartitionDistribution` API](https://www.gridgain.com/sdk/gridgain9/latest/javadoc/org/apache/ignite/table/partition/PartitionDistribution.html).
+{% endhint %}
+
 To retrieve a partition `id`, you need to pass the corresponding `key` value and use the following [method](https://www.gridgain.com/sdk/gridgain9/latest/javadoc/org/apache/ignite/table/partition/PartitionDistribution.html#partition\(org.apache.ignite.table.Tuple\)):
 
 {% tabs %}
@@ -1207,24 +1211,6 @@ var table = await Client.Tables.GetTableAsync("PUBLIC.Person");
 var partitionDistribution = table!.PartitionDistribution;
 IPartition partition = await partitionDistribution.GetPartitionAsync(new IgniteTuple { ["id"] = 1 });
 long partitionId = partition.Id;
-```
-{% endtab %}
-{% endtabs %}
-
-As `PartitionManager` API is now deprecated and will be removed in upcoming releases, use `PartitionDistribution` [API](https://www.gridgain.com/sdk/gridgain9/latest/javadoc/org/apache/ignite/table/partition/PartitionDistribution.html) instead.
-
-{% tabs %}
-{% tab title="Java" %}
-```java
-Table table = client.tables().table("PUBLIC.Person");
-PartitionDistribution partDistribution = table.partitionDistribution();
-```
-{% endtab %}
-
-{% tab title=".NET" %}
-```csharp
-var table = await Client.Tables.GetTableAsync("PUBLIC.Person");
-var partitionDistribution = table!.PartitionDistribution;
 ```
 {% endtab %}
 {% endtabs %}

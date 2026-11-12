@@ -434,9 +434,9 @@ public sealed class PocoMapper : IMapper<Poco>
 }
 
 ITable table = (await client.Tables.GetTableAsync("PUBLIC.MY_TABLE"))!;
-IPartitionManager pm = table.PartitionManager;
+IPartitionDistribution pd = table.PartitionDistribution;
 
-var partition = await pm.GetPartitionAsync(null, new Poco { Key = 42L }, new PocoMapper());
+var partition = await pd.GetPartitionAsync(new Poco { Key = 42L }, new PocoMapper());
 ```
 
 ## Streaming Data
@@ -546,7 +546,7 @@ Ignite provides basic object mapping for table rows and SQL query results in the
 - `ITable.GetKeyValueView<TK, TV>()`
 - `ISql.ExecuteAsync<T>`
 - `IJobTarget<TKey>.Colocated<TKey>()`
-- `IPartitionManager.GetPartitionAsync();`
+- `IPartitionDistribution.GetPartitionAsync();`
 
 Mappers are generated at runtime with the use of reflection and IL emit. Mapped properties and fields can be customized with [ColumnAttribute](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations.schema.columnattribute?view=net-10.0) and excluded with [NotMappedAttribute](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations.schema.notmappedattribute?view=net-10.0).
 
