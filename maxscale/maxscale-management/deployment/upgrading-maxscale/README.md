@@ -33,6 +33,40 @@ For example, when upgrading from 23.08.9 to 25.10.3 and you have configured
 
 ## Upgrading MariaDB MaxScale from 25.10 to 26.10
 
+### License Key Required
+
+MaxScale 26.10 requires a license key to start. Earlier versions, except MaxScale Trial, did not
+require one. A production license key from an Enterprise Platform subscription and a trial
+license key both work.
+
+1. Before you upgrade, get a license key from the
+   [MariaDB License Portal](https://customers.mariadb.com/license/).
+2. Stop MaxScale:
+
+   ```bash
+   sudo systemctl stop maxscale
+   ```
+3. Upgrade the MaxScale packages to 26.10.
+4. Add the key to the `[maxscale]` section of the configuration file:
+
+   ```ini
+   [maxscale]
+   license_key=<key>
+   ```
+5. Start MaxScale:
+
+   ```bash
+   sudo systemctl start maxscale
+   ```
+
+Stop MaxScale before you upgrade the packages. The 26.10 package restarts MaxScale if it is
+running, and MaxScale 26.10 does not start without a license key. Do not add `license_key` while
+you still run 25.10. MaxScale 25.10 and earlier, except MaxScale Trial, report it as an unknown
+parameter.
+
+To store the key in a file, or to troubleshoot it, see
+[Install a MaxScale License Key](../../installation-and-configuration/maxscale-license-key.md).
+
 ### Log Timestamp Format
 
 The default timestamp format in MaxScale 26.10 changed to a standard ISO 8601 timestamp with timezone. The new timestamp format is interoperable with other log management systems and includes the system timezone which makes log analysis easier. To use the old format, add `log_timestamp_format=datetime` under the `[maxscale]` section.

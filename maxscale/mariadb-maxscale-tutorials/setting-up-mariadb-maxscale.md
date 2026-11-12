@@ -74,20 +74,15 @@ An alternative to generating two separate accounts is to use one account with a 
 
 MaxScale reads its configuration from _/etc/maxscale.cnf_. A template configuration is provided with the MaxScale installation.
 
-A global _maxscale_ section is included in every MaxScale configuration file. This section sets the values of various global parameters, such as the number of threads MaxScale uses to handle client requests. To set thread count to the number of available cpu cores, set the following.
+A global _maxscale_ section is included in every MaxScale configuration file. This section sets the values of various global parameters, such as the number of threads MaxScale uses to handle client requests and the license key. To set the thread count to the number of available CPU cores and install the license key, set the following.
 
 ```ini
 [maxscale]
 threads=auto
-```
-
-{% hint style="info" %}
-If using [MaxScale Trial](../maxscale-use-cases/maxscale-trial.md), you also need:
-
-```ini
 license_key=<key>
 ```
-{% endhint %}
+
+Starting with MaxScale 26.10, MaxScale does not start without `license_key`. The configuration template does not include it, so add it yourself. A production license key and a trial license key both work. To get a key, or to store it in a file instead, see [Install a MaxScale License Key](../maxscale-management/installation-and-configuration/maxscale-license-key.md). For MaxScale 25.10 and earlier, leave `license_key` out unless you use [MaxScale Trial](../maxscale-use-cases/maxscale-trial.md).
 
 ### Configuring the servers
 

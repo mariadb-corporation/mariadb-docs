@@ -2,18 +2,26 @@
 description: >-
   Obtain a MariaDB MaxScale license key from the MariaDB License Portal, install it in
   maxscale.cnf, and understand what MaxScale does when the license expires.
-hidden: true
 ---
 
 # Install a MaxScale License Key
 
-MariaDB MaxScale requires a license key to start. The key is issued by MariaDB, installed in the
-MaxScale configuration file, and validated every time MaxScale starts.
+Starting with MaxScale 26.10, MariaDB MaxScale requires a license key to start. Earlier versions
+required one only for MaxScale Trial. The key is issued by MariaDB, installed in the MaxScale
+configuration file, and validated every time MaxScale starts.
 
-This page covers Enterprise Platform license keys.
-[MaxScale Trial](../../maxscale-use-cases/maxscale-trial.md) uses the same mechanism and the same
-`license_key` parameter. The two differ only in what the license grants. To evaluate MaxScale,
-follow the trial page instead.
+MaxScale accepts either a production license key from an Enterprise Platform subscription or a
+trial license key. Both use the same `license_key` parameter. This page covers production keys.
+To evaluate MaxScale with a trial key, follow
+[MaxScale Trial](../../maxscale-use-cases/maxscale-trial.md) instead.
+
+{% hint style="warning" %}
+**Upgrading from MaxScale 25.10 or earlier:** get your license key before you upgrade. Stop
+MaxScale before you upgrade the packages, add the key after you install MaxScale 26.10, and then
+start MaxScale. The 26.10 package restarts a running MaxScale, and earlier versions, except
+MaxScale Trial, report `license_key` as an unknown parameter. For the steps, see
+[Upgrading MaxScale](../deployment/upgrading-maxscale/README.md#license-key-required).
+{% endhint %}
 
 For the full list of MariaDB products that use a license key, see
 [Install a MariaDB Enterprise License](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/JqgUabdZsoY5EiaJmqgn/enterprise-license-install).
