@@ -40,12 +40,24 @@ Object privileges have the following hierarchy:
 ```
 ALL
   └── CLUSTER
+       ├── Deployment Unit
        └── Schema
             ├── Table
             ├── View
-            ├── Index
             └── Sequence
 ```
+
+Indexes do not have their own level in the hierarchy. The `CREATE_INDEX` and `DROP_INDEX` privileges apply to tables, and how they are checked depends on your GridGain version:
+
+{% tabs %}
+{% tab title="9.2" %}
+Index privileges are checked on the table the index belongs to. Grant them on that table or on its schema, not on an individual index. See [Index Grants](user-permissions-and-roles.md#index-grants).
+{% endtab %}
+
+{% tab title="9.1" %}
+Index privileges are checked on the index name, which is matched as if it were a table name. A grant on the table that owns the index does not authorize index statements. See [Index Grants](user-permissions-and-roles.md#index-grants).
+{% endtab %}
+{% endtabs %}
 
 When you grant a privilege on a parent object, it automatically applies to all child objects. For example, `SELECT_FROM_TABLE` privilege on schema `PUBLIC` allows user to execute `SELECT` statement on all tables in that schema. This includes both existing tables and tables that will be created in the future, as permissions are checked when the user attempts access.
 
