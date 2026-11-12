@@ -324,6 +324,7 @@
       * [Querying and Modifying Data](gridgain-8/sql/odbc/querying-modifying-data.md)
       * [Specification](gridgain-8/sql/odbc/specification.md)
 * [Other Connectors & Methods](other/README.md)
+  * [ADBC](other/mariadb-adbc-driver-guide.md)
   * [Erlang](other/mariadb-connector-erlang-guide.md)
   * [Excel Add-in for MariaDB](other/excel-add-in-for-mariadb.md)
   * [Perfect-MariaDB for Swift](other/perfect-mariadb-for-swift.md)
