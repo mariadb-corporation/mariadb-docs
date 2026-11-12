@@ -1174,7 +1174,7 @@ description: >-
 
 #### Settings for File-based Key Manager
 
-[**file.keyfile**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#settings-for-file-based-key-manager)
+[**file.keyfile**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/encryption-key-managers.md#settings-for-file-based-key-manager)
 
 * Type: path
 * Mandatory: Yes
@@ -1183,49 +1183,49 @@ description: >-
 
 #### Settings for HashiCorp Vault Key Manager
 
-[**vault.ca**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#settings-for-hashicorp-vault-key-manager)
+[**vault.ca**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/encryption-key-managers.md#settings-for-hashicorp-vault-key-manager)
 
 * Type: path
 * Default: `""`
 * Dynamic: Yes
 * Description: Defines the CA certificate used for validating Vault server connections.
 
-[**vault.host**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#settings-for-hashicorp-vault-key-manager)
+[**vault.host**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/encryption-key-managers.md#settings-for-hashicorp-vault-key-manager)
 
 * Type: string
 * Default: `localhost`
 * Dynamic: Yes
 * Description: Specifies the hostname of the Vault server.
 
-[**vault.mount**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#settings-for-hashicorp-vault-key-manager)
+[**vault.mount**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/encryption-key-managers.md#settings-for-hashicorp-vault-key-manager)
 
 * Type: string
 * Default: `secret`
 * Dynamic: Yes
 * Description: Provides the Key-Value mount path in Vault where secrets are stored.
 
-[**vault.port**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#settings-for-hashicorp-vault-key-manager)
+[**vault.port**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/encryption-key-managers.md#settings-for-hashicorp-vault-key-manager)
 
 * Type: integer
 * Default: `8200`
 * Dynamic: Yes
 * Description: Defines the port on which the Vault server listens.
 
-[**vault.timeout**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#settings-for-hashicorp-vault-key-manager)
+[**vault.timeout**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/encryption-key-managers.md#settings-for-hashicorp-vault-key-manager)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Default: 30s
 * Dynamic: Yes
 * Description: Sets the timeout for requests and connections to the Vault server.
 
-[**vault.tls**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#settings-for-hashicorp-vault-key-manager)
+[**vault.tls**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/encryption-key-managers.md#settings-for-hashicorp-vault-key-manager)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: true
 * Dynamic: Yes
 * Description: Manages whether encrypted (HTTPS) or unencrypted (HTTP) connections are used when communicating with the Vault server.
 
-[**vault.token**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#settings-for-hashicorp-vault-key-manager)
+[**vault.token**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/encryption-key-managers.md#settings-for-hashicorp-vault-key-manager)
 
 * Type: password
 * Mandatory: Yes
@@ -1234,35 +1234,35 @@ description: >-
 
 #### Settings for KMIP Key Manager
 
-[**kmip.ca**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#settings-for-kmip-key-manager)
+[**kmip.ca**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/encryption-key-managers.md#settings-for-kmip-key-manager)
 
 * Type: path
 * Default: `""`
 * Dynamic: Yes
 * Description: CA ceritficate for KMIP server.
 
-[**kmip.cert**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#settings-for-kmip-key-manager)
+[**kmip.cert**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/encryption-key-managers.md#settings-for-kmip-key-manager)
 
 * Type: path
 * Mandatory: Yes
 * Dynamic: Yes
 * Description: Client certificate for KMIP authentication.
 
-[**kmip.host**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#settings-for-kmip-key-manager)
+[**kmip.host**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/encryption-key-managers.md#settings-for-kmip-key-manager)
 
 * Type: string
 * Mandatory: Yes
 * Dynamic: Yes
 * Description: Defines the host where the KMIP server is.
 
-[**kmip.key**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#settings-for-kmip-key-manager)
+[**kmip.key**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/encryption-key-managers.md#settings-for-kmip-key-manager)
 
 * Type: path
 * Mandatory: Yes
 * Dynamic: Yes
 * Description: Specifies the client private key used for connecting to the KMIP server.
 
-[**kmip.port**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#settings-for-kmip-key-manager)
+[**kmip.port**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/encryption-key-managers.md#settings-for-kmip-key-manager)
 
 * Type: integer
 * Mandatory: Yes
@@ -1271,7 +1271,7 @@ description: >-
 
 #### Settings for TLS/SSL Encryption
 
-[**ssl**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#ssl)
+[**ssl**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/tls-ssl-encryption.md#ssl)
 
 * Type: [enumeration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
@@ -1280,7 +1280,7 @@ description: >-
 * Default: `allow`
 * Description: Configures the SSL encryption for connections.
 
-[**ssl\_ca**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#ssl_ca)
+[**ssl\_ca**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/tls-ssl-encryption.md#ssl_ca)
 
 * Type: path
 * Mandatory: No
@@ -1288,15 +1288,15 @@ description: >-
 * Default: `""`
 * Description: Specifies the CA certificate used to validate the peer’s certificate.
 
-[**ssl\_cert**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#ssl_cert)
+[**ssl\_cert**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/tls-ssl-encryption.md#ssl_cert)
 
 * Type: path
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
-* Description: Deprecated - use [ssl\_ca](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#ssl_ca) instead.
+* Description: Deprecated - use [ssl\_ca](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/tls-ssl-encryption.md#ssl_ca) instead.
 
-[**ssl\_cert\_verify\_depth**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#ssl_cert_verify_depth)
+[**ssl\_cert\_verify\_depth**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/tls-ssl-encryption.md#ssl_cert_verify_depth)
 
 * Type: number
 * Mandatory: No
@@ -1304,7 +1304,7 @@ description: >-
 * Default: `9`
 * Description: Specifies the maximum depth of the CA chain during verification.
 
-[**ssl\_cipher**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#ssl_cipher)
+[**ssl\_cipher**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/tls-ssl-encryption.md#ssl_cipher)
 
 * Type: string
 * Mandatory: No
@@ -1312,7 +1312,7 @@ description: >-
 * Default: `""`
 * Description: Provides the list of TLS ciphers to use for SSL connections.
 
-[**ssl\_crl**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#ssl_crl)
+[**ssl\_crl**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/tls-ssl-encryption.md#ssl_crl)
 
 * Type: path
 * Mandatory: No
@@ -1320,7 +1320,7 @@ description: >-
 * Default: `""`
 * Description: Specifies the CRL file used to validate revoked SSL certificates.
 
-[**ssl\_key**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#ssl_key)
+[**ssl\_key**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/tls-ssl-encryption.md#ssl_key)
 
 * Type: path
 * Mandatory: No
@@ -1328,7 +1328,7 @@ description: >-
 * Default: `""`
 * Description: Specifies the path to the SSL/TLS private key that is used for secure connections.
 
-[**ssl\_passphrase**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#ssl_passphrase)
+[**ssl\_passphrase**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/tls-ssl-encryption.md#ssl_passphrase)
 
 * Type: string
 * Mandatory: No
@@ -1336,7 +1336,7 @@ description: >-
 * Default: `""`
 * Description: Defines the passphrase used to decrypt the SSL/TLS private key.
 
-[**ssl\_verify\_peer\_certificate**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#ssl_verify_peer_certificate)
+[**ssl\_verify\_peer\_certificate**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/tls-ssl-encryption.md#ssl_verify_peer_certificate)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
@@ -1344,7 +1344,7 @@ description: >-
 * Default: `false`
 * Description: Verifies the peer's SSL/TLS certificate against a trusted CA.
 
-[**ssl\_verify\_peer\_host**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#ssl_verify_peer_host)
+[**ssl\_verify\_peer\_host**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/tls-ssl-encryption.md#ssl_verify_peer_host)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory No
@@ -1352,7 +1352,7 @@ description: >-
 * Default: `false`
 * Description: Verifies the peer's hostname or IP address using its SSL/TLS certificate.
 
-[**ssl\_version**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#ssl_version)
+[**ssl\_version**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/tls-ssl-encryption.md#ssl_version)
 
 * Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No

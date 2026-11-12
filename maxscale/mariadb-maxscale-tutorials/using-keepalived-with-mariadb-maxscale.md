@@ -90,7 +90,7 @@ this simple setup. The MaxScale configurations should be similar if not totally
 identical on both hosts. Specifically, both instances should have the same
 services, monitors and listeners so they appear identical to client
 applications. The
-[configuration synchronization](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#configuration-synchronization)
+[configuration synchronization](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/runtime-configuration-changes.md#configuration-synchronization)
 feature can help.
 
 If you are not using configuration synchronization, you can set the
