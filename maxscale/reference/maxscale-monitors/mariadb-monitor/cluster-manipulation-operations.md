@@ -326,7 +326,7 @@ maxctrl call command mariadbmon discover-replicas monitor=MyMonitor remove=true
 ```
 
 Discover-replicas is incompatible with
-[configuration synchronization](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#configuration-synchronization)
+[configuration synchronization](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/runtime-configuration-changes.md#configuration-synchronization)
 and will refuse to run if it is enabled.
 
 ### Bootstrap
@@ -378,7 +378,7 @@ maxctrl call command mariadbmon bootstrap monitor=MyMonitor template=MyServerTem
 ```
 
 Bootstrap is incompatible with
-[configuration synchronization](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#configuration-synchronization)
+[configuration synchronization](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/runtime-configuration-changes.md#configuration-synchronization)
 and will refuse to run if it is enabled.
 
 ## Manual activation

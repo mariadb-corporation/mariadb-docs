@@ -540,7 +540,7 @@ Specifies the number of samples that will be collected in order to define the ed
 
 Diff is not capable of adapting to any changes made in the cluster configuration. For instance, if Diff starts up in read-only mode and _main_ is subsequently made _primary_, Diff will not sever the replication from _main_ to _other_. The result will be that _other_ receives the same writes twice; once via the replication from the server it is replicating from and once when Diff executes the same writes.
 
-Diff is not compatible with [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#configuration-synchronization). If _configuration synchronization_ is enabled, an attempt to create a Diff router will fail.
+Diff is not compatible with [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/runtime-configuration-changes.md#configuration-synchronization). If _configuration synchronization_ is enabled, an attempt to create a Diff router will fail.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -405,7 +405,7 @@ If the key is protected by a password, the password must be provided with [admin
 * Default: `""`
 * Description: Provides the passphrase needed to decrypt the admin interface's TLS private key.
 
-For details, please see [ssl\_passphrase](README.md#ssl_passphrase) that behaves exactly like `admin_ssl_passphrase`.
+For details, please see [ssl\_passphrase](tls-ssl-encryption.md#ssl_passphrase) that behaves exactly like `admin_ssl_passphrase`.
 
 ## `admin_ssl_verify_peer_certificate`
 
@@ -415,7 +415,7 @@ For details, please see [ssl\_passphrase](README.md#ssl_passphrase) that behaves
 * Default: `false`
 * Description: Verifies the client TLS certificate for REST-API connections (REST-API counterpart of `ssl_verify_peer_certificate`).
 
-Verify the peer (client) TLS certificate for REST-API connections. This is the REST-API counterpart to the listener [ssl\_verify\_peer\_certificate](README.md#ssl_verify_peer_certificate) parameter.
+Verify the peer (client) TLS certificate for REST-API connections. This is the REST-API counterpart to the listener [ssl\_verify\_peer\_certificate](tls-ssl-encryption.md#ssl_verify_peer_certificate) parameter.
 
 When enabled, clients connecting to the REST API must present a certificate, and that certificate is verified against the CA configured with [admin\_ssl\_ca](#admin_ssl_ca). If `admin_ssl_ca` is not set, verification is not performed.
 
@@ -429,7 +429,7 @@ This parameter was added in MaxScale 25.10.
 * Default: `false`
 * Description: Verifies the client host against its certificate for REST-API TLS connections (REST-API counterpart of `ssl_verify_peer_host`).
 
-Verify the peer host for REST-API TLS connections. This is the REST-API counterpart to the listener [ssl\_verify\_peer\_host](README.md#ssl_verify_peer_host) parameter.
+Verify the peer host for REST-API TLS connections. This is the REST-API counterpart to the listener [ssl\_verify\_peer\_host](tls-ssl-encryption.md#ssl_verify_peer_host) parameter.
 
 When enabled, the client's hostname or IP address is verified against the certificate it presents; if they do not match, the connection is closed. If the client does not provide a certificate, host verification is skipped. To require client certificates, also enable [admin\_ssl\_verify\_peer\_certificate](#admin_ssl_verify_peer_certificate).
 
@@ -547,7 +547,7 @@ By default configuration synchronization is not enabled and it must be explicitl
 
 When `config_sync_cluster` is defined, `config_sync_user` and `config_sync_password` must also be defined.
 
-For a detailed description of this feature, refer to the [Configuration Synchronization](README.md#configuration-synchronization) section.
+For a detailed description of this feature, refer to the [Configuration Synchronization](runtime-configuration-changes.md#configuration-synchronization) section.
 
 ## `config_sync_db`
 
@@ -750,9 +750,9 @@ With `host_cache_size=0`, the cache is disabled and a fresh reverse name lookup 
 The encryption key manager to use. The available encryption key managers are:
 
 * `none` - No key manager, encryption keys are not available.
-* `file` - [File-based key manager](README.md#file-based-key-manager)
-* `kmip` - [KMIP key manager](README.md#kmip-key-manager)
-* `vault` - [HashiCorp Vault key manager](README.md#hashicorp-vault-key-manager). This key manager is only included on systems with GCC 9 or newer which means it cannot be used on Ubuntu 18.04.
+* `file` - [File-based key manager](encryption-key-managers.md#file-based-key-manager)
+* `kmip` - [KMIP key manager](encryption-key-managers.md#kmip-key-manager)
+* `vault` - [HashiCorp Vault key manager](encryption-key-managers.md#hashicorp-vault-key-manager). This key manager is only included on systems with GCC 9 or newer which means it cannot be used on Ubuntu 18.04.
 
 Refer to the [Encryption Key Managers](README.md#encryption-key-managers) section for more information on how to configure the key managers. The key managers each have their configuration in their own namespace and must have their name as a prefix.
 

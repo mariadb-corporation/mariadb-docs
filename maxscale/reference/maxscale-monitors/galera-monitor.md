@@ -211,7 +211,7 @@ maxctrl alter server server1 priority=2
 maxctrl alter server server2 priority=1
 ```
 
-This does not affect the Galera Cluster itself, just the roles MaxScale assigns to the servers. If multiple MaxScales monitor the same Galera Cluster without [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#configuration-synchronization), the commands should be run on all MaxScales.
+This does not affect the Galera Cluster itself, just the roles MaxScale assigns to the servers. If multiple MaxScales monitor the same Galera Cluster without [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/runtime-configuration-changes.md#configuration-synchronization), the commands should be run on all MaxScales.
 
 ## Bootstrap
 
@@ -235,7 +235,7 @@ maxctrl create server MyServerTemplate address=123.123.123.123 port=1111 ssl=tru
 maxctrl call command galeramon bootstrap monitor=MyGaleraMonitor template=MyServerTemplate address=192.168.0.4
 ```
 
-Bootstrap is incompatible with [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#configuration-synchronization) and will refuse to run if it is enabled.
+Bootstrap is incompatible with [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/runtime-configuration-changes.md#configuration-synchronization) and will refuse to run if it is enabled.
 
 ## Discover-replicas
 

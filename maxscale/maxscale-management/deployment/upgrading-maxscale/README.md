@@ -57,7 +57,7 @@ the path must be defined in `script`.
 
 ### TLS for Servers and Listeners
 
-The [ssl](../installation-and-configuration/maxscale-configuration-guide/README.md#ssl)
+The [ssl](../installation-and-configuration/maxscale-configuration-guide/tls-ssl-encryption.md#ssl)
 setting of servers and listeners is now an enumeration with the values
 `disable`, `allow` and `require`, and the new default is `allow`. With `allow`,
 MaxScale encrypts a connection to a server if the server supports TLS, and a
