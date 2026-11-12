@@ -2,9 +2,12 @@
 description: >-
   GridGain 9.0.13 reworks the Compute API, disables fsync by default, and adds
   SQL memory offloading and partitioned compute jobs.
+  Released on 2025-01-29.
 ---
 
 # GridGain 9.0.13 Release Notes
+
+**Release date:** 29 Jan 2025
 
 ## Overview
 

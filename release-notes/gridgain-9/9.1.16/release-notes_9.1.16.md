@@ -1,11 +1,14 @@
 ---
 description: >-
-  GridGain 9.1.16 brings a large number of new features, including a reworked
-  JDBC driver, Java records support, custom object mapping in .NET, and new
-  configuration options and metrics.
+  GridGain 9.1.16 adds many new features, including a reworked JDBC driver, Java
+  records support, custom object mapping in .NET, and new configuration options
+  and metrics.
+  Released on 2025-12-23.
 ---
 
 # GridGain 9.1.16 Release Notes
+
+**Release date:** 23 Dec 2025
 
 ## Overview
 

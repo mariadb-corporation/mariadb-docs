@@ -1,11 +1,14 @@
 ---
 description: >-
   GridGain 9.1.29 adds a license-management privilege and a DCR source-address
-  allow list, fixes a thin-client protocol vulnerability, adds the SQL SHA2
-  function, and extends the .NET client.
+  allow list, fixes a thin-client protocol vulnerability, and adds SQL SHA2 and
+  .NET features.
+  Released on 2026-11-10.
 ---
 
 # GridGain 9.1.29 Release Notes
+
+**Release date:** 10 Nov 2026
 
 ## Overview
 

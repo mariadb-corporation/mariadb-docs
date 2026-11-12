@@ -2,9 +2,12 @@
 description: >-
   GridGain 8.9.20 is a maintenance release, fixing known issues and expanding
   control script use cases.
+  Released on 2025-05-02.
 ---
 
 # GridGain 8.9.20 Release Notes
+
+**Release date:** 2 May 2025
 
 ## Overview
 

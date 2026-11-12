@@ -1,8 +1,10 @@
 ---
-description: GridGain 8.8.35 brings stability improvements and multiple security dependency updates for GridGain.
+description: GridGain 8.8.35 brings stability improvements and multiple security dependency updates for GridGain. Released on 2023-11-03.
 ---
 
 # GridGain 8.8.35 Release Notes
+
+**Release date:** 3 Nov 2023
 
 GridGain 8.8.35 brings stability improvements for GridGain.
 

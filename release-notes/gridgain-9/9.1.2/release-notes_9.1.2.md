@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 9.1.2 reintroduces near caches and adds cluster topology metrics along with multiple SQL and client fixes.
+  Released on 2025-06-04.
 ---
 
 # GridGain 9.1.2 Release Notes
+
+**Release date:** 4 Jun 2025
 
 ## Overview
 

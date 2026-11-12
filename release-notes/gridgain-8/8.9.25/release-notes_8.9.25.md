@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.9.25 is a maintenance release focused on improving stability and providing better information.
+  Released on 2025-09-24.
 ---
 
 # GridGain 8.9.25 Release Notes
+
+**Release date:** 24 Sep 2025
 
 ## Overview
 
