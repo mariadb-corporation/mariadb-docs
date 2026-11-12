@@ -282,7 +282,7 @@ GRANT PRIVILEGES CREATE_INDEX ON PUBLIC TO role1;
 {% endtabs %}
 
 {% hint style="warning" %}
-In GridGain 9.2, the check uses the table that owns the index. In GridGain 9.1, a grant on a table whose name matches the index name also authorizes the statement, even when the index belongs to another table.
+In GridGain 9.2, the check uses the table that owns the index. In GridGain 9.1, the check uses the index name, so a grant on the schema or on that name authorizes the statement, regardless of which table the index belongs to.
 {% endhint %}
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
