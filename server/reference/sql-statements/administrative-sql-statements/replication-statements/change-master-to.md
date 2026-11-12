@@ -342,7 +342,7 @@ Starting with MariaDB 12.3, the `DEFAULT` keyword is accepted by the TLS options
 
 #### MASTER\_SSL
 
-The `MASTER_SSL` option for `CHANGE MASTER` tells the replica whether to force [TLS](../../../../security/encryption/data-in-transit-encryption/) for the connection. The valid values are `0`, `1` , or `DEFAULT` (available since MariaDB 12.3). The option must be set to `1` for the other `MASTER_SSL*` options to have any effect.
+The `MASTER_SSL` option for `CHANGE MASTER` tells the replica whether to force [TLS](../../../../security/encryption/data-in-transit-encryption/) for the connection. The valid values are `0`, `1` , or `DEFAULT` (available since MariaDB 12.3). The option must be set to `1` for the other `MASTER_SSL*` options to have any effect. This option is enabled by default from MariaDB 11.4.
 
 For example:
 
@@ -511,6 +511,10 @@ From MariaDB 11.4:
 {% endhint %}
 
 The `MASTER_SSL_VERIFY_SERVER_CERT` option for `CHANGE MASTER` enables [server certificate verification](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is enabled by default.
+
+{% hint style="warning" %}
+From MariaDB 11.4, TLS and server certificate verification are both enabled by default for the replica connection. If the primary does not have TLS configured, for example a 10.6 primary, the replica cannot connect and fails with `SSL is required, but the server does not support it`. To connect, set either `MASTER_SSL=0` or `MASTER_SSL_VERIFY_SERVER_CERT=0` in `CHANGE MASTER`.
+{% endhint %}
 {% endtab %}
 
 {% tab title="< 11.4" %}
