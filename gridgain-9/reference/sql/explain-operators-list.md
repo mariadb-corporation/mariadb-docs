@@ -9,7 +9,7 @@ description: >-
 This section enumerates all operators for the `EXPLAIN` statement with their semantic and supported attributes.
 
 {% hint style="info" %}
-**Version differences.** This page describes GridGain 9.2. In 9.1 and earlier, the aggregate operators have different names and no `phase` attribute:
+**Version differences.** The operators you see in `EXPLAIN` output may differ depending on your GridGain version. This page describes 9.2. In 9.1, the aggregate operators have different names and no `phase` attribute:
 
 | 9.1 operator | 9.2 operator |
 | --- | --- |
@@ -85,7 +85,7 @@ Optional.
 - `fieldNames`: List of names of columns in produced rows.
 Optional.
 
-- `collation`: Optional. Sort order of the rows the operator produces. Shown only when it differs from the order of the operator's input. For example, `StreamAggregate` over an index on `(DEPT_ID, NAME)` that groups by `DEPT_ID` shows `collation: [DEPT_ID ASC]`. The sorted input, for example from an `IndexScan` or a `Sort`, is what makes a stream aggregate possible.
+- `collation`: Optional. Sort order of the rows the operator produces. Shown only when it differs from the order of the operator's input. For example, `StreamAggregate` over an index on `(DEPT_ID, NAME)` that groups by `DEPT_ID` shows `collation: [DEPT_ID ASC]`. Other operators follow the same rule: a `Project` that outputs only `DEPT_ID` from input sorted by `DEPT_ID ASC, NAME ASC` also shows `collation: [DEPT_ID ASC]`. The sorted input, for example from an `IndexScan` or a `Sort`, is what makes a stream aggregate possible.
 
 ## ColocatedIntersect
 
@@ -361,6 +361,7 @@ Projects specified expressions or columns from the input.
 
 Attributes:
 - `projection`: List of expressions to evaluate.
+- `collation`: Optional. Sort order of the produced rows. Shown only when it differs from the input order. For example, if the input collation is `DEPT_ID ASC, NAME ASC` and `Project` outputs only `DEPT_ID`, it shows `collation: [DEPT_ID ASC]`.
 - `est`: Estimated number of output rows.
 - `fieldNames`: List of names of columns in produced rows.
 Optional.
