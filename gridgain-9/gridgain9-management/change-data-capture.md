@@ -152,10 +152,10 @@ cdc replication status --name gg_to_iceberg
 
 A replication runs on one node at a time. The `cdc replication status` command reports that node (`running on <node>`), and `cdc replication list` returns it as `runningOnNode`.
 
-If the node executing a replication leaves the cluster, the replication is transferred to another node and resumes from the last saved position:
+If the node executing a replication leaves the cluster, the replication is transferred to another node and resumes from the last saved position. Each replication moves to exactly one node: the least loaded eligible live node, that is, the one that runs the fewest replications. As a result, the replications of the node that left spread across the cluster.
 
-- When the replication was created without `--execution-nodes`, any live node of the cluster is a candidate. The remaining nodes agree on the new node without coordination, so each replication moves to exactly one node, and different replications spread across the cluster.
-- When `--execution-nodes` names specific nodes, the new node is chosen from the live nodes in that list. If none of them is in the cluster, the replication becomes `FAILED` and is restarted when one of the listed nodes joins the cluster again.
+- When the replication was created without `--execution-nodes`, any live node of the cluster is eligible.
+- When `--execution-nodes` names specific nodes, only the live nodes in that list are eligible. If none of them is in the cluster, the replication becomes `FAILED` and is restarted on the least loaded of the listed nodes when one of them joins the cluster again.
 
 The transfer starts the replication from the last position saved by the previous node, so the changes between that position and the moment the node left are delivered again. Sinks apply changes by primary key, so the repeated delivery does not create duplicate rows.
 
