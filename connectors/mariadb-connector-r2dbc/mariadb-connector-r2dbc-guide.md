@@ -52,6 +52,8 @@ Series 1.2 and 1.3 are also published for the R2DBC 0.9.1 specification. For End
 | Java          | 8 or later                           |
 | R2DBC API     | 1.0.0                                |
 
+In series 1.3 and 1.4, the PARSEC authentication plugin requires Java 15 or later, or the BouncyCastle library on the classpath. On Java 8 and 11 without BouncyCastle, connecting with PARSEC authentication fails with the error `Parsec authentication not available`.
+
 ### Checking Your Installed Version
 
 The connector JAR records its version in its manifest, which Java exposes through the package of any connector class:
