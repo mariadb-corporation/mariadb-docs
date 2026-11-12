@@ -2940,7 +2940,7 @@ Before MariaDB 12.0:
 * Scope: Global
 * Dynamic: No
 * Data Type: numeric
-* Introduced: MariaDB 13.0
+* Introduced: MariaDB 13.2
 
 #### `version`
 
