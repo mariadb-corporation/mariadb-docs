@@ -1185,6 +1185,10 @@ Not supported in C++.
 
 ## Partition API
 
+{% hint style="warning" %}
+**Upgrading from GridGain 9.1:** the `PartitionManager` API has been deprecated since 9.1.16 and was removed in 9.2.0. Replace calls to `Table.partitionManager()` (Java) and `ITable.PartitionManager` (.NET) with `Table.partitionDistribution()` and `ITable.PartitionDistribution`. For details, see the [`PartitionDistribution` API](https://www.gridgain.com/sdk/gridgain9/latest/javadoc/org/apache/ignite/table/partition/PartitionDistribution.html).
+{% endhint %}
+
 To retrieve a partition `id`, you need to pass the corresponding `key` value and use the following [method](https://www.gridgain.com/sdk/gridgain9/latest/javadoc/org/apache/ignite/table/partition/PartitionDistribution.html#partition\(org.apache.ignite.table.Tuple\)):
 
 {% tabs %}
