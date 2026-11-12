@@ -30,7 +30,7 @@ Command arguments:
 | type |  | Data source type. Supported values: `gridgain`, `mariadb`, `mssql`. |
 | tables |  | Comma-separated list of tables that will be replicated. |
 | parameters |  | Optional additional parameters. The following parameters are supported:<br>- page-size - the size of each page sent via replication.<br>- poll-interval - the interval at which GridGain checks for updates in source tables. |
-| experimental | false | Optional. Enables experimental source types. Creating or updating a source with an experimental type fails unless this flag is set. |
+| experimental | false | Optional. Enables experimental source types. Creating or updating a source with an experimental type fails unless this flag is set. No source type currently requires it. |
 
 Below is an example of a CDC data source:
 
@@ -152,10 +152,10 @@ cdc replication status --name gg_to_iceberg
 
 A replication runs on one node at a time. The `cdc replication status` command reports that node (`running on <node>`), and `cdc replication list` returns it as `runningOnNode`.
 
-If the node executing a replication leaves the cluster, the replication is transferred to another node and resumes from the last saved position:
+If the node executing a replication leaves the cluster, the replication is transferred to another node and resumes from the last saved position. Each replication moves to exactly one node: the least loaded eligible live node, that is, the one that runs the fewest replications. As a result, the replications of the node that left spread across the cluster.
 
-- When the replication was created without `--execution-nodes`, any live node of the cluster is a candidate. The remaining nodes agree on the new node without coordination, so each replication moves to exactly one node, and different replications spread across the cluster.
-- When `--execution-nodes` names specific nodes, the new node is chosen from the live nodes in that list. If none of them is in the cluster, the replication becomes `FAILED` and is restarted when one of the listed nodes joins the cluster again.
+- When the replication was created without `--execution-nodes`, any live node of the cluster is eligible.
+- When `--execution-nodes` names specific nodes, only the live nodes in that list are eligible. If none of them is in the cluster, the replication becomes `FAILED` and is restarted on the least loaded of the listed nodes when one of them joins the cluster again.
 
 The transfer starts the replication from the last position saved by the previous node, so the changes between that position and the moment the node left are delivered again. Sinks apply changes by primary key, so the repeated delivery does not create duplicate rows.
 
@@ -297,6 +297,7 @@ Source parameters:
 | reconnectBackoffMs | 1000 | Delay, in milliseconds, before the first reconnect attempt. The delay doubles after each consecutive failure. |
 | reconnectMaxBackoffMs | 60000 | Upper bound, in milliseconds, of the reconnect delay. It is at least `reconnectBackoffMs`. With the defaults, the source keeps trying for about 25 minutes. |
 | watermarkFlushIntervalMs | 60000 | How often, in milliseconds, an idle table still records its position, so that a table without changes does not look expired after the retention period. |
+| `captureInstance.<schema>.<table>` | `<schema>_<table>` | Capture instance to read for the table, instead of the SQL Server default name. The table is matched ignoring case. Use it to switch a table to a new capture instance after a schema change. See [Schema Changes](#schema-changes). |
 
 {% hint style="info" %}
 When the JDBC URL is built from `host`, `database`, and `port`, GridGain sets `encrypt=true;trustServerCertificate=true`. This encrypts the connection but does not validate the SQL Server certificate. To control the TLS behavior, pass an explicit `jdbcUrl` instead.
@@ -327,6 +328,17 @@ Sink parameters:
 | Parameter | Default | Description |
 |---|---|---|
 | targetTable | Source table name | Required in practice. Qualified name of the destination GridGain 9 table, which must differ from the source table's qualified name. If omitted, it defaults to the source table name and replication fails to start with a self-replication error. Use it to map the source table onto a differently named table, for example `dbo.ACCOUNTS` to `PUBLIC.ACCOUNTS`. |
+| unmappedFieldPolicy | `FAIL` | What the sink does with a source column that the target table does not have. `FAIL` rejects the replication: such a column fails the start, and a row that carries one fails the write. `IGNORE` drops the column and writes the rest of the row. A primary-key column is never dropped. |
+
+Before a replication starts, the sink compares the columns of each SQL Server capture instance with the target table. The start fails, with an error that names the column and suggests a fix, if:
+
+- A source column is missing in the target table, and `unmappedFieldPolicy` is `FAIL`.
+- A column is part of the primary key on one side only, or a source key column is missing in the target table.
+- A source column type is not compatible with the target column type.
+- A source column is nullable, and the target column is `NOT NULL`.
+- A target column is `NOT NULL` without a default, and the source does not deliver it.
+
+If the capture instance does not exist yet when the replication starts, the table starts without this check.
 
 ### Create and Start Replication
 
@@ -345,13 +357,34 @@ Both `NEW_DATA` and `ALL` modes are supported.
 
 ### Schema Changes
 
-The source reads the capture instance named `<schema>_<table>`, which is the SQL Server default name; a different name cannot be configured. SQL Server keeps a capture instance's column list fixed, so a schema change needs a new capture instance:
+SQL Server keeps the column list of a capture instance fixed, so a schema change needs a new capture instance. SQL Server allows two capture instances per table, so you can switch a replication to a new instance without losing changes:
 
-1. Stop the replication.
-2. Change the source table.
-3. Re-create the capture instance: run `sys.sp_cdc_disable_table` with `@capture_instance = N'<schema>_<table>'`, then `sys.sp_cdc_enable_table` with the default capture instance name.
-4. Apply the same change to the destination GridGain 9 table.
-5. Delete and recreate the replication. The saved position belongs to the old capture instance, so a resume fails with `GG-CDC-15`. Recreate it in `ALL` mode to copy the table again, or in `NEW_DATA` mode to continue from the current position without the changes made while it was stopped.
+1. Change the source table.
+2. Create a second capture instance for the table with a new name, and grant the replication login access to its change function:
+
+   ```sql
+   EXEC sys.sp_cdc_enable_table @source_schema = N'dbo', @source_name = N'ACCOUNTS',
+       @role_name = NULL, @capture_instance = N'dbo_ACCOUNTS_v2', @supports_net_changes = 0;
+   GRANT SELECT ON cdc.fn_cdc_get_all_changes_dbo_ACCOUNTS_v2 TO replicator;
+   ```
+
+3. Apply the same change to the destination GridGain 9 table. To add a column to the source before the destination, set the sink parameter `unmappedFieldPolicy=IGNORE` instead.
+4. Let the replication run until its saved position passes the start of the new capture instance. The position advances with the table's changes and at least every `watermarkFlushIntervalMs`.
+5. Stop the replication, point the table to the new capture instance, and start the replication again. `cdc source update` takes the same arguments as `cdc source create`, so pass all source parameters:
+
+   ```
+   cdc replication stop --name mssql_to_gg9
+   cdc source update --name mssql_source --type mssql --tables dbo.ACCOUNTS \
+     --parameters jdbcUrl="jdbc:sqlserver://localhost:1433;databaseName=testdb;encrypt=true;trustServerCertificate=true" \
+     --parameters user=replicator --parameters password=<password> \
+     --parameters captureInstance.dbo.ACCOUNTS=dbo_ACCOUNTS_v2
+   cdc replication start --name mssql_to_gg9
+   ```
+
+   The replication continues on the new capture instance from its saved position.
+6. Disable the old capture instance with `sys.sp_cdc_disable_table` and `@capture_instance = N'dbo_ACCOUNTS'`.
+
+If you switch too early, while the saved position is still below the start of the new capture instance, the replication fails to start, because the changes in between exist only in the old capture instance. Set `captureInstance` back to the old instance, start the replication, and switch again later. If SQL Server has not recorded the start of the new capture instance yet, the source waits for the capture job before it resumes.
 
 ### Limitations
 
@@ -368,7 +401,7 @@ The source reads the capture instance named `<schema>_<table>`, which is the SQL
 
 ## Replicating from MariaDB
 
-This section describes how to replicate changes from MariaDB tables into GridGain 9 tables. MariaDB acts as the CDC source: GridGain reads the row-based binary log, optionally after a consistent initial snapshot, and a GridGain 9 sink applies the changes to local tables. Inserts and updates are applied as upserts, and deletes remove the corresponding rows.
+This section describes how to replicate changes from MariaDB tables into GridGain 9 tables. MariaDB acts as the CDC source: GridGain reads the row-based binary log, optionally after a consistent initial snapshot, and a GridGain 9 sink applies the changes to local tables. Inserts and updates are applied as upserts, and deletes remove the corresponding rows. An update that changes the primary key is applied as a delete of the row with the old key followed by an insert of the row with the new key.
 
 ### Supported Configurations
 
@@ -424,9 +457,9 @@ Source parameters:
 | user |  | Required. MariaDB account with the privileges listed above. |
 | password |  | Required. Password of the MariaDB account. |
 | jdbcUrl |  | Optional JDBC URL for metadata and snapshot reads, for example to set TLS options. It does not change the binary log connection. |
-| batchSize | 1000 | Maximum number of rows in a batch. A single MariaDB transaction that changes more rows than this fails the replication; raise the value for larger transactions. |
-| reconnectAttempts | 30 | Number of reconnect attempts after the binary log connection drops. When they are exhausted, the replication fails. |
-| reconnectBackoffMs | 1000 | Initial delay between reconnect attempts, in milliseconds. The delay doubles after each attempt. |
+| batchSize | 1000 | Maximum number of rows in a batch. A single MariaDB transaction that changes more rows than this fails the replication; raise the value for larger transactions. An update that changes the primary key counts as two rows. |
+| reconnectAttempts | 30 | Number of consecutive failed reconnect attempts after the binary log connection drops. When they are exhausted, the replication fails. The count and the delay are reset as soon as a connection delivers an event, so separate short outages do not add up. |
+| reconnectBackoffMs | 1000 | Initial delay between reconnect attempts, in milliseconds. The delay doubles after each failed attempt. |
 | reconnectMaxBackoffMs | 60000 | Maximum delay between reconnect attempts, in milliseconds. |
 | serverId | Random value between 1000000 and 3999999999 | Replica server ID used for the binary log connection. Each replicated table uses its own connection with the next consecutive ID. The IDs must not clash with other replicas of the same MariaDB server. |
 
@@ -450,11 +483,18 @@ In `ALL` mode, GridGain holds a global read lock only while it starts a repeatab
 
 GridGain saves the binary log position after the sink applies each batch. After a lost connection, a MariaDB restart, or a GridGain node restart, the replication resumes from the last saved position, so changes made while it was stopped are replicated. If an `ALL` snapshot is interrupted, it is restarted, and changes are replayed from the position of the first snapshot attempt. Rolled-back transactions are not replicated.
 
-The replication never skips to the current binary log position. If the saved file has been purged, the replication fails; restore the binary logs or recreate the replication.
+The saved position of a table also moves forward while the table has no changes, so a quiet table does not hold on to old binary log files. The position is not saved when a replication is stopped. After a restart, the replication can resume up to about 12 seconds behind the point where it stopped and apply those changes again.
+
+The replication never skips to the current binary log position. If the file that holds the saved position has been purged, the replication fails at once, without reconnect attempts, and the error names the unavailable position. Restore the binary logs, or delete and recreate the replication. Deleting a replication also deletes its saved positions, so a replication recreated with the same name starts as its mode specifies.
 
 ### Limitations
 
 - Schema and DDL changes are not propagated. Do not change the schema of a replicated table while its replication is running.
+- Statements that remove or replace rows without writing row events to the binary log cannot be replicated: `TRUNCATE TABLE`; `TRUNCATE`, `DROP`, `EXCHANGE` or `CONVERT` of a partition; `DISCARD` or `IMPORT TABLESPACE`; and `ALTER IGNORE TABLE`. If one of them runs on a replicated table, the replication fails, and restarting it fails again on the same statement. To recover, delete the rows of the target table, then delete the replication and create it again in `ALL` mode.
 - Recovery uses binary log file positions of the original MariaDB server. GTID-based failover to another server is not supported.
 - Each replicated table uses its own binary log connection.
 - In a mixed-version cluster, create `mariadb` sources only after every node is upgraded. Older nodes cannot read the new source type.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

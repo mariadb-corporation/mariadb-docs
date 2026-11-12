@@ -82,3 +82,7 @@ sudo bash /usr/lib/gridgain9db/start.sh 1>/tmp/gridgain9-start.log 2>&1 &
 ## Next Steps
 
 With the GridGain installed, you can proceed with the [Getting Started](../../gridgain9-get-started/quick-start.md) or [use the available APIs](../../gridgain9-development/table-api.md) immediately.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

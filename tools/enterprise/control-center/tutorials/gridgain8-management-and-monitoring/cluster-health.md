@@ -80,3 +80,7 @@ With all widgets in place, the `Cluster Health` dashboard provides a quick overv
 This dashboard shows whether the cluster's infrastructure is healthy. In the next part, you set up alerting, so GridGain notifies you when something that could affect the cluster's stability or performance happens, even when no one is watching a dashboard:
 
 - [Part 4: Configure alerts](alerts.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -297,7 +297,7 @@ You can configure the following properties of continuous queries:
 - `pageSize` - The number of entries returned from a single partition in one network call. Default value: `1000`.
 - `partitions` - The list of table partitions that will be involved in the continuous query. By default, all partitions are included.
 - `pollIntervalMs` - Poll interval, in milliseconds. Default value: `1000`.
-- `longPollingWaitTimeMs` - Maximum time, in milliseconds, the server waits for new events when none are immediately available. If events arrive, the response is returned immediately; otherwise, an empty response is returned after the timeout. Zero or negative values disable long polling. Use together with pollIntervalMs to balance latency and throughput.
+- `longPollingWaitTimeMs` - Maximum time, in milliseconds, the server waits for new events when none are immediately available. If events arrive, the response is returned immediately; otherwise, an empty response is returned after the timeout. Zero or negative values disable long polling. Use together with `pollIntervalMs` to balance latency and throughput. Servers that do not support long polling ignore this option. Default value: `10000`. In .NET, the property is `LongPollingWaitTime` (a `TimeSpan`, default 10 seconds); in C++, use `set_long_polling_wait_time_ms()`.
 - `skipOldEntries` - When `true`, `TableRowEvent#oldEntry()` (Java/.NET) or `table_row_event::get_old_entry()` (C++) will return `null` or `std::nullopt` for `TableRowEventType#UPDATED` events. This reduces network traffic by avoiding transmission of old entry values to the subscriber.
 - `startTimestampMillis` - Start timestamp in epoch time.
 - `watermark` - The watermark transaction that will be applied before starting the continuous query.
@@ -327,7 +327,7 @@ var options = new ContinuousQueryOptions
     EventTypes = [TableRowEventType.Created, TableRowEventType.Updated],
     PageSize = 42,
     PollInterval = TimeSpan.FromSeconds(0.5),
-    LongPollingWaitTimeMs = TimeSpan.FromSeconds(3000),
+    LongPollingWaitTime = TimeSpan.FromSeconds(3),
     Watermark = IContinuousQueryWatermark.FromInstant(Instant.FromDateTimeUtc(
         DateTime.UtcNow.AddDays(-1))),
     EnableEmptyBatches = false,
@@ -343,6 +343,7 @@ using namespace ignite;
 continuous_query_options opts;
 opts.set_page_size(42);
 opts.set_poll_interval_ms(500);
+opts.set_long_polling_wait_time_ms(3000);
 opts.set_event_types({table_row_event_type::CREATED, table_row_event_type::UPDATED});
 opts.set_column_names({"id", "name"});
 opts.set_skip_old_entries(true);
@@ -455,3 +456,7 @@ await foreach (var batch in view.QueryContinuouslyAsync(
 {% endtabs %}
 
 The LINQ expression maps to the SQL form as follows: `e.Entry.<column>` becomes `CUR.<column>`, `e.OldEntry.<column>` becomes `OLD.<column>`, and `e.Type` becomes `EVENT.TYPE_ID`. For key-value views, use `e.Entry.Key.<column>` or `e.Entry.Value.<column>`.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -211,3 +211,7 @@ Once you have created a table using the Java API, you can manipulate it using th
 ## See Also
 
 - [Implement Schema With Java Annotations](../gridgain9-get-started/learning-paths/schema-design-for-distributed-sql/schema-java-annotations.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

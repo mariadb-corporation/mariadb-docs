@@ -112,3 +112,7 @@ To export session history:
    ![Session history](../../../.gitbook/assets/cc-admin-guide-session-history.png)
 2. In the **From** and **To** fields, enter the beginning and the end of the period to export.
 3. Click **Export**.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

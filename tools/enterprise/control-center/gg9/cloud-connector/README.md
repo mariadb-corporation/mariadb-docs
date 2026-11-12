@@ -15,3 +15,7 @@ This section details installing and configuring the Cloud Connector for monitori
 {% content-ref url="cloud-connector-kubernetes-helm.md" %}
 [cloud-connector-kubernetes-helm.md](cloud-connector-kubernetes-helm.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

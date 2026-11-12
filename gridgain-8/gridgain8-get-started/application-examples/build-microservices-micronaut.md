@@ -421,3 +421,7 @@ Use the following commands to shut down the demo and free up resources:
 ## Bonus Task
 
 Create a similar application but deploy it as a [serverless function](https://docs.micronaut.io/latest/guide/#serverlessFunctions) in your favorite cloud environment. When the solution is workable, upload it to GitHub and claim an award by sending a [direct message to the tutorial author](https://twitter.com/denismagda).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

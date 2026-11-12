@@ -64,3 +64,7 @@ GridGain 9 supports JWT authentication for REST users, letting them obtain, use,
 Row-level security (RLS) restricts access to individual rows of a GridGain 9 table based on user roles, enforced by the database through security policies.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

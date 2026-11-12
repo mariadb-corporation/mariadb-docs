@@ -13,3 +13,7 @@ Build an application on top of a GridGain cluster. These examples are standalone
 | [Build Microservices With Micronaut and GridGain](build-microservices-micronaut.md) | A Micronaut microservice backed by a GridGain in-memory database, deployed with a two-node cluster in Docker. |
 | [Serverless Computing With Ignite and Azure Functions](serverless-azure-functions.md) | A serverless Azure Function that uses an Apache Ignite cluster on AKS as an in-memory database and compute engine. |
 | [GridGain JSON Basics](gridgain-json-basics.md) | JSON data in SQL: load it, query it with JSON_VALUE and JSON_QUERY, and speed up queries with indexed columns. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

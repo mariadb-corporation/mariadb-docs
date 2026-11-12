@@ -187,3 +187,7 @@ You build the 8.10 `libs` folder from the new distribution.
   - *Snowflake.* Snowflake is not a supported source, and the Snowflake JDBC driver (`snowflake-jdbc`) is no longer bundled. If you added `jdbc:snowflake:` to `GRIDGAIN_BULKLOAD_JDBC_ALLOWED_URL_SCHEMES` or `SnowflakeCatalog` to `importExport.allowedIcebergClasses`, put a Snowflake JDBC driver jar in `libs/gridgain-bulkload/` on every node that uses it. The driver is neither shipped nor supported. Both settings are closed by default (see [Server-Side SQL COPY](security-and-licensing.md#server-side-sql-copy)).
 - *No evaluation license archives.* The Enterprise, Ultimate, and z/OS evaluation-license archives are no longer built.
 - *Examples.* Examples are no longer part of the source repository. They are published in the public `gg8-examples` repository and are still bundled into the packages.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

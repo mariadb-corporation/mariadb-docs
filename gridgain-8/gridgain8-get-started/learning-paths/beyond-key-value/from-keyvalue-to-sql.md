@@ -1181,8 +1181,8 @@ The deeper reframing is that the cache is a distributed database with two access
 ### What's Next
 
 - `setDistributedJoins(true)` for the case where colocation is not possible, covered in [When to Break Colocation](../data-locality/when-to-break-colocation.md).
-- Secondary index strategies for high-cardinality columns and composite-index design (coming soon). In the meantime, see [Defining Indexes](../../../gridgain8-development/sql/indexes.md).
-- DDL-based cache creation (`CREATE TABLE ... WITH "CACHE_NAME=..., VALUE_TYPE=..."`), the alternative path that creates caches from SQL instead of Java configuration (coming soon). In the meantime, see [SQL and Key-Value Usage](../../../gridgain8-development/sql/sql-key-value-storage.md).
+- Secondary indexes and composite (group) indexes. See [Defining Indexes](../../../gridgain8-development/sql/indexes.md).
+- DDL-based cache creation (`CREATE TABLE ... WITH "CACHE_NAME=..., VALUE_TYPE=..."`), the alternative path that creates caches from SQL instead of Java configuration. See [SQL and Key-Value Usage](../../../gridgain8-development/sql/sql-key-value-storage.md).
 
 The next tutorial in this learning path, [Atomic Operations Across Keys: The Transaction Problem](cross-partition-transactions.md), shifts from queries to writes. Cross-partition transactions solve the problem of atomically updating two keys that live on different nodes, a case single-shard `txStart()` does not cover.
 
@@ -1190,3 +1190,7 @@ The next tutorial in this learning path, [Atomic Operations Across Keys: The Tra
 
 - [Use Transactions with the Cache API](../cache-centric-foundations/cache-transactions.md) covers the atomicity tools that let multi-key writes succeed or fail together on a single partition.
 - [Cache-Aside Under Load](../cache-centric-foundations/cache-aside-under-load.md) covers the mediation pattern where the cache sits in front of a source-of-truth database.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

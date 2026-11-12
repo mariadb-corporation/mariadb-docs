@@ -236,3 +236,7 @@ All events in GridGain 9 follow the same basic structure described below. Some e
 | timestamp | Even time in UNIX epoch time. |
 | productVersion | GridGain version used by the client. |
 | fields | Event-specific data. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

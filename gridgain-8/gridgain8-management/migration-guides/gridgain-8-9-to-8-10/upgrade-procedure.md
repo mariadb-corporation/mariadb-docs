@@ -365,3 +365,7 @@ Enterprise Edition only. Use the copies that you took before the upgrade, as des
 4. Check the data. Run `control.sh --baseline`, compare row counts with the values before the upgrade, and run `control.sh --cache idle_verify`.
 
 Restore the copies of all nodes together, and only copies that were taken in the same stop of the cluster. Do not restore only some of the nodes, and do not mix copies from different moments.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -157,3 +157,7 @@ Distributed computing on thin clients has a number of limitations:
 
 - The [ClientCompute API](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/client/ClientCompute.html) can only be used to execute existing tasks by class name;
 - [Peer class loading](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/peer-class-loading) is not available.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

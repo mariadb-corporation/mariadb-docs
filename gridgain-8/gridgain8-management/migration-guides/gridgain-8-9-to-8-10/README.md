@@ -92,3 +92,7 @@ Java thin client timeouts, DNS resolution and transactions, and .NET and C++ cli
 Deprecated APIs, changes that need no action, and the new features of 8.10.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

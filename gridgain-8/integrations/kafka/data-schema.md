@@ -113,3 +113,7 @@ To work around this obstacle, GridGain Connector introduces a special `fieldNull
 {% hint style="warning" %}
 Consider disabling schema cache (`enableSchemaCache=false`) if you cannot guarantee that the first occurrence of particular binary type instance does not have nullable fields. Otherwise, the connector will cache a partially populated schema, where some nullable fields have a `STRUCT(name=o.g.k.c.s.undef)` placeholder, and reuse it even for subsequent entries that do not have nullable fields.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

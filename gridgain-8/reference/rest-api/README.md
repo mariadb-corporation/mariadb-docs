@@ -2024,3 +2024,7 @@ http://host:port/ignite?cmd=setproperty&name={propertyName}&val={propertyValue}
 ```
 
 If the named property is not registered, or the supplied value fails to parse, the response uses a non-zero `successStatus` and the `error` field describes the failure.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

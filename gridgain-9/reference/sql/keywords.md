@@ -20,7 +20,13 @@ SELECT 1 AS "ABS";
 -- SELECT 1 AS ABS;
 ```
 
-The following list shows the keywords in GridGain 9.1.
+{% hint style="info" %}
+In GridGain 9.2, `ADD` is a reserved keyword. Using it as an unquoted table, column or alias name, for example `CREATE TABLE add (...)`, now causes a syntax error. To use `ADD` as a name, quote it in uppercase: `"ADD"`. This also applies to existing objects created with an unquoted `add`, because unquoted names are stored in uppercase.
+
+Using `ADD` as a keyword, as in `ALTER TABLE ... ADD COLUMN`, is not affected.
+{% endhint %}
+
+The following list shows the keywords in GridGain 9.
 
 | Keyword | GridGain 9 | SQL 2016 |
 |---|---|---|
@@ -30,7 +36,7 @@ The following list shows the keywords in GridGain 9.1.
 | ABSOLUTE |  |  |
 | ACTION |  |  |
 | ADA |  |  |
-| ADD |  |  |
+| ADD | Reserved (from 9.2) |  |
 | ADMIN |  |  |
 | AFTER |  |  |
 | ALGORITHM |  |  |
@@ -808,3 +814,7 @@ The following list shows the keywords in GridGain 9.1.
 | YEAR | Reserved | Reserved |
 | YEARS |  |  |
 | ZONE |  |  |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

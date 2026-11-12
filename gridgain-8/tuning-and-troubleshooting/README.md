@@ -96,3 +96,7 @@ Techniques for planning and identifying the minimum hardware requirements for a 
 An empirical approach to estimating how much disk space your data will require when loaded into GridGain's internal binary format.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

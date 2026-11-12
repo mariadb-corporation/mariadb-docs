@@ -13,7 +13,7 @@ SmartRouter is the query router of the SmartQuery framework. Based on the type o
 
 For workloads where both transactional and analytical queries are needed, SmartRouter unites the Transactional (OLTP) and Analytical (OLAP) workloads into a single entry point in MaxScale. This allows a MaxScale client to freely mix transactional and analytical queries using the same connection. This is known as Hybrid Transactional and Analytical Processing, HTAP.
 
-The transactional cluster is typically a primary-replica MariaDB deployment fronted by [ReadWriteSplit](maxscale-readwritesplit.md). The analytical cluster can be MariaDB ColumnStore or an Exasol analytics engine — the configuration examples below use ColumnStore, but SmartRouter treats each configured target the same way and routes each query to whichever one answers it fastest.
+The transactional cluster is typically a primary-replica MariaDB deployment fronted by [ReadWriteSplit](maxscale-readwritesplit/README.md). The analytical cluster can be MariaDB ColumnStore or an Exasol analytics engine — the configuration examples below use ColumnStore, but SmartRouter treats each configured target the same way and routes each query to whichever one answers it fastest.
 
 {% hint style="info" %}
 To use Exasol as the analytical cluster, configure it through the [Exasolrouter](maxscale-exasolrouter.md), which is available from MaxScale 25.10.1.
@@ -32,7 +32,7 @@ For details about the standard service parameters, refer to the [Configuration G
 * Dynamic: No
 * Description: Identifies the primary target cluster to which all write operations are directed.
 
-One of the clusters must be designated as the **`master`**. All writes go to the primary cluster, which for all practical purposes should be a primary-replica ReadWriteSplit. This document does not go into details about setting up primary-replica clusters, but suffice to say, that when setting up the ColumnStore servers they should be configured to be replicas of a MariaDB server running an InnoDB engine. The ReadWriteSplit [documentation](maxscale-readwritesplit.md) has more on primary-replica setup.
+One of the clusters must be designated as the **`master`**. All writes go to the primary cluster, which for all practical purposes should be a primary-replica ReadWriteSplit. This document does not go into details about setting up primary-replica clusters, but suffice to say, that when setting up the ColumnStore servers they should be configured to be replicas of a MariaDB server running an InnoDB engine. The ReadWriteSplit [documentation](maxscale-readwritesplit/README.md) has more on primary-replica setup.
 
 #### Example
 
@@ -115,7 +115,7 @@ does not see the write.
     made by other sessions are not waited for.
 
 The values are the same as the corresponding values of
-[readwritesplit](maxscale-readwritesplit.md#causal_reads). The other values of
+[readwritesplit](maxscale-readwritesplit/readwritesplit-settings.md#causal_reads). The other values of
 that parameter are not supported by SmartRouter.
 
 A change of the value affects only the sessions that are created after the
@@ -223,7 +223,7 @@ example by replication, that cluster may not yet have the write. With
 SmartRouter learns the GTID of each write that a session makes from the
 master, using the same session tracking of `last_gtid` as readwritesplit. The
 requirements for the master servers are the same as for the `causal_reads`
-parameter of [readwritesplit](maxscale-readwritesplit.md#causal_reads).
+parameter of [readwritesplit](maxscale-readwritesplit/readwritesplit-settings.md#causal_reads).
 
 Before a read is sent to a cluster other than the master, the GTID of the
 latest write of the session is compared with the GTID position of the

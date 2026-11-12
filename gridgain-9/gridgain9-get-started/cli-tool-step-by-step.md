@@ -377,3 +377,7 @@ The cluster is already initialized with a different configuration. You cannot re
 - [How to Manage Cluster Lifecycle With the REST API](how-to-guides/manage-cluster-lifecycle-rest-api.md)
 - [Using the CLI Tool](../gridgain9-management/using-the-cli-tool.md)
 - [GridGain CLI Tool Reference](../reference/cli-tool.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

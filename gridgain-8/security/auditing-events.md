@@ -211,3 +211,7 @@ events.remoteListenAsync(new IgniteBiPredicate<UUID, CacheEvent>() {
 
 }, null, EventType.EVT_CACHE_OBJECT_PUT, EventType.EVT_CACHE_OBJECT_REMOVED);
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

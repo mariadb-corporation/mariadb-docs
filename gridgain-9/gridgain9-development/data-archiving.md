@@ -90,3 +90,7 @@ FROM orders
 WHERE order_date >= '2025-01-01'
 GROUP BY customer_id;
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

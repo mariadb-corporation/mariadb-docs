@@ -218,3 +218,7 @@ The following table outlines features supported by each client.
 | Heartbeats | ✅ | ✅ | ✅ |
 | Data Streamer | ✅ | ✅ | No |
 | Continuous Query | ✅ | No | ✅ |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -81,3 +81,7 @@ How to restore GridGain snapshots and continuous archives on a cluster with a di
 Reference for the GridGain snapshot-utility command-line tool — its commands, connection/output/SSL parameters, exit codes, command arguments, and error codes.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

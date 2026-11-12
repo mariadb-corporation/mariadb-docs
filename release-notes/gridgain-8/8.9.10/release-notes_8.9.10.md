@@ -235,3 +235,7 @@ Starting with GridGain 8.8.17, the `GridGain.Ignite` dependency is not included 
 ## We Value Your Feedback
 
 Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

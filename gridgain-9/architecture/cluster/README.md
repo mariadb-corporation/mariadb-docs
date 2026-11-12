@@ -52,3 +52,7 @@ How a GridGain 9 cluster is initialized and how its lifecycle works, including t
 Fault tolerance characteristics of GridGain 9 cluster components, what happens during failure scenarios, and how to plan for high availability.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

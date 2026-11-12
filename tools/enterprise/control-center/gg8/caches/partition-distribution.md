@@ -30,3 +30,7 @@ To recover lost partitions:
   {% hint style="danger" %}
   If persistence is enabled, the partition data on the failed nodes cannot be recovered after running this action.
   {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -16,7 +16,6 @@ The frequency of minor and maintenance releases is variable. Minor or maintenanc
 
 Upcoming minor or maintenance releases are scheduled for:
 
-* 2026-09-14
 * 2026-12-14
 * 2027-03-15
 * 2027-06-14
@@ -28,13 +27,7 @@ Upcoming minor or maintenance releases are scheduled for:
 
 See the list of [All MariaDB Enterprise Server Releases](../all-releases.md)
 
-## Obtaining MariaDB Enterprise Server
-
-MariaDB Enterprise Server is available to MariaDB subscription customers via the [MariaDB Enterprise Downloads page](https://mariadb.com/downloads/enterprise/).
-
-If you are not yet a MariaDB subscription customer, [contact MariaDB Corporation](https://mariadb.com/contact/) for more information.
-
-MariaDB Enterprise Server binary and source code are delivered over secure protocols from MariaDB Corporation-maintained infrastructure.
+To obtain MariaDB Enterprise Server, see [Obtaining MariaDB Enterprise Server](enterprise-server-lifecycle.md#obtaining-mariadb-enterprise-server).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

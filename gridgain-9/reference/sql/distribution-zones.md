@@ -8,6 +8,12 @@ description: >-
 
 This section describes GridGain 9 distribution zones. In GridGain 9, you can fine-tune distribution of your partitions on nodes for better performance and stability.
 
+{% hint style="info" %}
+**GridGain 9.1:** In 9.1, `CREATE ZONE`, `ALTER ZONE`, and `DROP ZONE` accept a schema-qualified zone name, such as `PUBLIC.myZone`. Zones are not schema-scoped, so the qualifier is ignored and only the last part is used as the zone name. For example, `a.b.c` creates a zone named `c`. In 9.2, a schema-qualified name is rejected with a parse error.
+
+To write statements that work in both versions, always use a simple zone name: `myZone` (case-insensitive) or `"myZone"` (case-sensitive). In 9.1, the new name in `ALTER ZONE ... RENAME TO` must already be a simple name.
+{% endhint %}
+
 ## CREATE ZONE
 
 Creates a new distribution zone.
@@ -17,7 +23,7 @@ This can also be done via the [Java API](../../gridgain9-development/tables-from
 {% endhint %}
 
 ```bnf
-CREATE ZONE [ IF NOT EXISTS ] qualified_zone_name
+CREATE ZONE [ IF NOT EXISTS ] zone_name
   [ ( zone_parameter [, zone_parameter]... ) ]
   STORAGE PROFILES [storage_profile [, storage_profile]...] ;
 ```
@@ -25,7 +31,7 @@ CREATE ZONE [ IF NOT EXISTS ] qualified_zone_name
 <!-- Diagram(
 Terminal("CREATE ZONE"),
 Optional(Terminal("IF NOT EXISTS")),
-NonTerminal("qualified_zone_name", { href: "./grammar-reference/#qualified-zone-name" }),
+NonTerminal("zone_name"),
 Optional(
 Sequence(
 Terminal("("),
@@ -54,7 +60,7 @@ Terminal(";")
 **Keywords and parameters**
 
 * `IF NOT EXISTS` - create a zone only if a different zone with the same name does not exist.
-* `qualified_zone_name` - a name of the distribution zone. Can be specified as a case-sensitive string or case-insensitive identifier. Does not need to exist at the moment of table creation, and can be created before writing data.
+* `zone_name` - a name of the distribution zone. Can be specified as a case-insensitive identifier or a case-sensitive quoted identifier. Zones are not schema-scoped, so the name must be a simple identifier: a schema-qualified name such as `a.b.c` is rejected with a parse error. In GridGain 9.1, a schema-qualified name is accepted and only its last part is used. Does not need to exist at the moment of table creation, and can be created before writing data.
 * `STORAGE PROFILES` - Required. Comma-separated list of the profiles of the storage engines to use.
 * `PARTITIONS` - the number of partition the data is divided into. Partitions are then split between nodes for storage.
 * `REPLICAS` - the number of copies of each partition.
@@ -127,26 +133,26 @@ It's also possible to combine multiple attribute-related expressions in one filt
 
 Modifies a distribution zone.
 
-### ALTER ZONE RENAME TO new_qualified_zone_name
+### ALTER ZONE RENAME TO new_zone_name
 
 ```bnf
-ALTER ZONE [ IF EXISTS ] qualified_zone_name RENAME TO new_qualified_zone_name
+ALTER ZONE [ IF EXISTS ] zone_name RENAME TO new_zone_name
 ```
 
 <!-- Diagram(
 Terminal('ALTER ZONE'),
 Optional(Terminal('IF EXISTS')),
-NonTerminal('qualified_zone_name'),
+NonTerminal('zone_name'),
 Terminal('RENAME TO'),
-NonTerminal('new_qualified_zone_name'),
+NonTerminal('new_zone_name'),
 ) -->
 
 **Keywords and parameters**
 
 * `IF EXISTS` - do not throw an error if a zone with the specified name does not exist.
-* `qualified_zone_name` - the current name of the distribution zone.
+* `zone_name` - the current name of the distribution zone. Must be a simple identifier. In GridGain 9.1, a schema-qualified name is accepted and only its last part is used.
 * `RENAME TO` - renames the selected zone to the new name.
-* `new_qualified_zone_name` - the new name of the distribution zone (assigned by `RENAME`).
+* `new_zone_name` - the new name of the distribution zone (assigned by `RENAME`). Must be a simple identifier.
 
 **Examples**
 
@@ -159,14 +165,14 @@ ALTER ZONE IF EXISTS exampleZone RENAME TO renamedZone;
 ### ALTER ZONE SET
 
 ```bnf
-ALTER ZONE [ IF EXISTS ] qualified_zone_name
+ALTER ZONE [ IF EXISTS ] zone_name
   { SET [(] parameter [, parameter]... [)] | SET parameter }
 ```
 
 <!-- Diagram(
 Terminal('ALTER ZONE'),
 Optional(Terminal('IF EXISTS')),
-NonTerminal('qualified_zone_name'),
+NonTerminal('zone_name'),
 Choice(0,
 Sequence(
 Terminal('SET'),
@@ -186,7 +192,7 @@ NonTerminal('parameter', {href:'./grammar-reference/#parameter'})
 **Keywords and parameters**
 
 * `IF EXISTS` - do not throw an error if a zone with the specified name does not exist.
-* `qualified_zone_name` - a name of the distribution zone.
+* `zone_name` - a name of the distribution zone. Must be a simple identifier. In GridGain 9.1, a schema-qualified name is accepted and only its last part is used.
 * `SET` - assigns values to any or all of the following parameters:
   - `PARTITIONS` - the number of partitions.
   - `REPLICAS` - the number of copies of each partition.
@@ -225,13 +231,13 @@ NonTerminal('parameter', {href:'./grammar-reference/#parameter'})
 Sets the zone as the default zone to use if no other zone is specified.
 
 ```bnf
-ALTER ZONE [ IF EXISTS ] qualified_zone_name SET DEFAULT
+ALTER ZONE [ IF EXISTS ] zone_name SET DEFAULT
 ```
 
 <!-- Diagram(
 Terminal('ALTER ZONE'),
 Optional(Terminal('IF EXISTS')),
-NonTerminal('qualified_zone_name'),
+NonTerminal('zone_name'),
 Sequence(
 Terminal('SET'),
 Terminal('DEFAULT')
@@ -255,19 +261,19 @@ This can also be done via the [Java API](../../gridgain9-development/tables-from
 {% endhint %}
 
 ```bnf
-DROP ZONE IF EXISTS qualified_zone_name
+DROP ZONE IF EXISTS zone_name
 ```
 
 <!-- Diagram(
 Terminal('DROP ZONE'),
 Terminal('IF EXISTS'),
-NonTerminal('qualified_zone_name')
+NonTerminal('zone_name')
 ) -->
 
 **Keywords and parameters**
 
 * `IF EXISTS` - do not throw an error if a zone with the specified name does not exist.
-* `qualified_zone_name` - the name of the distribution zone.
+* `zone_name` - the name of the distribution zone. Must be a simple identifier. In GridGain 9.1, a schema-qualified name is accepted and only its last part is used.
 
 **Examples**
 
@@ -276,3 +282,7 @@ Drop Person table if the one exists:
 ```sql
 DROP ZONE IF EXISTS exampleZone;
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

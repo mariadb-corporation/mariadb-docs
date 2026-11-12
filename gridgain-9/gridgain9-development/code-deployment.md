@@ -289,3 +289,7 @@ curl -X DELETE 'http://localhost:10300/management/v1/deployment/units/test-unit/
 
 When the cluster receives the request, it will delete the specified deployment unit version on all nodes.
 If the unit is used in a job, it will instead be moved to the `OBSOLETE` status and removed once it is no longer required.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -4489,11 +4489,11 @@ description: >-
 * Default: `running`
 * Description: Specifies which server roles are eligible for connections when establishing new router sessions.
 
-#### [maxscale-readwritesplit](maxscale-routers/maxscale-readwritesplit.md)
+#### [maxscale-readwritesplit](maxscale-routers/maxscale-readwritesplit/README.md)
 
-**Settings**
+**MaxScale Readwritesplit Settings**
 
-[**causal\_reads**](maxscale-routers/maxscale-readwritesplit.md#causal_reads)
+[**causal\_reads**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#causal_reads)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -4502,7 +4502,7 @@ description: >-
 * Default: `none`
 * Description: Controls causal read behavior to ensure reads reflect prior writes despite replication lag.
 
-[**causal\_reads\_timeout**](maxscale-routers/maxscale-readwritesplit.md#causal_reads_timeout)
+[**causal\_reads\_timeout**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#causal_reads_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -4510,7 +4510,7 @@ description: >-
 * Default: 10s
 * Description: Defines how long to wait for replica synchronization when using causal reads before timing out.
 
-[**delayed\_retry**](maxscale-routers/maxscale-readwritesplit.md#delayed_retry)
+[**delayed\_retry**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#delayed_retry)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4518,7 +4518,7 @@ description: >-
 * Default: false
 * Description: Enables retrying failed queries for a limited time before returning an error if no server becomes available.
 
-[**delayed\_retry\_timeout**](maxscale-routers/maxscale-readwritesplit.md#delayed_retry_timeout)
+[**delayed\_retry\_timeout**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#delayed_retry_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -4526,7 +4526,7 @@ description: >-
 * Default: 10s
 * Description: Specifies how long to wait before returning an error to the client when delayed retries are enabled.
 
-[**lazy\_connect**](maxscale-routers/maxscale-readwritesplit.md#lazy_connect)
+[**lazy\_connect**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#lazy_connect)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4534,7 +4534,7 @@ description: >-
 * Default: false
 * Description: Enables on-demand creation of backend connections instead of opening all connections at session start.
 
-[**master\_accept\_reads**](maxscale-routers/maxscale-readwritesplit.md#master_accept_reads)
+[**master\_accept\_reads**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#master_accept_reads)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4542,7 +4542,7 @@ description: >-
 * Default: false
 * Description: Determines whether the primary server can be used to handle read queries alongside replicas.
 
-[**master\_failure\_mode**](maxscale-routers/maxscale-readwritesplit.md#master_failure_mode)
+[**master\_failure\_mode**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#master_failure_mode)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -4551,7 +4551,7 @@ description: >-
 * Default: `fail_on_write` (MaxScale 23.08: `fail_instantly`)
 * Description: Defines how the router handles primary server failure and client behavior during write operations.
 
-[**master\_reconnection**](maxscale-routers/maxscale-readwritesplit.md#master_reconnection)
+[**master\_reconnection**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#master_reconnection)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4559,7 +4559,7 @@ description: >-
 * Default: true (>= MaxScale 24.02), false(<= MaxScale 23.08)
 * Description: Controls whether a session can reconnect to a new primary server if the current one becomes unavailable.
 
-[**max\_replication\_lag**](maxscale-routers/maxscale-readwritesplit.md#max_replication_lag)
+[**max\_replication\_lag**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#max_replication_lag)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -4567,7 +4567,7 @@ description: >-
 * Default: 0s
 * Description: Sets the maximum allowed replication lag for replicas to be eligible for routing read queries.
 
-[**max\_slave\_connections**](maxscale-routers/maxscale-readwritesplit.md#max_slave_connections)
+[**max\_slave\_connections**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#max_slave_connections)
 
 * Type: integer
 * Mandatory: No
@@ -4577,7 +4577,7 @@ description: >-
 * Default: 255
 * Description: Limits the maximum number of replica connections a session can use simultaneously.
 
-[**retry\_failed\_reads**](maxscale-routers/maxscale-readwritesplit.md#retry_failed_reads)
+[**retry\_failed\_reads**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#retry_failed_reads)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4585,7 +4585,7 @@ description: >-
 * Default: true
 * Description: Determines whether failed autocommit read queries are retried on another replica.
 
-[**slave\_connections**](maxscale-routers/maxscale-readwritesplit.md#slave_connections)
+[**slave\_connections**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#slave_connections)
 
 * Type: integer
 * Mandatory: No
@@ -4593,7 +4593,7 @@ description: >-
 * Default: 255
 * Description: Specifies the initial number of replica connections a session creates for routing read queries.
 
-[**slave\_selection\_criteria**](maxscale-routers/maxscale-readwritesplit.md#slave_selection_criteria)
+[**slave\_selection\_criteria**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#slave_selection_criteria)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -4602,7 +4602,7 @@ description: >-
 * Default: `least_current_operations`
 * Description: Defines the criteria used to select replica servers for routing read queries and balancing load.
 
-[**strict\_multi\_stmt**](maxscale-routers/maxscale-readwritesplit.md#strict_multi_stmt)
+[**strict\_multi\_stmt**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#strict_multi_stmt)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4610,7 +4610,7 @@ description: >-
 * Default: false
 * Description: Ensures that all queries after a multi-statement query are routed to the primary to maintain session consistency.
 
-[**strict\_sp\_calls**](maxscale-routers/maxscale-readwritesplit.md#strict_sp_calls)
+[**strict\_sp\_calls**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#strict_sp_calls)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4618,7 +4618,7 @@ description: >-
 * Default: false
 * Description: Ensures that queries following a stored procedure call are routed to the primary to maintain consistency.
 
-[**strict\_tmp\_tables**](maxscale-routers/maxscale-readwritesplit.md#strict_tmp_tables)
+[**strict\_tmp\_tables**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#strict_tmp_tables)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4626,7 +4626,7 @@ description: >-
 * Default: true (>= MaxScale 24.02), false (<= MaxScale 23.08)
 * Description: Controls whether temporary tables block reconnections, ensuring they are not lost during primary node failovers.
 
-[**sync\_transaction**](maxscale-routers/maxscale-readwritesplit.md#sync_transaction)
+[**sync\_transaction**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#sync_transaction)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -4635,7 +4635,7 @@ description: >-
 * Default: `none`
 * Description: Defines how transactions are synchronized across replicas, with options for no synchronization, soft (non-blocking), or hard (blocking) synchronization.
 
-[**sync\_transaction\_count**](maxscale-routers/maxscale-readwritesplit.md#sync_transaction_count)
+[**sync\_transaction\_count**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#sync_transaction_count)
 
 * Type: integer
 * Mandatory: No
@@ -4645,7 +4645,7 @@ description: >-
 * Default: 1
 * Description: Specifies the minimum number of backend servers required to understand a transaction before it is considered committed.
 
-[**sync\_transaction\_max\_lag**](maxscale-routers/maxscale-readwritesplit.md#sync_transaction_max_lag)
+[**sync\_transaction\_max\_lag**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#sync_transaction_max_lag)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -4653,7 +4653,7 @@ description: >-
 * Default: 0s
 * Description: Sets the maximum allowed transaction synchronization latency in soft mode before triggering synchronization.
 
-[**sync\_transaction\_percent**](maxscale-routers/maxscale-readwritesplit.md#sync_transaction_percent)
+[**sync\_transaction\_percent**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#sync_transaction_percent)
 
 * Type: [percent](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#percent)
 * Mandatory: No
@@ -4661,7 +4661,7 @@ description: >-
 * Default: `100%`
 * Description: Sets the percentage of transactions that are synchronized.
 
-[**sync\_transaction\_probe**](maxscale-routers/maxscale-readwritesplit.md#sync_transaction_probe)
+[**sync\_transaction\_probe**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#sync_transaction_probe)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4669,7 +4669,7 @@ description: >-
 * Default: `true`
 * Description: Controls whether replication lag is probed by synchronizing a transaction even if the maximum lag is not reached.
 
-[**sync\_transaction\_throttle\_rate**](maxscale-routers/maxscale-readwritesplit.md#sync_transaction_throttle_rate)
+[**sync\_transaction\_throttle\_rate**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#sync_transaction_throttle_rate)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -4678,7 +4678,7 @@ description: >-
 * Default: `5ms`
 * Description: Sets how much the commit wait of each transaction grows per minute while a server is being throttled.
 
-[**sync\_transaction\_timeout**](maxscale-routers/maxscale-readwritesplit.md#sync_transaction_timeout)
+[**sync\_transaction\_timeout**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#sync_transaction_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -4686,7 +4686,7 @@ description: >-
 * Default: 10s
 * Description: Sets the maximum time a transaction waits for synchronization before returning or closing the connection.
 
-[**transaction\_replay**](maxscale-routers/maxscale-readwritesplit.md#transaction_replay)
+[**transaction\_replay**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#transaction_replay)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4694,7 +4694,7 @@ description: >-
 * Default: false
 * Description: Enables replay of interrupted transactions, automatically retrying them on a replacement server if the current one fails.
 
-[**transaction\_replay\_attempts**](maxscale-routers/maxscale-readwritesplit.md#transaction_replay_attempts)
+[**transaction\_replay\_attempts**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#transaction_replay_attempts)
 
 * Type: integer
 * Mandatory: No
@@ -4702,7 +4702,7 @@ description: >-
 * Default: 5
 * Description: Determines the maximum number of times a transaction will be retried during replay before failing.
 
-[**transaction\_replay\_checksum**](maxscale-routers/maxscale-readwritesplit.md#transaction_replay_checksum)
+[**transaction\_replay\_checksum**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#transaction_replay_checksum)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -4711,7 +4711,7 @@ description: >-
 * Default: `full`
 * Description: Specifies the method for calculating transaction checksums to verify replayed transactions; `full` ensures complete consistency.
 
-[**transaction\_replay\_max\_size**](maxscale-routers/maxscale-readwritesplit.md#transaction_replay_max_size)
+[**transaction\_replay\_max\_size**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#transaction_replay_max_size)
 
 * Type: [size](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
 * Mandatory: No
@@ -4719,7 +4719,7 @@ description: >-
 * Default: 1 MiB
 * Description: Sets the maximum transaction size (in bytes) that can be replayed; larger transactions are not replayed.
 
-[**transaction\_replay\_retry\_on\_deadlock**](maxscale-routers/maxscale-readwritesplit.md#transaction_replay_retry_on_deadlock)
+[**transaction\_replay\_retry\_on\_deadlock**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#transaction_replay_retry_on_deadlock)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4727,7 +4727,7 @@ description: >-
 * Default: false
 * Description: Automatically retries transactions that encounter a deadlock until they succeed or a checksum error occurs.
 
-[**transaction\_replay\_retry\_on\_mismatch**](maxscale-routers/maxscale-readwritesplit.md#transaction_replay_retry_on_mismatch)
+[**transaction\_replay\_retry\_on\_mismatch**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#transaction_replay_retry_on_mismatch)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4735,7 +4735,7 @@ description: >-
 * Default: false
 * Description: Retries transactions that fail due to checksum mismatches during replay, subject to the set limits.
 
-[**transaction\_replay\_safe\_commit**](maxscale-routers/maxscale-readwritesplit.md#transaction_replay_safe_commit)
+[**transaction\_replay\_safe\_commit**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#transaction_replay_safe_commit)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -4743,7 +4743,7 @@ description: >-
 * Default: true
 * Description: Prevents replaying transactions that are about to commit to avoid duplicates; enabled by default.
 
-[**transaction\_replay\_timeout**](maxscale-routers/maxscale-readwritesplit.md#transaction_replay_timeout)
+[**transaction\_replay\_timeout**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#transaction_replay_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -4751,7 +4751,7 @@ description: >-
 * Default: 30s (>= MaxScale 24.02), 0s (<= MaxScale 23.08)
 * Description: Sets the maximum duration for attempting transaction replay; set to `0` to disable.
 
-[**use\_sql\_variables\_in**](maxscale-routers/maxscale-readwritesplit.md#use_sql_variables_in)
+[**use\_sql\_variables\_in**](maxscale-routers/maxscale-readwritesplit/readwritesplit-settings.md#use_sql_variables_in)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No

@@ -16,3 +16,7 @@ The GridGain Certified Kafka Connector integrates Apache Kafka with GridGain 8, 
 - [GridGain vs. Apache Ignite Kafka Connector](gridgain-vs-ignite-connector.md)
 - [Example: Persisting Ignite Data in a Relational Database](example-persisting-to-database.md)
 - [Example: Ignite Data Replication](example-data-replication.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

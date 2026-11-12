@@ -17,3 +17,7 @@ Complete [Cache-Centric Foundations](../cache-centric-foundations/README.md) fir
 | [Beyond Cache: The Persistence Problem](native-persistence-beyond-cache.md) | 60 min | Intermediate |
 | [Distributed Primitives: The Coordination Problem](distributed-data-structures.md) | 45 min | Intermediate |
 | [Real-Time Event Processing: The Streaming Problem](continuous-queries-streaming.md) | 60 min | Intermediate |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

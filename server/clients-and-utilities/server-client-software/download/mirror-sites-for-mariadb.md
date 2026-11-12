@@ -20,10 +20,10 @@ The only requirements for becoming a mirror are:
 1. An https mirror should be utilised (http mirrors are not accepted any more)
 1. Available bandwidth and disk space
 
-   - Each release of MariaDB takes about between 110-140GB of disk space for
+   - Each release of MariaDB takes about between 60-120GB of disk space for
      all of the various packages we create. There are several MariaDB releases
-     per year, but only the most recent two from each main MariaDB series (as
-     of March 2025 this is 10.5, 10.6, 10.11, 11.2, 11.4, 11.7 and 11.8) are
+     per year, but only the latest release of each main MariaDB series (as
+     of November 2026 this is 10.6, 10.11, 11.4, 11.8, 12.3, 13.0, 13.1 and 13.2) are
      kept on the mirrors
    - We recommend our mirrors have at least a 100Mbit/sec connection to the
      Internet
@@ -70,42 +70,15 @@ Be aware that when using the above rsync command, a "mariadb" directory **will n
 
 It is also a good idea to test your rsync command before adding it to a cron job by adding the `-v --dry-run` flags to the command temporarily so you can see what it will do (without actually doing anything).
 
-As of June 2025, running the above command will use around 750GB of disk space in total.
+As of November 2026, running the above command will use around 640GB of disk space in total.
 
 See the [rsync documentation](https://rsync.samba.org/documentation.html) for details on what each of the arguments in the command above does.
 
 ### Secondary rsync mirrors
 
-We also have several secondary rsync mirrors you can pull from. In many instances pulling from the secondary mirror is faster than pulling from the primary rsync mirrors. Here they are, with the country they are located in. Simply replace the rsync URI in the example above with one from this list to use it.
+We also have several secondary rsync mirrors you can pull from. In many instances, pulling from a secondary mirror is faster than pulling from the primary rsync mirrors. To use one, replace the rsync URI in the example above with its URI.
 
-| Country        | Rsync URL                                         |
-| -------------- | ------------------------------------------------- |
-| Australia      | rsync://mirror.aarnet.edu.au/pub/MariaDB/         |
-| Bulgaria       | rsync://mirrors.neterra.net/MariaDB/              |
-| Canada         | rsync://mariadb.mirror.globo.tech/mariadb/        |
-| China          | rsync://mirrors.tuna.tsinghua.edu.cn/mariadb/     |
-| Denmark        | rsync://mirror.one.com/mariadb/                   |
-| Estonia        | rsync://mirrors.xtom.ee/mariadb/                  |
-| Germany        | rsync://archive.mariadb.org/mariadb/              |
-| Germany        | rsync://mirror.netcologne.de/mariadb/             |
-| Kenya          | rsync://mariadb.mirror.liquidtelecom.com/MariaDB/ |
-| Morocco        | rsync://mirror.marwan.ma/mariadb/                 |
-| Netherlands    | rsync://ftp.nluug.nl/mariadb/                     |
-| Netherlands    | rsync://mirror.nl.mirhosting.net/mariadb/         |
-| Norway         | rsync://rsync.fjordos.com/mariadb/                |
-| Poland         | rsync://ftp.icm.edu.pl/pub/unix/database/mariadb/ |
-| Portugal       | rsync://mirrors.ptisp.pt/mariadb/                 |
-| Romania        | rsync://mirrors.nxthost.com/mariadb/              |
-| Russia         | rsync://mirror.mephi.ru/mariadb/                  |
-| Russia         | rsync://mirror.truenetwork.ru/MariaDB/            |
-| Spain          | rsync://mirror.raiolanetworks.com/pub/mariadb/    |
-| Taiwan         | rsync://ftp.ubuntu-tw.org/mariadb/                |
-| Thailand       | rsync://mirror.kku.ac.th/mariadb/                 |
-| United Kingdom | rsync://mariadb.gb.ssimn.org/mariadb/             |
-| United States  | rsync://mirror.nodesdirect.com/mariadb/           |
-| United States  | rsync://mirror.us.mirhosting.net/mariadb/         |
-| United States  | rsync://rsync.osuosl.org/mariadb/                 |
-| Uruguay        | rsync://espejito.fder.edu.uy/mariadb/             |
+For an up-to-date list of the rsync mirrors, sorted by country and with their current status, see [mirmon.mariadb.org](https://mirmon.mariadb.org/). Rsync mirrors are listed there as `host::module`, for example `mirror.aarnet.edu.au::mariadb`, which is the same as `rsync://mirror.aarnet.edu.au/mariadb/`.
 
 ### The MariaDB Foundation mirrorbits system
 
@@ -129,234 +102,11 @@ Thank you for volunteering to mirror MariaDB!
 
 The primary MariaDB mirrors have been generously provided by the [Oregon State University Open Source Lab](https://osuosl.org) (at rsync.osuosl.org) and [NetCologne](https://www.netcologne.de) (at mirror.netcologne.de).
 
-Other mirrors (list not necessarily complete) are listed below and can be selected on the [mariadb.org/download/](https://mariadb.org/download/) site:
-
-### Global (CDN)
-
-- CICKU (Global - CloudFlare)
-
-### Algeria
-
-- Hostarts (Algiers)
-
-### Australia
-
-- AARNet (Brisbane)
-- Real World Group (Sydney)
-
-### Austria
-
-- Alwyzon (Vienna)
-- Digital Nova (Graz)
-- Kumi Systems e.U (Vienna)
-- next layer GmbH (Vienna)
-
-### Azerbaijan
-
-- YER Hosting
-
-### Bulgaria
-
-- Neterra Telecommunications
-
-### Chile
-
-- Insacom (Santiago de Chile)
-
-### China - 中国
-
-- 清华大学 TUNA 协会 - Tsinghua University TUNA Association (Beijing)
-- 中国科学技术大学, 合肥 - USTC (Hefei)
-- eScience Center, Nanjing University (南京大学)
-
-### Czech Republic
-
-- HOSTING90 systems (Prague)
-- vpsFree.cz
-
-### Denmark
-
-- dotsrc.org - Aalborg University (Aalborg)
-- Group.one (Copenhagen)
-
-### Estonia
-
-- xTom GmbH (Tallinn)
-
-### Finland
-
-- CSC - IT center for Science Ltd / Finnish University and Research Network (Helsinki)
-
-### France
-
-- IRCAM, Institut de recherche et coordination acoustique/musique (Paris)
-- OVH (Roubaix)
-
-### Germany
-
-- 23media (Frankfurt)
-- AG DSN (Dresden)
-- creoline GmbH (Frankfurt am Main)
-- dogado GmbH (Leipzig)
-- Host Europe GmbH
-- IPHH Internet Port Hamburg GmbH (Hamburg)
-- NetCologne GmbH
-- wilhelm.tel GmbH (Hamburg)
-- www.n-ix.net (Nuremberg)
-- xTom GmbH (Düsseldorf)
-
-### Greece
-
-- University of Crete / Computer Center (Crete, Heraklion)
-
-### Hong Kong
-
-- 網匯在線有限公司 - Nethub Online Limited
-- xTom GmbH (Hong Kong)
-
-### Hungary
-
-- Budapest University of Technology and Economics (Budapest)
-
-### Indonesia
-
-- Universitas Surabaya (Surabaya)
-- Citrahost By Citranet (Jakarta)
-- Heru Nugroho (Jakarta)
-- Nevacloud (Jakarta)
-- Domainesia (Jakarta)
-
-### Iran
-
-- Kernel.ir (Tehran)
-- Parsvds (Tehran)
-- Sindad (Tehran)
-
-### Ireland
-
-- HEAnet Ltd. (Dublin)
-
-### Israel
-
-- SPD Hosting LTD (Rosh Haayin)
-
-### Italy
-
-- MonoVM (Milan)
-
-### Japan
-
-- 山形大学, 米沢市 - Yamagata University (Yonezawa)
-- xTom GmbH (Osaka)
-- KuronekoServer (Tokyo)
-- S-TECH (Tokyo)
-
-### Kenya
-
-- Liquid Telecom (Nairobi)
-
-### Lithuania
-
-- UAB "Interneto Vizija" (Vilnius)
-
-### Moldova
-
-- ihost.md (Chisinau)
-- MangoHost.NET (Chisinau)
-
-### Morocco
-
-- Marwan
-
-### The Netherlands
-
-- bouwhuis.network (Amsterdam)
-- NLUUG (Amsterdam)
-- Triple IT B.V.
-- xTom GmbH (Amsterdam)
-- Mirhosting (Dronten)
-
-### Norway
-
-- FjordOS (Oslo)
-
-### Philippines
-
-- RISE
-
-### Poland
-
-- ICM UW (Interdisciplinary Centre for Modelling, Warsaw University)
-
-### Portugal
-
-- PTISP (Lisbon)
-- WebHS (Lisbon)
-- Universidade do Porto
-
-### Romania
-
-- Chroot Network (Bucharest)
-- nxtHost.com (Bucharest)
-
-### Russia
-
-- docker.ru (Moscow)
-- МИФИ - National Research Nuclear University "MEPhI" (Moscow)
-- Truenetwork (Novosibirsk)
-
-### Singapore
-
-- Daan van Gorkum
-- Quape (operated by MariaDB Foundation on Quape's infra)
-
-### South Korea
-
-- zzunipark (Gwangju, South Korea)
-
-### Spain
-
-- Raiola Networks (Madrid)
-
-### Switzerland
-
-- MvA Internet Services GmbH (Zurich)
-
-### Taiwan
-
-- OSSPlanet + Ubuntu-TW - Ubuntu 台灣在地推廣組
-- Blendbyte (Taipei)
-
-### Thailand
-
-- Khon Kaen University (Khon Kaen)
-- THZHost.com (Bangkok)
-
-### Ukraine
-
-- Distrohub (Kyiv)
-- mirohost.net (Kyiv)
-
-### The United States of America (USA)
-
-- Accretive Networks (Washington, Seattle)
-- EvoWise (California, Los Angeles)
-- EvoWise (New York, New York)
-- Gigenet (Chicago, Illinois)
-- KnownHost (Atlanta, Georgia)
-- Limestone Networks (Texas, Dallas)
-- Nodes Direct (Florida, Jacksonville)
-- Rackspace (Dallas, Virginia, Chicago, London, Sydney, Hong Kong)
-- xTom GmbH (San Jose, California)
-- Mirhosting (New York, New York)
-
-### Uruguay
-
-- Universidad de la República - Facultad de Derecho (Montevideo)
+Other mirrors are listed on [mirmon.mariadb.org](https://mirmon.mariadb.org/) and can be selected on the [mariadb.org/download/](https://mariadb.org/download/) site.
 
 ## The MariaDB Archive
 
-The distributed mirrors above only hold the most recent 3-4 releases of each MariaDB series (10.6, 10.11, etc...). If you need to access older MariaDB releases, there is an archive server that contains every MariaDB release. This server is available via the web at [archive.mariadb.org](https://archive.mariadb.org) and via rsync at:
+The distributed mirrors above only hold the latest release of each MariaDB series (10.6, 10.11, etc...). If you need to access older MariaDB releases, there is an archive server that contains every MariaDB release. This server is available via the web at [archive.mariadb.org](https://archive.mariadb.org) and via rsync at:
 
 ```
 archive.mariadb.org::mariadb
@@ -378,7 +128,9 @@ rsync -avP archive.mariadb.org::mariadb/ /path/to/local/dir/
 rsync -avP archive.mariadb.org::mariadb/mariadb-10.4.13/ /path/to/local/dir/
 ```
 
-**Warning**, as of June 2025, the entire archive will use around 14 TB of disk space in total, and if you want to keep your mirror up to date (via cron routine for instance), please **first compare** the STATUS file **before** doing the rsync. This file is updated anytime a new content is added in the archive tree.
+{% hint style="warning" %}
+As of November 2026, the entire archive uses around 15 TB of disk space. If you keep your copy up to date, for example with a cron job, **first compare** the `STATUS` file **before** running rsync. This file is updated whenever new content is added to the archive tree.
+{% endhint %}
 
 You can use something like the following:
 

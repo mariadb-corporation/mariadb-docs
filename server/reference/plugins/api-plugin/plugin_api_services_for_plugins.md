@@ -21,3 +21,6 @@ If you need to call back into the server from a plugin, you should use the servi
 | [`Instrumentation Interface`](Instrumentation_interface.md) |  |
 | [`Plugin Services`](plugin_api_services.md) | A set of services provided by the server to plugins. **See also**: [Plugin Services Implementation](page-implementation.md#plugin-services-implementation) |
 
+<sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

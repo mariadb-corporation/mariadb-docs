@@ -109,3 +109,7 @@ Let's assume that empirical estimation shows that the total amount of data is 3 
 {% hint style="info" %}
 Use the [spreadsheet](../.gitbook/assets/gg8-sizing_calculator.xlsx) to estimate how many servers with a predefined configuration you may need in your cluster.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

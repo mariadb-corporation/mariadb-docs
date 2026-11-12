@@ -222,3 +222,7 @@ Be aware that secondary storage is updated asynchronously after primary storage.
 ### Resource Planning
 
 Consider allocating different nodes or resource pools for transactional and analytical workloads to prevent analytical queries from affecting the performance of transactional operations.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

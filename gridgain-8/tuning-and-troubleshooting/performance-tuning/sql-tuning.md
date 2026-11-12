@@ -494,3 +494,7 @@ To control memory usage, use the following system properties:
   {% endhint %}
 
 - Use `IGNITE_H2_STATEMENT_CACHE_SIZE` to control the size of the prepared-statement cache per H2 connection. Default value is 256. This property does not need to be changed under most scenarios.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

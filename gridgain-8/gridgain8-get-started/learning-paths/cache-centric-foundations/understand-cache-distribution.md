@@ -918,3 +918,7 @@ Beyond Key-Value and the Design for Data Locality path build directly on this me
 
 - [Use Transactions with the Cache API](cache-transactions.md) added multi-key atomicity to the Foundations path. Transactions and distribution combine in the Beyond Key-Value path, where colocated writes commit faster than cross-node writes.
 - [Work with the Cache API](../../quick-start/work-with-cache-api.md) introduced the thick client used throughout.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

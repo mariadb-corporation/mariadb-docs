@@ -177,3 +177,7 @@ Reference for the shared SQL grammar elements used across GridGain 9 DDL, DML, a
 GridGain 9 conformance with the ANSI SQL:2016 standard — the features that are supported and those that are not.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

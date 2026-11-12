@@ -337,3 +337,7 @@ Grafana will import the dashboard and display the metrics on it:
 
 - [How to Monitor GridGain Clusters with New Relic](../how-to-guides/new-relic.md) - Export GridGain metrics and logs to New Relic with the OpenTelemetry Java agent.
 - [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/getting_started/) - Getting started with the Prometheus server.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

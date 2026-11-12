@@ -144,3 +144,7 @@ Set up a single-node GridGain 8 cluster with Docker Compose for cache-centric de
 Connect a Java thick client to your cache-centric cluster, create distributed caches, and perform put, get, and bulk operations with IgniteCache.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -1794,3 +1794,7 @@ Both paths produce identical schemas. The choice depends on your team's workflow
 **What's next:**
 
 The entity classes you built are not finished artifacts. They are the data access layer for every operation your application performs. [Choose the Right Data Access Pattern](data-access-patterns.md) passes these same classes to `RecordView`, `KeyValueView`, and SQL, and shows how the composite primary keys and colocation columns you declared determine which API view works for each operation. Album's composite PK `(AlbumId, ArtistId)` means `KeyValueView` needs both fields for a point lookup, but SQL can query by `ArtistId` alone. The schema design decisions from the previous tutorial, now embedded in your Java code, shape the application you build on top of them.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

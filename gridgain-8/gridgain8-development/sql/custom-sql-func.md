@@ -81,3 +81,7 @@ SELECT sqr(42);
 {% endtabs %}
 
 For more information about how cache and schema names relate, see the [Understanding Schemas](schemas.md) page.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

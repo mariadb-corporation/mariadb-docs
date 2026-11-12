@@ -13,3 +13,7 @@ description: >-
 - I am getting `java.lang.ClassNotFoundException` `org.apache.ignite.logger.java.JavaLoggerFileHandler` when using IgniteContext
 
   This issue appears when you do not have any loggers included in classpath and GridGain tries to use standard Java logging. By default, Spark loads all user jar files using separate class loader. Java logging framework, on the other hand, uses application class loader to initialize log handlers. To resolve this, you can either add `ignite-log4j2` module to the list of the used jars so that Ignite would use Log4j2 as a logging subsystem, or alter default Spark classpath as described [here](installation.md).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

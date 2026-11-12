@@ -17,6 +17,16 @@ These events are fired every time a client connects to the cluster, or disconnec
 | CLIENT_CONNECTION_ESTABLISHED | Connection with the client established. Connection info contains information about the client. |
 | CLIENT_CONNECTION_CLOSED | Connection with the client closed. Connection info contains information about the client. |
 
+### Connection Event Structure
+
+Each connection event has the following fields:
+
+| Field Name | Description |
+| --- | --- |
+| connectionId | ID of the client connection. |
+| remoteAddress | Address the client connected from. |
+| clientUserAgent | Type and version of the client, in the `GridGain-<client>/<version>` format, for example `GridGain-Java/9.1.29`. Values longer than 80 characters are truncated, and control characters are replaced with `?`. The field is omitted if the client does not send this information. |
+
 ## Authentication Events
 
 These events are fired when the user performs an action that requires authentication.
@@ -190,3 +200,7 @@ The user identity is available in the standard event [`user`](working-with-event
 | status | HTTP response status code. Applicable only to `REST_API_REQUEST_FINISHED` events. |
 | durationMs | Request duration in milliseconds. Applicable only to `REST_API_REQUEST_FINISHED` events. |
 | message | Error message. Applicable only to `REST_API_REQUEST_FINISHED` events when an unhandled error occurred. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

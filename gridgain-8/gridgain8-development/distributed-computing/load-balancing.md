@@ -214,3 +214,7 @@ unsupported
 {% hint style="warning" %}
 If you want to enable job stealing, you have to configure `org.apache.ignite.spi.failover.jobstealing.JobStealingFailoverSpi`.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

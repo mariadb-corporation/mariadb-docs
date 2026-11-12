@@ -52,3 +52,7 @@ Implement a custom GridGain authenticator, illustrated with a file-based ACL pro
 Isolate tenant data in GridGain by creating per-tenant caches and assigning per-cache security permissions.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

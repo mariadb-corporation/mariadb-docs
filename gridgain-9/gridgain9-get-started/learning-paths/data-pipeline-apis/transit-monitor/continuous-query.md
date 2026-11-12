@@ -391,3 +391,7 @@ This query identifies routes with some active vehicles, then finds vehicles on t
 This module implemented a monitoring system that continuously checks for service disruptions including delayed vehicles, vehicle bunching, low route coverage, and offline vehicles. The system tracks alert statistics and provides a foundation for operator notifications.
 
 The monitoring system transforms the transit application from a passive data collection system into an active monitoring tool.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

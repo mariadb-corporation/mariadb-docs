@@ -27,3 +27,7 @@ Open source Apache Ignite includes a different Ignite Kafka Connector implementa
 | Kafka API Version | 0.10 | 2.0 |
 | Source API | Ignite events | Ignite continuous queries |
 | Sink API | Ignite data streamer | Ignite data streamer |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -21,6 +21,21 @@ This section enumerates all operators for the `EXPLAIN` statement with their sem
 | `ReduceSortAggregate` | `StreamAggregate` with `phase: FINAL` |
 {% endhint %}
 
+## Collation Attribute
+
+Any operator can show a `collation` attribute: the list of columns and the sort order of the rows that the operator produces.
+To keep the plan short, `EXPLAIN` prints the attribute only where it adds information:
+
+- A scan prints the sort order of the rows it reads, if they are sorted.
+- Any other operator prints its sort order only if it differs from the sort order of its input. For a join, the comparison is made with the left input.
+- `collation: []` means that the operator does not preserve the sort order of its input.
+
+The `Sort` operator always prints its collation. `Exchange` and sorted `IndexScan` operators print their collation whenever it is not empty.
+
+For example, a `StreamAggregate` over an index on `(DEPT_ID, NAME)` that groups by `DEPT_ID` and computes `MAX(NAME)` shows `collation: [DEPT_ID ASC]`, because its output order differs from the order of its input.
+A `Project` that outputs only `DEPT_ID` from input sorted by `DEPT_ID ASC, NAME ASC` also shows `collation: [DEPT_ID ASC]`.
+The sorted input, for example from an `IndexScan` or a `Sort`, is what makes a stream aggregate possible.
+
 ## HashAggregate
 
 The aggregate operation groups input data on one or more sets of grouping keys, calculating each aggregation function for each combination of grouping key.
@@ -84,8 +99,6 @@ Not shown for a single-phase aggregation.
 Optional.
 - `fieldNames`: List of names of columns in produced rows.
 Optional.
-
-- `collation`: Optional. Sort order of the rows the operator produces. Shown only when it differs from the order of the operator's input. For example, `StreamAggregate` over an index on `(DEPT_ID, NAME)` that groups by `DEPT_ID` shows `collation: [DEPT_ID ASC]`. Other operators follow the same rule: a `Project` that outputs only `DEPT_ID` from input sorted by `DEPT_ID ASC, NAME ASC` also shows `collation: [DEPT_ID ASC]`. The sorted input, for example from an `IndexScan` or a `Sort`, is what makes a stream aggregate possible.
 
 ## ColocatedIntersect
 
@@ -293,6 +306,8 @@ Optional.
 Optional.
 - `fieldNames`: List of names of columns in produced rows.
 Optional.
+- `collation`: Sort order of the produced rows.
+Optional. Present only for a sorted index.
 
 ## TableScan
 
@@ -470,3 +485,7 @@ Attributes:
 - `est`: Estimated number of output rows.
 - `fieldNames`: List of names of columns in produced rows.
 Optional.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -152,3 +152,7 @@ restart of embedded server nodes (your storage).
 If there is no need to cache the entire data set on the application end, then consider [near-caches](../../gridgain8-development/near-caches.md),
 which let you keep frequently accessed records on the application end.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

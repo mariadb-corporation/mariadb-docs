@@ -132,7 +132,7 @@ There are some limitations:
 
 ## Configuration
 
-(See [About MariaDB java connector](about-mariadb-connector-j.md#connection-strings) for all connection parameters)\
+(See [About MariaDB java connector](about-mariadb-connector-j/README.md#connection-strings) for all connection parameters)\
 JDBC connection string format is:
 
 ```java

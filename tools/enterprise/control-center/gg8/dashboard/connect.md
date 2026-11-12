@@ -515,3 +515,7 @@ Run the following to test your connection:
    curl "https://${connectionInfo.urls[0]}:8080/ignite?cmd=currentState&sessionToken={sessionToken}"
    ```
    {% endcode %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

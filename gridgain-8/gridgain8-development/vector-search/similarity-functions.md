@@ -31,3 +31,7 @@ for example, document search, image retrieval. Similar to **DOT_PRODUCT**, but p
   - **Speed**: Slowest due to squared differences and square root operations.
   - **Memory**: Moderate usage - raw vectors + temporary storage for squared differences.
   - **Storage**: Standard footprint - raw vectors, no preprocessing required.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

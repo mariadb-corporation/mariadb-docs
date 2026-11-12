@@ -1598,11 +1598,14 @@ This tutorial closed the Foundations path. You have seen the cache in three mode
 
 ### What's Next
 
-- Deadlock detection, transaction timeouts, and the `txStart(concurrency, isolation, timeoutMs, txSize)` overload (coming soon). In the meantime, see [Deadlock Detection](../../../gridgain8-development/transactions.md#deadlock-detection) and [Long Running Transactions Termination](../../../gridgain8-development/transactions.md#long-running-transactions-termination) in Performing Transactions.
-- `invokeAll` for bulk atomic mutations across many keys in one call (coming soon).
-- Write-through with `CacheStore`, the path that commits the cache and a database together as a single transaction for multi-key atomicity spanning both layers (coming soon). In the meantime, see [External Storage](../../../gridgain8-development/persistence/external-storage.md) and [Implementing Custom Cache Store](../../../gridgain8-development/persistence/custom-cache-store.md).
+- Deadlock detection, transaction timeouts, and the `txStart(concurrency, isolation, timeoutMs, txSize)` overload. See [Deadlock Detection](../../../gridgain8-development/transactions.md#deadlock-detection) and [Long Running Transactions Termination](../../../gridgain8-development/transactions.md#long-running-transactions-termination) in Performing Transactions.
+- Write-through with `CacheStore`, the path that commits the cache and a database together as a single transaction for multi-key atomicity spanning both layers. See [External Storage](../../../gridgain8-development/persistence/external-storage.md) and [Implementing Custom Cache Store](../../../gridgain8-development/persistence/custom-cache-store.md).
 
 ### Related
 
 - [Cache Sizing and Expiry](cache-sizing-and-expiry.md) covers eviction and expiry policies that control what stays in the cache.
 - [Cache-Aside Under Load](cache-aside-under-load.md) covers the mediation pattern where the cache sits in front of a source-of-truth database.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

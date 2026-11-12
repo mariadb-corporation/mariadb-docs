@@ -132,3 +132,7 @@ The operator tracks upgrade state in several status fields:
 | lastFailedImage | The image that caused the most recent rollback, used to reset the rollback counter when the user switches to a different image. |
 | lastUpgradeSuccessful | Whether the most recent upgrade completed successfully. |
 | rollbackCount | Number of consecutive rollback attempts for the current target, capped at 3. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

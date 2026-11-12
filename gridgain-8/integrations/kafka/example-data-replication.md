@@ -427,3 +427,7 @@ public class SinkClient {
 id: 2  city_id: 2  name: John Smith
 id: 1  city_id: 1  name: John Doe
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

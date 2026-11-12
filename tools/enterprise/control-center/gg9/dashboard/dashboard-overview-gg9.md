@@ -158,3 +158,7 @@ All selected filters apply globally to all widgets on the dashboard.
 ## Next Steps
 
 - [Add a widget](configuring-widgets-gg9.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -202,3 +202,7 @@ Depending on your mailing server, additional configuration properties may be req
 ## How do I contact support?
 
 See [Contact Us](support.md) for how to reach the support team.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

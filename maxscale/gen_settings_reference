@@ -247,21 +247,43 @@ def scan_md_file(entries, path):
 
     scan_lines(entries, path, lines, indented)
 
+def is_split_page(path):
+    # A long page split into a folder (DOCS-6367): page/README.md keeps the
+    # page's URL and the settings move to child pages in the same folder.
+    # Category folders (reference/maxscale-routers/ and so on) have a
+    # README.md too, but sit only one level below the output directory.
+    if not os.path.isfile(os.path.join(path, "README.md")):
+        return False
+    rel = os.path.relpath(path, output_dir)
+    return rel.startswith("..") or rel.count("/") >= 1
+
+def scope_for(entries, name, path):
+    if name=="maxscale-configuration-guide":
+        name="MaxScale"
+    scope="[" + name + "](" + relative_to_output(path) + ")"
+    sub_entries=entries.get(scope)
+    if not sub_entries:
+        sub_entries={}
+        entries[scope] = sub_entries;
+    return sub_entries
+
 def scan_file(entries, path):
     if os.path.isdir(path):
-        scan_path(entries, path)
+        if is_split_page(path):
+            # One scope for the whole folder, titled and linked like the
+            # page was before the split; each entry links to its own file.
+            readme = os.path.join(path, "README.md")
+            sub_entries = scope_for(entries, os.path.basename(path), readme)
+            for file in sorted(os.listdir(path)):
+                if file.endswith(".md"):
+                    scan_md_file(sub_entries, os.path.join(path, file))
+        else:
+            scan_path(entries, path)
     elif path.endswith(".md"):
         name=path.split('/')[-1].replace('.md', '')
         if path.endswith("maxscale-configuration-settings.md"):
             return
-        if name=="maxscale-configuration-guide":
-            name="MaxScale"
-        scope="[" + name + "](" + relative_to_output(path) + ")"
-        sub_entries=entries.get(scope)
-        if not sub_entries:
-            sub_entries={}
-            entries[scope] = sub_entries;
-        scan_md_file(sub_entries, path)
+        scan_md_file(scope_for(entries, name, path), path)
 
 def scan_dir(entries, dir):
     for file in os.listdir(dir):

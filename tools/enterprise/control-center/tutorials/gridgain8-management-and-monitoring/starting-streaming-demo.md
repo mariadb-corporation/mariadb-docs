@@ -173,3 +173,7 @@ The application joins the cluster as a client node through node discovery. On Do
 In the next part, you set up a Control Center dashboard that displays storage-related metrics:
 
 - [Part 2: Monitor storage usage](storage-monitoring.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

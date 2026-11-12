@@ -424,3 +424,6 @@ struct st_mysql_show_var status_variables[] = {
 
 Here the [SHOW_FUNC](plugin_status_vars.md#enum_mysql_show_type) entry returns a [SHOW_ARRAY](plugin_status_vars.md#enum_mysql_show_type), and the server prefixes the names of the array's variables with the entry's name.
 
+<sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

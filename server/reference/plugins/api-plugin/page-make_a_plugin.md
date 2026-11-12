@@ -131,3 +131,6 @@ And then pass on the `status_vars` to the [maria_declare_plugin](plugin_declarat
 
 **See also**: [st_mysql_show_var](plugin_status_vars.md#st_mysql_show_var), [SHOW_INT](plugin_status_vars.md#show_int)
 
+<sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

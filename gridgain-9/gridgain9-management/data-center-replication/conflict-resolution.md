@@ -48,3 +48,7 @@ In practice:
 - *Conflict resolution is correct even if clocks are imperfectly synchronized.* What clock drift affects is which write *feels* newer to a human looking at wall-clock timestamps in the application, not whether the two clusters converge to the same value.
 - *Replication-lag metrics depend on local time.* Lag is computed as the difference between the replica node's current clock and the slowest partition's watermark. If the replica's clock is ahead of the source's, the metric reads higher than the actual delay; if it is behind, the metric reads lower (and may even read negative). Use the metric as a relative trend rather than an absolute number.
 - *`flushPoint` is interpreted in source-cluster time.* When you call `dcr flush --flush-point <time>`, the supplied instant is compared against the timestamps on incoming changes from the source. If the source's clock is behind the replica's, a flush point set to "now" on the replica may take longer to reach than expected.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

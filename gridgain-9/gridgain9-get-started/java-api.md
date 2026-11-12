@@ -404,3 +404,7 @@ Now that you've explored the basics of connecting to GridGain and interacting wi
 ## See Also
 
 - [Connect With the Java Thin Client](learning-paths/distributed-sql-foundations/connect-java-thin-client.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

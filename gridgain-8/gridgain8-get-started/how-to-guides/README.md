@@ -196,3 +196,7 @@ Use GridGain 8 as a low-latency Feast online store for real-time machine learnin
 Serve BigQuery ML predictions with sub-millisecond latency by caching them in GridGain 8, using a Google Analytics product recommendation demo as the reference.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -228,5 +228,9 @@ The setup has five steps:
 
 ## Related
 
-- [Keycloak documentation](https://wjw465150.gitbooks.io/keycloak-documentation/content/server_admin/topics/authentication/kerberos.html) - Configuring Kerberos user federation in Keycloak.
+- [Keycloak documentation](https://www.keycloak.org/docs/latest/server_admin/index.html#_kerberos) - Configuring Kerberos user federation in Keycloak.
 - [OpenID Connect Authentication](open-id.md) - Setting up OpenID Connect authentication in Control Center.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

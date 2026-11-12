@@ -105,3 +105,7 @@ Monitoring and command-line changes when migrating from Ignite 2 to GridGain 8, 
 How to migrate authorization from a secured Ignite 2 cluster to GridGain 8: retired permissions, coarser admin grants, and user management.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

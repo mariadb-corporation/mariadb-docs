@@ -187,3 +187,7 @@ cache.query(qry).getAll();
 ## A Complete Example
 
 A ready-to-run example of geospatial query usage can be found [here](https://github.com/dmagda/geospatial).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

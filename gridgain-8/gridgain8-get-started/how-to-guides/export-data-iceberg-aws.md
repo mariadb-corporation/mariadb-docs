@@ -203,3 +203,7 @@ You have successfully completed the guide. You have learned how to bulk-upload A
 
 - [COPY command reference](../../reference/sql/operational-commands.md#copy-into) - The GridGain SQL command used for batch export and import.
 - [Apache Iceberg documentation](https://iceberg.apache.org/) - The open table format for huge analytic datasets.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

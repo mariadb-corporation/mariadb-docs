@@ -334,3 +334,7 @@ How the connector handles errors during sink record processing (e.g., malformed 
 - Type: string
 - Default: STOP_TASK
 - Importance: low
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

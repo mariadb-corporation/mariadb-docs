@@ -215,3 +215,7 @@ As such, here are general recommendations depending on your environment:
 ## See Also
 
 - [How to Configure NUMA-Aware Memory Allocation](../../gridgain8-get-started/how-to-guides/numa-memory-allocation.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

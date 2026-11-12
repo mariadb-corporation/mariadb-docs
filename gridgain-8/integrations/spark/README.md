@@ -38,3 +38,7 @@ GridGain comes with three modules that support different versions of Apache Spar
 - ignite-spark-ext 1.0.0 — integration with Spark 2.3
 - ignite-spark-ext 2.0.0 — integration with Spark 2.4
 - ignite-spark-ext 3.0.0 — integration with Spark 3.0
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

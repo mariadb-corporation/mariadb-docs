@@ -38,6 +38,8 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | Exception Code | Description | Recommended Action |
 | --- | --- | --- |
 | `IGN-CATALOG-1` | Command to the catalog has not passed the validation. | See the exception message for details. Typically, this is either caused by incorrect DDL query (same as IGN-SQL-4) or an internal GridGain 9 error. |
+| `IGN-CATALOG-2` | The catalog version used by the client does not match the one the server operates at. The error carries the expected catalog version. | Retry the operation. The client refreshes its schema information and uses the current catalog version. |
+| `IGN-CATALOG-3` | A catalog update could not be applied because the underlying storage is temporarily unavailable or overloaded. | Retry the operation. If the error persists, check the cluster load and the Metastorage group availability. |
 
 ## CDC Exceptions
 
@@ -75,6 +77,7 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | `IGN-CLIENT-9` | Server to client request failed. | Check the network connectivity, client availability, and server logs for errors. |
 | `IGN-CLIENT-10` | Resource not found. A server-side resource referenced by the request (such as a transaction or a query cursor) was not found, usually because it has expired or was already released. | Retry the operation. Make sure transactions and cursors are used before they time out and are not referenced after being committed, rolled back, or closed. |
 | `IGN-CLIENT-11` | Client operation timeout. The operation did not complete within the configured timeout. | Increase the client operation timeout, or investigate cluster load and network latency, then retry the operation. |
+| `IGN-CLIENT-12` | Failed to find the index by ID. | Check if the index ID is correct. |
 
 ## Code Deployment Exceptions
 
@@ -87,6 +90,7 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | `IGN-CODEDEPLOY-5` | Deployment unit zip deploy error. | Verify the deployment package is not corrupted and retry deployment. |
 | `IGN-CODEDEPLOY-6` | Deployment unit write to fs error. | Check file system permissions and available disk space. |
 | `IGN-CODEDEPLOY-7` | Duplicate filenames in the deployment unit content. | Make sure all files in the deployment unit have unique names, then redeploy the unit. |
+| `IGN-CODEDEPLOY-8` | A deployment unit entry name or identifier cannot be safely resolved within its target directory (an invalid path or path traversal). | Make sure file names in the deployment unit and the unit identifier do not contain absolute paths or `..` segments, then redeploy the unit. |
 
 ## Common Configuration Exceptions
 
@@ -109,6 +113,7 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | `IGN-CMN-7` | An error occurred while closing resources. | Check the exception message to find out why the resource was closed before the operation. |
 | `IGN-CMN-8` | An error occurred while marshalling or unmarshalling objects. | Check object serialization logic and ensure all involved classes are compatible. |
 | `IGN-CMN-9` | The method cannot return a null value. | Verify the method's implementation and ensure it returns a valid non-null result. |
+| `IGN-CMN-10` | The node is attempting to start over an unsupported table-based replication mode. | Check the exception message. Start the node on a data directory created by a supported version or configuration. |
 | `IGN-CMN-65535` | Internal error has occurred. | This an unexpected internal error in GridGain 9. In most cases, receiving it indicates a bug. |
 
 ## Compute Exceptions
@@ -162,6 +167,7 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | `GG-DCR-11` | There is no specified table on the source cluster. | Check the source table name. |
 | `GG-DCR-12` | Replication to self is not allowed. | Remove the local cluster endpoint from the replication target configuration and use a different remote cluster. |
 | `GG-DCR-13` | A stop was requested for a replication that is already stopped. | No action is required. Check the replication state before issuing a stop request. |
+| `GG-DCR-14` | The source cluster address is not an allowed replication target. Either the address is not listed in `ignite.dcr.sourceClusterAddressAllowList`, or the list is empty and the address is refused by default: a link-local, any-local, or multicast IP address, or a known cloud instance metadata IP address. | Use an allowed address, or add the address to `ignite.dcr.sourceClusterAddressAllowList`. |
 
 ## Distribution Zone Exceptions
 
@@ -180,6 +186,15 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | `IGN-RECOVERY-4` | Cluster is under load. | Retry the operation when the cluster has less load. |
 | `IGN-RECOVERY-5` | Error when not enough alive nodes to perform restart with clean up. | Start additional nodes or restore failed ones before retrying recovery. |
 | `IGN-RECOVERY-6` | Error when node names are not in valid set. | Check cluster configuration and correct invalid node names. |
+| `IGN-RECOVERY-7` | Failed to forward a disaster recovery request to another node. | Check that the target node is online and reachable, then retry the operation. |
+| `IGN-RECOVERY-8` | A multi-node recovery operation failed on one of the nodes. | Check the exception message and the logs of the failed node, then retry the operation. |
+
+## Distributed Data Structures Exceptions
+
+| Exception Code | Description | Recommended Action |
+| --- | --- | --- |
+| `GG-STRUCTURES-1` | General distributed data structure error. | Check the exception message for details. |
+| `GG-STRUCTURES-2` | A distributed map with this name already exists with a different key or value type. | Use the key and value types of the existing map, or use a different map name. |
 
 ## Embedded API Exceptions
 
@@ -208,13 +223,6 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | --- | --- | --- |
 | `IGN-GC-1` | Garbage collector closed error. | Restart the node to reinitialize the garbage collector. |
 
-## Index Exceptions
-
-| Exception Code | Description | Recommended Action |
-| --- | --- | --- |
-| `IGN-IDX-1` | Failed to find the specified index. | Make sure the index exists. |
-| `IGN-IDX-2` | Specified index already exists. | Make sure the index does not exist when creating it. |
-
 ## JWT Exceptions
 
 | Exception Code | Description | Recommended Action |
@@ -240,6 +248,16 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | `GG-LICENSE-3` | A license has been modified. | Contact MariaDB [support](https://mariadb.com/support/). |
 | `GG-LICENSE-4` | A license does not contain the required features. | Contact MariaDB [support](https://mariadb.com/support/). |
 | `GG-LICENSE-5` | Blocked licenses list has been modified. | Contact MariaDB [support](https://mariadb.com/support/). |
+
+## Machine Learning Exceptions
+
+| Exception Code | Description | Recommended Action |
+| --- | --- | --- |
+| `GG-ML-1` | General inference error. | Check the exception message for details. |
+| `GG-ML-2` | Failed to initialize the model. | Check the exception message, and make sure the model files and their format are supported. |
+| `GG-ML-3` | The model was not found at the specified path. | Make sure the model path is correct and the model is included in the deployment unit. |
+| `GG-ML-4` | The input/output translator was not found. | Make sure the translator class is specified correctly and is available in the deployment unit. |
+| `GG-ML-5` | Invalid deployment unit information size. | Check the deployment unit information passed with the request. |
 
 ## Marshalling Exceptions
 
@@ -267,8 +285,6 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | --- | --- | --- |
 | `IGN-NETWORK-1` | The node with the specified ID is not in the physical topology. | Check the error message and node ID. Update node ID if it is incorrect. If the node is offline, check why and bring it back online. |
 | `IGN-NETWORK-2` | Port is already in use. | Most likely, GridGain 9 tried to access the port occupied by a different process. Change the port or free it, and then restart the node. |
-| `IGN-NETWORK-3` | File transfer error. | Check network connectivity and retry the file transfer. |
-| `IGN-NETWORK-4` | File validation error. | Ensure the file is not corrupted. |
 | `IGN-NETWORK-5` | Recipient node has left the physical topology. | Check the error message. The node is unavailable and need to be brought back into the cluster. |
 | `IGN-NETWORK-6` | Could not resolve address. Most likely, the IP address specified in the operation is not available locally. | Change the node configuration to make the address available or use a different IP address. |
 
@@ -343,6 +359,7 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | `IGN-REP-8` | Replica is already stopping. | Replica is being stopped, probably due to the node stop or rebalancing. No action is required unless this behavior is unexpected. Otherwise check the logs for details. |
 | `IGN-REP-9` | Too many user operations are simultaneously waiting for a system replication group to become available, or a replication group is otherwise overloaded. | Reduce load or increase resources for the replication group. The limit on user operations waiting for a system group is controlled by [`replication.maxConcurrentWaitingUserOperations`](../configuration/cluster-configuration-parameters.md#replication-configuration). |
 | `IGN-REP-10` | A user operation could not reach a quorum of a system replication group (the Cluster Management Group or Meta Storage) within the configured timeout, typically because of quorum loss or a missing leader. | Make sure a majority of the system group's nodes are online and that a leader has been elected, then retry the operation once the cluster recovers. The wait time is controlled by [`replication.longOperationTimeoutMillis`](../configuration/cluster-configuration-parameters.md#replication-configuration). |
+| `IGN-REP-11` | The replica is absent on the node, and the node is not in the assignments for this replica. | The request was routed to a node that does not host the replica. Retry the operation; if the error persists, check partition assignments and rebalancing status. |
 | `IGN-REP-12` | Node rejected the request: accepting it would exceed the heap share reserved for pending partition operations. | Wait briefly and retry. If this error keeps appearing, the node is overloaded. Reduce client load, increase the node's JVM heap, or raise the value of [`replication.partitionOperationHeapUsagePercent`](../configuration/cluster-configuration-parameters.md#replication-configuration). |
 | `IGN-REP-13` | Drive usage on a node exceeded the configured hard limit for partition log or data storage, or a quorum-breaking number of partition replicas are in that state. | Wait until storage reclaiming mechanisms finish, free space on the affected drive, or raise `raft.logStorage.hardPartitionsLogDriveUsageLimitBytes` / `hardPartitionsDataDriveUsageLimitBytes` for the affected nodes. Reads remain available while writes are blocked. |
 
@@ -352,15 +369,25 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | --- | --- | --- |
 | `IGN-REST-1` | Cluster has not yet been initialized or the node is in the process of stopping. | Initialize the cluster and restart the node. |
 
+## Rolling Upgrade Exceptions
+
+| Exception Code | Description | Recommended Action |
+| --- | --- | --- |
+| `GG-UPGRADE-1` | Failed to commit the rolling upgrade: no upgrade is in progress, not all nodes have rejoined the cluster, or the cluster has nodes on an unsupported version. | Check the exception message. Make sure an upgrade is in progress and every node has rejoined on the target version, then retry `upgrade commit`. |
+| `GG-UPGRADE-2` | The version has an invalid format. | Specify the version in the `major.minor.maintenance[.patch][-preRelease]` format, for example `9.2.0`. |
+| `GG-UPGRADE-3` | Failed to cancel the rolling upgrade. | Check the exception message for details. |
+| `GG-UPGRADE-4` | Downgrade is not allowed: the requested version must be greater than the current version. | Specify a version newer than the current cluster version. |
+| `GG-UPGRADE-5` | A rolling upgrade to another version is already in progress. | Wait for the current upgrade to finish, or cancel it before starting a new one. |
+
 ## Secondary Storage Exceptions
 
 | Exception Code | Description | Recommended Action |
 | --- | --- | --- |
-| `IGN-SECONDARY_STORAGE-1` | Failure during sending message to the secondary storage. | Check network connectivity between primary and secondary storage nodes. Verify that the secondary storage nodes are accessible and running. Check cluster logs for communication errors. |
-| `IGN-SECONDARY_STORAGE-2` | Failure while trying to start secondary storage replication manager. | Check secondary zone configuration. Ensure that nodes of the secondary zones are available in the cluster. Check logs for resource allocation issues. |
-| `IGN-SECONDARY_STORAGE-4` | Failed to get secondary storage. | Retry the operation after verifying storage availability. Check cluster logs for communication errors. |
-| `IGN-SECONDARY_STORAGE-5` | Failed to write data into secondary storage. | Check available disk space. Verify write permissions for the storage location. Check network connectivity. Retry the write operation. Check cluster logs for communication errors. |
-| `IGN-SECONDARY_STORAGE-6` | Failed to read data from secondary storage. | Check read permissions for the storage location. Verify network connectivity. Check data integrity. Ensure secondary storage is operational. |
+| `GG-SECONDARY_STORAGE-1` | Failure during sending message to the secondary storage. | Check network connectivity between primary and secondary storage nodes. Verify that the secondary storage nodes are accessible and running. Check cluster logs for communication errors. |
+| `GG-SECONDARY_STORAGE-2` | Failure while trying to start secondary storage replication manager. | Check secondary zone configuration. Ensure that nodes of the secondary zones are available in the cluster. Check logs for resource allocation issues. |
+| `GG-SECONDARY_STORAGE-4` | Failed to get secondary storage. | Retry the operation after verifying storage availability. Check cluster logs for communication errors. |
+| `GG-SECONDARY_STORAGE-5` | Failed to write data into secondary storage. | Check available disk space. Verify write permissions for the storage location. Check network connectivity. Retry the write operation. Check cluster logs for communication errors. |
+| `GG-SECONDARY_STORAGE-6` | Failed to read data from secondary storage. | Check read permissions for the storage location. Verify network connectivity. Check data integrity. Ensure secondary storage is operational. |
 
 ## Security Exceptions
 
@@ -394,7 +421,6 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | Exception Code | Description | Recommended Action |
 | --- | --- | --- |
 | `IGN-SQL-1` | Exception is thrown when a query doesn't intend to return any rows (for example, a DML or a DDL query). | Change the request to not expect the result from the query. |
-| `IGN-SQL-2` | Exception is thrown when the specified schema cannot be found. | Make sure you use the existing schema name. |
 | `IGN-SQL-3` | Statement parsing error. This error is returned when an SQL statement string is not valid according to syntax rules. | Check the exception message and correct issues in the query. |
 | `IGN-SQL-4` | Statement validation error. Although statement is grammatically correct, the semantic is in question. For example, this can happen when the statement refers to relations that do not exist or describes a prohibited action. | Check the exception message and correct the query. |
 | `IGN-SQL-5` | Constraint violation error such as primary key violation or NOT NULL. | Check the exception message and correct the query. |
@@ -418,14 +444,13 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | --- | --- | --- |
 | `IGN-STORAGE-1` | A disaster has occurred, followed by an attempt to recover from the disaster. This caused inconsistent index state in the cluster metadata. | Wait until the index is rebuilt automatically. |
 | `IGN-STORAGE-2` | A disaster has occurred, which led to data corruption in the persistent storage. | Restore the data from a backup or introduce a new node instead of the broken one (this may lead to data loss if the replication factor is too low). |
+| `IGN-STORAGE-3` | A storage profile has run out of memory for new pages. | Increase the size of the storage profile, or reduce the amount of data stored in it. |
 
 ## Table Exceptions
 
 | Exception Code | Description | Recommended Action |
 | --- | --- | --- |
-| `IGN-TBL-1` | Table already exists. | Make sure to use the table name that does not exist on the cluster. |
 | `IGN-TBL-2` | Table not found. | Check the table name and, if necessary, create it. |
-| `IGN-TBL-3` | Column already exists. | Make sure to use the column name that does not exist in the table. |
 | `IGN-TBL-4` | Column not found. | Check the column name and, if necessary, create it. |
 | `IGN-TBL-5` | Schema version mismatch. | The request uses a different schema than the table. |
 | `IGN-TBL-6` | Partition type not supported. | Use a supported partition type. |
@@ -449,7 +474,6 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | `IGN-TX-11` | Failure due to an incompatible schema change. | The transaction tried to access data within incompatible schema. Retry the transaction. |
 | `IGN-TX-12` | Failure due to primary replica expiration. | Retry the transaction. Make sure there are no node failures, network issues or JVM/GC pauses that can cause the primary replica expiration. |
 | `IGN-TX-13` | Transaction already finished. | This can be caused by any operation within a finished (committed or aborted) transaction. Doesn't require any specific action. |
-| `IGN-TX-14` | Failure due to a stale operation of a completed transaction. | Error that occurs when a stale operation of a transaction is detected. Try to rerun the transaction, if necessary. |
 | `IGN-TX-15` | Error occurred when trying to execute an operation in a read-only transaction on a node that has already destroyed data for read timestamp of the transaction. | Retry the transaction with newer read timestamp. Increase data availability time. |
 | `IGN-TX-16` | Operation failed because the transaction is already finished with timeout. | Verify transaction timeout settings and ensure operations are executed before the transaction expires. |
 | `IGN-TX-17` | Transaction commit failed because a replication acknowledgment was not received (delayed acknowledgment failure). | Retry the transaction. If the failure persists, check replication health and network connectivity between nodes, and review server logs for the underlying replication error. |
@@ -457,9 +481,14 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | `IGN-TX-19` | Operation failed because the transaction is already finished due to an error. | Inspect the error that finished the transaction, then start and retry a new transaction. |
 | `IGN-TX-20` | Operation failed because the transaction was aborted during recovery (for example, after a coordinator failure). | Retry the work in a new transaction. |
 | `IGN-TX-21` | Failed to acquire a lock because the lock table is full. The transaction tried to acquire more locks than the local node's internal lock table allows. | The scope of the transaction is too large. Reduce the number of locks it acquires — for example, touch fewer keys per transaction or split the work into smaller transactions — and retry. |
+| `IGN-TX-22` | Stale finish request. The request reached the commit partition after the transaction state lifetime expired, so it was refused instead of being applied. | Check the transaction outcome before retrying. Look for network delays or long GC pauses that delay transaction finish requests. |
 
 ## Unknown Error Codes
 
 | Exception Code | Description | Recommended Action |
 | --- | --- | --- |
 | `UNKNOWN-UNKNOWN{groupCode}-{errorCode}` | The client received an error code it does not recognize. This occurs when an older client connects to a newer server version that introduced error codes unknown to the client. | Update the client to a version compatible with the server to receive proper error details. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

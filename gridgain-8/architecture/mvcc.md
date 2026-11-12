@@ -229,3 +229,7 @@ for (int i = 1; i <= 5; i++)
 ```
 {% endtab %}
 {% endtabs %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

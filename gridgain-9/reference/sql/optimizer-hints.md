@@ -199,3 +199,7 @@ SELECT COUNT(*) FROM tbl /*+ USE_SECONDARY_STORAGE */ WHERE col1 > ?;
 
 SELECT SUM(field1) FROM tbl /*+ USE_SECONDARY_STORAGE */;
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -43,3 +43,7 @@ How historical rebalancing transfers only the WAL delta accumulated while a pers
 How GridGain handles lost partitions through partition loss policies, how to listen for loss events, reset lost partitions, and recover in each cluster type.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

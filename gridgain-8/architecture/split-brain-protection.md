@@ -95,3 +95,7 @@ Manual intervention may be necessary to restore lost updates.
 
 2. If persistence is disabled, some data is lost forever and business invariants can be broken.
 We recommend that you reload cache data.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -31,3 +31,7 @@ Using GridGain as a caching layer on top of an external database, including read
 Implementing a custom CacheStore in GridGain to use an external data store as the underlying storage for a cache, with a JDBC example.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

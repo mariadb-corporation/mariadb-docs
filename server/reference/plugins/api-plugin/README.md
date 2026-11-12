@@ -14,3 +14,6 @@ MariaDB Server Plugin API is a C-based extensibility framework (largely compatib
 * [Services for Plugins](plugin_api_services_for_plugins.md)
 * [API reference](plugin_api.md)
 
+<sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

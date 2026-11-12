@@ -100,3 +100,7 @@ Enable and configure the GridGain 8 REST API — the ignite-rest-http module, Je
 Third-party tools and analytics integrations for working with data stored in a GridGain cluster.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

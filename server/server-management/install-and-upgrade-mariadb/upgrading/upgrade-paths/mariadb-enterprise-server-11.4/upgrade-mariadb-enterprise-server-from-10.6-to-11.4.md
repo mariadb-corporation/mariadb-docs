@@ -22,7 +22,7 @@ mindmap
       3. Cutover<br/>(Promote 11.4 to Primary)
 ```
 
-Prerequisite: [Review What's New in MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-11.4).
+Prerequisite: [Review What's New in MariaDB Enterprise Server 11.4](../../../../../editions-and-compatibility/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-11.4.md).
 
 ## Part 1: Standard In-Place Upgrade Process
 

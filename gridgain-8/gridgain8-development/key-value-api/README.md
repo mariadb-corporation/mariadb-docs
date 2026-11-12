@@ -78,3 +78,7 @@ Use scan queries to retrieve cache entries in a distributed manner, with optiona
 Use IndexQuery to retrieve cache entries that match query criteria over distributed indexes.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

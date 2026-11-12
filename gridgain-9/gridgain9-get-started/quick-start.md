@@ -517,3 +517,7 @@ From here, you may want to:
 - Check out the [GridGain CLI Tool](../reference/cli-tool.md) page for more detail on supported commands
 - Work through the [GridGain 9 Tutorials](learning-paths/README.md) for hands-on, step-by-step practice
 - Try out our [examples](https://github.com/apache/ignite-3/tree/main/examples)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

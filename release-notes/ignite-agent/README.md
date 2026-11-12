@@ -11,3 +11,7 @@ For product documentation, see [Attaching an Apache Ignite Cluster](https://app.
 {% content-ref url="all-releases.md" %}
 [all-releases.md](all-releases.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

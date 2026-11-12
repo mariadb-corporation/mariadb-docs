@@ -89,3 +89,7 @@ To remove a snapshot:
 
 1. From the context menu of the snapshot you want to remove, select **Remove**.
 2. In the confirmation dialog that opens, click **Remove**.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

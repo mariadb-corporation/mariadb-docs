@@ -904,3 +904,7 @@ The next tutorial in the path, [Distributed Primitives: The Coordination Problem
 
 - [Cache-Aside Under Load](../cache-centric-foundations/cache-aside-under-load.md) is the architecture this tutorial inverts. The cache acts as a read-through accelerator while MariaDB holds the truth.
 - [Compute Where the Data Lives](colocated-compute.md) shows another way the cluster grows beyond a key-value store: by running Java on the nodes that own the data.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -144,3 +144,7 @@ When a cluster is split, [data partitions](storage/data-partitioning.md) might a
 When [disaster recovery](../gridgain9-management/disaster-recovery/data-recovery.md) is performed on a split cluster, it is important to identify potential sub-clusters that had data updates and recover data from them. If recovery is performed on a side that has the minority of partitions and the other side had data updates, it is possible to manually introduce split-brain.
 
 When connectivity is restored, nodes will attempt to rejoin the cluster. The part of the cluster with the cluster management group majority can be used to restore the cluster without cluster-wide downtime. Nodes in other parts will need to be restarted to join the cluster as described [above](#node-rejoins-the-cluster). Once cluster management group and metastorage group majority is restored on the physical topology, the cluster will restore full functionality. Any data updates from the sub-clusters will be automatically propagated to partition replicas that were not updated.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

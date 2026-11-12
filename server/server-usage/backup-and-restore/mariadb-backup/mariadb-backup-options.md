@@ -1364,6 +1364,8 @@ Stops replica SQL threads for backups.
 
 When running `mariadb-backup` on a server that uses replication, you may occasionally encounter locks that block backups. Using this option, it stops replica SQL threads and waits until the `Slave_open_temp_tables` in the `SHOW STATUS` statement is zero. If there are no open temporary tables, the backup runs, otherwise the SQL thread starts and stops until there are no open temporary tables.
 
+When the backup finishes, `mariadb-backup` restarts the replica SQL thread only if the thread was running when the backup started. If the SQL thread was already stopped, for example by an earlier backup attempt that stopped it and then failed, it stays stopped after the backup completes, and you must start it with `START REPLICA SQL_THREAD`.
+
 ```bash
 mariadb-backup --backup \
       --safe-slave-backup \

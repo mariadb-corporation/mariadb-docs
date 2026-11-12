@@ -266,3 +266,7 @@ To remove a widget from the dashboard:
 
 1. Open the widget's context menu.
 2. Select **Remove**.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

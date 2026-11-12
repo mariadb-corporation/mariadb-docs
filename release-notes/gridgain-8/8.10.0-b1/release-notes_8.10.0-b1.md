@@ -340,3 +340,7 @@ Work through this checklist before you upgrade:
 13. If a thin client connects through a host name and you depend on it holding one address, review the new background DNS re-resolution, which runs every 30 seconds by default.
 14. Remove unsupported Apache Ignite `IGNITE_*` system properties from the node configuration and the launch scripts. They are reported as warnings at node start.
 15. If you script the copy of files from `libs/optional` or `integration/` into `libs/`, review those scripts against the module list for this release.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

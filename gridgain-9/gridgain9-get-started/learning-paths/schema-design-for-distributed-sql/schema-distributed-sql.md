@@ -1087,3 +1087,7 @@ Each of those decisions maps to a DDL clause: `CREATE ZONE` for placement and re
 - [Implement Schema with Java Annotations](schema-java-annotations.md) expresses the same design as code, with compile-time validation and automatic DDL generation.
 - [Choose the Right Data Access Pattern](data-access-patterns.md) shows how your schema design shapes which API view (KeyValueView, RecordView, or SQL) is the right choice for each operation.
 - [Stream Data with the Data Streamer API](../data-pipeline-apis/data-streaming.md) builds on this schema to load data at high throughput, where colocated writes matter for ingestion performance.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

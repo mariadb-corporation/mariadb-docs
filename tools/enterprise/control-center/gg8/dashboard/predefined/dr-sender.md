@@ -55,3 +55,7 @@ The list contains the following columns:
 - Sender Hub ID - the sender hub ID
 - Connection - the connection status (Connected/Disconnected)
 - Receiver addresses - IP addresses of the receiver nodes
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

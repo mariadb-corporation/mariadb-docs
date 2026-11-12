@@ -297,3 +297,7 @@ Delete all the `Persons` with a specific name:
 ```sql
 DELETE FROM Person WHERE name = 'John Doe';
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

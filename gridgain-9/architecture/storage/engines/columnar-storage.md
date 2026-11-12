@@ -83,3 +83,7 @@ Columnar storage profile only includes the name of the configuration and the eng
 |---|---|---|---|
 |name||The name of the storage profile. This name will be used to reference the profile.||
 |engine||The storage engine to use. Must be `columnar` for the profile to use columnar storage.||
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

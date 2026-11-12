@@ -495,3 +495,7 @@ Ignite does not support the following sub-features:
 `T321–06` ROUTINES view
 
 `T321–07` PARAMETERS view
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

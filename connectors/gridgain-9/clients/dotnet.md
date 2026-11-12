@@ -434,9 +434,9 @@ public sealed class PocoMapper : IMapper<Poco>
 }
 
 ITable table = (await client.Tables.GetTableAsync("PUBLIC.MY_TABLE"))!;
-IPartitionManager pm = table.PartitionManager;
+IPartitionDistribution pd = table.PartitionDistribution;
 
-var partition = await pm.GetPartitionAsync(null, new Poco { Key = 42L }, new PocoMapper());
+var partition = await pd.GetPartitionAsync(new Poco { Key = 42L }, new PocoMapper());
 ```
 
 ## Streaming Data
@@ -546,7 +546,7 @@ Ignite provides basic object mapping for table rows and SQL query results in the
 - `ITable.GetKeyValueView<TK, TV>()`
 - `ISql.ExecuteAsync<T>`
 - `IJobTarget<TKey>.Colocated<TKey>()`
-- `IPartitionManager.GetPartitionAsync();`
+- `IPartitionDistribution.GetPartitionAsync();`
 
 Mappers are generated at runtime with the use of reflection and IL emit. Mapped properties and fields can be customized with [ColumnAttribute](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations.schema.columnattribute?view=net-10.0) and excluded with [NotMappedAttribute](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations.schema.notmappedattribute?view=net-10.0).
 
@@ -733,3 +733,7 @@ The following APIs are not supported in Native AOT mode:
 When compiling an application in Native AOT mode, unsupported APIs produce trimming warnings that indicate the issue and suggest compatible alternatives.
 
 For more details refer to the official Microsoft [documentation](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/?utm_source=chatgpt.com&tabs=windows%2Cnet8#publish-native-aot-using-the-cli).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

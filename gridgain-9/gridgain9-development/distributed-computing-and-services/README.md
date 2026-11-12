@@ -28,3 +28,7 @@ Run your own code across a GridGain 9 cluster as distributed, balanced, and faul
 Deploy user code to GridGain 9 cluster nodes as immutable deployment units using the CLI, REST API, or manual placement, and manage their lifecycle.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

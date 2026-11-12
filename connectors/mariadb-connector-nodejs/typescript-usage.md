@@ -301,6 +301,7 @@ try {
     console.error(err.sqlState);  // e.g. '42S02'
     console.error(err.fatal);     // boolean: connection is no longer usable if true
     console.error(err.sql);       // the query that caused the error
+    console.error(err.cause);     // the wrapped error, if any
   }
 }
 ```

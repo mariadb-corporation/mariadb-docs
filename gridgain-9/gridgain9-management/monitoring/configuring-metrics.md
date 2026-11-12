@@ -249,3 +249,7 @@ Follow these steps:
 ## See Also
 
 - [How to Monitor GridGain 9 With Prometheus and Grafana](../../gridgain9-get-started/how-to-guides/prometheus-grafana-step-by-step.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -533,3 +533,7 @@ kubectl get gg9 my-cluster -o jsonpath='{.status.lastStableImage}'
 | lastFailedImage | string | Image that caused the most recent rollback. |
 | lastUpgradeSuccessful | boolean | Whether the most recent upgrade completed successfully. |
 | rollbackCount | int32 | Number of consecutive rollback attempts for the current target. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

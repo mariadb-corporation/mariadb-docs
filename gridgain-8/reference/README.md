@@ -80,3 +80,7 @@ Exceptions raised by the Ignite and GridGain APIs and the action to take for eac
 Definitions of the core GridGain 8 terms used throughout this documentation — clusters, nodes, caches, partitioning, persistence, and more.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

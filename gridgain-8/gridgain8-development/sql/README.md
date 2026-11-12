@@ -90,3 +90,7 @@ Extend the GridGain SQL function set with custom SQL functions written in Java a
 Access cached data with both SQL and the key-value API, using a sample project that creates a SQL schema and queries it both ways.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

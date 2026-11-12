@@ -128,3 +128,7 @@ Reference material for GridGain 9: CLI, REST API, SQL syntax, configuration para
 Integrate GridGain 9 with external systems and frameworks, including Apache Kafka, Spring Boot, Spring Data, and Hibernate.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

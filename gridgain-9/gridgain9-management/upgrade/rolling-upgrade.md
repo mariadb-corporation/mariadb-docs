@@ -30,6 +30,18 @@ While an upgrade is in progress, the cluster rejects all schema-modifying DDL: `
 
 A rolling upgrade and a point-in-time recovery (PITR) cannot run concurrently. Once a rolling upgrade has started, attempts to start PITR fail with an error naming the conflicting operation, and vice versa. The block is released when the upgrade is committed or cancelled.
 
+### Mandatory Versions Cannot Be Skipped
+
+A mandatory version carries changes that later versions rely on, so a rolling upgrade cannot skip it. A patch release of a mandatory version counts as that version.
+
+If an upgrade from the version the rolling upgrade started from to the version of a joining node skips a mandatory version, the node cannot join the cluster. The error names the mandatory version. To continue, start the node on the version the upgrade started from, cancel the rolling upgrade, and upgrade the cluster to the mandatory version first.
+
+This check does not apply to an offline upgrade, where all nodes are stopped.
+
+{% hint style="info" %}
+GridGain 9.2 has no mandatory versions.
+{% endhint %}
+
 ## Rolling Upgrade Procedure
 
 ### Phase 1 — Start the Upgrade
@@ -145,3 +157,7 @@ A node that was upgraded but is currently down does not appear as an active clus
 #### Evicting an Unrecoverable Node
 
 A node that the cluster knows about but that has not rejoined fully blocks `upgrade commit`. Remove the node from the cluster following the standard topology-management procedure, then retry commit.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

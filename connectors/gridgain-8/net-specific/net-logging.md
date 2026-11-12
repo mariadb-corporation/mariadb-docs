@@ -113,3 +113,7 @@ var igniteConfig = new IgniteConfiguration
 Ignition.Start(igniteConfig);
 ```
 </content>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -26,3 +26,7 @@ New to GridGain 8? Read [What Is GridGain?](../what-is-gridgain.md) and run the 
 ## How-To Guides
 
 Looking for a solution to one specific task, such as security, monitoring, performance, or an integration? See the [How-To Guides](../how-to-guides/README.md).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

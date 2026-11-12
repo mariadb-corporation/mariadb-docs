@@ -495,3 +495,7 @@ The ODBC driver allows streaming data in bulk using the `SET` command. See the `
 {% hint style="info" %}
 In streaming mode, the array of parameters and data-at-execution parameters are not supported.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

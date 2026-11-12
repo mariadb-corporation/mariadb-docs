@@ -148,3 +148,7 @@ You are now logged into Okta.
 
 - [Control Center overview](../README.md) - GridGain's cluster management and diagnostics tool.
 - [Okta developer documentation](https://developer.okta.com/docs/) - OpenID Connect and authorization server reference.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -41,3 +41,7 @@ GridGain Data Lake Accelerator is a solution architecture that enables real-time
 - Accomplish initial data loading from Hadoop to GridGain.
 - Start updating your applications layer. Decide which APIs to use for the GridGain cluster - the most widely used for this use case are SQL, Compute Grid (map-reduce framework), and Machine Learning with Deep Learning. Optimize your GridGain settings based on the chosen APIs.
 - Enable synchronization between GridGain and Hadoop if needed. Refer to Apache Sqoop Integration or Hive Store.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

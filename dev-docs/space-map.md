@@ -72,13 +72,17 @@ cannot see `{% include %}` at all, because it is template syntax rather than a M
 `enterprise-manager/`, `mcp-server-release-notes/`, `ai-rag-release-notes/`,
 `mariadb-cloud-release-notes/`.
 
-**Publishing a Cloud release note posts to #mariadb-product-releases**, the company-wide
-channel. A `mariadb-cloud-YYYY.MM.DD.md` page counts as published once it is on `main`, listed
-in `release-notes/SUMMARY.md` and not `hidden: true`. The push that makes all three true, whether
-from Git or the GitBook app, posts its `# Title`, `description:` and URL
-(`.github/workflows/announce-cloud-release-notes.yml`, DOCS-6936). So keep a note hidden until the
-release ships, and finish its description before unhiding it. Hiding it again does not retract
-the post, and unhiding it later posts a second time.
+**Publishing a release note posts to #mariadb-product-releases**, the company-wide channel, for
+every product in this space (`.github/workflows/announce-release-notes.yml`; DOCS-6936 for Cloud,
+DOCS-7076 for the rest). A page counts as a release note when its H1 says "Release Notes" (or its
+file name has a version and its `description:` says it "is a ... release"), it is not a README,
+`all-releases.md` or changelog, and it is published: on `main`, listed in `release-notes/SUMMARY.md`,
+and neither it nor a nav parent is `hidden: true`. The push that publishes it, from Git or the
+GitBook app, posts its `# Title`, `description:` and URL. So keep a note hidden until the release
+ships, and finish its title and description before unhiding it. Hiding it again does not retract
+the post, and unhiding it later posts a second time. Not posted, but reported to
+#docs-notifications: a note whose stated release date is more than 30 days old (a backfill), more
+than 10 notes in one push (a migration), and a title that is still a placeholder (`<YYYY.MM.DD>`).
 
 **`connectors/`** has one directory per connector (`mariadb-connector-c/`,
 `-cpp/`, `-j/`, `-net/`, `-nodejs/`, `-odbc/`, `-python/`, `-r2dbc/`) plus

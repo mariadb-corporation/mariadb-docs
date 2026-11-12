@@ -105,3 +105,7 @@ _Global partition state_ is a global property of a partition that specifies its 
 - `Read-only` - a partition that can process read requests but not the write requests. There is no healthy majority. However, there is at least one alive (healthy/catch-up) peer that can process historical read-only queries.
 - `Unavailable` - a partition that cannot process any requests.
 - `Degraded` - a partition that is available to the user, but is at a higher risk of having issues than other partitions. For example, one of the group's peers is offline. There is still a majority, but the backup factor is low.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

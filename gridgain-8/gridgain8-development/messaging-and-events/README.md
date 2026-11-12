@@ -28,3 +28,7 @@ Topic-based, cluster-wide messaging in GridGain using the IgniteMessaging interf
 Overview of working with events in GridGain, including the available event types and how to listen to them.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

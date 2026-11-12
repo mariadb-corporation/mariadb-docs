@@ -323,3 +323,7 @@ void DeletePerson(SQLHDBC dbc, int64_t key)
 DeletePerson(dbc, 1);
 DeletePerson(dbc, 4);
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

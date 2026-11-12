@@ -106,3 +106,7 @@ The `Operation` column indicates that a check is in progress. When the check is 
 - If snapshot is broken, you can view error details:
 
   ![Snapshot Broken](../../../../.gitbook/assets/cc-gg8-check_failed.png)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

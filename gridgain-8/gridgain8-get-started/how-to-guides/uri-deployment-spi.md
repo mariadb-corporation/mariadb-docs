@@ -365,3 +365,7 @@ You can deploy services in two ways:
 ## Related
 
 - [URI code deployment sample project](https://github.com/GridGain-Demos/uri-code-deployment-example) - The complete example referenced throughout this guide.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

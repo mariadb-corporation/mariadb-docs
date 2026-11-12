@@ -128,3 +128,7 @@ Drag the widgets to arrange them so the signals you watch most often sit at the 
 This dashboard shows what each node stores. In the next part, you build a second dashboard for the cluster-wide view: node membership, per-node JVM health, and data distribution across nodes.
 
 - [Part 3: Monitor cluster health](cluster-health.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

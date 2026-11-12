@@ -77,3 +77,7 @@ How client nodes connect and reconnect to a GridGain cluster, handle disconnect/
 Enabling forced client-to-server connections so GridGain server nodes can work with client nodes deployed behind a NAT, and the limitations of this mode.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

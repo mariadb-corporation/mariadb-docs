@@ -118,3 +118,7 @@ spec:
 ```
 
 The valid range is 1 to 100. Lower values leave more memory for the JVM heap and other processes in the container; higher values dedicate more memory to caching data pages. For development workloads with limited resources, reducing this to 40 can help avoid out-of-memory conditions. For large datasets, increasing it to 70 or above keeps more data in memory.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -19,3 +19,7 @@ Depending on configuration, [secured clusters](../auth/authorization-permissions
 {% content-ref url="operation-history-gg9.md" %}
 [operation-history-gg9.md](operation-history-gg9.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
