@@ -6,6 +6,10 @@ description: >-
 
 # What's New in MariaDB MaxScale 26.10
 
+{% hint style="warning" %}
+**Action required:** This release includes breaking changes and requires a new license key, which you can obtain at https://customers.mariadb.com/license/. Please review the release notes before upgrading.
+{% endhint %}
+
 This page describes the features that are new in MaxScale 26.10 compared to MaxScale 25.10. For per-release details, see the [MaxScale release notes](../README.md).
 
 ## Upgrade Notes
