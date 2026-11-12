@@ -19,13 +19,53 @@ Java developers can use MariaDB Connector/R2DBC to connect to MariaDB database p
 
 | Connector                    | MariaDB Connector/R2DBC                                                                                           |
 | ---------------------------- |-------------------------------------------------------------------------------------------------------------------|
-| Supported Versions           | 1.4                                                                                                               |
+| Supported Versions           | 1.2, 1.3, 1.4                                                                                                     |
 | Programming Language         | JAVA                                                                                                              |
 | Programming Language Version | Java 8+                                                                                                           |
 | API                          | [R2DBC 0.9.1](https://r2dbc.io/spec/0.9.1.RELEASE/api/) , [R2DBC 1.0.0](https://r2dbc.io/spec/1.0.0.RELEASE/api/) |
 | Supports TLS                 | Yes                                                                                                               |
 | Supports Connection Pools    | Yes                                                                                                               |
 | License                      | Apache 2.0                                                                                                        |
+
+## Supported Versions
+
+### Server Compatibility
+
+MariaDB Connector/R2DBC connects to MariaDB and MySQL database servers. Individual server-side features may require a minimum server version; those requirements are noted with the feature. For example, returning generated values with `Statement.returnGeneratedValues` uses the `RETURNING` clause, which requires MariaDB 10.5 or later.
+
+### Supported Release Series
+
+The following MariaDB Connector/R2DBC release series are supported:
+
+| Release Series | Stable (GA) Date |
+| -------------- | ---------------- |
+| 1.4            | February 2026    |
+| 1.3            | October 2024     |
+| 1.2            | February 2024    |
+
+Series 1.2 and 1.3 are also published for the R2DBC 0.9.1 specification. For End of Standard Support and End of Life dates for each series and specification, see the [MariaDB Engineering Policy](https://mariadb.com/engineering-policies/).
+
+### Requirements
+
+| Requirement   | Series 1.2, 1.3 and 1.4              |
+| ------------- | ------------------------------------ |
+| Java          | 8 or later                           |
+| R2DBC API     | 1.0.0                                |
+
+### Checking Your Installed Version
+
+The connector JAR records its version in its manifest, which Java exposes through the package of any connector class:
+
+```java
+String version = MariadbConnectionFactory.class.getPackage().getImplementationVersion();
+// for example, "1.4.2"
+```
+
+To check the version of the server you are connected to, use the connection metadata:
+
+```java
+connection.getMetadata().getDatabaseVersion();
+```
 
 ## End-of-Life (EOL) Versions
 

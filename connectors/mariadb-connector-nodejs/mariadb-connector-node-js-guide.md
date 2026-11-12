@@ -37,19 +37,56 @@ The driver can be installed using npm:
 npm install mariadb
 ```
 
-### Choosing a Version
-
-Driver versions are compatible with all MariaDB servers and MySQL 5.x (>= 5.5.3).\
-Tested with all active MariaDB server versions with Node.js 20+ (see [CI tests](https://github.com/mariadb-corporation/mariadb-connector-nodejs/actions) on ubuntu/windows/macOS).
-
-### Requirements
-
-MariaDB Connector/Node.js requires Node.js 20 or above.
-
 ### License
 
 GNU Lesser General Public License as published by the Free Software Foundation;\
 either version 2.1 of the License or (at your option) any later version.
+
+## Supported Versions
+
+### Server Compatibility
+
+Driver versions are compatible with all MariaDB servers and MySQL 5.x (>= 5.5.3). Individual server-side features may require a minimum server version; those requirements are noted with the feature.
+
+The driver is tested with all active MariaDB server versions on Node.js 20 and later (see [CI tests](https://github.com/mariadb-corporation/mariadb-connector-nodejs/actions) on ubuntu/windows/macOS).
+
+### Supported Release Series
+
+The following MariaDB Connector/Node.js release series are supported:
+
+| Release Series | Stable (GA) Date |
+| -------------- | ---------------- |
+| 3.5            | February 2026    |
+| 3.4            | October 2024     |
+| 3.3            | March 2024       |
+| 3.2            | June 2023        |
+
+For End of Standard Support and End of Life dates, see the [MariaDB Engineering Policy](https://mariadb.com/engineering-policies/).
+
+### Requirements
+
+The minimum Node.js version depends on the release series:
+
+| Release Series | Minimum Node.js                                  |
+| -------------- | ------------------------------------------------ |
+| 3.5            | 20 (3.5.3 and later); 18 (before 3.5.3)          |
+| 3.4            | 14                                               |
+| 3.3            | 14                                               |
+| 3.2            | 12                                               |
+
+The connector checks the Node.js version at startup and exits with an error if it is older than the minimum.
+
+### Checking Your Installed Version
+
+The connector exports its version as a string:
+
+```javascript
+import { version } from 'mariadb';
+
+console.log(version); // for example, '3.5.5'
+```
+
+With CommonJS, use `const { version } = require('mariadb');`. To see the installed version without running code, use `npm list mariadb`.
 
 ## Using the Driver
 
