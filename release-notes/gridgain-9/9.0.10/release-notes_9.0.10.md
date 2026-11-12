@@ -2,9 +2,12 @@
 description: >-
   GridGain 9.0.10 improves Data Center Replication and adds an OpenTelemetry
   exporter and the IgniteClientGroup .NET API.
+  Released on 2024-12-09.
 ---
 
 # GridGain 9.0.10 Release Notes
+
+**Release date:** 9 Dec 2024
 
 ## Overview
 

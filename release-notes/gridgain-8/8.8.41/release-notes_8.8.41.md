@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.8.41 includes multiple fixes to GridGain data center replication and logging improvements.
+  Released on 2024-06-12.
 ---
 
 # GridGain 8.8.41 Release Notes
+
+**Release date:** 12 Jun 2024
 
 ## Overview
 

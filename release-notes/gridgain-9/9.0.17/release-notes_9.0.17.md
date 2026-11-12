@@ -2,9 +2,12 @@
 description: >-
   GridGain 9.0.17 simplifies cluster initialization and adds a multicast node
   finder.
+  Released on 2025-03-27.
 ---
 
 # GridGain 9.0.17 Release Notes
+
+**Release date:** 27 Mar 2025
 
 ## Overview
 

@@ -1,8 +1,10 @@
 ---
-description: GridGain 8.8.39 brings a variety of bug fixes and improvements, including a new metadata management API and sender group management from thin clients.
+description: GridGain 8.8.39 brings a variety of bug fixes and improvements, including a new metadata management API and sender group management from thin clients. Released on 2024-04-08.
 ---
 
 # GridGain 8.8.39 Release Notes
+
+**Release date:** 8 Apr 2024
 
 GridGain 8.8.39 brings a variety of bugfixes and improvements for GridGain Platform.
 

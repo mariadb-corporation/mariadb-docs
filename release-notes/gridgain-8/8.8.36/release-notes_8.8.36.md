@@ -1,8 +1,10 @@
 ---
-description: GridGain 8.8.36 brings stability improvements and fixes for GridGain.
+description: GridGain 8.8.36 brings stability improvements and fixes for GridGain. Released on 2023-12-06.
 ---
 
 # GridGain 8.8.36 Release Notes
+
+**Release date:** 6 Dec 2023
 
 GridGain 8.8.36 brings stability improvements for GridGain.
 

@@ -1,9 +1,12 @@
 ---
 description: >-
-  GridGain 8.10.0 requires Java 17, moves integrations to current versions and out of the server packages, and extends vector search, the thin clients, and Apache Ignite 2 compatibility.
+  GridGain 8.10.0 requires Java 17, updates integrations and moves them out of the server packages, and extends vector search, thin clients, and Apache Ignite 2 compatibility.
+  Released on 2026-10-28.
 ---
 
 # GridGain 8.10.0 Release Notes
+
+**Release date:** 28 Oct 2026
 
 ## Overview
 

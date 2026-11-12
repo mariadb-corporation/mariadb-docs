@@ -1,8 +1,10 @@
 ---
-description: GridGain 8.8.38 brings multiple improvements, including client connection limits and an update to Spring 5.3.
+description: GridGain 8.8.38 brings multiple improvements, including client connection limits and an update to Spring 5.3. Released on 2024-02-09.
 ---
 
 # GridGain 8.8.38 Release Notes
+
+**Release date:** 9 Feb 2024
 
 GridGain 8.8.38 brings multiple improvements for GridGain, including an update to using Spring 5.3.
 

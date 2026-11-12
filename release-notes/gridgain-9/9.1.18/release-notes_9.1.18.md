@@ -1,11 +1,13 @@
 ---
 description: >-
-  GridGain 9.1.18 brings major monitoring improvements, a better CLI tool
-  experience, and a reworked transaction API, and documents known data center
-  replication and SQL performance issues.
+  GridGain 9.1.18 improves monitoring and the CLI tool, reworks the transaction
+  API, and documents known data center replication and SQL performance issues.
+  Released on 2026-02-20.
 ---
 
 # GridGain 9.1.18 Release Notes
+
+**Release date:** 20 Feb 2026
 
 ## Overview
 

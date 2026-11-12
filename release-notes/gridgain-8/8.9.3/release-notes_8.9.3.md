@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.9.3 brings a number of bug fixes and improvements to performance of GridGain.
+  Released on 2024-03-15.
 ---
 
 # GridGain 8.9.3 Release Notes
+
+**Release date:** 15 Mar 2024
 
 ## Overview
 

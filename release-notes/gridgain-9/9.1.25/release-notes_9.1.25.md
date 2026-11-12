@@ -3,9 +3,12 @@ description: >-
   GridGain 9.1.25 introduces row-level security, adds experimental CDC support
   for Microsoft SQL Server as a source and a new GridGain 9 sink, and improves
   client data freshness.
+  Released on 2026-07-17.
 ---
 
 # GridGain 9.1.25 Release Notes
+
+**Release date:** 17 Jul 2026
 
 ## Overview
 

@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 9.1.13 adds WASM command mode and improved Kafka Sink configuration; due to known issues, avoid using this version.
+  Released on 2025-11-24.
 ---
 
 # GridGain 9.1.13 Release Notes
+
+**Release date:** 24 Nov 2025
 
 {% hint style="danger" %}
 Due to known issues, it is recommended to avoid using this version.

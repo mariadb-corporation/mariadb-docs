@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.9.31 is a maintenance release focused on improving cluster stability and expanding Control Center Agent features.
+  Released on 2026-03-17.
 ---
 
 # GridGain 8.9.31 Release Notes
+
+**Release date:** 17 Mar 2026
 
 ## Overview
 

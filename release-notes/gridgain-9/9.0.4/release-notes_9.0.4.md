@@ -2,9 +2,12 @@
 description: >-
   GridGain 9.0.4 introduces a new license format and a single ignite root
   configuration node, along with user object serialization for compute jobs.
+  Released on 2024-08-29.
 ---
 
 # GridGain 9.0.4 Release Notes
+
+**Release date:** 29 Aug 2024
 
 ## Overview
 

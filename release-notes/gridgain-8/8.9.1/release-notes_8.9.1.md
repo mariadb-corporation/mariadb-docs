@@ -1,9 +1,12 @@
 ---
 description: >-
-  GridGain 8.9.1 brings significant new features to GridGain ecosystem, as well as major changes to default configuration aimed at making GridGain more stable and consistent in modern environments.
+  GridGain 8.9.1 brings significant new features and major changes to the default configuration that make GridGain more stable and consistent in modern environments.
+  Released on 2024-01-19.
 ---
 
 # GridGain 8.9.1 Release Notes
+
+**Release date:** 19 Jan 2024
 
 ## Overview
 

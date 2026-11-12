@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.9.24 is a maintenance release focused on improving stability and providing better SQL query management.
+  Released on 2025-09-01.
 ---
 
 # GridGain 8.9.24 Release Notes
+
+**Release date:** 1 Sep 2025
 
 ## Overview
 

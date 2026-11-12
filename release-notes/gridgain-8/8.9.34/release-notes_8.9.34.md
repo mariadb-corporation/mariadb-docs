@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.9.34 raises the .NET executable to .NET 8/10, parallelizes the LoadAll warm-up strategy, and ships dependency and Control Center Agent maintenance updates.
+  Released on 2026-06-04.
 ---
 
 # GridGain 8.9.34 Release Notes
+
+**Release date:** 4 Jun 2026
 
 ## Overview
 

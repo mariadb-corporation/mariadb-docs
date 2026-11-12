@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.9.36 adds graceful node drain over REST and bulk cache destroy in the Java thin client, along with performance, replication, and security fixes.
+  Released on 2026-07-30.
 ---
 
 # GridGain 8.9.36 Release Notes
+
+**Release date:** 30 Jul 2026
 
 ## Overview
 

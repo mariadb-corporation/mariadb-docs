@@ -2,9 +2,12 @@
 description: >-
   GridGain 9.0.8 changes BigDecimal type derivation and adds cache write-behind
   mode, system property configuration, and snapshot storage path configuration.
+  Released on 2024-10-30.
 ---
 
 # GridGain 9.0.8 Release Notes
+
+**Release date:** 30 Oct 2024
 
 ## Overview
 
