@@ -566,7 +566,7 @@ Deprecated and ignored.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
-* Description: Deprecated - use [cooperative monitoring](../../../reference/maxscale-monitors/mariadb-monitor.md#cooperative-monitoring) instead.
+* Description: Deprecated - use [cooperative monitoring](../../../reference/maxscale-monitors/mariadb-monitor/README.md#cooperative-monitoring) instead.
 
 Controls whether MaxScale is a passive node in a cluster of multiple MaxScale instances.
 
@@ -3202,7 +3202,7 @@ See [Change Data Capture Protocol](../../../reference/maxscale-protocols/maxscal
 
 ### `nosqlprotocol`
 
-Accepts MongoDB® connections, yet stores and fetches results to/from MariaDB servers. See [NoSQL documentation](../../../reference/maxscale-protocols/maxscale-nosql-protocol-module.md) for more information.
+Accepts MongoDB® connections, yet stores and fetches results to/from MariaDB servers. See [NoSQL documentation](../../../reference/maxscale-protocols/maxscale-nosql-protocol-module/README.md) for more information.
 
 ## TLS/SSL encryption
 
@@ -3492,7 +3492,7 @@ Binary log server:
 
 Monitor modules are used by MariaDB MaxScale to internally monitor the state of the backend databases in order to set the server flags for each of those servers. The router modules then use these flags to determine if the particular server is a suitable destination for routing connections for particular query classifications. The monitors are run within separate threads of MariaDB MaxScale and do not affect MariaDB MaxScale's routing performance.
 
-* [MariaDB Monitor](../../../reference/maxscale-monitors/mariadb-monitor.md)
+* [MariaDB Monitor](../../../reference/maxscale-monitors/mariadb-monitor/README.md)
 * [Galera Monitor](../../../reference/maxscale-monitors/galera-monitor.md)
 
 The use of monitors in MaxScale is not absolutely mandatory: it is possible to run MariaDB MaxScale without a monitor module. In this case an external monitoring system must the status of each server via MaxCtrl or the REST API. **Only do this if you know what you are doing.**

@@ -16,7 +16,7 @@ DROP [TEMPORARY] SEQUENCE [IF EXISTS] [/*COMMENT TO SAVE*/]
 
 `DROP SEQUENCE` removes one or more [sequences](./) created with [CREATE SEQUENCE](create-sequence.md). You must have the `DROP` privilege for each sequence. MariaDB returns an error indicating by name which non-existing tables it was unable to drop, but it also drops all of the tables in the list that do exist.
 
-Important: When a table is dropped, user privileges on the table are not automatically dropped. See [GRANT](../../sql-statements/account-management-sql-statements/grant.md).
+**Important**: When a sequence is dropped, user privileges on the sequence are not automatically dropped. See [GRANT](../../sql-statements/account-management-sql-statements/grant.md).
 
 If another connection is using the sequence, a metadata lock is active, and this statement will wait until the lock is released. This is also true for non-transactional tables.
 

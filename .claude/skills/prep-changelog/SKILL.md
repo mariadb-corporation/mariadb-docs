@@ -63,7 +63,7 @@ Search by summary if the DOCS ticket doesn't name the TODO (`project=TODO AND su
 | Connector/ODBC | Yes, `Connector/ODBC X.Y.Z … GA Release` | `ver=`, `branch=`, `commit=` blocks, one per series |
 | C, C++, J, Node.js, Python, R2DBC | Usually none | Developers release straight from tags; use the tags |
 
-**The release date** comes from Daniel's "Releases Published" comment on the TODO ticket, not the
+**The release date** comes from dbart's "Releases Published" comment on the TODO ticket, not the
 planned date in its description, which slips. If the round has not shipped, the date is unknown:
 see *Unreleased rounds* below.
 
@@ -234,7 +234,7 @@ Copy the template page and change only what belongs to the release:
 7. **The footer**: keep the template's footer as it is. License lines differ by product and are not
    the skill's to change.
 
-**Enterprise Server is scaffold-and-paste.** Daniel runs the generator, which is not in this repo,
+**Enterprise Server is scaffold-and-paste.** dbart runs the generator, which is not in this repo,
 and its output is the changelog's bullet list. Build steps 1–4 from the previous Enterprise
 changelog (prefix filename `changelog-<ver>.md`, `hidden: true`), leave a clearly marked gap, and
 **ask for the paste**. Then check it: no unescaped `<` outside code spans (DOCS-6717), no `*`

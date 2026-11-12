@@ -404,7 +404,7 @@ GRANT SELECT ON mysql.user
 
 **MariaDB Monitor**
 
-MaxScale 2.5 includes configuration changes for [MariaDB Monitor (mariadbmon)](../../../reference/maxscale-monitors/mariadb-monitor.md):
+MaxScale 2.5 includes configuration changes for [MariaDB Monitor (mariadbmon)](../../../reference/maxscale-monitors/mariadb-monitor/README.md):
 
 *   The `detect_stale_master` and the `detect_standalone_master` parameters have been deprecated. They can still be used, but they will be removed in a later version of MaxScale. Users should use the `master_conditions` parameter instead.
 

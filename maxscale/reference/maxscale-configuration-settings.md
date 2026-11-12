@@ -566,7 +566,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
-* Description: Deprecated - use [cooperative monitoring](maxscale-monitors/mariadb-monitor.md#cooperative-monitoring) instead.
+* Description: Deprecated - use [cooperative monitoring](maxscale-monitors/mariadb-monitor/README.md#cooperative-monitoring) instead.
 
 [**persist\_runtime\_changes**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#persist_runtime_changes)
 
@@ -1724,11 +1724,11 @@ description: >-
 * Default: None
 * Description: Describes the pattern that is used to match statements in replication events for rewriting.
 
-#### [maxscale-cache](maxscale-filters/maxscale-cache.md)
+#### [maxscale-cache](maxscale-filters/maxscale-cache/README.md)
 
-**Settings**
+**MaxScale Cache Settings**
 
-[**cache\_in\_transactions**](maxscale-filters/maxscale-cache.md#cache_in_transactions)
+[**cache\_in\_transactions**](maxscale-filters/maxscale-cache/cache-settings.md#cache_in_transactions)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -1737,7 +1737,7 @@ description: >-
 * Default: `all_transactions`
 * Description: Manages how the cache is used and updated during transactions.
 
-[**cached\_data**](maxscale-filters/maxscale-cache.md#cached_data)
+[**cached\_data**](maxscale-filters/maxscale-cache/cache-settings.md#cached_data)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -1746,7 +1746,7 @@ description: >-
 * Default: `thread_specific`
 * Description: Determines whether cached data remains thread-specific or shared across threads.
 
-[**clear\_cache\_on\_parse\_errors**](maxscale-filters/maxscale-cache.md#clear_cache_on_parse_errors)
+[**clear\_cache\_on\_parse\_errors**](maxscale-filters/maxscale-cache/cache-settings.md#clear_cache_on_parse_errors)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -1754,7 +1754,7 @@ description: >-
 * Default: `true`
 * Description: Controls whether the cache is cleared when modifying statements are not parsed correctly.
 
-[**debug**](maxscale-filters/maxscale-cache.md#debug)
+[**debug**](maxscale-filters/maxscale-cache/cache-settings.md#debug)
 
 * Type: number
 * Mandatory: No
@@ -1762,7 +1762,7 @@ description: >-
 * Default: `0`
 * Description: Uses a bitmask value to control the cache's debug logging level.
 
-[**enabled**](maxscale-filters/maxscale-cache.md#enabled)
+[**enabled**](maxscale-filters/maxscale-cache/cache-settings.md#enabled)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -1770,7 +1770,7 @@ description: >-
 * Default: `true`
 * Description: Manages whether the cache is enabled or disabled at startup.
 
-[**hard\_ttl**](maxscale-filters/maxscale-cache.md#hard_ttl)
+[**hard\_ttl**](maxscale-filters/maxscale-cache/cache-settings.md#hard_ttl)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -1778,7 +1778,7 @@ description: >-
 * Default: `0s` (no limit)
 * Description: Specifies how long cached data can last before being deleted and reloaded.
 
-[**invalidate**](maxscale-filters/maxscale-cache.md#invalidate)
+[**invalidate**](maxscale-filters/maxscale-cache/cache-settings.md#invalidate)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -1787,7 +1787,7 @@ description: >-
 * Default: `never`
 * Description: Manages how cached data is invalidated when changes occur.
 
-[**max\_count**](maxscale-filters/maxscale-cache.md#max_count)
+[**max\_count**](maxscale-filters/maxscale-cache/cache-settings.md#max_count)
 
 * Type: count
 * Mandatory: No
@@ -1795,7 +1795,7 @@ description: >-
 * Default: `0` (no limit)
 * Description: Specifies the maximum amount of data that cache can store.
 
-[**max\_resultset\_rows**](maxscale-filters/maxscale-cache.md#max_resultset_rows)
+[**max\_resultset\_rows**](maxscale-filters/maxscale-cache/cache-settings.md#max_resultset_rows)
 
 * Type: count
 * Mandatory: No
@@ -1803,7 +1803,7 @@ description: >-
 * Default: `0` (no limit)
 * Description: Defines the maximum number of rows in a result set that can be cached.
 
-[**max\_resultset\_size**](maxscale-filters/maxscale-cache.md#max_resultset_size)
+[**max\_resultset\_size**](maxscale-filters/maxscale-cache/cache-settings.md#max_resultset_size)
 
 * Type: [size](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
 * Mandatory: No
@@ -1811,7 +1811,7 @@ description: >-
 * Default: `0` (no limit)
 * Description: Specifies the maximum result set size that can be cached.
 
-[**max\_size**](maxscale-filters/maxscale-cache.md#max_size)
+[**max\_size**](maxscale-filters/maxscale-cache/cache-settings.md#max_size)
 
 * Type: [size](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
 * Mandatory: No
@@ -1819,7 +1819,7 @@ description: >-
 * Default: `0` (no limit)
 * Description: Defines the maximum total size of the cache.
 
-[**max\_uncached\_query\_count**](maxscale-filters/maxscale-cache.md#max_uncached_query_count)
+[**max\_uncached\_query\_count**](maxscale-filters/maxscale-cache/cache-settings.md#max_uncached_query_count)
 
 * Type: count
 * Mandatory: No
@@ -1827,7 +1827,7 @@ description: >-
 * Default: `10000`
 * Description: Defines the maximum number of queries faster than `min_query_duration` that are remembered so that their cache lookups can be skipped.
 
-[**min\_query\_duration**](maxscale-filters/maxscale-cache.md#min_query_duration)
+[**min\_query\_duration**](maxscale-filters/maxscale-cache/cache-settings.md#min_query_duration)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -1835,7 +1835,7 @@ description: >-
 * Default: `0s` (no limit)
 * Description: Defines the minimum time a query must take on the backend for its result to be stored in the cache.
 
-[**rules**](maxscale-filters/maxscale-cache.md#rules)
+[**rules**](maxscale-filters/maxscale-cache/cache-settings.md#rules)
 
 * Type: path
 * Mandatory: No
@@ -1843,7 +1843,7 @@ description: >-
 * Default: `""` (no rules)
 * Description: Specifies the file path containing caching rules.
 
-[**selects**](maxscale-filters/maxscale-cache.md#selects)
+[**selects**](maxscale-filters/maxscale-cache/cache-settings.md#selects)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -1852,7 +1852,7 @@ description: >-
 * Default: `assume_cacheable`
 * Description: Controls whether SELECT statements are considered to be cacheable or validated before caching.
 
-[**soft\_ttl**](maxscale-filters/maxscale-cache.md#soft_ttl)
+[**soft\_ttl**](maxscale-filters/maxscale-cache/cache-settings.md#soft_ttl)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -1860,7 +1860,7 @@ description: >-
 * Default: `0s` (no limit)
 * Description: Determines how long cached data is used before being refreshed from the backend.
 
-[**storage**](maxscale-filters/maxscale-cache.md#storage)
+[**storage**](maxscale-filters/maxscale-cache/cache-settings.md#storage)
 
 * Type: string
 * Mandatory: No
@@ -1868,7 +1868,7 @@ description: >-
 * Default: `storage_inmemory`
 * Description: Defines the storage module used by the cache.
 
-[**storage\_options**](maxscale-filters/maxscale-cache.md#storage_options)
+[**storage\_options**](maxscale-filters/maxscale-cache/cache-settings.md#storage_options)
 
 * Type: string
 * Mandatory: No
@@ -1876,7 +1876,7 @@ description: >-
 * Default:
 * Description: Deprecated. Previously used to pass configuration options to the storage module.
 
-[**timeout**](maxscale-filters/maxscale-cache.md#timeout)
+[**timeout**](maxscale-filters/maxscale-cache/cache-settings.md#timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -1884,7 +1884,7 @@ description: >-
 * Default: `5s`
 * Description: Specifies the timeout for processes involving external storage backends.
 
-[**users**](maxscale-filters/maxscale-cache.md#users)
+[**users**](maxscale-filters/maxscale-cache/cache-settings.md#users)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -1895,7 +1895,7 @@ description: >-
 
 **`storage_gridgain`**
 
-[**endpoints**](maxscale-filters/maxscale-cache.md#endpoints)
+[**endpoints**](maxscale-filters/maxscale-cache/cache-storage.md#endpoints)
 
 * Type: string
 * Mandatory: No
@@ -1903,7 +1903,7 @@ description: >-
 * Default: 127.0.0.1:10800
 * Description: Defines the comma-separated list of GridGain endpoints.
 
-[**max\_value\_size**](maxscale-filters/maxscale-cache.md#max_value_size)
+[**max\_value\_size**](maxscale-filters/maxscale-cache/cache-storage.md#max_value_size)
 
 * Type: [size](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
 * Mandatory: No
@@ -1911,7 +1911,7 @@ description: >-
 * Default: 1Mi
 * Description: Defines the maximum size of a value that can be stored in GridGain.
 
-[**partition\_awareness**](maxscale-filters/maxscale-cache.md#partition_awareness)
+[**partition\_awareness**](maxscale-filters/maxscale-cache/cache-storage.md#partition_awareness)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -1919,7 +1919,7 @@ description: >-
 * Default: `true`
 * Description: Enables GridGain partition awareness, so that requests go directly to the node that owns the data.
 
-[**password**](maxscale-filters/maxscale-cache.md#password)
+[**password**](maxscale-filters/maxscale-cache/cache-storage.md#password)
 
 * Type: password
 * Mandatory: No
@@ -1927,7 +1927,7 @@ description: >-
 * Default: `""`
 * Description: Defines the password used for authenticating with GridGain.
 
-[**ssl**](maxscale-filters/maxscale-cache.md#ssl)
+[**ssl**](maxscale-filters/maxscale-cache/cache-storage.md#ssl)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -1935,7 +1935,7 @@ description: >-
 * Default: `false`
 * Description: Enables SSL when connecting to the GridGain server.
 
-[**ssl\_ca**](maxscale-filters/maxscale-cache.md#ssl_ca)
+[**ssl\_ca**](maxscale-filters/maxscale-cache/cache-storage.md#ssl_ca)
 
 * Type: path
 * Mandatory: No
@@ -1943,7 +1943,7 @@ description: >-
 * Default: `""`
 * Description: Defines the CA certificate used for the SSL connection to the GridGain server.
 
-[**ssl\_cert**](maxscale-filters/maxscale-cache.md#ssl_cert)
+[**ssl\_cert**](maxscale-filters/maxscale-cache/cache-storage.md#ssl_cert)
 
 * Type: path
 * Mandatory: No
@@ -1951,7 +1951,7 @@ description: >-
 * Default: `""`
 * Description: Defines the SSL client certificate used when connecting to the GridGain server.
 
-[**ssl\_key**](maxscale-filters/maxscale-cache.md#ssl_key)
+[**ssl\_key**](maxscale-filters/maxscale-cache/cache-storage.md#ssl_key)
 
 * Type: path
 * Mandatory: No
@@ -1959,7 +1959,7 @@ description: >-
 * Default: `""`
 * Description: Defines the SSL client private key used when connecting to the GridGain server.
 
-[**user**](maxscale-filters/maxscale-cache.md#user)
+[**user**](maxscale-filters/maxscale-cache/cache-storage.md#user)
 
 * Type: string
 * Mandatory: No
@@ -1969,7 +1969,7 @@ description: >-
 
 **`storage_memcached`**
 
-[**max\_value\_size**](maxscale-filters/maxscale-cache.md#max_value_size)
+[**max\_value\_size**](maxscale-filters/maxscale-cache/cache-storage.md#max_value_size)
 
 * Type: [size](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
 * Mandatory: No
@@ -1977,7 +1977,7 @@ description: >-
 * Default: 1Mi
 * Description: Defines the maximum size of a value that can be stored in the cache.
 
-[**server**](maxscale-filters/maxscale-cache.md#server)
+[**server**](maxscale-filters/maxscale-cache/cache-storage.md#server)
 
 * Type: The Memcached server address specified as `host[:port]`
 * Mandatory: Yes
@@ -1986,7 +1986,7 @@ description: >-
 
 **`storage_redis`**
 
-[**password**](maxscale-filters/maxscale-cache.md#password)
+[**password**](maxscale-filters/maxscale-cache/cache-storage.md#password)
 
 * Type: string
 * Mandatory: No
@@ -1994,14 +1994,14 @@ description: >-
 * Default: `""`
 * Description: Password used for authentication.
 
-[**server**](maxscale-filters/maxscale-cache.md#server)
+[**server**](maxscale-filters/maxscale-cache/cache-storage.md#server)
 
 * Type: The Redis server address specified as `host[:port]`
 * Mandatory: Yes
 * Dynamic: No
 * Description: Defines the Redis server address. The default port is 6379 is used when no port is provided.
 
-[**ssl**](maxscale-filters/maxscale-cache.md#ssl)
+[**ssl**](maxscale-filters/maxscale-cache/cache-storage.md#ssl)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -2009,7 +2009,7 @@ description: >-
 * Default: `false`
 * Description: Enable SSL when connectign to the Redis server.
 
-[**ssl\_ca**](maxscale-filters/maxscale-cache.md#ssl_ca)
+[**ssl\_ca**](maxscale-filters/maxscale-cache/cache-storage.md#ssl_ca)
 
 * Type: Path to existing readable file.
 * Mandatory: No
@@ -2017,7 +2017,7 @@ description: >-
 * Default: `""`
 * Description: Specifies the CA certificate used to verify the Redis server certificate.
 
-[**ssl\_cert**](maxscale-filters/maxscale-cache.md#ssl_cert)
+[**ssl\_cert**](maxscale-filters/maxscale-cache/cache-storage.md#ssl_cert)
 
 * Type: Path to existing readable file.
 * Mandatory: No
@@ -2025,7 +2025,7 @@ description: >-
 * Default: `""`
 * Description: Defines the SSL client certificate used when connecting to the Redis server.
 
-[**ssl\_key**](maxscale-filters/maxscale-cache.md#ssl_key)
+[**ssl\_key**](maxscale-filters/maxscale-cache/cache-storage.md#ssl_key)
 
 * Type: Path to existing readable file.
 * Mandatory: No
@@ -2033,7 +2033,7 @@ description: >-
 * Default: `""`
 * Description: Specifies the private key for the SSL client that is used to connect to the Redis server.
 
-[**username**](maxscale-filters/maxscale-cache.md#username)
+[**username**](maxscale-filters/maxscale-cache/cache-storage.md#username)
 
 * Type: string
 * Mandatory: No
@@ -3136,11 +3136,11 @@ description: >-
 * Dynamic: Yes
 * Description: Allows the monitor to automatically select the writing node and manage controlled node replacements in a Galera cluster while keeping server priorities into account.
 
-#### [mariadb-monitor](maxscale-monitors/mariadb-monitor.md)
+#### [mariadb-monitor](maxscale-monitors/mariadb-monitor/README.md)
 
-**Settings**
+**MaxScale MariaDB Monitor Settings**
 
-[**assume\_unique\_hostnames**](maxscale-monitors/mariadb-monitor.md#assume_unique_hostnames)
+[**assume\_unique\_hostnames**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#assume_unique_hostnames)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -3148,183 +3148,7 @@ description: >-
 * Default: `true`
 * Description: When enabled, the monitor assumes that the server hostnames and ports in the configuration match those provided by the servers, resulting in accurate topology identification and support for cluster actions such as failover and switching.
 
-[**cooperative\_monitoring\_locks**](maxscale-monitors/mariadb-monitor.md#cooperative_monitoring_locks)
-
-* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
-* Mandatory: No
-* Dynamic: Yes
-* Values: `none`, `majority_of_all`, `majority_of_running`
-* Default: `none`
-* Description: Controls how a monitor achieves exclusive locks in multi-MaxScale configurations; decides whether a monitor becomes primary based on the majority of all servers, only running servers, or none at all.
-
-[**enforce\_read\_only\_servers**](maxscale-monitors/mariadb-monitor.md#enforce_read_only_servers)
-
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
-* Mandatory: No
-* Dynamic: Yes
-* Default: `false`
-* Description: Automatically sets `read_only` on any writable servers that are not the primary and are not under maintenance, ensuring that non-primary servers remain read-only.
-
-[**enforce\_read\_only\_slaves**](maxscale-monitors/mariadb-monitor.md#enforce_read_only_slaves)
-
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
-* Mandatory: No
-* Dynamic: Yes
-* Default: `false`
-* Description: Automatically sets `read_only` flag on writable replica servers, allowing only privileged users to write; the primary server is unaffected.
-
-[**enforce\_writable\_master**](maxscale-monitors/mariadb-monitor.md#enforce_writable_master)
-
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
-* Mandatory: No
-* Dynamic: Yes
-* Default: `false`
-* Description: Ensures that the primary server is always writable by automatically disabling read-only mode during monitoring.
-
-[**external\_replication\_monitor**](maxscale-monitors/mariadb-monitor.md#external_replication_monitor)
-
-* Type: Monitor name
-* Mandatory: No
-* Dynamic: Yes
-* Default: None
-* Description: Names the monitor of an external cluster from which the primary replicates, which enables external replication management.
-
-[**external\_replication\_primary\_role**](maxscale-monitors/mariadb-monitor.md#external_replication_primary_role)
-
-* Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
-* Mandatory: No
-* Dynamic: Yes
-* Values: `primary`, `replica`, `running`
-* Default: `primary`
-* Description: Defines the ordered list of server roles the monitor looks for when selecting the external server to replicate from.
-
-[**failcount**](maxscale-monitors/mariadb-monitor.md#failcount)
-
-* Type: number
-* Mandatory: No
-* Dynamic: Yes
-* Default: `5`
-* Description: Specifies how many consecutive monitor cycles a primary must fail before being considered down and requiring failover or primary reselection.
-
-[**maintenance\_on\_low\_disk\_space**](maxscale-monitors/mariadb-monitor.md#maintenance_on_low_disk_space)
-
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
-* Mandatory: No
-* Dynamic: Yes
-* Default: `true`
-* Description: When disk space is low, non-primary servers are automatically put into maintenance mode, which stops them from being used for sessions or failover unless they are manually removed.
-
-[**master\_conditions**](maxscale-monitors/mariadb-monitor.md#master_conditions)
-
-* Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
-* Mandatory: No
-* Dynamic: Yes
-* Values: `none`, `connecting_slave`, `connected_slave`, `running_slave`, `primary_monitor_master`, `disk_space_ok`
-* Default: `primary_monitor_master, disk_space_ok`
-* Description: Specifies additional requirements for a server to be considered primary, such as the availability of connected or running replicas, sufficient disk space, or agreement with supporting monitors.
-
-[**script\_max\_replication\_lag**](maxscale-monitors/mariadb-monitor.md#script_max_replication_lag)
-
-* Type: number
-* Mandatory: No
-* Dynamic: Yes
-* Default: `-1`
-* Description: Sets a replication lag threshold (in seconds) that executes the monitor script when exceeded (`rlag_above`) or returned below (`rlag_below`); negative values disable this feature.
-
-[**slave\_conditions**](maxscale-monitors/mariadb-monitor.md#slave_conditions)
-
-* Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
-* Mandatory: No
-* Dynamic: Yes
-* Values: `none`, `linked_master`, `running_master`, `writable_master`, `primary_monitor_master`
-* Default: `none`
-* Description: Specifies additional requirements for a server to be identified as a Slave, such as being connected to a running or writable primary; several conditions can be coupled using an `enum` mask.
-
-**Settings for Backup operations**
-
-[**backup\_storage\_address**](maxscale-monitors/mariadb-monitor.md#backup_storage_address)
-
-* Type: string
-* Mandatory: No
-* Dynamic: Yes
-* Default: None
-* Description: Provides the backup storage server's hostname or IP address. The server does not have to run MariaDB or be monitored by MaxScale. MaxScale connects via SSH, and the storage must have enough disk space to accommodate all backups.
-
-[**backup\_storage\_path**](maxscale-monitors/mariadb-monitor.md#backup_storage_path)
-
-* Type: path
-* Mandatory: No
-* Dynamic: Yes
-* Default: None
-* Description: Specifies the path to the backup storage host where backups will be saved. The SSH user specified in `ssh_user` must have full read and write access to this directory.
-
-[**mariadb\_backup\_parallel**](maxscale-monitors/mariadb-monitor.md#mariadb_backup_parallel)
-
-* Type: number
-* Mandatory: No
-* Dynamic: Yes
-* Default: `1`
-* Description: Defines the number of parallel threads to use while running `mariadb-backup`. This value is used as the `--parallel=<val>` for `mariadb-backup --backup`. Increasing this value can accelerate backups on systems with multiple CPUs and fast I/O.
-
-[**mariadb\_backup\_use\_memory**](maxscale-monitors/mariadb-monitor.md#mariadb_backup_use_memory)
-
-* Type: string
-* Mandatory: No
-* Dynamic: Yes
-* Default: `1G`
-* Description: Specifies how much memory `mariadb-backup` should use during the `--prepare` phase. This value is specified with the `--use-memory=<val>`. Setting it to an empty string disables the option and allows `mariadb-backup` to utilize the internal default. Increasing RAM can accelerate backup preparation, especially for large datasets.
-
-[**rebuild\_port**](maxscale-monitors/mariadb-monitor.md#rebuild_port)
-
-* Type: number
-* Mandatory: No
-* Dynamic: Yes
-* Default: `4444`
-* Description: Specifies the TCP port on which the source server will listen for the rebuild (SST) connection during a state transfer. This port must be open (not blocked by firewalls) and free (not in use by another process). If another process uses the port when the rebuild begins, MaxScale will attempt to terminate it to free up the port.
-
-[**ssh\_check\_host\_key**](maxscale-monitors/mariadb-monitor.md#ssh_check_host_key)
-
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
-* Mandatory: No
-* Dynamic: Yes
-* Default: `true`
-* Description: Manages whether MaxScale verifies the SSH host key when connecting to a backend server.  When set to `true`, MaxScale requires that the backend server’s host key is already present in the `known_hosts` file of the user running MaxScale. This ensures the authenticity of the server during SSH connections.
-
-[**ssh\_keyfile**](maxscale-monitors/mariadb-monitor.md#ssh_keyfile)
-
-* Type: path
-* Mandatory: No
-* Dynamic: Yes
-* Default: None
-* Description: Specifies the SSH private key file used by MaxScale to authenticate when connecting to backend servers.
-
-[**ssh\_port**](maxscale-monitors/mariadb-monitor.md#ssh_port)
-
-* Type: number
-* Mandatory: No
-* Dynamic: Yes
-* Default: `22`
-* Description: Uses port for SSH connections when executing remote commands on backend servers.
-
-[**ssh\_timeout**](maxscale-monitors/mariadb-monitor.md#ssh_timeout)
-
-* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
-* Mandatory: No
-* Dynamic: Yes
-* Default: `10s`
-* Description: Specifies the maximum duration allowed for SSH commands during a rebuild before timing out.
-
-[**ssh\_user**](maxscale-monitors/mariadb-monitor.md#ssh_user)
-
-* Type: string
-* Mandatory: No
-* Dynamic: Yes
-* Default: None
-* Description: Specifies the SSH username for logging in to backend servers to execute commands.
-
-**Settings for Cluster manipulation operations**
-
-[**auto\_failover**](maxscale-monitors/mariadb-monitor.md#auto_failover)
+[**auto\_failover**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#auto_failover)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -3333,7 +3157,7 @@ description: >-
 * Default: `false`
 * Description: Enables or disables automated primary failover, which allows MaxScale to select a new primary if the current one fails.
 
-[**auto\_rejoin**](maxscale-monitors/mariadb-monitor.md#auto_rejoin)
+[**auto\_rejoin**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#auto_rejoin)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -3341,7 +3165,32 @@ description: >-
 * Default: `false`
 * Description: Allows automatic redirection of servers to duplicate from the current primary, resulting in a 1-primary-N-replicas architecture.
 
-[**demotion\_sql\_file**](maxscale-monitors/mariadb-monitor.md#demotion_sql_file)
+[**backup\_storage\_address**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#backup_storage_address)
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Description: Provides the backup storage server's hostname or IP address. The server does not have to run MariaDB or be monitored by MaxScale. MaxScale connects via SSH, and the storage must have enough disk space to accommodate all backups.
+
+[**backup\_storage\_path**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#backup_storage_path)
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Description: Specifies the path to the backup storage host where backups will be saved. The SSH user specified in `ssh_user` must have full read and write access to this directory.
+
+[**cooperative\_monitoring\_locks**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#cooperative_monitoring_locks)
+
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `none`, `majority_of_all`, `majority_of_running`
+* Default: `none`
+* Description: Controls how a monitor achieves exclusive locks in multi-MaxScale configurations; decides whether a monitor becomes primary based on the majority of all servers, only running servers, or none at all.
+
+[**demotion\_sql\_file**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#demotion_sql_file)
 
 * Type: string
 * Mandatory: No
@@ -3349,7 +3198,23 @@ description: >-
 * Default: None
 * Description: Specifies a SQL file to execute when a server is downgraded; equivalent to `promotion_sql_file`.
 
-[**enforce\_simple\_topology**](maxscale-monitors/mariadb-monitor.md#enforce_simple_topology)
+[**enforce\_read\_only\_servers**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#enforce_read_only_servers)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `false`
+* Description: Automatically sets `read_only` on any writable servers that are not the primary and are not under maintenance, ensuring that non-primary servers remain read-only.
+
+[**enforce\_read\_only\_slaves**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#enforce_read_only_slaves)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `false`
+* Description: Automatically sets `read_only` flag on writable replica servers, allowing only privileged users to write; the primary server is unaffected.
+
+[**enforce\_simple\_topology**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#enforce_simple_topology)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -3357,7 +3222,40 @@ description: >-
 * Default: `false`
 * Description: Promotes a 1-primary-N-replicas cluster configuration, automatically reconnecting servers and deleting unnecessary replication sources to maintain a simple topology.
 
-[**failover\_timeout**](maxscale-monitors/mariadb-monitor.md#failover_timeout)
+[**enforce\_writable\_master**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#enforce_writable_master)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `false`
+* Description: Ensures that the primary server is always writable by automatically disabling read-only mode during monitoring.
+
+[**external\_replication\_monitor**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#external_replication_monitor)
+
+* Type: Monitor name
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Description: Names the monitor of an external cluster from which the primary replicates, which enables external replication management.
+
+[**external\_replication\_primary\_role**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#external_replication_primary_role)
+
+* Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `primary`, `replica`, `running`
+* Default: `primary`
+* Description: Defines the ordered list of server roles the monitor looks for when selecting the external server to replicate from.
+
+[**failcount**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#failcount)
+
+* Type: number
+* Mandatory: No
+* Dynamic: Yes
+* Default: `5`
+* Description: Specifies how many consecutive monitor cycles a primary must fail before being considered down and requiring failover or primary reselection.
+
+[**failover\_timeout**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#failover_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -3365,7 +3263,7 @@ description: >-
 * Default: `90s`
 * Description: Sets the maximum time a failover operation may take, counted from when the new primary has processed its relay log.
 
-[**handle\_events**](maxscale-monitors/mariadb-monitor.md#handle_events)
+[**handle\_events**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#handle_events)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -3373,7 +3271,7 @@ description: >-
 * Default: `true`
 * Description: Manages whether the monitor tracks and updates scheduled events on servers during offers, demotions, and rejoins.
 
-[**heal\_primary\_truncated\_binlog**](maxscale-monitors/mariadb-monitor.md#heal_primary_truncated_binlog)
+[**heal\_primary\_truncated\_binlog**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#heal_primary_truncated_binlog)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -3381,7 +3279,40 @@ description: >-
 * Default: `false`
 * Description: Allows the monitor to heal a primary that lost transactions during crash recovery by having it replicate them from a more advanced replica.
 
-[**master\_failure\_timeout**](maxscale-monitors/mariadb-monitor.md#master_failure_timeout)
+[**maintenance\_on\_low\_disk\_space**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#maintenance_on_low_disk_space)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `true`
+* Description: When disk space is low, non-primary servers are automatically put into maintenance mode, which stops them from being used for sessions or failover unless they are manually removed.
+
+[**mariadb\_backup\_parallel**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#mariadb_backup_parallel)
+
+* Type: number
+* Mandatory: No
+* Dynamic: Yes
+* Default: `1`
+* Description: Defines the number of parallel threads to use while running `mariadb-backup`. This value is used as the `--parallel=<val>` for `mariadb-backup --backup`. Increasing this value can accelerate backups on systems with multiple CPUs and fast I/O.
+
+[**mariadb\_backup\_use\_memory**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#mariadb_backup_use_memory)
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `1G`
+* Description: Specifies how much memory `mariadb-backup` should use during the `--prepare` phase. This value is specified with the `--use-memory=<val>`. Setting it to an empty string disables the option and allows `mariadb-backup` to utilize the internal default. Increasing RAM can accelerate backup preparation, especially for large datasets.
+
+[**master\_conditions**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#master_conditions)
+
+* Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `none`, `connecting_slave`, `connected_slave`, `running_slave`, `primary_monitor_master`, `disk_space_ok`
+* Default: `primary_monitor_master, disk_space_ok`
+* Description: Specifies additional requirements for a server to be considered primary, such as the availability of connected or running replicas, sufficient disk space, or agreement with supporting monitors.
+
+[**master\_failure\_timeout**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#master_failure_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -3389,7 +3320,7 @@ description: >-
 * Default: `10s`
 * Description: Specifies the duration MaxScale waits before considering a primary server as failed.
 
-[**promotion\_sql\_file**](maxscale-monitors/mariadb-monitor.md#promotion_sql_file)
+[**promotion\_sql\_file**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#promotion_sql_file)
 
 * Type: string
 * Mandatory: No
@@ -3397,7 +3328,15 @@ description: >-
 * Default: None
 * Description: Specifies a file of SQL statements to execute on a server during promotion to primary.
 
-[**replication\_master\_ssl**](maxscale-monitors/mariadb-monitor.md#replication_master_ssl)
+[**rebuild\_port**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#rebuild_port)
+
+* Type: number
+* Mandatory: No
+* Dynamic: Yes
+* Default: `4444`
+* Description: Specifies the TCP port on which the source server will listen for the rebuild (SST) connection during a state transfer. This port must be open (not blocked by firewalls) and free (not in use by another process). If another process uses the port when the rebuild begins, MaxScale will attempt to terminate it to free up the port.
+
+[**replication\_master\_ssl**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#replication_master_ssl)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -3406,7 +3345,7 @@ description: >-
 * Values: `auto`, `off`, `on`
 * Description: Enables SSL encryption for replication by configuring generated replication commands to use secure connections.
 
-[**replication\_password**](maxscale-monitors/mariadb-monitor.md#replication_password)
+[**replication\_password**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#replication_password)
 
 * Type: string
 * Mandatory: No
@@ -3414,7 +3353,7 @@ description: >-
 * Default: None
 * Description: Specifies the password used by the replication user for authentication.
 
-[**replication\_user**](maxscale-monitors/mariadb-monitor.md#replication_user)
+[**replication\_user**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#replication_user)
 
 * Type: string
 * Mandatory: No
@@ -3422,7 +3361,15 @@ description: >-
 * Default: None
 * Description: Specifies the username used for replication authentication when configuring replica connections.
 
-[**servers\_no\_promotion**](maxscale-monitors/mariadb-monitor.md#servers_no_promotion)
+[**script\_max\_replication\_lag**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#script_max_replication_lag)
+
+* Type: number
+* Mandatory: No
+* Dynamic: Yes
+* Default: `-1`
+* Description: Sets a replication lag threshold (in seconds) that executes the monitor script when exceeded (`rlag_above`) or returned below (`rlag_below`); negative values disable this feature.
+
+[**servers\_no\_promotion**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#servers_no_promotion)
 
 * Type: string
 * Mandatory: No
@@ -3430,7 +3377,56 @@ description: >-
 * Default: None
 * Description: Lists servers that are never automatically selected as primary for failover, switchover or primary selection.
 
-[**switchover\_on\_low\_disk\_space**](maxscale-monitors/mariadb-monitor.md#switchover_on_low_disk_space)
+[**slave\_conditions**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#slave_conditions)
+
+* Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `none`, `linked_master`, `running_master`, `writable_master`, `primary_monitor_master`
+* Default: `none`
+* Description: Specifies additional requirements for a server to be identified as a Slave, such as being connected to a running or writable primary; several conditions can be coupled using an `enum` mask.
+
+[**ssh\_check\_host\_key**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#ssh_check_host_key)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `true`
+* Description: Manages whether MaxScale verifies the SSH host key when connecting to a backend server.  When set to `true`, MaxScale requires that the backend server’s host key is already present in the `known_hosts` file of the user running MaxScale. This ensures the authenticity of the server during SSH connections.
+
+[**ssh\_keyfile**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#ssh_keyfile)
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Description: Specifies the SSH private key file used by MaxScale to authenticate when connecting to backend servers.
+
+[**ssh\_port**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#ssh_port)
+
+* Type: number
+* Mandatory: No
+* Dynamic: Yes
+* Default: `22`
+* Description: Uses port for SSH connections when executing remote commands on backend servers.
+
+[**ssh\_timeout**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#ssh_timeout)
+
+* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `10s`
+* Description: Specifies the maximum duration allowed for SSH commands during a rebuild before timing out.
+
+[**ssh\_user**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#ssh_user)
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Description: Specifies the SSH username for logging in to backend servers to execute commands.
+
+[**switchover\_on\_low\_disk\_space**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#switchover_on_low_disk_space)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -3438,7 +3434,7 @@ description: >-
 * Default: `false`
 * Description: Enables automatic switchover of a primary server that is low on disk space to a replica without disk space issues.
 
-[**switchover\_timeout**](maxscale-monitors/mariadb-monitor.md#switchover_timeout)
+[**switchover\_timeout**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#switchover_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -3446,7 +3442,7 @@ description: >-
 * Default: `90s`
 * Description: Defines the maximum time allowed for switchover and rejoin operations before timing out.
 
-[**switchover\_wait\_for\_trx**](maxscale-monitors/mariadb-monitor.md#switchover_wait_for_trx)
+[**switchover\_wait\_for\_trx**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#switchover_wait_for_trx)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -3454,7 +3450,7 @@ description: >-
 * Default: `true`
 * Description: Controls whether switchover waits for open transactions to finish before proceeding.
 
-[**verify\_master\_failure**](maxscale-monitors/mariadb-monitor.md#verify_master_failure)
+[**verify\_master\_failure**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#verify_master_failure)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -3462,9 +3458,7 @@ description: >-
 * Default: `true`
 * Description: Enables verification of primary server failure using replica status before triggering automatic failover.
 
-**Settings for Primary server write test**
-
-[**write\_test\_fail\_action**](maxscale-monitors/mariadb-monitor.md#write_test_fail_action)
+[**write\_test\_fail\_action**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#write_test_fail_action)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Default: `log`
@@ -3472,14 +3466,14 @@ description: >-
 * Dynamic: Yes
 * Description: Defines the action to consider when the primary fails a write text, either logging the failure or triggering a failover.
 
-[**write\_test\_interval**](maxscale-monitors/mariadb-monitor.md#write_test_interval)
+[**write\_test\_interval**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#write_test_interval)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Dynamic: Yes
 * Default: 0s
 * Description: Sets the interval after which a write test is performed on the primary if no changes are detected.
 
-[**write\_test\_table**](maxscale-monitors/mariadb-monitor.md#write_test_table)
+[**write\_test\_table**](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#write_test_table)
 
 * Type: string
 * Dynamic: Yes
@@ -3500,80 +3494,80 @@ description: >-
 * Default: true
 * Description: Manages whether the replication protocol is permitted through this listener.
 
-#### [maxscale-nosql-protocol-module](maxscale-protocols/maxscale-nosql-protocol-module.md)
+#### [maxscale-nosql-protocol-module](maxscale-protocols/maxscale-nosql-protocol-module/README.md)
 
-**Settings**
+**MaxScale NoSQL Protocol Settings**
 
-[**authentication\_db**](maxscale-protocols/maxscale-nosql-protocol-module.md#authentication_db)
+[**authentication\_db**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#authentication_db)
 
 * Type: string
 * Mandatory: No
 * Default: `"NoSQL"`
 * Description: Specifies the database that stores NoSQL account information for authentication.
 
-[**authentication\_key\_id**](maxscale-protocols/maxscale-nosql-protocol-module.md#authentication_key_id)
+[**authentication\_key\_id**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#authentication_key_id)
 
 * Type: string
 * Mandatory: No
 * Default: `""`
 * Description: Specifies the encryption key ID used to encrypt NoSQL account information in the database.
 
-[**authentication\_password**](maxscale-protocols/maxscale-nosql-protocol-module.md#authentication_password)
+[**authentication\_password**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#authentication_password)
 
 * Type: string
 * Mandatory: No
 * Default: `""`
 * Description: Specifies the password for the NoSQL authentication user.
 
-[**authentication\_required**](maxscale-protocols/maxscale-nosql-protocol-module.md#authentication_required)
+[**authentication\_required**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#authentication_required)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `false`
 * Description: Determines whether clients are required to authenticate before accessing the service.
 
-[**authentication\_shared**](maxscale-protocols/maxscale-nosql-protocol-module.md#authentication_shared)
+[**authentication\_shared**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#authentication_shared)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `false`
 * Description: Controls whether NoSQL account information is stored in a shared or private manner.
 
-[**authentication\_user**](maxscale-protocols/maxscale-nosql-protocol-module.md#authentication_user)
+[**authentication\_user**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#authentication_user)
 
 * Type: string
 * Mandatory: Yes, if `authentication_shared` is true.
 * Description: Specifies the user used to access and manage shared NoSQL account information.
 
-[**authorization\_enabled**](maxscale-protocols/maxscale-nosql-protocol-module.md#authorization_enabled)
+[**authorization\_enabled**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#authorization_enabled)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `false`
 * Description: Enables or disables NoSQL protocol–level authorization for user management commands.
 
-[**auto\_create\_databases**](maxscale-protocols/maxscale-nosql-protocol-module.md#auto_create_databases)
+[**auto\_create\_databases**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#auto_create_databases)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `true`
 * Description: Controls whether databases are automatically created when required.
 
-[**auto\_create\_tables**](maxscale-protocols/maxscale-nosql-protocol-module.md#auto_create_tables)
+[**auto\_create\_tables**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#auto_create_tables)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `true`
 * Description: Controls whether tables are automatically created within existing databases when required.
 
-[**cursor\_timeout**](maxscale-protocols/maxscale-nosql-protocol-module.md#cursor_timeout)
+[**cursor\_timeout**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#cursor_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Default: `60s`
 * Description: Sets the maximum idle time before an inactive cursor is automatically closed.
 
-[**debug**](maxscale-protocols/maxscale-nosql-protocol-module.md#debug)
+[**debug**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#debug)
 
 * Type: [enum\_mask](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -3581,14 +3575,14 @@ description: >-
 * Default: `none`
 * Description: Manages which protocol events are logged, including incoming commands, backend SQL, and client responses.
 
-[**host**](maxscale-protocols/maxscale-nosql-protocol-module.md#host)
+[**host**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#host)
 
 * Type: string
 * Mandatory: No
 * Default: `"%"`
 * Description: Specifies the host portion of the MariaDB user account created via the NoSQL protocol.
 
-[**id\_length**](maxscale-protocols/maxscale-nosql-protocol-module.md#id_length)
+[**id\_length**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#id_length)
 
 * Type: count
 * Mandatory: No
@@ -3596,21 +3590,21 @@ description: >-
 * \*Default: `35`
 * Description: Sets the length of the `id` column for automatically created tables.
 
-[**internal\_cache**](maxscale-protocols/maxscale-nosql-protocol-module.md#internal_cache)
+[**internal\_cache**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#internal_cache)
 
 * Type: string
 * Mandatory: No
 * Default: ''
 * Description: Specifies the internal cache to use. Only the `cache` filter is supported.
 
-[**log\_unknown\_command**](maxscale-protocols/maxscale-nosql-protocol-module.md#log_unknown_command)
+[**log\_unknown\_command**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#log_unknown_command)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `false`
 * Description: Determines whether unsupported or unknown client commands are logged for debugging.
 
-[**on\_unknown\_command**](maxscale-protocols/maxscale-nosql-protocol-module.md#on_unknown_command)
+[**on\_unknown\_command**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#on_unknown_command)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -3618,7 +3612,7 @@ description: >-
 * Default: `return_error`
 * Description: Defines how the system responds to unrecognized client commands, either with an error or an empty result.
 
-[**ordered\_insert\_behavior**](maxscale-protocols/maxscale-nosql-protocol-module.md#ordered_insert_behavior)
+[**ordered\_insert\_behavior**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#ordered_insert_behavior)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -3626,14 +3620,14 @@ description: >-
 * Default: `default`
 * Description: Controls whether multi-document inserts are performed completely or individually based on the `ordered` setting.
 
-[**password**](maxscale-protocols/maxscale-nosql-protocol-module.md#password)
+[**password**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#password)
 
 * Type: string
 * Mandatory: No
 * Default: `""`
 * Description: Specifies the password used for backend connections when the MongoDB client is unauthenticated.
 
-[**transactions**](maxscale-protocols/maxscale-nosql-protocol-module.md#transactions)
+[**transactions**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#transactions)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -3641,7 +3635,7 @@ description: >-
 * Default: `error`
 * Description: Controls whether the transaction related commands result in an error or are silently ignored.
 
-[**user**](maxscale-protocols/maxscale-nosql-protocol-module.md#user)
+[**user**](maxscale-protocols/maxscale-nosql-protocol-module/nosql-protocol-settings.md#user)
 
 * Type: string
 * Mandatory: No

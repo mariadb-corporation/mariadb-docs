@@ -29,7 +29,7 @@ MariaDB Connector/J is the official JDBC driver for connecting Java applications
 
 {% columns %}
 {% column %}
-{% content-ref url="about-mariadb-connector-j.md" %}
+{% content-ref url="about-mariadb-connector-j/README.md" %}
 [about-mariadb-connector-j.md](about-mariadb-connector-j/README.md)
 {% endcontent-ref %}
 {% endcolumn %}

@@ -53,10 +53,21 @@ LAYOUT (as create_CS_RN_doc_v2() writes it)
     component of "N/A" becomes "OTHER", as on published pages. Sections sort
     alphabetically, ignoring case; items sort by key. The text is the Release
     Note Summary (customfield_13206), else the Jira summary, flattened to one
-    line, without a trailing period (house style), Markdown-escaped outside
-    code spans. One deliberate difference from the script: the storage
-    engines nest under "### Storage Engines", InnoDB first, as on published
-    pages.
+    line (a summary written as a "- " or "1." list loses the markers, its
+    items joined with semicolons), without a trailing period (house style),
+    Markdown-escaped outside
+    code spans. One deliberate difference from the script: component
+    families nest under a parent section (NESTED). The storage engines go
+    under "### Storage Engines", InnoDB first, as on published pages, and
+    that section comes first. "Platform Debian" and its siblings go under
+    "### Platforms" as "#### Debian" and so on. "Plugin - pam" and its
+    siblings go under "### Plugins" as "#### pam Plugin", after the items of
+    the general Plugins component (dbart, 2026-11-11). "Data Definition -
+    Alter Table", "Data Manipulation - Insert", and "Optimizer - CTE" and
+    their siblings nest the same way, under "### Data Definition", "### Data
+    Manipulation", and "### Optimizer", as "#### Alter Table" and so on. The
+    general Optimizer items come first in their section. These parents sort
+    into place among the other sections.
 
     The page around the list is the previous release's page (--template): its
     header up to "## Notable Items" and its "## Changelog" footer, with the
@@ -65,12 +76,53 @@ LAYOUT (as create_CS_RN_doc_v2() writes it)
     the unreleased banner after the title, and TBD for the date.
 
 REVIEW FLAGS (--flags TSV: key, section, reasons, text)
-    The patterns Daniel's Q3 editorial pass removed or changed (DOCS-6477,
+    The patterns dbart's Q3 editorial pass removed or changed (DOCS-6477,
     commits cad8b64f8 and 9df256153): Tests/CI components, bare debug
     assertions and sanitizer reports without a Release Note Summary, the
     `Security` label (check against the CVE list), items already on the
     previous page, items without a Release Note Summary, and items added from
     the commits. The script never removes a flagged item; the editor decides.
+
+    "Not for binaries" (Ralf Gebhardt, 2026-11-11): release notes are for
+    people who install the packages, and the changelog is for people who
+    build from source. So a fix that only affects building from source, the
+    source packages, or the test suite is removed. This is flagged, not
+    automatic, because no field marks it. Engineers already set Bug Category
+    "Not for Release Notes" on most such fixes, but not all, and the
+    Compiling and Tests, MTR components are not reliable in either
+    direction. MDEV-42175 (Compiling) speeds up the shipped binaries, and
+    MDEV-41505 (Tests, MTR) fixes the server. The flag fires on those
+    components, CI, or wording in the summary or the Release Note Summary:
+    build and source terms, debug-build-only fixes ("Debug assertion only
+    fix", MDEV-40404), and mtr test names such as main.user_limits.
+
+EXCLUSION OF UNHELPFUL ITEMS (--no-correct turns it off)
+    Ralf Gebhardt's rule (2026-11-11): an item whose Release Note Summary is
+    empty, and whose Jira summary matches `summary ~ assertion`,
+    `summary ~ test`, `summary ~ ASAN`, `summary ~ AddressSanitizer`,
+    `summary ~ SIGSEGV`, `summary ~ SIGFPE`, or `summary ~ SIGABRT`, is left
+    out.
+    Its text would be the Jira summary, which for these items names a debug
+    assertion, a test, a sanitizer report, or a crash location rather than
+    what the user did or saw. The changelog still lists every one of them.
+    The clause runs in Jira, so it matches exactly what Ralf's filters
+    match, stemming included ("testing" counts as test). The excluded keys
+    are listed on stderr and in the --report JSON. A developer who wants an
+    item listed can write its Release Note Summary.
+
+    The keywords are Ralf's, taken literally; he added AddressSanitizer,
+    SIGFPE, and SIGABRT on 2026-11-11. "signal 11", the same signal as
+    SIGSEGV, is deliberately not a keyword. In Q4 it matched MDEV-31225,
+    whose title names the query that crashes, which Ralf judged useful, and
+    MDEV-41442, which isn't (dropped by hand from 12.3.4). Ralf's call was to
+    stop tuning keywords until releases get AI-written Release Note
+    Summaries. A fix that gets a CVE is listed in the Security section
+    whatever its Jira summary says.
+
+    Also `summary ~ "crash log"` (Ralf, 2026-11-11): a title that describes a
+    crash report, such as MDEV-39146 "Crash log on 22th/25th Mar 2026 with
+    10.11.16", rather than the bug. Among fixed MDEVs with no Release Note
+    Summary resolved since 2025, it matches only that one, so it is narrow.
 
 PROVEN
     On DOCS-7099 (2026-11-10), with --no-correct, 11.8.10 reproduced the
@@ -108,8 +160,31 @@ FIELDS = ('versions,resolutiondate,summary,status,resolution,components,customfi
           'customfield_13206,issuetype,labels,fixVersions,project')
 KEY_RE = re.compile(r'MDEV-\d+')
 SE = 'Storage Engine - '
+# Component families that nest under one parent section: (parent heading, component prefix,
+# subsection heading, the family's general component whose items come first, if any).
+NESTED = [('Storage Engines', SE, '{} Storage Engine', None),
+          ('Data Definition', 'Data Definition - ', '{}', None),
+          ('Data Manipulation', 'Data Manipulation - ', '{}', None),
+          ('Optimizer', 'Optimizer - ', '{}', 'Optimizer'),
+          ('Platforms', 'Platform ', '{}', None),
+          ('Plugins', 'Plugin - ', '{} Plugin', 'Plugins')]
 TESTS = {'Tests, MTR', 'CI'}
 DEBUG_RE = re.compile(r'assert|asan|msan|ubsan|valgrind|sanitizer|heap-use-after|use-of-uninit', re.I)
+UNHELPFUL_JQL = ('"Release Note Summary" is EMPTY AND '
+                 '(summary ~ assertion OR summary ~ test OR summary ~ ASAN OR summary ~ AddressSanitizer '
+                 'OR summary ~ SIGSEGV OR summary ~ SIGFPE OR summary ~ SIGABRT '
+                 'OR summary ~ "\\"crash log\\"")')
+LIST_MARKER = re.compile(r'(?:[-*•–]|\d+[.)])\s+')
+COMMON_FIRST_WORDS = {'a', 'an', 'the', 'only', 'this', 'these', 'that', 'those', 'it', 'its', 'they',
+                      'when', 'if', 'now', 'no', 'not', 'also', 'and', 'but', 'in', 'on', 'for', 'with',
+                      'without', 'after', 'before', 'during', 'fixed', 'added', 'removed', 'previously',
+                      'some', 'all', 'any', 'each', 'every', 'there', 'where', 'which', 'while'}
+BUILD_COMPONENTS = TESTS | {'Compiling'}
+BUILD_RE = re.compile(r'\b(compil\w*|cmake\w*|(does|did) not build|fails? to build|can (now )?be built|'
+                      r'srpms?|source rpms?|tar\.gz|tarballs?|buildbot|gitlab ci|mtr|test case|'
+                      r'flaky|sporadic\w*|debug assertion only|debug flag|debug builds? only|'
+                      r'(main|innodb|rpl|binlog|galera\w*|maria|sys_vars|perfschema|encryption|plugins|'
+                      r'period|vcol|s3|connect|mroonga|rocksdb|versioning|parts|json)\.\w+)\b', re.I)
 
 
 def die(msg):
@@ -181,9 +256,41 @@ def escape(text):
     return ''.join(out)
 
 
+def flatten(text):
+    """One line from a summary that may be written as a list (MDEV-41140's
+    Release Note Summary is four "- " lines). The markers go and the items
+    are joined with semicolons, without their terminal periods (dbart's
+    house style for lists), after an intro line and a colon if there is one.
+    An item that starts with a common word is lowercased ("Only the top
+    level" becomes "only the top level"); names and paths keep their case."""
+    lines = [l.strip() for l in text.splitlines() if l.strip()]
+    if not any(LIST_MARKER.match(l) for l in lines):
+        return ' '.join(text.split())
+    intro, items = None, []
+    for l in lines:
+        m = LIST_MARKER.match(l)
+        if m:
+            items.append(l[m.end():].strip())
+        elif items:
+            items[-1] += ' ' + l     # a wrapped item continues
+        else:
+            intro = l if intro is None else intro + ' ' + l
+    items = [' '.join(i.split()).rstrip('.;') for i in items]
+    items = [i if n == 0 and not intro else lower_first(i) for n, i in enumerate(items)]
+    body = '; '.join(items)
+    if intro:
+        body = intro.rstrip('.').rstrip(':') + ': ' + body
+    return ' '.join(body.split())
+
+
+def lower_first(item):
+    word = item.split(' ', 1)[0]
+    return item[0].lower() + item[1:] if word.lower() in COMMON_FIRST_WORDS and word.istitle() else item
+
+
 def bullet_text(f):
     rns = (f.get('customfield_13206') or '').strip()
-    text = ' '.join((rns or f['summary'].strip()).split()).rstrip('.').rstrip()
+    text = flatten(rns or f['summary'].strip()).rstrip('.').rstrip()
     return re.sub(r'^#', r'\\#', escape(text)), bool(rns)
 
 
@@ -217,7 +324,8 @@ def main(argv):
     tagged = {i['key']: i for i in search(tok, f'fixVersion = "{a.version}" ORDER BY key')}
     selected = {k for k, i in tagged.items() if qualifies(i)}
     chosen = {k: tagged[k] for k in selected}
-    report = {'removed': [], 'added': [], 'kept_no_commit': [], 'unresolved_committed': []}
+    report = {'removed': [], 'added': [], 'kept_no_commit': [], 'unresolved_committed': [],
+              'excluded_unhelpful': []}
 
     if not a.no_correct:
         in_rev = git_keys(a.repo, a.rev, '--format=%B')
@@ -240,6 +348,11 @@ def main(argv):
                     report['added'].append([i['key'], [v['name'] for v in f['fixVersions']], f['summary']])
                 elif not f['resolution'] and i['key'].startswith('MDEV-'):
                     report['unresolved_committed'].append([i['key'], f['status']['name'], f['summary']])
+        keys = sorted(chosen, key=key_num)
+        for n in range(0, len(keys), 100):
+            for i in search(tok, f'issuekey in ({",".join(keys[n:n + 100])}) AND {UNHELPFUL_JQL}'):
+                report['excluded_unhelpful'].append([i['key'], i['fields']['summary']])
+                del chosen[i['key']]
         for lst in report.values():
             lst.sort(key=lambda x: key_num(x[0] if isinstance(x, list) else x))
 
@@ -248,20 +361,35 @@ def main(argv):
         groups[section(i['fields'])].append(i)
     for s in groups:
         groups[s].sort(key=lambda i: key_num(i['key']))
-    engines = sorted((s for s in groups if s.startswith(SE)), key=lambda s: (s != SE + 'InnoDB', s.lower()))
-    others = sorted((s for s in groups if not s.startswith(SE)), key=str.lower)
+    def parent(s):
+        return next((p for p, prefix, _, general in NESTED if s.startswith(prefix) or s == general), None)
 
     def items(s):
         return '\n'.join(f"* {bullet_text(i['fields'])[0]} ([{i['key']}]({JIRA}/browse/{i['key']}))"
                          for i in groups[s]) + '\n'
 
-    body = ['## Notable Items\n']
-    if engines:
-        body.append('### Storage Engines\n')
-        for s in engines:
-            body += [f'#### {s[len(SE):]} Storage Engine\n', items(s)]
-    for s in others:
-        body += [f'### {s}\n', items(s)]
+    body, order = ['## Notable Items\n'], []
+
+    def nest(p):
+        _, prefix, fmt, general = next(n for n in NESTED if n[0] == p)
+        subs = sorted((s for s in groups if s.startswith(prefix)), key=lambda s: (s != SE + 'InnoDB', s.lower()))
+        body.append(f'### {p}\n')
+        if general in groups:
+            body.append(items(general))
+            order.append(general)
+        for s in subs:
+            body.extend([f'#### {fmt.format(s[len(prefix):])}\n', items(s)])
+            order.append(s)
+
+    top = {parent(s) or s for s in groups}
+    if 'Storage Engines' in top:
+        nest('Storage Engines')
+    for t in sorted(top - {'Storage Engines'}, key=str.lower):
+        if t in {n[0] for n in NESTED}:
+            nest(t)
+        else:
+            body += [f'### {t}\n', items(t)]
+            order.append(t)
 
     pv = re.escape(prev_version)
     head = re.sub(pv, a.version, head)
@@ -277,13 +405,14 @@ def main(argv):
     added = {r[0]: r[1] for r in report['added']}
     prev_keys = set(KEY_RE.findall(template))
     rows = []
-    for s in engines + others:
+    for s in order:
         for i in groups[s]:
             f = i['fields']
             text, has_rns = bullet_text(f)
             why = []
-            if {c['name'] for c in f['components']} & TESTS:
-                why.append('test/CI component')
+            if ({c['name'] for c in f['components']} & BUILD_COMPONENTS
+                    or BUILD_RE.search(f['summary'] + ' ' + (f.get('customfield_13206') or ''))):
+                why.append('not for binaries? build, source, or test only')
             if not has_rns and DEBUG_RE.search(f['summary']):
                 why.append('debug/sanitizer report, no RNS')
             if 'security' in {l.lower() for l in f['labels']}:
@@ -304,7 +433,8 @@ def main(argv):
     count = lambda s: sum(1 for r in rows if s in r[2])
     print(f'{a.version}: {len(chosen)} items in {len(groups)} sections '
           f'(fix version selected {len(selected)}, removed {len(report["removed"])}, '
-          f'added {len(report["added"])}); flags: {count("test/CI")} test/CI, '
+          f'added {len(report["added"])}, excluded as unhelpful {len(report["excluded_unhelpful"])}); '
+          f'flags: {count("not for binaries")} not for binaries, '
           f'{count("debug/sanitizer")} debug/sanitizer, {count("Security label")} Security, '
           f'{count("no RNS")} without RNS', file=sys.stderr)
     for name, lst in report.items():

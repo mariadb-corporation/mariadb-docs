@@ -660,8 +660,6 @@ Below is a list of versions that are tested for basic compatibility with the cur
 
 `2.11.1`, `2.12.0`, `2.13.0`,  `2.14.0`,  `2.15.0`,  `2.16.0`,  `2.17.0`,  `2.18.0`
 
-Apache Ignite thin clients are not compatible with GridGain. When switching to GridGain, follow the [migration instructions](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/migrating-from-ignite) to switch to GridGain clients.
-
 ### Known Limitations
 
 #### LEFT OUTER JOIN Behavior Change in GridGain 8.9.31

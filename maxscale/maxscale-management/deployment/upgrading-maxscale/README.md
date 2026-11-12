@@ -75,18 +75,18 @@ now a string instead of a boolean.
 ### MariaDB Monitor
 
 The default of
-[replication_master_ssl](../../../reference/maxscale-monitors/mariadb-monitor.md#replication_master_ssl)
+[replication_master_ssl](../../../reference/maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#replication_master_ssl)
 changed from `false` to `auto`, which preserves the existing `MASTER_SSL`
 setting of a replica. In the REST API, the `replication_master_ssl` field of
 the monitor parameters is now a string instead of a boolean.
 
 If
-[cooperative_monitoring_locks](../../../reference/maxscale-monitors/mariadb-monitor.md#cooperative_monitoring_locks)
+[cooperative_monitoring_locks](../../../reference/maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#cooperative_monitoring_locks)
 is used together with
 [passive=true](../installation-and-configuration/maxscale-configuration-guide.md#passive),
 the monitor no longer acquires any locks, and it releases any locks it holds.
 If all MaxScales are passive, no MaxScale holds the locks and, with the default
-[master_conditions](../../../reference/maxscale-monitors/mariadb-monitor.md#master_conditions),
+[master_conditions](../../../reference/maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#master_conditions),
 no server is designated primary, so at least one MaxScale must be active.
 
 ### Removed Features
@@ -95,7 +95,7 @@ no server is designated primary, so at least one MaxScale must be active.
   [kafkacdc](../../../reference/maxscale-routers/maxscale-kafkacdc.md) router
   instead.
 * Memcached is no longer supported as storage for the
-  [cache](../../../reference/maxscale-filters/maxscale-cache.md).
+  [cache](../../../reference/maxscale-filters/maxscale-cache/README.md).
 
 ## Upgrading MariaDB MaxScale from 25.01 to 25.10
 
@@ -196,7 +196,7 @@ To downgrade from MaxScale 24.02 to an older MaxScale major release:
 
 ## Upgrading MariaDB MaxScale from 23.02 to 23.08
 
-MariaDB Monitor switchover requires an additional grant. See [Cluster Manipulation Grants](../../../reference/maxscale-monitors/mariadb-monitor.md#cluster-manipulation-grants) for more information.
+MariaDB Monitor switchover requires an additional grant. See [Cluster Manipulation Grants](../../../reference/maxscale-monitors/mariadb-monitor/README.md#cluster-manipulation-grants) for more information.
 
 ## Upgrading MariaDB MaxScale from 22.08 to 23.02
 

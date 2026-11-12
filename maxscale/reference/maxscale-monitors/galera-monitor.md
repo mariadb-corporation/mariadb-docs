@@ -291,7 +291,7 @@ user account (defined with `user`) requires the `REPLICATION SLAVE ADMIN`
 privilege for external replication management to work.
 
 This feature works very similarly to the equivalent feature in
-the [MariaDB Monitor](mariadb-monitor.md#external-replication-management). The
+the [MariaDB Monitor](mariadb-monitor/README.md#external-replication-management). The
 most significant difference between the two implementations is that when
 `external_replication_monitor` is set, the Galera Monitor will remove
 replication connections from any Galera Cluster member other than the primary.
@@ -338,7 +338,7 @@ password=mariadbmon
 Defines the monitor for the external cluster. Must be a valid monitor name. The
 external cluster monitor needs to be running for replication management to
 function.
-See [MariaDB Monitor documentation](mariadb-monitor.md#external_replication_monitor)
+See [MariaDB Monitor documentation](mariadb-monitor/mariadb-monitor-settings.md#external_replication_monitor)
 for more information.
 
 ```
@@ -358,7 +358,7 @@ external_replication_monitor=MyExternalClusterMonitor
 Defines the external primary server to replicate from. This setting only has an
 effect when `external_replication_monitor` is set. The value defines a list of
 server roles the monitor looks for when selecting the external primary.
-See [MariaDB Monitor documentation](mariadb-monitor.md#external_replication_primary_role)
+See [MariaDB Monitor documentation](mariadb-monitor/mariadb-monitor-settings.md#external_replication_primary_role)
 for more information.
 
 ```
