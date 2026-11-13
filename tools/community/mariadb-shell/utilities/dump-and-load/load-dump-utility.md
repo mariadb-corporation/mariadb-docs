@@ -144,12 +144,18 @@ NOTE: One or more objects in the dump already exist in the destination database 
 
 | Option | Type | Default | Description |
 | --- | --- | --- | --- |
-| `progressFile` | string | `load-progress.<server_id>.json` in the dump location | Where to record load progress: a local path, or an `http://`/`https://` URL written with `PUT` requests. An empty string disables progress tracking, and with it resuming. Required when loading through an OCI pre-authenticated request. |
+| `progressFile` | string | `load-progress.<hostname>-<port>-<server_id>.json` in the dump location | Where to record load progress: a local path, or an `http://`/`https://` URL written with `PUT` requests. An empty string disables progress tracking, and with it resuming. Required when loading through an OCI pre-authenticated request. |
 | `resetProgress` | bool | `False` | Discard the recorded progress and load the whole dump again. Objects loaded earlier are not removed, so drop them first or combine this with `dropExistingObjects` or `ignoreExistingObjects`. |
 | `showProgress` | bool | `True` when stdout is a terminal | Print progress while loading. |
 | `waitDumpTimeout` | float | `0` | Load a dump that is still being written. When all available chunks are loaded, wait up to this many seconds for more before giving up. `0` or less disables waiting. The load ends early when the dump completes. |
 
-On MariaDB the default progress file is named after the target's `server_id`, because MariaDB has no `server_uuid`. The built-in help shows the MySQL name.
+On MariaDB the default progress file is named after the target server's own `hostname`, `port` and `server_id` (as the server reports them, not as you connect to it), because MariaDB has no `server_uuid` and `server_id` alone does not tell servers apart. Characters that are not safe in a file name are replaced by `_`. The built-in help shows the MySQL name. The same identity is recorded in the file, and a load that finds a progress file written for another server stops with `Progress file was created for a server identified as ..., while the target server is identified as: ...`.
+
+Earlier versions of MariaDB Shell named the file `load-progress.<server_id>.json`. Such a file is not picked up on its own, because another server with the same `server_id` may have written it. To resume a load an earlier version left unfinished, pass that file as `progressFile`; from then on it carries the full identity.
+
+{% hint style="info" %}
+Because the identity includes the server's hostname and port, a load cannot be resumed after the server was moved to another host or port, or a container was recreated with a new hostname. Give the load an explicit `progressFile` in such setups.
+{% endhint %}
 
 ### Performance
 
@@ -243,7 +249,7 @@ Loading data - done
 Resuming assumes that nobody changed the partially loaded objects between the attempts. If they were changed, start over: drop the loaded objects and run the load with `resetProgress: True`.
 {% endhint %}
 
-The progress file belongs to the pair of dump and target server, not to the target schema. Loading the same dump a second time into the same server, for example under another `schema` name, finds the earlier progress and loads nothing (`There was no remaining data left to be loaded.`). Use `resetProgress: True` or a different `progressFile` for the second load.
+The progress file belongs to the pair of dump and target server, not to the target schema. Loading the same dump a second time into the same server, for example under another `schema` name, finds the earlier progress and loads nothing (`There was no remaining data left to be loaded.`). Use `resetProgress: True` or a different `progressFile` for the second load. Loading one dump into several servers from the same location needs nothing special: each server gets its own file.
 
 ## Examples
 

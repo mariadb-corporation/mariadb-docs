@@ -51,6 +51,7 @@ The development script `development/<schema>_next.sql` and the release snapshots
 | 130 | Creation of Helpers | Stored procedures and functions that the creation of the schema needs. Their names must start with `msm_`. |
 | 140 | Non-idempotent Schema Objects | `CREATE TABLE` statements and `INSERT` statements for base data. |
 | 150 | Idempotent Schema Objects | All other schema objects: views, stored procedures and functions, triggers, and events. |
+| 160 | Schema Diagrams | Provided. The view `msm_schema_diagrams`, which holds a snapshot of the schema objects and the schema diagrams of the project. MSM writes it; don't edit it. |
 | 170 | Authorization | `CREATE ROLE` and `GRANT` statements. |
 | 180 | REST Service Definition | Optional. MariaDB REST Service endpoints. |
 | 190 | Removal of Helpers | `DROP … IF EXISTS` for the helpers of section 130. |
@@ -67,15 +68,15 @@ The update scripts in `releases/updates/` describe the changes from one release 
 | 010 | Server Variable Settings | Provided. |
 | 220 | Database Schema Version Update Indication | Provided. |
 | 230 | Creation of Update Helpers | Stored procedures and functions that the update needs. Their names must start with `msm_`, and they must be created with `CREATE OR REPLACE` or after a `DROP … IF EXISTS`. |
-| 240 | Non-idempotent Schema Object Changes and All DROPs | `ALTER TABLE`, new tables, data changes, and every `DROP` of an object that the new version no longer has, including views, routines, triggers, and events. |
-| 250 | Idempotent Schema Object Additions And Changes | Not used by the deployment script; see the note below. |
+| 240 | Non-idempotent Schema Object Changes and DROPs | `ALTER TABLE`, new tables, data changes, and the `DROP` of every view, trigger, and event that the new version no longer has. |
+| 260 | Removal of PROCEDUREs and FUNCTIONs | `DROP PROCEDURE IF EXISTS` and `DROP FUNCTION IF EXISTS` for the stored procedures and functions that the new version no longer has. |
 | 270 | Authorization | `REVOKE` and `DROP ROLE` for privileges and roles that the new version no longer has. New roles and privileges come from section 170, which runs on every deployment. |
-| 290 | Removal of Update Helpers | `DROP … IF EXISTS` for the helpers of section 230. |
+| 290 | Removal of Update Helpers | `DROP … IF EXISTS` for the helpers of section 230, and nothing else. |
 | 910 | Database Schema Version Definition | Provided. |
 | 920 | Server Variable Restoration | Provided. |
 
 {% hint style="info" %}
-The deployment script doesn't include section 250. New and changed views, routines, triggers, and events reach the server through section 150 of the target version, which runs in full on every deployment. Define them in section 150 of the development script, not in section 250. A removed object is the only change that section 150 can't express, so put its `DROP … IF EXISTS` into section 240.
+The update script has no section for new and changed views, routines, triggers, and events. They reach the server through section 150 of the target version, which runs in full on every deployment, so define them in section 150 of the development script. A removed object is the only change that section 150 can't express. Put the `DROP … IF EXISTS` of a view, trigger, or event into section 240, and that of a stored procedure or function into section 260: section 240 runs inside a stored procedure, and MariaDB doesn't allow a stored routine to drop another one (error 1357).
 {% endhint %}
 
 ## Deployment Script
@@ -89,7 +90,9 @@ The deployment script doesn't include section 250. New and changed views, routin
 | 110 | `CREATE SCHEMA IF NOT EXISTS`. | Always |
 | 330 | The helpers of section 130 of the target version and of section 230 of every update script. | Always |
 | 340 | Stored procedures for the tables: `msm_create_<version>` with section 140 of the target version, and `msm_update_<from>_to_<to>` with section 240 of each update script. Then `msm_create_or_update`, which checks the schema and calls either the create procedure or the update procedures from the deployed version up to the target, one release after the other. The procedures are called and dropped. | Depends on the deployed version |
+| 360 | Section 260 of every update script. | Always |
 | 150 | Section 150 of the target version. | Always |
+| 160 | Section 160 of the target version. | Always |
 | 370 | Stored procedures for authorization: `msm_auth_<version>` with section 170 of the target version, and `msm_auth_<from>_to_<to>` with section 270 of each update script. On a new schema, only `msm_auth_<version>` runs. On an upgrade, the procedures for each step run first, then `msm_auth_<version>`. | Always |
 | 180 | Section 180 of the target version. | Always |
 | 390 | Section 290 of every update script, and section 190 of the target version. | Always |
@@ -101,8 +104,10 @@ Empty sections are left out of the generated script.
 This structure has the following consequences for the statements you write:
 
 * **Section 170 runs on every deployment**, including upgrades, after the authorization changes of section 270. Write it so that it can run again: `CREATE ROLE IF NOT EXISTS`, and `GRANT` statements, which don't fail if the privilege exists. Because it runs on upgrades too, new roles and privileges reach existing schemas through it, just as new views reach them through section 150. Section 270 is needed only for what section 170 can't express: `REVOKE` and `DROP ROLE`. During a deployment, the session variable `@msm_schema_init` is `1` when the schema is created and `0` when it is upgraded, so that you can make statements depend on it.
+* **Section 260 runs on every deployment**, including the creation of a new schema, because section 360 contains section 260 of every update script. Use `DROP PROCEDURE IF EXISTS` and `DROP FUNCTION IF EXISTS`. Section 360 runs after the table changes and before section 150, so a routine that a later version defines again is created again by section 150 of that version.
 * **Section 180 runs on every deployment.** Use `CREATE OR REPLACE REST …` statements.
 * **While the update procedures run, the views and routines are still those of the deployed version.** Section 150 of the target version runs only after all table changes. An update step can't call a routine that only an intermediate version introduced; define what it needs as a helper in section 230.
+* **`msm.deploy_schema()` runs the update steps itself.** When it upgrades a schema with online `ALTER TABLE` on, it runs the statements of each `msm_update_<from>_to_<to>` procedure itself, in place of the call of `msm_create_or_update`: the same statements in the same order, with the `ALTER TABLE` statements of section 240 run so that they block the tables as little as possible. See [Online ALTER TABLE](deploying-schemas.md#online-alter-table).
 
 ## Statements Inside Stored Procedures
 

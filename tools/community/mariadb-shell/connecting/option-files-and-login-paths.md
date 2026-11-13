@@ -65,14 +65,20 @@ With this file, `mariadb-shell --sql` connects to the local server through the s
 MariaDB Shell treats each option from a file like a command-line option of the same name, so you can use any option that `mariadb-shell --help` lists, not only the connection options. For example, `sql` or `py` selects the startup mode. Underscores in option names are converted to dashes, so `ssl_ca` and `ssl-ca` are equivalent.
 
 {% hint style="warning" %}
-An option that MariaDB Shell doesn't know stops the startup, even in the shared `[client]` group:
+An option that MariaDB Shell doesn't know stops the startup when it's in the `[mariadb-shell]` or `[mysqlsh]` group:
 
 ```text
 While processing defaults options:
 mariadb-shell: unknown option --default-character-set
 ```
 
-To keep an option in `[client]` for other clients, prefix it with `loose-`, as in `loose-default-character-set = utf8mb4`. MariaDB Shell then ignores it.
+The `[client]` group is shared with every other client program, so there the shell ignores such options and starts with a warning:
+
+```text
+WARNING: Some options from the [client] group of the option files are not supported by MariaDB Shell and were ignored. See the log file for details: /home/dba/.mariadb-shell/mariadb-shell.log
+```
+
+The log entry lists the ignored options. If logging is off, the warning lists them itself. To keep an option in `[client]` for other clients without the warning, prefix it with `loose-`, as in `loose-default-character-set = utf8mb4`. MariaDB Shell then ignores it silently.
 {% endhint %}
 
 When an option file supplies connection settings, and nothing else picks the session type, MariaDB Shell opens a classic session with them at startup.

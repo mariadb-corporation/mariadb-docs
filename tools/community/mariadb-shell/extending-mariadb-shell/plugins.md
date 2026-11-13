@@ -31,8 +31,16 @@ The shell searches two locations:
 
 | Location | Contents | Disable with |
 | --- | --- | --- |
-| `lib/mariadb-shell/plugins/` in the installation directory | The built-in plugins. | `--disable-builtin-plugins` |
+| `lib/mariadb-shell/plugins/` in the installation directory | The built-in plugins. | `--disable-builtin-plugins` or `MARIADB_SHELL_DISABLE_BUILTIN_PLUGINS=1` |
 | `plugins/` in the user configuration directory: `~/.mariadb-shell/plugins/` on Linux and macOS, `%AppData%\MariaDB\mariadb-shell\plugins\` on Windows | Your plugins, and plugins installed with `plugins.install()`. | `--disable-plugins` |
+
+To load user plugins from other directories, list them in the `MARIADB_SHELL_PLUGINS_PATH` environment variable, separated by `:` (`;` on Windows). When the variable is set, the shell searches those directories, in the order given, **instead of** the `plugins` directory of the user configuration directory. To keep loading the plugins there as well, include it in the list:
+
+```bash
+MARIADB_SHELL_PLUGINS_PATH=$HOME/.mariadb-shell/plugins:/opt/acme/shell-plugins mariadb-shell
+```
+
+A directory listed more than once is searched once. `plugins.install()` always installs into the user configuration directory, so a plugin installed while the variable leaves that directory out does not load.
 
 The rules for a plugin directory:
 
@@ -62,6 +70,58 @@ A directory without `init.py` can hold several plugins, one level deep. This is 
 ```
 
 For plugins in a group, the plugins directory itself is on `sys.path` during loading, so modules are imported with the group name as prefix, for example `from acme.audit.checks import run_checks`.
+
+### Load Order and Dependencies
+
+The shell discovers plugins in name order: the built-in directory first, then the user directories, and within each directory the plugin directories sorted by name. A plugin that extends an object another plugin creates, for example by registering functions under it with `@plugin(parent=...)`, must load after that plugin. It declares this in an optional `plugin.json` file next to its `init.py`. If the `capacity` plugin above adds functions to the `audit` object, its manifest is:
+
+```json
+{
+  "requires": ["audit"]
+}
+```
+
+`requires` lists the fully qualified names of the objects the plugin needs: a global object name, optionally followed by member names. A member can be named as it was registered (`acme.myStorage`) or as Python exposes it (`acme.my_storage`); the shell accepts both. Only objects defined outside the plugin belong there; built-in objects such as `util` count too.
+
+The shell reads every manifest before running any plugin, then loads plugins in passes: first those whose requirements are already met, then those whose required objects now exist, until nothing more can load. A plugin whose requirements are never met isn't loaded, and the shell prints an error naming the missing objects:
+
+```text
+ERROR: Plugin 'capacity' was not loaded: it requires the object 'audit', which no loaded plugin provides.
+```
+
+A manifest that can't be read, isn't valid JSON, isn't an object, or whose `requires` isn't an array of object names also keeps its plugin from loading, with an error saying why. `requires` is always an array of object names; other information goes in other keys, and keys the shell doesn't know are ignored, so a manifest written for a newer shell still loads. A plugin without a manifest has no requirements.
+
+#### Saying Where a Required Object Comes From
+
+The error above tells the user what is missing, not what to install. A plugin that depends on an object from a plugin it isn't shipped with, such as one from another repository, can say where that object comes from in the optional `providedBy` key:
+
+```json
+{
+  "requires": ["acme.storage"],
+  "providedBy": {
+    "acme.storage": {
+      "plugin": "acme",
+      "repository": "github/acme-corp/acme-shell-plugins"
+    }
+  }
+}
+```
+
+`plugin` is the name of the plugin in its repository manifest, as `plugins.install()` takes it. `repository` is optional and is whatever `plugins.repositories.add()` accepts: the `github/<user>[/<repo>]` shorthand or the URL of the manifest. A plugin bundled with the shell, or shipped in the same group, needs no `repository`.
+
+When the object is missing, the error turns the hint into the steps to run:
+
+```text
+ERROR: Plugin 'acme_backup' was not loaded: it requires the object 'acme.storage', which no loaded plugin provides.
+  The object 'acme.storage' is provided by the plugin 'acme' from the repository 'github/acme-corp/acme-shell-plugins'. To install it, run:
+    plugins.repositories.add("github/acme-corp/acme-shell-plugins")
+    plugins.install("acme")
+  then restart the shell.
+```
+
+Without `repository` the steps only name the plugin to install. Running `plugins.repositories.add()` for a repository that is already registered just says so.
+
+The hint is advisory. Loading uses only `requires`: a missing or malformed `providedBy` is noted in the log and never keeps a plugin from loading. A `plugin` or `repository` value with spaces, quotes or control characters counts as malformed, since the error prints both as they are. The shell never adds a repository on its own from a hint; it only prints the calls, and running `plugins.repositories.add()` shows the usual warning and asks for confirmation, so a manifest can't quietly bring in code from elsewhere.
 
 ## Built-in Plugins
 
@@ -121,6 +181,7 @@ def find_columns(pattern, **options):
 | `plugin_docs` | A dictionary with `brief` and `details` for an object that the decorator has to create. |
 | `shell` | Whether the function is available in the shell. The default is `True`. |
 | `cli` | Whether the function is also available through [command line integration](../using-mariadb-shell/command-line-integration.md). The default is `False`, and `cli=True` requires `shell=True`. |
+| `mcp` | Offers the function as a tool of the MariaDB MCP Server. See [Offering a Function as an MCP Tool](#offering-a-function-as-an-mcp-tool). With `shell=False`, the function is an MCP tool only. |
 
 The decorator wraps your function: if it raises an exception, the shell shows the message to the user and writes the traceback to the log at `debug` level. Raise `mysqlsh.Error("message")` for errors that the user should act on.
 
@@ -134,6 +195,52 @@ The decorators parse the docstring of each function and refuse to register it wh
 * A parameter with a default value is optional. A parameter declared with `=None` receives `None` when the caller omits it, from the command line too, and callers can pass `None` for it explicitly. Write `(type,required)` only for options inside a dictionary that callers must pass.
 * Document the keys of `**options` in a `Keyword Args:` section. For a named dictionary parameter `cfg`, use a section called `Allowed options for cfg:`.
 * Lines that start with `* ` become bullet points in the help.
+
+### Offering a Function as an MCP Tool
+
+The [MariaDB MCP Server](../mcp-server/README.md) serves MCP tools to AI agents. Any plugin can add tools to it by passing `mcp` to `@plugin_function`. The plugin doesn't import the MCP server or the MCP SDK, and the function works in the shell exactly as before.
+
+```python
+@plugin_function("orders.listOpen", cli=True,
+                 mcp={"group": "orders", "readOnly": True})
+def list_open(customer, limit=20, session=None):
+    """Lists a customer's open orders.
+
+    Args:
+        customer (str): The customer number.
+        limit (int): The most orders returned.
+        session (object): The session to use, the active one by default.
+
+    Returns:
+        A list of orders.
+    """
+    session = session or shell.get_session()
+    return session.run_sql(
+        "SELECT * FROM shop.orders WHERE customer = ? AND state = 'open' LIMIT ?",
+        [customer, limit])
+```
+
+The server publishes this function as the tool `orders.list_open`. Its description and parameters come from the docstring, and `**options` becomes one `options` object. The `mcp` dictionary takes these keys:
+
+| Key | Description |
+| --- | --- |
+| `group` | Required. The tool's group, which is also the first part of its name. Lower case letters, digits and underscores. The server's own groups, such as `db`, can't be used. |
+| `name` | The tool's name within the group. The default is the function name in snake_case. |
+| `readOnly`, `destructive` | Published as the tool's `readOnlyHint` and `destructiveHint` annotations. The default is `False`. |
+| `paths` | The parameters that hold file system paths. The server checks each against its allowed paths and asks the user to trust a path that is not allowed. |
+| `task` | Runs the function as a background task. The tool returns a task ID at once, and the agent follows the task with `task.get`. The default is `False`. |
+| `gui` | Serves the tool only on a server started with `mcp start-server --gui`. The default is `False`. |
+
+The server fills in two parameters itself instead of publishing them:
+
+* `session`: the tool takes the `connection_id` of a connection the agent opened with `db.connect`, and the function receives that connection's session. The server's connection safeguards apply, and the tool is served only when the `db` group is served too.
+* `task`: in a tool with `"task": True`, the function receives its background task. Call `task.progress(current, total)` to report progress, and `task.check_cancelled()` to stop when the agent cancels the task. The function's return value becomes the task's result.
+
+Raise `mysqlsh.Error("message")` to refuse a call; the agent receives the message.
+
+MariaDB Shell only checks that `mcp` is a dictionary. The MCP server checks its keys and values when it starts: it doesn't serve a tool whose definition has a mistake, and its log says why. A result of `run_sql()` reaches the agent as its rows. A plugin that uses `mcp` needs a shell that supports it, so declare the version with `@plugin(shell_version_min=...)`.
+
+An extension group is not served just because its plugin is installed. Name it in `mcp start-server --functionGroups`, or have every server serve it by default with `mcp setup --extensionGroups=orders`. `mcp setup --show` lists the groups that the loaded plugins offer. A multi-tenant server serves no extension groups.
 
 ## Example: A Schema Explorer Plugin
 

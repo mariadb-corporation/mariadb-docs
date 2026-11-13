@@ -193,8 +193,8 @@ See [Logging and Debugging](logging-and-debugging.md).
 
 | Option | Description |
 | --- | --- |
-| `--disable-plugins` | Don't load user plugins, the plugins in the `plugins` directory of the configuration directory. |
-| `--disable-builtin-plugins` | Don't load the plugins that ship with MariaDB Shell. They provide the `sandbox` and `plugins` global objects, `util.change_password()`, and the `util.debug` collectors. |
+| `--disable-plugins` | Don't load user plugins: the plugins in the `plugins` directory of the configuration directory and in the directories that `MARIADB_SHELL_PLUGINS_PATH` lists. |
+| `--disable-builtin-plugins` | Don't load the plugins that ship with MariaDB Shell. They provide the `sandbox` and `plugins` global objects, `util.change_password()`, and the `util.debug` collectors. The `MARIADB_SHELL_DISABLE_BUILTIN_PLUGINS` environment variable does the same. |
 
 See [Plugins](extending-mariadb-shell/plugins.md).
 

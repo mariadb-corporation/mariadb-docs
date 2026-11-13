@@ -119,7 +119,7 @@ mariadb-shell -- mcp start-server --transport=stdio --functionGroups=db
 | Group | Provides |
 | --- | --- |
 | `db` | Tools for the configured database connections. |
-| `msm` | Tools for MariaDB Schema Management projects. The `msm.deploy_schema` tool deploys onto a connection opened with the `db` tools, so the server provides it only when `db` is enabled as well. |
+| `msm` | Tools for MariaDB Schema Management projects. The tools that work on a connection opened with the `db` tools, `msm.deploy_schema`, `msm.online_alter_table`, `msm.list_live_schema_objects`, and `msm.import_live_schema`, are provided only when `db` is enabled as well. `msm.online_alter_table` and `msm.import_live_schema` run as background tasks, so with `db` the server also provides the tools that follow tasks: `task.get`, `task.list`, and `task.cancel`. |
 | `rest` | Tools for the files of the MariaDB REST Service: client SDKs, dumps of REST services and service projects, and static content. The tools that work on a REST service through a connection opened with the `db` tools are provided only when `db` is enabled as well. |
 | `sandbox` | Tools for local sandbox instances. |
 | `migrator` | Tools for the migration from MySQL to MariaDB. The server registers them only if the migration tooling is installed; see [Migration Tooling](migration-tooling.md). |
