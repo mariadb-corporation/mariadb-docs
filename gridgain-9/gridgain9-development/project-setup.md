@@ -115,9 +115,19 @@ The following table lists the GridGain modules an application developer adds as 
 | `spring-data-ignite` | Spring Data integration. | [Spring Data](../integrations/spring-data.md) |
 | `spring-boot-starter-ignite-client` | Spring Boot autoconfiguration for the client. | [Spring Boot](../integrations/spring-boot.md) |
 
+{% tabs %}
+{% tab title="9.2" %}
+{% hint style="info" %}
+All modules require JDK 21 or later.
+{% endhint %}
+{% endtab %}
+
+{% tab title="9.1" %}
 {% hint style="info" %}
 The `gridgain-hibernate`, `spring-data-ignite`, and `spring-boot-starter-ignite-client` modules require JDK 17 or later.
 {% endhint %}
+{% endtab %}
+{% endtabs %}
 
 ## Next Steps
 

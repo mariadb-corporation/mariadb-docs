@@ -66,7 +66,7 @@ configs:
 {% hint style="info" %}
 This `docker-compose` file will always launch the latest version of GridGain 9. Do you want to run a specific version of GridGain from [Docker Hub](https://hub.docker.com/r/gridgain/gridgain9/tags)?
 
-GridGain 9 images are available for multiple JDK versions. The default tag uses **JDK 25**. To use a different JDK, append the variant suffix: `9.1-openjdk21` for JDK 21, `9.1-openjdk17` for JDK 17, or `9.1-openjdk26` for JDK 26 (STS, supported until the next STS release).
+GridGain 9 images are available for multiple JDK versions. The default tag uses **JDK 25**. To use a different JDK, append the variant suffix: `9.2-openjdk21` for JDK 21 or `9.2-openjdk27` for JDK 27 (STS, supported until the next STS release). GridGain 9.1 images are also available for JDK 17 (`9.1-openjdk17`) and JDK 26 (`9.1-openjdk26`).
 
 Set the `GRIDGAIN9_VERSION` variable in your environment to a specific version tag.
 

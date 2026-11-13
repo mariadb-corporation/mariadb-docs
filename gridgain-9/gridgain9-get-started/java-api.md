@@ -10,9 +10,19 @@ This guide walks you through creating a Java application that connects to an Gri
 
 ## Prerequisites
 
+{% tabs %}
+{% tab title="9.2" %}
+* JDK 21 or later;
+* Maven;
+* Up-to-date versions of Docker and Docker Compose.
+{% endtab %}
+
+{% tab title="9.1" %}
 * JDK 17 or later;
 * Maven;
 * Up-to-date versions of Docker and Docker Compose.
+{% endtab %}
+{% endtabs %}
 
 ## Setting Up GridGain 9 Cluster
 

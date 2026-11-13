@@ -393,6 +393,10 @@ Only one connector instance is supported per replication stream. Do not run mult
 
 ### Running the Tool Locally
 
+{% hint style="info" %}
+Starting with GridGain 9.2, the DR connector tool requires Java 21 or later. The start script uses the Java installation from `JAVA_HOME`, or `java` on the `PATH` if `JAVA_HOME` is not set.
+{% endhint %}
+
 To start the connector tool, use the `start.sh` script. You can provide the configuration for the script by using the `config-path` parameter and specifying the path to the [Connector Configuration](#connector-configuration).
 
 ```bash

@@ -18,6 +18,10 @@ GridGain can access data stored in near cache locally without additional network
 
 ## Limitations
 
+{% hint style="info" %}
+Starting with GridGain 9.2, near caches require Java 21 or later in your application.
+{% endhint %}
+
 There are currently the following limitations on near caches:
 
 - Near caches are available on Java clients and in embedded mode;

@@ -12,7 +12,7 @@ description: >-
 
 {% include "../../.gitbook/includes/prereqs-os.md" %}
 
-### Recommended Java Version
+### Java Version
 
 {% include "../../.gitbook/includes/prereqs-java.md" %}
 

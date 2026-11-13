@@ -12,6 +12,17 @@ Simple client code can be used to work with the GridGain 9 cluster by adding the
 
 However, this approach is limited to simpler code bases and causes a performance loss on higher load environments. More complex code needs to be migrated to GridGain 9 to be properly supported.
 
+{% hint style="info" %}
+Starting with GridGain 9.2, the migration adapter requires Java 21 or later in the JVM of your GridGain 8 or Apache Ignite 2 node, in addition to the `--add-opens` flags that runtime needs. On an older runtime, the adapter classes are never loaded, and the operation that needs them hangs without an error.
+
+The following node distributions supply the flags:
+
+- The GridGain 8.9.37 `openjdk21` image.
+- Apache Ignite 2 started from the ZIP with `bin/ignite.sh`.
+
+You must add the flags yourself if you use the `apacheignite/ignite` image, an image built from it, or an embedded node. The `apacheignite/ignite` image fails with `InaccessibleObjectException` on Java 21 without them. The list of flags is in the `jvmdefaults.sh` script of the migration tools.
+{% endhint %}
+
 To start using the migration adapter:
 
 - Add the migration adapter dependency to your project:
