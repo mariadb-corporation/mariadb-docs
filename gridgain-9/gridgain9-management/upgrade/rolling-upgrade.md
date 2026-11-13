@@ -107,6 +107,8 @@ upgrade commit
 5. Cluster-wide features that depend on the new version are activated.
 6. The `upgrade.rolling` metric `State` becomes `NOT_STARTED`.
 
+When you upgrade from a version before 9.2, nodes start moving their RAFT logs from RocksDB to the segment log storage after the commit. The move cannot be reverted. For details, see [Migrating From the RocksDB Log](../../architecture/raft-consensus.md#migrating-from-the-rocksdb-log).
+
 ## Monitoring Update Progress
 
 ### The `upgrade state` Command

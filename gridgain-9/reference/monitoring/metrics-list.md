@@ -256,6 +256,48 @@ Read-only request metrics for a single Raft group. GridGain registers one instan
 | IndexReadDuration | The histogram of the time taken to complete a read index operation, in milliseconds. |
 | OverloadTimes | Number of times the read-only service was overloaded. |
 
+## `raft.segstore.{storage_name}`
+
+Metrics of a [RAFT log storage](../../architecture/raft-consensus.md#raft-log-storage). GridGain registers one instance of this metric source for each log storage of the node:
+
+- `raft.segstore.table-data-log` for the persistent partitions log.
+- `raft.segstore.meta-storage-log` for the metastorage group log.
+- `raft.segstore.cluster-management-group-log` for the cluster management group log.
+
+| Metric name | Description |
+| --- | --- |
+| CheckpointDuration | The histogram of the time taken by a checkpoint, in milliseconds. A checkpoint syncs a full segment file and writes its index files. |
+| CheckpointFileFsyncCount | Total number of times a checkpoint synced a whole segment file. |
+| CheckpointFileFsyncDuration | The histogram of the time taken by a checkpoint to sync a whole segment file, in microseconds. |
+| CheckpointFsyncDuration | The histogram of the time taken by the sync phase of a checkpoint, in milliseconds. The phase syncs the segment file and its directory. |
+| CheckpointIndexWriteDuration | The histogram of the time taken by a checkpoint to write index files, in milliseconds. |
+| CheckpointInProgress | `1` while a checkpoint is running, `0` otherwise. |
+| CheckpointQueueBlockedTime | Total time, in milliseconds, that the storage waited for free space in the checkpoint queue before starting a new segment file. |
+| CheckpointQueueSize | Number of full segment files whose index files are not written yet. |
+| CheckpointsCount | Total number of finished checkpoints. |
+| ConfigIndexFilesCount | Number of configuration index files on disk. |
+| ConfigIndexFilesSize | Number of bytes occupied on disk by configuration index files. |
+| GcCompactionInProgress | `1` while the storage compacts or deletes segment files to get below its compaction threshold, `0` otherwise. |
+| GcCompactionTime | Total time, in milliseconds, spent compacting segment files. |
+| GcCompactionsCount | Total number of compactions. Each one starts because the storage exceeded its compaction threshold. |
+| GcCopiedBytes | Total number of bytes written to disk while copying live entries out of compacted segment files. |
+| IndexFilesCount | Number of index files on disk. |
+| IndexFilesSize | Number of bytes occupied on disk by index files. |
+| LastCheckpointDuration | Duration of the last checkpoint, in milliseconds. |
+| LastCheckpointFsyncDuration | Duration of the sync phase of the last checkpoint, in milliseconds. |
+| LastCheckpointIndexWriteDuration | Duration of the index file write phase of the last checkpoint, in milliseconds. |
+| LogSyncFsyncCount | Total number of segment file syncs that a storage engine requested before persisting its data. Updated only when the storage does not use `fsync` for every write. |
+| LogSyncFsyncDuration | The histogram of the time taken by a segment file sync that a storage engine requested, in microseconds. Updated only when the storage does not use `fsync` for every write. |
+| MaxCheckpointQueueSize | Capacity of the checkpoint queue. Writes wait for a new segment file while the queue is full. |
+| RolloversCount | Total number of times the storage switched to a new segment file. |
+| RolloverTime | Total time, in milliseconds, spent switching to new segment files, including the wait for free space in the checkpoint queue. |
+| SegmentFilesCount | Number of segment files on disk. |
+| SegmentFilesSize | Number of bytes occupied on disk by segment files. |
+| SoftLogSizeLimit | Compaction threshold of the storage, in bytes. The storage compacts segment files once its segment and index files exceed this size. |
+| WriteBatchFsyncCount | Total number of synced write batches. Updated only when the storage uses `fsync` for every write. |
+| WriteBatchFsyncDuration | The histogram of the time taken to sync a write batch, in microseconds. Updated only when the storage uses `fsync` for every write. |
+| WrittenBytes | Total number of bytes written to segment files. |
+
 ## `raft.snapshots`
 
 Metrics related to Raft snapshots of partition replicas.

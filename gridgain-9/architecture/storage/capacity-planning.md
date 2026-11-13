@@ -6,7 +6,7 @@ description: >-
 
 # Capacity Planning
 
-Use this guide to estimate how much disk space your GridGain 9 cluster will need before you deploy it. Estimates in the guide are provided for the entire cluster. To get the size of an individual node, divide the cluster total across your nodes according to how partitions are distributed. Adding nodes spreads the same data over more machines rather than changing the total.
+Use this guide to estimate how much disk space your GridGain 9 cluster will need before you deploy it. Estimates in the guide are provided for the entire cluster. The formulas give the size of one copy of the data. Each replica of a partition stores its own copy of the table data, indexes, and RAFT log, so multiply the result by the `REPLICAS` value of the [distribution zone](distribution-zones.md). To get the size of an individual node, divide the cluster total across your nodes according to how partitions are distributed. Adding nodes spreads the same data over more machines rather than changing the total.
 
 ## How GridGain Stores Data on Disk
 
@@ -74,13 +74,22 @@ Reserve about **5 GB** for system data. This will cover the majority of deployme
 
 ## Sizing the RAFT Log
 
-The RAFT log is hard to estimate precisely because its storage compresses log entries. As an upper bound, the log size is limited in the following way:
+The RAFT log is hard to estimate precisely because its size depends on how quickly old entries are truncated and their space is reclaimed. Estimate how fast it grows instead. Each row you write adds the following:
 
 ```
-raft log size ≈ number of rows * (tuple size + 50 bytes)
+raft log growth ≈ number of rows written * (tuple size + overhead)
 ```
 
-In practice the log typically is smaller for larger data amounts. Rather than sizing the log to your total data, size it to absorb your write load: provision enough space for the RAFT log to hold at least two hours of writes at your expected rate.
+The overhead depends on how you write the data:
+
+| Write pattern | Overhead per row |
+| --- | --- |
+| Batches of 1,000 rows (`upsertAll`, data streamer) | \~20 bytes |
+| Single-row writes (`upsert`, SQL `INSERT`) | \~115 bytes |
+
+Size the log to absorb your write load, not your total data. Provision enough space for the RAFT log to hold at least two hours of writes at your expected rate.
+
+The log is stored in segment files of 2 GiB each by default. With default settings, a node starts compacting the partitions log at about 10 GiB. At about 20 GiB, it also flushes partition data to disk and truncates the partitions log. The Metastorage and Cluster Management Group logs are stored separately. For details, see [RAFT Log Storage](../raft-consensus.md#raft-log-storage).
 
 You can limit RAFT log disk usage with the node configuration properties described under the disk usage limits section of [Node Configuration Parameters](../../reference/configuration/node-configuration-parameters.md#hard-disk-usage-limits).
 
@@ -103,7 +112,7 @@ Estimate the stored row size step by step:
 3. **On-disk row.** Add the 200-byte row overhead: `395 + 200 = 595` bytes.
 4. **Index.** The hash index on the `BIGINT` primary key adds about 55 bytes: `595 + 55 = 650` bytes per row.
 
-As a result, you can make estimates for your requirements, depending on the number of rows. For example, storing 10 million rows would require roughly 10.17 GB.
+For 10 million rows, one copy of the table data takes about 6.5 GB (`10,000,000 * 650` bytes). With `REPLICAS 3`, the cluster stores three copies, about 19.5 GB. Add space for the RAFT log and system data as described in the sections above.
 
 {% hint style="info" %}
 Always add at least 10 percent on top of your estimate as a safety margin.
