@@ -79,6 +79,10 @@ Confirm that every node is an active member of the cluster and that the cluster 
 
 Run a sample of read operations against pre-existing tables to confirm that the data is accessible.
 
+#### Verify User and Role Names
+
+If you upgraded from 9.1, run `SHOW USERS` and confirm that users can log in with the names it shows. User names keep their 9.1 lower-case spelling, and role names are now upper case. Quote user names in SQL, for example `DROP USER "alice"`. For details, see [Role and User Names When Upgrading from 9.1](rolling-upgrade.md#role-and-user-names-when-upgrading-from-9.1).
+
 #### Verify Cluster Health Metrics
 
 Check the standard cluster health metrics. Persistent state recovery happens during node startup; errors surfaced during this phase usually point at storage or cluster-state issues.
@@ -91,6 +95,11 @@ When you start a cluster on new binaries against existing persistent state, the 
 - Replays the cluster metadata log, re-applying schemas, indexes, and distribution zones.
 - Reopens the persistent storage files. There is no on-disk format check; the cluster relies on the new binaries being able to read state written by the previous version.
 - Re-forms the cluster topology over the standard inter-node connections.
+- When upgrading from 9.1, converts existing role names to the case-sensitive form used in 9.2. The conversion runs once, when the cluster configuration is first loaded on the new version, and does not depend on the recorded cluster version. User names are not changed. See [Role and User Names When Upgrading from 9.1](rolling-upgrade.md#role-and-user-names-when-upgrading-from-9.1).
+
+{% hint style="warning" %}
+If the role-name conversion fails, the node does not start and the error names the roles that caused it. This happens, for example, when two stored role names differ only in letter case, which GridGain 9.1 itself cannot run with, or when a role name conflicts with a built-in role. In a rolling upgrade, the same problem makes `upgrade commit` fail, the cluster stays on the source version, and the upgrade remains in progress.
+{% endhint %}
 
 ### Note on the Recorded Cluster Version
 
