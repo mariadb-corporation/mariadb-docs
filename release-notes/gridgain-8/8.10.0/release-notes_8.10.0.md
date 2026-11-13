@@ -16,6 +16,10 @@ Upgrading from GridGain 8.9.x requires action. Read [Breaking Changes](#breaking
 
 Server-side SQL `COPY` against a file or an object store is now closed by default. This stops configurations that upgrade unchanged, so check it first.
 
+## Known Issues
+
+Due to changes in how licenses are checked, certain Enterprise edition features (for example, cluster security) may become blocked by license permissions after the update, preventing the node from starting. To avoid issues, [request a new license](https://mariadb.com/support/) before starting the update process.
+
 ## Breaking Changes
 
 ### Java 17 or Later is Required
