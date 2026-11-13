@@ -9,7 +9,7 @@ hidden: true
 # Conflict Detection and Resolution (CDR) Triggers
 
 {% hint style="warning" %}
-CDR triggers are available beginning with **MariaDB Enterprise Server 12.3** and are a **beta feature**. Read [Limitations and Beta Caveats](conflict-detection-and-resolution-triggers.md#limitations-and-beta-caveats) before deploying CDR triggers on a production replica. Behavior outside the supported configuration is unspecified and may change.
+CDR triggers are available beginning with **MariaDB Enterprise Server 12.3**. Read [Limitations and Beta Caveats](conflict-detection-and-resolution-triggers.md#limitations-and-beta-caveats) before deploying CDR triggers on a production replica. Behavior outside the supported configuration is unspecified and may change.
 {% endhint %}
 
 Replica data can diverge from the primary in three ways:
