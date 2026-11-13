@@ -92,6 +92,7 @@ following:
    * `gtid_current_pos` (most processed events)
    * `log_slave_updates` is on
    * disk space is not low
+   * MariaDB Server version is earlier (only in MaxScale 26.10.1 and later)
 2. If the new primary has unprocessed relay log items, cancel and try again
    later.
 3. Prepare the new primary:
@@ -146,10 +147,12 @@ following:
    * Run the commands in `demotion_sql_file`.
    * Flush the binary log ("flush logs") so that all events are on disk.
    * Wait a moment to check that gtid is stable.
-2. Wait for the new primary to catch up with the old primary.
-3. Promote new primary and redirect replicas as in failover steps 3 and 4. Also
+2. If user did not specify a new primary server, select one automatically. The
+   criteria are the same as for [failover](#failover), above.
+3. Wait for the new primary to catch up with the old primary.
+4. Promote new primary and redirect replicas as in failover steps 3 and 4. Also
    redirect the demoted old primary.
-4. Check that all replicas are replicating.
+5. Check that all replicas are replicating.
 
 Similar to failover, switchover is considered successful if the new primary was
 successfully promoted.
