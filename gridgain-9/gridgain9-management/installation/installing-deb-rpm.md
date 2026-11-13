@@ -14,7 +14,7 @@ GridGain can be installed by using the standard package managers for the platfor
 
 {% include "../../.gitbook/includes/prereqs-os.md" %}
 
-### Recommended Java Version
+### Java Version
 
 {% include "../../.gitbook/includes/prereqs-java.md" %}
 

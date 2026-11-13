@@ -1,6 +1,6 @@
 {% tabs %}
 {% tab title="9.2" %}
-GridGain 9.2 requires Java 21 or later. The server and CLI tool start scripts refuse to start on an older Java version, and the Windows MSI installer refuses to install. The DEB and RPM packages do not check the Java version when you install them. Other Java vendors are supported, but may have minor discrepancies in performance or stability.
+GridGain 9.2 requires Java 21 or later. The server and CLI tool start scripts refuse to start on an older Java version, and the Windows MSI installer refuses to install when the machine-wide `JAVA_HOME` points to an older Java version. The DEB and RPM packages do not check the Java version when you install them. Other Java vendors are supported, but may have minor discrepancies in performance or stability.
 {% endtab %}
 
 {% tab title="9.1" %}

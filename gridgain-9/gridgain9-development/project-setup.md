@@ -118,7 +118,7 @@ The following table lists the GridGain modules an application developer adds as 
 {% tabs %}
 {% tab title="9.2" %}
 {% hint style="info" %}
-The `gridgain-hibernate`, `spring-data-ignite`, and `spring-boot-starter-ignite-client` modules require JDK 21 or later.
+All modules require JDK 21 or later.
 {% endhint %}
 {% endtab %}
 
