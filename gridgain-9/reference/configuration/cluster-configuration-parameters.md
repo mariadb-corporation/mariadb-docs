@@ -311,7 +311,7 @@ If a cluster license expires, the nodes will stop and fail to restart with a `Li
 |roles.privileges.on|""|The name of the object the privilege applies to.|A valid object name or empty|
 |Security parameters||||
 |enabled|false|Whether authentication is enabled.|true, false|
-|roleNamesMigrationVersion|1 on new clusters, 0 on clusters created by earlier releases until upgrade|The version of the role name migration. When you commit the rolling upgrade, GridGain converts existing role names to upper case and sets this value. Do not change it manually. Available for 9.2 clusters only.|0, 1|
+|roleNamesMigrationVersion|1 on new clusters, 0 on clusters created by earlier releases until upgrade|The version of the role name migration. GridGain converts existing role names to upper case and sets this value when you commit a rolling upgrade, or at the first start of a cluster after a full-cluster upgrade. Do not change it manually. Available for 9.2 clusters only.|0, 1|
 |JWT parameters||||
 |jwt.keyTtl|1209600000|TTL for JWT security tokens.|A valid LONG value|
 |jwt.ttl|28800000|The frequency of private key updates used to issue JWT tokens.|A valid LONG value|

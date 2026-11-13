@@ -212,6 +212,10 @@ With these policies in place:
 - If a user connects to the cluster using `JACK` credentials, the query `SELECT * FROM employees` returns all three rows.
 - If a user connects to the cluster using `SARAH` credentials, the query returns only the row where `username = 'SARAH'`.
 - The same rules apply to `UPDATE`, `DELETE`, and `INSERT`; for example, `SARAH` cannot insert or update a row whose `username` is not `SARAH`.
+
+{% hint style="warning" %}
+Policies are not changed when you upgrade from 9.1, and policy roles are matched exactly. After the upgrade, review policies that name roles in quotes in lower case, or that use an unquoted `TO SYSTEM`. For details, see [Role and User Names When Upgrading from 9.1](../gridgain9-management/upgrade/rolling-upgrade.md#role-and-user-names-when-upgrading-from-9.1).
+{% endhint %}
 {% endtab %}
 
 {% tab title="9.1" %}

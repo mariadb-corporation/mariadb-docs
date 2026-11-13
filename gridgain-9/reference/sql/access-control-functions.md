@@ -36,7 +36,7 @@ Parameters:
 {% tab title="9.2" %}
 User names are case-sensitive. An unquoted name is converted to upper case, so `CREATE USER user1` creates the user `USER1`. To keep the exact spelling, quote the name: `"user1"`. Use the same spelling to log in, alter, and drop the user.
 
-Users created on 9.1 keep their lower-case names after you upgrade to 9.2, so quote them in SQL: `DROP USER "user1"`. For details, see [Role and User Names When Upgrading from 9.1](../../gridgain9-management/upgrade/rolling-upgrade.md#role-and-user-names-when-upgrading-from-91).
+Users created on 9.1 keep their lower-case names after you upgrade to 9.2, so quote them in SQL: `DROP USER "user1"`. For details, see [Role and User Names When Upgrading from 9.1](../../gridgain9-management/upgrade/rolling-upgrade.md#role-and-user-names-when-upgrading-from-9.1).
 {% endtab %}
 
 {% tab title="9.1" %}
@@ -166,7 +166,7 @@ Parameters:
 {% tab title="9.2" %}
 Role names are case-sensitive. An unquoted name is converted to upper case, so `CREATE ROLE manager` creates the role `MANAGER`. To refer to the built-in `system` role, quote it: `"system"`.
 
-When you upgrade from 9.1, GridGain converts existing role names to upper case, so you can refer to them without quotes. For details, see [Role and User Names When Upgrading from 9.1](../../gridgain9-management/upgrade/rolling-upgrade.md#role-and-user-names-when-upgrading-from-91).
+When you upgrade from 9.1, GridGain converts existing role names to upper case, so you can refer to them without quotes. For details, see [Role and User Names When Upgrading from 9.1](../../gridgain9-management/upgrade/rolling-upgrade.md#role-and-user-names-when-upgrading-from-9.1).
 {% endtab %}
 
 {% tab title="9.1" %}

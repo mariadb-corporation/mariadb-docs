@@ -75,7 +75,7 @@ cluster config update  ignite.security.authentication.providers.default.users.ig
 ```
 
 {% hint style="info" %}
-User names are case-sensitive. A user created on 9.1 keeps the lower-case name it was stored under after you upgrade to 9.2, and must log in with exactly that name. For details, see [Role and User Names When Upgrading from 9.1](../gridgain9-management/upgrade/rolling-upgrade.md#role-and-user-names-when-upgrading-from-91).
+User names are case-sensitive. A user created on 9.1 keeps the lower-case name it was stored under after you upgrade to 9.2, and must log in with exactly that name. For details, see [Role and User Names When Upgrading from 9.1](../gridgain9-management/upgrade/rolling-upgrade.md#role-and-user-names-when-upgrading-from-9.1).
 {% endhint %}
 
 ## LDAP Authentication
@@ -187,9 +187,9 @@ GridGain rejects authentication attempts with an empty username or an empty pass
 |`groupSearch.scope`|The scope of the search. Possible values: `SUB_TREE`, `ONE_LEVEL`, `BASE`. If `ONE_LEVEL` is specified, only searches objects directly contained within the dn. If `SUB_TREE` is specified, searches all objects contained under the dn. If `BASE` is specified, the specified group is searched. Default value: `SUB_TREE`.|
 |`groupSearch.filter`|A filter used when searching for the user's groups. `{0}` is replaced by the value of the user attribute defined in `groupSearch.userAttribute`. Default value: `(\|(member={0})(memberOf={0})(memberUid={0}))`.|
 |`groupSearch.userAttribute`|The user attribute provided as the parameter to the filter. Empty by default; in this case, the located user DN is used as the filter parameter. If the attribute has multiple values on a user entry, GridGain performs a group lookup for each value and returns all matched groups combined.|
-|`roleMapping`|A list of mappings of LDAP groups to GridGain roles. Groups without a mapping are mapped to roles with matching names. LDAP group names are case-insensitive; role names are case-sensitive. In 9.1, both are case-insensitive.|
+|`roleMapping`|A list of mappings of LDAP groups to GridGain roles. A group without a mapping grants no roles. LDAP group names are case-insensitive; role names are case-sensitive. In 9.1, both are case-insensitive.|
 |`roleMapping.groupName`|The name of the LDAP group to map. When groups are resolved through `groupSearch`, the group name is the value of the `cn` attribute of the group entry.|
-|`roleMapping.roles`|The list of GridGain roles assigned to users in the group. Role names are case-sensitive; a value that matches no existing role grants nothing. In 9.1, role names are case-insensitive.|
+|`roleMapping.roles`|The list of GridGain roles assigned to users in the group. Role names are case-sensitive; a value that matches no existing role grants nothing. After upgrading from 9.1, change values to match the converted upper-case role names. In 9.1, role names are case-insensitive.|
 
 {% hint style="info" %}
 The timeouts above bound every connection the provider opens — the search bind, the user re-bind, and the group search. LDAP binds run on a shared authentication executor, so an unresponsive directory left without timeouts can stall authentication across the node, including basic authentication. Keep both timeouts set; do not disable them.
