@@ -1,11 +1,21 @@
 ---
 description: >-
-  How to upgrade a GridGain 9.1.29 cluster or application to GridGain 9.2, with links to the planning page, the step-by-step procedure, and the reference pages for each change.
+  How to upgrade a GridGain 9.1 cluster and its applications to GridGain 9.2, and which changes to check first.
 ---
 
 # Upgrading from GridGain 9.1 to 9.2
 
-This guide describes how to upgrade a GridGain 9.1.29 cluster and its applications to GridGain 9.2. GridGain 9.2 raises the Java baseline to Java 21, removes the RocksDB storage engine and the legacy configuration key names, changes the `CREATE ZONE` syntax and the system views, makes user and role names case-sensitive, and changes the SQL query protocol.
+This guide explains how to upgrade a GridGain 9.1 cluster and its applications to GridGain 9.2. Start with the upgrade procedure, which covers a full-cluster upgrade and, as an alternative, a rolling upgrade. Use the other pages as a reference for the changes that affect you.
+
+Before you start, note that:
+
+* You cannot downgrade from 9.2 to 9.1. Take a backup before you upgrade.
+* GridGain 9.2 requires Java 21 or later. The Docker images use JDK 25 by default.
+* GridGain 9.2 removes the RocksDB storage engine and the legacy configuration key names.
+* GridGain 9.2 migrates the Raft logs to a new log storage when each node first starts.
+* The `CREATE ZONE` syntax and the system views change.
+* User and role names become case-sensitive.
+* The SQL query protocol changes.
 
 {% columns %}
 {% column %}
@@ -15,7 +25,7 @@ This guide describes how to upgrade a GridGain 9.1.29 cluster and its applicatio
 {% endcolumn %}
 
 {% column %}
-Step-by-step procedure for upgrading a cluster with a rolling or a full-cluster upgrade, with verification, troubleshooting, and the recovery options.
+Steps for a full-cluster or rolling upgrade, how to verify the result, and what to do if something fails.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -27,7 +37,7 @@ Step-by-step procedure for upgrading a cluster with a rolling or a full-cluster 
 {% endcolumn %}
 
 {% column %}
-Planning reference: the choice between a rolling and a full-cluster upgrade, upgrade constraints, and a scope and effort table for every change.
+Upgrade constraints, how to choose between a full-cluster and a rolling upgrade, and the scope and effort of each change.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -39,7 +49,7 @@ Planning reference: the choice between a rolling and a full-cluster upgrade, upg
 {% endcolumn %}
 
 {% column %}
-Java 21, the CLI launchers, the `JVM_GC` fallback, and the Windows installer.
+Java 21, the Windows installer, the CLI launchers, and the `JVM_GC` fallback.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -51,7 +61,7 @@ Java 21, the CLI launchers, the `JVM_GC` fallback, and the Windows installer.
 {% endcolumn %}
 
 {% column %}
-Removed and renamed configuration keys, the removed RocksDB engine, page replacement, and renamed metrics.
+Removed and renamed configuration keys, the removed RocksDB engine, page replacement, renamed metrics, and the Raft log storage.
 {% endcolumn %}
 {% endcolumns %}
 

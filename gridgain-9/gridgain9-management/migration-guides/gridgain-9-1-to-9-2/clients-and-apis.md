@@ -5,17 +5,17 @@ description: >-
 
 # Client and API Changes
 
-GridGain 9.2 requires Java 21 for the Java client and the libraries that embed it. It also removes the deprecated `PartitionManager` API and the `RecordSupportInternal` class, and tightens the data center replication REST API.
+GridGain 9.2 requires Java 21 for the Java client and the libraries that embed it. It also removes the deprecated `PartitionManager` API and the `RecordSupportInternal` class, and renames fields in the data center replication REST API.
 
 ## Client Libraries Need Java 21
 
 The Java thin client, the JDBC driver, the Spring Boot starter, Spring Data, Hibernate, and the Kafka Connect connectors of 9.2 are compiled for Java 21. Run the applications and the Kafka Connect workers that use them on Java 21 or later. The .NET, C++, and Python clients and the ODBC driver need no JDK. See [Java 21 or Later](platform-and-packaging.md#java-21-or-later).
 
-For how clients and servers of different versions work together, see [Client Upgrade](../../upgrade/client-upgrade.md).
+Clients and servers upgrade independently. Upgrade the cluster first, because an older client keeps working against a newer server. See [Client Upgrade](../../upgrade/client-upgrade.md).
 
 ## PartitionManager Removed
 
-The deprecated `PartitionManager` interface and the `Table.partitionManager()` method are removed. Use `PartitionDistribution`, which has the same methods.
+The deprecated `PartitionManager` interface and the `Table.partitionManager()` method are removed. Use `PartitionDistribution`, which has the same methods. The methods `partitions()`, `primaryReplicas()`, `primaryReplica(Partition)`, `partition(Tuple)`, and `partition(K, Mapper<K>)`, and their `Async` variants, keep their names and signatures. `Table.partitionDistribution()` already exists in 9.1.29, so you can change the code before the upgrade.
 
 In Java, change the call and the declared type:
 
@@ -27,23 +27,26 @@ PartitionManager manager = table.partitionManager();
 PartitionDistribution distribution = table.partitionDistribution();
 ```
 
-The methods `partitions()`, `primaryReplicas()`, `primaryReplica(Partition)`, `partition(Tuple)`, and `partition(K, Mapper<K>)`, and their `Async` variants, have the same names and signatures on `PartitionDistribution`.
-
 In .NET, `ITable.PartitionManager` and `IPartitionManager` are removed. Use `ITable.PartitionDistribution` and `IPartitionDistribution`. The methods `GetPrimaryReplicasAsync()`, `GetPrimaryReplicaAsync(IPartition)`, `GetPartitionAsync(IIgniteTuple)`, and `GetPartitionAsync<TK>` keep their names. `IPartitionDistribution` adds `GetPrimaryReplicasAsync(IClusterNode)` and `GetPartitionsAsync()`.
 
 The C++ and Python clients do not have this API.
 
 ## RecordSupportInternal Removed
 
-The class `org.apache.ignite.table.mapper.RecordSupportInternal` is removed. It was an internal helper and not part of the public API, but it was public in the `marshaller-common` module. If your code uses it, replace it with the JDK methods: `Class.isRecord()`, `Class.getRecordComponents()`, and `clazz.getDeclaredConstructor(componentTypes)` for the canonical constructor. Java records that you use as table row types keep working.
+The class `org.apache.ignite.table.mapper.RecordSupportInternal` is removed. It was an internal class that was public in the `marshaller-common` module. If your code uses it, replace it with the JDK methods: `Class.isRecord()`, `Class.getRecordComponents()`, and `clazz.getDeclaredConstructor(componentTypes)` for the canonical constructor. Java records that you use as table row types keep working.
 
 ## Data Center Replication REST API
 
-The following changes affect clients that call the data center replication REST API (`/management/v1/dcr`) directly:
+This section applies if you call the data center replication REST API (`/management/v1/dcr`) directly.
 
-- *Stopping tables that are already stopped is an error.* A request to stop specific tables of a running replication returns status 400 with `Table '<schema.table>' is already stopped.` if every requested table is already stopped. In 9.1, the request did nothing and returned `false`. If at least one requested table is still replicating, the request is accepted as before. Stopping a replication that is already stopped already returned 400 in 9.1 (`GG-DCR-13`). Check the state before you stop, or handle the 400 response in your automation.
-- *Start and stop report the saved state.* In 9.1, a start or stop request that lost a race with another change could report success without saving the new state. In 9.2, the request is checked against the state that it changed and retried. A concurrent start of a table that is already replicating returns 409.
-- *Only documented request fields are read.* Use the field names of the documented API, for example `tables` to select the tables to start or stop, and `authConfig` and `sslConfig` to create a replication. Fields that are not part of the API are ignored.
+- *Old request field names are no longer accepted.* 9.1 accepted two names for some request fields. 9.2 accepts only the current names. It ignores an old name without an error, so a request that still sends one is read as if the field were missing. These old names were not part of the published REST specification, so most automation is not affected. The current names already work on 9.1.29, so you can change your requests before the upgrade. Responses do not change.
+
+  | Request | Old name | Name to use |
+  | --- | --- | --- |
+  | Create replication | `sourceClusterAuthConfig`, `sourceClusterSslConfig` | `authConfig`, `sslConfig` |
+  | Start and stop | `tableList` | `tables` |
+
+- *Stopping tables that are already stopped is an error.* If every table in a request to stop specific tables is already stopped, the request returns status 400 with `Table '<schema.table>' is already stopped.` In 9.1 it did nothing and returned `false`. If at least one table is still replicating, the request is accepted as before. Stopping a replication that is already stopped returned 400 in 9.1 too (`GG-DCR-13`). Check the state before you stop, or handle the 400 response in your automation.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

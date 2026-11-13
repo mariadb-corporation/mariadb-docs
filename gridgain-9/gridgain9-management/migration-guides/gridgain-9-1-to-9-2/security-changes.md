@@ -16,7 +16,7 @@ SQL identifiers follow the usual rule: an unquoted name is converted to upper ca
 ```sql
 CREATE ROLE reader;      -- 9.2 creates READER
 CREATE ROLE "reader";    -- 9.2 creates a different role, reader
-GRANT READER TO alice;   -- grants the role READER to the user ALICE
+GRANT READER TO alice;   -- grants READER to the user ALICE, if that user exists
 ```
 
 A name in lower or mixed case needs double quotes. `SHOW USERS` and `SHOW GRANTS` print the stored names, so a user that 9.1 printed as `ALICE` is listed as `alice`. Review the scripts and applications that manage users and roles, and the user names in your connection settings, before you upgrade.
@@ -35,7 +35,7 @@ When the cluster first runs on 9.2, a one-time migration rewrites the stored rol
 - The role `system`, the built-in super role, stays in lower case. 9.2 matches it exactly. `SYSTEM` is an ordinary role that does not exist.
 - The role lists of the users are rewritten to the new names.
 
-*Users are not renamed.* A user keeps its stored name, which 9.1 stored in lower case. After the upgrade, the user must log in with exactly that name. An unquoted statement such as `GRANT READER TO alice` is parsed as `ALICE`, so it fails with `GG-RBAC-2: User `ALICE` is not found`. Quote the name:
+*Users are not renamed.* A user keeps its stored name, which 9.1 stored in lower case. After the upgrade, the user must log in with exactly that name. An unquoted statement such as `GRANT READER TO alice` is parsed as `ALICE`, so it fails with ``GG-RBAC-2: User `ALICE` is not found``. Quote the name:
 
 ```sql
 GRANT READER TO "alice";
@@ -45,20 +45,55 @@ A new `CREATE USER alice` after the upgrade creates a second user, `ALICE`, whic
 
 The migration runs:
 
-- At commit, for a rolling upgrade. It runs before the cluster version changes. If it fails, the commit fails, and the upgrade stays uncommitted until you resolve the cause.
+- At commit, for a rolling upgrade. It runs before the cluster version changes. If it fails, the commit fails with an error.
 - At the first start of the cluster, for a full-cluster upgrade.
 
-The migration stops with an error in two cases. Roles whose names differ only in case collide after the rename (`Legacy role names collide after uppercasing`). A role name that becomes the name of a built-in role fails with `Legacy role name conflicts with a built-in role`. 9.1 folded names to lower case, so neither case should occur in a cluster that you managed through the API. Check the stored role names before you upgrade if you are not sure.
+The migration fails with an error if two role names differ only in case (`Legacy role names collide after uppercasing`) or if a role name becomes the name of a built-in role (`Legacy role name conflicts with a built-in role`). 9.1 folded names to lower case, so these cases are not expected in a cluster whose roles were created through SQL or the API. If the migration fails, contact MariaDB [support](https://mariadb.com/support/).
 
-The role `system` is matched exactly. `DROP ROLE "system"` is refused with `GG-RBAC-9: Cannot drop the super role system`, while `DROP ROLE SYSTEM` and `GRANT SYSTEM TO "alice"` report `GG-RBAC-7: Role `SYSTEM` is not found`.
+The migration state is stored in the `ignite.security.roleNamesMigrationVersion` cluster configuration parameter, which is `1` after the migration. Do not change it. It cannot be set back to `0`.
+
+### The system Role
+
+9.2 matches `system` exactly, so `SYSTEM` is an ordinary role name that does not exist. The migration maps every spelling of `system` that 9.1 stored, in the role definitions and in the role lists of the users, to the lower-case `system`. Users that have the super role keep it, and stored users and roles need no action.
+
+SQL cannot assign or drop the role:
+
+- `GRANT "system" TO "alice"` fails with `GG-RBAC-9: Cannot assign the built-in role: system`.
+- `DROP ROLE "system"` fails with `GG-RBAC-9: Cannot drop the super role system`.
+- `DROP ROLE SYSTEM`, `GRANT SYSTEM TO "alice"`, and any other unquoted `SYSTEM` fail with ``GG-RBAC-7: Role `SYSTEM` is not found``.
+
+Remove such statements from your scripts. To assign the role, put `system` in lower case in the `roles` list of the user in the authentication provider configuration. A directory group cannot grant it through an LDAP `roleMapping`. `SHOW USERS` prints `system` in lower case for these users, and upper-case names for all other roles.
+
+### JWT Tokens
+
+Tokens issued before the upgrade are still accepted, and they keep the role names they were issued with. A user whose `roles` list spelled the super role other than `system`, for example `SYSTEM`, holds a token with that spelling. After the upgrade, 9.2 accepts the token, but it does not grant the super role. The user must log in again to get a new token. See [JWT Authentication](../../../security/jwt-authentication.md).
 
 ## LDAP Role Mappings
 
-The migration does not change the role names in LDAP `roleMapping` settings or in the role names of row-level security policies. After the upgrade, a mapping to `admin` does not match the role `ADMIN`. The node logs that the LDAP group is mapped to a role that is not in the authorization configuration, and the mapping grants nothing.
+This section applies if you use the LDAP authentication provider with a `roleMapping`.
 
-Before the upgrade, list every role name in your `roleMapping` settings and policies. After the upgrade, change them to the migrated upper-case names, and `system` if you use it. LDAP group names stay case-insensitive.
+The migration does not change the role names in LDAP `roleMapping` settings or in the role names of row-level security policies. 9.1 matched a mapped role without regard to case. 9.2 matches it exactly, so after the upgrade a mapping to `admin` does not match the role `ADMIN`.
+
+An LDAP user whose only roles come from such a mapping can still log in, but has no roles. Every operation that needs a privilege fails with `GG-RBAC-15: Roles [] do not have privilege(s) [...]`. The node logs two warnings:
+
+```text
+LDAP group "Admins" is mapped to role "admin", which is not in the authorization configuration, so it grants nothing.
+LDAP user "carol" authenticated with no role, so every authorized operation will be denied. Directory groups seen: [Admins]. Map one of them under roleMapping, or check the spelling of the groupName that was meant to match. Reported once per user while this configuration is in effect.
+```
+
+Before the upgrade, change the role names in your `roleMapping` settings to the upper-case names that the migration produces. 9.1.29 matches mapped roles without regard to case, so the upper-case names work on 9.1 and on 9.2. Cluster configuration changes are blocked during a rolling upgrade, so make this change before you run `upgrade start`.:
+
+```bash
+cluster config update 'ignite.security.authentication.providers.ldap.roleMapping=[{groupName=ADMINS,roles=[ADMIN]}]'
+```
+
+The migration does not change the role names in row-level security policies. Policies that name roles without quotes, such as `TO READER`, keep working, because the migrated role names are in upper case. A policy written `TO SYSTEM` applied on 9.1 to users whose `roles` list spelled the super role `SYSTEM`. After the migration, those users hold `system`, so the policy no longer applies to them, and they can see fewer rows. Recreate the policy with `TO "system"`, which applies it to the super role. See [Row-Level Security](../../../security/row-level-security.md).
+
+9.2 rejects a mapping to a role name that does not exist with exactly that spelling, for example `Admin`, with `Role "Admin" cannot be granted through the LDAP role mapping of group "ADMINS", provider "ldap": the role is not present in the authorization configuration`. An old mapping that is already stored does not block other configuration updates. LDAP group names stay case-insensitive: the directory group `Admins` matches the mapping `ADMINS` and `admins`. A directory group that has no `roleMapping` entry grants no roles, as in 9.1.29. A directory group cannot grant the built-in role `system`. GridGain rejects a mapping to it on 9.1.29 and on 9.2.
 
 ## Index Privileges Are Checked on the Table
+
+This section applies if you grant `CREATE_INDEX` or `DROP_INDEX` to roles.
 
 In 9.1, `CREATE INDEX` and `DROP INDEX` checked the `CREATE_INDEX` and `DROP_INDEX` privileges against the index name, as if it were a table name. 9.2 checks them against the table that owns the index:
 

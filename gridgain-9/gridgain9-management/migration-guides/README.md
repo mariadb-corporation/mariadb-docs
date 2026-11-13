@@ -13,7 +13,7 @@ description: >-
 {% endcolumn %}
 
 {% column %}
-Upgrade a GridGain 9.1.29 cluster and its applications to GridGain 9.2: the procedure, the planning reference, and every breaking change.
+Upgrade a GridGain 9.1 cluster and its applications to GridGain 9.2: the procedure, the planning reference, and every breaking change.
 {% endcolumn %}
 {% endcolumns %}
 

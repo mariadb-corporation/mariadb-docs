@@ -1,6 +1,6 @@
 ---
 description: >-
-  SQL changes when upgrading from GridGain 9.1 to 9.2: the CREATE ZONE syntax, removed system view columns, the removed __part columns, the ADD keyword, microsecond precision, EXPLAIN output, and the query protocol.
+  SQL changes when upgrading from GridGain 9.1 to 9.2: the CREATE ZONE syntax, removed system view columns, the removed __part alias, the ADD keyword, microsecond precision, EXPLAIN output, and the query protocol.
 ---
 
 # SQL and System View Changes
@@ -9,12 +9,14 @@ GridGain 9.2 removes the `CREATE ZONE ... WITH` syntax and the legacy columns of
 
 ## The Query Protocol Changed
 
-GridGain 9.2 sends all fragments of a query to a node in one request. The 9.1 protocol sent one request for each fragment. A 9.2 node accepts only the new request, and the two versions do not translate between them. As a result, a SQL query that needs a node of the other version fails while the cluster runs both versions, in both directions:
+This section applies if you use a rolling upgrade. A full-cluster upgrade is not affected, because no node runs a different version.
+
+GridGain 9.2 replaces the SQL query protocol, and the two versions do not understand each other. As a result, a SQL query that needs a node of the other version fails while the cluster runs both versions, in both directions:
 
 - A 9.1 node that coordinates a query and maps a fragment onto a 9.2 node gets the error `IGN-CMN-65535: Legacy query start protocol is no longer supported, the sending node must be upgraded`.
 - A 9.2 node that coordinates a query and maps a fragment onto a 9.1 node, while a rolling upgrade is in progress, fails with `IGN-SQL-8: The query was mapped onto node '<node>' which runs version <version> and does not support latest query execution protocol, wait for the rolling upgrade to finish and retry the query`.
 
-A query fails only if one of its fragments is mapped onto a node of the other version. Which nodes a query uses depends on where the partitions and their primary replicas are, so in a mixed cluster some queries succeed and others fail, and the result can change when a node restarts. Do not rely on it.
+A query fails only if one of its fragments is mapped onto a node of the other version, so in a mixed cluster some queries succeed and others fail. Do not rely on it.
 
 This is why a rolling upgrade from 9.1 to 9.2 needs a pause of the SQL workload. Stop all SQL traffic, including JDBC, ODBC, scheduled jobs, and the SQL CLI, from `upgrade start` until `upgrade commit` finishes, and start it again afterward. Key-value and table API operations are not affected. Schema changes are blocked during a rolling upgrade anyway. See [Rolling Upgrade](../../upgrade/rolling-upgrade.md#limitations).
 
@@ -48,7 +50,7 @@ The options change as follows:
 | `CONSISTENCY_MODE = 'x'` | `CONSISTENCY MODE 'x'` |
 | `STORAGE_PROFILES = 'a, b'` | `STORAGE PROFILES ['a', 'b']` |
 
-The Java Catalog DSL generates the new syntax, so code that builds zones with `ZoneDefinition` needs no change. Search your SQL scripts, deployment tooling, and documentation for `CREATE ZONE` and `WITH`. Statements that already exist in a cluster are not affected.
+The Java Catalog DSL generates the new syntax, so code that builds zones with `ZoneDefinition` needs no change. Search your SQL scripts, deployment tooling, and documentation for `CREATE ZONE` and `WITH`. Zones that already exist are not affected.
 
 For all options, see [Distribution Zones](../../../reference/sql/distribution-zones.md).
 
@@ -68,7 +70,7 @@ Other statements already used a simple identifier, for example `CREATE TABLE ...
 
 ## System View Columns Removed
 
-9.2 removes the legacy columns of the system views. Each removed column had a replacement column with the same value since 9.1, so a query needs only the new name. Both names worked in 9.1, which lets you update queries before you upgrade.
+9.2 removes the legacy columns of the system views. Each has a replacement column that already exists in 9.1, so you can update your queries before you upgrade.
 
 | View | Removed column | Use instead |
 | --- | --- | --- |
@@ -98,12 +100,12 @@ SELECT table_name FROM system.tables WHERE schema_name = 'PUBLIC' AND zone_name 
 A query that uses a removed column fails with `IGN-SQL-4: Failed to validate query ... Column 'NAME' not found in any table`. Monitoring queries, dashboards, and scripts that read system views are the most common place to find the old names. For all columns, see [System Views](../../../reference/monitoring/system-views.md).
 
 {% hint style="warning" %}
-After a rolling upgrade, the system views keep their 9.1 definition until the nodes are restarted. During the rolling upgrade the nodes log `Unable to register system views because cluster upgrade is in progress`, and the new definitions are not registered afterward. Until you restart, the catalog still lists the removed columns, and a query such as `SELECT * FROM system.zones` fails with an internal error (`class java.lang.Integer cannot be cast to class java.lang.String`). Restart the nodes after `upgrade commit`. After a full-cluster upgrade, the views are correct without a restart.
+After a rolling upgrade, the system views keep their 9.1 definitions until you restart the nodes. Until then, a query such as `SELECT * FROM system.zones` fails with an internal error (`class java.lang.Integer cannot be cast to class java.lang.String`). Restart the nodes after `upgrade commit`. A full-cluster upgrade needs no restart.
 {% endhint %}
 
-## The __part Columns Are Removed
+## The __part Alias Is Removed
 
-Every table has the hidden column `__PARTITION_ID`. In 9.1, two legacy aliases of it, `__part` and `"__PART"`, returned the same value. 9.2 removes the aliases. A query that uses them fails.
+Every table has the hidden column `__PARTITION_ID`. In 9.1, the legacy alias `__part` (also written `"__PART"`) returned the same value. 9.2 removes the alias, and a query that uses it fails.
 
 ```sql
 -- 9.1 (fails in 9.2)
@@ -113,7 +115,7 @@ SELECT __part, id FROM my_table;
 SELECT __partition_id, id FROM my_table;
 ```
 
-`__PARTITION_ID` is a hidden `BIGINT` column. It is not part of `SELECT *`. The unquoted name `__partition_id` works because unquoted names are upper-cased. Because the names are no longer reserved, you can use `__part` as an ordinary column name.
+`__PARTITION_ID` is a hidden `BIGINT` column and is not part of `SELECT *`. Unquoted names are upper-cased, so `__partition_id` works. You can now use `__part` as an ordinary column name. For more information, see [Partition-Specific SELECTs](../../../gridgain9-development/sql/sql-api.md#partition-specific-selects).
 
 ## ADD Is a Reserved Word
 
@@ -136,18 +138,24 @@ SELECT TIMESTAMP '2008-01-01 00:00:01.9999995'::TIMESTAMP(9)::VARCHAR;
 
 The storage format does not change, and the maximum declared precision is still 9. The default precision is also unchanged. `TIME(7)` to `TIME(9)` are still accepted, but SQL keeps only six digits.
 
-Values that 9.1 already stored through SQL keep their millisecond precision, because 9.1 truncated them when you inserted them. Only values that you write on 9.2 keep microseconds. A query that compares, orders, or filters on fractions of a second can return different rows after the upgrade, because new values differ below one millisecond. Check these queries. Index lookups on `TIMESTAMP(4)` to `TIMESTAMP(6)` values, which could return wrong results in 9.1, are now correct.
+Values that 9.1 already stored through SQL keep their millisecond precision, because 9.1 truncated them when you inserted them. Only values that you write on 9.2 keep microseconds. A query that compares, orders, or filters on fractions of a second can return different rows after the upgrade, because new values differ below one millisecond. Check these queries.
 
 For more information, see [Data Types](../../../reference/sql/data-types.md).
 
 ## EXPLAIN Output Changed
 
-The `EXPLAIN` output of 9.2 differs from 9.1:
+The `EXPLAIN` output of 9.2 prints aggregates under new names, and a `phase` attribute marks the two phases of a two-phase aggregate:
 
-- A colocated aggregate is one `HashAggregate` or `StreamAggregate` node with a `phase` attribute of `PARTIAL` or `FINAL`. A node without `phase` is a single-phase aggregate.
-- The `collation` attribute is printed only where the output order differs from the input order.
+| 9.1 operator | 9.2 operator |
+| --- | --- |
+| `ColocatedHashAggregate` | `HashAggregate` without `phase` |
+| `MapHashAggregate` | `HashAggregate` with `phase: PARTIAL` |
+| `ReduceHashAggregate` | `HashAggregate` with `phase: FINAL` |
+| `ColocatedSortAggregate` | `StreamAggregate` without `phase` |
+| `MapSortAggregate` | `StreamAggregate` with `phase: PARTIAL` |
+| `ReduceSortAggregate` | `StreamAggregate` with `phase: FINAL` |
 
-Update any tool that parses `EXPLAIN` text. The names of the `DISABLE_RULE` hints for the aggregate rules also changed. `Colocated*` and `MapReduce*` rule names are now `SinglePhase*` and `TwoPhase*`, and a hint with an old name is silently ignored. See [EXPLAIN](../../../reference/sql/explain-statement.md).
+Update any tool that parses `EXPLAIN` text. The `DISABLE_RULE` hints for the aggregate rules are also renamed: `Colocated*` is now `SinglePhase*`, and `MapReduce*` is now `TwoPhase*`. The `Sort` rules are now `Stream` rules. A hint with an old name is ignored. For the current output, see [EXPLAIN](../../../reference/sql/explain-statement.md) and [List of EXPLAIN Operators](../../../reference/sql/explain-operators-list.md).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
