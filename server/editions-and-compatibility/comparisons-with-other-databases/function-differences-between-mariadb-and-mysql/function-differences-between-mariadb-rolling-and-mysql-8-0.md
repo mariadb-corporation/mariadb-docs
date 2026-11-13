@@ -1,6 +1,6 @@
 # Function Differences Between MariaDB Rolling and MySQL 8.0
 
-The following is a list of all function differences between [MariaDB 12.2]({release-notes}/community-server/old-releases/12.2/mariadb-12.2-changes-and-improvements) Rolling Release, and MySQL 8.0. It is based on functions available in the MySQL 8.0.39 and the [MariaDB 12.2]({release-notes}/community-server/old-releases/12.2/mariadb-12.2-changes-and-improvements) releases. For a more complete list of differences, see [Incompatibilities and Feature Differences Between MariaDB Rolling and MySQL 8.0](../incompatibilities-and-feature-differences-between-mariadb-rolling-and-mysql.md)
+The following is a list of all function differences between [MariaDB 12.2](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.2/mariadb-12.2-changes-and-improvements) Rolling Release, and MySQL 8.0. It is based on functions available in the MySQL 8.0.39 and the [MariaDB 12.2](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.2/mariadb-12.2-changes-and-improvements) releases. For a more complete list of differences, see [Incompatibilities and Feature Differences Between MariaDB Rolling and MySQL 8.0](../incompatibilities-and-feature-differences-between-mariadb-rolling-and-mysql.md)
 
 ## Present in MariaDB Only
 

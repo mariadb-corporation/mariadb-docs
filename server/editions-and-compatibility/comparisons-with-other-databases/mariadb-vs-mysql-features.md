@@ -46,35 +46,35 @@ For a detailed breakdown of function differences, see:
 
 In addition to the standard [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/README.md), [BLACKHOLE](../../server-usage/storage-engines/blackhole.md), [CSV](../../server-usage/storage-engines/csv/README.md), [MEMORY](../../server-usage/storage-engines/memory-storage-engine.md), [ARCHIVE](../../server-usage/storage-engines/archive.md), and [MERGE](../../server-usage/storage-engines/merge.md) storage engines, the following are also included with MariaDB Source and Binary packages:
 
-* [ColumnStore]({release-notes}/columnstore), a column oriented storage engine optimized for Data warehousing.
+* [ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/columnstore), a column oriented storage engine optimized for Data warehousing.
 * [MyRocks](../../server-usage/storage-engines/myrocks/README.md), a storage engine with great compression, in 10.2
 * [Aria](../../server-usage/storage-engines/aria/README.md), MyISAM replacement with better caching.
 * [FederatedX](../../server-usage/storage-engines/federatedx-storage-engine/README.md) (drop-in replacement for Federated)
-* [OQGRAPH](../../server-usage/storage-engines/oqgraph-storage-engine/README.md) (In [MariaDB 5.2]({release-notes}/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2) and later. Disabled in [MariaDB 5.5]({release-notes}/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) only.)
-* [SphinxSE](../../server-usage/storage-engines/sphinx-storage-engine/README.md) (In [MariaDB 5.2]({release-notes}/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2) and later)
-* [CONNECT](../../server-usage/storage-engines/connect/README.md) in [MariaDB 10.0]({release-notes}/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) and later.
-* [SEQUENCE](../../server-usage/storage-engines/sequence-storage-engine.md) in [MariaDB 10.0]({release-notes}/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) and later.
-* [Spider](../../server-usage/storage-engines/spider/README.md) in [MariaDB 10.0]({release-notes}/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) and later.
-* TokuDB (In [MariaDB 5.5]({release-notes}/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) and later, removed in 10.6)
-* Cassandra (In [MariaDB 10.0]({release-notes}/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0), removed in 10.6)
+* [OQGRAPH](../../server-usage/storage-engines/oqgraph-storage-engine/README.md) (In [MariaDB 5.2](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2) and later. Disabled in [MariaDB 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) only.)
+* [SphinxSE](../../server-usage/storage-engines/sphinx-storage-engine/README.md) (In [MariaDB 5.2](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2) and later)
+* [CONNECT](../../server-usage/storage-engines/connect/README.md) in [MariaDB 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) and later.
+* [SEQUENCE](../../server-usage/storage-engines/sequence-storage-engine.md) in [MariaDB 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) and later.
+* [Spider](../../server-usage/storage-engines/spider/README.md) in [MariaDB 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) and later.
+* TokuDB (In [MariaDB 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) and later, removed in 10.6)
+* Cassandra (In [MariaDB 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0), removed in 10.6)
 
 #### Speed Improvements
 
 * MariaDB now provides much faster privilege checks for setups with many user accounts or many database
 * The new [FLUSH SSL](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) command allows SSL certificates to be reloaded without restarting the server
-* Many optimizer enhancements in [MariaDB 5.3]({release-notes}/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3). [Subqueries](../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/subqueries/README.md) are now finally usable.\
+* Many optimizer enhancements in [MariaDB 5.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3). [Subqueries](../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/subqueries/README.md) are now finally usable.\
   The complete list and a comparison with MySQL is [here](optimizer-feature-comparison-matrix.md). A benchmark can be found [here](https://mariadb.com/blog/mariadb-53-optimizer-benchmark).
 * Faster and safer replication:[Group commit for the binary log](../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md). This makes many setups that use replication and lots of updates [more than 2x times faster](https://www.facebook.com/note.php?note_id=10150211546215933).
 * [Parallel replication](../../ha-and-performance/standard-replication/parallel-replication.md) — new in 10.0
 * Improvements for InnoDB asynchronous IO subsystem on Windows.
-* Indexes for the [MEMORY(HEAP)](../../server-usage/storage-engines/memory-storage-engine.md) engine are faster. According to a simple test, 24% faster on INSERT for integer index and 60% faster for index on a CHAR(20) column. Fixed in [MariaDB 5.5]({release-notes}/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) and MySQL 5.7.
+* Indexes for the [MEMORY(HEAP)](../../server-usage/storage-engines/memory-storage-engine.md) engine are faster. According to a simple test, 24% faster on INSERT for integer index and 60% faster for index on a CHAR(20) column. Fixed in [MariaDB 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) and MySQL 5.7.
 * [Segmented Key Cache](../../ha-and-performance/optimization-and-tuning/system-variables/segmented-key-cache.md) for MyISAM. Can speed up MyISAM tables with up to 4x\
   — new in 5.2
 * [Adjustable hash size](../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_cache_file_hash_size) for MyISAM and Aria. This can greatly improve shutdown time (from hours to minutes) if using a lot of MyISAM/Aria tables with delayed keys — new in 10.0.13
 * [CHECKSUM TABLE](../../reference/sql-statements/table-statements/checksum-table.md) is faster.
 * We improved the performance of character set conversions (and removed conversions when they were not really needed). Overall speed improvement is 1-5 % (according to sql-bench) but can be higher for big result sets with all characters between 0x00-0x7f.
 * Pool of Threads in MariaDB 5.1 and even better in [MariaDB 5.5](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb.md). This allows MariaDB to run with 200,000+ connections and with a notable speed improvement when using many connections.
-* Several speed improvements when a client connects to MariaDB. Many of the improvements were done in [MariaDB 10.1]({release-notes}/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) and [MariaDB 10.2]({release-notes}/community-server/old-releases/10.2/what-is-mariadb-102).
+* Several speed improvements when a client connects to MariaDB. Many of the improvements were done in [MariaDB 10.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) and [MariaDB 10.2](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102).
 * There are some improvements to the DBUG code to make its execution faster when debug is compiled in but not used.
 * Our use of the Aria storage engine enables faster complex queries (queries which normally use disk-based temporary tables). The [Aria](../../server-usage/storage-engines/aria/README.md) storage engine is used for internal temporary tables, which should give a speedup when doing complex selects. Aria is usually faster for temporary tables when compared to MyISAM because Aria caches row data in memory and normally doesn't have to write the temporary rows to disk. The test suite has been extended and now runs much faster than before, even though it tests more things.
 

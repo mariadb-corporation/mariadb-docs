@@ -85,8 +85,8 @@ Oracle mode makes the following changes to [LOOP](../../reference/sql-statements
 | `SQLCODE`                                                                                                                         | Returns the number code of the most recent exception. Can only be used in Stored Procedures. [MDEV-10578](https://jira.mariadb.org/browse/MDEV-10578)                                                               |
 | `SQLERRM`                                                                                                                         | Returns the error message associated to it's error number argument or `SQLCODE` if no argument is given. Can only be used in Stored Procedures. [MDEV-10578](https://jira.mariadb.org/browse/MDEV-10578)           |
 | `SQL%ROWCOUNT`                                                                                                                    | Almost same as [ROW\_COUNT()](../../reference/sql-functions/secondary-functions/information-functions/row_count.md). [MDEV-10583](https://jira.mariadb.org/browse/MDEV-10583) |
-| [ROWNUM](../../reference/sql-functions/secondary-functions/information-functions/rownum.md) | Returns number of accepted rows. From [MariaDB 10.6]({release-notes}/community-server/10.6/what-is-mariadb-106).                                                                                                                            |
-| Associative arrays                                                                                                                | See [blog post](https://mariadb.org/bringing-oracles-associative-arrays-to-mariadb/). From [MariaDB 12.1]({release-notes}/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1).                                     |
+| [ROWNUM](../../reference/sql-functions/secondary-functions/information-functions/rownum.md) | Returns number of accepted rows. From [MariaDB 10.6](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106).                                                                                                                            |
+| Associative arrays                                                                                                                | See [blog post](https://mariadb.org/bringing-oracles-associative-arrays-to-mariadb/). From [MariaDB 12.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1).                                     |
 
 ### Exceptions
 
@@ -140,7 +140,7 @@ If one does a [SHOW CREATE TABLE](../../reference/sql-statements/administrative-
 
 ### Packages
 
-The following syntax has been supported since [MariaDB 10.3.5]({release-notes}/community-server/old-releases/10.3/10.3.5):
+The following syntax has been supported since [MariaDB 10.3.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.5):
 
 * [CREATE PACKAGE](../../reference/sql-statements/data-definition/create/create-package.md)
 * [CREATE PACKAGE BODY](../../reference/sql-statements/data-definition/create/create-package-body.md)
