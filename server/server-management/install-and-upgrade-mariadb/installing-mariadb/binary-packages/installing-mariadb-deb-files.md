@@ -1,7 +1,8 @@
 ---
 description: >-
   Complete .deb installation guide: add repo via mariadb_repo_setup, import GPG
-  keys, apt install mariadb-server galera-4, and APT configuration.
+  keys, install MariaDB Server and Galera packages with apt, and APT
+  configuration.
 ---
 
 # Installing MariaDB .deb Files
@@ -11,6 +12,10 @@ description: >-
 On Debian, Ubuntu, and other similar Linux distributions, it is highly recommended to install the relevant `.deb` packages from MariaDB's repository using [apt](https://manpages.ubuntu.com/manpages/bionic/man8/apt.8.html), [aptitude](https://manpages.ubuntu.com/manpages/bionic/man8/aptitude-curses.8.html), [Ubuntu Software Center](https://web.archive.org/web/20231224042152/https://help.ubuntu.com/community/UbuntuSoftwareCenter), [Synaptic Package Manager](https://web.archive.org/web/20240112002937/https://help.ubuntu.com/community/SynapticHowto), or another package manager.
 
 This page walks you through the simple installation steps using `apt`.
+
+{% hint style="info" %}
+Note for MariaDB Community Server 12.3.2 and later: Galera Cluster support is no longer included in the base `mariadb-server` package. To enable cluster functionality, you must explicitly install the `mariadb-server-galera` package, which also installs `galera-4`. In earlier versions, `mariadb-server` includes this functionality and there is no `mariadb-server-galera` package.
+{% endhint %}
 
 ### Adding the MariaDB APT repository
 
@@ -226,9 +231,23 @@ sudo apt update
 
 To Install the most common packages, execute the following command:
 
+{% tabs %}
+{% tab title="12.3.2 and later" %}
 ```bash
 sudo apt-get install mariadb-server mariadb-server-galera galera-4 mariadb-client libmariadb3 mariadb-backup mariadb-common
 ```
+{% endtab %}
+
+{% tab title="Earlier versions" %}
+```bash
+sudo apt-get install mariadb-server galera-4 mariadb-client libmariadb3 mariadb-backup mariadb-common
+```
+{% endtab %}
+{% endtabs %}
+
+{% hint style="info" %}
+The `mariadb-server-galera` package is available only from MariaDB Community Server 12.3.2. On earlier versions, including it makes the command fail with `E: Unable to locate package mariadb-server-galera`.
+{% endhint %}
 
 #### Installing MariaDB Server with APT
 
@@ -248,9 +267,9 @@ sudo apt-get install mariadb-server
 
 The process to install MariaDB Galera Cluster with the MariaDB `apt-get` repository is practically the same as installing standard MariaDB Server.
 
-Galera Cluster support is included in the standard MariaDB Server packages, so you will need to install the `mariadb-server` package, as you normally would.
+In MariaDB Community Server 12.3.2 and later, you need to install the `mariadb-server` and `mariadb-server-galera` packages. In earlier versions, Galera Cluster support is included in the standard `mariadb-server` package, so you only need to install `mariadb-server`, as you normally would.
 
-You also need to install the `galera-4` package to obtain the [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide) 4 wsrep provider library.
+You also need the `galera-4` package to obtain the [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide) 4 wsrep provider library. In 12.3.2 and later, `mariadb-server-galera` installs it for you.
 
 To install MariaDB Galera Cluster, first you would have to update the package cache by executing the following command:
 
@@ -260,9 +279,19 @@ sudo apt update
 
 To install MariaDB Galera Cluster, you could execute the following command:
 
+{% tabs %}
+{% tab title="12.3.2 and later" %}
+```bash
+sudo apt-get install mariadb-server mariadb-server-galera mariadb-client galera-4
+```
+{% endtab %}
+
+{% tab title="Earlier versions" %}
 ```bash
 sudo apt-get install mariadb-server mariadb-client galera-4
 ```
+{% endtab %}
+{% endtabs %}
 
 MariaDB Galera Cluster also has a separate package that can be installed on arbitrator nodes. The package is called `galera-arbitrator-4`. This package should be installed on whatever node you want to serve as the arbitrator. It can either run on a separate server that is not acting as a cluster node, which is the recommended configuration, or it can run on a server that is also acting as an existing cluster node.
 
@@ -430,7 +459,7 @@ sudo dpkg --install ./mariadb-server*.deb \
 
 After the installation is complete, you can start MariaDB.
 
-If you are using [MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide), then keep in mind that the first node will have to be [bootstrapped](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster#bootstrapping-a-new-cluster).
+If you are using [MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide), then keep in mind that the first node will have to be [bootstrapped](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster#bootstrapping-a-new-cluster). In MariaDB Community Server 12.3.2 and later, bootstrapping requires the `mariadb-server-galera` package, so install it first.
 
 ## Upgrading to a new version of MariaDB
 
@@ -447,6 +476,16 @@ sudo apt install mariadb-server galera-4
 ```
 
 The reason for specifying the `galera-4` package is to ensure the correct updated version of Galera is installed along with the new server version, replacing the versions that were there before.
+
+{% hint style="warning" %}
+Note for MariaDB Community Server 12.3.2 and later: if you run Galera Cluster, install `mariadb-server-galera` explicitly when you upgrade:
+
+```bash
+sudo apt install mariadb-server mariadb-server-galera galera-4
+```
+
+The commands above, and `apt upgrade`, do not install new packages, so upgrading a Galera node this way leaves it without Galera support.
+{% endhint %}
 
 ## Available DEB Packages
 
@@ -474,7 +513,7 @@ For MariaDB, the following DEBs are available:
 | `mariadb-plugin-rocksdb`                 | The [MyRocks](../../../../server-usage/storage-engines/myrocks/) storage engine.                                                                                                                                                                   |
 | `mariadb-plugin-spider`                  | The [SPIDER](../../../../server-usage/storage-engines/spider/) storage engine.                                                                                                                                                                     |
 | `mariadb-server`                         | The server and server tools, like [myisamchk](../../../../clients-and-utilities/myisam-clients-and-utilities/myisamchk.md) and [mariadb-hotcopy](../../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-hotcopy.md) are here. |
-| `mariadb-server-galera`                  | Required for MariaDB Cluster (Galera) functionality. Includes cluster-specific scripts, systemd bootstrap logic, and the `wsrep_info` plugin.                                                                                                      |
+| `mariadb-server-galera`                  | Required for MariaDB Cluster (Galera) functionality. Includes cluster-specific scripts, systemd bootstrap logic, and the `wsrep_info` plugin. Available only in MariaDB Community Server 12.3.2 and later; in earlier versions this functionality is in `mariadb-server`.                                                                                                      |
 | `mariadb-server-core`                    | The core server.                                                                                                                                                                                                                                   |
 | `mariadb-test`                           | mysql-client-test executable, and mysql-test framework with the tests.                                                                                                                                                                             |
 | `mariadb-test-data`                      | MariaDB database regression test suite - data files                                                                                                                                                                                                |
