@@ -1,0 +1,169 @@
+---
+description: >-
+  Compare MariaDB vs. MySQL features. Learn about exclusive storage engines,
+  speed enhancements and binary compatibility.
+---
+
+# MariaDB versus MySQL - Features
+
+See also [**MariaDB vs MySQL - Compatibility**](mariadb-vs-mysql-compatibility.md)
+
+{% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/QK7HxXmqdFLVlavgl87n/" %}
+
+#### Differences Per Release
+
+For differences between specific releases, see
+
+* [Incompatibilities and Feature Differences Between MariaDB Rolling and MySQL 8.0](incompatibilities-and-feature-differences-between-mariadb-rolling-and-mysql.md)
+* [Incompatibilities and Feature Differences Between MariaDB 11.4 and MySQL 8.0](incompatibilities-and-feature-differences-between-mariadb-11-4-and-mysql-8.md)
+* [Incompatibilities and Feature Differences Between MariaDB 11.3 and MySQL 8.0](incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/incompatibilities-and-feature-differences-between-mariadb-11-3-and-mysql-8.md)
+* [Incompatibilities and Feature Differences Between MariaDB 11.2 and MySQL 8.0](incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/incompatibilities-and-feature-differences-between-mariadb-11-2-and-mysql-8.md)
+* [Incompatibilities and Feature Differences Between MariaDB 10.11 and MySQL 8.0](incompatibilities-and-feature-differences-between-mariadb-10-11-and-mysql-8.md)
+* [Incompatibilities and Feature Differences Between MariaDB 10.6 and MySQL 8.0](incompatibilities-and-feature-differences-between-mariadb-10-6-and-mysql-8.md)
+* For unmaintained versions, see [Incompatibilities and Feature Differences Between MariaDB and MySQL - Unmaintained Series](incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/)
+
+For a detailed breakdown of system variable differences, see:
+
+* [System Variable Differences Between MariaDB Rolling and MySQL 8.0](system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-rolling-and-mysql-8-0.md)
+* [System variable differences between MariaDB 11.4 and MySQL 8.0](system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-11-4-and-mysql-8-0.md)
+* [System variable differences between MariaDB 11.3 and MySQL 8.0](system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-11-3-and-mysql-8-0.md)
+* [System variable differences between MariaDB 11.2 and MySQL 8.0](system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-11-2-and-mysql-8-0.md)
+* [System variable differences between MariaDB 10.11 and MySQL 8.0](system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-10-11-and-mysql-8-0.md)
+* [System variable differences between MariaDB 10.6 and MySQL 8.0](system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-10-6-and-mysql-8-0.md)
+* For unmaintained versions, see [System Variable Differences Between MariaDB and MySQL - Unmaintained Series](system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/)
+
+For a detailed breakdown of function differences, see:
+
+* [Function Differences Between MariaDB Rolling and MySQL 8.0](function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-rolling-and-mysql-8-0.md)
+* [Function Differences Between MariaDB 11.4 and MySQL 8.0](function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-11-4-and-mysql-8-0.md)
+* [Function Differences Between MariaDB 11.3 and MySQL 8.0](function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-and-mysql-unmaintained-series/function-differences-between-mariadb-11-3-and-mysql-8-0.md)
+* [Function Differences Between MariaDB 11.2 and MySQL 8.0](function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-and-mysql-unmaintained-series/function-differences-between-mariadb-11-2-and-mysql-8-0.md)
+* [Function Differences Between MariaDB 10.11 and MySQL 8.0](function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-10-11-and-mysql-8-0.md)
+* [Function Differences Between MariaDB 10.6 and MySQL 8.0](function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-10-6-and-mysql-8-0.md)
+* For unmaintained versions, see [Function Differences Between MariaDB and MySQL - Unmaintained Series](function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-and-mysql-unmaintained-series/)
+
+#### More Storage Engines
+
+In addition to the standard [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/README.md), [BLACKHOLE](../../server-usage/storage-engines/blackhole.md), [CSV](../../server-usage/storage-engines/csv/README.md), [MEMORY](../../server-usage/storage-engines/memory-storage-engine.md), [ARCHIVE](../../server-usage/storage-engines/archive.md), and [MERGE](../../server-usage/storage-engines/merge.md) storage engines, the following are also included with MariaDB Source and Binary packages:
+
+* [ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/columnstore), a column oriented storage engine optimized for Data warehousing.
+* [MyRocks](../../server-usage/storage-engines/myrocks/README.md), a storage engine with great compression, in 10.2
+* [Aria](../../server-usage/storage-engines/aria/README.md), MyISAM replacement with better caching.
+* [FederatedX](../../server-usage/storage-engines/federatedx-storage-engine/README.md) (drop-in replacement for Federated)
+* [OQGRAPH](../../server-usage/storage-engines/oqgraph-storage-engine/README.md) (In [MariaDB 5.2](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2) and later. Disabled in [MariaDB 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) only.)
+* [SphinxSE](../../server-usage/storage-engines/sphinx-storage-engine/README.md) (In [MariaDB 5.2](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2) and later)
+* [CONNECT](../../server-usage/storage-engines/connect/README.md) in [MariaDB 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) and later.
+* [SEQUENCE](../../server-usage/storage-engines/sequence-storage-engine.md) in [MariaDB 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) and later.
+* [Spider](../../server-usage/storage-engines/spider/README.md) in [MariaDB 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) and later.
+* TokuDB (In [MariaDB 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) and later, removed in 10.6)
+* Cassandra (In [MariaDB 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0), removed in 10.6)
+
+#### Speed Improvements
+
+* MariaDB now provides much faster privilege checks for setups with many user accounts or many database
+* The new [FLUSH SSL](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) command allows SSL certificates to be reloaded without restarting the server
+* Many optimizer enhancements in [MariaDB 5.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3). [Subqueries](../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/subqueries/README.md) are now finally usable.\
+  The complete list and a comparison with MySQL is [here](optimizer-feature-comparison-matrix.md). A benchmark can be found [here](https://mariadb.com/blog/mariadb-53-optimizer-benchmark).
+* Faster and safer replication:[Group commit for the binary log](../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md). This makes many setups that use replication and lots of updates [more than 2x times faster](https://www.facebook.com/note.php?note_id=10150211546215933).
+* [Parallel replication](../../ha-and-performance/standard-replication/parallel-replication.md) — new in 10.0
+* Improvements for InnoDB asynchronous IO subsystem on Windows.
+* Indexes for the [MEMORY(HEAP)](../../server-usage/storage-engines/memory-storage-engine.md) engine are faster. According to a simple test, 24% faster on INSERT for integer index and 60% faster for index on a CHAR(20) column. Fixed in [MariaDB 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) and MySQL 5.7.
+* [Segmented Key Cache](../../ha-and-performance/optimization-and-tuning/system-variables/segmented-key-cache.md) for MyISAM. Can speed up MyISAM tables with up to 4x\
+  — new in 5.2
+* [Adjustable hash size](../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_cache_file_hash_size) for MyISAM and Aria. This can greatly improve shutdown time (from hours to minutes) if using a lot of MyISAM/Aria tables with delayed keys — new in 10.0.13
+* [CHECKSUM TABLE](../../reference/sql-statements/table-statements/checksum-table.md) is faster.
+* We improved the performance of character set conversions (and removed conversions when they were not really needed). Overall speed improvement is 1-5 % (according to sql-bench) but can be higher for big result sets with all characters between 0x00-0x7f.
+* Pool of Threads in MariaDB 5.1 and even better in [MariaDB 5.5](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb.md). This allows MariaDB to run with 200,000+ connections and with a notable speed improvement when using many connections.
+* Several speed improvements when a client connects to MariaDB. Many of the improvements were done in [MariaDB 10.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) and [MariaDB 10.2](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102).
+* There are some improvements to the DBUG code to make its execution faster when debug is compiled in but not used.
+* Our use of the Aria storage engine enables faster complex queries (queries which normally use disk-based temporary tables). The [Aria](../../server-usage/storage-engines/aria/README.md) storage engine is used for internal temporary tables, which should give a speedup when doing complex selects. Aria is usually faster for temporary tables when compared to MyISAM because Aria caches row data in memory and normally doesn't have to write the temporary rows to disk. The test suite has been extended and now runs much faster than before, even though it tests more things.
+
+#### Extensions & New Features
+
+We've added a lot of new features to MariaDB. If a patch or feature is useful, safe, and stable — we make every effort to include it in MariaDB. The most notable features are:
+
+* Support introduced for [System-versioned tables](../../reference/sql-structure/temporal-tables/system-versioned-tables.md). Allows queries to access both current and historic data, aiding in managing retention, analysis and point-in-time recovery. — new in 10.3
+* [ALTER TABLE... DROP COLUMN](../../reference/sql-statements/data-definition/alter/alter-table/README.md#drop-column) can now run as Instant operations. Can also now change the ordering of columns. — new in 10.4
+* Support introduced for password expiration, using the [user password expiry](../../security/user-account-management/user-password-expiry.md) — new in 10.4
+* In order to support the use of multiple authentication plugins for a single user, the [mysql.user](../../reference/system-tables/the-mysql-database-tables/mysql-user-table.md) system table has been retired in favor of the [mysql.glob\_priv](../../reference/system-tables/the-mysql-database-tables/mysql-global_priv-table.md) system table. — new in 10.4
+* The [unix\_socket authentication plugin](../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) is now the default on Unix-like systems. This represents a major change to authentication in MariaDB — new in 10.4
+* Support introduced for [Optimizer Trace](../../ha-and-performance/optimization-and-tuning/query-optimizer/optimizer-trace/README.md), which provides detailed information on how the Optimizer processes queries. To enable Optimizer Trace, set the [optimizer\_trace](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#optimizer_trace) system variable — new in 10.4
+* The MariaDB SQL/PL stored procedure dialect (enabled with [sql\_mode=ORACLE](sql_modeoracle.md)) now supports Oracle style packages. Support for the following statements are available: [CREATE PACKAGE](../../reference/sql-statements/data-definition/create/create-package.md), [CREATE PACKAGE BODY](../../reference/sql-statements/data-definition/create/create-package-body.md), [DROP PACKAGE](../../reference/sql-statements/data-definition/drop/drop-package.md), [DROP PACKAGE BODY](../../reference/sql-statements/data-definition/drop/drop-package-body.md), [SHOW CREATE PACKAGE](../../reference/sql-statements/administrative-sql-statements/show/show-create-package.md), [SHOW CREATE PACKAGE BODY](../../reference/sql-statements/administrative-sql-statements/show/show-create-package-body.md) — new in 10.3
+* Automatic collection of [Engine Independent Table Statistics](../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/engine-independent-table-statistics.md) — new in 10.4
+* Support for the use of parentheses (brackets) for specifying precedence in the ordering of execution for [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md) statements and [Table Value Operations](../../reference/sql-statements/data-manipulation/selecting-data/set-operations/precedence-control-in-table-operations.md), (including the use of [UNION](../../reference/sql-statements/data-manipulation/selecting-data/set-operations/union.md), [EXCEPT](../../reference/sql-statements/data-manipulation/selecting-data/set-operations/except.md), [INTERSECT](../../reference/sql-statements/data-manipulation/selecting-data/set-operations/intersect.md) operations) — new in 10.4
+* Support for [anchored data types](../../reference/sql-statements/programmatic-compound-statements/declare-variable.md#type-of-row-type-of) added to local stored procedure variables. — new in 10.3
+* Support added for [Stored Aggregate](../../server-usage/stored-routines/stored-functions/stored-aggregate-functions.md) functions — new in 10.3
+* Oracle compatible [SUBSTR()](../../reference/sql-functions/string-functions/substring.md) function is available — new in 10.3
+* Oracle compatible SEQUENCE support is provided — new in 10.3
+* Support for [anchored data types](../../reference/sql-statements/programmatic-compound-statements/declare-variable.md#type-of-row-type-of) added to [stored routine](../../server-usage/stored-routines/stored-procedures/README.md) variables — new in 10.3
+* Support for [anchored data types](../../reference/sql-statements/programmatic-compound-statements/declare-variable.md#type-of-row-type-of) added to stored routine parameters — new in 10.3
+* [Cursors](../../reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors/cursor-overview.md) with parameters are now supported — new in 10.3
+* [INVISIBLE columns](../../reference/sql-statements/data-definition/create/invisible-columns.md) are now supported — new in 10.3
+* [Instant ADD COLUMN](../../server-usage/storage-engines/innodb/innodb-online-ddl/instant-add-column-for-innodb.md) is now available for InnoDB — new in 10.3
+* [Window functions](../../reference/sql-functions/special-functions/window-functions/README.md) are supported — new in 10.2
+* Number of supported decimals in [DECIMAL](../../reference/data-types/numeric-data-types/decimal.md) has increased from `30` to `38` — new in 10.2
+* [Recursive Common Table Expressions](../../reference/sql-statements/data-manipulation/selecting-data/common-table-expressions/recursive-common-table-expressions-overview.md) — new in 10.2
+* New [WITH](../../reference/sql-statements/data-manipulation/selecting-data/common-table-expressions/with.md) statement. `WITH` is a common table expression that allows one to refer to a subquery expression many times in a query — new in 10.2
+* [CHECK CONSTRAINT](../../reference/sql-statements/data-definition/constraint.md) — new in 10.2
+* [DEFAULT expression](../../reference/sql-statements/data-definition/create/create-table.md), including `DEFAULT` for `BLOB` and `TEXT` — new in 10.2
+* Added catchall for [list partitions](../../server-usage/partitioning-tables/partitioning-types/list-partitioning-type.md) — new in 10.2
+* Oracle-style [EXECUTE IMMEDIATE](../../reference/sql-statements/prepared-statements/execute-immediate.md) statement — new in 10.2
+* Several new [JSON functions](../../reference/sql-functions/special-functions/json-functions/README.md) — new in 10.2
+* [Microsecond Precision in Processlist](../../reference/system-tables/information-schema/time_ms-column-in-information_schemaprocesslist.md)
+* [Table Elimination](../../ha-and-performance/optimization-and-tuning/query-optimizations/table-elimination/README.md)
+* [Virtual Columns](../../reference/sql-statements/data-definition/create/generated-columns.md) — new in 5.2
+* [Microseconds in MariaDB](../../reference/sql-functions/date-time-functions/microseconds-in-mariadb.md) — new in 5.3
+* [Extended User Statistics](../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) — new in 5.2
+* [KILL all queries for a user](../../reference/sql-statements/administrative-sql-statements/kill.md) — new in 5.3,
+* [KILL QUERY ID - terminates the query by query\_id, leaving the connection intact](../../reference/sql-statements/administrative-sql-statements/kill.md) — new in 10.0.5,
+* [Pluggable Authentication](../../reference/plugins/authentication-plugins/pluggable-authentication-overview.md) — new in 5.2
+* [Storage-engine-specific CREATE TABLE](../../reference/product-development/plugin-development/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md) — new in 5.2
+* [Enhancements to INFORMATION SCHEMA.PLUGINS table](../../reference/system-tables/information-schema/information-schema-tables/plugins-table-information-schema.md) — new in 5.2
+* [Group commit for the binary log](../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md). This makes [replication notably faster!](https://www.facebook.com/note.php?note_id=10150261692455933) — new in 5.3
+* Added `--rewrite-db` [mysqlbinlog](../../clients-and-utilities/logging-tools/mariadb-binlog/README.md) option to change the used database — new in 5.2
+* [Progress reporting](../../reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting.md) for [ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/README.md) and [LOAD DATA INFILE](../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) — new in 5.3
+* Faster [joins and subqueries](../../reference/sql-statements/data-manipulation/selecting-data/set-operations/README.md) — new in 5.3
+* [HandlerSocket](../../reference/sql-structure/nosql/handlersocket/README.md) and faster [HANDLER](../../reference/sql-structure/nosql/handler/README.md) calls — new in 5.3
+* [Dynamic Columns](../../reference/sql-structure/nosql/dynamic-columns.md) support — new in 5.3
+* [GIS Functionality](../../reference/sql-structure/geometry/README.md) — new in 5.3
+* [Multi-source replication](../../ha-and-performance/standard-replication/multi-source-replication.md) — new in 10.0
+* [Global Transaction ID](../../ha-and-performance/standard-replication/gtid/README.md) — new in 10.0
+* [SHOW EXPLAIN](../../reference/sql-statements/administrative-sql-statements/show/show-explain.md) gives the EXPLAIN plan for a query running in another thread. — new in 10.0
+* [Roles](../../security/user-account-management/roles/README.md) — new in 10.0
+* [PCRE Regular Expressions](../../reference/sql-functions/string-functions/regular-expressions-functions/pcre.md) (including [REGEXP\_REPLACE()](../../reference/sql-functions/string-functions/regular-expressions-functions/regexp_replace.md)) — new in 10.0
+* [CREATE OR REPLACE](../../reference/sql-statements/data-definition/create/create-table.md#create-or-replace)
+* [DELETE ... RETURNING](../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) — new in 10.0
+* MariaDB [supports more collations](../../reference/data-types/string-data-types/character-sets/supported-character-sets-and-collations.md) than MySQL.
+
+For a full list, please see features for each release
+
+#### Better Testing
+
+* More tests in the test suite.
+* Bugs in tests fixed.
+* Test builds with different configure options to get better feature testing.
+* Remove invalid tests. (e.g. don't test feature ''X'' if that feature is not in the tested build)
+
+#### Fewer Warnings and Fewer Bugs
+
+* Bugs are bad. Fix as many bugs as possible and try to not introduce new ones.
+* Compiler warnings are also bad. Eliminate as many compiler warnings as possible.
+
+#### Truly Open Source
+
+* All code in MariaDB is released under GPL, LGPL or BSD.
+* MariaDB does not have closed source modules like the ones that can be found in MySQL Enterprise Edition. In fact, all the closed source features in MySQL 5.5 Enterprise Edition are found in the MariaDB open source version.
+* MariaDB client libraries (for C, for Java (JDBC), for Windows (ODBC)) are released under LGPL to allow linking with closed source software. MySQL client libraries are released under GPL that does not allow linking with closed source software.
+* MariaDB includes test cases for all fixed bugs. Oracle doesn't provide test cases for new bugs fixed in MySQL 5.5.
+* All [bugs](https://jira.mariadb.org) and development plans are public.
+* MariaDB is developed by the community in true open source spirit.
+
+#### Related Links
+
+* [Compatibility between MariaDB and MySQL](mariadb-vs-mysql-compatibility.md)
+* [Moving from MySQL](../../server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/README.md)
+* [Troubleshooting Installation Issues](../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/README.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formid="4316" formId="4316" %}
