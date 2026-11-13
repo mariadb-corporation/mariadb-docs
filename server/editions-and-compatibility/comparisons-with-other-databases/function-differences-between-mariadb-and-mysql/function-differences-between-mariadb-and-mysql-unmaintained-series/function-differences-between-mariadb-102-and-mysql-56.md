@@ -1,6 +1,6 @@
 # Function Differences Between MariaDB 10.2 and MySQL 5.6
 
-The following is a list of all function differences between [MariaDB 10.2]({release-notes}/community-server/old-releases/10.2/what-is-mariadb-102) and MySQL 5.6. It is based on functions available in the stable version [MariaDB 10.2.25]({release-notes}/community-server/old-releases/10.2/10.2.25).
+The following is a list of all function differences between [MariaDB 10.2](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) and MySQL 5.6. It is based on functions available in the stable version [MariaDB 10.2.25](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.25).
 
 ## Present in MariaDB Only
 
