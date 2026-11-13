@@ -16,9 +16,19 @@ GridGain's Spring Data integration is based on Spring Data JDBC, not Spring Data
 
 ## Prerequisites
 
+{% tabs %}
+{% tab title="9.2" %}
+- Java 21 or higher
+- Spring Boot 3.0 or higher
+- Spring Data JDBC 3.0 or higher
+{% endtab %}
+
+{% tab title="9.1" %}
 - Java 17 or higher
 - Spring Boot 3.0 or higher
 - Spring Data JDBC 3.0 or higher
+{% endtab %}
+{% endtabs %}
 
 ## Limitations
 

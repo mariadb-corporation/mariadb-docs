@@ -12,12 +12,25 @@ GridGain provides Spring Boot integration through auto-configuration, making it 
 
 ## Prerequisites
 
+{% tabs %}
+{% tab title="9.2" %}
+- Java 21 or higher
+- Spring Boot 3.0 or higher
+  {% hint style="info" %}
+  Spring Data 4 is not supported.
+  {% endhint %}
+- A running GridGain 9 cluster
+{% endtab %}
+
+{% tab title="9.1" %}
 - Java 17 or higher
 - Spring Boot 3.0 or higher
   {% hint style="info" %}
   Spring Data 4 is not supported.
   {% endhint %}
 - A running GridGain 9 cluster
+{% endtab %}
+{% endtabs %}
 
 ## Maven Configuration
 

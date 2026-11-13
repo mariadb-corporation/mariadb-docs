@@ -31,6 +31,12 @@ The information about versioning and lifecycle of GridGain 9 is available on the
 
 ## Docker Image Variants
 
+{% tabs %}
+{% tab title="9.2" %}
+GridGain 9.2 Docker images use *JDK 21*, which is the minimum Java version for GridGain 9.2. The same applies to the CLI image (`gridgain/gridgain9-cli`).
+{% endtab %}
+
+{% tab title="9.1" %}
 GridGain 9 Docker images are available in several variants based on different JDK versions. The default image (`gridgain/gridgain9:latest`, or a version tag such as `gridgain/gridgain9:9.1.28`) uses *JDK 25*. If you need a specific JDK version, add the JDK suffix to the version tag:
 
 | Tag | JDK Version | Support Type |
@@ -48,6 +54,8 @@ The same version and JDK tags are available for the CLI image (`gridgain/gridgai
 {% hint style="info" %}
 GridGain follows the JDK release cadence for short-term support (STS) versions: only the most recent STS image is built and shipped. When the next STS release becomes available, the previous STS image is retired. Long-term support (LTS) images are not affected by this policy.
 {% endhint %}
+{% endtab %}
+{% endtabs %}
 
 ## Running a Node
 
