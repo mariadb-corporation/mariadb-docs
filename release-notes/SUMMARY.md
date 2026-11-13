@@ -3031,6 +3031,7 @@
     * [GridGain 8.10.0 Release Notes](gridgain-8/8.10.0/release-notes_8.10.0.md)
     * [GridGain 8.10.0-b1 Release Notes](gridgain-8/8.10.0-b1/release-notes_8.10.0-b1.md)
   * [GridGain 8.9](gridgain-8/8.9/README.md)
+    * [GridGain 8.9.40 Release Notes](gridgain-8/8.9.40/release-notes_8.9.40.md)
     * [GridGain 8.9.39 Release Notes](gridgain-8/8.9.39/release-notes_8.9.39.md)
     * [GridGain 8.9.38 Release Notes](gridgain-8/8.9.38/release-notes_8.9.38.md)
     * [GridGain 8.9.37 Release Notes](gridgain-8/8.9.37/release-notes_8.9.37.md)
