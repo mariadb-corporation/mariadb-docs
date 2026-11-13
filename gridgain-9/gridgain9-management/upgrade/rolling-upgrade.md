@@ -24,23 +24,32 @@ While an upgrade is in progress, the cluster rejects cluster-wide configuration 
 
 ### Schema Changes and DDL Are Blocked
 
-While an upgrade is in progress, the cluster rejects all schema-modifying DDL: `CREATE TABLE`, `ALTER TABLE`, `DROP TABLE`, index changes, distribution-zone changes, and similar statements. Read and DML operations (`SELECT`, `INSERT`, `UPDATE`, `DELETE`) continue to work normally. DDL is accepted again after the upgrade is committed or cancelled.
+While an upgrade is in progress, the cluster rejects all schema-modifying DDL: `CREATE TABLE`, `ALTER TABLE`, `DROP TABLE`, index changes, distribution-zone changes, and similar statements. Read and DML operations (`SELECT`, `INSERT`, `UPDATE`, `DELETE`) continue to work, with the exceptions described in [SQL Queries on Older Nodes Fail](#sql-queries-on-older-nodes-fail). DDL is accepted again after the upgrade is committed or cancelled.
+
+### SQL Queries on Older Nodes Fail
+
+While an upgrade from 9.0 or 9.1 to 9.2 is in progress, a SQL query fails immediately if it has to run on a node that is on a different version than the node that received the query. This happens in both directions.
+
+Simple statements still work: lookups, updates, and deletes by the full primary key, single-row inserts, and `SELECT COUNT(*)` on a whole table.
+
+For example, `SELECT * FROM test_tbl WHERE id = 5` works, because `id` is the primary key.
+`SELECT * FROM test_tbl WHERE val = 5` filters on a different column, so it must read from several nodes. If you run it on a 9.2 node while `node2` is still on 9.1, it fails with the following error:
+
+```text
+IGN-SQL-8: The query was mapped onto node 'node2' which runs version 9.1.29 and does not support latest query execution protocol, wait for the rolling upgrade to finish and retry the query
+```
+
+Running the same query through the older node fails with the following error:
+
+```text
+IGN-CMN-65535: Legacy query start protocol is no longer supported, the sending node must be upgraded
+```
+
+Retry the query after all nodes are upgraded.
 
 ### Rolling Upgrade and PITR Are Mutually Exclusive
 
 A rolling upgrade and a point-in-time recovery (PITR) cannot run concurrently. Once a rolling upgrade has started, attempts to start PITR fail with an error naming the conflicting operation, and vice versa. The block is released when the upgrade is committed or cancelled.
-
-### Mandatory Versions Cannot Be Skipped
-
-A mandatory version carries changes that later versions rely on, so a rolling upgrade cannot skip it. A patch release of a mandatory version counts as that version.
-
-If an upgrade from the version the rolling upgrade started from to the version of a joining node skips a mandatory version, the node cannot join the cluster. The error names the mandatory version. To continue, start the node on the version the upgrade started from, cancel the rolling upgrade, and upgrade the cluster to the mandatory version first.
-
-This check does not apply to an offline upgrade, where all nodes are stopped.
-
-{% hint style="info" %}
-GridGain 9.2 has no mandatory versions.
-{% endhint %}
 
 ## Rolling Upgrade Procedure
 
