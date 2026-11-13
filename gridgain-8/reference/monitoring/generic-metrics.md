@@ -916,6 +916,7 @@ Register name: `dr.sender.dc<ID>.<cacheName>`
 |EntriesError|long|Number of sent entries that caused an error.|Node|
 |BytesError|long|Number of sent bytes that caused an error.|Node|
 |AverageBatchAckTime|double|Total time in milliseconds between sending batches for the first time and receiving acknowledgment.|Node|
+|OldestUnacknowledgedBatchAge|long|Age in milliseconds of the oldest batch sent to the receiver hubs and not acknowledged yet, counted from the first send and kept across reconnects. `0` if there are none. A growing value means the sender storage cannot be cleaned up. Available in 8.9.40 and later 8.9 releases.|Node|
 
 ### Cache Metrics
 
