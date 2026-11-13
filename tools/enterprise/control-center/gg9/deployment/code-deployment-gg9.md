@@ -4,7 +4,7 @@ description: >-
   GridGain 9 compute tasks from Control Center.
 ---
 
-# Code Deployment with GridGain 9
+# Code Deployment
 
 You may want to deploy compute tasks to your GridGain nodes using Control Center. For example, you often need many dependencies to complete distributed computing tasks.
 
@@ -32,13 +32,11 @@ Then click **Add Artifact**. In the subsequent dialog, you have three options:
 
 ![Add artefact](../../../../.gitbook/assets/cc-gg9-du_add_artifact.png)
 
-- **Uploaded artifact** - upload a new file from your local system. Files uploaded from your system will also appear in the **Sources** [tab](#sources), you can search and select artifacts.
-- **Direct link** - provide the direct URL for the dependency.
-- **ZIP archive** - upload a ZIP file directly as an artifact. Selecting this option opens a dedicated upload dialog instead of the native OS file picker. Control Center unpacks the archive and registers each entry as a separate artifact within the deployment unit. This option is useful when your compute task and all its dependencies are already bundled together in a single archive.
+* **Uploaded artifact** - upload a new file from your local system. Files uploaded from your system will also appear in the **Sources** [tab](code-deployment-gg9.md#sources), you can search and select artifacts.
+* **Direct link** - provide the direct URL for the dependency.
+*   **ZIP archive** - upload a ZIP file directly as an artifact. Selecting this option opens a dedicated upload dialog instead of the native OS file picker. Control Center unpacks the archive and registers each entry as a separate artifact within the deployment unit. This option is useful when your compute task and all its dependencies are already bundled together in a single archive.
 
-  {% hint style="info" %}
-  A deployment unit can contain at most one ZIP archive. Once a ZIP artifact has been added, the **Add Artifact** button is disabled until the ZIP is removed.
-  {% endhint %}
+    <div data-gb-custom-block data-tag="hint" data-style="info" class="hint hint-info"><p>A deployment unit can contain at most one ZIP archive. Once a ZIP artifact has been added, the <strong>Add Artifact</strong> button is disabled until the ZIP is removed.</p></div>
 
 ![Add artefact](../../../../.gitbook/assets/cc-gg9-du_add_file.png)
 
@@ -52,7 +50,7 @@ When deploying a unit, you select either all nodes or a majority as the initial 
 
 ![Deploy unit](../../../../.gitbook/assets/cc-gg9-du_deploy.png)
 
-You can view the version history in a separate [tab](#version-history) accessible from the **Deployment Units list**.
+You can view the version history in a separate [tab](code-deployment-gg9.md#version-history) accessible from the **Deployment Units list**.
 
 ### Updating Deployment Unit
 
@@ -72,7 +70,7 @@ You cannot **Clone** or **Clone and Deploy** units that were deployed via the CL
 
 ### Pre-deployed Unit
 
-A GridGain 9 cluster includes one built-in deployment unit with GridGain 8 libraries that the nodes need for Change Data Capture (CDC) replication to a GridGain 8 cluster. For more information, see [Change Data Capture](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-management/backup-and-replication/change-data-capture).
+A GridGain 9 cluster includes one built-in deployment unit with GridGain 8 libraries that the nodes need for Change Data Capture (CDC) replication to a GridGain 8 cluster. For more information, see [Change Data Capture](https://app.gitbook.com/s/oHbGEk22iR73P3x6DryR/gridgain9-management/backup-and-replication/change-data-capture).
 
 ![Pre-deployed deployment unit](../../../../.gitbook/assets/cc-gg9-du_static_unit.png)
 
@@ -96,20 +94,20 @@ Control Center keeps a complete history of all deployment unit versions in the *
 
 The table provides the following information:
 
-| Menu item | Description |
-|---|---|
-| **Version** | Version number. |
-| **Status** | Current version status. Possible version statuses:<br>- `Draft` - A new unit that has not yet been deployed.<br>- `Uploading` - The unit is being deployed to the cluster.<br>- `Deployed` - The unit is currently deployed on the cluster and can be used.<br>- `Obsolete` - The command to remove unit has been received, but it is still used in some jobs.<br>- `Removing` - The unit is being removed. |
-| **Files** | The number of files in the deployment unit. |
-| **Deployed at** | Time and date of the deployment. |
+| Menu item       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Version**     | Version number.                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| **Status**      | <p>Current version status. Possible version statuses:<br>- <code>Draft</code> - A new unit that has not yet been deployed.<br>- <code>Uploading</code> - The unit is being deployed to the cluster.<br>- <code>Deployed</code> - The unit is currently deployed on the cluster and can be used.<br>- <code>Obsolete</code> - The command to remove unit has been received, but it is still used in some jobs.<br>- <code>Removing</code> - The unit is being removed.</p> |
+| **Files**       | The number of files in the deployment unit.                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| **Deployed at** | Time and date of the deployment.                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
 ### Reverting to an older version
 
 If you want to switch to an older version (for example, one of the updated dependencies did not work as expected), you can deploy the previous version.
 
-- Open **Version History**.
-- Select the older version you need.
-- Click **Clone and Deploy**.
+* Open **Version History**.
+* Select the older version you need.
+* Click **Clone and Deploy**.
 
 Control Center will create a new version that copies all dependencies from the selected version.
 
@@ -123,13 +121,13 @@ Sources are cluster-scoped, so the **Uploaded artifacts** table lists only the a
 
 The table includes the following columns:
 
-| Column | Description |
-|---|---|
-| **File name** | The artifact file name. |
-| **Archive** | Whether the artifact was uploaded as a ZIP archive (`Yes`/`No`). |
-| **Size** | The file size. |
-| **Created at** | Date and time the artifact was uploaded. |
-| **Dependents count** | The number of deployment units that reference this artifact. |
+| Column               | Description                                                      |
+| -------------------- | ---------------------------------------------------------------- |
+| **File name**        | The artifact file name.                                          |
+| **Archive**          | Whether the artifact was uploaded as a ZIP archive (`Yes`/`No`). |
+| **Size**             | The file size.                                                   |
+| **Created at**       | Date and time the artifact was uploaded.                         |
+| **Dependents count** | The number of deployment units that reference this artifact.     |
 
 To work with several artifacts at once, select them using the checkboxes in the first column, or select all of them using the checkbox in the table header.
 
@@ -139,8 +137,8 @@ To add a new artifact, click **Add file**. Control Center opens its own **Add fi
 
 In the dialog, choose what you want to upload:
 
-- **File** - one or more regular files, such as JAR files or scripts.
-- **ZIP** - a single ZIP archive that bundles your compute task together with its dependencies.
+* **File** - one or more regular files, such as JAR files or scripts.
+* **ZIP** - a single ZIP archive that bundles your compute task together with its dependencies.
 
 Then either drag and drop your files onto the upload area or click **Browse files** and select them. Click **Add** to start the upload.
 
@@ -150,7 +148,7 @@ In **ZIP** mode, Control Center verifies that the file is a valid ZIP archive. I
 An individual artifact cannot exceed 100 MB. If you select several files and some of them are larger, Control Center uploads the remaining ones and reports that the size limit was exceeded.
 {% endhint %}
 
-Once uploaded, an artifact is available to the deployment units of this cluster. To use it, add it to a deployment unit as an **Uploaded artifact** - see [Creating a New Deployment Unit](#creating-a-new-deployment-unit).
+Once uploaded, an artifact is available to the deployment units of this cluster. To use it, add it to a deployment unit as an **Uploaded artifact** - see [Creating a New Deployment Unit](code-deployment-gg9.md#creating-a-new-deployment-unit).
 
 ### Checking Dependent List
 
@@ -162,7 +160,7 @@ To see all deployment units that use a specific artifact, click ⋮ and select *
 
 To delete an artifact, click ⋮ and select **Remove**. If you selected several artifacts beforehand, **Remove** applies to the whole selection, and the confirmation dialog reports how many of the selected artifacts have dependents and how many do not.
 
-Artifacts that have dependents cannot be removed. You must delete the dependent deployment units first - see [Checking Dependent List](#checking-dependent-list) to find them.
+Artifacts that have dependents cannot be removed. You must delete the dependent deployment units first - see [Checking Dependent List](code-deployment-gg9.md#checking-dependent-list) to find them.
 
 ![Delete artifact](../../../../.gitbook/assets/cc-gg9-du_delete_artifact.png)
 

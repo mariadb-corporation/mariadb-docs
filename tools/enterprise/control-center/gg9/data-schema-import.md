@@ -10,17 +10,17 @@ The **Data and Schema Import** feature lets you migrate database schemas and dat
 
 You can open **Import Schema**/**Import Data** from:
 
-- The **Import schemas** menu [option](#managing-imported-schemas), accessible via the user profile menu.
-- The **Queries** [screen](queries/querying-gg9.md) — via the **Import Schema**/**Import Data** action button.
+* The **Import schemas** menu [option](data-schema-import.md#managing-imported-schemas), accessible via the user profile menu.
+* The **Queries** [screen](queries/querying-gg9.md) — via the **Import Schema**/**Import Data** action button.
 
 The import process consists of up to six steps:
 
-1. [Connection](#connection)
-2. [Schema Selection](#schema-selection)
-3. [Table Settings](#table-settings)
-4. [Column Settings](#column-settings)
-5. [Data Import](#data-import)
-6. [Overview](#overview)
+1. [Connection](data-schema-import.md#connection)
+2. [Schema Selection](data-schema-import.md#schema-selection)
+3. [Table Settings](data-schema-import.md#table-settings)
+4. [Column Settings](data-schema-import.md#column-settings)
+5. [Data Import](data-schema-import.md#data-import)
+6. [Overview](data-schema-import.md#overview)
 
 {% hint style="success" %}
 You can open **Data Import** directly from the **Queries** screen without going through the schema setup steps. Do this when the target tables already exist in the GridGain cluster and you only need to load or reload data.
@@ -38,21 +38,21 @@ Select the **Control Center Connector** through which the connection to the clus
 
 Choose the type of source system:
 
-- **JDBC** — for relational databases such as PostgreSQL, MySQL, MariaDB, and other JDBC-compatible databases.
-- **Apache Iceberg** — for Iceberg tables accessed via a REST or JDBC catalog.
+* **JDBC** — for relational databases such as PostgreSQL, MySQL, MariaDB, and other JDBC-compatible databases.
+* **Apache Iceberg** — for Iceberg tables accessed via a REST or JDBC catalog.
 
 ### JDBC Connection
 
-![Connection step — JDBC](../../../.gitbook/assets/cc-gg9-import-step1-jdbc.png)
+![Connection step — JDBC](../../../.gitbook/assets/cc-gg8-import-step1-jdbc.png)
 
 When **JDBC** is selected, provide the following:
 
-| Field | Description |
-|---|---|
-| Driver JAR | Select a preloaded driver JAR from the list, or upload a custom one. |
-| Driver class | The JDBC driver class name. Populated automatically when a known driver is selected. |
-| JDBC URI | The JDBC connection string for the source database (for example, `jdbc:mysql://localhost:3307`). |
-| Username / Password | Optional credentials for the source database. Passwords are never stored by Control Center. |
+| Field               | Description                                                                                      |
+| ------------------- | ------------------------------------------------------------------------------------------------ |
+| Driver JAR          | Select a preloaded driver JAR from the list, or upload a custom one.                             |
+| Driver class        | The JDBC driver class name. Populated automatically when a known driver is selected.             |
+| JDBC URI            | The JDBC connection string for the source database (for example, `jdbc:mysql://localhost:3307`). |
+| Username / Password | Optional credentials for the source database. Passwords are never stored by Control Center.      |
 
 {% hint style="info" %}
 Preloaded JDBC drivers are provided for MariaDB, MySQL and PostgreSQL. When using a custom driver, ensure the `connector.schema-import.jdbc-drivers` configuration property points to the directory containing the JAR file.
@@ -66,20 +66,20 @@ If the connection test fails, an error is shown in the right-side **Summary** pa
 
 When **Apache Iceberg** is selected, choose the catalog type:
 
-- **JDBC** — connect via a JDBC-backed Iceberg catalog.
-- **REST** — connect via an Iceberg REST catalog endpoint.
+* **JDBC** — connect via a JDBC-backed Iceberg catalog.
+* **REST** — connect via an Iceberg REST catalog endpoint.
 
-![Connection step — Apache Iceberg REST](../../../.gitbook/assets/cc-gg9-import-step1-iceberg.png)
+![Connection step — Apache Iceberg REST](../../../.gitbook/assets/cc-gg8-import-step1-iceberg.png)
 
 For REST catalogs, provide the following:
 
-| Field | Description |
-|---|---|
-| REST URI | The base URL of the Iceberg REST catalog (for example, `http://localhost:8181`). |
-| Warehouse path | Path to the Iceberg warehouse (for example, `s3://iceberg.warehouse`). |
-| Catalog name | The name of the catalog to connect to. |
-| IO implementation | The FileIO implementation to use: **HadoopFileIO** or **S3FileIO**. |
-| Username / Password | Optional credentials. Passwords are never stored. |
+| Field               | Description                                                                      |
+| ------------------- | -------------------------------------------------------------------------------- |
+| REST URI            | The base URL of the Iceberg REST catalog (for example, `http://localhost:8181`). |
+| Warehouse path      | Path to the Iceberg warehouse (for example, `s3://iceberg.warehouse`).           |
+| Catalog name        | The name of the catalog to connect to.                                           |
+| IO implementation   | The FileIO implementation to use: **HadoopFileIO** or **S3FileIO**.              |
+| Username / Password | Optional credentials. Passwords are never stored.                                |
 
 Click **Test Connection** to verify the Iceberg catalog is reachable before proceeding.
 
@@ -94,7 +94,7 @@ After a successful connection, Control Center lists all schemas and tables avail
 At least one schema and one table must be selected to proceed.
 {% endhint %}
 
-![Schema Selection step](../../../.gitbook/assets/cc-gg9-import-step2-tables.png)
+![Schema Selection step](../../../.gitbook/assets/cc-gg8-import-step2-tables.png)
 
 The imported schema will be loaded into one of the existing GridGain 9 clusters.
 
@@ -110,15 +110,15 @@ Select the GridGain 9 cluster into which the schema will be imported. Only clust
 
 If a schema with the same name already exists in the target cluster, select how to proceed:
 
-- **Merge with existing schema** is set by default. When selected, the imported tables are added to the existing schema. Existing tables and data are not affected.
+*   **Merge with existing schema** is set by default. When selected, the imported tables are added to the existing schema. Existing tables and data are not affected.
 
-  ![Conflict Resolution](../../../.gitbook/assets/cc-gg9-import-step3-conflict-resolve-merge.png)
-- When **Rename schema** is selected, the imported schema is renamed by adding a configurable prefix and/or suffix, avoiding any conflict with the existing schema.
+    ![Conflict Resolution](../../../.gitbook/assets/cc-gg8-import-step3-conflict-resolve-merge.png)
+*   When **Rename schema** is selected, the imported schema is renamed by adding a configurable prefix and/or suffix, avoiding any conflict with the existing schema.
 
-  ![Table Settings step — rename conflict resolution](../../../.gitbook/assets/cc-gg9-import-step3-conflict-resolve-rename.png)
-- When **Drop and recreate** is selected, note that **all existing data will be lost**:
+    ![Table Settings step — rename conflict resolution](../../../.gitbook/assets/cc-gg9-import-step3-conflict-resolve-rename.png)
+*   When **Drop and recreate** is selected, note that **all existing data will be lost**:
 
-  ![Table Settings step — drop and recreate conflict resolution](../../../.gitbook/assets/cc-gg9-import-step3-conflict-resolve-drop.png)
+    ![Table Settings step — drop and recreate conflict resolution](../../../.gitbook/assets/cc-gg9-import-step3-conflict-resolve-drop.png)
 
 ### Per-Table Storage Configuration
 
@@ -126,14 +126,14 @@ Expand any table row to configure GridGain-specific storage parameters for that 
 
 ![Table Settings step — expanded table row](../../../.gitbook/assets/cc-gg9-import-step3-table-settings.png)
 
-| Parameter | Description |
-|---|---|
-| Primary zone | The main distribution zone for the table. Defines how data partitions are distributed across cluster nodes. |
-| Storage profile (primary zone) | The storage profile of the primary zone, which defines the storage type and performance characteristics (for example, in-memory or persistent). Select a primary zone first. |
-| Secondary zone | An optional backup zone for high availability. Available after you select a primary zone, and cannot be the same as the primary zone. |
-| Storage profile (secondary zone) | The storage profile of the secondary zone. |
-| Primary key | The column(s) used as the primary key in GridGain 9. |
-| Colocation key | The column(s) used to group related records on the same nodes, enabling efficient distributed joins. |
+| Parameter                        | Description                                                                                                                                                                  |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Primary zone                     | The main distribution zone for the table. Defines how data partitions are distributed across cluster nodes.                                                                  |
+| Storage profile (primary zone)   | The storage profile of the primary zone, which defines the storage type and performance characteristics (for example, in-memory or persistent). Select a primary zone first. |
+| Secondary zone                   | An optional backup zone for high availability. Available after you select a primary zone, and cannot be the same as the primary zone.                                        |
+| Storage profile (secondary zone) | The storage profile of the secondary zone.                                                                                                                                   |
+| Primary key                      | The column(s) used as the primary key in GridGain 9.                                                                                                                         |
+| Colocation key                   | The column(s) used to group related records on the same nodes, enabling efficient distributed joins.                                                                         |
 
 Tables with configuration issues are highlighted. The **Summary** panel on the right shows the total number of fields with problems. Resolve all required issues before proceeding.
 
@@ -149,14 +149,14 @@ Review and adjust the mapping of source columns to GridGain column definitions.
 
 Each table can be expanded to inspect its columns. For each column you can modify:
 
-| Field | Description |
-|---|---|
-| Name | The source column name. This field is read-only. |
-| Original type | The column's data type in the source database — for example, `VARCHAR`, `LONGVARCHAR`, `BIGINT`, or `TIMESTAMP`. This field is read-only. |
-| Type | The target GridGain 9 SQL data type for the column. Control Center maps source types to GridGain types automatically using default rules. Types that cannot be mapped automatically are highlighted in red and must be set manually before proceeding. |
-| Nullable | Whether the column accepts `NULL` values (`YES` or `NO`). |
-| Default value type | The default value applied to the column: `No value`, `NULL`, or `Custom`. When you select `Custom`, enter the value in the **Default value** field. |
-| Length / Precision (optional) | The length for character types or the precision for numeric and temporal types. Leave empty to use the type default shown below the field. |
+| Field                         | Description                                                                                                                                                                                                                                            |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Name                          | The source column name. This field is read-only.                                                                                                                                                                                                       |
+| Original type                 | The column's data type in the source database — for example, `VARCHAR`, `LONGVARCHAR`, `BIGINT`, or `TIMESTAMP`. This field is read-only.                                                                                                              |
+| Type                          | The target GridGain 9 SQL data type for the column. Control Center maps source types to GridGain types automatically using default rules. Types that cannot be mapped automatically are highlighted in red and must be set manually before proceeding. |
+| Nullable                      | Whether the column accepts `NULL` values (`YES` or `NO`).                                                                                                                                                                                              |
+| Default value type            | The default value applied to the column: `No value`, `NULL`, or `Custom`. When you select `Custom`, enter the value in the **Default value** field.                                                                                                    |
+| Length / Precision (optional) | The length for character types or the precision for numeric and temporal types. Leave empty to use the type default shown below the field.                                                                                                             |
 
 Columns with unmapped or incompatible types are highlighted in red and require manual resolution before you can advance to the next step.
 
@@ -164,13 +164,13 @@ Columns with unmapped or incompatible types are highlighted in red and require m
 
 Each table can also be expanded to review its indexes. For each index you can configure:
 
-- **Type** — `Default`, `Sorted`, or `HASH`.
-- **Columns** — the columns included in the index. Reorder them by dragging the handle on the left.
+* **Type** — `Default`, `Sorted`, or `HASH`.
+* **Columns** — the columns included in the index. Reorder them by dragging the handle on the left.
 
 For each column in the index, set:
 
-- **Direction** — the sort order, `ASC` or `DESC`.
-- **Nulls** — the position of `NULL` values: `None`, `NULLS FIRST`, or `NULLS LAST`.
+* **Direction** — the sort order, `ASC` or `DESC`.
+* **Nulls** — the position of `NULL` values: `None`, `NULLS FIRST`, or `NULLS LAST`.
 
 ![Column Settings step — index](../../../.gitbook/assets/cc-gg9-import-step4-column-settings-index.png)
 
@@ -180,17 +180,15 @@ Turn on **Import data after schema is created** at the top of this step to gener
 
 Configure the data import parameters for each table:
 
-- Select the **Import from** format: CSV, Parquet, or Apache Iceberg. When Apache Iceberg is selected, only REST and Glue catalog types are supported.
-- Then select the **Source type**: choose File for a local or mounted path. Choose AWS S3 for a cloud bucket and make sure your warehouse path and credentials are configured.
-- Set the **Source path**: enter the full path to your file. For S3, use the warehouse path format (e.g. `s3://bucket/path/`).
+* Select the **Import from** format: CSV, Parquet, or Apache Iceberg. When Apache Iceberg is selected, only REST and Glue catalog types are supported.
+* Then select the **Source type**: choose File for a local or mounted path. Choose AWS S3 for a cloud bucket and make sure your warehouse path and credentials are configured.
+*   Set the **Source path**: enter the full path to your file. For S3, use the warehouse path format (e.g. `s3://bucket/path/`).
 
-  {% hint style="danger" %}
-  An incorrect path will result in an empty import with no error.
-  {% endhint %}
-- Select the target table.
-- Select columns to import.
+    <div data-gb-custom-block data-tag="hint" data-style="danger" class="hint hint-danger"><p>An incorrect path will result in an empty import with no error.</p></div>
+* Select the target table.
+* Select columns to import.
 
-![Data Import step — source/target](../../../.gitbook/assets/cc-gg9-import-step5-source.png)
+![Data Import step — source/target](../../../.gitbook/assets/cc-gg8-import-step5-source.png)
 
 You can also configure additional parameters if your files use non-standard formatting — such as a custom delimiter, null value, quote character, or escape character. For CSV files, you can also set the batch size, whether to ignore leading spaces or quotations, whether the file has a header row, and whether to use strict quotes. For Parquet files, you can set the batch size and a file name pattern.
 
@@ -204,9 +202,9 @@ This tab displays the generated scripts to review and edit before execution.
 
 From this step you can:
 
-- **Copy** the script to the clipboard.
-- **Download** the script as an `.sql` file for use in future deployments or manual execution.
-- Open the script in **SQL Notebook**: Control Center redirects you to the **Queries** [screen](queries/querying-gg9.md), where this script will be available for editing. After you execute the script, the corresponding tables will be created or updated.
+* **Copy** the script to the clipboard.
+* **Download** the script as an `.sql` file for use in future deployments or manual execution.
+* Open the script in **SQL Notebook**: Control Center redirects you to the **Queries** [screen](queries/querying-gg9.md), where this script will be available for editing. After you execute the script, the corresponding tables will be created or updated.
 
 You can track execution progress and results in the **Queries log** [tab](queries/querying-gg9.md#queries-log). If an error occurs, it will also appear there with detailed logs.
 
@@ -214,7 +212,7 @@ You can track execution progress and results in the **Queries log** [tab](querie
 
 To view and manage all saved import configurations, choose the **Import schemas** menu option in the user profile menu.
 
-![Import schemas menu option](../../../.gitbook/assets/cc-gg9-import-schemas-menu.png)
+![Import schemas menu option](../../../.gitbook/assets/cc-gg8-import-schemas-menu.png)
 
 The screen lists all saved configurations with their name, connection type, dialect, target cluster, and last update date. You can filter the list by name, connection type, dialect, and cluster.
 
@@ -222,10 +220,10 @@ The screen lists all saved configurations with their name, connection type, dial
 
 For each configuration, the row-level context menu provides the following actions:
 
-- **Edit** — reopen the configuration to modify it.
-- **Rename** — rename the configuration.
-- **Open in SQL Notebook** — open the generated script in the [Queries](queries/querying-gg9.md) screen for review or manual execution.
-- **Remove** — delete the configuration.
+* **Edit** — reopen the configuration to modify it.
+* **Rename** — rename the configuration.
+* **Open in SQL Notebook** — open the generated script in the [Queries](queries/querying-gg9.md) screen for review or manual execution.
+* **Remove** — delete the configuration.
 
 To view the generated script and connection details for a configuration, click on a schema name to open the side panel on the right.
 

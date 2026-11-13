@@ -126,6 +126,23 @@ In the "Add Database" page:
 All certificate and key files referenced for server validation or client authentication must be placed in the `enterprise-manager/certs/` directory on the host and referenced with a path beginning with `/certs/`.
 {% endhint %}
 
+### Enterprise Manager and GridGain Control Center connections <a href="#enterprise-manager-and-gridgain-control-center-connections" id="enterprise-manager-and-gridgain-control-center-connections"></a>
+
+When Enterprise Manager is connected to GridGain Control Center, Enterprise Manager, Control Center, the GridGain nodes and the browser connect over HTTPS. Each connection answers two separate questions:
+
+* **Is this the real server?** The server presents its TLS certificate, and the caller checks it against its trust store.
+* **Is this the real caller?** The server checks a signed token, a client secret or a user session.&#x20;
+
+| Connection                                               | How the caller trusts the server                                                                                                                                                                       | How the server trusts the caller                                                                                                                                                                                                                 |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Enterprise Manager → Control Center (cluster list)       | Enterprise Manager trusts the CA file set in **Control Center CA certificate path**. If the field is empty, Enterprise Manager uses the CA list inside its container, which is enough for a public CA. | Enterprise Manager signs a JSON Web Token (JWT) with its private key and sends it with each call. The token is valid for 5 minutes. Control Center checks the signature with Enterprise Manager's public keys from `/jwks`. No password is used. |
+| Control Center → Enterprise Manager (single sign-on)     | Control Center checks Enterprise Manager's certificate against its Java trust store.                                                                                                                   | At `/token`, Control Center signs in as the Enterprise Manager user `cc_sso_service_account`, using the SSO client secret as the password. `/jwks` serves only public keys and needs no sign-in.                                                 |
+| GridGain nodes → Enterprise Manager, port 4318 (metrics) | Each node checks Enterprise Manager's certificate against its Java trust store.                                                                                                                        | The receiver accepts metrics from any client that connects over TLS.                                                                                                                                                                             |
+
+**Reading the cluster list.** Control Center caches Enterprise Manager's public keys for 5 minutes, and fetches them again when a token carries an unknown key ID. Control Center reads the clusters as the account `em-service-user@controlcenter.local`, which it creates when it starts.
+
+**Single sign-on.** When a user clicks **Manage GridGain**, Control Center exchanges a short authorization code, valid for 30 seconds, at Enterprise Manager's `/token`. In return it gets an ID token, signed by Enterprise Manager, that carries the user's email and Control Center role.
+
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

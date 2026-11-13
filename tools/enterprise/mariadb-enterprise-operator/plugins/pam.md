@@ -1,10 +1,10 @@
-# PAM Plugin
+# PAM
 
 The MariaDB `pam` plugin facilitates user authentication by interfacing with the Pluggable Authentication Modules (PAM) framework, enabling diverse and centralized authentication schemes.
 
 The enterprise operator uses this plugin to provide support for:
 
-- **LDAP based authentication**
+* **LDAP based authentication**
 
 ## LDAP
 
@@ -14,13 +14,10 @@ This guide outlines the process of configuring MariaDB to authenticate users aga
 
 To enable LDAP authentication for MariaDB through PAM, several components work in tandem:
 
-- **PAM (Pluggable Authentication Modules)**: A framework used by Linux and other UNIX-like systems to consolidate authentication tasks. Applications like MariaDB can use PAM to authenticate users without needing to understand the underlying authentication mechanism. Operations such as system login, screen unlocking, and sudo access commonly use PAM.
-
-- **nss-pam-ldapd**: This is the software package that provides the necessary bridge between PAM and an LDAP server. It includes the core components required for authentication.
-
-- **pam_ldap.so**: A specific PAM module, provided by the nss-pam-ldapd package. This module is the "plug-in" that the PAM framework loads to handle authentication requests destined for an LDAP server.
-
-- **nslcd (Name Service Lookup Daemon)**: This daemon acts as an intermediary service. The pam_ldap.so module does not communicate directly with the LDAP server. Instead, it forwards authentication requests to the nslcd daemon, which manages the connection and communication with the LDAP directory. This design allows for connection caching and a more robust separation of concerns. 
+* **PAM (Pluggable Authentication Modules)**: A framework used by Linux and other UNIX-like systems to consolidate authentication tasks. Applications like MariaDB can use PAM to authenticate users without needing to understand the underlying authentication mechanism. Operations such as system login, screen unlocking, and sudo access commonly use PAM.
+* **nss-pam-ldapd**: This is the software package that provides the necessary bridge between PAM and an LDAP server. It includes the core components required for authentication.
+* **pam\_ldap.so**: A specific PAM module, provided by the nss-pam-ldapd package. This module is the "plug-in" that the PAM framework loads to handle authentication requests destined for an LDAP server.
+* **nslcd (Name Service Lookup Daemon)**: This daemon acts as an intermediary service. The pam\_ldap.so module does not communicate directly with the LDAP server. Instead, it forwards authentication requests to the nslcd daemon, which manages the connection and communication with the LDAP directory. This design allows for connection caching and a more robust separation of concerns.
 
 {% hint style="info" %}
 The `nslcd` daemon is ran as a sidecar container and communication happens through the shared unix socket, following container best practices of keeping a single process per container.
@@ -58,9 +55,7 @@ binddn cn=admin,dc=ldap,dc=example,dc=url
 bindpw PASSWORD_REPLACE-ME
 ```
 
-In a production environment it is recommended to use LDAPS (LDAP secure), which uses traditional TLS encryption to secure data in transit.
-To do so, you need to add the following to your `nslcd.conf` file:
-
+In a production environment it is recommended to use LDAPS (LDAP secure), which uses traditional TLS encryption to secure data in transit. To do so, you need to add the following to your `nslcd.conf` file:
 
 ```diff
 # Change the protocol to `ldaps`
@@ -101,11 +96,12 @@ See below for a complete example.
 
 Fistly, we need to create our `ConfigMaps` and `Secrets`, that will store the `nsswitch.conf`, `nslcd.conf` and the `mariadb` pam module.
 
-{% hint style="warn" %}
+{% hint style="info" %}
 **Make sure to adapt the `nslcd-conf` as per your ldap server configuration.**
 {% endhint %}
 
 **mariadb-nss-config.yaml:**
+
 ```yaml
 ---
 apiVersion: v1
@@ -155,11 +151,13 @@ data:
     auth required pam_ldap.so
     account required pam_ldap.so
 ```
+
 `kubectl apply -f mariadb-nss-config.yaml`
 
 Now that our configuration is done, we need to create the MariaDB custom resource along with needed configurations.
 
 **mariadb.yaml:**
+
 ```yaml
 ---
 apiVersion: v1
@@ -256,12 +254,13 @@ spec:
     - name: nslcd-run
       mountPath: /var/run/nslcd
 ```
+
 `kubectl apply -f mariadb.yaml`
 
-And in the end we need to create our user in the database, which must have the same name as a user in ldap server. In the example below that's `ldap-user`.
-We also create `mariadb-ldap` secret, which holds the name of the plugin we are using as well as the module we need to load.
+And in the end we need to create our user in the database, which must have the same name as a user in ldap server. In the example below that's `ldap-user`. We also create `mariadb-ldap` secret, which holds the name of the plugin we are using as well as the module we need to load.
 
 **mariadb-user.yaml:**
+
 ```yaml
 ---
 apiVersion: v1
@@ -292,6 +291,7 @@ spec:
   requeueInterval: 10h
   retryInterval: 30s
 ```
+
 `kubectl apply -f mariadb-user.yaml`
 
 After a few seconds, the user should have been created by the operator. To verify that all is working as expected, modify the `<password>` field below and run:
@@ -317,8 +317,7 @@ MariaDB [(none)]>
 
 #### LDAPS
 
-If you followed the instructions for setting up a basic MariaDB instance with ldap, you need to fetch the public certificate that your LDAP server
-is set up with and add it to a [secret](https://kubernetes.io/docs/concepts/configuration/secret/#use-case-dotfiles-in-a-secret-volume) called `mariadb-ldap-tls`. 
+If you followed the instructions for setting up a basic MariaDB instance with ldap, you need to fetch the public certificate that your LDAP server is set up with and add it to a [secret](https://kubernetes.io/docs/concepts/configuration/secret/#use-case-dotfiles-in-a-secret-volume) called `mariadb-ldap-tls`.
 
 If you have the certificate locally in a file called `tls.crt` you can run:
 
@@ -375,6 +374,7 @@ kubectl create secret generic mariadb-ldap-tls --from-file=./tls.crt
 To put MaxScale in front of your PAM-enabled MariaDB cluster, configure MaxScale so that it skips checking if passwords of incoming clients are correct, but rather assumes they are. The failure still occurs, but at the time when MaxScale tries to authenticate to the backend servers.
 
 **maxscale-ldap.yaml:**
+
 ```diff
 apiVersion: enterprise.mariadb.com/v1alpha1
 kind: MaxScale
@@ -390,16 +390,16 @@ spec:
 +          authenticator: pamauth
 +          authenticator_options: "skip_authentication=true"
 ```
+
 `kubectl apply -f maxscale-ldap.yaml`
 
-Ref: [skip_authentication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-security/authentication-modules#skip_authentication)
+Ref: [skip\_authentication](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-security/authentication-modules#skip_authentication)
 
 ### Known Issues
 
 **Slow Start On KIND**
 
-This may be a problem with the maximum number of file-handles a process can allocate. Some systems have this value set to really high, which causes an issue.
-To remedy this, you need to delete your kind cluster and run:
+This may be a problem with the maximum number of file-handles a process can allocate. Some systems have this value set to really high, which causes an issue. To remedy this, you need to delete your kind cluster and run:
 
 ```sh
 sudo sysctl -w fs.nr_open=1048576

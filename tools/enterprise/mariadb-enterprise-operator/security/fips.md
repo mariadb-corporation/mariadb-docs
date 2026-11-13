@@ -34,10 +34,10 @@ fips:
   enabled: true
 ```
 
-| Value | Default | Description |
-|-------|---------|-------------|
+| Value          | Default | Description                                                                                                                                                             |
+| -------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `fips.enabled` | `false` | Enable FIPS 140-3 mode by injecting `GODEBUG=fips140=on` into the operator. The operator image must be built with a FIPS-capable Go Cryptographic Module (`GOFIPS140`). |
-| `fips.strict` | `false` | Inject `GODEBUG=fips140=only` instead of `fips140=on`, which additionally panics on any non-FIPS-approved cryptographic algorithm. Requires `fips.enabled`. |
+| `fips.strict`  | `false` | Inject `GODEBUG=fips140=only` instead of `fips140=on`, which additionally panics on any non-FIPS-approved cryptographic algorithm. Requires `fips.enabled`.             |
 
 {% hint style="warning" %}
 Strict mode (`fips.strict: true`) cannot use password-based authentication, so every `MariaDB` must use [TLS client certificate authentication](tls-client-authentication.md). It does not support [multi-cluster](../topologies/multi-cluster.md) either. Upstream Go does not recommend `fips140=only` for general production use, see the [Go FIPS 140-3 documentation](https://go.dev/doc/security/fips140#the-fips140-godebug-option).
@@ -103,28 +103,30 @@ When FIPS mode is enabled, strict rules are enforced on the cryptographic algori
 
 ### Go Cryptography (Operator & Exporters)
 
-The Operator and Prometheus exporters are written in Go. Enabling FIPS mode via `GODEBUG=fips140=on` directs them to use the [Go Cryptographic Module](#nist-cmvp-certificates), a NIST-approved cryptographic module.
+The Operator and Prometheus exporters are written in Go. Enabling FIPS mode via `GODEBUG=fips140=on` directs them to use the [Go Cryptographic Module](fips.md#nist-cmvp-certificates), a NIST-approved cryptographic module.
 
 ### TLS Communication
 
 For all TLS-based communication, the operator programmatically configures the underlying clients to use only NIST-approved cryptography. This is achieved by explicitly setting the allowed TLS `CurvePreferences` to a list of NIST-approved elliptic curves:
-- `P-521`
-- `P-384`
-- `P-256`
+
+* `P-521`
+* `P-384`
+* `P-256`
 
 This enforcement applies to communication with:
-- Kubernetes API Server
-- Amazon S3 compatible storage
-- Azure Blob Storage
-- MariaDB server
-- MariaDB Agent Sidecars
-- MaxScale API server
+
+* Kubernetes API Server
+* Amazon S3 compatible storage
+* Azure Blob Storage
+* MariaDB server
+* MariaDB Agent Sidecars
+* MaxScale API server
 
 By enforcing these specific curves, the operator configures all its external TLS communication to use NIST-approved elliptic curves.
 
 ### OpenSSL Configuration (Operand Containers)
 
-The MariaDB server, MaxScale, and various system utilities running inside the operand containers rely on a [OpenSSL FIPS provider](#nist-cmvp-certificates) for their cryptographic operations. This provider is configured when FIPS mode is enabled. 
+The MariaDB server, MaxScale, and various system utilities running inside the operand containers rely on a [OpenSSL FIPS provider](fips.md#nist-cmvp-certificates) for their cryptographic operations. This provider is configured when FIPS mode is enabled.
 
 When FIPS mode is enabled, the Operator automatically handles configuring OpenSSL for the managed databases by dynamically injecting the FIPS provider configuration. For each `MariaDB` and `MaxScale` custom resource, the Operator will:
 
@@ -138,8 +140,8 @@ By dynamically creating and injecting this configuration, the Operator configure
 
 The MariaDB Enterprise Operator utilizes the `mysql_native_password` authentication plugin for connecting to the database. While this plugin internally uses the SHA-1 hashing algorithm, the SHA-1 payload can be wrapped with NIST-approved cryptography:
 
-- **Encryption in Transit**: Enable TLS for all database connections. The Operator configures the underlying clients to use NIST-approved cryptography (e.g., NIST-approved elliptic curves) for TLS, so the authentication exchange is wrapped within a TLS tunnel.
-- **Encryption at Rest**: By configuring encryption at rest with an approved elliptic curve, passwords will be stored using NIST-approved cryptography.
+* **Encryption in Transit**: Enable TLS for all database connections. The Operator configures the underlying clients to use NIST-approved cryptography (e.g., NIST-approved elliptic curves) for TLS, so the authentication exchange is wrapped within a TLS tunnel.
+* **Encryption at Rest**: By configuring encryption at rest with an approved elliptic curve, passwords will be stored using NIST-approved cryptography.
 
 {% hint style="info" %}
 Under strict FIPS mode (`GODEBUG=fips140=only`), password-based authentication cannot be used, as the initial handshake evaluates SHA-1. Use [TLS client certificate authentication](tls-client-authentication.md) instead.
@@ -155,15 +157,15 @@ Backups configured to use [Server-Side Encryption with Customer-Provided Keys (S
 
 The MariaDB Enterprise Operator and its underlying components rely on cryptographic modules validated by the NIST Cryptographic Module Validation Program (CMVP):
 
-| Cryptographic Module | Description | CMVP Reference |
-| :--- | :--- | :--- |
-| **Go Cryptographic Module** | The built-in cryptographic module in Go (used by the Operator). | [Certificate #5247](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5247) |
-| **OpenSSL FIPS provider** | The cryptography provider utilized by MariaDB Enterprise Server and MaxScale. | [Certificate #4857](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4857) |
+| Cryptographic Module        | Description                                                                   | CMVP Reference                                                                                               |
+| --------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| **Go Cryptographic Module** | The built-in cryptographic module in Go (used by the Operator).               | [Certificate #5247](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5247) |
+| **OpenSSL FIPS provider**   | The cryptography provider utilized by MariaDB Enterprise Server and MaxScale. | [Certificate #4857](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4857) |
 
 ## Further Reading
 
-- [Go FIPS 140-3](https://go.dev/doc/security/fips140)
-- [MariaDB Server: TLS and Cryptography Libraries](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb#fips-certification)
+* [Go FIPS 140-3](https://go.dev/doc/security/fips140)
+* [MariaDB Server: TLS and Cryptography Libraries](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb#fips-certification)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

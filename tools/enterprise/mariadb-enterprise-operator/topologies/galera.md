@@ -1,10 +1,10 @@
-# Galera Cluster
+# Synchronous Multi-Master With Galera
 
 MariaDB Enterprise Kubernetes Operator provides cloud native support for provisioning and operating multi-master MariaDB clusters using Galera. This setup enables the ability to perform writes on a single node and reads in all nodes, enhancing availability and allowing scalability across multiple nodes.
 
-In certain circumstances, it could be the case that all the nodes of your cluster go down at the same time, something that Galera is not able to recover by itself, and it requires manual action to bring the cluster up again, as documented in the [Galera documentation](https://galeracluster.com/library/documentation/crash-recovery.html). The MariaDB Enterprise Kubernetes Operator encapsulates this operational expertise in the `MariaDB` CR. You just need to declaratively specify `spec.galera`, as explained in more detail [later in this guide](#mariadb-configuration).
+In certain circumstances, it could be the case that all the nodes of your cluster go down at the same time, something that Galera is not able to recover by itself, and it requires manual action to bring the cluster up again, as documented in the [Galera documentation](https://galeracluster.com/library/documentation/crash-recovery.html). The MariaDB Enterprise Kubernetes Operator encapsulates this operational expertise in the `MariaDB` CR. You just need to declaratively specify `spec.galera`, as explained in more detail [later in this guide](galera.md#mariadb-configuration).
 
-To accomplish this, after the MariaDB cluster has been provisioned, the operator will regularly monitor the cluster's status to make sure it is healthy. If any issues are detected, the operator will initiate the [recovery process](#galera-cluster-recovery) to restore the cluster to a healthy state. During this process, the operator will set status conditions in the `MariaDB` and emit `Events` so you have a better understanding of the recovery progress and the underlying activities being performed. For example, you may want to know which `Pods` were out of sync to further investigate infrastructure-related issues (i.e. networking, storage...) on the nodes where these `Pods` were scheduled.
+To accomplish this, after the MariaDB cluster has been provisioned, the operator will regularly monitor the cluster's status to make sure it is healthy. If any issues are detected, the operator will initiate the [recovery process](galera.md#galera-cluster-recovery) to restore the cluster to a healthy state. During this process, the operator will set status conditions in the `MariaDB` and emit `Events` so you have a better understanding of the recovery progress and the underlying activities being performed. For example, you may want to know which `Pods` were out of sync to further investigate infrastructure-related issues (i.e. networking, storage...) on the nodes where these `Pods` were scheduled.
 
 ## `MariaDB` configuration
 
@@ -70,11 +70,11 @@ spec:
 
 It is important to note that, the `ist.recv_addr` cannot be set by the user, as it is automatically configured to the `Pod` IP by the operator, something that an user won't be able to know beforehand.
 
-A list of the available options can be found in the [MariaDB documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/reference/wsrep-variable-details/wsrep_provider_options).
+A list of the available options can be found in the [MariaDB documentation](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/wsrep-variable-details/wsrep_provider_options).
 
 ## IPv6 support
 
-If you have a Kubernetes cluster running with IPv6, the operator will automatically detect the IPv6 addresses of your `Pods` and it will configure several [wsrep provider](#wsrep-provider) options to ensure that the Galera protocol runs smoothly with IPv6.
+If you have a Kubernetes cluster running with IPv6, the operator will automatically detect the IPv6 addresses of your `Pods` and it will configure several [wsrep provider](galera.md#wsrep-provider) options to ensure that the Galera protocol runs smoothly with IPv6.
 
 ## State transfers and probes
 
@@ -83,7 +83,6 @@ When a `Pod` joins the cluster without a valid state, Galera performs a State Sn
 To avoid the kubelet restarting the joiner mid transfer, and therefore restarting the SST from scratch, the liveness probe returns a successful response whenever an SST is in progress in that `Pod`. This is detected via the state files that the SST scripts write to the data directory, which are local to the `Pod` and remain available even when the Kubernetes API is unreachable.
 
 The readiness probe is unaffected: a `Pod` receiving an SST stays not ready, and therefore out of the `Services`, until it reaches the `Synced` state.
-
 
 ## Galera cluster recovery
 
@@ -112,7 +111,7 @@ spec:
 The `minClusterSize` field indicates the minimum cluster size (either absolute number of replicas or percentage) for the operator to consider the cluster healthy. If the cluster is unhealthy for more than the period defined in `clusterHealthyTimeout` (`30s` by default), a cluster recovery process is initiated by the operator. The process is explained in the [Galera documentation](https://galeracluster.com/library/documentation/crash-recovery.html) and consists of the following steps:
 
 * Recover the sequence number from the `grastate.dat` on each node.
-* Trigger a [recovery Job](#galera-recovery-job) to obtain the sequence numbers in case that the previous step didn't manage to.
+* Trigger a [recovery Job](galera.md#galera-recovery-job) to obtain the sequence numbers in case that the previous step didn't manage to.
 * Mark the node with highest sequence (bootstrap node) as safe to bootstrap.
 * Bootstrap a new cluster in the bootstrap node.
 * Restart and wait until the bootstrap node becomes ready.
@@ -229,7 +228,7 @@ Finally, after your cluster has been bootstrapped, remember to unset `forceClust
 
 MariaDB Enterprise Kubernetes Operator will never delete your `MariaDB` PVCs. Whenever you delete a `MariaDB` resource, the PVCs will remain intact so you could reuse them to re-provision a new cluster.
 
-That said, Galera is unable to form a cluster from pre-existing state, it requires a [cluster recovery](#galera-cluster-recovery) process to identify which `Pod` has the highest sequence number to bootstrap a new cluster. That's exactly what the operator does: whenever a new `MariaDB` Galera cluster is created and previously created PVCs exist, a cluster recovery process is automatically triggered.
+That said, Galera is unable to form a cluster from pre-existing state, it requires a [cluster recovery](galera.md#galera-cluster-recovery) process to identify which `Pod` has the highest sequence number to bootstrap a new cluster. That's exactly what the operator does: whenever a new `MariaDB` Galera cluster is created and previously created PVCs exist, a cluster recovery process is automatically triggered.
 
 ## Quickstart
 
@@ -536,7 +535,7 @@ kubectl logs mariadb-galera-0 -c mariadb
 2023-08-03 19:27:10 2 [Note] WSREP: Synchronized with group, ready for connections
 ```
 
-Once you are done with these steps, you will have the context required to jump ahead to the [Common errors](#common-errors) section to see if any of them matches your case.
+Once you are done with these steps, you will have the context required to jump ahead to the [Common errors](galera.md#common-errors) section to see if any of them matches your case.
 
 ### Common errors
 
@@ -559,14 +558,14 @@ kubectl get events --field-selector involvedObject.name=mariadb-galera
 
 * If you have `Pods` named `<mariadb-name>-<ordinal>-recovery-<suffix>` running for a long time, check its logs to understand if something is wrong.
 
-One of the reasons could be misconfigured Galera recovery `Jobs`, please make sure you read [this section](#galera-recovery-job). If after checking all the points above, there are still no clear symptoms of what could be wrong, continue reading.
+One of the reasons could be misconfigured Galera recovery `Jobs`, please make sure you read [this section](galera.md#galera-recovery-job). If after checking all the points above, there are still no clear symptoms of what could be wrong, continue reading.
 
-First af all, you could attempt to forcefully bootstrap a new cluster as it is described in [this section](#force-cluster-bootstrap). Please, refrain from doing so if the conditions described in the docs are not met.
+First af all, you could attempt to forcefully bootstrap a new cluster as it is described in [this section](galera.md#force-cluster-bootstrap). Please, refrain from doing so if the conditions described in the docs are not met.
 
 Alternatively, if you can afford some downtime and your PVCs are in healthy state, you may follow this procedure:
 
 * Delete your existing `MariaDB`, this will leave your PVCs intact.
-* Create your `MariaDB` again, this will trigger a Galera recovery process as described in [this section](#bootstrap-galera-cluster-from-existing-pvcs).
+* Create your `MariaDB` again, this will trigger a Galera recovery process as described in [this section](galera.md#bootstrap-galera-cluster-from-existing-pvcs).
 
 As a last resource, you can always delete the PVCs and bootstrap a new `MariaDB` from a backup as documented [here](../backup-and-restore/logical_backup.md#bootstrap-new-mariadb-instances).
 
