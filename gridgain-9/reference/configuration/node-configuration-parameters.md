@@ -248,6 +248,30 @@ Controls server-side file and object-store access for the SQL `COPY` command.
 |maxGlobDepth|16|Maximum directory depth the Parquet glob walk descends.|1 - Integer.MAX_VALUE|
 |maxGlobFiles|10000|Maximum number of files the Parquet glob walk matches.|1 - Integer.MAX_VALUE|
 
+### Log Storage Configuration
+
+These properties configure the segment log storage that keeps the node's [RAFT logs](../../architecture/raft-consensus.md#raft-log-storage). The node reads them at startup, so changes take effect after a restart.
+
+```json
+{
+  "ignite" : {
+    "logStorage" : {
+      "maxCheckpointQueueSize" : 10,
+      "maxLogEntrySizeBytes" : -1,
+      "segmentFileSizeBytes" : 2147483647,
+      "softLogSizeLimitBytes" : 21474836470
+    }
+  }
+}
+```
+
+|Property|Default|Description|Acceptable Values|
+|---|---|---|---|
+|maxCheckpointQueueSize|10|The number of full segment files that can wait for their index files to be written. When the queue is full, RAFT log writes wait until the oldest file is processed.|1 - Integer.MAX_VALUE|
+|maxLogEntrySizeBytes|-1|The maximum size of a RAFT log entry, in bytes. The node rejects larger entries. `-1` sets the limit to 90% of `segmentFileSizeBytes`.|`-1`, or 1 - 90% of `segmentFileSizeBytes`|
+|segmentFileSizeBytes|2147483647|The size of a segment file, in bytes.|4096 - 2147483647|
+|softLogSizeLimitBytes|21474836470|The size of a log storage, in bytes, above which the node compacts its segment files. The node uses the smaller of this value and half of `raft.logStorage.softPartitionsLogSizeLimitBytes`, but not less than `segmentFileSizeBytes`.|`segmentFileSizeBytes` - Long.MAX_VALUE|
+
 ### Network Configuration
 
 This section describes how GridGain 9 nodes communicate within a cluster and expose endpoints for client and management connections.
@@ -529,7 +553,7 @@ Both differ from the hard limits in several important ways:
 |disruptor.logManagerStripes|4|The number of disruptors for RAFT log manager.|1 - Integer.MAX_VALUE|
 |disruptor.queueSize|16384|The maximum size of a queue for disruptors.|1 - Integer.MAX_VALUE|
 |disruptor.stripes|10|The number of disruptor that handle the RAFT server.|1 - Integer.MAX_VALUE|
-|fsync|false|Specifies whether `fsync` is used to safely write Raft log entries to disk on table partition groups before confirming replication. If set to `false`, user data may be lost in the event of an OS crash. However, a GridGain application crash will not cause data loss.|true, false|
+|fsync|false|Specifies whether `fsync` is used to safely write Raft log entries to disk on table partition groups before confirming replication. If set to `false`, user data may be lost in the event of an OS crash. However, a GridGain application crash will not cause data loss. The metastorage and cluster management group logs always use `fsync`.|true, false|
 |installSnapshotTimeoutMillis|2147483647|The maximum period allowed for transferring a RAFT snapshot to a recipient and installing it.|1 - inf|
 |logStorage.hardPartitionsDataDriveUsageLimitBytes|9223372036854775807|Hard limit, in bytes, on the disk space used on the drive that hosts persistent partition data. Once exceeded, the node rejects client writes. Default is `Long.MAX_VALUE` (effectively unlimited).|1 - Long.MAX_VALUE|
 |logStorage.hardPartitionsLogDriveUsageLimitBytes|9223372036854775807|Hard limit, in bytes, on the disk space used on the drive that hosts the partitions RAFT log. Once exceeded, the node rejects client writes. Default is `Long.MAX_VALUE` (effectively unlimited).|1 - Long.MAX_VALUE|
