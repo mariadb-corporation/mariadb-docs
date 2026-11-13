@@ -40,9 +40,11 @@ These pages cover Enterprise Server features and procedures. Each one lives in t
 * [Authentication with Enterprise Server](../security/authentication-with-enterprise-server/README.md)
 * [Security Vulnerabilities (CVE) Fixed in MariaDB Enterprise Server](../security/cve/enterprise-server.md)
 
-## MySQL Compatibility
+## Comparisons with Other Databases
 
 MariaDB Server was originally designed as a drop-in replacement for MySQL, and the two have diverged since. For the differences to plan for when moving from MySQL, see [MySQL to MariaDB Compatibility Matrix](../server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/mysql-to-mariadb-compatibility-matrix.md).
+
+[Comparisons with Other Databases](comparisons-with-other-databases/README.md) covers the details for each release series: incompatibilities and feature differences with MySQL, function and system variable differences, query optimizer and replication compatibility, and the `SQL_MODE=MSSQL` and `SQL_MODE=ORACLE` compatibility modes.
 
 ## Release Policy
 
