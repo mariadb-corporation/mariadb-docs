@@ -146,8 +146,8 @@ access before either privilege has any effect.
 |INSERT_INTO_TABLE|yes|Allows the user to use the `INSERT` SQL statement.|
 |DELETE_FROM_TABLE|yes|Allows the user to use the `DELETE` SQL statement.|
 |UPDATE_TABLE|yes|Allows the user to use the `UPDATE` SQL statement.|
-|CREATE_INDEX|yes|Allows the user to use the `CREATE INDEX` SQL statement.|
-|DROP_INDEX|yes|Allows the user to use the `DROP INDEX` SQL statement.|
+|CREATE_INDEX|yes|Allows the user to use the `CREATE INDEX` SQL statement. See [Index Grants](#index-grants).|
+|DROP_INDEX|yes|Allows the user to use the `DROP INDEX` SQL statement. See [Index Grants](#index-grants).|
 |USE_INDEX|yes|Allows the user to use the index in their SQL statements.|
 |MANAGE_RLS|yes|Allows the user to manage row-level security on a table.|
 
@@ -245,6 +245,47 @@ Supported DML privileges:
 {% hint style="info" %}
 A selector **without a dot** (e.g., `STATICDATA`) targets a **schema**,
 and the grant covers both existing and future tables in that schema. For more details check the `role privilege grant` [command syntax](../reference/cli-tool.md).
+{% endhint %}
+
+### Index Grants
+
+`CREATE_INDEX` and `DROP_INDEX` are table privileges. The GridGain version determines which object the privilege is checked on. The two versions behave differently, so check the tab for your version before you grant these privileges.
+
+{% tabs %}
+{% tab title="9.2" %}
+The privilege is checked on the table the index belongs to, not on the index itself. For `CREATE INDEX`, this is the table named in the statement. For `DROP INDEX`, it is the table that owns the index.
+
+Grant the privilege on the table or on its schema:
+
+```sql
+GRANT PRIVILEGES CREATE_INDEX ON PUBLIC.MY_TABLE TO role1;
+GRANT PRIVILEGES DROP_INDEX ON PUBLIC TO role2;
+```
+
+A table grant covers all indexes on that table and no others. A schema grant covers the indexes on every table in the schema. A grant that names an index, such as `PUBLIC.MY_INDEX`, does not authorize anything.
+
+{% hint style="warning" %}
+If you upgrade from GridGain 9.1 and granted `CREATE_INDEX` or `DROP_INDEX` on index names, those grants no longer authorize anything. Grant the privilege on the table or its schema instead.
+{% endhint %}
+
+{% hint style="info" %}
+A denied `DROP INDEX` names only the action, `DROP_INDEX`, and not the schema, table, or index. If the index does not exist, the check falls back to the schema, so a table grant does not cover it.
+{% endhint %}
+{% endtab %}
+
+{% tab title="9.1" %}
+The privilege is checked on the index name, which is matched as if it were a table name. A grant on the table that owns the index does not authorize `CREATE INDEX` or `DROP INDEX`.
+
+To allow index changes, grant the privilege on the schema, or on the index name:
+
+```sql
+GRANT PRIVILEGES CREATE_INDEX ON PUBLIC TO role1;
+```
+{% endtab %}
+{% endtabs %}
+
+{% hint style="warning" %}
+In GridGain 9.2, the check uses the table that owns the index. In GridGain 9.1, the check uses the index name, so a grant on the schema or on that name authorizes the statement, regardless of which table the index belongs to.
 {% endhint %}
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
