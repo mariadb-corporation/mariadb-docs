@@ -70,7 +70,7 @@ columns or remove existing ones at run time.
 
 ## Field Type Conflict Between Field Names That Differ in Case
 
-Every binary field has a field ID that is calculated from the field name. The default ID mapper ignores case, so the `data` and `DATA` field names have the same field ID. Starting with GridGain 8.10, binary metadata is merged by field ID. The cluster rejects a field whose name differs from an existing field name only in case, if it has a different type. You may see one of the following errors:
+Every binary field has a field ID that is calculated from the field name. The default ID mapper ignores case, so the `data` and `DATA` field names have the same field ID. Starting with GridGain 8.9.40 and 8.10.0, binary metadata is merged by field ID. The cluster rejects a field whose name differs from an existing field name only in case, if it has a different type. You may see one of the following errors:
 
 - `BinaryObjectException: Wrong value has been set [typeName=..., fieldId=..., existingFieldName=data, fieldName=DATA, fieldType=String, assignedValueType=Timestamp]` when a binary object is built.
 - `BinaryObjectException: Type '...' with typeId ... has a different/incorrect type for field 'DATA', which has the same field ID (...) as field 'data'. Expected 'String' but 'Timestamp' was provided.` when the metadata is updated, for example by an SQL `INSERT` or `UPDATE`.
@@ -87,7 +87,7 @@ The type of an existing field cannot be changed. If you must reuse the field nam
 Removing metadata cannot be undone. If you remove the wrong type, the stored data cannot be read until you restore the metadata folders from the backup.
 {% endhint %}
 
-As a temporary workaround, you can set the `IGNITE_BINARY_METADATA_MERGE_BY_FIELD_ID_FEATURE` system property to `false` on one of the cluster nodes (this requires a node restart).  While any node has this property set to `false`, the whole cluster merges by field name, as in earlier versions. 
+As a temporary workaround, you can set the `IGNITE_BINARY_METADATA_MERGE_BY_FIELD_ID_FEATURE` system property to `false` on one of the cluster nodes (this requires a node restart).  While any node has this property set to `false`, the whole cluster merges by field name, as in earlier versions. The same applies while the cluster has a node of an earlier version, for example during a rolling upgrade from GridGain 8.9.39 to 8.9.40.
 
 ## Saving WAL Data to Disk on Corruption
 
