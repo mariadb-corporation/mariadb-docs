@@ -18,6 +18,22 @@ Use `PLUGIN_xxx` cmake variables. They can be set on the command line with `-DPL
 | `AUTO`    | the plugin will be compiled statically, if supported. Otherwise it will be compiled dynamically.                                                    |
 | `YES`     | same as AUTO, but if plugin prerequisites (for example, specific libraries) are missing, it will not be skipped, it will abort cmake with an error. |
 
+## Legacy `WITH` and `WITHOUT` Options
+
+CMake also accepts older option names that predate `PLUGIN_xxx`. `<NAME>` is the plugin name in upper case, for example `ROCKSDB`. Prefer `PLUGIN_xxx` in new build scripts.
+
+| Option                                                                                   | Effect                                                                                                             |
+| ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `-DWITHOUT_<NAME>_STORAGE_ENGINE=1`, `-DWITHOUT_<NAME>=1` or `-DWITHOUT_PLUGIN_<NAME>=1` | Same as `-DPLUGIN_<NAME>=NO`: the plugin is not built.                                                             |
+| `-DWITH_<NAME>_STORAGE_ENGINE=1`, `-DWITH_<NAME>=1` or `-DWITH_PLUGIN_<NAME>=1`          | The plugin is built statically. Plugins that can only be built as modules, such as RocksDB, are built dynamically. |
+
+For example, these two commands both leave RocksDB out of the build:
+
+```bash
+cmake .. -DPLUGIN_ROCKSDB=NO
+cmake .. -DWITHOUT_ROCKSDB_STORAGE_ENGINE=1
+```
+
 Note that unlike autotools, cmake tries to configure and build incrementally. You can modify one configuration option and cmake will only rebuild the part of the tree affected by it. For example, when you do `cmake -DWITH_EMBEDDED_SERVER=1` in the already-built tree, it will make libmysqld to be built, but no other configuration options will be changed or reset to their default values.
 
 In particular this means that if you have run, for example`cmake -DPLUGIN_OQGRAPH=NO`
