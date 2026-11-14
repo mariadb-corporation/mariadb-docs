@@ -1752,6 +1752,7 @@
     * [Functions & Operators](reference/sql-functions/function-and-operator-reference.md)
     * [Aggregate Functions](reference/sql-functions/aggregate-functions/README.md)
       * [Stored Aggregate Functions](server-usage/stored-routines/stored-functions/stored-aggregate-functions.md)
+      * [ANY\_VALUE](reference/sql-functions/aggregate-functions/any_value.md)
       * [AVG](reference/sql-functions/aggregate-functions/avg.md)
       * [BIT\_AND](reference/sql-functions/aggregate-functions/bit_and.md)
       * [BIT\_OR](reference/sql-functions/aggregate-functions/bit_or.md)
