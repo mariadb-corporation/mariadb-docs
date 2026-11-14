@@ -120,12 +120,15 @@ When a section grows large, move its statements into separate files and include 
 The syntax is:
 
 ```sql
-SOURCE '<path>'[<start>:<end>];
+SOURCE '<path>'[<start>:<end>]; -- optional comment
 ```
 
 * **`<path>`** is the path of the file, absolute or relative to the `development` folder.
-* **`[<start>:<end>]`** selects the characters of the file to include, in the notation of Python slices. It is required. `[0:]` includes the whole file; `[53:]` leaves out the first 53 characters, for example a copyright header; `[53:-20]` also leaves out the last 20.
+* **`[<start>:<end>]`** is optional and selects the part of the file to include. Without it, the whole file is included. Each bound can be left empty, or be a character offset in the notation of Python slices, or `ln` followed by a line number:
+  * `[53:]` leaves out the first 53 characters, for example a copyright header; `[53:-20]` also leaves out the last 20.
+  * `[ln5:]` starts with line 5; lines count from 1. An end line is included, so `[ln5:ln10]` includes lines 5 to 10, and `ln-1` is the last line.
 * The indentation of the `SOURCE` line is added to every included line.
+* Included files are expanded one level only: a `SOURCE` statement in an included file stays as it is.
 
 Put the files into `development/sections/`, and name them after their section, so that their order is clear:
 
@@ -148,9 +151,15 @@ SOURCE './sections/140-20_base_data.sql'[37:];
 
 The files follow the rules of the section that includes them: a file included in section 140 contains plain statements ending in `;`, and a file included in section 150 switches the delimiter for routine definitions.
 
-{% hint style="warning" %}
-Always write the slice. A `SOURCE` statement without one, or with `[:]`, isn't resolved: without a slice, it is copied into the release unchanged and the deployment fails with a syntax error, and `[:]` makes `msm.prepare_release()` fail with `invalid literal for int()`. Use `[0:]` to include a whole file.
-{% endhint %}
+To split the sections of an existing development script, use `msm.split_sections()`. It moves the statements of sections 140, 150, and 170, or of those you pass with the `sections` option, into files under `development/sections/` by the kind of object, and replaces them with `SOURCE` statements:
+
+| Section | Files |
+| --- | --- |
+| 140 | `140-10_tables.sql`, `140-20_table_additions.sql` (foreign keys and indexes added to existing tables), `140-30_inserts.sql` |
+| 150 | `150-10_procedures_functions.sql`, `150-20_views.sql`, `150-30_triggers.sql`, `150-40_events.sql` |
+| 170 | `170_roles.sql` |
+
+Stored procedures and functions come before the views, because a view can't be created before a function that it calls. Each statement keeps the comments above it, and the statements keep their order within a file. The commented-out example statements that a new project has in sections 140 and 150 are removed from each section that is split. A section that already includes a file, has nothing to move, or has a statement that fits no file between two that move, is left as it is, and the result says why. The function needs `mariadb-lsp`, the MariaDB SQL language server, to find the statements.
 
 ## Next Step
 
