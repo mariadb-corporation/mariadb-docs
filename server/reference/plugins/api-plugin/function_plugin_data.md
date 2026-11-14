@@ -33,9 +33,11 @@ This file defines the API for server plugins that manage functions.
 #define MariaDB_FUNCTION_INTERFACE_VERSION (MYSQL_VERSION_ID << 8)
 ```
 
-Defined in plugin_function.h:41
+Defined in plugin_function.h:50
 
 API for function plugins.
+
+An aggregate function's Create_func must create an Item_sum_plugin descendant. Aggregate implementations consume rows in add_row() and use aggregation_arg() to read values, including values replayed by DISTINCT. FILTER (WHERE ...) is applied by the server: add_row() and remove_row() see only passing rows. DISTINCT does not guarantee replay order; order-sensitive implementations must override supports_distinct() to return false. Aggregates can implement supports_removal() and remove_row() for moving window frames, and val_native() to preserve a pluggable result type.
 
 
 ## Class Definitions
@@ -52,7 +54,7 @@ API for function plugins.
 class Plugin_function
 ```
 
-Defined in plugin_function.h:44
+Defined in plugin_function.h:53
 
 #### Public Methods
 
@@ -71,7 +73,7 @@ Defined in plugin_function.h:44
 inline Plugin_function(Create_func * builder)
 ```
 
-Defined in plugin_function.h:49
+Defined in plugin_function.h:58
 
 ---
 
@@ -83,7 +85,7 @@ Defined in plugin_function.h:49
 inline Create_func * create_func()
 ```
 
-Defined in plugin_function.h:53
+Defined in plugin_function.h:62
 
 #### Private Attributes
 
@@ -100,7 +102,7 @@ Defined in plugin_function.h:53
 int m_interface_version
 ```
 
-Defined in plugin_function.h:46
+Defined in plugin_function.h:55
 
 ---
 
@@ -110,7 +112,7 @@ Defined in plugin_function.h:46
 Create_func * m_builder
 ```
 
-Defined in plugin_function.h:47
+Defined in plugin_function.h:56
 
 <sub>_This page is licensed: GPLv2_</sub>
 
