@@ -21,6 +21,10 @@ More specifically, the reconciliation loop of the operator is omitted, anything 
 
 Only `MariaDB` and `MaxScale` resources support suspension. You can enable it by setting `suspend=true`:
 
+{% hint style="info" %}
+Suspending a whole `MariaDB` or `MaxScale` resource doesn't need any operator flag. Suspending individual MaxScale monitors, services or listeners inside a `MaxScale` resource is a separate feature that needs the `--feature-maxscale-suspend` operator flag. See [Suspend resources](topologies/maxscale.md#suspend-resources) on the MaxScale page.
+{% endhint %}
+
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
 kind: MariaDB
