@@ -115,6 +115,7 @@ OneOrMore (NonTerminal('parameter', {href:'./grammar-reference/#parameter'}), Te
   - `ICEBERG`
 - `WITH` - accepts additional parameters. All properties are case-sensitive:
   - `delimiter` - for CSV files only; default delimiter is `,`. Delimiter syntax is `'char'`. Any alphanumeric character can be a delimiter.
+  - `charset` - for CSV files only; the character set of the file. Default value is `UTF-8`. On export, a character the charset cannot encode fails the statement.
   - `pattern` - the file pattern used when importing partitioned Parquet tables in the regular expression format. The regular expression must be enclosed in `'` signs. For example, `'.*'` imports all files. Partitioned column will not be imported.
   - `header` - for CSV files only; if set to `true`, specifies that the created file should contain a header line with column names. Column names of the table are used to create the header line.
   - `quoteChar` - for CSV files only; the character to use for quoted elements. Default quote character is `"`.
@@ -155,6 +156,17 @@ A statement that copies between tables needs neither.
 
 The configuration is node specific, so you need to apply the same settings on every node. Otherwise, the same
 statement may succeed or fail depending on which node the client connected to.
+
+### Failed Statements
+
+When a `COPY` statement that exports data fails, it discards the output it has written:
+
+- A CSV or Parquet file is deleted.
+- An Iceberg table gets no snapshot from the statement. An Iceberg table the statement created is dropped, unless another writer has committed to it in the meantime.
+
+A Parquet or Iceberg export to S3 cannot cancel an upload that is in progress, so a failed one uploads the partial file and then deletes it. Deleting it requires the `s3:DeleteObject` permission on the target bucket. Without that permission, or if the node stops before the object is deleted, the partial object remains.
+
+Rows that a failed import has already written to a table are kept.
 
 ### Examples
 
