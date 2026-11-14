@@ -28,9 +28,41 @@ def md_escape(s):
         parts[i] = _MD_SPECIALS.sub(lambda m: "\\" + m.group(), parts[i])
     return "`".join(parts)
 
-# Loop over issues. If an issue has a label that starts with 'CVE-',
-# assume the label is a CVE id. If an issue has multiple CVE labels,
-# the issue will be added multiple times (by design).
+# The advisory databases whose ids the SBOM scanner puts in the labels of the
+# tickets it files, e.g. MXS-7727 carries GHSA-mrv2-3pqr-j5jr. A label without
+# the dash, such as the plain 'CVE' every SBOM ticket has, is not an id.
+ADVISORY_URLS = [
+    (re.compile(r"CVE-\d{4}-\d+", re.I), 'https://www.cve.org/CVERecord?id='),
+    (re.compile(r"GHSA(-[0-9a-z]{4}){3}", re.I), 'https://github.com/advisories/'),
+    (re.compile(r"GO-\d{4}-\d+", re.I), 'https://pkg.go.dev/vuln/'),
+]
+
+def advisory_url(label):
+    for pattern, base in ADVISORY_URLS:
+        if pattern.fullmatch(label):
+            return base + label
+
+    return None
+
+# The description of an SBOM ticket begins with a line such as
+#   Package type {{npm}}, name {{axios}}, affected version {{1.13.6}}, fix version {{1.15.1}}.
+# and its summary only repeats the advisory id, so the package is taken from
+# here. The fix version is the lowest that closes the advisory, not necessarily
+# the one MaxScale moved to, so only the affected version is used.
+_SBOM_PACKAGE = re.compile(r"name \{\{(.+?)\}\}, affected version \{\{(.+?)\}\}")
+
+def advisory_text(issue):
+    m = _SBOM_PACKAGE.search(issue.get('Description', ''))
+
+    if m:
+        return md_escape("Vulnerability in " + m.group(1) + " " + m.group(2))
+
+    return md_escape(issue['Summary'])
+
+# Loop over issues. If an issue has a label that is the id of an advisory in
+# one of the databases above, it is listed with a link to that advisory. If an
+# issue has multiple such labels, the issue will be added multiple times (by
+# design).
 #
 def find_cves(issues):
     cves=[]
@@ -40,9 +72,11 @@ def find_cves(issues):
         if labels_field:
             labels=labels_field.split(',')
             for label in labels:
-                if label[0:4].upper() == 'CVE-':
+                url = advisory_url(label)
+                if url:
                     cve = {};
                     cve['Id'] = label
+                    cve['Url'] = url
                     cve['Issue'] = i
                     cves.append(cve)
 
@@ -55,7 +89,7 @@ def print_cves(header, cves):
     for cve in cves:
         id = cve['Id']
         i = cve['Issue']
-        print("* [" + id + "](https://www.cve.org/CVERecord?id=" + id + ") Fixed by [" + i['Issue key'] + "](https://jira.mariadb.org/browse/" + i['Issue key'] + ") " + md_escape(i['Summary']))
+        print("* [" + id + "](" + cve['Url'] + ") Fixed by [" + i['Issue key'] + "](https://jira.mariadb.org/browse/" + i['Issue key'] + ") " + advisory_text(i))
 
     print()
 
@@ -95,13 +129,13 @@ cves = find_cves(bugs)
 if len(cves) > 0:
     print_cves("## CVEs resolved.", cves)
 
-# If there are tasks, check if any of them fixes a CVE, which is assumed
-# to be a non-MaxScale one; e.g. a CVE of an external library.
+# If there are tasks, check if any of them fixes a vulnerability, which is
+# assumed to be a non-MaxScale one; e.g. a CVE or GHSA of an external library.
 if len(tasks) > 0:
     cves = find_cves(tasks)
 
     if len(cves) > 0:
-        print_cves("## External CVEs resolved.", cves)
+        print_cves("## External vulnerabilities resolved.", cves)
 
 if len(new_features) > 0:
     print("## New Features")
