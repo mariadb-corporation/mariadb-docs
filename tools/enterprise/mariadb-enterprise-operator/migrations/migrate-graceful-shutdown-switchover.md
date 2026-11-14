@@ -4,6 +4,10 @@ The MariaDB Enterprise Operator 26.06 introduces a new feature: **Primary Switch
 
 If you are upgrading from a version prior to 26.06 and wish to maintain the previous behavior (i.e., you do not want switchovers to happen automatically on graceful shutdown), you must update your MariaDB Custom Resources (CRs).
 
+{% hint style="warning" %}
+The feature uses its own `preStop` hook. If any of your `MariaDB` resources with replication define `spec.lifecycle.preStop`, you must disable the feature for them as described below. Otherwise the validating webhook rejects their next update with `'spec.lifecycle.preStop' cannot be set when 'spec.replication.primary.autoSwitchoverOnGracefulShutdown' is enabled`.
+{% endhint %}
+
 ## Migration Steps
 
 1. **Upgrade the CRDs:** First, upgrade the MariaDB Enterprise Operator CRDs to version 26.06 or later to make the new configuration fields available. Please refer to the [installation guide](../installation/helm.md) for detailed instructions on upgrading via Helm.

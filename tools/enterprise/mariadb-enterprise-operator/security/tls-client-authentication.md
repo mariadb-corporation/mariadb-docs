@@ -10,7 +10,7 @@ The operator can authenticate to `MariaDB` using a **TLS client certificate** in
 
 This is primarily intended for **strict FIPS 140-3 compliance** (`GODEBUG=fips140=only`), where password-based authentication plugins rely on cryptographic primitives (e.g. SHA-1) that are prohibited under strict enforcement. See the [TLS guide](tls.md) for how the operator provisions and mounts certificates.
 
-Please refer to the [MariaDB documentation](https://mariadb.com/docs/server/security/user-account-management/user-account-management-securing/securing-connections-for-client-and-server#requiring-tls) for more details about requiring TLS for user accounts.
+Please refer to the [MariaDB documentation](https://mariadb.com/docs/server/security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server#requiring-tls-for-specific-user-accounts) for more details about requiring TLS for user accounts.
 
 ## Overview
 
@@ -208,6 +208,7 @@ Under strict FIPS enforcement (`GODEBUG=fips140=only`), password-based authentic
 - **[Multi-cluster](../topologies/multi-cluster.md)**: client certificate authentication is not supported with multi-cluster, as cross-cluster replication authenticates against the remote `ExternalMariaDB` with a password.
 - **MaxScale version**: client certificate authentication requires MaxScale 25.10.4 or later, as noted above. Older versions are not supported.
 - **Galera SST**: `spec.tls.galeraSSTEnabled` must be set to `true` and the `mysqldump` SST is not supported, as described [above](#galera).
+- **[Arbitrator](../topologies/replication.md#two-node-clusters)**: the arbitrator of two node replication clusters is not supported with client certificate authentication, as it relies on password authentication.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

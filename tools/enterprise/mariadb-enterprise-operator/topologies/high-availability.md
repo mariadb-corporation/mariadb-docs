@@ -27,7 +27,9 @@ In order to address nodes, MariaDB Enterprise Kubernetes Operator provides you w
 
 Whenever the primary changes, either by the user or by the operator, both the `<mariadb-name>-primary` and `<mariadb-name>-secondary` `Services` will be automatically updated by the operator to address the right nodes.
 
-The primary may be manually changed by the user at any point by updating the `spec.[replication|galera].primary.podIndex` field. Alternatively,  automatic primary failover can be enabled by setting `spec.[replication|galera].primary.autoFailover`, which will make the operator to switch primary whenever the primary `Pod` goes down.
+The primary may be manually changed by the user at any point by updating the `spec.[replication|galera].primary.podIndex` field. Automatic primary failover is enabled by default: with `spec.[replication|galera].primary.autoFailover` set to `true` (the default), the operator switches the primary whenever the primary `Pod` goes down. Set `autoFailover: false` to opt out. For replication, `autoFailoverDelay` adds a delay before the failover (see [Primary failover](replication.md#primary-failover)). Galera has no such delay.
+
+When the `MariaDB` references a `MaxScale` through `spec.maxScaleRef`, MaxScale performs the failover instead, and the operator doesn't act on `autoFailover`.
 
 
 ## MaxScale
@@ -198,7 +200,7 @@ Take a look at the [Kubernetes documentation](https://kubernetes.io/docs/tasks/r
 
 By defining a `PodDisruptionBudget`, you are telling Kubernetes how many `Pods` your database tolerates to be down. This quite important for planned maintenance operations such as `Node` upgrades.
 
-MariaDB Enterprise Kubernetes Operator creates a default `PodDisruptionBudget` if you are running in HA, but you are able to define your own by setting:
+If you are running in HA and don't set `spec.podDisruptionBudget`, MariaDB Enterprise Kubernetes Operator creates a default `PodDisruptionBudget` with `minAvailable: 50%`. You are able to define your own by setting:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -207,10 +209,14 @@ metadata:
   name: mariadb-galera
 spec:
   # [...]
-    podDisruptionBudget:
-      maxUnavailable: 33%
+  podDisruptionBudget:
+    maxUnavailable: 33%
   # [...]
 ```
+
+{% hint style="warning" %}
+The operator only creates the `PodDisruptionBudget`, it never updates it. If a `PodDisruptionBudget` with the name of the `MariaDB` already exists, setting or changing `spec.podDisruptionBudget` has no effect. To apply a new value to an existing `MariaDB`, delete its `PodDisruptionBudget`. The operator then recreates it from the current `spec.podDisruptionBudget`, or with the default if that isn't set.
+{% endhint %}
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
