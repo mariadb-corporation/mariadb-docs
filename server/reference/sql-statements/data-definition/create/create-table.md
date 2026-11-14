@@ -873,6 +873,7 @@ partition_definition:
         [MIN_ROWS [=] min_number_of_rows]
         [TABLESPACE [=] tablespace_name]
         [NODEGROUP [=] node_group_id]
+        [engine_defined_option [=] value ...]
         [(subpartition_definition [, subpartition_definition] ...)]
 
 
@@ -908,6 +909,8 @@ CREATE TABLE t1 (a INT, b CHAR(5), c DATETIME)
 Only [HASH](../../../../server-usage/partitioning-tables/partitioning-types/hash-partitioning-type.md) and [KEY](../../../../server-usage/partitioning-tables/partitioning-types/key-partitioning-type.md) can be used for subpartitions, and they can be `[LINEAR]`.
 
 It is possible to define up to 8192 partitions and subpartitions.
+
+A partition definition accepts only the options shown in the syntax: a few server options, and the engine-defined table options of the storage engine (from MariaDB 10.8). A subpartition definition accepts only the server options. Other table options apply to the whole table. See [Options per Partition](../../../../server-usage/partitioning-tables/partitioning-overview.md#options-per-partition).
 
 The number of defined partitions can be optionally specified as `PARTITION count`. This can be done to avoid specifying all partitions individually. But you can also declare each individual partition and, additionally, specify a `PARTITIONS count` clause; in the case, the number of `PARTITION`s must equal count.
 
