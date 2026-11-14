@@ -70,9 +70,28 @@ This role-aware update strategy consists in rolling out the replica `Pods` one b
 * Read operations impact is minimized by only rolling one replica `Pod` at a time.
 * Waiting for every `Pod` to be synced minimizes the impact in the clustering protocols and the network.
 
+How the primary is handled depends on the topology:
+
+* **Replication:** after all replicas have been updated, the operator performs a primary switchover to the most up-to-date replica, through MaxScale if the `MariaDB` references one, and then updates the old primary `Pod`.
+* **Galera:** there's no switchover. The primary `Pod` is simply updated last.
+* **Arbitrator:** if a replication cluster has an [arbitrator](topologies/replication.md#two-node-clusters), the operator restarts the arbitrator `Pod` on its own, never together with a data `Pod`, so that the cluster keeps enough votes for a failover.
+
+The update waits, rather than failing, while any of these is the case:
+
+* a backup is being restored
+* the storage is being resized
+* a primary switchover is in progress
+* the Galera cluster isn't ready, for example during a cluster recovery
+* replicas are being recovered
+* not all `Pods` are ready, or a referenced `MaxScale` isn't ready
+
+If an update doesn't progress, check the `MariaDB` status and events for one of these conditions. The update resumes on its own once it clears.
+
 ## `RollingUpdate`
 
 This strategy leverages the rolling update strategy from the [StatefulSet resource](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#rolling-updates), which, unlike [ReplicasFirstPrimaryLast](updates.md#replicasfirstprimarylast), does not take into account the role of the `Pods`(primary or replica). Instead, it rolls out the `Pods` one by one, from the highest to the lowest `StatefulSet` index.
+
+With this strategy, the operator doesn't control the order of the restarts. If a replication cluster has an [arbitrator](topologies/replication.md#two-node-clusters), Kubernetes may restart the arbitrator at the same time as a data `Pod`, leaving too few votes for a failover during that time. Use `ReplicasFirstPrimaryLast` for clusters with an arbitrator.
 
 You are able to pass extra parameters to this strategy via the `rollingUpdate` object:
 
