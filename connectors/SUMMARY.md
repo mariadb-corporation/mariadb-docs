@@ -46,6 +46,7 @@
     * [mariadb\_field\_attr](mariadb-connector-c/api-functions/mariadb_field_attr.md)
     * [mariadb\_get\_info](mariadb-connector-c/api-functions/mariadb_get_info.md)
     * [mariadb\_get\_infov](mariadb-connector-c/api-functions/mariadb_get_infov.md)
+    * [mariadb\_net\_field\ length](mariadb-connector-c/api-functions/mariadb_net_field_length.md)
     * [mariadb\_reconnect](mariadb-connector-c/api-functions/mariadb_reconnect.md)
     * [mysql\_affected\_rows](mariadb-connector-c/api-functions/mysql_affected_rows.md)
     * [mysql\_autocommit](mariadb-connector-c/api-functions/mysql_autocommit.md)
