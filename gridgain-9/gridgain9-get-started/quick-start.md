@@ -14,6 +14,10 @@ If you are more comfortable with running the database from Java code, you can tr
 
 ## Prerequisites
 
+{% hint style="info" %}
+Starting with GridGain 9.2, GridGain requires Java 21 or later. The start scripts use the Java installation from `JAVA_HOME`, or `java` on the `PATH` if `JAVA_HOME` is not set.
+{% endhint %}
+
 GridGain provides the database and CLI archives (`gridgain9-db-<version>.zip` and `gridgain9-cli-<version>.zip`). If you do not have them yet, or if you are interested in trying out GridGain 9, [contact our support](https://mariadb.com/support).
 
 ## Install GridGain

@@ -58,6 +58,10 @@ To create a GridGain 9 cluster and node configuration HOCON files based on the G
 
 ### Obtain and Install Migration Tools
 
+{% hint style="info" %}
+Starting with GridGain 9.2, the migration tools require Java 21 or later.
+{% endhint %}
+
 1. Obtain the migration tools from GridGain support.
 2. Unpack the archive you received to your machine.
 3. To explore the available commands in help, run the following command from the migration tools directory:
