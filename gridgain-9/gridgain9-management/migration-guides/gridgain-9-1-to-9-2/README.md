@@ -1,6 +1,6 @@
 ---
 description: >-
-  How to upgrade a GridGain 9.1 cluster and its applications to GridGain 9.2, and which changes to check first.
+  How to upgrade a GridGain 9.1 cluster and its applications to 9.2, and which changes to check first.
 ---
 
 # Upgrading from GridGain 9.1 to 9.2

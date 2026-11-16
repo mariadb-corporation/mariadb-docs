@@ -1,6 +1,6 @@
 ---
 description: >-
-  Steps to upgrade a GridGain 9.1 cluster to GridGain 9.2, verify the result, and recover if something fails.
+  Steps to upgrade a GridGain 9.1 cluster to 9.2, verify the result, and recover if something fails.
 ---
 
 # Upgrading a Cluster from GridGain 9.1 to 9.2

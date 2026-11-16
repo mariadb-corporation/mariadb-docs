@@ -1,6 +1,6 @@
 ---
 description: >-
-  Client and API changes when upgrading from GridGain 9.1 to 9.2: Java 21 for client libraries, the removed PartitionManager and RecordSupportInternal, and the data center replication REST API.
+  Client and API changes in the GridGain 9.1 to 9.2 upgrade: Java 21, removed PartitionManager and RecordSupportInternal, and the data center replication REST API.
 ---
 
 # Client and API Changes

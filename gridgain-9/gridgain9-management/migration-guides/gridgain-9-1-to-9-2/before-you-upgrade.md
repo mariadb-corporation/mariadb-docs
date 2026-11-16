@@ -1,6 +1,6 @@
 ---
 description: >-
-  How to choose between a full-cluster and a rolling upgrade, the upgrade constraints, and the scope and effort of each change when upgrading from GridGain 9.1 to 9.2.
+  How to choose between a full-cluster and a rolling upgrade, plus the constraints and effort of each change in the GridGain 9.1 to 9.2 upgrade.
 ---
 
 # What to Know Before Upgrading to GridGain 9.2

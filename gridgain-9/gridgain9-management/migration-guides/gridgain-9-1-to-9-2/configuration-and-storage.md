@@ -1,6 +1,6 @@
 ---
 description: >-
-  Configuration, storage, and metrics changes when upgrading from GridGain 9.1 to 9.2: removed and renamed configuration keys, the removed RocksDB engine, page replacement, and renamed metrics.
+  Configuration, storage, and metrics changes in the GridGain 9.1 to 9.2 upgrade: removed and renamed keys, the removed RocksDB engine, page replacement, and renamed metrics.
 ---
 
 # Configuration, Storage, and Metrics Changes
@@ -151,7 +151,7 @@ The `RANDOM_LRU` and `SEGMENTED_LRU` page replacement policies are removed. The 
 
 The engine-level sources `storage.aipersist`, `storage.aipersist.checkpoint`, and `storage.aipersist.io` keep their names. Update every dashboard, alert, exporter filter, and `metric source enable` or `disable` command that uses the old source name, and remove `PageAcquireTime`.
 
-For the list of metrics, see [Metrics List](../../../reference/monitoring/metrics-list.md#storageaipersistprofilesprofile). For how to enable metric sources, see [Configuring Metrics](../../monitoring/configuring-metrics.md).
+For the list of metrics, see [Metrics List](../../../reference/monitoring/metrics-list.md#storage.aipersist.profiles.-profile). For how to enable metric sources, see [Configuring Metrics](../../monitoring/configuring-metrics.md).
 
 ## Raft Log Storage Changes
 

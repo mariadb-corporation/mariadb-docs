@@ -1,6 +1,6 @@
 ---
 description: >-
-  SQL changes when upgrading from GridGain 9.1 to 9.2: the CREATE ZONE syntax, removed system view columns, the removed __part alias, the ADD keyword, microsecond precision, EXPLAIN output, and the query protocol.
+  SQL changes in the GridGain 9.1 to 9.2 upgrade: CREATE ZONE syntax, system view columns, the __part alias, the ADD keyword, microsecond precision, EXPLAIN output, and query protocol.
 ---
 
 # SQL and System View Changes

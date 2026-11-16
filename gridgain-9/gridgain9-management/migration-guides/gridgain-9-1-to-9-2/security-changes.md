@@ -1,6 +1,6 @@
 ---
 description: >-
-  Security and authorization changes when upgrading from GridGain 9.1 to 9.2: case-sensitive user and role names, the role migration, LDAP role mappings, and index privileges.
+  Security changes in the GridGain 9.1 to 9.2 upgrade: case-sensitive user and role names, the role migration, LDAP role mappings, and index privileges.
 ---
 
 # Security and Authorization Changes

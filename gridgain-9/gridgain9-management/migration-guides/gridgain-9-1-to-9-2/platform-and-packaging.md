@@ -1,6 +1,6 @@
 ---
 description: >-
-  Platform and packaging changes when upgrading from GridGain 9.1 to 9.2: the Java 21 requirement, the Windows installer, the CLI launchers, and the `JVM_GC` fallback.
+  Platform and packaging changes in the GridGain 9.1 to 9.2 upgrade: Java 21, the Windows installer, CLI launchers, and the JVM_GC fallback.
 ---
 
 # Platform and Packaging Changes
