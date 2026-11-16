@@ -2712,7 +2712,7 @@ These commands help you manage rolling updates for cluster upgrades.
 
 ### upgrade start
 
-Starts rolling upgrade process.
+Starts rolling upgrade process. After the upgrade starts, you cannot cancel it.
 
 **Syntax**
 
@@ -2775,32 +2775,7 @@ This command produces no output on success.
 
 ### upgrade cancel
 
-Cancels rolling upgrade process.
-
-**Syntax**
-
-```
-upgrade cancel [--plain] [--url=<clusterUrl>] [--profile=<profileName>] [--verbose]
-```
-
-**Parameters**
-
-| Parameter | Type | Required | Description |
-|---|---|---|---|
-| `‑‑plain` | Flag | No | Display output with plain formatting. |
-| `‑‑url` | Option | No | URL of cluster endpoint. |
-| `‑‑profile` | Option | No | Local CLI profile name. |
-| `‑‑verbose` | Flag | No | Show additional information: logs, REST calls. |
-
-**Example**
-
-```bash
-upgrade cancel
-```
-
-{% hint style="info" %}
-This command produces no output on success.
-{% endhint %}
+Not supported. Cancelling a rolling upgrade is disabled in GridGain 9.1.16 and later. Use [`upgrade commit`](#upgrade-commit) to complete the upgrade.
 
 ---
 
