@@ -22,6 +22,46 @@ Unlike in GridGain 8, nodes in GridGain 9 are not separated into client and serv
 
 First, you need to add GridGain to your project. The easiest way to do this is by using Maven:
 
+{% tabs %}
+{% tab title="9.2" %}
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                <source>21</source>
+                <target>21</target>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
+<repositories>
+    <repository>
+        <id>GridGain External Repository</id>
+        <url>https://maven.gridgain.com/nexus/content/repositories/external</url>
+    </repository>
+</repositories>
+
+<dependencies>
+    <dependency>
+        <groupId>org.gridgain</groupId>
+        <artifactId>ignite-api</artifactId>
+        <version>9.2.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.gridgain</groupId>
+        <artifactId>ignite-runner</artifactId>
+        <version>9.2.0</version>
+    </dependency>
+</dependencies>
+```
+{% endtab %}
+
+{% tab title="9.1" %}
 ```xml
 <build>
     <plugins>
@@ -57,6 +97,8 @@ First, you need to add GridGain to your project. The easiest way to do this is b
     </dependency>
 </dependencies>
 ```
+{% endtab %}
+{% endtabs %}
 
 ## Prepare GridGain Configuration
 

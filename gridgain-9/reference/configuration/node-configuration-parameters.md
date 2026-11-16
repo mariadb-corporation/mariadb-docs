@@ -118,6 +118,12 @@ bin/gridgain9 node config show > node-config.conf
 }
 ```
 
+
+|Property|Default|Description|Acceptable Values|
+|---|---|---|---|
+|connectTimeoutMillis|5000|Connect timeout, in milliseconds. Replaces `connectTimeout` (deprecated in 9.1.0, removed in 9.2).|0 - inf|
+|idleTimeoutMillis|0|Idle timeout, in milliseconds. Replaces `idleTimeout` (deprecated in 9.1.0, removed in 9.2).|0 - inf|
+
 See the [Clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/overview) section for more information on configuring the client connector.
 
 ### Compute Configuration
@@ -155,6 +161,7 @@ See the [Clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4n
 |queueMaxSize|2147483647|Maximum number of compute tasks in queue.|1 - Integer.MAX_VALUE|
 |statesLifetimeMillis|60000|The lifetime of job states after the job finishes, in milliseconds.|0 - inf|
 |threadPoolSize|10|The number of threads available to compute jobs.|1 - Integer.MAX_VALUE|
+|threadPoolStopTimeoutMillis|10000|Job thread pool stop timeout, in milliseconds. No replacement. Deprecated in 9.1.3, removed in 9.2.|1 - inf|
 |wasm.moduleMaxMemory|64m|The maximum amount of memory that can be allocated to a single WebAssembly module. Always rounded to the nearest multiple of 65536 bytes.|1 - Integer.MAX_VALUE|
 |wasm.enableCompiler|true|Defines if the WebAssembly module [compiles code](https://chicory.dev/docs/usage/runtime-compiler) or uses an interpretator.|true, false|
 |wasm.moduleMaxMemory|8|Maximum linear memory per module instance. Use data-size suffixes (e.g., 8m).|1 - Integer.MAX_VALUE|
@@ -183,7 +190,7 @@ See the [Clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4n
 
 |Property|Default|Description|Acceptable Values|
 |---|---|---|---|
-|location|deployment|Relative path to folder in the working directory. All deployment units content will be stored there.|A valid path|
+|location|deployment|Relative path to folder in the working directory. All deployment units content will be stored there. Replaces `deploymentLocation` (deprecated in 9.1.0, removed in 9.2).|A valid path|
 |tempLocation|None|Relative path to the folder used for storing temporary files needed for code deployment. Must be writable and have sufficient space.|A valid path.|
 
 ### Failure Handler Configuration
@@ -214,7 +221,7 @@ See the [Clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4n
 |handler.type|stop|Failure handler configuration type. Possible values:<br>- `noop` - handler will write the error to log and perform no other operations;<br>- `stop` - handler will stop the node if an error occurs;<br>- `stopOrHalt` - If `tryStop` is set to `false` (default), the handler will immediately stop the process. If `tryStop` is set to `true`, the handler will attempt to gracefully stop the node if an error occurs, and if the node is not stopped after `timeoutMillis`, it will kill the process.|noop, stop, stopOrHalt|
 |tryStop|false|If `true` and the `stopOrHalt` is set, failure handler will attempt to stop the node before killing the node process. Can only be specified for `stopOrHalt` failure handler.|true, false|
 |timeoutMillis|0|The time in milliseconds for which the `stopOrHalt` failure handler will wait for the node to stop. Can only be specified for `stopOrHalt` failure handler.|1 - inf|
-|oomBufferSizeBytes|16384|Amount of memory reserved in the heap at node start, in bytes.|1 - inf|
+|oomBufferSizeBytes|16384|Amount of memory reserved in the heap at node start, in bytes. Replaces `oomBufferSizeBites` (deprecated in 9.1.0, removed in 9.2).|1 - inf|
 
 ### Import and Export Configuration
 
@@ -299,12 +306,6 @@ In GridGain 9, you can choose between two node discovery types. With `STATIC` ty
       "network": {
         "advertisedAddress": "",
         "advertisedPort": 0,
-        "fileTransfer": {
-          "chunkSizeBytes": 1048576,
-          "maxConcurrentRequests": 4,
-          "responseTimeoutMillis": 10000,
-          "threadPoolSize": 8
-        },
         "inbound": {
           "soBacklog": 128,
           "soKeepAlive": true,
@@ -380,11 +381,11 @@ In GridGain 9, you can choose between two node discovery types. With `STATIC` ty
 |---|---|---|---|
 |advertisedAddress||Address (IP or hostname) that other nodes use to connect to this node. If empty, the address is chosen automatically. See [Node Address](#node-address).|A valid address|
 |advertisedPort|0|Port that other nodes use to connect to this node. If 0, `port` is used. Applies only together with `advertisedAddress`.|0 - 65535|
-|fileTransfer||File transfer configuration.||
-|fileTransfer.chunkSizeBytes|1048576|Chunk size in bytes.|1 - Integer.MAX_VALUE|
-|fileTransfer.maxConcurrentRequests|4|Maximum number of concurrent requests.|1 - Integer.MAX_VALUE|
-|fileTransfer.responseTimeoutMillis|10000|Node response timeout during file transfer.|0 - inf|
-|fileTransfer.threadPoolSize|8|File sender thread pool size.|1 - Integer.MAX_VALUE|
+|fileTransfer||File transfer configuration. No replacement. Removed in 9.1.21, so it is not available in 9.1.21 and later, or in 9.2.||
+|fileTransfer.chunkSizeBytes|1048576|Chunk size in bytes. No replacement. Removed in 9.1.21, so it is not available in 9.1.21 and later, or in 9.2.|1 - Integer.MAX_VALUE|
+|fileTransfer.maxConcurrentRequests|4|Maximum number of concurrent requests. No replacement. Removed in 9.1.21, so it is not available in 9.1.21 and later, or in 9.2.|1 - Integer.MAX_VALUE|
+|fileTransfer.responseTimeoutMillis|10000|Node response timeout during file transfer. No replacement. Removed in 9.1.21, so it is not available in 9.1.21 and later, or in 9.2.|0 - inf|
+|fileTransfer.threadPoolSize|8|File sender thread pool size. No replacement. Removed in 9.1.21, so it is not available in 9.1.21 and later, or in 9.2.|1 - Integer.MAX_VALUE|
 |inbound||Server socket configuration. See [TCP documentation](https://man7.org/linux/man-pages/man7/tcp.7.html) and [socket documentation](https://man7.org/linux/man-pages/man7/socket.7.html) for more information.||
 |inbound.soBacklog|128|The size of the backlog.|0 - Integer.MAX_VALUE|
 |inbound.soKeepAlive|true|Defines if the keep-alive packets are allowed.|true, false|
@@ -393,29 +394,29 @@ In GridGain 9, you can choose between two node discovery types. With `STATIC` ty
 |inbound.tcpNoDelay|true|Defines if the TCP no delay option is used.|true, false|
 |listenAddresses||List of addresses (IPs or hostnames) to listen on. If empty, listens on all interfaces. Only a single address is supported.|A list of valid addresses separated by comma|
 |membership||Node membership configuration.||
-|membership.failurePingIntervalMillis|2000|Failure detector ping interval.|0 - inf|
-|membership.membershipSyncIntervalMillis|30000|Periodic membership data synchronization interval.|0 - inf|
+|membership.failurePingIntervalMillis|2000|Failure detector ping interval. Replaces `failurePingInterval` (deprecated in 9.1.0, removed in 9.2).|0 - inf|
+|membership.membershipSyncIntervalMillis|30000|Periodic membership data synchronization interval. Replaces `membershipSyncInterval` (deprecated in 9.1.0, removed in 9.2).|0 - inf|
 |membership.scaleCube||ScaleCube-specific configuration.||
 |scaleCube.failurePingRequestMembers|3|Number of members that are randomly selected by a cluster node for an indirect ping request.|1 - inf|
-|scaleCube.gossipIntervalMillis|200|[Gossip](https://en.wikipedia.org/wiki/Gossip_protocol) spreading interval.|1 - inf|
+|scaleCube.gossipIntervalMillis|200|[Gossip](https://en.wikipedia.org/wiki/Gossip_protocol) spreading interval. Replaces `gossipInterval` (deprecated in 9.1.0, removed in 9.2).|1 - inf|
 |scaleCube.gossipRepeatMult|3|Gossip repeat multiplier.|1 - inf|
 |scaleCube.membershipSuspicionMultiplier|5|The multiplier that is used to calculate the timeout after which the node is considered dead.|1 - inf|
-|scaleCube.metadataTimeoutMillis|3000|The timeout on metadata update operation, in milliseconds.|1 - inf|
+|scaleCube.metadataTimeoutMillis|3000|The timeout on metadata update operation, in milliseconds. Replaces `metadataTimeout` (deprecated in 9.1.0, removed in 9.2).|1 - inf|
 |nodeFinder||Configuration for how the node finds other nodes in the cluster.||
 |nodeFinder.type|STATIC|Node finder type. Use `STATIC` to manually configure node addresses. Use `MULTICAST` to automatically detect nodes on your network. When using this type, you must also specify a multicast group address.|STATIC|
 |nodeFinder.netClusterNodes||Addresses of all nodes in the cluster in the host:port format. Applicable when `STATIC` node finder type is used.|Addresses in a valid format|
 |nodeFinder.nameResolutionAttempts|10|Number of attempts to resolve a hostname to an IP address before giving up. Applicable when `STATIC` node finder type is used. 1 means no retries will be performed apart from the initial attempt.|1 - inf|
 |nodeFinder.group|239.192.0.0|The multicast group address for node discovery.|Multicast address in a valid format|
 |nodeFinder.port|47401|The port used for multicast.|0 - 65535|
-|nodeFinder.resultWaitTimeMillis|1000|The time in milliseconds a node waits for responses after a discovery request.|1 - inf|
+|nodeFinder.resultWaitTimeMillis|1000|The time in milliseconds a node waits for responses after a discovery request. Replaces `resultWaitTime` (deprecated in 9.1.0, removed in 9.2).|1 - inf|
 |nodeFinder.ttl|-1|Sets the maximum number of network hops for multicast packets. By default is set to -1 and uses the default system TTL.|-1 - 255|
 |outbound||Outbound request configuration.||
 |outbound.soKeepAlive|true|Defines if the keep-alive packets are allowed.|true, false|
 |outbound.soLinger|0|Defines how long the closed socket should linger.|0 - 65535|
 |outbound.tcpNoDelay|true|Defines if the TCP no delay option is used.|true, false|
 |port|3344|TCP port used by cluster nodes to communicate with each other.|A valid port number|
-|shutdownQuietPeriodMillis|0|The period during node shutdown when GridGain ensures that no tasks are submitted for the before the node shuts itself down. If a task is submitted during this period, it is guaranteed to be accepted.|0 - inf|
-|shutdownTimeoutMillis|15000|The maximum amount of time until the node is shut down regardless of if new network messages were submitted during `shutdownQuietPeriodMillis`.|0 - inf|
+|shutdownQuietPeriodMillis|0|The period during node shutdown when GridGain ensures that no tasks are submitted for the before the node shuts itself down. If a task is submitted during this period, it is guaranteed to be accepted. Replaces `shutdownQuietPeriod` (deprecated in 9.1.0, removed in 9.2).|0 - inf|
+|shutdownTimeoutMillis|15000|The maximum amount of time until the node is shut down regardless of if new network messages were submitted during `shutdownQuietPeriodMillis`. Replaces `shutdownTimeout` (deprecated in 9.1.0, removed in 9.2).|0 - inf|
 |ssl.ciphers|""|List of ciphers to enable, comma-separated. Empty for automatic cipher selection.|TLS_AES_256_GCM_SHA384, etc. (standard cipher ids)|
 |ssl.clientAuth||Whether the SSL client authentication is enabled and whether it is mandatory.|non, optional, require|
 |ssl.enabled|false|Defines if SSL is enabled for the node.|true, false|
@@ -443,11 +444,11 @@ In GridGain 9, you can choose between two node discovery types. With `STATIC` ty
 
 |Property|Default|Description|Acceptable Values|
 |---|---|---|---|
-|userAttributes||A collection of node attributes used for dynamically distributing data only to those nodes that have the specified attribute values.|A JSON-formatted object|
-|nodeAttributes||Deprecated in 9.1.27. Use `userAttributes` instead.|A JSON-formatted object|
+|userAttributes||A collection of node attributes used for dynamically distributing data only to those nodes that have the specified attribute values. Replaces `nodeAttributes.nodeAttributes` (deprecated in 9.1.27, removed in 9.2). In 9.1, a non-default value of `nodeAttributes.nodeAttributes` is migrated to this property.|A JSON-formatted object|
+|nodeAttributes||A collection of node attributes (nested `nodeAttributes.nodeAttributes` section). Use `userAttributes`. Deprecated in 9.1.27, removed in 9.2. In 9.1, its values are migrated to `userAttributes`.|A JSON-formatted object|
 
 {% hint style="info" %}
-The `ignite.nodeAttributes.nodeAttributes` section is deprecated and should not be used.
+Use `userAttributes`. The `ignite.nodeAttributes.nodeAttributes` section is deprecated in 9.1.27 and removed in 9.2. In 9.1, its values are migrated to `userAttributes`.
 {% endhint %}
 
 ### Point-in-Time Recovery
@@ -526,11 +527,11 @@ Both differ from the hard limits in several important ways:
 
 |Property|Default|Description|Acceptable Values|
 |---|---|---|---|
-|disruptor.logManagerStripes|4|The number of disruptors for RAFT log manager.|1 - Integer.MAX_VALUE|
+|disruptor.logManagerStripes|4|The number of disruptors for RAFT log manager. Replaces `ignite.raft.logStripesCount` (deprecated in 9.1.4, removed in 9.2). In 9.1, a non-default value of `ignite.raft.logStripesCount` is migrated to this property.|1 - Integer.MAX_VALUE|
 |disruptor.queueSize|16384|The maximum size of a queue for disruptors.|1 - Integer.MAX_VALUE|
-|disruptor.stripes|10|The number of disruptor that handle the RAFT server.|1 - Integer.MAX_VALUE|
+|disruptor.stripes|10|The number of disruptor that handle the RAFT server. Replaces `ignite.raft.stripes` (deprecated in 9.1.4, removed in 9.2). In 9.1, a non-default value of `ignite.raft.stripes` is migrated to this property.|1 - Integer.MAX_VALUE|
 |fsync|false|Specifies whether `fsync` is used to safely write Raft log entries to disk on table partition groups before confirming replication. If set to `false`, user data may be lost in the event of an OS crash. However, a GridGain application crash will not cause data loss.|true, false|
-|installSnapshotTimeoutMillis|2147483647|The maximum period allowed for transferring a RAFT snapshot to a recipient and installing it.|1 - inf|
+|installSnapshotTimeoutMillis|2147483647|The maximum period allowed for transferring a RAFT snapshot to a recipient and installing it. Replaces `installSnapshotTimeout` (deprecated in 9.1.0, removed in 9.2).|1 - inf|
 |logStorage.hardPartitionsDataDriveUsageLimitBytes|9223372036854775807|Hard limit, in bytes, on the disk space used on the drive that hosts persistent partition data. Once exceeded, the node rejects client writes. Default is `Long.MAX_VALUE` (effectively unlimited).|1 - Long.MAX_VALUE|
 |logStorage.hardPartitionsLogDriveUsageLimitBytes|9223372036854775807|Hard limit, in bytes, on the disk space used on the drive that hosts the partitions RAFT log. Once exceeded, the node rejects client writes. Default is `Long.MAX_VALUE` (effectively unlimited).|1 - Long.MAX_VALUE|
 |logStorage.softPartitionsLogSizeLimitBytes|21474836470|Soft limit, in bytes, on the total size of all persistent partitions' RAFT log storage files. Once exceeded, log storage compaction is triggered to reclaim disk space.|1 - Long.MAX_VALUE|
@@ -538,9 +539,9 @@ Both differ from the hard limits in several important ways:
 |logYieldStrategy|false|If true, the non-blocking strategy is used in the Disruptor of log manager.|true, false|
 |maxInflightOverflowRate|1.3|Maximum percent of inflights overflow rate. Used for partitions throttling. Default value 1.3 allows 30% overflow.|1.0 - 2.0|
 |outgoingSnapshotsThreadPoolSize|Number of available CPU cores|The number of threads in the executor that serves outgoing [RAFT snapshot](../../architecture/storage/data-partitioning.md#log-replication-and-snapshots) requests across all concurrent outgoing snapshot sessions on the node. Increasing it improves rebalance throughput when many partitions are snapshotted simultaneously, at the cost of more concurrent storage reads.|1 - Integer.MAX_VALUE|
-|responseTimeoutMillis|3000|Period for which the RAFT client will try to receive a response from a remote peer.|0 - inf|
-|retryDelayMillis|200|Delay between re-sends of a failed request by the RAFT client.|0 - inf|
-|retryTimeoutMillis|10000|Period for which the RAFT client will try to receive a successful response from a remote peer.|0 - inf|
+|responseTimeoutMillis|3000|Period for which the RAFT client will try to receive a response from a remote peer. Replaces `responseTimeout` (deprecated in 9.1.0, removed in 9.2).|0 - inf|
+|retryDelayMillis|200|Delay between re-sends of a failed request by the RAFT client. Replaces `retryDelay` (deprecated in 9.1.0, removed in 9.2).|0 - inf|
+|retryTimeoutMillis|10000|Period for which the RAFT client will try to receive a successful response from a remote peer. Replaces `retryTimeout` (deprecated in 9.1.0, removed in 9.2).|0 - inf|
 |volatileRaft.logStorageBudget.name|unlimited|The name of the log storage budget used by the node.|unlimited, entry-count|
 
 ### REST Configuration
@@ -621,10 +622,10 @@ Both differ from the hard limits in several important ways:
 |---|---|---|---|
 |diskBuffersCapacityBytes|67108864|The amount of off-heap space allocated to snapshotting process, in bytes.|1 - Integer.MAX_VALUE (Must be a multiple of 16.)|
 |encryptionBuffersCapacityBytes|67108864|The amount of off-heap space allocated to snapshot compression process, in bytes.|1 - Integer.MAX_VALUE (Must be a multiple of 16.)|
-|snapshotChunkSizeBytes|65536|The size of the chunk in bytes which will be used to process the snapshot content. Note that when reading the snapshot, this property will not be used, since the size of the chunk with which it was written is saved in the snapshot metadata.|1 - Integer.MAX_VALUE (Must be a multiple of 16.)|
-|snapshotDiskBufferSizeBytes|65536|The size of the buffer in bytes which will be used to write the snapshot content to disk. Use instead of `snapshotFlushBufferSize`|1 - Integer.MAX_VALUE (Must be a multiple of 16.)|
+|snapshotChunkSizeBytes|65536|The size of the chunk in bytes which will be used to process the snapshot content. Note that when reading the snapshot, this property will not be used, since the size of the chunk with which it was written is saved in the snapshot metadata. Replaces `ignite.snapshot.snapshotFlushBufferSize` (deprecated in 9.1.1, removed in 9.2). In 9.1, a non-default value of `ignite.snapshot.snapshotFlushBufferSize` is migrated to this property.|1 - Integer.MAX_VALUE (Must be a multiple of 16.)|
+|snapshotDiskBufferSizeBytes|65536|The size of the buffer in bytes which will be used to write the snapshot content to disk.|1 - Integer.MAX_VALUE (Must be a multiple of 16.)|
 |threadPoolSize|20|Number of threads used by GridGain for IO operations when creating or restoring snapshots.|1 - Integer.MAX_VALUE|
-|snapshotFlushBufferSize|65536|**Deprecated** Use `snapshotDiskBufferSizeBytes` instead. This property is obsolete and should not be used as it will not be supported in the future releases.|1 - Integer.MAX_VALUE (Must be a multiple of 16.)|
+|snapshotFlushBufferSize|65536|The size of the snapshot flush buffer, in bytes. Use `snapshotChunkSizeBytes`. Deprecated in 9.1.1, removed in 9.2. In 9.1, a non-default value is migrated to `snapshotChunkSizeBytes`.|1 - Integer.MAX_VALUE (Must be a multiple of 16.)|
 
 ### SQL Configuration
 
@@ -676,8 +677,7 @@ Each GridGain storage engine can have several storage _profiles_.
             "intervalDeviationPercent": 40,
             "intervalMillis": 180000,
             "logReadLockThresholdTimeoutMillis": 0,
-            "readLockTimeoutMillis": 10000,
-            "useAsyncFileIoFactory": true
+            "readLockTimeoutMillis": 10000
           },
           "pageSizeBytes": 16384
         },
@@ -688,10 +688,6 @@ Each GridGain storage engine can have several storage _profiles_.
           "memtableConfiguration" : {
             "dataRegionSize": 2147483648,
             "memtableMaxSize": 67108864
-          },
-          "mergeTreeConfiguration": {
-            "mergeTreeFanout": 4,
-            "mergeTreeFirstLevelSize": 262144
           },
           "threadPoolConfiguration": {
             "threadPoolThreadCount": 16
@@ -742,23 +738,23 @@ Each GridGain storage engine can have several storage _profiles_.
 |Property|Default|Description|Acceptable Values|
 |---|---|---|---|
 |engines.aimem||Aimem configuration.||
-|aimem.pageSizeBytes|16384|The size of pages in the storage, in bytes.|1024-16384|
+|aimem.pageSizeBytes|16384|The size of pages in the storage, in bytes. Replaces `pageSize` (deprecated in 9.1.0, removed in 9.2).|1024-16384|
 |engines.aipersist||Aipersist configuration.||
 |aipersist.checkpoint.checkpointDelayMillis|200|Delay before staring a checkpoint after receiving the command.|0 - inf|
 |aipersist.checkpoint.checkpointThreads|4|Number of CPU threads dedicated to checkpointing.|1 - inf|
 |aipersist.checkpoint.compactionThreads|4|Number of CPU threads dedicated to data compaction.|1 - inf|
-|aipersist.checkpoint.intervalMillis|180000|Interval between checkpoints in milliseconds.|0 - inf|
-|aipersist.checkpoint.intervalDeviationPercent|40|Jitter that will be added or subtracted from time period till next scheduled checkpoint (percentage).|0-100|
-|aipersist.checkpoint.logReadLockThresholdTimeoutMillis|0|Threshold for logging long read locks, in milliseconds.|0 - inf|
-|aipersist.checkpoint.readLockTimeoutMillis|10000|Timeout for checkpoint read lock acquisition, in milliseconds.|0 - inf|
-|aipersist.checkpoint.useAsyncFileIoFactory|true|Define if GridGain uses asynchronous file I/O operations provider.|true, false|
-|aipersist.pageSizeBytes|16384|The size of pages in the storage, in bytes.|1024-16384|
+|aipersist.checkpoint.intervalMillis|180000|Interval between checkpoints in milliseconds. Replaces `interval` (deprecated in 9.1.4, removed in 9.2).|0 - inf|
+|aipersist.checkpoint.intervalDeviationPercent|40|Jitter that will be added or subtracted from time period till next scheduled checkpoint (percentage). Replaces `intervalDeviation` (deprecated in 9.1.4, removed in 9.2).|0-100|
+|aipersist.checkpoint.logReadLockThresholdTimeoutMillis|0|Threshold for logging long read locks, in milliseconds. Replaces `logReadLockThresholdTimeout` (deprecated in 9.1.4, removed in 9.2).|0 - inf|
+|aipersist.checkpoint.readLockTimeoutMillis|10000|Timeout for checkpoint read lock acquisition, in milliseconds. Replaces `readLockTimeout` (deprecated in 9.1.4, removed in 9.2).|0 - inf|
+|aipersist.checkpoint.useAsyncFileIoFactory|true|Define if GridGain uses asynchronous file I/O operations provider. No replacement. Removed in 9.1.13, so it is not available in 9.1.13 and later, or in 9.2.|true, false|
+|aipersist.pageSizeBytes|16384|The size of pages in the storage, in bytes. Replaces `pageSize` (deprecated in 9.1.0, removed in 9.2).|1024-16384|
 |engines.columnar||Columnar storage engine configuration.||
 |columnar.compressingConfiguration.enableLz4Compression|true|Defines if Lz4 compression will be used on columnar storage.|true, false|
 |columnar.memtableConfiguration.dataRegionSize|2147483648|Maximum size of all memory table buffers combined.||
 |columnar.memtableConfiguration.memtableMaxSize|67108864|Maximum size of a single memory table.||
-|columnar.mergeTreeConfiguration.mergeTreeFanout|4|The number of times by which the tree grows with each level.||
-|columnar.mergeTreeConfiguration.mergeTreeFirstLevelSize|262144|The size of entries of the first level of merge tree.||
+|columnar.mergeTreeConfiguration.mergeTreeFanout|4|The number of times by which the tree grows with each level. No replacement. Deprecated in 9.1.7, removed in 9.2.||
+|columnar.mergeTreeConfiguration.mergeTreeFirstLevelSize|262144|The size of entries of the first level of merge tree. No replacement. Deprecated in 9.1.7, removed in 9.2.||
 |columnar.threadPoolConfiguration.threadPoolThreadCount|10|Columnar thread-pool size.||
 |engines.rocksdb||Rocksdb configuration.||
 |rocksdb.flushDelayMillis|100|Delay before executing a flush triggered by RAFT.|0 - inf|
@@ -766,9 +762,9 @@ Each GridGain storage engine can have several storage _profiles_.
 |engine||The storage engine.|aimem, aipersist, rocksdb|
 |name||User-defined profile name.|A valid name|
 |profiles.aipersist.replacementMode|CLOCK|Sets the page replacement algorithm. Use `CLOCK`. `RANDOM_LRU` and `SEGMENTED_LRU` are deprecated since 9.1.27 and removed in 9.2.|CLOCK|
-|profiles.aipersist.sizeBytes|-1|Memory (RAM) region size in bytes. When set to -1 will be computed automatically equal to 20% of the available memory.|Min 256Mb, max defined by the addressable memory limit of the OS, or -1.|
-|profiles.aimem.initSizeBytes|-1|Initial memory region size in bytes, when the used memory size exceeds this value, new chunks of memory will be allocated. When set to -1 `aimem.maxSizeBytes` value will be used instead.|Min 256Mb, max defined by the addressable memory limit of the OS, or -1.|
-|profiles.aimem.maxSizeBytes|-1|Maximum memory region size in bytes. When set to -1 will be computed automatically equal to 20% of the available memory.|Min 256Mb, max defined by the addressable memory limit of the OS, or -1.|
+|profiles.aipersist.sizeBytes|-1|Memory (RAM) region size in bytes. When set to -1 will be computed automatically equal to 20% of the available memory. Replaces `size` (deprecated in 9.1.4, removed in 9.2).|Min 256Mb, max defined by the addressable memory limit of the OS, or -1.|
+|profiles.aimem.initSizeBytes|-1|Initial memory region size in bytes, when the used memory size exceeds this value, new chunks of memory will be allocated. When set to -1 `aimem.maxSizeBytes` value will be used instead. Replaces `initSize` (deprecated in 9.1.4, removed in 9.2).|Min 256Mb, max defined by the addressable memory limit of the OS, or -1.|
+|profiles.aimem.maxSizeBytes|-1|Maximum memory region size in bytes. When set to -1 will be computed automatically equal to 20% of the available memory. Replaces `maxSize` (deprecated in 9.1.4, removed in 9.2).|Min 256Mb, max defined by the addressable memory limit of the OS, or -1.|
 |profiles.aimem.eviction.mode|DISABLED|Eviction mode.|- DISABLED - Eviction is disabled.<br>- HISTORY_ONLY - Only historical versions of rows are evicted.<br>- RANDOM - Historical versions of rows are evicted first, followed by the eviction of the most recent row versions, which are chosen randomly.|
 |profiles.aimem.eviction.threshold|90%|Threshold for eviction initiation. A number with a dimension identifier:<br>- % - percentage of aimem.maxSize<br>- k - Kb<br>- m - Mb<br>- g - Gb<br>For instance, "90%" means that the page memory starts eviction only after 90% of the data region is occupied.|- 0-100%<br>- 0-9223372036854775807k/m/g|
 |profiles.aimem.eviction.lwmUpdateInterval|60000|Frequency of the low watermark update in milliseconds.|1 - inf|
@@ -810,9 +806,9 @@ Note that the property names are in `camelCase`.
 |Property|Description|Default|Acceptable Values|
 |---|---|---|---|
 |system.cmgPath|The path the cluster management group information is stored to. Only applicable if the node is part of CMG. By default, data is stored in `{GRIDGAIN_HOME}/work/cmg`. It is recommended to only change this path on an empty node.||Valid absolute path.|
-|system.criticalWorkers.livenessCheckIntervalMillis|Interval between liveness checks (ms) performed by the critical worker infrastructure.|2000|1 - inf (not greater than half of `maxAllowedLagMillis`)|
-|system.criticalWorkers.maxAllowedLagMillis|Maximum allowed delay from the last heartbeat to the current time (ms). If exceeded, the critical worker is considered to be blocked.|5000|1 - inf (should be at least twice `livenessCheckIntervalMillis`)|
-|system.criticalWorkers.nettyThreadsHeartbeatIntervalMillis|Interval between heartbeats used to update the Netty threads' heartbeat timestamps (ms).|1000|1 - inf|
+|system.criticalWorkers.livenessCheckIntervalMillis|Interval between liveness checks (ms) performed by the critical worker infrastructure.|2000 Replaces `ignite.criticalWorkers.livenessCheckIntervalMillis` (deprecated in 9.1.3, removed in 9.2). In 9.1, a non-default value of `ignite.criticalWorkers.livenessCheckIntervalMillis` is migrated to this property.|1 - inf (not greater than half of `maxAllowedLagMillis`)|
+|system.criticalWorkers.maxAllowedLagMillis|Maximum allowed delay from the last heartbeat to the current time (ms). If exceeded, the critical worker is considered to be blocked.|5000 Replaces `ignite.criticalWorkers.maxAllowedLagMillis` (deprecated in 9.1.3, removed in 9.2). In 9.1, a non-default value of `ignite.criticalWorkers.maxAllowedLagMillis` is migrated to this property.|1 - inf (should be at least twice `livenessCheckIntervalMillis`)|
+|system.criticalWorkers.nettyThreadsHeartbeatIntervalMillis|Interval between heartbeats used to update the Netty threads' heartbeat timestamps (ms).|1000 Replaces `ignite.criticalWorkers.nettyThreadsHeartbeatIntervalMillis` (deprecated in 9.1.3, removed in 9.2). In 9.1, a non-default value of `ignite.criticalWorkers.nettyThreadsHeartbeatIntervalMillis` is migrated to this property.|1 - inf|
 |system.metastoragePath|The path the cluster meta information is stored to. Only applicable if the node is part of the metastorage group. By default, data is stored in `{GRIDGAIN_HOME}/work/metastorage`. It is recommended to only change this path on an empty node.||Valid absolute path.|
 |system.partitionsBasePath|The path data partitions are saved to on the node. By default, partitions are stored in `{GRIDGAIN_HOME}/work/partitions`. It is recommended to only change this path on an empty node.||Valid absolute path.|
 |system.partitionsLogPath|The path RAFT log the partitions are stored at. By default, this log is stored in `{system.partitionsBasePath}/log`. It is recommended to only change this path on an empty node.||Valid absolute path.|

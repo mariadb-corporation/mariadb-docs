@@ -18,7 +18,11 @@ The Kafka Source connector guarantees "at least once" delivery of every table ro
 
 ## Compatibility
 
-GridGain Kafka Sink Connector is compatible with Kafka 3.9 and 4.0. Support for earlier Kafka versions may be limited. Earlier versions may have [limited functionality](https://kafka.apache.org/40/documentation.html#upgrade_400_notable_connect).
+{% hint style="info" %}
+Starting with GridGain 9.2, the connector requires Java 21 or later on your Kafka Connect worker.
+{% endhint %}
+
+GridGain Kafka Source Connector is compatible with Kafka 3.9 and 4.0. Support for earlier Kafka versions may be limited. Earlier versions may have [limited functionality](https://kafka.apache.org/40/documentation.html#upgrade_400_notable_connect).
 
 ## Installation
 

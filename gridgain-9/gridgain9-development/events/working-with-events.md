@@ -153,11 +153,11 @@ Webhook sink sends event data to an HTTP or HTTPS endpoint. Events from the chan
 | `endpoint` |  | Required. HTTP or HTTPS endpoint in `host:port` format (for example, `example.com:8080`). |
 | `protocol` | `http/json` | Protocol for sending events. Only `"http/json"` is supported. |
 | `batchSize` | `1000` | Maximum number of events per batch. When this limit is reached, the batch is sent immediately. Minimum value: 1. |
-| `batchSendFrequencyMillis` | `10000` | Maximum time to wait before sending a batch in milliseconds. Batches are sent when either this time limit or `batchSize` is reached. Minimum value: 1. |
+| `batchSendFrequencyMillis` | `10000` | Maximum time to wait before sending a batch in milliseconds. Batches are sent when either this time limit or `batchSize` is reached. Minimum value: 1. Replaces `batchSendFrequency` (deprecated in 9.1.0, removed in 9.2).|
 | `queueSize` | `10000` | Maximum number of events that can be queued. If the queue is full, new events are dropped. Should be higher than `batchSize`. Minimum value: 1. |
 | `retryPolicy.maxAttempts` | `2` | Maximum number of retry attempts. 0 means retries are disabled. |
-| `retryPolicy.initBackoffMillis` | `1000` | Initial delay in milliseconds before the first retry attempt. Minimum value: 1. |
-| `retryPolicy.maxBackoffMillis` | `5000` | Maximum delay in milliseconds between retry attempts. Minimum value: 1. |
+| `retryPolicy.initBackoffMillis` | `1000` | Initial delay in milliseconds before the first retry attempt. Minimum value: 1. Replaces `initBackoff` (deprecated in 9.1.0, removed in 9.2).|
+| `retryPolicy.maxBackoffMillis` | `5000` | Maximum delay in milliseconds between retry attempts. Minimum value: 1. Replaces `maxBackoff` (deprecated in 9.1.0, removed in 9.2).|
 | `retryPolicy.backoffMultiplier` | `2` | Multiplier applied to the backoff delay after each failed attempt. Minimum value: 1. |
 | `ssl.enabled` | `false` | Defines if SSL is enabled. |
 | `ssl.clientAuth` | `none` | Client authentication mode. Possible values: `none`, `optional`, or `require`. |
