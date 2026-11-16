@@ -5,29 +5,17 @@ description: >-
 
 # Upgrading from GridGain 9.1 to 9.2
 
-This guide explains how to upgrade a GridGain 9.1 cluster and its applications to GridGain 9.2. Start with the upgrade procedure, which covers a [full-cluster upgrade](../../upgrade/full-cluster-upgrade.md) and, as an alternative, a [rolling upgrade](../../upgrade/rolling-upgrade.md). Use the other pages as a reference for the changes that affect you.
+This guide explains how to upgrade a GridGain 9.1 cluster and its applications to GridGain 9.2. Start with the planning page to choose between a [full-cluster upgrade](../../upgrade/full-cluster-upgrade.md) and a [rolling upgrade](../../upgrade/rolling-upgrade.md), then follow the upgrade procedure. Use the other pages as a reference for the changes that affect you.
 
-Before you start, note that:
+Key points:
 
+* You can upgrade to 9.2 only from GridGain 9.1.29.
 * You cannot downgrade from 9.2 to 9.1. Take a backup before you upgrade.
-* GridGain 9.2 requires Java 21 or later. The Docker images use JDK 25 by default.
-* GridGain 9.2 removes the RocksDB storage engine and the legacy configuration key names.
-* GridGain 9.2 migrates the Raft logs to a new log storage when each node first starts.
-* The `CREATE ZONE` syntax and the system views change.
+* 9.2 requires Java 21 or later.
+* 9.2 removes the RocksDB storage engine and the legacy configuration key names.
+* Each node migrates its Raft logs to a new log storage on first start.
+* The `CREATE ZONE` syntax, the system views, and the SQL query protocol change.
 * User and role names become case-sensitive.
-* The SQL query protocol changes.
-
-{% columns %}
-{% column %}
-{% content-ref url="upgrade-procedure.md" %}
-[Upgrading a Cluster from GridGain 9.1 to 9.2](upgrade-procedure.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Steps for a full-cluster or rolling upgrade, how to verify the result, and what to do if something fails.
-{% endcolumn %}
-{% endcolumns %}
 
 {% columns %}
 {% column %}
@@ -38,6 +26,18 @@ Steps for a full-cluster or rolling upgrade, how to verify the result, and what 
 
 {% column %}
 Upgrade constraints, how to choose between a full-cluster and a rolling upgrade, and the scope and effort of each change.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="upgrade-procedure.md" %}
+[Upgrading a Cluster from GridGain 9.1 to 9.2](upgrade-procedure.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Steps for a full-cluster or rolling upgrade, how to verify the result, and what to do if something fails.
 {% endcolumn %}
 {% endcolumns %}
 

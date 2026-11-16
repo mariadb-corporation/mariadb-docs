@@ -5,29 +5,23 @@ description: >-
 
 # Configuration, Storage, and Metrics Changes
 
-GridGain 9.2 removes the legacy configuration key names and the deprecated keys of 9.1. It removes the RocksDB storage engine and the page replacement policies. It renames the storage profile metrics, and it moves the Raft logs to a new storage.
+GridGain 9.2 removes the legacy and deprecated configuration keys, the RocksDB storage engine, and the page replacement policies. It also renames the storage profile metrics and moves the Raft logs to a new storage.
 
 ## Removed and Renamed Configuration Keys
 
 GridGain 9.1 accepted many keys under two names: the name without a unit, for example `delayDuration`, and the name with a unit, for example `delayDurationMillis`. GridGain 9.2 accepts only the new names. It also removes the keys that 9.1 had deprecated. For how configuration works, see [Cluster and Node Configuration](../../cluster-configuration.md).
 
-A 9.2 node does not start if its node configuration file contains a key that 9.2 does not know. The node reports an error such as `Failed to parse HOCON: '<path>' configuration doesn't have the '<key>' sub-configuration`. A key in the stored cluster configuration that 9.2 does not know can also prevent the node from starting.
-
-Only two removed keys are still ignored: `ignite.license.signature` and the `ignite.storage.engines.rocksdb` section. Rename or delete every other key from the tables below before you start a node on 9.2.
+A 9.2 node does not start if its node configuration file contains a key that 9.2 does not know. The node reports an error such as `Failed to parse HOCON: '<path>' configuration doesn't have the '<key>' sub-configuration`. Only two removed keys are still ignored: `ignite.license.signature` and the `ignite.storage.engines.rocksdb` section. Rename or delete every other key from the tables below before you start a node on 9.2.
 
 {% hint style="warning" %}
-The cluster configuration cannot be changed while a rolling upgrade is in progress. GridGain 9.1.29 converts the old key names when it loads the cluster configuration, so `cluster config show` normally lists only the new names. Check it before you run `upgrade start`, and fix any key from the tables that is still there.
-{% endhint %}
-
-{% hint style="warning" %}
-If you deploy with the `gridgain/gridgain9` Helm chart, use chart version 1.1.12 or later. The default configuration of versions 1.1.10 and 1.1.11 contains `ignite.raft.logStripesCount` and `ignite.raft.stripes`, so a 9.2 node fails to start with `Failed to parse HOCON: 'ignite.raft' configuration doesn't have the 'logStripesCount' sub-configuration`, and the pods restart in a loop. The chart's `appVersion` is still a 9.1 release, so set `image.tag` to the 9.2 version. See [Installing GridGain 9 on Kubernetes using Helm Chart](../../installation/installing-with-helm.md).
+The cluster configuration cannot be changed during a rolling upgrade. 9.1.29 converts old key names when it loads the cluster configuration, so `cluster config show` normally lists only the new names. Before you run `upgrade start`, check it and fix any key from the tables that is still there.
 {% endhint %}
 
 ### Renamed Keys
 
 The values, types, and defaults of the renamed keys do not change.
 
-Keys at the *node* level are in the node configuration file, and `node config` commands change them. Keys at the *cluster* level are in the cluster configuration, and `cluster config` commands change them.
+*Node* keys are in the node configuration file and are changed with `node config`. *Cluster* keys are in the cluster configuration and are changed with `cluster config`.
 
 | Level | Old key | New key |
 | --- | --- | --- |
@@ -77,7 +71,7 @@ Keys at the *node* level are in the node configuration file, and `node config` c
 
 ### Removed Keys With a Replacement
 
-GridGain 9.1 copied the value of these keys to the new key when it loaded the configuration. GridGain 9.2 does not know the old key.
+9.1 copied the value of these keys to the new key when it loaded the configuration. 9.2 does not know the old key.
 
 | Level | Old key | New key |
 | --- | --- | --- |
@@ -91,78 +85,83 @@ GridGain 9.1 copied the value of these keys to the new key when it loaded the co
 
 ### Transaction Keys
 
-The following transaction keys are removed. Three of them are now system properties, which you set in the `ignite.system.properties` section of the cluster configuration. If you do not set a property, its default value is used.
+These transaction keys are removed. Three of them are now system properties, which you set in the `ignite.system.properties` section of the cluster configuration. An unset property uses its default.
 
-| Level | Old key | New setting | Default |
+| Level | Old key | New setting | Default of the new setting |
 | --- | --- | --- | --- |
 | Cluster | `ignite.transaction.abandonedCheckTs` | System property `txnAbandonedCheckTs` | `5000` |
-| Cluster | `ignite.transaction.attemptsObtainLock` | System property `txnLockRetryCount`. Read when the node starts, so restart the node after you change it. | `3` |
+| Cluster | `ignite.transaction.attemptsObtainLock` | System property `txnLockRetryCount` | `3` |
 | Cluster | `ignite.transaction.txnResourceTtl` | System property `txnResourceTtl` | `60000` |
-| Cluster | `ignite.transaction.timeout` | `ignite.transaction.readWriteTimeoutMillis`. The old key defaulted to `10000`. | `30000` |
+| Cluster | `ignite.transaction.timeout` | `ignite.transaction.readWriteTimeoutMillis` | `30000` |
+
+Two of these settings need extra care:
+
+- `txnLockRetryCount` is read when the node starts, so restart the node after you change it.
+- The old `ignite.transaction.timeout` defaulted to `10000`, not `30000`. If you set the old key, set `readWriteTimeoutMillis` to the same value.
 
 For the properties, see the [cluster configuration](../../../reference/configuration/cluster-configuration-parameters.md) reference.
 
 ### Removed Keys Without a Replacement
 
-Delete these keys.
+Delete these keys. 9.2 still ignores `ignite.license.signature`, but use `ignite.license.content` instead.
 
 | Level | Key |
 | --- | --- |
-| Cluster | `ignite.license.signature`. Still ignored. Use `ignite.license.content`. |
+| Cluster | `ignite.license.signature` |
 | Node | `ignite.compute.threadPoolStopTimeoutMillis` |
 | Node | `ignite.storage.engines.columnar.mergeTreeConfiguration` and its `mergeTreeFanout` and `mergeTreeFirstLevelSize` |
 | Cluster | `ignite.transaction.implicitTransactionTimeout` |
 | Cluster | `ignite.transaction.rpcTimeout` |
 | Cluster | `ignite.transaction.deadlockPreventionPolicy` and its `txIdComparator` and `waitTimeout` |
-| Node | `ignite.network.fileTransfer`, `ignite.network.ackConfigurationSchema`, and `ignite.storage.engines.aipersist.checkpoint.useAsyncFileIoFactory`. Keys of very old releases. 9.1 ignored them, and 9.2 does not. |
+| Node | `ignite.network.fileTransfer`, `ignite.network.ackConfigurationSchema`, and `ignite.storage.engines.aipersist.checkpoint.useAsyncFileIoFactory` |
+
+The last row lists keys of very old releases. 9.1 ignored them, but 9.2 rejects them.
 
 For the current keys, see the [node configuration](../../../reference/configuration/node-configuration-parameters.md) and [cluster configuration](../../../reference/configuration/cluster-configuration-parameters.md) references.
+
+### Helm Chart Versions
+
+If you deploy with the `gridgain/gridgain9` Helm chart, use chart version 1.1.12 or later. The default configuration of versions 1.1.10 and 1.1.11 contains `ignite.raft.logStripesCount` and `ignite.raft.stripes`, so the pods restart in a loop with `Failed to parse HOCON: 'ignite.raft' configuration doesn't have the 'logStripesCount' sub-configuration`. The chart's `appVersion` is still a 9.1 release, so set `image.tag` to the 9.2 version. See [Installing GridGain 9 on Kubernetes using Helm Chart](../../installation/installing-with-helm.md).
 
 ## RocksDB Storage Engine Removed
 
 This section applies if a storage profile uses the `rocksdb` engine.
 
-The RocksDB partition storage engine is removed. The `engine = rocksdb` profile type no longer exists. For the engines that remain, see [Storage Engines and Profiles](../../../architecture/storage/engines/README.md), [Persistent Storage](../../../architecture/storage/engines/native-persistent-storage.md), and [Storage Profiles](../../../architecture/storage/storage-profiles.md).
+The RocksDB partition storage engine and the `engine = rocksdb` profile type are removed. This change affects only partition storage, not the RocksDB-based Raft log. There is no automatic migration for tables on a RocksDB profile. For the remaining engines, see [Storage Engines and Profiles](../../../architecture/storage/engines/README.md) and [Storage Profiles](../../../architecture/storage/storage-profiles.md).
 
-- A node that starts with an `ignite.storage.engines.rocksdb` section in its configuration ignores the section.
-- A node does not start if a storage profile uses `engine = rocksdb`. The error is `Failed to parse HOCON: Polymorphic configuration type is not correct: rocksdb`.
-- There is no automatic migration for tables on a RocksDB profile.
+A node ignores an `ignite.storage.engines.rocksdb` section, but it does not start if a storage profile uses `engine = rocksdb`. The error is `Failed to parse HOCON: Polymorphic configuration type is not correct: rocksdb`.
 
-If you have zones or tables on a RocksDB profile, re-create them on a profile of another engine before you upgrade:
+Re-create zones and tables that use a RocksDB profile on another engine before you upgrade:
 
-1. Create a zone with an `aipersist` or `aimem` storage profile. See [Distribution Zones](../../../reference/sql/distribution-zones.md).
+1. Create a zone with an `aipersist` or `aimem` storage profile. Use `aipersist` if the data must survive a restart, because `aimem` keeps data in memory only. See [Distribution Zones](../../../reference/sql/distribution-zones.md) and [Persistent Storage](../../../architecture/storage/engines/native-persistent-storage.md).
 2. Create the new tables in that zone, and copy the data, for example with `INSERT INTO ... SELECT`.
 3. Drop the old tables and zones.
 4. Remove the RocksDB profiles from the node configuration files.
-
-The RocksDB engine and the RocksDB-based Raft log are different features. This change affects only partition storage.
 
 ## Page Replacement Policies
 
 This section applies if a storage profile sets `replacementMode`.
 
-The `RANDOM_LRU` and `SEGMENTED_LRU` page replacement policies are removed. The persistent page memory always uses the `CLOCK` policy, which was already the default.
-
-The `replacementMode` property of an `aipersist` storage profile still exists and is deprecated. It still accepts `RANDOM_LRU`, `SEGMENTED_LRU`, and `CLOCK`, but 9.2 ignores the value. Remove `replacementMode` from your profiles. For the page memory, see [Persistent Storage](../../../architecture/storage/engines/native-persistent-storage.md).
+The `RANDOM_LRU` and `SEGMENTED_LRU` page replacement policies are removed. The persistent page memory always uses the `CLOCK` policy. The deprecated `replacementMode` property of an `aipersist` profile still accepts the old values, but 9.2 ignores it, so remove it from your profiles. See [Persistent Storage](../../../architecture/storage/engines/native-persistent-storage.md).
 
 ## Metric Changes
 
-| 9.1 | 9.2 |
-| --- | --- |
-| Metric source `storage.aipersist.<profile>` | `storage.aipersist.profiles.<profile>`. The metrics in the source keep their names. |
-| Metric `PageAcquireTime` | Removed. |
+- The metric source `storage.aipersist.<profile>` is now `storage.aipersist.profiles.<profile>`. The metrics in the source keep their names.
+- The metric `PageAcquireTime` is removed.
 
-A storage profile that was named like an engine-level source, for example `checkpoint` or `io`, collided with it. The new `profiles` segment avoids that.
+The engine-level sources `storage.aipersist`, `storage.aipersist.checkpoint`, and `storage.aipersist.io` keep their names. Update every dashboard, alert, exporter filter, and `metric source enable` or `disable` command that uses the old source name, and remove `PageAcquireTime`.
 
-The engine-level sources `storage.aipersist`, `storage.aipersist.checkpoint`, and `storage.aipersist.io` keep their names. Update every dashboard, alert, exporter filter, and `metric source enable` or `metric source disable` command that uses the old source name, and remove `PageAcquireTime` from your dashboards.
-
-For the list of metrics, see [Metrics List](../../../reference/monitoring/metrics-list.md#storageaipersistprofilesprofile). For how to enable metric sources, see [Configuring Metrics](../../monitoring/configuring-metrics.md), and for the metrics to watch, see [Monitoring Best Practices](../../monitoring/monitoring-best-practices.md).
+For the list of metrics, see [Metrics List](../../../reference/monitoring/metrics-list.md#storageaipersistprofilesprofile). For how to enable metric sources, see [Configuring Metrics](../../monitoring/configuring-metrics.md).
 
 ## Raft Log Storage Changes
 
-GridGain 9.2 stores the Raft logs in the segment-based log storage (SegStore) by default. GridGain 9.1.29 used the RocksDB-based log storage unless you turned SegStore on. The RocksDB-based log storage is deprecated in 9.2. It is a different feature from the removed RocksDB partition storage engine. For the protocol that uses the logs, see [RAFT Consensus](../../../architecture/raft-consensus.md).
+<!-- TODO (GG-52937, GG-53310..53312): this section describes 9.2. Main (after 9.2.0-b1) gates the migration: a Raft group switches to SegStore on its first append, and only when the stable cluster version is 9.2.0 or later (marker file raft-log-migration-permitted). A full-cluster upgrade does not change the cluster version, so it never migrates there; ask dev if that is intended. Main also assumes `upgrade cancel` exists, but it is not implemented in 9.2. When the gate and `upgrade cancel` ship, rewrite this section, the README bullet, the Raft row in before-you-upgrade.md, the disk-space prerequisite and Recovery Path in upgrade-procedure.md, and the Cancel row in before-you-upgrade.md. -->
 
-The first time a 9.2 node starts on 9.1 data, it migrates its existing Raft logs to SegStore. You do not run a command, and the migration cannot be reverted. Until the old log entries of a group are truncated after a snapshot, the node keeps the old RocksDB log files next to the new `segstore` directory, in the `cmg`, `metastorage`, and `partitions` directories under `work`. It writes `Still exists logs in oldLogStorage … need to wait snapshot to truncate logs` to the log while it waits. Make sure that the nodes have free disk space for both logs.
+GridGain 9.2 stores the Raft logs in the segment-based log storage (SegStore) by default. 9.1.29 used the RocksDB-based log storage unless you turned SegStore on. The RocksDB-based log storage is deprecated in 9.2. For the protocol that uses the logs, see [RAFT Consensus](../../../architecture/raft-consensus.md).
+
+Make sure that every node has free disk space for both the old and the new logs. The first time a 9.2 node starts on 9.1 data, it migrates its Raft logs to SegStore automatically, and the migration cannot be reverted.
+
+Until the old log entries of a group are truncated after a snapshot, the node keeps the old RocksDB log files next to the new `segstore` directory under `work`.
 
 9.2 adds a `raft.segstore.<name>` metric source for each log, for example `raft.segstore.meta-storage-log`. See [Metrics List](../../../reference/monitoring/metrics-list.md).
 
