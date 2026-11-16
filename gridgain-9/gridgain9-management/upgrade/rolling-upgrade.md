@@ -20,15 +20,21 @@ Take a [snapshot](../snapshots/data-snapshots.md) of your data before starting. 
 
 ### Cluster Configuration Changes Are Blocked
 
-While an upgrade is in progress, the cluster rejects cluster-wide configuration changes. Local node-level configuration changes are still allowed. Cluster-wide configuration changes are accepted again after the upgrade is committed or cancelled.
+While an upgrade is in progress, the cluster rejects cluster-wide configuration changes. Local node-level configuration changes are still allowed. Cluster-wide configuration changes are accepted again after the upgrade is committed.
 
 ### Schema Changes and DDL Are Blocked
 
-While an upgrade is in progress, the cluster rejects all schema-modifying DDL: `CREATE TABLE`, `ALTER TABLE`, `DROP TABLE`, index changes, distribution-zone changes, and similar statements. Read and DML operations (`SELECT`, `INSERT`, `UPDATE`, `DELETE`) continue to work normally. DDL is accepted again after the upgrade is committed or cancelled.
+While an upgrade is in progress, the cluster rejects all schema-modifying DDL: `CREATE TABLE`, `ALTER TABLE`, `DROP TABLE`, index changes, distribution-zone changes, and similar statements. Read and DML operations (`SELECT`, `INSERT`, `UPDATE`, `DELETE`) continue to work normally. DDL is accepted again after the upgrade is committed.
 
 ### Rolling Upgrade and PITR Are Mutually Exclusive
 
-A rolling upgrade and a point-in-time recovery (PITR) cannot run concurrently. Once a rolling upgrade has started, attempts to start PITR fail with an error naming the conflicting operation, and vice versa. The block is released when the upgrade is committed or cancelled.
+A rolling upgrade and a point-in-time recovery (PITR) cannot run concurrently. Once a rolling upgrade has started, attempts to start PITR fail with an error naming the conflicting operation, and vice versa. The block is released when the upgrade is committed.
+
+### An In-Progress Upgrade Cannot Be Cancelled
+
+Starting with GridGain 9.1.16, you cannot cancel a rolling upgrade. Once you run `upgrade start`, the only way to finish the upgrade is `upgrade commit`.
+
+Because of this, cluster-wide configuration changes, DDL, and PITR stay blocked until you commit the upgrade.
 
 ## Rolling Upgrade Procedure
 
@@ -39,6 +45,10 @@ A rolling upgrade and a point-in-time recovery (PITR) cannot run concurrently. O
 ```bash
 upgrade start --version <V>
 ```
+
+{% hint style="warning" %}
+You cannot cancel an upgrade after it starts. The upgrade can only be completed with `upgrade commit`, so take a [snapshot](../snapshots/data-snapshots.md) before you start.
+{% endhint %}
 
 #### What Happens When You Start
 
@@ -116,21 +126,11 @@ The metric source `upgrade.rolling` exposes the following gauges:
 - `UpgradedNodes` — comma-separated list of node names that have reached the target version.
 - `NotUpgradedNodes` — comma-separated list of node names still on the source version.
 
-## Recovery and Abort
+## Recovery
 
 ### Cancelling an In-Progress Upgrade
 
-#### Run `upgrade cancel`
-
-```bash
-upgrade cancel
-```
-
-#### Preconditions for Cancel
-
-The cancel operation validates that every active node is on the source version. If any node is still on the target version (that is, it has been rolled forward to the new binaries), the cancel fails with an error listing the offending nodes. To cancel after binaries have been swapped on some nodes, the operator must first roll those nodes back to the source binaries.
-
-When cancel succeeds, the cluster clears the in-progress flag while leaving the recorded version unchanged, accepts cluster-wide configuration changes again, and releases the block that prevents PITR from starting.
+Cancelling a rolling upgrade is not supported in GridGain 9.1.16 and later. Complete the upgrade with `upgrade commit` instead.
 
 ### Resuming After a Coordinator or Cluster-Management Node Restart
 
