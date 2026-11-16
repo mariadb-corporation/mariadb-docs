@@ -159,14 +159,16 @@ statement may succeed or fail depending on which node the client connected to.
 
 ### Failed Statements
 
-When a `COPY` statement that exports data fails, it discards the output it has written:
+An export creates its target (a file, an S3 object or an Iceberg table) and fails if the target already exists. When the export fails, it removes what it created:
 
 - A CSV or Parquet file is deleted.
-- An Iceberg table gets no snapshot from the statement. An Iceberg table the statement created is dropped, unless another writer has committed to it in the meantime.
+- The Iceberg table is dropped with its data and metadata files, unless another writer has committed to it in the meantime.
 
-A Parquet or Iceberg export to S3 cannot cancel an upload that is in progress, so a failed one uploads the partial file and then deletes it. Deleting it requires the `s3:DeleteObject` permission on the target bucket. Without that permission, or if the node stops before the object is deleted, the partial object remains.
+A Parquet or Iceberg export to S3 completes each upload before it can delete the object, so the partial object is briefly visible in the bucket. Deleting it, and dropping an Iceberg table on S3, requires the `s3:DeleteObject` permission on the target bucket. Without that permission, the partial output remains.
 
-Rows that a failed import has already written to a table are kept.
+The output also remains if the node stops during the export.
+
+A failed import keeps the rows it read before the failure. Rows are written as upserts, so running the import again overwrites rows with the same primary key.
 
 ### Examples
 
