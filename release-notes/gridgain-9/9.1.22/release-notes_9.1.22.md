@@ -2,9 +2,12 @@
 description: >-
   GridGain 9.1.22 adds new metrics, improved performance and memory control for
   clients, and a beta release of the GridGain 9 Kubernetes operator.
+  Released on 2026-04-15.
 ---
 
 # GridGain 9.1.22 Release Notes
+
+**Release date:** 15 Apr 2026
 
 ## Overview
 

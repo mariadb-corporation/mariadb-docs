@@ -2,9 +2,12 @@
 description: >-
   GridGain 9.0.15 adds SQL schema support, metastorage compaction, and query and
   transaction cancellation from Java clients.
+  Released on 2025-03-04.
 ---
 
 # GridGain 9.0.15 Release Notes
+
+**Release date:** 4 Mar 2025
 
 ## Overview
 

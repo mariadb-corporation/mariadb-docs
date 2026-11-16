@@ -294,7 +294,7 @@ Directory under which capture directories are stored. Each capture directory has
 
 ### `start_capture`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: false
 * Mandatory: No
 * Dynamic: No
@@ -304,7 +304,7 @@ Start capture when maxscale starts.
 
 ### `capture_duration`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Default: 0s
 * Mandatory: No
 * Dynamic: No
@@ -314,7 +314,7 @@ Limit capture to this duration. If set to zero there is no limit.
 
 ### `capture_size`
 
-* Type: [size](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
+* Type: [size](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#sizes)
 * Default: 0
 * Mandatory: No
 * Dynamic: No

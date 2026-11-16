@@ -1,11 +1,14 @@
 ---
 description: >-
-  GridGain 9.1.28 hardens security around the distributed map, thin-client
-  metadata, and LDAP role mapping, corrects the REST transactions API path, and
-  deprecates the RocksDB partition storage engine.
+  GridGain 9.1.28 hardens distributed map, thin-client metadata, and LDAP role
+  mapping security, fixes the REST transactions API path, and deprecates RocksDB
+  partition storage.
+  Released on 2026-10-20.
 ---
 
 # GridGain 9.1.28 Release Notes
+
+**Release date:** 20 Oct 2026
 
 ## Overview
 

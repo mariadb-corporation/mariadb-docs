@@ -1,11 +1,14 @@
 ---
 description: >-
   GridGain 9.1.26 tightens access control for administrative operations, changes
-  how read-only SQL queries are routed, and adds cluster-wide and per-statement
-  control over follower reads.
+  read-only SQL query routing, and adds cluster-wide and per-statement follower
+  read control.
+  Released on 2026-08-19.
 ---
 
 # GridGain 9.1.26 Release Notes
+
+**Release date:** 19 Aug 2026
 
 ## Overview
 

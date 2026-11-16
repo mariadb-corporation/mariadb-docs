@@ -2,9 +2,12 @@
 description: >-
   GridGain 9.0.5 adds secondary columnar storage support and automatic host
   resolution in the node finder.
+  Released on 2024-09-09.
 ---
 
 # GridGain 9.0.5 Release Notes
+
+**Release date:** 9 Sep 2024
 
 ## Overview
 

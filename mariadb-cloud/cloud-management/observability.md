@@ -158,6 +158,7 @@ The following metrics are exported as part of the [metrics](observability.md#met
 * `maxscale_*`: MaxScale
 * `mariadb_xpand_*`: Xpand
 * `gridgain_*`: GridGain, including the query result cache
+* `exasol_*`: the Exasol node of [MariaDB Exa](../quickstart/htap-mariadb-exa.md), which is available as a private preview
 
 The endpoint returns only the metrics for components your services run. For example, `maxscale_*` metrics appear only for services that include MaxScale.
 
@@ -371,6 +372,17 @@ The endpoint returns only the metrics for components your services run. For exam
 | `gridgain_cluster_totalservernodes`                       | GridGain         |
 | `gridgain_io_dataregion_default_maxsize`                  | GridGain         |
 | `gridgain_io_dataregion_default_totalallocatedsize`       | GridGain         |
+| `exasol_auxiliary_size_gibibytes`                         | MariaDB Exa      |
+| `exasol_compressed_object_size_gibibytes`                 | MariaDB Exa      |
+| `exasol_concurrent_queries_max`                           | MariaDB Exa      |
+| `exasol_multicopy_data_mebibytes`                         | MariaDB Exa      |
+| `exasol_persistent_db_ram_mebibytes`                      | MariaDB Exa      |
+| `exasol_raw_object_size_gibibytes`                        | MariaDB Exa      |
+| `exasol_recommended_db_ram_size_gibibytes`                | MariaDB Exa      |
+| `exasol_sql_operations_per_minute`                        | MariaDB Exa      |
+| `exasol_swap_data_mebibytes`                              | MariaDB Exa      |
+| `exasol_temp_db_ram_mebibytes`                            | MariaDB Exa      |
+| `exasol_up`                                               | MariaDB Exa      |
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

@@ -1,11 +1,14 @@
 ---
 description: >-
-  GridGain 9.1.19 brings more monitoring improvements, an experimental ML
-  inference framework, a reworked distributed map API, and fixes including the
-  9.1.18 data center replication issue.
+  GridGain 9.1.19 improves monitoring, adds an experimental ML inference
+  framework, reworks the distributed map API, and fixes the 9.1.18 data center
+  replication issue.
+  Released on 2026-03-05.
 ---
 
 # GridGain 9.1.19 Release Notes
+
+**Release date:** 5 Mar 2026
 
 ## Overview
 

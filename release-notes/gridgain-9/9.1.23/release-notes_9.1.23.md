@@ -2,10 +2,13 @@
 description: >-
   GridGain 9.1.23 adds disk-usage write protection, C++ client partition
   awareness, server-side continuous query filters, compute job cancellation
-  tokens, and storage, thread pool, and Raft metrics.
+  tokens, and new metrics.
+  Released on 2026-06-03.
 ---
 
 # GridGain 9.1.23 Release Notes
+
+**Release date:** 3 Jun 2026
 
 ## Overview
 

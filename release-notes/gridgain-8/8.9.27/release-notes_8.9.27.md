@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.9.27 is a maintenance release focused on improving DR stability, optional Spring 6 support and sensitive data handling during partition reconciliation.
+  Released on 2025-11-27.
 ---
 
 # GridGain 8.9.27 Release Notes
+
+**Release date:** 27 Nov 2025
 
 ## Overview
 

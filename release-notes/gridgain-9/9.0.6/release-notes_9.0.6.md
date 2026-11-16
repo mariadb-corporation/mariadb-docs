@@ -2,9 +2,12 @@
 description: >-
   GridGain 9.0.6 is a stability and performance release that adds a license
   metrics exporter.
+  Released on 2024-09-24.
 ---
 
 # GridGain 9.0.6 Release Notes
+
+**Release date:** 24 Sep 2024
 
 ## Overview
 

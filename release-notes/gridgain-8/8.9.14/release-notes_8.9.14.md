@@ -2,9 +2,12 @@
 description: >-
   GridGain 8.9.14 is a regular release bringing new features and performance
   improvements.
+  Released on 2024-11-07.
 ---
 
 # GridGain 8.9.14 Release Notes
+
+**Release date:** 7 Nov 2024
 
 ## Overview
 

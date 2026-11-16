@@ -2,9 +2,12 @@
 description: >-
   GridGain 9.0.9 changes CREATE TABLE syntax and adds extended system views, a
   Kafka sink connector, and disaster recovery for system RAFT groups.
+  Released on 2024-11-21.
 ---
 
 # GridGain 9.0.9 Release Notes
+
+**Release date:** 21 Nov 2024
 
 ## Overview
 

@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.8.43 is a stability release, improving stability and updating libraries.
+  Released on 2024-09-26.
 ---
 
 # GridGain 8.8.43 Release Notes
+
+**Release date:** 26 Sep 2024
 
 ## Overview
 

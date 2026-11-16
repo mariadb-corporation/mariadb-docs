@@ -2,9 +2,12 @@
 description: >-
   GridGain 9.0.14 introduces the Python DB API driver, point-in-time recovery,
   new transaction timeout parameters, and improved DDL performance.
+  Released on 2025-02-14.
 ---
 
 # GridGain 9.0.14 Release Notes
+
+**Release date:** 14 Feb 2025
 
 ## Overview
 

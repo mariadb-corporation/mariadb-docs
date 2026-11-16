@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.9.23 is a maintenance release focused on improving logging and DR stability.
+  Released on 2025-07-31.
 ---
 
 # GridGain 8.9.23 Release Notes
+
+**Release date:** 31 Jul 2025
 
 ## Overview
 

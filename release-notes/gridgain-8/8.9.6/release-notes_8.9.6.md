@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.9.6 brings a fix to a possible race during TCP connection and improvements on communication SPI configuration.
+  Released on 2024-05-29.
 ---
 
 # GridGain 8.9.6 Release Notes
+
+**Release date:** 29 May 2024
 
 ## Overview
 

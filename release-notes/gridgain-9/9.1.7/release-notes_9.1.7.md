@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 9.1.7 improves cluster monitoring and migration tooling and adds Windows support for the C++ client.
+  Released on 2025-08-28.
 ---
 
 # GridGain 9.1.7 Release Notes
+
+**Release date:** 28 Aug 2025
 
 ## Overview
 

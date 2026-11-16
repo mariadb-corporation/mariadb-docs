@@ -1,8 +1,10 @@
 ---
-description: GridGain 8.8.37 brings stability improvements and adds new service monitoring events.
+description: GridGain 8.8.37 brings stability improvements and adds new service monitoring events. Released on 2023-12-29.
 ---
 
 # GridGain 8.8.37 Release Notes
+
+**Release date:** 29 Dec 2023
 
 GridGain 8.8.37 brings stability improvements for GridGain, as well as new service monitoring events.
 

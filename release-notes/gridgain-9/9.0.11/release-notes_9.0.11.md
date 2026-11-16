@@ -2,9 +2,12 @@
 description: >-
   GridGain 9.0.11 adds high availability distribution zones alongside stability
   and performance improvements.
+  Released on 2024-12-18.
 ---
 
 # GridGain 9.0.11 Release Notes
+
+**Release date:** 18 Dec 2024
 
 ## Overview
 

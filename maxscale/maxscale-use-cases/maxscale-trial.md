@@ -101,9 +101,9 @@ _absolute_ path to a file containing the license.
 #### Database Users used by MaxScale <a href="#database-users-used-by-maxscale" id="database-users-used-by-maxscale"></a>
 
 MaxScale needs two database users for its own use; one user used by a MaxScale
-[service](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#service)
+[service](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#service)
 for fetching user account information and another user used by the MaxScale
-[monitor](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#monitor)
+[monitor](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#monitor)
 for monitoring the health of the MariaDB server and for performing operations on it.
 The same user can be used for both purposes, provided the user has all the grants
 needed by services and monitors.

@@ -2,9 +2,12 @@
 description: >-
   GridGain 9.0.16 is a stability release that standardizes system view column
   names, adds the INDEX_COLUMNS system view, and updates DCR command syntax.
+  Released on 2025-03-14.
 ---
 
 # GridGain 9.0.16 Release Notes
+
+**Release date:** 14 Mar 2025
 
 ## Overview
 

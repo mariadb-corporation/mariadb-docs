@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.9.30 is a maintenance release focused on improving cluster stability and observability.
+  Released on 2026-02-17.
 ---
 
 # GridGain 8.9.30 Release Notes
+
+**Release date:** 17 Feb 2026
 
 ## Overview
 

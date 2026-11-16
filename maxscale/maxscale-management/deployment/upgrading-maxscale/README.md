@@ -33,6 +33,40 @@ For example, when upgrading from 23.08.9 to 25.10.3 and you have configured
 
 ## Upgrading MariaDB MaxScale from 25.10 to 26.10
 
+### License Key Required
+
+MaxScale 26.10 requires a license key to start. Earlier versions, except MaxScale Trial, did not
+require one. A production license key from an Enterprise Platform subscription and a trial
+license key both work.
+
+1. Before you upgrade, get a license key from the
+   [MariaDB License Portal](https://customers.mariadb.com/license/).
+2. Stop MaxScale:
+
+   ```bash
+   sudo systemctl stop maxscale
+   ```
+3. Upgrade the MaxScale packages to 26.10.
+4. Add the key to the `[maxscale]` section of the configuration file:
+
+   ```ini
+   [maxscale]
+   license_key=<key>
+   ```
+5. Start MaxScale:
+
+   ```bash
+   sudo systemctl start maxscale
+   ```
+
+Stop MaxScale before you upgrade the packages. The 26.10 package restarts MaxScale if it is
+running, and MaxScale 26.10 does not start without a license key. Do not add `license_key` while
+you still run 25.10. MaxScale 25.10 and earlier, except MaxScale Trial, report it as an unknown
+parameter.
+
+To store the key in a file, or to troubleshoot it, see
+[Install a MaxScale License Key](../../installation-and-configuration/maxscale-license-key.md).
+
 ### Log Timestamp Format
 
 The default timestamp format in MaxScale 26.10 changed to a standard ISO 8601 timestamp with timezone. The new timestamp format is interoperable with other log management systems and includes the system timezone which makes log analysis easier. To use the old format, add `log_timestamp_format=datetime` under the `[maxscale]` section.
@@ -57,7 +91,7 @@ the path must be defined in `script`.
 
 ### TLS for Servers and Listeners
 
-The [ssl](../installation-and-configuration/maxscale-configuration-guide.md#ssl)
+The [ssl](../installation-and-configuration/maxscale-configuration-guide/tls-ssl-encryption.md#ssl)
 setting of servers and listeners is now an enumeration with the values
 `disable`, `allow` and `require`, and the new default is `allow`. With `allow`,
 MaxScale encrypts a connection to a server if the server supports TLS, and a
@@ -83,7 +117,7 @@ the monitor parameters is now a string instead of a boolean.
 If
 [cooperative_monitoring_locks](../../../reference/maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#cooperative_monitoring_locks)
 is used together with
-[passive=true](../installation-and-configuration/maxscale-configuration-guide.md#passive),
+[passive=true](../installation-and-configuration/maxscale-configuration-guide/global-settings.md#passive),
 the monitor no longer acquires any locks, and it releases any locks it holds.
 If all MaxScales are passive, no MaxScale holds the locks and, with the default
 [master_conditions](../../../reference/maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#master_conditions),
@@ -113,7 +147,7 @@ In MaxScale 25.10, only one monitor backend timeout remains: [backend\_timeout](
 
 ### Core Files
 
-MaxScale 25.10 no longer writes a core file when it crashes, because the default of [core\_file](../installation-and-configuration/maxscale-configuration-guide.md#core_file) changed from `true` to `false`. MaxScale still logs the stack trace of all threads when it crashes, which is usually enough to find the cause.
+MaxScale 25.10 no longer writes a core file when it crashes, because the default of [core\_file](../installation-and-configuration/maxscale-configuration-guide/global-settings.md#core_file) changed from `true` to `false`. MaxScale still logs the stack trace of all threads when it crashes, which is usually enough to find the cause.
 
 To keep writing core files, as MaxScale 25.01 does by default, set `core_file` in the `[maxscale]` section of the configuration file:
 

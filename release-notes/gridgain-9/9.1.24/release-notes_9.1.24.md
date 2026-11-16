@@ -1,11 +1,14 @@
 ---
 description: >-
   GridGain 9.1.24 adds leaseholder balancing, improves the .NET cluster API, SQL
-  system views, SQL planning, and transactions, and fixes issues in SQL, thin
-  clients, and continuous queries.
+  system views, SQL planning, and transactions, and fixes SQL and thin client
+  issues.
+  Released on 2026-06-29.
 ---
 
 # GridGain 9.1.24 Release Notes
+
+**Release date:** 29 Jun 2026
 
 ## Overview
 

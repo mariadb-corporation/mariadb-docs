@@ -2,9 +2,12 @@
 description: >-
   GridGain 8.9.2 brings a number of bug fixes and improvements to performance of
   GridGain, including an update to using Spring 5.3.
+  Released on 2024-02-28.
 ---
 
 # GridGain 8.9.2 Release Notes
+
+**Release date:** 28 Feb 2024
 
 ## Overview
 

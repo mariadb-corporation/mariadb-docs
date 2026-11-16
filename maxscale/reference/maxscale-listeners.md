@@ -100,7 +100,7 @@ This defines additional options for authentication. As of MaxScale 2.5.0, only _
 
 ### `sql_mode`
 
-* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `default`, `oracle`

@@ -2,9 +2,12 @@
 description: >-
   GridGain 9.0.1 improves cluster stability and performance and adds continuous
   query metrics for Java and .NET clients.
+  Released on 2024-07-16.
 ---
 
 # GridGain 9.0.1 Release Notes
+
+**Release date:** 16 Jul 2024
 
 ## Overview
 

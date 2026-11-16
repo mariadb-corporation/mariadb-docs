@@ -518,7 +518,7 @@ As can be seen, the user has the `readWrite` role on the `test` database, which 
 
 ### TLS/SSL
 
-Since `nosqlprotocol` is a regular protocol module used in a listener, the TLS/SSL support of listeners is available. Please see [TLS/SSL encryption](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#tls-ssl-encryption) for details.
+Since `nosqlprotocol` is a regular protocol module used in a listener, the TLS/SSL support of listeners is available. Please see [TLS/SSL encryption](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#tls-ssl-encryption) for details.
 
 ## NoSQL Account Database
 

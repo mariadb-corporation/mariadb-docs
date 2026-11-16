@@ -424,7 +424,7 @@ If a setup with just two datacenters needs to survive a datacenter failure, and
 also be resistant to a split-brain scenario, then neither
 `cooperative_monitoring_locks` mode is sufficient. Such a situation requires an
 outside orchestrator to manage
-the [passive](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#passive)
+the [passive](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#passive)
 -state of the MaxScales. Both MaxScale and servers also need to be carefully
 configured so that different MaxScales cannot select different primaries.
 See [failover with multiple MaxScales](../../../mariadb-maxscale-tutorials/failover-with-multiple-maxscales.md)

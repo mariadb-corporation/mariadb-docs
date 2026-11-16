@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 9.1.10 adds ADO.NET integration, ZIP-based deployment units, improved CDC monitoring, and rolling upgrade improvements.
+  Released on 2025-10-14.
 ---
 
 # GridGain 9.1.10 Release Notes
+
+**Release date:** 14 Oct 2025
 
 ## Overview
 

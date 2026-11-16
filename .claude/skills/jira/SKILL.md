@@ -269,11 +269,17 @@ List the current user's open DOCS tickets:
 me = atlassianUserInfo()
 searchJiraIssuesUsingJql(
   cloudId="164b0d33-ee39-4b4d-b1d5-e71a97376560",
-  jql="project = DOCS AND assignee = currentUser() AND statusCategory != Done ORDER BY updated DESC",
+  jql="project = DOCS AND assignee = currentUser() AND statusCategory != Done AND issuetype != Epic ORDER BY updated DESC",
   fields=["key","summary","status","priority","updated"],
   maxResults=50
 )
 ```
+
+**Epics are left out on purpose.** An Epic holds no docs work of its own: an open Epic assigned
+to you (a release-docs epic, a campaign) would show up as "TODO, ready to pick up" when its work
+is really in its child Tasks, which are often assigned to other people. Those child Tasks already
+appear here if they're yours. To see your open Epics, run the query with `issuetype = Epic`; to see
+an Epic's remaining work, use `parent = DOCS-XXXX AND statusCategory != Done`.
 
 Print a compact table: key · status · summary. If the user passes a filter word (e.g. a status
 or `inprogress`), add it to the JQL.

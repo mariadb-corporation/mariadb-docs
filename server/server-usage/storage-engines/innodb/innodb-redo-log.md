@@ -81,13 +81,15 @@ InnoDB begins forcing checkpoints and flushing dirty pages well before the check
 
 A larger redo log defers page writes. InnoDB can leave a page dirty in the buffer pool across many changes and write it out once, instead of flushing it repeatedly to hold the checkpoint age down. On write-heavy workloads that modify the same pages over and over, that reduces write amplification and the storage wear which comes with it. Where the workload calls for it, the redo log can be set to several times the size of the buffer pool.
 
-The cost of doing so is paid at crash recovery. Recovery buffers redo records in blocks taken from the [buffer pool](innodb-buffer-pool.md), so the amount of redo InnoDB can apply in one pass is bounded by the buffer pool size. When the redo left to apply is too large for that — roughly, when it would occupy more than a third of the buffer pool — InnoDB switches to multi-batch recovery, re-reading the log in several passes and taking correspondingly longer. It reports this in the error log:
+The cost of doing so is paid at crash recovery. Recovery buffers redo records in blocks taken from the [buffer pool](innodb-buffer-pool.md), so the amount of redo InnoDB can apply in one pass is bounded by the buffer pool size. When the redo left to apply is too large for that, and the buffered records have used up nearly the whole buffer pool, InnoDB switches to multi-batch recovery, re-reading the log in several passes and taking correspondingly longer. It reports this in the error log:
 
 ```
 InnoDB: Multi-batch recovery needed at LSN 123456789
 ```
 
 Recovery still completes; it is only slower. Size [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size) with that in mind, rather than for steady-state throughput alone.
+
+As a rough starting point on a dedicated database host, InnoDB developers have suggested giving the buffer pool around four fifths of the available memory. Treat that as a guide, not a rule: leave room for the operating system, other services on the same host, and per-connection memory, and watch for swapping.
 
 ### Changing the Redo Log Capacity
 

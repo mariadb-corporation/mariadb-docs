@@ -22,8 +22,8 @@ The REST API is enabled by default. However, the default configuration is not op
 
 | Parameter                                                                                           | Description                                                                                                 |
 | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| [admin\_host](deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_host) | • This parameter defines the network address that the REST API listens on.• The default value is 127.0.0.1. |
-| [admin\_port](deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_port) | • This parameter defines the network port that the REST API listens on.• The default value is 8989.         |
+| [admin\_host](deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#admin_host) | • This parameter defines the network address that the REST API listens on.• The default value is 127.0.0.1. |
+| [admin\_port](deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#admin_port) | • This parameter defines the network port that the REST API listens on.• The default value is 8989.         |
 
 For example:
 

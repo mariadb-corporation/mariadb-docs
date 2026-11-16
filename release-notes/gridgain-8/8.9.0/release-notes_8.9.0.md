@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.9 brings significant new features to GridGain ecosystem.
+  Released on 2023-10-05.
 ---
 
 # GridGain 8.9.0 Release Notes
+
+**Release date:** 5 Oct 2023
 
 ## Overview
 

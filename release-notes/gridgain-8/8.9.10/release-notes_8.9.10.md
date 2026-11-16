@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.9.10 includes multiple updates to GridGain libraries and improvements to data center replication.
+  Released on 2024-08-16.
 ---
 
 # GridGain 8.9.10 Release Notes
+
+**Release date:** 16 Aug 2024
 
 ## Overview
 

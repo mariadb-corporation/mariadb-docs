@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.9.39 reduces disk space needed for defragmentation, deprecates modules removed in 8.10, and fixes snapshot, rebalancing, and thin-client issues.
+  Released on 2026-10-30.
 ---
 
 # GridGain 8.9.39 Release Notes
+
+**Release date:** 30 Oct 2026
 
 ## Overview
 

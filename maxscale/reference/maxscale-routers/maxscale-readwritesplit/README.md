@@ -29,7 +29,7 @@ If a server is put into the `Draining` state while a connection is open, the con
 
 Readwritesplit router-specific settings are specified in the configuration file of MariaDB MaxScale in its specific section. The section can be freely named but the name is used later as a reference in a listener section.
 
-For more details about the standard service parameters, refer to the [Configuration Guide](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md).
+For more details about the standard service parameters, refer to the [Configuration Guide](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md).
 
 All router parameters can be configured at runtime. Use`maxctrl alter service` to modify them. The changed configuration will only be taken into use by new sessions.
 
@@ -156,7 +156,7 @@ Session commands include for example:
 
 **NOTE**: if variable assignment is embedded in a write statement it is routed to _primary_ only. For example, `INSERT INTO t1 values(@myvar:=5, 7)` would be routed to _primary_ only.
 
-The router stores all of the executed session commands so that in case of a connection failure, a replacement connection can be opened and the session command history can be replayed on that new connections. The number of stored session commands depends on the router configuration. For more information, refer to the documentation of [`max_sescmd_history`](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#max_sescmd_history).
+The router stores all of the executed session commands so that in case of a connection failure, a replacement connection can be opened and the session command history can be replayed on that new connections. The number of stored session commands depends on the router configuration. For more information, refer to the documentation of [`max_sescmd_history`](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#max_sescmd_history).
 
 ### Routing to previous target
 

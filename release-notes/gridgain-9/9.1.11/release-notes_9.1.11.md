@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 9.1.11 adds a large number of new metrics and system views, query plan staleness configuration, and CDC failover.
+  Released on 2025-10-28.
 ---
 
 # GridGain 9.1.11 Release Notes
+
+**Release date:** 28 Oct 2025
 
 ## Overview
 

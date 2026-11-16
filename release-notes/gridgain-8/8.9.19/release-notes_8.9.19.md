@@ -2,9 +2,12 @@
 description: >-
   GridGain 8.9.19 is a release fully dedicated to bringing vector search to your
   GridGain caches.
+  Released on 2025-04-11.
 ---
 
 # GridGain 8.9.19 Release Notes
+
+**Release date:** 11 Apr 2025
 
 ## Overview
 

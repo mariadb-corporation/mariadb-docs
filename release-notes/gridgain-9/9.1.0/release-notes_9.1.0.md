@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 9.1.0 introduces secondary columnar storage, a new JSON license format, reworked node and cluster configuration, and numerous SQL and client improvements.
+  Released on 2025-05-09.
 ---
 
 # GridGain 9.1.0 Release Notes
+
+**Release date:** 9 May 2025
 
 ## Overview
 

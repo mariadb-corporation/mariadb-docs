@@ -34,14 +34,14 @@ GridGain 8 nodes push their metrics to Enterprise Manager with the GridGain Open
 
 Every GridGain 8 series carries two labels:
 
-| Label      | Example                                | Meaning                                        |
-| ---------- | -------------------------------------- | ---------------------------------------------- |
-| `job`      | `gridgain/cluster1`                    | The cluster, as `gridgain/<cluster name>`      |
-| `instance` | `bca8aa76-c330-4270-b79e-b30ce33fde00` | The node's consistent ID                       |
+| Label      | Example                                | Meaning                                   |
+| ---------- | -------------------------------------- | ----------------------------------------- |
+| `job`      | `gridgain/cluster1`                    | The cluster, as `gridgain/<cluster name>` |
+| `instance` | `bca8aa76-c330-4270-b79e-b30ce33fde00` | The node's consistent ID                  |
 
 Metric names are the GridGain metric names with dots replaced by underscores. For example, `sys.CpuLoad` is stored as `sys_CpuLoad`. Cache, cache group, data region, thread pool, and data center names are part of the metric name rather than labels. For example, `io.dataregion.default.OffHeapSize` is stored as `io_dataregion_default_OffHeapSize`.
 
-For the list of GridGain 8 metrics and their meaning, see [Generic Metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53/reference/monitoring/generic-metrics) in the GridGain 8 documentation.
+For the list of GridGain 8 metrics and their meaning, see [Generic Metrics](https://app.gitbook.com/s/ArQLGGUSG0VzKl1t2Y53/reference/monitoring/generic-metrics) in the GridGain 8 documentation.
 
 ## Node Metrics
 

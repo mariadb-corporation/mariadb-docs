@@ -28,8 +28,6 @@ Selecting a version other than the default requires a paid plan. On a trial with
 
 Your [service tier](../service-tiers.md) determines which edition you get: MariaDB Enterprise Server builds are offered on the Power and PowerPlus tiers, and MariaDB Community Server builds on all tiers.
 
-Minor version upgrades stay within a major version. MariaDB Cloud does not upgrade a database across major versions, and does not downgrade.
-
 ## Notes
 
 For more information about specific features and capabilities of each version, please refer to the MariaDB [Server documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/) and [release notes](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server).

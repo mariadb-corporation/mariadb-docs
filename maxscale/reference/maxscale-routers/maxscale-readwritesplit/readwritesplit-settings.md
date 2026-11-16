@@ -10,7 +10,7 @@ These settings go in the readwritesplit service section of the MaxScale configur
 
 ## `causal_reads`
 
-* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `none`, `local`, `global`, `fast`, `fast_global`, `universal`, `fast_universal`
@@ -147,7 +147,7 @@ Older versions of MaxScale attempted to retry the command on the current primary
 
 ## `causal_reads_timeout`
 
-* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 10s
@@ -159,7 +159,7 @@ If no explicit unit is provided, the value is interpreted as seconds in MaxScale
 
 ## `delayed_retry`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
@@ -182,7 +182,7 @@ In older versions of MaxScale, duplicate execution of a statement can occur if t
 
 ## `delayed_retry_timeout`
 
-* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 10s
@@ -194,7 +194,7 @@ If no explicit unit is provided, the value is interpreted as seconds in MaxScale
 
 ## `lazy_connect`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
@@ -210,7 +210,7 @@ Older versions of MaxScale always tried to execute all session commands on the p
 
 ## `master_accept_reads`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
@@ -227,7 +227,7 @@ master_accept_reads=true
 
 ## `master_failure_mode`
 
-* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `fail_instantly`, `fail_on_write`, `error_on_write`
@@ -246,21 +246,21 @@ The following table describes the values for this option and how they treat the 
 
 These also apply to new sessions created after the primary has failed. This means that in `fail_on_write` or `error_on_write` mode, connections are accepted as long as replica servers are available.
 
-When configured with `fail_on_write` or `error_on_write`, sessions that are idle will not be closed even if all backend connections for that session have failed. This is done in the hopes that before the next query from the idle session arrives, a reconnection to one of the replicas is made. However, this can leave idle connections around unless the client application actively closes them. To prevent this, use the [`wait_timeout`](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#wait_timeout) parameter.
+When configured with `fail_on_write` or `error_on_write`, sessions that are idle will not be closed even if all backend connections for that session have failed. This is done in the hopes that before the next query from the idle session arrives, a reconnection to one of the replicas is made. However, this can leave idle connections around unless the client application actively closes them. To prevent this, use the [`wait_timeout`](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#wait_timeout) parameter.
 
 **Note:** If `master_failure_mode` is set to `error_on_write` and the connection to the primary is lost, by default, clients will not be able to execute write queries without reconnecting to MariaDB MaxScale once a new primary is available. If [`master_reconnection`](readwritesplit-settings.md#master_reconnection) is enabled, the session can recover if one of the replicas is promoted as the primary.
 
 ## `master_reconnection`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: true (>= MaxScale 24.02), false(<= MaxScale 23.08)
 * Description: Controls whether a session can reconnect to a new primary server if the current one becomes unavailable.
 
-Allow the primary server to change mid-session. This feature requires that[`disable_sescmd_history`](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#disable_sescmd_history) is not used.
+Allow the primary server to change mid-session. This feature requires that[`disable_sescmd_history`](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#disable_sescmd_history) is not used.
 
-Starting with MaxScale 24.02, if [`disable_sescmd_history`](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#disable_sescmd_history) is enabled,`master_reconnection` will be automatically disabled.
+Starting with MaxScale 24.02, if [`disable_sescmd_history`](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#disable_sescmd_history) is enabled,`master_reconnection` will be automatically disabled.
 
 When a readwritesplit session starts, it will pick a primary server as the current primary server of that session. When `master_reconnection` is disabled, when this primary server is lost or changes to another server, the connection will be closed.
 
@@ -270,13 +270,13 @@ With `master_failure_mode=fail_instantly`, the primary server is only allowed to
 
 With `master_failure_mode=fail_on_write`, the loss of the primary server is no longer a fatal error: if a replacement primary server appears before any write queries are received, readwritesplit will transparently reconnect to the new primary server.
 
-In both cases the change in the primary server can only take place if[`prune_sescmd_history`](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#prune_sescmd_history) is enabled or [`max_sescmd_history`](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#max_sescmd_history) has not yet been exceeded and the session does not have an open transaction.
+In both cases the change in the primary server can only take place if[`prune_sescmd_history`](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#prune_sescmd_history) is enabled or [`max_sescmd_history`](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#max_sescmd_history) has not yet been exceeded and the session does not have an open transaction.
 
 The recommended configuration is to use `master_reconnection=true` and`master_failure_mode=fail_on_write`. This provides improved fault tolerance without any risk to the consistency of the database.
 
 ## `max_replication_lag`
 
-* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 0s
@@ -290,7 +290,7 @@ The replica lag must be less than `max_replication_lag`. This means that it is p
 
 Note that this feature does not guarantee that writes done on the primary are visible for reads done on the replica. This is mainly due to the method of replication lag measurement. For a feature that guarantees this, refer to [`causal_reads`](readwritesplit-settings.md#causal_reads).
 
-The lag is specified as documented [here](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md). Note that since the granularity of the lag is seconds, a lag specified in milliseconds will be rejected, even if the duration is longer than a second.
+The lag is specified as documented [here](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md). Note that since the granularity of the lag is seconds, a lag specified in milliseconds will be rejected, even if the duration is longer than a second.
 
 The Readwritesplit-router does not detect the replication lag itself. A monitor such as the MariaDB-monitor for a Primary-Replica cluster is required. This option only affects Primary-Replica clusters. Galera clusters do not have a concept of replica lag even if the application of write sets might have lag. When a server is disqualified from routing because of replication lag, a warning is logged. Similarly, when the server has caught up enough to be a valid routing target, another warning is logged. These messages are only logged when a query is being routed and the replication state changes.
 
@@ -324,7 +324,7 @@ This feature has been moved into the [OptimisticTrx](../../maxscale-filters/maxs
 
 ## `retry_failed_reads`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
@@ -356,7 +356,7 @@ Setting this parameter to 1 allows faster connection creation and improved resou
 
 ## `slave_selection_criteria`
 
-* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `least_current_operations`, `adaptive_routing`, `least_behind_master`, `least_router_connections`, `least_global_connections`
@@ -395,7 +395,7 @@ Starting with MaxScale 23.08.1, the legacy uppercase values have been deprecated
 
 ## `strict_multi_stmt`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
@@ -414,7 +414,7 @@ strict_multi_stmt=true
 
 ## `strict_sp_calls`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
@@ -426,7 +426,7 @@ All warnings and restrictions that apply to `strict_multi_stmt` also apply to`st
 
 ## `strict_tmp_tables`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: true (>= MaxScale 24.02), false (<= MaxScale 23.08)
@@ -438,7 +438,7 @@ When `strict_tmp_tables` is enabled, reconnections are prevented as long as a te
 
 ## `sync_transaction`
 
-* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `none`, `soft`, `hard`
@@ -484,7 +484,7 @@ If the value of `max_slave_connections` is lower than the value of `sync_transac
 
 ## `sync_transaction_max_lag`
 
-* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 0s
@@ -504,7 +504,7 @@ Unlike modifications to most readwritesplit settings that only affect new sessio
 
 ## `sync_transaction_percent`
 
-* Type: [percent](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#percent)
+* Type: [percent](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#percent)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `100%`
@@ -522,7 +522,7 @@ This feature is only available in MaxScale 26.10.0 and later.
 
 ## `sync_transaction_probe`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -540,7 +540,7 @@ This feature is only available in MaxScale 26.10.0 and later.
 
 ## `sync_transaction_throttle_rate`
 
-* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Min: `1ms`
@@ -559,7 +559,7 @@ This feature is only available in MaxScale 26.10.0 and later.
 
 ## `sync_transaction_timeout`
 
-* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 10s
@@ -575,7 +575,7 @@ Unlike modifications to most readwritesplit settings that only affect new sessio
 
 ## `transaction_replay`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
@@ -611,7 +611,7 @@ A transaction replay failure can happen if the server where the transaction is b
 
 ## `transaction_replay_checksum`
 
-* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `full`, `result_only`, `no_insert_id`
@@ -633,7 +633,7 @@ Possible values are:
 
 ## `transaction_replay_max_size`
 
-* Type: [size](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
+* Type: [size](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#sizes)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 1 MiB
@@ -647,7 +647,7 @@ The number of times that this limit has been exceeded is shown in`maxctrl show s
 
 ## `transaction_replay_retry_on_deadlock`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
@@ -659,7 +659,7 @@ If this feature is enabled and a transaction returns a deadlock error (e.g. `SQL
 
 ## `transaction_replay_retry_on_mismatch`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
@@ -671,7 +671,7 @@ When enabled, any replayed transactions that end with a checksum mismatch are re
 
 ## `transaction_replay_safe_commit`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
@@ -727,7 +727,7 @@ retried. Thus `transaction_replay_safe_commit` again only affects how the
 
 ## `transaction_replay_timeout`
 
-* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 30s (>= MaxScale 24.02), 0s (<= MaxScale 23.08)
@@ -745,7 +745,7 @@ Without `transaction_replay_timeout` the time how long a transaction can be retr
 
 ## `use_sql_variables_in`
 
-* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `master`, `all`

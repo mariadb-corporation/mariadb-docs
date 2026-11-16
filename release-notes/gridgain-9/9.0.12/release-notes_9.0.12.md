@@ -3,9 +3,12 @@ description: >-
   GridGain 9.0.12 adds high availability distribution zones, network backups,
   cancellation of queries, transactions and compute jobs, and cluster catalog
   pruning.
+  Released on 2025-01-16.
 ---
 
 # GridGain 9.0.12 Release Notes
+
+**Release date:** 16 Jan 2025
 
 ## Overview
 

@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.9.29 is a maintenance release focused on improving thin client handling and cluster stability.
+  Released on 2026-01-14.
 ---
 
 # GridGain 8.9.29 Release Notes
+
+**Release date:** 14 Jan 2026
 
 ## Overview
 

@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.9.35 adds Kubernetes readiness probe, as well as a number of library updates.
+  Released on 2026-07-07.
 ---
 
 # GridGain 8.9.35 Release Notes
+
+**Release date:** 7 Jul 2026
 
 ## Overview
 

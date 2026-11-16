@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 9.1.3 adds cache creation from Java and a new method to get the local node, along with multiple stability and performance improvements.
+  Released on 2025-06-23.
 ---
 
 # GridGain 9.1.3 Release Notes
+
+**Release date:** 23 Jun 2025
 
 ## Overview
 

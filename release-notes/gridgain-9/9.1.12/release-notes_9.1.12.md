@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 9.1.12 focuses on stability and extended WebAssembly computing support.
+  Released on 2025-11-07.
 ---
 
 # GridGain 9.1.12 Release Notes
+
+**Release date:** 7 Nov 2025
 
 ## Overview
 

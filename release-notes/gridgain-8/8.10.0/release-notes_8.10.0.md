@@ -1,9 +1,12 @@
 ---
 description: >-
-  GridGain 8.10.0 requires Java 17, moves integrations to current versions and out of the server packages, and extends vector search, the thin clients, and Apache Ignite 2 compatibility.
+  GridGain 8.10.0 requires Java 17, updates integrations and moves them out of the server packages, and extends vector search, thin clients, and Apache Ignite 2 compatibility.
+  Released on 2026-10-28.
 ---
 
 # GridGain 8.10.0 Release Notes
+
+**Release date:** 28 Oct 2026
 
 ## Overview
 
@@ -12,6 +15,10 @@ GridGain 8.10 is a major release. It raises the Java baseline to Java 17, remove
 Upgrading from GridGain 8.9.x requires action. Read [Breaking Changes](#breaking-changes), [Configuration and Default Value Changes](#configuration-and-default-value-changes), and [Security, Permission, and Licensing Changes](#security-permission-and-licensing-changes) before you upgrade a cluster or an embedding application, and work through the checklist in [Installation and Upgrade Information](#installation-and-upgrade-information).
 
 Server-side SQL `COPY` against a file or an object store is now closed by default. This stops configurations that upgrade unchanged, so check it first.
+
+## Known Issues
+
+Due to changes in how licenses are checked, certain Enterprise edition features (for example, cluster security) may become blocked by license permissions after the update, preventing the node from starting. To avoid issues, [request a new license](https://mariadb.com/support/) before starting the update process.
 
 ## Breaking Changes
 

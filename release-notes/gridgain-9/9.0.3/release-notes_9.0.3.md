@@ -2,9 +2,12 @@
 description: >-
   GridGain 9.0.3 adds incremental snapshots, SQL sequences, and cache expiry
   policies.
+  Released on 2024-08-15.
 ---
 
 # GridGain 9.0.3 Release Notes
+
+**Release date:** 15 Aug 2024
 
 ## Overview
 

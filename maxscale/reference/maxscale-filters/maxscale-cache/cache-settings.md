@@ -12,7 +12,7 @@ The cache filter has no mandatory parameters but a range of optional ones. Note 
 
 ## `cache_in_transactions`
 
-* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `never`, `read_only_transactions`, `all_transactions`
@@ -35,7 +35,7 @@ The values `read_only_transactions` and `all_transactions` have roughly the same
 
 ## `cached_data`
 
-* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `shared`, `thread_specific`
@@ -72,7 +72,7 @@ Default is `thread_specific`. See `max_count` and `max_size` what implication ch
 
 ## `clear_cache_on_parse_errors`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
@@ -112,7 +112,7 @@ debug=31
 
 ## `enabled`
 
-* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
@@ -128,7 +128,7 @@ The value affects the initial state of the MaxScale user variables using which t
 
 ## `hard_ttl`
 
-* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: `0s` (no limit)
@@ -142,7 +142,7 @@ hard_ttl=60s
 
 ## `invalidate`
 
-* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `never`, `current`
@@ -201,7 +201,7 @@ max_resultset_rows=1000
 
 ## `max_resultset_size`
 
-* Type: [size](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
+* Type: [size](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#sizes)
 * Mandatory: No
 * Dynamic: No
 * Default: `0` (no limit)
@@ -217,7 +217,7 @@ Note that the value of `max_resultset_size` should not be larger than the value 
 
 ## `max_size`
 
-* Type: [size](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
+* Type: [size](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#sizes)
 * Mandatory: No
 * Dynamic: No
 * Default: `0` (no limit)
@@ -287,7 +287,7 @@ max_uncached_query_count=10000
 
 Available since MaxScale 25.10.4.
 
-* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: `0s` (no limit)
@@ -345,7 +345,7 @@ maxctrl alter filter MyCache rules='/path/to/rules-file'
 
 ## `selects`
 
-* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `assume_cacheable`, `verify_cacheable`
@@ -375,7 +375,7 @@ Note that parsing all `SELECT` statements carries a performance cost. Please rea
 
 ## `soft_ttl`
 
-* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: `0s` (no limit)
@@ -423,7 +423,7 @@ From 23.02 onwards, the storage module configuration should be provided using ne
 
 ## `timeout`
 
-* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: `5s`
@@ -437,7 +437,7 @@ timeout=7000ms
 
 ## `users`
 
-* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `mixed`, `isolated`

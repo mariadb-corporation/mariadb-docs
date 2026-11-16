@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 9.1.1 reworks CREATE ZONE syntax and adds snapshot encryption, .NET distributed computing, and further configuration and logging improvements.
+  Released on 2025-05-23.
 ---
 
 # GridGain 9.1.1 Release Notes
+
+**Release date:** 23 May 2025
 
 ## Overview
 

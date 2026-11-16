@@ -1,9 +1,12 @@
 ---
 description: >-
   GridGain 8.9.22 is a maintenance release that improves data center replication and brings a way to prevent transitive updates during it.
+  Released on 2025-06-30.
 ---
 
 # GridGain 8.9.22 Release Notes
+
+**Release date:** 30 Jun 2025
 
 ## Overview
 

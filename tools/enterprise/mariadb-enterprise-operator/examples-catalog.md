@@ -54,6 +54,8 @@ For restoring and backing up large datasets, check the following manifests, whic
 * `physicalbackup_pvc_large.yaml` and `physicalbackup_volumesnapshot_large.yaml`: [physical backups](backup-and-restore/physical_backup.md) to a PVC and to a `VolumeSnapshot`, with long timeouts.
 * `mariadb_galera_from_physicalbackup_large.yaml` and `mariadb_galera_from_volumesnapshot_large.yaml`: Galera clusters bootstrapped from a physical backup and from a `VolumeSnapshot`.
 
+For taking [physical backups](backup-and-restore/physical_backup.md) to Azure Blob Storage authenticated with an Azure managed identity (AKS Workload Identity), check `physicalbackup_abs_managed_identity.yaml`.
+
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}
