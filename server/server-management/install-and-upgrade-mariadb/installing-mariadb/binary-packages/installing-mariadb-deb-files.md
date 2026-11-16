@@ -14,7 +14,7 @@ On Debian, Ubuntu, and other similar Linux distributions, it is highly recommend
 This page walks you through the simple installation steps using `apt`.
 
 {% hint style="info" %}
-Note for MariaDB Community Server 12.3.2 and later: Galera Cluster support is no longer included in the base `mariadb-server` package. To enable cluster functionality, you must explicitly install the `mariadb-server-galera` package, which also installs `galera-4`. In earlier versions, `mariadb-server` includes this functionality and there is no `mariadb-server-galera` package.
+Note for MariaDB Community Server 12.3.2 and later: Galera Cluster support is no longer included in the base `mariadb-server` package. To enable cluster functionality, you must explicitly install the `mariadb-server-galera` package, which also installs `galera-4`. In earlier versions, `mariadb-server` includes this functionality, there is no `mariadb-server-galera` package, and installing it fails with `E: Unable to locate package mariadb-server-galera`.
 {% endhint %}
 
 ### Adding the MariaDB APT repository
@@ -245,10 +245,6 @@ sudo apt-get install mariadb-server galera-4 mariadb-client libmariadb3 mariadb-
 {% endtab %}
 {% endtabs %}
 
-{% hint style="info" %}
-The `mariadb-server-galera` package is available only from MariaDB Community Server 12.3.2. On earlier versions, including it makes the command fail with `E: Unable to locate package mariadb-server-galera`.
-{% endhint %}
-
 #### Installing MariaDB Server with APT
 
 To Install MariaDB Server, first you would have to update the package cache by executing the following command:
@@ -478,13 +474,13 @@ sudo apt install mariadb-server galera-4
 The reason for specifying the `galera-4` package is to ensure the correct updated version of Galera is installed along with the new server version, replacing the versions that were there before.
 
 {% hint style="warning" %}
-Note for MariaDB Community Server 12.3.2 and later: if you run Galera Cluster, install `mariadb-server-galera` explicitly when you upgrade:
+Note for MariaDB Community Server: if you run Galera Cluster and upgrade from a version earlier than 12.3.2 to 12.3.2 or later, install `mariadb-server-galera` explicitly:
 
 ```bash
 sudo apt install mariadb-server mariadb-server-galera galera-4
 ```
 
-The commands above, and `apt upgrade`, do not install new packages, so upgrading a Galera node this way leaves it without Galera support.
+The two commands earlier in this section (`apt upgrade mariadb-server` and `apt install mariadb-server galera-4`) don't install it, because `mariadb-server` doesn't depend on `mariadb-server-galera` or recommend it. Without it, the node loses `galera_new_cluster`, `galera_recovery`, and the `wsrep_sst_*` scripts.
 {% endhint %}
 
 ## Available DEB Packages
