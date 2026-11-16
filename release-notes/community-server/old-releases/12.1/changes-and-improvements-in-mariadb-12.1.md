@@ -28,7 +28,7 @@ MariaDB 12.1 is a [rolling release](../../about/release-model.md). It is an evol
 * New authentication plugin [caching\_sha2\_password](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/clientserver-protocol/1-connecting/caching_sha2_password-authentication-plugin) for MySQL compatibility ([MDEV-9804](https://jira.mariadb.org/browse/MDEV-9804))
 * [( + ) for outer join syntax in Oracle mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax#oracle-mode) ([MDEV-13817](https://jira.mariadb.org/browse/MDEV-13817))
 * Associative arrays: DECLARE TYPE .. TABLE OF .. INDEX BY ([MDEV-34319](https://jira.mariadb.org/browse/MDEV-34319)) ([blog post](https://mariadb.org/bringing-oracles-associative-arrays-to-mariadb/))
-* [DROP USER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/drop-user) will now by default issue a warning if the user has active sessions, or fail in [Oracle mode]({server}/editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle) ([MDEV-35617](https://jira.mariadb.org/browse/MDEV-35617))
+* [DROP USER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/drop-user) will now by default issue a warning if the user has active sessions, or fail in [Oracle mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle) ([MDEV-35617](https://jira.mariadb.org/browse/MDEV-35617))
 
 ### Optimizer <a href="#optimizer" id="optimizer"></a>
 

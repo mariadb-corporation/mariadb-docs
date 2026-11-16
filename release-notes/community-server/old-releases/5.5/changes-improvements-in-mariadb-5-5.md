@@ -10,9 +10,9 @@ For upgrading to [MariaDB 10.0](../10.0/changes-improvements-in-mariadb-10-0.md)
 
 ## Feature Comparison Matrix
 
-We have created an [Optimizer Feature Comparison Matrix]({server}/editions-and-compatibility/comparisons-with-other-databases/optimizer-feature-comparison-matrix) showing the new optimizer features in [MariaDB 5.5](changes-improvements-in-mariadb-5-5.md) and 5.3 compared to MySQL 5.5 and 5.6.
+We have created an [Optimizer Feature Comparison Matrix](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility/comparisons-with-other-databases/optimizer-feature-comparison-matrix) showing the new optimizer features in [MariaDB 5.5](changes-improvements-in-mariadb-5-5.md) and 5.3 compared to MySQL 5.5 and 5.6.
 
-See also a detailed breakdown of [System variable differences between MariaDB 5.5 and MySQL 5.5]({server}/editions-and-compatibility/comparisons-with-other-databases/system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-55-and-mysql-55).
+See also a detailed breakdown of [System variable differences between MariaDB 5.5 and MySQL 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility/comparisons-with-other-databases/system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-55-and-mysql-55).
 
 ## New Features
 

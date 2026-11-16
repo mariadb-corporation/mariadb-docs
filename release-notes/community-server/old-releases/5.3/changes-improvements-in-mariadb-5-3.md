@@ -34,7 +34,7 @@ You can download [the latest binaries of MariaDB 5.3 here](https://archive.maria
 
 ## Feature Comparison Matrix
 
-We have created an [Optimizer Feature Comparison Matrix]({server}/editions-and-compatibility/comparisons-with-other-databases/optimizer-feature-comparison-matrix) showing the new optimizer features in [MariaDB 5.5](../5.5/changes-improvements-in-mariadb-5-5.md) and 5.3 compared to MySQL 5.5 and 5.6.
+We have created an [Optimizer Feature Comparison Matrix](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility/comparisons-with-other-databases/optimizer-feature-comparison-matrix) showing the new optimizer features in [MariaDB 5.5](../5.5/changes-improvements-in-mariadb-5-5.md) and 5.3 compared to MySQL 5.5 and 5.6.
 
 ## Query optimizer
 
