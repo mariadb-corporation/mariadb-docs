@@ -25,9 +25,17 @@ See also:
 
 ## Prerequisites
 
+{% tabs %}
+{% tab title="9.2" %}
+GridGain 9.2 requires Java 21 or later in your application. The JDBC driver is compiled for Java 21, so an application that runs on an older Java version fails with `UnsupportedClassVersionError`. Other Java vendors are supported, but may have minor discrepancies in performance or stability.
+{% endtab %}
+
+{% tab title="9.1" %}
 GridGain is tested on Oracle JDK 11, 17, 21, and 25 (LTS), as well as JDK 26 (STS). Other Java vendors are supported, but may have minor discrepancies in performance or stability.
 
 Short-term support (STS) Java versions are supported only until the next STS release, Long-term support (LTS) versions are not affected by this policy.
+{% endtab %}
+{% endtabs %}
 
 ## Setting Up
 

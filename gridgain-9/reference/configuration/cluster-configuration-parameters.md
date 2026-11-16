@@ -162,8 +162,8 @@ bin/gridgain9 cluster config show > cluster-config.conf
 |Property|Default|Description|Acceptable Values|
 |---|---|---|---|
 |batchSize|5|The number of entries to be removed by the garbage collection batch for each partition|0 - inf|
-|lowWatermark.dataAvailabilityTimeMillis|600000|The duration the outdated versions are available for, in milliseconds.|1000 - inf|
-|lowWatermark.updateIntervalMillis|300000|The interval of the low watermark updates.|0 - inf|
+|lowWatermark.dataAvailabilityTimeMillis|600000|The duration the outdated versions are available for, in milliseconds. Replaces `dataAvailabilityTime` (deprecated in 9.1.0, removed in 9.2).|1000 - inf|
+|lowWatermark.updateIntervalMillis|300000|The interval of the low watermark updates. Replaces `updateInterval` (deprecated in 9.1.0, removed in 9.2).|0 - inf|
 |threads|Runtime.getRuntime().availableProcessors()|The number of threads used by the garbage collector.|1 - inf|
 
 ### License Configuration
@@ -172,8 +172,7 @@ bin/gridgain9 cluster config show > cluster-config.conf
 {
   "ignite" : {
     "license" : {
-        "content" : "********",
-        "signature" : "********"
+        "content" : "********"
     }
   }
 }
@@ -182,7 +181,7 @@ bin/gridgain9 cluster config show > cluster-config.conf
 |Property|Default|Description|Acceptable Values|
 |---|---|---|---|
 |content|""|License content; a JSON string.|A JSON string with valid constraints|
-|signature|""|Signature for the license content.|A valid HEX string|
+|signature|""|Signature for the license content. No replacement. Deprecated in 9.1.23, removed in 9.2. In 9.2, a value stored by an earlier release is deleted when the node starts.|A valid HEX string|
 
 When security is enabled, changing the `ignite.license` part of the cluster configuration requires the `MANAGE_LICENSE` privilege in addition to `WRITE_CLUSTER_CONFIG`. For details, see [User Permissions and Roles](../../security/user-permissions-and-roles.md#cluster-management).
 
@@ -228,15 +227,15 @@ If a cluster license expires, the nodes will stop and fail to restart with a `Li
 
 |Property|Default|Description|Acceptable Values|
 |---|---|---|---|
-|batchSizeBytes|8192|Batch size (in bytes) to be written into physical storage. Used to limit the size of an atomic Write.|1 - Integer.MAX_VALUE|
-|idleSafeTimePropagationDurationMillis|1000|Interval between Partition Safe Time updates.|1 - inf|
-|leaseAgreementAcceptanceTimeLimitMillis|120000|The maximum duration of an election for a new partition leaseholder, in milliseconds.|5000 - inf|
-|leaseExpirationIntervalMillis|5000|The duration of a single lease.|2000 - 120000|
+|batchSizeBytes|8192|Batch size (in bytes) to be written into physical storage. Used to limit the size of an atomic Write. Replaces `ignite.storageUpdate.batchByteLength` (deprecated in 9.1.3, removed in 9.2). In 9.1, a non-default value of `ignite.storageUpdate.batchByteLength` is migrated to this property.|1 - Integer.MAX_VALUE|
+|idleSafeTimePropagationDurationMillis|1000|Interval between Partition Safe Time updates. Replaces `idleSafeTimePropagationDuration` (deprecated in 9.1.0, removed in 9.2).|1 - inf|
+|leaseAgreementAcceptanceTimeLimitMillis|120000|The maximum duration of an election for a new partition leaseholder, in milliseconds. Replaces `leaseAgreementAcceptanceTimeLimit` (deprecated in 9.1.0, removed in 9.2).|5000 - inf|
+|leaseExpirationIntervalMillis|5000|The duration of a single lease. Replaces `leaseExpirationInterval` (deprecated in 9.1.0, removed in 9.2).|2000 - 120000|
 |longOperationTimeoutMillis|10000|Default timeout, in milliseconds, for user operations that wait for a system replication group (the Cluster Management Group or Meta Storage) to become available. If the group cannot reach a quorum within this time, the operation fails with [`IGN-REP-10`](../error-codes/README.md#replicator-exceptions) instead of waiting indefinitely. Set to 0 to fail the request immediately after confirming that no node is available in the group, or set higher to wait for group availability for longer.|0 - inf|
 |maxConcurrentWaitingUserOperations|1000|Maximum number of user operations that can wait simultaneously for a system replication group (the Cluster Management Group or Meta Storage) to become available. When this limit is reached, additional user operations fail immediately with [`IGN-REP-9`](../error-codes/README.md#replicator-exceptions) instead of queuing, which prevents memory exhaustion during a prolonged outage.|1 - Integer.MAX_VALUE|
 |partitionOperationHeapUsagePercent|20|Maximum share of JVM max heap the node may reserve for pending partition operations. Requests that would push usage past this share are rejected with [`IGN-REP-12`](../error-codes/README.md#replicator-exceptions); operations already in progress continue uninterrupted. Set to `0` to disable the limit.|0 - 100|
-|replicaOperationRetryIntervalMillis|10|The retry interval for replica operations.|1 - inf|
-|rpcTimeoutMillis|60000|Replication request processing timeout.|0 - inf|
+|replicaOperationRetryIntervalMillis|10|The retry interval for replica operations. Replaces `replicaOperationRetryInterval` (deprecated in 9.1.0, removed in 9.2).|1 - inf|
+|rpcTimeoutMillis|60000|Replication request processing timeout. Replaces `rpcTimeout` (deprecated in 9.1.0, removed in 9.2).|0 - inf|
 
 ### Schema Sync Configuration
 
@@ -253,8 +252,8 @@ If a cluster license expires, the nodes will stop and fail to restart with a `Li
 
 |Property|Default|Description|Acceptable Values|
 |---|---|---|---|
-|delayDurationMillis|500|The delay after which a schema update becomes active. Should exceed the typical time to deliver a schema update to all cluster nodes, otherwise delays in handling operations are possible. Should not be less than `metaStorage.idleSyncTimeIntervalMillis`. The optimal value is `metaStorage.idleSyncTimeIntervalMillis` * 2.|1 - inf|
-|maxClockSkewMillis|500|Maximum physical clock skew (ms) tolerated by the cluster. If the difference between physical clocks of two nodes in the cluster exceeds this value, the cluster might demonstrate abnormal behavior.|0 - inf|
+|delayDurationMillis|500|The delay after which a schema update becomes active. Should exceed the typical time to deliver a schema update to all cluster nodes, otherwise delays in handling operations are possible. Should not be less than `metaStorage.idleSyncTimeIntervalMillis`. The optimal value is `metaStorage.idleSyncTimeIntervalMillis` * 2. Replaces `delayDuration` (deprecated in 9.1.0, removed in 9.2).|1 - inf|
+|maxClockSkewMillis|500|Maximum physical clock skew (ms) tolerated by the cluster. If the difference between physical clocks of two nodes in the cluster exceeds this value, the cluster might demonstrate abnormal behavior. Replaces `maxClockSkew` (deprecated in 9.1.0, removed in 9.2).|0 - inf|
 
 ### Security Configuration
 
@@ -406,7 +405,7 @@ For more information on configuring authentication, including an LDAP provider e
 |memoryQuotaBlockSize|512k|The size of individual memory blocks.|0 - inf|
 |offloadingEnabled|false|Determines if SQL memory offloading|true, false|
 |planner.estimatedNumberOfQueries|1024|The estimated number of unique queries that are planned to be executed in the cluster in a certain period of time. Used to optimize internal caches and processes. Optional.|0 - Integer.MAX_VALUE|
-|planner.maxPlanningTimeMillis|15000|Query planning timeout in milliseconds. Plan optimization process stops when the timeout is reached. `0` means no timeout.|0 - Long.MAX_VALUE|
+|planner.maxPlanningTimeMillis|15000|Query planning timeout in milliseconds. Plan optimization process stops when the timeout is reached. `0` means no timeout. Replaces `maxPlanningTime` (deprecated in 9.1.0, removed in 9.2).|0 - Long.MAX_VALUE|
 |planner.planCacheExpiresAfterSeconds|1800|The number of seconds after which a query plan in removed from the query plan cache if it is not used. `0` means query plans are never removed.|0 - Long.MAX_VALUE|
 |statementMemoryQuota|100%|The amount of memory that can be used by a single SQL statement. A number with a dimension identifier:<br>- % - percentage of the node's heap memory<br>- k - Kb<br>- m - Mb<br>- g - Gb<br>`0` with any of the dimension identifiers turns the memory tracking off.|0 - 100%<br>0 - 9223372036854775807k/m/g|
 |statistics.autoRefresh.staleRowsCheckIntervalSeconds|60|Time period between checks for stale rows in seconds. Only applies if there is at least one statistics object with `autorefresh` set to `true`.|1 - Long.MAX_VALUE|
@@ -437,7 +436,23 @@ Property names are written in `camelCase`.
 |Property|Default|Description|Acceptable Values|
 |---|---|---|---|
 |system.properties||System properties used by the GridGain components.|A map of properties.|
-|idleSafeTimeSyncIntervalMillis|250|Period (in milliseconds) used to determine how often to issue time sync commands when Metastorage is idle (no Writes are issued). Should not exceed `schemaSync.delayDurationMillis`. The optimal value is `schemaSync.delayDurationMillis` / 2.|1 - inf|
+|idleSafeTimeSyncIntervalMillis|250|Period (in milliseconds) used to determine how often to issue time sync commands when Metastorage is idle (no Writes are issued). Should not exceed `schemaSync.delayDurationMillis`. The optimal value is `schemaSync.delayDurationMillis` / 2. Replaces `ignite.metaStorage.idleSyncTimeInterval` (deprecated in 9.1.3, removed in 9.2). In 9.1, a non-default value of `ignite.metaStorage.idleSyncTimeInterval` is migrated to this property.|1 - inf|
+
+#### Transaction System Properties
+
+The following transaction settings are system properties. Unlike the other properties on this page, they have no default entry in the configuration: set one by adding it to `ignite.system.properties`. If a property is not set, its default value is used. The value must be a whole number.
+
+|Property|Default|Description|
+|---|---|---|
+|properties.txnAbandonedCheckTs|5000|How often abandoned transactions are searched for, in milliseconds. Replaces `ignite.transaction.abandonedCheckTs` (deprecated in 9.1.1, removed in 9.2).|
+|properties.txnLockRetryCount|3|The number of times a transaction tries to take a lock before it fails with a transaction exception. Read when the node starts, so restart the node after changing it. Replaces `ignite.transaction.attemptsObtainLock` (deprecated in 9.1.1, removed in 9.2).|
+|properties.txnResourceTtl|60000|The minimum lifetime of a transaction state, in milliseconds. After this time, the state of a finished transaction may be removed, and a commit that is older than this value is rejected. Replaces `ignite.transaction.txnResourceTtl` (deprecated in 9.1.1, removed in 9.2).|
+
+For example, to change the lifetime of a transaction state:
+
+```bash
+cluster config update ignite.system.properties.txnResourceTtl=120000
+```
 
 ### Transactions Configuration
 
@@ -456,8 +471,15 @@ Property names are written in `camelCase`.
 |Property|Default|Description|Acceptable Values|
 |---|---|---|---|
 |observableTimestampDelayMillis|-1|Delay, in milliseconds, subtracted from the current time to compute the observable timestamp used as the read timestamp for read-only transactions (`observableTimestamp = now - observableTimestampDelayMillis`). A larger delay reduces latency by letting clients observe slightly older data, reducing the chance that a request to a lagging node has to wait for safe time to catch up; a smaller delay favors reading the newest data. The default value `-1` means "not set": the delay is selected automatically based on server configuration, providing a sensible tradeoff between data freshness and latency.|-1, or 0 - inf|
-|readOnlyTimeoutMillis|600000|Timeout for read-only transactions. It defines how long the transaction holds acquired resources on participating nodes. If no timeout is specified, or it is set to `0`, a default value of 10 minutes is applied. The transaction is guaranteed to remain active until the timeout expires. Once the timeout is reached, the transaction is aborted but may persist briefly beyond the timeout while corresponding resources are cleaned up. Use instead of `readOnlyTimeout`.|1 - inf|
-|readWriteTimeoutMillis|30000|Timeout for read-write transactions. It defines how long the transaction holds acquired resources on participating nodes. If no timeout is specified, or it is set to `0`, a default value of 30 seconds is applied. The transaction is guaranteed to remain active until the timeout expires. Once the timeout is reached, the transaction is aborted but may persist briefly beyond the timeout while corresponding resources are cleaned up. Use instead of `readWriteTimeout`.|1 - inf|
+|readOnlyTimeoutMillis|600000|Timeout for read-only transactions. It defines how long the transaction holds acquired resources on participating nodes. If no timeout is specified, or it is set to `0`, a default value of 10 minutes is applied. The transaction is guaranteed to remain active until the timeout expires. Once the timeout is reached, the transaction is aborted but may persist briefly beyond the timeout while corresponding resources are cleaned up. Use instead of `readOnlyTimeout`. Replaces `readOnlyTimeout` (deprecated in 9.1.1, removed in 9.2).|1 - inf|
+|readWriteTimeoutMillis|30000|Timeout for read-write transactions. It defines how long the transaction holds acquired resources on participating nodes. If no timeout is specified, or it is set to `0`, a default value of 30 seconds is applied. The transaction is guaranteed to remain active until the timeout expires. Once the timeout is reached, the transaction is aborted but may persist briefly beyond the timeout while corresponding resources are cleaned up. Use instead of `readWriteTimeout`. Replaces `readWriteTimeout` (deprecated in 9.1.1, removed in 9.2).|1 - inf|
+|abandonedCheckTs|5000|How often abandoned transactions are searched for, in milliseconds. Use the [`txnAbandonedCheckTs`](#transaction-system-properties) system property. Deprecated in 9.1.1, removed in 9.2.|0 - inf|
+|attemptsObtainLock|3|The number of times a transaction tries to take a lock. Use the [`txnLockRetryCount`](#transaction-system-properties) system property. Deprecated in 9.1.1, removed in 9.2.|0 - inf|
+|txnResourceTtl|60000|Transaction state lifetime, in milliseconds. Use the [`txnResourceTtl`](#transaction-system-properties) system property. Deprecated in 9.1.1, removed in 9.2.|0 - inf|
+|timeout|10000|Default transaction timeout, in milliseconds. Use `readWriteTimeoutMillis`. Deprecated in 9.1.3, removed in 9.2.|1 - inf|
+|implicitTransactionTimeout|3000|Timeout for implicit transactions, in milliseconds. No replacement. Deprecated in 9.1.3, removed in 9.2.|1 - inf|
+|rpcTimeout|60000|Transaction remote call timeout, in milliseconds. No replacement. Deprecated in 9.1.1, removed in 9.2.|1000 - inf|
+|deadlockPreventionPolicy||Deadlock prevention settings (`txIdComparator`, `waitTimeout`). No replacement. Deprecated in 9.1.1, removed in 9.2.||
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

@@ -97,7 +97,7 @@ LogPush exporter writes metrics data to the dedicated log file, so they can be c
 
 | Name | Description | Default value |
 | --- | --- | --- |
-| periodMillis | Export interval for the metrics, in milliseconds. | 30000 |
+| periodMillis | Export interval for the metrics, in milliseconds. Replaces `period` (deprecated in 9.1.0, removed in 9.2).| 30000 |
 | oneLinePerMetricSource | Define whether to print all metrics from one metric source on a single log line. | true |
 | enabledMetrics | List of enabled metric sources. If this list is non-empty, only the listed sources are printed; all others are skipped. Each entry has one of the following forms:<br><br>• `sourceName` — log all metrics from this source (for example, `jvm`).<br>• `prefix*` — log all metrics from every source whose name starts with the given prefix (for example, `raft*`). The trailing `*` is the only wildcard supported and must come at the end of the source name.<br>• `sourceName:metric1,metric2,…` — log only the listed metrics from this source (for example, `thread.pools*:ActiveCount,QueueSize`). The trailing `*` wildcard is allowed on the source-name part. An empty metric list (`sourceName:`) is equivalent to `sourceName` and logs every metric.<br><br>Pass an empty list to disable every default. Use `"*"` to log every metric from every source. | "client.handler", "clock.service", "index.builder", "jvm", "metastorage", "os", "placement-driver", "raft", "raft.snapshots", "resource.vacuum", "sql.plan.cache", "storage.aipersist", "storage.aipersist.checkpoint", "thread.pools\*:ActiveCount,IdleCount,QueueSize", "topology\*", "transactions" |
 
@@ -186,7 +186,7 @@ Below are the descriptions of configuration parameters:
 | exporterName | Exporter name. Must be `otlp` to use OpenTelemetry. | |
 | headers | Request headers, if any. | |
 | name | User-defined exporter name, used to refer to it in GridGain. | |
-| periodMillis | Export interval for the metrics, in milliseconds. | 30000 |
+| periodMillis | Export interval for the metrics, in milliseconds. Replaces `period` (deprecated in 9.1.0, removed in 9.2).| 30000 |
 | protocol | The protocol that is used to send OpenTelemetry data. Possible values: `grpc`, `http/protobuf`. | `grpc` |
 | ssl.ciphers | List of ciphers to enable, comma-separated. Empty for automatic cipher selection. | |
 | ssl.clientAuth | Whether the SSL client authentication is enabled and whether it is mandatory. | |

@@ -104,6 +104,10 @@ You can configure the directories with the following methods:
 You can override the default CLI tool JVM properties by specifying them in the `GRIDGAIN9_OPTS` environment variable before running the start script.
 
 {% hint style="info" %}
+Starting with GridGain 9.2, the CLI tool requires Java 21 or later, and the Windows start script and the CLI Docker image no longer read the `JAVA_OPTS` variable. Use `GRIDGAIN9_OPTS` instead.
+{% endhint %}
+
+{% hint style="info" %}
 We recommend explicitly limiting the CLI's memory footprint by setting `-Xms` and `-Xmx` to lower values before launching the tool.
 {% endhint %}
 

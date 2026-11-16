@@ -7,6 +7,18 @@ description: >-
 
 ## Prerequisites
 
+{% tabs %}
+{% tab title="9.2" %}
+- **Java 21** or later
+- **A GridGain 9 thin client dependency** in your Maven or Gradle project
+- **A running cluster** for verification ([How to Start a Cluster With Docker Compose](../start-cluster-docker-compose.md))
+- **Framework-specific** (pick one):
+  - **java.util.logging**: No additional dependencies (included in the JDK)
+  - **Logback**: `slf4j-api` 2.0+ and `logback-classic` 1.5+
+  - **Log4j2**: `log4j-api`, `log4j-core`, and `log4j-jpl` 2.24+
+{% endtab %}
+
+{% tab title="9.1" %}
 - **Java 11** or later
 - **A GridGain 9 thin client dependency** in your Maven or Gradle project
 - **A running cluster** for verification ([How to Start a Cluster With Docker Compose](../start-cluster-docker-compose.md))
@@ -14,6 +26,8 @@ description: >-
   - **java.util.logging**: No additional dependencies (included in the JDK)
   - **Logback**: `slf4j-api` 2.0+ and `logback-classic` 1.5+
   - **Log4j2**: `log4j-api`, `log4j-core`, and `log4j-jpl` 2.24+
+{% endtab %}
+{% endtabs %}
 
 {% code title="Maven dependency" %}
 ```xml
