@@ -164,8 +164,8 @@ Deploy and manage GridGain clusters on Kubernetes, including managed services su
 
 {% columns %}
 {% column %}
-{% content-ref url="{tools}/enterprise/gridgain8-operator/" %}
-[MariaDB GridGain 8 Kubernetes Operator]({tools}/enterprise/gridgain8-operator/)
+{% content-ref url="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/gridgain8-operator/" %}
+[MariaDB GridGain 8 Kubernetes Operator](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/gridgain8-operator/)
 {% endcontent-ref %}
 {% endcolumn %}
 
