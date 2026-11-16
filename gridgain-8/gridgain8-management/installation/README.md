@@ -164,13 +164,13 @@ Deploy and manage GridGain clusters on Kubernetes, including managed services su
 
 {% columns %}
 {% column %}
-{% content-ref url="operator/" %}
-[GridGain Operator](operator/)
+{% content-ref url="{tools}/enterprise/gridgain8-operator/" %}
+[MariaDB GridGain 8 Kubernetes Operator]({tools}/enterprise/gridgain8-operator/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-GridGain Operator for Kubernetes automates the deployment and management of GridGain and Apache Ignite clusters in a Kubernetes environment.
+The MariaDB GridGain 8 Kubernetes Operator provisions GridGain 8 clusters from a `GridGainCluster` custom resource. Helm is the supported install. Available to MariaDB Enterprise Platform Ultimate customers.
 {% endcolumn %}
 {% endcolumns %}
 
