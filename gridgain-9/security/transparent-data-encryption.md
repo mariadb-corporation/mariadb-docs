@@ -21,6 +21,8 @@ When [Ignite persistence](../architecture/storage/engines/native-persistent-stor
 - RAFT log
 - Meta storage
 
+In the RAFT log, the contents of each entry are encrypted. Entry headers are stored unencrypted.
+
 If you enable cluster encryption, the cluster will generate a data encryption key and will use this key to encrypt/decrypt the data. This key is held in the internal memory and cannot be accessed by users. When the cluster needs save it to disk (for example, when the node goes down), it is encrypted by using the user-provided key — the key encryption key.
 
 The key encryption key provider must be specified in the cluster configuration.

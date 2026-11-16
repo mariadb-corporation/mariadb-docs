@@ -256,6 +256,50 @@ Read-only request metrics for a single Raft group. GridGain registers one instan
 | IndexReadDuration | The histogram of the time taken to complete a read index operation, in milliseconds. |
 | OverloadTimes | Number of times the read-only service was overloaded. |
 
+## `raft.segstore.{storage_name}`
+
+Metrics of a [Raft log storage](../../architecture/raft-consensus.md#raft-log-storage). GridGain registers one instance of this metric source for each log storage of the node:
+
+- `raft.segstore.table-data-log` for the log storage of persistent partitions.
+- `raft.segstore.meta-storage-log` for the log storage of the metastorage group.
+- `raft.segstore.cluster-management-group-log` for the log storage of the cluster management group.
+
+All log storages provide the same set of metrics:
+
+| Metric name | Description |
+| --- | --- |
+| CheckpointDuration | The histogram of checkpoint durations, in milliseconds. |
+| CheckpointFileFsyncCount | Total number of segment file syncs during checkpoints. |
+| CheckpointFileFsyncDuration | The histogram of segment file sync durations during checkpoints, in microseconds. |
+| CheckpointFsyncDuration | The histogram of the sync phase durations of checkpoints, in milliseconds. |
+| CheckpointIndexWriteDuration | The histogram of the index write phase durations of checkpoints, in milliseconds. |
+| CheckpointInProgress | `1` while a checkpoint is running, `0` otherwise. |
+| CheckpointQueueBlockedTime | Total time, in milliseconds, that writes waited because the checkpoint queue was full. |
+| CheckpointQueueSize | Number of segment files waiting for a checkpoint. |
+| CheckpointsCount | Total number of finished checkpoints. |
+| ConfigIndexFilesCount | Number of configuration index files on disk. |
+| ConfigIndexFilesSize | Number of bytes occupied on disk by configuration index files. |
+| GcCompactionInProgress | `1` while the storage frees disk space, `0` otherwise. |
+| GcCompactionTime | Total time, in milliseconds, spent freeing disk space. |
+| GcCompactionsCount | Total number of times the storage started freeing disk space. |
+| GcCopiedBytes | Total number of bytes written to disk while freeing disk space. |
+| IndexFilesCount | Number of index files on disk. |
+| IndexFilesSize | Number of bytes occupied on disk by index files. |
+| LastCheckpointDuration | Duration of the last checkpoint, in milliseconds. |
+| LastCheckpointFsyncDuration | Duration of the sync phase of the last checkpoint, in milliseconds. |
+| LastCheckpointIndexWriteDuration | Duration of the index write phase of the last checkpoint, in milliseconds. |
+| LogSyncFsyncCount | Total number of log syncs requested by storage engines. Updated only when the storage does not sync every write. |
+| LogSyncFsyncDuration | The histogram of the durations of log syncs requested by storage engines, in microseconds. Updated only when the storage does not sync every write. |
+| MaxCheckpointQueueSize | Capacity of the checkpoint queue. |
+| RolloversCount | Total number of times the storage started a new segment file. |
+| RolloverTime | Total time, in milliseconds, spent starting new segment files. |
+| SegmentFilesCount | Number of segment files on disk. |
+| SegmentFilesSize | Number of bytes occupied on disk by segment files. |
+| SoftLogSizeLimit | Compaction threshold of the storage, in bytes. |
+| WriteBatchFsyncCount | Total number of synced write batches. Updated only when the storage syncs every write. |
+| WriteBatchFsyncDuration | The histogram of write batch sync durations, in microseconds. Updated only when the storage syncs every write. |
+| WrittenBytes | Total number of bytes written to segment files. |
+
 ## `raft.snapshots`
 
 Metrics related to Raft snapshots of partition replicas.
