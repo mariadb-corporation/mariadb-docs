@@ -95,7 +95,7 @@ Ensure that both `Slave_IO_Running` and `Slave_SQL_Running` are `Yes`. Once the 
 ## See Also
 
 * [Replication](../../ha-and-performance/standard-replication/)
-* [Replication Compatibility](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-compatibility#replication-compatibility)
+* [Replication Compatibility](../../editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-compatibility.md#replication-compatibility)
 * [Backup & Restore](./)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

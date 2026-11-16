@@ -10,7 +10,7 @@ description: >-
 `MINUS` is available starting from MariaDB 10.6.1.
 {% endhint %}
 
-`MINUS` is a synonym for [EXCEPT](except.md) when [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is set.
+`MINUS` is a synonym for [EXCEPT](except.md) when [SQL\_MODE=ORACLE](../../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md) is set.
 
 ```sql
 CREATE TABLE seqs (i INT);

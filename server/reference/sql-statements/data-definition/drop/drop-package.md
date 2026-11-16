@@ -14,7 +14,7 @@ DROP PACKAGE [IF EXISTS]  [ db_name . ] package_name
 
 ## Description
 
-From MariaDB 11.4, the `DROP PACKAGE` statement can be used in any mode. Before MariaDB 11.4, it can be used only when [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is set.
+From MariaDB 11.4, the `DROP PACKAGE` statement can be used in any mode. Before MariaDB 11.4, it can be used only when [Oracle SQL\_MODE](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md) is set.
 
 The `DROP PACKAGE` statement drops a stored package entirely:
 
@@ -29,7 +29,7 @@ If [automatic\_sp\_privileges](../../../../ha-and-performance/optimization-and-t
 * [CREATE PACKAGE](../create/create-package.md)
 * [CREATE PACKAGE BODY](../create/create-package-body.md)
 * [DROP PACKAGE BODY](drop-package-body.md)
-* [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle SQL\_MODE](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

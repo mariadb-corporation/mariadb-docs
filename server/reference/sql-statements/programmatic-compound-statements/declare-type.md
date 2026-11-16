@@ -646,7 +646,7 @@ When the dependency is between packages in the same database, dump and restore t
 * [CREATE PACKAGE](../data-definition/create/create-package.md)
 * [DECLARE CURSOR](programmatic-compound-statements-cursors/declare-cursor.md)
 * [DECLARE Variable](declare-variable.md)
-* [Oracle Mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle Mode](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md)
 * [CREATE FUNCTION](../data-definition/create/create-function.md)
 * [CREATE PROCEDURE](../../../server-usage/stored-routines/stored-procedures/create-procedure.md)
 

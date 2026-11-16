@@ -30,7 +30,7 @@ Table names can be specified as `db_name`.`tbl_name`. This permits writing `UNIO
 
 A UNION's global `ORDER BY` cannot reference an [aggregate function](../../../../sql-functions/aggregate-functions/). (Aggregate functions are allowed within the individual `SELECT` statements of a UNION.)
 
-`EXCEPT` and `UNION` have the same operation precedence and `INTERSECT` has a higher precedence, unless [running in Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), in which case all three have the same precedence.
+`EXCEPT` and `UNION` have the same operation precedence and `INTERSECT` has a higher precedence, unless [running in Oracle mode](../../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md), in which case all three have the same precedence.
 
 ### ALL/DISTINCT
 

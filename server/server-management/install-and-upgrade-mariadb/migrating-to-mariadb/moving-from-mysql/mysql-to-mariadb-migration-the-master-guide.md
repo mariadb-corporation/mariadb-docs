@@ -389,8 +389,8 @@ The reference guide companion page to the Migration Master Guide.
 
 {% columns %}
 {% column %}
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-features" %}
-[MariaDB versus MySQL - Features](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-features)
+{% content-ref url="../../../../editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-features.md" %}
+[MariaDB versus MySQL - Features](../../../../editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-features.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -401,8 +401,8 @@ Compare MariaDB vs. MySQL features. Learn about exclusive storage engines, speed
 
 {% columns %}
 {% column %}
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-compatibility" %}
-[MariaDB versus MySQL - Compatibility](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-compatibility)
+{% content-ref url="../../../../editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-compatibility.md" %}
+[MariaDB versus MySQL - Compatibility](../../../../editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-compatibility.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -413,8 +413,8 @@ Complete MariaDB Community Server release notes. Complete version history with f
 
 {% columns %}
 {% column %}
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/function-differences-between-mariadb-and-mysql" %}
-[Function Differences Between MariaDB and MySQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/function-differences-between-mariadb-and-mysql)
+{% content-ref url="../../../../editions-and-compatibility/comparisons-with-other-databases/function-differences-between-mariadb-and-mysql/README.md" %}
+[Function Differences Between MariaDB and MySQL](../../../../editions-and-compatibility/comparisons-with-other-databases/function-differences-between-mariadb-and-mysql/README.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -425,8 +425,8 @@ Functions in MariaDB that are not present in MySQL, or vice versa.
 
 {% columns %}
 {% column %}
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/system-variable-differences-between-mariadb-and-mysql" %}
-[System Variable Differences between MariaDB and MySQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/system-variable-differences-between-mariadb-and-mysql)
+{% content-ref url="../../../../editions-and-compatibility/comparisons-with-other-databases/system-variable-differences-between-mariadb-and-mysql/README.md" %}
+[System Variable Differences between MariaDB and MySQL](../../../../editions-and-compatibility/comparisons-with-other-databases/system-variable-differences-between-mariadb-and-mysql/README.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -437,8 +437,8 @@ Explore system variable differences between MariaDB Rolling Release and MySQL 8.
 
 {% columns %}
 {% column %}
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/replication-compatibility-between-mariadb-and-mysql" %}
-[Replication Compatibility Between MariaDB and MySQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/replication-compatibility-between-mariadb-and-mysql)
+{% content-ref url="../../../../editions-and-compatibility/comparisons-with-other-databases/replication-compatibility-between-mariadb-and-mysql.md" %}
+[Replication Compatibility Between MariaDB and MySQL](../../../../editions-and-compatibility/comparisons-with-other-databases/replication-compatibility-between-mariadb-and-mysql.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

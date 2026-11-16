@@ -103,7 +103,7 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 
 ## Comparison with MySQL
 
-See [System Variable Differences Between MariaDB 10.0 and MySQL 5.6](../../about/compatibility-and-differences/system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-100-and-mysql-56.md)
+See [System Variable Differences Between MariaDB 10.0 and MySQL 5.6]({server}/editions-and-compatibility/comparisons-with-other-databases/system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-100-and-mysql-56)
 
 ## List of All [MariaDB 10.0](changes-improvements-in-mariadb-10-0.md) Releases
 

@@ -152,7 +152,7 @@ This feature is available from MariaDB 12.1.
 
 #### Overview
 
-When [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is active, the Oracle-style `(+)`  syntax can be used. For example, the following two queries are identical:
+When [Oracle mode](../../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md) is active, the Oracle-style `(+)`  syntax can be used. For example, the following two queries are identical:
 
 ```sql
 SELECT * FROM t1 LEFT JOIN t2 ON t1.a = t2.b;

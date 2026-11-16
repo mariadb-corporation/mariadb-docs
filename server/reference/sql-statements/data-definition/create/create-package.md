@@ -20,11 +20,11 @@ The `CREATE PACKAGE` statement can be used in any mode.
 Before MariaDB 11.4:
 {% endhint %}
 
-The `CREATE PACKAGE` statement can be used when [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is set.
+The `CREATE PACKAGE` statement can be used when [Oracle SQL\_MODE](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md) is set.
 {% endtab %}
 {% endtabs %}
 
-In [Oracle SQL mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), the PL/SQL dialect is used, while if Oracle mode is not set (the default), SQL/PSM is used.
+In [Oracle SQL mode](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md), the PL/SQL dialect is used, while if Oracle mode is not set (the default), SQL/PSM is used.
 
 ## Syntax (Oracle mode)
 
@@ -199,7 +199,7 @@ DELIMITER ;
 * [DECLARE TYPE](../../programmatic-compound-statements/declare-type.md)
 * [SHOW CREATE PACKAGE](../../administrative-sql-statements/show/show-create-package.md)
 * [DROP PACKAGE](../drop/drop-package.md)
-* [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle SQL\_MODE](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
