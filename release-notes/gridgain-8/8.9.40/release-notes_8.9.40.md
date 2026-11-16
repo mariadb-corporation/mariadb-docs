@@ -16,11 +16,11 @@ GridGain 8.9.40 adds a method that destroys several caches in one request to the
 
 ### Destroying Several Caches From the .NET Thin Client
 
-The .NET thin client has a new `IIgniteClient.DestroyCaches` method. It destroys all listed caches in a single request, which causes less cluster-wide work than destroying the caches one by one. For details, see the [.NET Thin Client]({connectors}/gridgain-8/clients/dotnet-thin-client#destroying-caches) documentation.
+The .NET thin client has a new `IIgniteClient.DestroyCaches` method. It destroys all listed caches in a single request, which causes less cluster-wide work than destroying the caches one by one. For details, see the [.NET Thin Client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/dotnet-thin-client#destroying-caches) documentation.
 
 ### DR Sender Metric for Unacknowledged Batches
 
-The DR sender hub has a new `OldestUnacknowledgedBatchAge` metric: the age, in milliseconds, of the oldest batch sent to the receiver hubs and not acknowledged yet. A value that keeps growing means the receiver hubs are not acknowledging batches, so the sender storage cannot be cleaned up. For details, see the [Generic Metrics]({gridgain8}/reference/monitoring/generic-metrics#sender-metrics) documentation.
+The DR sender hub has a new `OldestUnacknowledgedBatchAge` metric: the age, in milliseconds, of the oldest batch sent to the receiver hubs and not acknowledged yet. A value that keeps growing means the receiver hubs are not acknowledging batches, so the sender storage cannot be cleaned up. For details, see the [Generic Metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53/reference/monitoring/generic-metrics#sender-metrics) documentation.
 
 ## Improvements and Fixed Issues
 
@@ -42,7 +42,7 @@ The DR sender hub has a new `OldestUnacknowledgedBatchAge` metric: the age, in m
 
 ## Installation and Upgrade Information
 
-See the [Rolling Upgrades]({gridgain8}/gridgain8-management/installation/upgrade/rolling-upgrades) page for information about how to perform automated upgrades and for details about version compatibility.
+See the [Rolling Upgrades](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53/gridgain8-management/installation/upgrade/rolling-upgrades) page for information about how to perform automated upgrades and for details about version compatibility.
 
 ### Migrating from GridGain 8.9.17 or Earlier With Java 8
 
@@ -62,7 +62,7 @@ Rolling upgrade is only possible if all nodes in the cluster have the `IGNITE_EV
 
 ### Migrating From GridGain 8.X
 
-When migrating from GridGain 8.8 to GridGain 8.9, no special actions are required for core functionality migration. By using [rolling upgrades]({gridgain8}/gridgain8-management/installation/upgrade/rolling-upgrades), you can update from any GridGain version listed below. You may need to perform minor configuration changes to ensure stability post migration.
+When migrating from GridGain 8.8 to GridGain 8.9, no special actions are required for core functionality migration. By using [rolling upgrades](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53/gridgain8-management/installation/upgrade/rolling-upgrades), you can update from any GridGain version listed below. You may need to perform minor configuration changes to ensure stability post migration.
 
 {% hint style="info" %}
 While updates from GridGain 8.7.X and earlier 8.8.X versions are possible, they may require additional actions to your configuration and  depending on cumulative changes in the version.
@@ -77,7 +77,7 @@ While updates from GridGain 8.7.X and earlier 8.8.X versions are possible, they 
   ```
 
 - If you are using one of the optional modules listed in the Removed Modules section, they will continue to work, but compatibility and stability on GridGain 8.9 is not guaranteed. Consider using the alternatives:
-  - Visor CMD and GUI can be replaced by [GridGain Control Center]({tools}/enterprise/control-center#system-requirements).
+  - Visor CMD and GUI can be replaced by [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center#system-requirements).
   - The spark module can be replaced by the Spark [Ignite Extension](https://github.com/apache/ignite-extensions).
 - If you are using default values in your configuration, you may need to set them manually to keep you cluster working the same way as in previous versions. Make sure to check [Changed Default Values in GridGain 8.9.1 and Later](#changed-default-values-in-gridgain-8.9.1-and-later) section for any parameters you need to change.
 
@@ -111,7 +111,7 @@ Below is a list of versions that are tested for basic compatibility with the cur
 
 `2.11.1`, `2.12.0`, `2.13.0`,  `2.14.0`,  `2.15.0`,  `2.16.0`,  `2.17.0`,  `2.18.0`
 
-Apache Ignite thin clients are not compatible with GridGain 8.9. When switching to GridGain, follow the [migration instructions]({gridgain8}/gridgain8-management/migration-guides/apache-ignite-2x-8.9) to switch to GridGain clients, or use GridGain 8.10.
+Apache Ignite thin clients are not compatible with GridGain 8.9. When switching to GridGain, follow the [migration instructions](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53/gridgain8-management/migration-guides/apache-ignite-2x-8.9) to switch to GridGain clients, or use GridGain 8.10.
 
 ### Known Limitations
 
@@ -119,7 +119,7 @@ Apache Ignite thin clients are not compatible with GridGain 8.9. When switching 
 
 Starting with GridGain 8.9.40, binary metadata is merged by field ID. The default ID mapper ignores case, so the cluster rejects a field whose name differs from an existing field name only in case, if it has a different type. Such a write fails with a `BinaryObjectException` or, for `ALTER TABLE ... ADD COLUMN`, an `IgniteSQLException` that names both fields and their types. The new behavior applies only when all nodes in the cluster run GridGain 8.9.40 or later.
 
-To keep merging by field name, set the `IGNITE_BINARY_METADATA_MERGE_BY_FIELD_ID_FEATURE` system property to `false` on one of the cluster nodes. While any node has this property set to `false`, the whole cluster merges by field name. For details on fixing the data model, see the [Troubleshooting]({gridgain8}/tuning-and-troubleshooting/troubleshooting#field-type-conflict-between-field-names-that-differ-in-case) documentation.
+To keep merging by field name, set the `IGNITE_BINARY_METADATA_MERGE_BY_FIELD_ID_FEATURE` system property to `false` on one of the cluster nodes. While any node has this property set to `false`, the whole cluster merges by field name. For details on fixing the data model, see the [Troubleshooting](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53/tuning-and-troubleshooting/troubleshooting#field-type-conflict-between-field-names-that-differ-in-case) documentation.
 
 #### Thin Client Continuous Query Filters Checked in GridGain 8.9.40
 
@@ -153,16 +153,16 @@ We recommend switching to Java 11 or later before updating to GridGain 8.9.17 if
 
 GridGain 8.9.4 introduced stricter permissions checking for Control Center Agent. When running secured clusters, some actions that previously were available without permissions, will now require additional permissions.
 
-Before updating, make sure to provide the [required permissions]({tools}/enterprise/control-center/gg8/authorization-permissions), otherwise some actions may become unavailable.
+Before updating, make sure to provide the [required permissions](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center/gg8/authorization-permissions), otherwise some actions may become unavailable.
 
 #### New TRACING_CONFIGURATION_UPDATE Permission in GridGain 8.9.2 and Later
 
-GridGain 8.9.2 introduced the `TRACING_CONFIGURATION_UPDATE` [permission]({gridgain8}/security/authentication-and-authorization/authorization-permissions). If you were using security on a cluster before updating to this version, make sure that you provide the permissions to control utilities or users who need to update cluster permissions. Otherwise, they will not be able to update
+GridGain 8.9.2 introduced the `TRACING_CONFIGURATION_UPDATE` [permission](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53/security/authentication-and-authorization/authorization-permissions). If you were using security on a cluster before updating to this version, make sure that you provide the permissions to control utilities or users who need to update cluster permissions. Otherwise, they will not be able to update
 
 #### Changed Default Values in GridGain 8.9.1 and Later
 
 {% hint style="danger" %}
-The change to `IGNITE_EVENT_DRIVEN_SERVICE_PROCESSOR_ENABLED` prevents rolling upgrade from earlier versions to GridGain 8.9.1 unless the value is manually configured to be `false`. For more information on changing service processor implementation, see [Services]({gridgain8}/gridgain8-development/distributed-computing-and-services/services#new-igniteservices-framework) documentation.
+The change to `IGNITE_EVENT_DRIVEN_SERVICE_PROCESSOR_ENABLED` prevents rolling upgrade from earlier versions to GridGain 8.9.1 unless the value is manually configured to be `false`. For more information on changing service processor implementation, see [Services](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53/gridgain8-development/distributed-computing-and-services/services#new-igniteservices-framework) documentation.
 {% endhint %}
 
 If you are updating from GridGain 8.8.X or 8.9.0, a large number of default values have been changed.
@@ -171,7 +171,7 @@ These changes may affect the stability or performance of your cluster if you are
 
 We recommend checking the list below to make sure the changes do not have an adverse effect, and setting the value manually if necessary.
 
-- Service processor now use event-driven implementation by default. You can keep the old behavior by setting the `IGNITE_EVENT_DRIVEN_SERVICE_PROCESSOR_ENABLE` property to `false`. Make sure that all nodes in the cluster are set to the same value. See [Services]({gridgain8}/gridgain8-development/distributed-computing-and-services/services#new-igniteservices-framework) documentation for more information.
+- Service processor now use event-driven implementation by default. You can keep the old behavior by setting the `IGNITE_EVENT_DRIVEN_SERVICE_PROCESSOR_ENABLE` property to `false`. Make sure that all nodes in the cluster are set to the same value. See [Services](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53/gridgain8-development/distributed-computing-and-services/services#new-igniteservices-framework) documentation for more information.
 - Data region metrics are now enabled by default. This may have a minor (within 2%) adverse effect on performance. You can keep the old behavior by setting the `DataRegionConfiguration.metricsEnabled` value to `false`.
 - Data storage metrics are now enabled by default. This may have a minor (within 2%) adverse effect on performance. You can keep the old behavior by setting the `DataStorageConfiguration.metricsEnabled` value to `false`.
 - `TcpCommunicationSpi` communication protocol now has a limit of 4096 messages for the outgoing messages queue by default.
@@ -181,7 +181,7 @@ We recommend checking the list below to make sure the changes do not have an adv
 - Cache entries are now read from primary partitions by default, even if an entry is available on the node in a backup partition. This may have a minor performance impact, but significantly increases cluster stability. You can keep the old behavior by setting the `readFromBackup` property to `true`.
 - Partition map exchange transactions now time out after 1 minute instead of 0 (infinite) by default. You can keep the old timeout by setting the `TX_TIMEOUT_ON_PARTITION_MAP_EXCHANGE` setting to 0.
 - Data streamer now overwrites entries by default. You can keep the old behavior by setting the `stmr.allowOverwrite` property to `false`.
-- TCP discovery now uses static IP finder `TcpDiscoveryVmIpFinder` by default. To keep the old behavior, set the IP finder to use [multicast IP finder]({gridgain8}/gridgain8-management/cluster-configuration/clustering/tcp-ip-discovery#multicast-ip-finder).
+- TCP discovery now uses static IP finder `TcpDiscoveryVmIpFinder` by default. To keep the old behavior, set the IP finder to use [multicast IP finder](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53/gridgain8-management/cluster-configuration/clustering/tcp-ip-discovery#multicast-ip-finder).
 - Checkpointing process now starts upon reaching 75% of `minWalArchiveSize` instead of 25%. You can keep the old behavior by setting the `IGNITE_CHECKPOINT_TRIGGER_ARCHIVE_SIZE_PERCENTAGE` system variable to `0.25`.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
