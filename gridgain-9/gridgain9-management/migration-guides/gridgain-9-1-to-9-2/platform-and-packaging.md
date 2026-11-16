@@ -13,11 +13,11 @@ GridGain 9.1 required Java 11. GridGain 9.2 is compiled for Java 21, so Java 21 
 
 The Java 21 or later requirement applies to:
 
-- The server nodes and the CLI.
-- The Java thin client, the JDBC driver, the Spring Boot starter, Spring Data, and Hibernate. They run in your application's JVM.
-- The Kafka Connect source and sink connectors. They run in the Kafka Connect worker's JVM. A worker on an older Java does not load the connectors and reports no error. The connectors are missing from the `GET /connector-plugins` list.
-- The data center replication connector tool. Its start script uses the Java installation from `JAVA_HOME`, or `java` on the `PATH` if `JAVA_HOME` is not set.
-- The migration adapter for GridGain 8 and Apache Ignite 2. It is loaded into the JVM of your GridGain 8 or Ignite 2 node, so that JVM needs Java 21 or later. On an older Java, the adapter classes are never loaded, and the operation that needs them hangs without an error.
+- The server nodes and the CLI. See [Installation](../../installation/README.md) and [Using the CLI Tool](../../using-the-cli-tool.md).
+- The Java thin client, the JDBC driver, the Spring Boot starter, Spring Data, and Hibernate. They run in your application's JVM. See [Project Setup](../../../gridgain9-development/project-setup.md), [GridGain With Spring Boot](../../../integrations/spring-boot.md), [GridGain With Spring Data](../../../integrations/spring-data.md), and [GridGain With Hibernate](../../../integrations/hibernate.md).
+- The Kafka Connect source and sink connectors. They run in the Kafka Connect worker's JVM. A worker on an older Java does not load the connectors and reports no error. The connectors are missing from the `GET /connector-plugins` list. See [Kafka Source Connector](../../../integrations/kafka-source.md) and [Kafka Sink Connector](../../../integrations/kafka-sink.md).
+- The data center replication connector tool. Its start script uses the Java installation from `JAVA_HOME`, or `java` on the `PATH` if `JAVA_HOME` is not set. See [DR Connector Tool](../../migration-from-gridgain-8/dcr-connector.md).
+- The migration adapter for GridGain 8 and Apache Ignite 2. It is loaded into the JVM of your GridGain 8 or Ignite 2 node, so that JVM needs Java 21 or later. On an older Java, the adapter classes are never loaded, and the operation that needs them hangs without an error. See [Codebase Migration](../../migration-from-gridgain-8/codebase-migration.md).
 
 The .NET, C++, and Python clients and the ODBC driver do not use a JDK and are not affected.
 
@@ -40,7 +40,7 @@ To upgrade:
 The Docker images include their own Java runtime, so the host needs no Java. The default tags (`latest` and plain version tags) use JDK 25. Use the 9.2 version tag, for example `9.2.0`, and not `latest`, so that the upgrade does not depend on what `latest` points to. A tag with a JDK suffix selects that JDK, for example `9.2.0-openjdk21`. The CLI image (`gridgain9-cli`) has the same tags. 9.1 images were also published for JDK 11 and 17, which 9.2 cannot use, so change a pinned `-openjdk11` or `-openjdk17` tag to `-openjdk21` or `-openjdk25`. If you build a custom image, base it on JDK 21 or later. See [Installing Using Docker](../../installation/installing-using-docker.md).
 {% endhint %}
 
-DEB and RPM packages do not declare a Java package dependency. The package manager installs 9.2 on a host with an older Java, and the start script refuses to start the node.
+[DEB and RPM packages](../../installation/installing-deb-rpm.md) do not declare a Java package dependency. The package manager installs 9.2 on a host with an older Java, and the start script refuses to start the node.
 
 ## Windows Installer
 
@@ -76,7 +76,7 @@ WARNING: JVM_GC=ConcMarkSweepGC is not in the supported list; using G1GC.
 
 The `-XX:G1HeapRegionSize` option, which is set from `JVM_G1HeapRegionSize`, is passed to the JVM only when the collector is `G1GC`. On Linux and macOS, the `JVM_GC` value is case-sensitive.
 
-Check `JVM_GC` in your `vars.env` (`vars.bat` on Windows) before you upgrade. A package upgrade keeps your own `vars.env`, so a collector that Java 21 does not support, such as `ConcMarkSweepGC`, can still be set there. Remove it or set a supported value. To pass other JVM options, use `GRIDGAIN9_EXTRA_JVM_ARGS`.
+Check `JVM_GC` in your `vars.env` (`vars.bat` on Windows) before you upgrade. A package upgrade keeps your own `vars.env`, so a collector that Java 21 does not support, such as `ConcMarkSweepGC`, can still be set there. Remove it or set a supported value. To pass other JVM options, use `GRIDGAIN9_EXTRA_JVM_ARGS`. For the other `vars.env` settings, see [General Configuration Tips](../../../tuning-and-troubleshooting/performance-tuning/general-configuration-tips.md).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

@@ -56,7 +56,7 @@ For all options, see [Distribution Zones](../../../reference/sql/distribution-zo
 
 ## Zone Names Are Simple Identifiers
 
-The zone name in `CREATE ZONE`, `ALTER ZONE`, and `DROP ZONE` must be a simple identifier. A name with a schema, such as `public.my_zone`, does not parse and fails with `Failed to parse query`. Zones do not belong to a schema. 9.1 accepted a qualified name and silently kept only its last part.
+The zone name in `CREATE ZONE`, `ALTER ZONE`, and `DROP ZONE` must be a simple identifier. A name with a schema, such as `public.my_zone`, does not parse and fails with `Failed to parse query`. Zones do not belong to a schema. 9.1 accepted a qualified name and silently kept only its last part. See [Distribution Zones](../../../reference/sql/distribution-zones.md).
 
 ```sql
 -- 9.1 (no longer accepted)
@@ -155,7 +155,7 @@ The `EXPLAIN` output of 9.2 prints aggregates under new names, and a `phase` att
 | `MapSortAggregate` | `StreamAggregate` with `phase: PARTIAL` |
 | `ReduceSortAggregate` | `StreamAggregate` with `phase: FINAL` |
 
-Update any tool that parses `EXPLAIN` text. The `DISABLE_RULE` hints for the aggregate rules are also renamed: `Colocated*` is now `SinglePhase*`, and `MapReduce*` is now `TwoPhase*`. The `Sort` rules are now `Stream` rules. A hint with an old name is ignored. For the current output, see [EXPLAIN](../../../reference/sql/explain-statement.md) and [List of EXPLAIN Operators](../../../reference/sql/explain-operators-list.md).
+Update any tool that parses `EXPLAIN` text. The `DISABLE_RULE` hints for the aggregate rules are also renamed: `Colocated*` is now `SinglePhase*`, and `MapReduce*` is now `TwoPhase*`. The `Sort` rules are now `Stream` rules. A hint with an old name is ignored. The [List of EXPLAIN Operators](../../../reference/sql/explain-operators-list.md) page has the same 9.1-to-9.2 operator mapping and describes each operator. For the statement itself, see [EXPLAIN](../../../reference/sql/explain-statement.md).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

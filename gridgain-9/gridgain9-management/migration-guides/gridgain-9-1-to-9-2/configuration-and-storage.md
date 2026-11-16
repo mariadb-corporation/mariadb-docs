@@ -9,7 +9,7 @@ GridGain 9.2 removes the legacy configuration key names and the deprecated keys 
 
 ## Removed and Renamed Configuration Keys
 
-GridGain 9.1 accepted many keys under two names: the name without a unit, for example `delayDuration`, and the name with a unit, for example `delayDurationMillis`. GridGain 9.2 accepts only the new names. It also removes the keys that 9.1 had deprecated.
+GridGain 9.1 accepted many keys under two names: the name without a unit, for example `delayDuration`, and the name with a unit, for example `delayDurationMillis`. GridGain 9.2 accepts only the new names. It also removes the keys that 9.1 had deprecated. For how configuration works, see [Cluster and Node Configuration](../../cluster-configuration.md).
 
 A 9.2 node does not start if its node configuration file contains a key that 9.2 does not know. The node reports an error such as `Failed to parse HOCON: '<path>' configuration doesn't have the '<key>' sub-configuration`. A key in the stored cluster configuration that 9.2 does not know can also prevent the node from starting.
 
@@ -20,7 +20,7 @@ The cluster configuration cannot be changed while a rolling upgrade is in progre
 {% endhint %}
 
 {% hint style="warning" %}
-If you deploy with the `gridgain/gridgain9` Helm chart, use chart version 1.1.12 or later. The default configuration of versions 1.1.10 and 1.1.11 contains `ignite.raft.logStripesCount` and `ignite.raft.stripes`, so a 9.2 node fails to start with `Failed to parse HOCON: 'ignite.raft' configuration doesn't have the 'logStripesCount' sub-configuration`, and the pods restart in a loop. The chart's `appVersion` is still a 9.1 release, so set `image.tag` to the 9.2 version.
+If you deploy with the `gridgain/gridgain9` Helm chart, use chart version 1.1.12 or later. The default configuration of versions 1.1.10 and 1.1.11 contains `ignite.raft.logStripesCount` and `ignite.raft.stripes`, so a 9.2 node fails to start with `Failed to parse HOCON: 'ignite.raft' configuration doesn't have the 'logStripesCount' sub-configuration`, and the pods restart in a loop. The chart's `appVersion` is still a 9.1 release, so set `image.tag` to the 9.2 version. See [Installing GridGain 9 on Kubernetes using Helm Chart](../../installation/installing-with-helm.md).
 {% endhint %}
 
 ### Renamed Keys
@@ -122,7 +122,7 @@ For the current keys, see the [node configuration](../../../reference/configurat
 
 This section applies if a storage profile uses the `rocksdb` engine.
 
-The RocksDB partition storage engine is removed. The `engine = rocksdb` profile type no longer exists.
+The RocksDB partition storage engine is removed. The `engine = rocksdb` profile type no longer exists. For the engines that remain, see [Storage Engines and Profiles](../../../architecture/storage/engines/README.md), [Persistent Storage](../../../architecture/storage/engines/native-persistent-storage.md), and [Storage Profiles](../../../architecture/storage/storage-profiles.md).
 
 - A node that starts with an `ignite.storage.engines.rocksdb` section in its configuration ignores the section.
 - A node does not start if a storage profile uses `engine = rocksdb`. The error is `Failed to parse HOCON: Polymorphic configuration type is not correct: rocksdb`.
@@ -143,7 +143,7 @@ This section applies if a storage profile sets `replacementMode`.
 
 The `RANDOM_LRU` and `SEGMENTED_LRU` page replacement policies are removed. The persistent page memory always uses the `CLOCK` policy, which was already the default.
 
-The `replacementMode` property of an `aipersist` storage profile still exists and is deprecated. It still accepts `RANDOM_LRU`, `SEGMENTED_LRU`, and `CLOCK`, but 9.2 ignores the value. Remove `replacementMode` from your profiles.
+The `replacementMode` property of an `aipersist` storage profile still exists and is deprecated. It still accepts `RANDOM_LRU`, `SEGMENTED_LRU`, and `CLOCK`, but 9.2 ignores the value. Remove `replacementMode` from your profiles. For the page memory, see [Persistent Storage](../../../architecture/storage/engines/native-persistent-storage.md).
 
 ## Metric Changes
 
@@ -156,11 +156,11 @@ A storage profile that was named like an engine-level source, for example `check
 
 The engine-level sources `storage.aipersist`, `storage.aipersist.checkpoint`, and `storage.aipersist.io` keep their names. Update every dashboard, alert, exporter filter, and `metric source enable` or `metric source disable` command that uses the old source name, and remove `PageAcquireTime` from your dashboards.
 
-For the list of metrics, see [Metrics List](../../../reference/monitoring/metrics-list.md#storageaipersistprofilesprofile).
+For the list of metrics, see [Metrics List](../../../reference/monitoring/metrics-list.md#storageaipersistprofilesprofile). For how to enable metric sources, see [Configuring Metrics](../../monitoring/configuring-metrics.md), and for the metrics to watch, see [Monitoring Best Practices](../../monitoring/monitoring-best-practices.md).
 
 ## Raft Log Storage Changes
 
-GridGain 9.2 stores the Raft logs in the segment-based log storage (SegStore) by default. GridGain 9.1.29 used the RocksDB-based log storage unless you turned SegStore on. The RocksDB-based log storage is deprecated in 9.2. It is a different feature from the removed RocksDB partition storage engine.
+GridGain 9.2 stores the Raft logs in the segment-based log storage (SegStore) by default. GridGain 9.1.29 used the RocksDB-based log storage unless you turned SegStore on. The RocksDB-based log storage is deprecated in 9.2. It is a different feature from the removed RocksDB partition storage engine. For the protocol that uses the logs, see [RAFT Consensus](../../../architecture/raft-consensus.md).
 
 The first time a 9.2 node starts on 9.1 data, it migrates its existing Raft logs to SegStore. You do not run a command, and the migration cannot be reverted. Until the old log entries of a group are truncated after a snapshot, the node keeps the old RocksDB log files next to the new `segstore` directory, in the `cmg`, `metastorage`, and `partitions` directories under `work`. It writes `Still exists logs in oldLogStorage … need to wait snapshot to truncate logs` to the log while it waits. Make sure that the nodes have free disk space for both logs.
 

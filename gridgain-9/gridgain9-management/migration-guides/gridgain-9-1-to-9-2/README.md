@@ -5,7 +5,7 @@ description: >-
 
 # Upgrading from GridGain 9.1 to 9.2
 
-This guide explains how to upgrade a GridGain 9.1 cluster and its applications to GridGain 9.2. Start with the upgrade procedure, which covers a full-cluster upgrade and, as an alternative, a rolling upgrade. Use the other pages as a reference for the changes that affect you.
+This guide explains how to upgrade a GridGain 9.1 cluster and its applications to GridGain 9.2. Start with the upgrade procedure, which covers a [full-cluster upgrade](../../upgrade/full-cluster-upgrade.md) and, as an alternative, a [rolling upgrade](../../upgrade/rolling-upgrade.md). Use the other pages as a reference for the changes that affect you.
 
 Before you start, note that:
 

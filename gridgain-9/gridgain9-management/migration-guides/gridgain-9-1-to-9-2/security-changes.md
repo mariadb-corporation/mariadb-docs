@@ -25,7 +25,7 @@ A name in lower or mixed case needs double quotes. `SHOW USERS` and `SHOW GRANTS
 The exact match applies to every 9.2 node from the moment it joins, not only after the rolling upgrade is committed. A user that 9.1 stored as `alice` can log in on a 9.2 node only as `alice`. `ALICE` and `Alice` fail with `Authentication failed`, although the 9.1 nodes still accept them. Before you start the upgrade, change the applications and connection settings to the lower-case name that is stored, which works on 9.1 as well.
 {% endhint %}
 
-For more information, see [User Permissions and Roles](../../../security/user-permissions-and-roles.md).
+For more information, see [User Permissions and Roles](../../../security/user-permissions-and-roles.md), [Object Name Resolution](../../../security/role-based-authorization.md#object-name-resolution), and the [CREATE USER, CREATE ROLE, GRANT, and SHOW commands](../../../reference/sql/access-control-functions.md).
 
 ## Role Names Are Migrated to Uppercase
 
@@ -62,15 +62,15 @@ SQL cannot assign or drop the role:
 - `DROP ROLE "system"` fails with `GG-RBAC-9: Cannot drop the super role system`.
 - `DROP ROLE SYSTEM`, `GRANT SYSTEM TO "alice"`, and any other unquoted `SYSTEM` fail with ``GG-RBAC-7: Role `SYSTEM` is not found``.
 
-Remove such statements from your scripts. To assign the role, put `system` in lower case in the `roles` list of the user in the authentication provider configuration. A directory group cannot grant it through an LDAP `roleMapping`. `SHOW USERS` prints `system` in lower case for these users, and upper-case names for all other roles.
+Remove such statements from your scripts. To assign the role, put `system` in lower case in the `roles` list of the user in the authentication provider configuration. See [User Authentication](../../../security/authentication.md#basic-authentication). A directory group cannot grant it through an LDAP `roleMapping`. `SHOW USERS` prints `system` in lower case for these users, and upper-case names for all other roles.
 
 ### JWT Tokens
 
-Tokens issued before the upgrade are still accepted, and they keep the role names they were issued with. A user whose `roles` list spelled the super role other than `system`, for example `SYSTEM`, holds a token with that spelling. After the upgrade, 9.2 accepts the token, but it does not grant the super role. The user must log in again to get a new token. See [JWT Authentication](../../../security/jwt-authentication.md).
+Tokens issued before the upgrade are still accepted, and they keep the role names they were issued with. A user whose `roles` list spelled the super role other than `system`, for example `SYSTEM`, holds a token with that spelling. After the upgrade, 9.2 accepts the token, but it does not grant the super role. The user must log in again to get a new token. See [JWT Authorization](../../../security/jwt-authentication.md) and [REST Authentication](../../../reference/rest-api/rest-authentication.md).
 
 ## LDAP Role Mappings
 
-This section applies if you use the LDAP authentication provider with a `roleMapping`.
+This section applies if you use the LDAP authentication provider with a `roleMapping`. For the provider settings, see [LDAP Authentication](../../../security/authentication.md#ldap-authentication).
 
 The migration does not change the role names in LDAP `roleMapping` settings or in the role names of row-level security policies. 9.1 matched a mapped role without regard to case. 9.2 matches it exactly, so after the upgrade a mapping to `admin` does not match the role `ADMIN`.
 
@@ -93,7 +93,7 @@ The migration does not change the role names in row-level security policies. Pol
 
 ## Index Privileges Are Checked on the Table
 
-This section applies if you grant `CREATE_INDEX` or `DROP_INDEX` to roles.
+This section applies if you grant `CREATE_INDEX` or `DROP_INDEX` to roles. For the privileges, see [User Permissions and Roles](../../../security/user-permissions-and-roles.md) and [GRANT](../../../reference/sql/access-control-functions.md#grant).
 
 In 9.1, `CREATE INDEX` and `DROP INDEX` checked the `CREATE_INDEX` and `DROP_INDEX` privileges against the index name, as if it were a table name. 9.2 checks them against the table that owns the index:
 
@@ -113,7 +113,7 @@ GRANT PRIVILEGES CREATE_INDEX ON PUBLIC.MY_INDEX TO role1;
 GRANT PRIVILEGES CREATE_INDEX ON PUBLIC.MY_TABLE TO role1;
 ```
 
-If a script runs `DROP INDEX IF EXISTS` for indexes that may be missing, grant `DROP_INDEX` on the schema. See [Index Grants](../../../security/user-permissions-and-roles.md).
+If a script runs `DROP INDEX IF EXISTS` for indexes that may be missing, grant `DROP_INDEX` on the schema. See [Index Grants](../../../security/user-permissions-and-roles.md#index-grants).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
