@@ -74,7 +74,16 @@ Reserve about **5 GB** for system data. This will cover the majority of deployme
 
 ## Sizing the RAFT Log
 
-The RAFT log is hard to estimate precisely because its size depends on how quickly old entries are truncated and their space is reclaimed. Estimate how fast it grows instead. Each row you write adds the following:
+Each node keeps the RAFT logs of all its persistent partitions in one log storage. Each partition truncates its RAFT log about once an hour, as set by the `ignite.system.properties.raftSnapshotIntervalSecs` node property. Truncated entries keep using disk space until the node frees it. Two thresholds control this:
+
+- The soft limit, `ignite.raft.logStorage.softPartitionsLogSizeLimitBytes`, is 20 GiB by default. When the log storage exceeds it, the node flushes partition data to disk, truncates the RAFT logs of its partitions, and frees disk space.
+- The compaction threshold is half of the soft limit by default, 10 GiB. You can lower it with the `ignite.logStorage.softLogSizeLimitBytes` node property. When the log storage exceeds the threshold, the node frees the space of truncated entries.
+
+These thresholds do not cap the log storage. Under a high write rate, it can grow past them while the node frees space. Reserve space for the soft limit plus headroom on each node, and set the [hard limit](../../reference/configuration/node-configuration-parameters.md#hard-disk-usage-limits) so that client writes stop before the drive runs out of space.
+
+The metastorage group and cluster management group logs use separate log storages. For details, see [RAFT Log Storage](../raft-consensus.md#raft-log-storage).
+
+To check that the soft limit fits your workload, estimate how much RAFT log a node writes in two hours. If it is more than the soft limit, raise the soft limit and reserve the extra space. Each row you write adds the following to the RAFT log:
 
 ```
 raft log growth ≈ number of rows written * (tuple size + overhead)
@@ -86,12 +95,6 @@ The overhead depends on how you write the data:
 | --- | --- |
 | Batches of 1,000 rows (`upsertAll`, data streamer) | \~20 bytes |
 | Single-row writes (`upsert`, SQL `INSERT`) | \~115 bytes |
-
-Size the log to absorb your write load, not your total data. Provision enough space for the RAFT log to hold at least two hours of writes at your expected rate.
-
-The log is stored in segment files of 2 GiB each by default. With default settings, a node starts compacting the partitions log at about 10 GiB. At about 20 GiB, it also flushes partition data to disk and truncates the partitions log. The Metastorage and Cluster Management Group logs are stored separately. For details, see [RAFT Log Storage](../raft-consensus.md#raft-log-storage).
-
-You can limit RAFT log disk usage with the node configuration properties described under the disk usage limits section of [Node Configuration Parameters](../../reference/configuration/node-configuration-parameters.md#hard-disk-usage-limits).
 
 ## Example Estimate
 
@@ -112,7 +115,7 @@ Estimate the stored row size step by step:
 3. **On-disk row.** Add the 200-byte row overhead: `395 + 200 = 595` bytes.
 4. **Index.** The hash index on the `BIGINT` primary key adds about 55 bytes: `595 + 55 = 650` bytes per row.
 
-For 10 million rows, one copy of the table data takes about 6.5 GB (`10,000,000 * 650` bytes). With `REPLICAS 3`, the cluster stores three copies, about 19.5 GB. Add space for the RAFT log and system data as described in the sections above.
+With this estimate, 10 million rows take roughly 6.5 GB of table data per copy (`10,000,000 * 650` bytes). With `REPLICAS 3`, plan for roughly 19.5 GB of table data in the cluster. In addition, reserve space on each node for the [RAFT log](#sizing-the-raft-log), which is the soft limit plus headroom, and for [system data](#reserving-space-for-system-data).
 
 {% hint style="info" %}
 Always add at least 10 percent on top of your estimate as a safety margin.

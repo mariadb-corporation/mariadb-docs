@@ -72,35 +72,37 @@ When a table is created, it is immediately [partitioned](storage/data-partitioni
 
 ### RAFT Log Storage
 
-Each node keeps the RAFT logs of its persistent partitions, the metastorage group, and the CMG in the segment log storage. Volatile partitions keep their RAFT log in memory, as described in [Log Storage Budget](storage/engines/in-memory-storage.md#log-storage-budget).
+The RAFT log of a group is the sequence of commands that the group's members replicate and apply. A node stores the RAFT logs of the groups it hosts in log storages. Each log storage keeps the logs of its groups together in segment files.
 
-A node runs three separate log storages, one each for partitions, the metastorage group, and the CMG. Each storage keeps its files in the `segstore` subdirectory of its component's log path:
+A node runs three log storages:
 
-| Log | Default location |
-| --- | --- |
-| Partitions | `{system.partitionsLogPath}/segstore` |
-| Metastorage group | `{system.metastoragePath}/log/segstore` |
-| CMG | `{system.cmgPath}/log/segstore` |
+| Log storage | RAFT logs it holds | Default location |
+| --- | --- | --- |
+| Partitions | Persistent partitions hosted on the node | `{system.partitionsLogPath}/segstore` |
+| Metastorage | The metastorage group | `{system.metastoragePath}/log/segstore` |
+| CMG | The CMG | `{system.cmgPath}/log/segstore` |
 
-All RAFT groups of a storage append their entries to the same segment file. When the file is full, the storage starts a new one and writes index files for the full one. A segment file is 2 GiB by default. You can change the file size and the other storage settings in the [Log Storage Configuration](../reference/configuration/node-configuration-parameters.md#log-storage-configuration).
+Volatile partitions keep their RAFT logs in memory, as described in [Log Storage Budget](storage/engines/in-memory-storage.md#log-storage-budget).
+
+For the log storage settings, see [Log Storage Configuration](../reference/configuration/node-configuration-parameters.md#log-storage-configuration).
 
 #### Durability
 
-The partitions log follows the [`raft.fsync`](../reference/configuration/node-configuration-parameters.md#raft-configuration) setting, which is off by default. With `fsync` off, the node syncs the log to disk when a segment file is full, and before a storage engine persists its data. The log on disk then holds every entry that the persisted data depends on. The metastorage and CMG logs always use `fsync`.
+By default, the partitions log storage does not sync every write to disk. If the operating system crashes, the most recent entries can be lost. To sync every write, set [`raft.fsync`](../reference/configuration/node-configuration-parameters.md#raft-configuration) to `true`. The metastorage and CMG log storages always sync every write.
 
 #### Reclaiming Disk Space
 
-Truncating a RAFT log does not free disk space right away. Each storage compacts its segment files once its size exceeds a compaction threshold. Compaction deletes the files that hold no live entries, and copies the live entries of other files into new, smaller files.
+Partitions truncate their RAFT logs about once an hour. To change the interval, set the `ignite.system.properties.raftSnapshotIntervalSecs` node property, in seconds. Truncation does not free disk space right away. A log storage frees the space of truncated entries once it grows past its compaction threshold.
 
-The threshold is the smaller of `logStorage.softLogSizeLimitBytes` and half of `raft.logStorage.softPartitionsLogSizeLimitBytes`, but at least one segment file. With default settings, compaction starts at about 10 GiB. The node computes the threshold at startup, so a change to either property applies to compaction after a restart.
+By default, the compaction threshold is half of `ignite.raft.logStorage.softPartitionsLogSizeLimitBytes`, which is 10 GiB. To free space earlier, set a lower `ignite.logStorage.softLogSizeLimitBytes`.
 
-If the partitions log keeps growing past `raft.logStorage.softPartitionsLogSizeLimitBytes`, the node flushes the data of its persistent partitions to disk, truncates their logs, and then compacts the segment files. For details, see [Soft Disk Usage Limits](../reference/configuration/node-configuration-parameters.md#soft-disk-usage-limits).
+If the partitions log storage grows past `ignite.raft.logStorage.softPartitionsLogSizeLimitBytes`, the node also flushes the data of its persistent partitions to disk and truncates their RAFT logs. For details, see [Soft Disk Usage Limits](../reference/configuration/node-configuration-parameters.md#soft-disk-usage-limits).
 
 #### Migrating From the RocksDB Log
 
-Versions before 9.2 keep RAFT logs in RocksDB. After an upgrade to 9.2, a node keeps writing the existing logs to RocksDB until the cluster version is 9.2.0 or later. The cluster version changes when you commit a [rolling upgrade](../gridgain9-management/upgrade/rolling-upgrade.md).
+Versions before 9.2 keep RAFT logs in RocksDB. After a node is upgraded to 9.2, it keeps writing the existing logs to RocksDB until the entire cluster is upgraded to 9.2.0 or later. The cluster version changes when you commit a [rolling upgrade](../gridgain9-management/upgrade/rolling-upgrade.md). If you upgrade offline with a [full-cluster upgrade](../gridgain9-management/upgrade/full-cluster-upgrade.md), the cluster version changes when the upgraded nodes rejoin the cluster.
 
-After the commit, each RAFT group writes new entries to the segment log storage and reads older ones from RocksDB. A group stops using RocksDB once its log is truncated past the last RocksDB entry. The migration cannot be reverted.
+After the cluster version changes, nodes write new RAFT log entries to the log storages described above. Older entries stay in RocksDB until they are truncated. The migration cannot be reverted.
 
 ### Storage-Based Write Admission
 
