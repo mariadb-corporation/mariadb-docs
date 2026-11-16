@@ -33,6 +33,22 @@ Note that all access rights to the file must be removed from everybody else but 
 
 Another file from which to read the defaults can be specified with the `-c` flag.
 
+## Bash Completion
+
+{% hint style="info" %}
+This functionality is available from MaxScale 26.10.1.
+{% endhint %}
+
+MaxCtrl supports completion in bash: pressing TAB after `maxctrl` completes commands, the names of servers, services and other objects, and the parameters of the `alter` commands, the same way as in the interactive mode.
+
+The MaxCtrl package installs the completion script as `/usr/share/bash-completion/completions/maxctrl`. If the `bash-completion` package is installed, bash loads the script automatically. Otherwise, it can be loaded by adding the following line to `~/.bashrc`:
+
+```
+source /usr/share/bash-completion/completions/maxctrl
+```
+
+The names of objects and parameters are fetched from MaxScale using the same host, credentials and `.maxctrl.cnf` file as a normal maxctrl command. If MaxScale cannot be reached within one second, only commands are completed. MaxCtrl never asks for a password while completing.
+
 ## Commands
 
 ### list
