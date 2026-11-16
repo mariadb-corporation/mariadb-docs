@@ -125,7 +125,12 @@ OneOrMore (NonTerminal('parameter', {href:'./grammar-reference/#parameter'}), Te
   - `batchSize` - the number of entries loaded in each batch. Default value is `1024`.
   - `null` - what value empty values are mapped to on import, and `null` values are mapped to on export. By default, empty values are mapped to `null` on import, and `null` values are mapped to an empty string (`""`) on export.
   - Iceberg-specific:
-    - The [catalog properties](https://iceberg.apache.org/docs/latest/configuration/#catalog-properties) are supported.
+    - Only these [catalog properties](https://iceberg.apache.org/docs/latest/configuration/#catalog-properties) are supported, and a statement with any other property fails:
+      - `catalog-impl`, `io-impl`, `uri`, `warehouse`, `type` and `client.factory`.
+      - `client.region`, `client.assume-role.*` and `jdbc.*`.
+      - `glue.skip-name-validation`.
+      - The S3 properties `s3.access-key-id`, `s3.secret-access-key`, `s3.session-token`, `s3.client-region`, `s3.endpoint`, `s3.path-style-access`, `s3.checksum-enabled`, `s3.multipart.*`, `s3.retry.*` and `s3.delete.*`.
+      - The Hadoop S3A properties `fs.s3a.access.key`, `fs.s3a.secret.key`, `fs.s3a.session.token`, `fs.s3a.endpoint` and `fs.s3a.endpoint.region`.
     - The `table-identifier` property describes Apache Iceberg TableIdentifier names. The names can be dot-separated. For example, `db_name.table_name` or `table`.
     - The `warehouse` path can be defined explicitly as a `'warehouse'='path'` property, or implicitly as a source or target `COPY FROM source INTO target`. If both ways are defined, the explicit property is used.
   - `S3`:
