@@ -111,16 +111,16 @@ After the commit, check the following:
 - **Quote user names in SQL.** SQL converts an unquoted name to upper case, so `DROP USER alice` looks for the user `ALICE`, which does not exist. Write `DROP USER "alice"`, `ALTER USER "alice" SET PASSWORD '...'`, and `GRANT ADMIN TO "alice"`. Role names do not need quotes, because the converted names are upper case.
 - **Quote `system` in SQL.** An unquoted `system` is read as `SYSTEM`, which is an ordinary role and not the built-in super role. Write `"system"`.
 - **Do not recreate old users with an unquoted name.** `CREATE USER alice` creates a new user `ALICE`, separate from the existing `alice`.
-- **Expect `CURRENT_USER` to return the stored name.** For users created on 9.1 it is lower case. Row-level security policies that compare `CURRENT_USER` to data must use the same spelling.
+- **`CURRENT_USER` does not change.** It returns the stored name, as in 9.1: lower case for users created on 9.1. Policies that compare it to data keep working. For users you create on 9.2 with an unquoted name, the stored name is upper case, so use the same spelling in the data.
 - **Update LDAP role mappings.** The `roleMapping` values are not converted. A mapping that names a role in lower case, such as `admin`, no longer matches the role `ADMIN` and grants nothing. Change the values to match the new role names. LDAP group names are still matched without regard to case.
-- **Review row-level security policies.** Policies are not converted, and policy roles are matched exactly. A policy that names a former lower-case role in quotes stops applying to the converted upper-case role. A policy created with an unquoted `TO SYSTEM` stores `SYSTEM` and no longer applies to holders of `system`. Recreate it with `TO "system"`. Depending on your other policies, users can see more or fewer rows than before, so check each policy.
+- **Review row-level security policies.** Policies are not converted, and policy roles are matched exactly, as in 9.1. Policies that name roles without quotes keep working, because the converted role names are upper case. A policy created with an unquoted `TO SYSTEM` stores `SYSTEM`. It stops applying to users whose role list spelled the super role `SYSTEM`, because the conversion changes that spelling to `system`. Recreate it with `TO "system"`. Depending on your other policies, users can see more or fewer rows than before, so check each policy.
 - **Expect users to log in again.** Existing JWTs are not rewritten and expire normally. A token that carries `SYSTEM` loses the super role's privileges until the user logs in again. Existing sessions may also need to reconnect.
 
 To switch a user to a different spelling, for example upper case, create a new user with the new name, grant it the same roles, and drop the old user. User names cannot be renamed.
 
 The conversion state is stored in the [`roleNamesMigrationVersion`](../../reference/configuration/cluster-configuration-parameters.md) cluster configuration parameter. Do not change it manually.
 
-After the commit, you cannot return to a 9.1 binary without a recovery plan, because the stored role names and the `roleNamesMigrationVersion` value have changed. To go back, [cancel the upgrade](#cancelling-an-in-progress-upgrade) before you commit. Cancel requires every node to be back on the source binaries first.
+After the commit, you cannot return to a 9.1 binary without a recovery plan, because the stored role names and the `roleNamesMigrationVersion` value have changed.
 
 ## Monitoring Update Progress
 
