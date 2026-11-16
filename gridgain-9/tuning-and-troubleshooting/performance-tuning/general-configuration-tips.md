@@ -45,38 +45,23 @@ To change type of storage used for new distribution zones, change the `zone.defa
 
 You can also change these properties for [distribution zones](../../reference/sql/distribution-zones.md) you have created for yourself.
 
-You can get information about the data region by using the `cluster config show ignite.aipersist` CLI command. Here is how the default data region may look like:
+You can get information about storage profiles, including the default profile of the persistent storage engine, by using the `node config show ignite.storage.profiles` CLI command. Here is how the default `aipersist` profile may look like:
 
 ```json
 {
-  "ignite" : {
-    "checkpoint" : {
-      "checkpointDelayMillis" : 200,
-      "checkpointThreads" : 4,
-      "compactionThreads" : 4,
-      "frequency" : 180000,
-      "frequencyDeviation" : 40,
-      "logReadLockThresholdTimeoutMillis" : 0,
-      "readLockTimeout" : 10000,
-      "useAsyncFileIoFactory" : true
-    },
-    "defaultRegion" : {
-      "memoryAllocator" : {
-        "type" : "unsafe"
-      },
-      "replacementMode" : "CLOCK",
-      "size" : 268435456
-    },
-    "pageSize" : 16384,
-    "regions" : [ ]
-  }
+  "engine": "aipersist",
+  "name": "default",
+  "replacementMode": "CLOCK",
+  "sizeBytes": -1
 }
 ```
 
-To change the size of the default region, use the `cluster config update` command:
+Settings shared by all profiles of an engine, such as the page size and checkpoint settings, are under `ignite.storage.engines.aipersist`. For the full list, see [Node Configuration Parameters](../../reference/configuration/node-configuration-parameters.md#storage-configuration).
+
+To change the size of the default profile, use the `node config update` command on each node:
 
 ```bash
-cluster config update --url http://localhost:10300 ignite.aipersist.defaultRegion.size:9999999
+node config update --url http://localhost:10300 "ignite.storage.profiles:{default{engine:aipersist,sizeBytes:268435456}}"
 ```
 
 ## Configuring Local Paths
