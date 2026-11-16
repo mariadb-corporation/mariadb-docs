@@ -176,6 +176,18 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 
 | CVE ID (with cve.org link)                                                      | CVSS base score (v3.1) | Community Server 10.11 Release  |
 | ------------------------------------------------------------------------------- | ---------------------- | ------------------------------- |
+| [CVE-2026-101802](https://www.cve.org/CVERecord?id=CVE-2026-101802)             | 6.5                    | [MariaDB 10.11.20](10.11.20.md) |
+| [CVE-2026-101796](https://www.cve.org/CVERecord?id=CVE-2026-101796)             | 7.5                    | [MariaDB 10.11.20](10.11.20.md) |
+| [CVE-2026-101794](https://www.cve.org/CVERecord?id=CVE-2026-101794)             | 6.5                    | [MariaDB 10.11.20](10.11.20.md) |
+| [CVE-2026-101775](https://www.cve.org/CVERecord?id=CVE-2026-101775)             | 7.4                    | [MariaDB 10.11.20](10.11.20.md) |
+| [CVE-2026-101747](https://www.cve.org/CVERecord?id=CVE-2026-101747)             | 6.5                    | [MariaDB 10.11.20](10.11.20.md) |
+| [CVE-2026-101725](https://www.cve.org/CVERecord?id=CVE-2026-101725)             | 6.5                    | [MariaDB 10.11.20](10.11.20.md) |
+| [CVE-2026-101619](https://www.cve.org/CVERecord?id=CVE-2026-101619)             | 4.9                    | [MariaDB 10.11.20](10.11.20.md) |
+| [CVE-2026-101618](https://www.cve.org/CVERecord?id=CVE-2026-101618)             | 4.9                    | [MariaDB 10.11.20](10.11.20.md) |
+| [CVE-2026-101617](https://www.cve.org/CVERecord?id=CVE-2026-101617)             | 4.9                    | [MariaDB 10.11.20](10.11.20.md) |
+| [CVE-2026-101615](https://www.cve.org/CVERecord?id=CVE-2026-101615)             | 4.4                    | [MariaDB 10.11.20](10.11.20.md) |
+| [CVE-2026-101614](https://www.cve.org/CVERecord?id=CVE-2026-101614)             | 4.9                    | [MariaDB 10.11.20](10.11.20.md) |
+| [CVE-2026-101608](https://www.cve.org/CVERecord?id=CVE-2026-101608)             | 6.5                    | [MariaDB 10.11.20](10.11.20.md) |
 | [CVE-2026-107823](https://www.cve.org/CVERecord?id=CVE-2026-107823)             | 7.2                    | [MariaDB 10.11.19](10.11.19.md) |
 | [CVE-2026-107822](https://www.cve.org/CVERecord?id=CVE-2026-107822)             | 6.4                    | [MariaDB 10.11.19](10.11.19.md) |
 | [CVE-2026-107821](https://www.cve.org/CVERecord?id=CVE-2026-107821)             | 8.0                    | [MariaDB 10.11.19](10.11.19.md) |
