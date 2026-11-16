@@ -13,6 +13,8 @@ GridGain 9.1 accepted many keys under two names: the name without a unit, for ex
 
 A 9.2 node does not start if its node configuration file contains a key that 9.2 does not know. The node reports an error such as `Failed to parse HOCON: '<path>' configuration doesn't have the '<key>' sub-configuration`. Only two removed keys are still ignored: `ignite.license.signature` and the `ignite.storage.engines.rocksdb` section. Rename or delete every other key from the tables below before you start a node on 9.2.
 
+A 9.1.29 node rewrites its node configuration file on every start and converts old key names to the new ones, so a file that a 9.1.29 node has used may already contain only new names. A storage profile that you delete from the file is written back. See [RocksDB Storage Engine Removed](#rocksdb-storage-engine-removed) for how to remove one.
+
 {% hint style="warning" %}
 The cluster configuration cannot be changed during a rolling upgrade. 9.1.29 converts old key names when it loads the cluster configuration, so `cluster config show` normally lists only the new names. Before you run `upgrade start`, check it and fix any key from the tables that is still there.
 {% endhint %}
@@ -131,12 +133,26 @@ The RocksDB partition storage engine and the `engine = rocksdb` profile type are
 
 A node ignores an `ignite.storage.engines.rocksdb` section, but it does not start if a storage profile uses `engine = rocksdb`. The error is `Failed to parse HOCON: Polymorphic configuration type is not correct: rocksdb`.
 
-Re-create zones and tables that use a RocksDB profile on another engine before you upgrade:
+Before you upgrade, move zones and tables from a RocksDB profile to another engine, and remove the profile. Do all of this while the cluster still runs 9.1.29:
 
 1. Create a zone with an `aipersist` or `aimem` storage profile. Use `aipersist` if the data must survive a restart, because `aimem` keeps data in memory only. See [Distribution Zones](../../../reference/sql/distribution-zones.md) and [Persistent Storage](../../../architecture/storage/engines/native-persistent-storage.md).
 2. Create the new tables in that zone, and copy the data, for example with `INSERT INTO ... SELECT`.
 3. Drop the old tables and zones.
-4. Remove the RocksDB profiles from the node configuration files.
+4. Wait for the dropped tables to be cleaned up. A dropped table keeps its storage until the garbage collector low watermark passes the time of the drop. With the defaults (`ignite.gc.lowWatermark.dataAvailabilityTimeMillis=600000` and `updateIntervalMillis=300000`), this takes at least 15 minutes. To shorten the wait, lower both values, and set the defaults back afterward:
+
+   ```bash
+   cluster config update 'ignite.gc.lowWatermark{dataAvailabilityTimeMillis=30000,updateIntervalMillis=15000}'
+   ```
+
+5. Run the following command on every node to remove the RocksDB profile. Deleting the profile from the node configuration file is not enough, because 9.1.29 writes it back. Run the command only after step 4. If you remove the profile earlier, a node that still holds a dropped RocksDB table does not start, even on 9.1.29.
+
+   ```bash
+   node config update 'ignite.storage.profiles.<profile_name>=null'
+   ```
+
+6. Remove the RocksDB profiles from the node configuration files that you prepared for 9.2.
+
+9.2 cannot clean up a dropped RocksDB table, because it has no RocksDB engine. A 9.2 node that finds one stops with `Table uses an unknown storage profile or engine`. The old `rocksdb-*` directory under `work/partitions/db` stays on disk after the upgrade.
 
 ## Page Replacement Policies
 

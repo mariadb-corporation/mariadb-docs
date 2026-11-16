@@ -28,7 +28,7 @@ Confirm all of the following before you start:
 
 Do all of the following before you stop or upgrade any node. Only the backup on Enterprise Edition needs downtime.
 
-1. *Re-create the RocksDB tables.* If any zone or table uses a RocksDB storage profile, move it to another profile first. See [RocksDB Storage Engine Removed](configuration-and-storage.md#rocksdb-storage-engine-removed). For the storage engines that remain, see [Storage Engines and Profiles](../../../architecture/storage/engines/README.md).
+1. *Re-create the RocksDB tables.* If any zone or table uses a RocksDB storage profile, move it to another profile, wait for the dropped tables to be cleaned up, and remove the profile from every node. Do this on 9.1.29, because 9.2 cannot clean up a dropped RocksDB table. See [RocksDB Storage Engine Removed](configuration-and-storage.md#rocksdb-storage-engine-removed). For the storage engines that remain, see [Storage Engines and Profiles](../../../architecture/storage/engines/README.md).
 2. *Update the node configuration files.* Rename or delete every key from the tables in [Removed and Renamed Configuration Keys](configuration-and-storage.md#removed-and-renamed-configuration-keys), and remove the `replacementMode` property. A node does not start on 9.2 if its file contains an old key. 9.1.29 already accepts the new key names, so you can update the files now. If you deploy with the Helm chart, check the chart version on that page. Test the final files on a 9.2 node in a staging cluster.
 3. *Check the cluster configuration.* Run `cluster config show` and compare it with the same tables. If an old key is still there, fix it before you run `upgrade start`, because cluster configuration changes are blocked during a rolling upgrade.
 4. *Check `vars.env` and the CLI environment.* Review `JVM_GC` in `vars.env`. In the scripts that start the CLI, review `JAVA_OPTS`, and on Windows `GRIDGAIN9_EXIT_CONSOLE`. See [Platform and Packaging Changes](platform-and-packaging.md).
@@ -111,7 +111,7 @@ For each node:
 2. Replace the binaries with the 9.2 ones, as described in [Rolling Upgrade](../../upgrade/rolling-upgrade.md). Keep the `work` directory, the `etc` directory, and the configuration files.
 3. Put the node configuration file that you prepared in place, and set `JAVA_HOME` to Java 21 or later. For Docker, use the 9.2 image tag.
 4. Start the node.
-5. Run `upgrade state`, and check that the node is in `nextVersionNodes` before you go to the next node.
+5. Run `upgrade state`, and check that the node is in `nextVersionNodes` before you go to the next node. The node can take about a minute to show up, so run the command again if the list is empty.
 
 ### Step 3: Commit the Upgrade
 
@@ -150,6 +150,7 @@ Common errors during the upgrade. For anything not covered here, contact MariaDB
 | The Windows installer reports that GridGain 9 requires Java 21 or newer | The machine-wide `JAVA_HOME` points at an older Java. | Point the machine-wide `JAVA_HOME` at Java 21 or later, and run the installer again. |
 | `Failed to parse HOCON: '<path>' configuration doesn't have the '<key>' sub-configuration` when a node starts | The node configuration file contains a key that 9.2 removed or renamed. | Rename or delete the key. See [Removed and Renamed Configuration Keys](configuration-and-storage.md#removed-and-renamed-configuration-keys). |
 | `Failed to parse HOCON: Polymorphic configuration type is not correct: rocksdb` when a node starts | A storage profile uses `engine = rocksdb`. | Re-create the zones and tables on another engine, and remove the profile. See [RocksDB Storage Engine Removed](configuration-and-storage.md#rocksdb-storage-engine-removed). |
+| `Table uses an unknown storage profile or engine` when a node starts, and the node stops | A table on a RocksDB profile still exists, or was dropped and not yet cleaned up. | Restore the 9.1 backup, finish the cleanup on 9.1.29, and upgrade again. See [RocksDB Storage Engine Removed](configuration-and-storage.md#rocksdb-storage-engine-removed) and [Recovery Path](#recovery-path). |
 | `IGN-CMN-65535: Legacy query start protocol is no longer supported, the sending node must be upgraded` | A 9.1 node coordinated a SQL query that needs a 9.2 node. | Stop the SQL workload until the upgrade is committed. See [The Query Protocol Changed](sql-changes.md#the-query-protocol-changed). |
 | `IGN-SQL-8: The query was mapped onto node '<node>' which runs version <version> and does not support latest query execution protocol ...` | A 9.2 node coordinated a SQL query that needs a 9.1 node during the rolling upgrade. | Stop the SQL workload until the upgrade is committed. |
 | `upgrade commit` fails with `Legacy role names collide after uppercasing` or `Legacy role name conflicts with a built-in role` | Two roles differ only in case, or a role name becomes a built-in role name. | Contact MariaDB [support](https://mariadb.com/support/). See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase). |

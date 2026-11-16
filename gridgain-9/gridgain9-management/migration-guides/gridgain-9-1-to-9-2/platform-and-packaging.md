@@ -54,7 +54,7 @@ If `JAVA_HOME` is not set, or is set only for the current user, the installation
 
 This section applies if your scripts or CI jobs pass JVM options to the CLI through `JAVA_OPTS`, or set `GRIDGAIN9_EXIT_CONSOLE` on Windows.
 
-In 9.1, only the Windows launcher read `JAVA_OPTS`. The ZIP, DEB, RPM, and Docker launchers never did. In 9.2, every launcher reads `GRIDGAIN9_OPTS` and ignores `JAVA_OPTS` without an error. Rename the variable. On Windows this keeps your options working, and on the other platforms it makes them take effect:
+In 9.1, only the Windows launcher read `JAVA_OPTS`. The ZIP, DEB, RPM, and Docker launchers never did. In 9.2, every launcher reads `GRIDGAIN9_OPTS` and ignores `JAVA_OPTS` without an error. Rename the variable. On Windows this keeps your options working, and on the other platforms it makes them take effect. The ZIP launcher of 9.1.29 already reads `GRIDGAIN9_OPTS`, so you can rename the variable before the upgrade:
 
 ```bash
 export GRIDGAIN9_OPTS="-Duser.home=/tmp/gridgain-cli"
