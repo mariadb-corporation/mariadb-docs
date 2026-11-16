@@ -10,7 +10,7 @@ description: >-
 **This guide covers the migration of a live database from a MySQL Galera Cluster to a** [**MariaDB Galera Cluster**](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide)**.** The migration strategy requires setting up a new MariaDB Cluster, then using [asynchronous replication](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/about-galera-replication#synchronous-vs.-asynchronous-replication) to sync it with an existing MySQL Cluster. The method includes a reliable failback route.
 
 {% hint style="info" %}
-This document focuses on the migration process itself. For detailed comparisons between the two database systems, please refer to [Incompatibilities and Feature Differences Between MariaDB and MySQL.](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences)
+This document focuses on the migration process itself. For detailed comparisons between the two database systems, please refer to [Incompatibilities and Feature Differences Between MariaDB and MySQL.](../../../../editions-and-compatibility/comparisons-with-other-databases/README.md)
 {% endhint %}
 
 ## Prerequisites
@@ -35,8 +35,8 @@ Due to changes in MySQL 8.0+, `mariadb-dump` may not be compatible for this init
 While MariaDB maintains a high degree of compatibility with MySQL, it is crucial to review any differences that could impact your applications.
 {% endhint %}
 
-* **Version Compatibility**: Select a [MariaDB version compatible](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/differences-between-the-mysql-and-mariadb-query-optimizer) with your MySQL version for replication.
-* **Feature Differences**: Review the [Incompatibilities and Feature Differences](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences) to identify any deprecated features or changes in [system tables](../../../../reference/system-tables/), [user accounts](../../../../security/user-account-management/), and authentication that might affect your setup.
+* **Version Compatibility**: Select a [MariaDB version compatible](../../../../editions-and-compatibility/comparisons-with-other-databases/differences-between-the-mysql-and-mariadb-query-optimizer.md) with your MySQL version for replication.
+* **Feature Differences**: Review the [Incompatibilities and Feature Differences](../../../../editions-and-compatibility/comparisons-with-other-databases/README.md) to identify any deprecated features or changes in [system tables](../../../../reference/system-tables/), [user accounts](../../../../security/user-account-management/), and authentication that might affect your setup.
 
 **Replication Compatibility**
 
@@ -45,7 +45,7 @@ While MariaDB maintains a high degree of compatibility with MySQL, it is crucial
 | 5.7           | 10.6 and newer                              |
 | 8.0           | 10.6.21, 10.11.11, 11.4.5, 11.7.2 and newer |
 
-For more details, see [MySQL to MariaDB Replication Compatibilit](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/replication-compatibility-between-mariadb-and-mysql)y.
+For more details, see [MySQL to MariaDB Replication Compatibilit](../../../../editions-and-compatibility/comparisons-with-other-databases/replication-compatibility-between-mariadb-and-mysql.md)y.
 {% endstep %}
 
 {% step %}

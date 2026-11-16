@@ -166,7 +166,7 @@ The exact storage behavior may vary depending on the storage engine. For the spe
 
 ## Oracle Mode
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), `VARCHAR2` is a synonym.
+In [Oracle mode](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md), `VARCHAR2` is a synonym.
 
 ### For Storage Engine Developers
 
@@ -180,7 +180,7 @@ In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server
 * [CHAR](char.md)
 * [Character Sets and Collations](character-sets/)
 * [Data Type Storage Requirements](../data-type-storage-requirements.md)
-* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle#synonyms-for-basic-sql-types)
+* [Oracle mode](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md#synonyms-for-basic-sql-types)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

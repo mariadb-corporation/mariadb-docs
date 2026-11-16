@@ -68,7 +68,7 @@ In this example, a [TINYINT](../../data-types/numeric-data-types/tinyint.md) var
 ## See Also
 
 * [Using compound statements outside of stored programs](using-compound-statements-outside-of-stored-programs.md)
-* [Changes in Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Changes in Oracle mode](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

@@ -16,7 +16,7 @@ RPAD(str, len [, padstr])
 
 Returns the string `str`, right-padded with the string `padstr` to a length of `len` characters. If `str` is longer than `len`, the return value is shortened to `len` characters. If `padstr` is omitted, the RPAD function pads spaces.
 
-Returns `NULL` if given a `NULL` argument. If the result is empty (a length of zero), returns either an empty string, or, with [SQL\_MODE=Oracle](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), `NULL`.
+Returns `NULL` if given a `NULL` argument. If the result is empty (a length of zero), returns either an empty string, or, with [SQL\_MODE=Oracle](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md), `NULL`.
 
 The Oracle mode version of the function can be accessed outside of Oracle mode by using `RPAD_ORACLE` as the function name.
 

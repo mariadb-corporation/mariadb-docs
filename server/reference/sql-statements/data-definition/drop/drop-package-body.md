@@ -14,7 +14,7 @@ DROP PACKAGE BODY [IF EXISTS]  [ db_name . ] package_name
 
 ## Description
 
-From MariaDB 11.4, the `DROP PACKAGE BODY` statement can be used in any mode. Before MariaDB 11.4, it can be used only when [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is set.
+From MariaDB 11.4, the `DROP PACKAGE BODY` statement can be used in any mode. Before MariaDB 11.4, it can be used only when [Oracle SQL\_MODE](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md) is set.
 
 The `DROP PACKAGE BODY` statement drops the package body (that is, the implementation) which was created using the [CREATE PACKAGE BODY](../create/create-package-body.md) statement.
 
@@ -29,7 +29,7 @@ If [automatic\_sp\_privileges](../../../../ha-and-performance/optimization-and-t
 * [DROP PACKAGE](drop-package.md)
 * [CREATE PACKAGE BODY](../create/create-package-body.md)
 * [SHOW CREATE PACKAGE BODY](../../administrative-sql-statements/show/show-create-package-body.md)
-* [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle SQL\_MODE](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

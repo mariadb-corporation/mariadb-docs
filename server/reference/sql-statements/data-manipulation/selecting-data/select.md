@@ -159,7 +159,7 @@ If you use any [grouping functions](../../../sql-functions/aggregate-functions/)
 
 ### DISTINCT
 
-A query may produce some identical rows. By default, all rows are retrieved, even when their values are the same. To explicitly specify that you want to retrieve identical rows, use the `ALL` option. If you want duplicates to be removed from the result set, use the `DISTINCT` option. `DISTINCTROW` is a synonym for `DISTINCT`. See also [COUNT DISTINCT](../../../sql-functions/aggregate-functions/count-distinct.md) and [SELECT UNIQUE in Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle#simple-syntax-compatibility).
+A query may produce some identical rows. By default, all rows are retrieved, even when their values are the same. To explicitly specify that you want to retrieve identical rows, use the `ALL` option. If you want duplicates to be removed from the result set, use the `DISTINCT` option. `DISTINCTROW` is a synonym for `DISTINCT`. See also [COUNT DISTINCT](../../../sql-functions/aggregate-functions/count-distinct.md) and [SELECT UNIQUE in Oracle mode](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md#simple-syntax-compatibility).
 
 ### INTO
 
@@ -240,7 +240,7 @@ See [Getting Data from MariaDB](../../../../mariadb-quickstart-guides/mariadb-se
 * [FOR UPDATE](for-update.md)
 * [LOCK IN SHARE MODE](lock-in-share-mode.md)
 * [Optimizer Hints](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/)
-* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle mode](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

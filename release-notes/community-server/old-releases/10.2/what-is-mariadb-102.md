@@ -285,11 +285,11 @@ page.
 
 ## Comparison with MySQL
 
-* [Incompatibilities and Feature Differences Between MariaDB 10.2 and MySQL 5.7](../../about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/incompatibilities-and-feature-differences-between-mariadb-10-2-and-mysql-5.md)
-* [System Variable Differences Between MariaDB 10.2 and MySQL 5.7](../../about/compatibility-and-differences/system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-10-2-and-mysql-5-7.md)
-* [Function Differences Between MariaDB 10.2 and MySQL 5.7](../../about/compatibility-and-differences/function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-and-mysql-unmaintained-series/function-differences-between-mariadb-102-and-mysql-57.md)
-* [System Variable Differences Between MariaDB 10.2 and MySQL 5.6](../../about/compatibility-and-differences/system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-10-2-and-mysql-5-6.md)
-* [Function Differences Between MariaDB 10.2 and MySQL 5.6](../../about/compatibility-and-differences/function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-and-mysql-unmaintained-series/function-differences-between-mariadb-102-and-mysql-56.md)
+* [Incompatibilities and Feature Differences Between MariaDB 10.2 and MySQL 5.7]({server}/editions-and-compatibility/comparisons-with-other-databases/incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/incompatibilities-and-feature-differences-between-mariadb-10-2-and-mysql-5)
+* [System Variable Differences Between MariaDB 10.2 and MySQL 5.7]({server}/editions-and-compatibility/comparisons-with-other-databases/system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-10-2-and-mysql-5-7)
+* [Function Differences Between MariaDB 10.2 and MySQL 5.7]({server}/editions-and-compatibility/comparisons-with-other-databases/function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-and-mysql-unmaintained-series/function-differences-between-mariadb-102-and-mysql-57)
+* [System Variable Differences Between MariaDB 10.2 and MySQL 5.6]({server}/editions-and-compatibility/comparisons-with-other-databases/system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-10-2-and-mysql-5-6)
+* [Function Differences Between MariaDB 10.2 and MySQL 5.6]({server}/editions-and-compatibility/comparisons-with-other-databases/function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-and-mysql-unmaintained-series/function-differences-between-mariadb-102-and-mysql-56)
 
 ## List of All [MariaDB 10.2](what-is-mariadb-102.md) Releases
 

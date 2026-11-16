@@ -52,7 +52,7 @@ ERROR 1461 (42000): Can't create more than max_prepared_stmt_count statements
 
 ### Oracle Mode
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), `PREPARE stmt FROM 'SELECT :1, :2'` is used instead of `?`.
+In [Oracle mode](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md), `PREPARE stmt FROM 'SELECT :1, :2'` is used instead of `?`.
 
 ### LOCAL Statement Names
 
@@ -322,7 +322,7 @@ DEALLOCATE PREPARE stmt;
 * [EXECUTE Statement](execute-statement.md)
 * [DEALLOCATE / DROP Prepared Statement](deallocate-drop-prepare.md)
 * [EXECUTE IMMEDIATE](execute-immediate.md)
-* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle mode](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

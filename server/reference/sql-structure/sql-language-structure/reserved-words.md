@@ -288,7 +288,7 @@ Some keywords are exceptions for historical reasons, and are permitted as unquot
 
 ## Oracle Mode
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), there are a number of extra reserved words:
+In [Oracle mode](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md), there are a number of extra reserved words:
 
 | Keyword          |
 | ---------------- |

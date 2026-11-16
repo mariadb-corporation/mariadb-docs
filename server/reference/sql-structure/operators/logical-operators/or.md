@@ -25,7 +25,7 @@ Note that, if the `PIPES_AS_CONCAT` [SQL\_MODE](../../../../server-management/va
 
 ### Oracle Mode
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), `||` ignores [null](../../../data-types/null-values.md).
+In [Oracle mode](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md), `||` ignores [null](../../../data-types/null-values.md).
 
 ## Examples
 
@@ -66,7 +66,7 @@ SELECT 1 || NULL;
 +-----------+
 ```
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle):
+In [Oracle mode](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md):
 
 ```sql
 SELECT 0 || NULL;
@@ -80,7 +80,7 @@ SELECT 0 || NULL;
 ## See Also
 
 * [Operator Precedence](../operator-precedence.md)
-* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle mode](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

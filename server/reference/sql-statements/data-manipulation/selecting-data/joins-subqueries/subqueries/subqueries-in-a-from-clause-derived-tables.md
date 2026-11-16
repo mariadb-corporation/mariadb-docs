@@ -14,7 +14,7 @@ If a subquery is used in this way, you must also use an AS clause to name the re
 
 **MariaDB starting with** [**10.6.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
 
-[Anonymous subqueries in a FROM clause](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle#simple-syntax-compatibility) (no AS clause) are permitted in [ORACLE mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle).
+[Anonymous subqueries in a FROM clause](../../../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md#simple-syntax-compatibility) (no AS clause) are permitted in [ORACLE mode](../../../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md).
 
 ## Correlation Column List
 
@@ -70,7 +70,7 @@ SELECT AVG(sq_sum) FROM (SELECT SUM(score) AS sq_sum FROM student GROUP BY name)
 +-------------+
 ```
 
-The following is permitted only in [ORACLE mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), where a derived table may omit its alias:
+The following is permitted only in [ORACLE mode](../../../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md), where a derived table may omit its alias:
 
 ```sql
 SELECT * FROM (SELECT 1 FROM DUAL), (SELECT 2 FROM DUAL);

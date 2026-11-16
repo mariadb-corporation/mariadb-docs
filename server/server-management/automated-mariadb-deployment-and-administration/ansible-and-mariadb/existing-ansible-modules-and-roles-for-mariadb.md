@@ -114,7 +114,7 @@ The following modules are also often used for database servers:
 
 ## Roles
 
-Specific roles exist for MariaDB in Ansible Galaxy. Using them for MariaDB is generally preferable, to be sure to avoid [incompatibilities](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-compatibility) and to probably be able to use some MariaDB specific [features](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-features). However, using MySQL or Percona Server roles is also possible. This probably makes sense for users who also administer MySQL and Percona Server instances.
+Specific roles exist for MariaDB in Ansible Galaxy. Using them for MariaDB is generally preferable, to be sure to avoid [incompatibilities](../../../editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-compatibility.md) and to probably be able to use some MariaDB specific [features](../../../editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-features.md). However, using MySQL or Percona Server roles is also possible. This probably makes sense for users who also administer MySQL and Percona Server instances.
 
 To find roles that suits you, check [Ansible Galaxy search page](https://galaxy.ansible.com/search?deprecated=false\&keywords=\&order_by=-relevance). Most roles are also available on GitHub.
 
