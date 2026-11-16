@@ -148,7 +148,7 @@ Most common problems that you may want to monitor include:
 If the sender storage size on a specific sender node is growing, it means that the sender is not keeping up with the load or there is a problem with the connection to the replica cluster.
 
 **How to monitor:**
-Monitor the metric that shows the size of the storage
+Monitor the metric that shows the size of the storage. Then check the `OldestUnacknowledgedBatchAge` [sender metric](../../reference/monitoring/generic-metrics.md#sender-metrics): if it keeps growing, the receiver hubs are not acknowledging batches, so the sender storage cannot be cleaned up.
 
 **Actions:**
 Check network capacity or add more sender nodes and/or receivers.
