@@ -30,7 +30,7 @@ MariaDB 5.1 is based on MySQL 5.1. We do a merge once a month with MySQL5.1 to e
 
 See also:
 
-* [MariaDB versus MySQL - Compatibility]({server}/editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-compatibility)
+* [MariaDB versus MySQL - Compatibility](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-compatibility)
 
 ### New storage engines:
 

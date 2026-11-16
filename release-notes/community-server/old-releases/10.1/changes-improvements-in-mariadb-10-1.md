@@ -139,8 +139,8 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 
 ## Comparison with MySQL
 
-* [System Variable Differences Between MariaDB 10.1 and MySQL 5.6]({server}/editions-and-compatibility/comparisons-with-other-databases/system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-10-1-and-mysql-5-6)
-* [System Variable Differences Between MariaDB 10.1 and MySQL 5.7]({server}/editions-and-compatibility/comparisons-with-other-databases/system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-10-1-and-mysql-5-7)
+* [System Variable Differences Between MariaDB 10.1 and MySQL 5.6](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility/comparisons-with-other-databases/system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-10-1-and-mysql-5-6)
+* [System Variable Differences Between MariaDB 10.1 and MySQL 5.7](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility/comparisons-with-other-databases/system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-10-1-and-mysql-5-7)
 
 ## List of all [MariaDB 10.1](changes-improvements-in-mariadb-10-1.md) releases
 

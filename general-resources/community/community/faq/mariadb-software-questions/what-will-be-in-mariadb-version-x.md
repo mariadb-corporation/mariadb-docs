@@ -1,6 +1,6 @@
 # What will be in MariaDB version X?
 
-You can read about the features and improvements included in the current stable release of MariaDB on the [MariaDB versus MySQL]({server}/editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-compatibility) page.
+You can read about the features and improvements included in the current stable release of MariaDB on the [MariaDB versus MySQL](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-compatibility) page.
 
 The [MariaDB Server Roadmap](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/server-development/mariadb-server-roadmap) page links to our plans for future versions of MariaDB.
 
