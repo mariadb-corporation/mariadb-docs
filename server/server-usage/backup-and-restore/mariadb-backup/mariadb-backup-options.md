@@ -1314,10 +1314,6 @@ mariadb-backup --backup \
 
 Prepares an existing backup to restore to the MariaDB Server.
 
-{% hint style="info" %}
-`--prepare` and `--apply-log` are the same option. If you combine `--prepare` with another mutually exclusive option such as `--decompress`, `--copy-back`, or `--move-back`, the error message always names it as `--apply-log`, even when you typed `--prepare`. For example: `Error: --decompress and --apply-log are mutually exclusive`.
-{% endhint %}
-
 Files that `mariadb-backup` generates during `--backup` operations in the target directory are not ready for use on the Server. Before you can restore the data to MariaDB, you first need to prepare the backup.
 
 In the case of full backups, the files are not point in time consistent, since they were taken at different times. If you try to restore the database without first preparing the data, InnoDB rejects the new data as corrupt. Running mariadb-backup with the `--prepare` command readies the data so you can restore it to MariaDB Server. When working with incremental backups, you need to use the `--prepare` command and the `--incremental-dir` option to update the base backup with the deltas from an incremental backup.
