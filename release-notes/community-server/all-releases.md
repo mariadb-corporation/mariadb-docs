@@ -31,6 +31,7 @@ description: A list of all MariaDB Community Server releases
 
 | Name                     | Release date | Release status |
 | ------------------------ | ------------ | -------------- |
+| [12.3.4](12.3/12.3.4.md) | 2026-11-16   | Stable (GA)    |
 | [12.3.3](12.3/12.3.3.md) | 2026-08-24   | Stable (GA)    |
 | [12.3.2](12.3/12.3.2.md) | 2026-05-28   | Stable (GA)    |
 | [12.3.1](12.3/12.3.1.md) | 2026-02-12   | RC             |
@@ -72,6 +73,7 @@ description: A list of all MariaDB Community Server releases
 
 | Name                     | Release date | Release status |
 | ------------------------ | ------------ | -------------- |
+| [11.8.10](11.8/11.8.10.md) | 2026-11-16   | Stable (GA)    |
 | [11.8.9](11.8/11.8.9.md) | 2026-08-24   | Stable (GA)    |
 | [11.8.8](11.8/11.8.8.md) | 2026-05-27   | Stable (GA)    |
 | [11.8.7](11.8/11.8.7.md) | 2026-05-18   | Stable (GA)    |
@@ -120,6 +122,7 @@ description: A list of all MariaDB Community Server releases
 
 | Name                       | Release date | Release status |
 | -------------------------- | ------------ | -------------- |
+| [11.4.14](11.4/11.4.14.md) | 2026-11-16   | Stable (GA)    |
 | [11.4.13](11.4/11.4.13.md) | 2026-08-24   | Stable (GA)    |
 | [11.4.12](11.4/11.4.12.md) | 2026-05-27   | Stable (GA)    |
 | [11.4.11](11.4/11.4.11.md) | 2026-05-18   | Stable (GA)    |
@@ -192,6 +195,7 @@ description: A list of all MariaDB Community Server releases
 
 | Name                          | Release date | Release status |
 | ----------------------------- | ------------ | -------------- |
+| [10.11.20](10.11/10.11.20.md) | 2026-11-16   | Stable (GA)    |
 | [10.11.19](10.11/10.11.19.md) | 2026-08-24   | Stable (GA)    |
 | [10.11.18](10.11/10.11.18.md) | 2026-05-27   | Stable (GA)    |
 | [10.11.17](10.11/10.11.17.md) | 2026-05-18   | Stable (GA)    |
