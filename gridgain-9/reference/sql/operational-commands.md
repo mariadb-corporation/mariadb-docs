@@ -157,7 +157,7 @@ A statement that copies between tables needs neither.
 The configuration is node specific, so you need to apply the same settings on every node. Otherwise, the same
 statement may succeed or fail depending on which node the client connected to.
 
-### Failed Statements
+### Failed and Cancelled Statements
 
 An export creates its target (a file, an S3 object or an Iceberg table) and fails if the target already exists. When the export fails, it removes what it created:
 
@@ -169,6 +169,8 @@ A Parquet or Iceberg export to S3 completes each upload before it can delete the
 The output also remains if the node stops during the export.
 
 A failed import keeps the rows it read before the failure. Rows are written as upserts, so running the import again overwrites rows with the same primary key.
+
+Cancelling a statement or reaching its query timeout stops the copy at the next row, and the statement then ends like a failed one: an export removes what it created, and an import keeps the rows it has already written. A statement cancelled before it starts copying creates nothing. The statement returns only once the copy has stopped, so if it is blocked reading or writing an external file, for example on a stalled S3 connection, it returns after that operation completes.
 
 ### Examples
 
