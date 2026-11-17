@@ -38,7 +38,7 @@ If your cluster runs a release that is not listed, contact MariaDB [support](htt
 | SQL, including JDBC and ODBC | Unavailable while the cluster is stopped | Pause from `upgrade start` to the commit |
 | DDL and cluster configuration changes | Unavailable while the cluster is stopped | Rejected until the commit |
 | Cancel | No commit point. To go back, restore the backup | Not possible. Finish the upgrade or restore the backup |
-| Restart after the commit | Included, because every node restarts on 9.2 | Required, so that the system views get their 9.2 definitions |
+| Restart after the commit | Included, because every node restarts on 9.2 | One node, so that the system views get their 9.2 definitions |
 
 ## Upgrade Constraints
 

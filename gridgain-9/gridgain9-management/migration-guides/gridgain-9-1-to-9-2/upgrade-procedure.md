@@ -66,6 +66,10 @@ On Enterprise Edition there are no snapshots. Stop the cluster and copy the `wor
 Do not start the upgrade without a backup. The only way back to 9.1 is to restore it, and everything written after the backup is lost. See [Recovery Path](#recovery-path).
 {% endhint %}
 
+### When Is Preparation Complete?
+
+Preparation is complete when the node configuration files start on 9.2 in staging, the backup is verified, and the applications run against the 9.2 client libraries.
+
 ## Full-Cluster Upgrade
 
 Use this path if you can stop the cluster. For the commands for ZIP, DEB, RPM, and Docker installations, see [Full-Cluster Upgrade](../../upgrade/full-cluster-upgrade.md).
@@ -117,7 +121,7 @@ For each node:
 ### Step 3: Commit the Upgrade
 
 1. Run `upgrade commit`. The commit converts the stored role names to uppercase. See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase).
-2. Restart the nodes so that the system views get their 9.2 definitions. See [Restart the Nodes After a Rolling Upgrade](sql-changes.md#restart-the-nodes-after-a-rolling-upgrade).
+2. Restart one node, so that the system views get their 9.2 definitions for the whole cluster. The other nodes need no restart. See [Restart a Node After a Rolling Upgrade](sql-changes.md#restart-a-node-after-a-rolling-upgrade).
 3. Resume the SQL workload.
 
 {% hint style="info" %}
@@ -165,8 +169,8 @@ The tables list common errors during the upgrade, grouped by when you see them. 
 | `IGN-SQL-8: The query was mapped onto node '<node>' which runs version <version> and does not support latest query execution protocol ...` | A 9.2 node coordinated a SQL query that needs a 9.1 node during the rolling upgrade. | Stop the SQL workload until the upgrade is committed. |
 | `Schema modification command was aborted because a cluster upgrade is currently in progress` or `Cannot change configuration while rolling upgrade is in progress` | A rolling upgrade is in progress. | Wait for the commit, and then run the statement or the update again. |
 | `Cannot commit rolling upgrade. Nodes not on target version <version>: {<node>=<version>, ...}` | `upgrade commit` ran while some nodes still run 9.1. | Upgrade the listed nodes, check `upgrade state`, and run `upgrade commit` again. |
-| `upgrade commit` fails with `Legacy role names collide after uppercasing` or `Legacy role name conflicts with a built-in role` | Two roles differ only in case, or a role name becomes a built-in role name. | Contact MariaDB [support](https://mariadb.com/support/). See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase). |
-| `SELECT * FROM system.zones` or another system view fails with `class java.lang.Integer cannot be cast to class java.lang.String` (rolling upgrade) | The nodes were not restarted after the commit. | Restart the nodes. See [Restart the Nodes After a Rolling Upgrade](sql-changes.md#restart-the-nodes-after-a-rolling-upgrade). |
+| `upgrade commit` fails with `Legacy role names collide after uppercasing` or `Legacy role name conflicts with a built-in role` | Two role names in the cluster configuration differ only in case, or a role name becomes a built-in role name. | Contact MariaDB [support](https://mariadb.com/support/). See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase). |
+| `SELECT * FROM system.zones` or another system view fails with `class java.lang.Integer cannot be cast to class java.lang.String` (rolling upgrade) | No node has restarted since the commit. | Restart one node. See [Restart a Node After a Rolling Upgrade](sql-changes.md#restart-a-node-after-a-rolling-upgrade). |
 
 ### SQL
 

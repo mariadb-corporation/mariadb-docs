@@ -97,11 +97,11 @@ SELECT table_name FROM system.tables WHERE schema_name = 'PUBLIC' AND zone_name 
 
 A query that uses a removed column fails with `IGN-SQL-4: Failed to validate query ... Column 'NAME' not found in any table`. Check monitoring queries, dashboards, and scripts first. For all columns, see [System Views](../../../reference/monitoring/system-views.md).
 
-## Restart the Nodes After a Rolling Upgrade
+## Restart a Node After a Rolling Upgrade
 
 This section applies if you use a rolling upgrade.
 
-After the commit, the system views keep their 9.1 definitions until you restart the nodes. Until then, a query such as `SELECT * FROM system.zones` fails with an internal error (`class java.lang.Integer cannot be cast to class java.lang.String`). Restart the nodes after `upgrade commit`. A full-cluster upgrade needs no restart.
+After the commit, the system views keep their 9.1 definitions until a node restarts, and queries against them can fail. Restart one node after `upgrade commit`. It registers the 9.2 definitions for the whole cluster, so the other nodes need no restart. A full-cluster upgrade needs no restart.
 
 ## The __part Alias Is Removed
 
