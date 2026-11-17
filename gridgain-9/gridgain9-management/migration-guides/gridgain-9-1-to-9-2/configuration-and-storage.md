@@ -13,7 +13,7 @@ GridGain 9.1 accepted many keys under two names: the name without a unit, for ex
 
 A 9.2 node does not start if its node configuration file contains a key that 9.2 does not know. The node reports an error such as `Failed to parse HOCON: '<path>' configuration doesn't have the '<key>' sub-configuration`. Only two removed keys are still ignored: `ignite.license.signature` and the `ignite.storage.engines.rocksdb` section. Rename or delete every other key from the tables below before you start a node on 9.2.
 
-A 9.1.29 node rewrites its node configuration file on every start and converts old key names to the new ones, so a file that a 9.1.29 node has used may already contain only new names. A storage profile that you delete from the file is written back. See [RocksDB Storage Engine Removed](#rocksdb-storage-engine-removed) for how to remove one.
+A 9.1.29 node rewrites its node configuration file on every start and converts old key names to the new ones, so a file that a 9.1.29 node has used may already contain only new names. See [RocksDB Storage Engine Removed](#rocksdb-storage-engine-removed) for how to remove a storage profile.
 
 {% hint style="warning" %}
 The cluster configuration cannot be changed during a rolling upgrade. 9.1.29 converts old key names when it loads the cluster configuration, so `cluster config show` normally lists only the new names. Before you run `upgrade start`, check it and fix any key from the tables that is still there.
@@ -144,13 +144,21 @@ Before you upgrade, move zones and tables from a RocksDB profile to another engi
    cluster config update 'ignite.gc.lowWatermark{dataAvailabilityTimeMillis=30000,updateIntervalMillis=15000}'
    ```
 
-5. Run the following command on every node to remove the RocksDB profile. Deleting the profile from the node configuration file is not enough, because 9.1.29 writes it back. Run the command only after step 4. If you remove the profile earlier, a node that still holds a dropped RocksDB table does not start, even on 9.1.29.
+5. Remove the RocksDB profile from the node configuration file of every node, after step 4. On each node, stop the node, delete the profile from `ignite.storage.profiles` in the node configuration file, and start the node on 9.1.29. If you remove the profile before the dropped tables are cleaned up, the node stops with `Table uses an unknown storage profile or engine`.
+
+6. Check that the profile is gone. Run the following command against every node. The output lists only the profiles of the remaining engines, for example `engine=aipersist`. If the RocksDB profile is listed, contact MariaDB [support](https://mariadb.com/support/).
 
    ```bash
-   node config update 'ignite.storage.profiles.<profile_name>=null'
+   node config show ignite.storage.profiles
    ```
 
-6. Remove the RocksDB profiles from the node configuration files that you prepared for 9.2.
+   Then check that no zone uses the profile. The query must return no rows:
+
+   ```sql
+   SELECT zone_name, storage_profile FROM system.zone_storage_profiles WHERE storage_profile = '<profile_name>';
+   ```
+
+7. Remove the RocksDB profiles from the node configuration files that you prepared for 9.2.
 
 9.2 cannot clean up a dropped RocksDB table, because it has no RocksDB engine. A 9.2 node that finds one stops with `Table uses an unknown storage profile or engine`. The old `rocksdb-*` directory under `work/partitions/db` stays on disk after the upgrade.
 
