@@ -1,11 +1,15 @@
 ---
 description: >-
-  How to choose between a full-cluster and a rolling upgrade, plus the constraints and effort of each change in the GridGain 9.1 to 9.2 upgrade.
+  Planning reference for upgrading from GridGain 9.1 to 9.2: choosing a full-cluster or rolling upgrade, upgrade constraints, and the scope and effort of each change.
 ---
 
 # What to Know Before Upgrading to GridGain 9.2
 
-Use this page to choose an upgrade path, find the changes that affect you, and estimate the work. Then follow the [Upgrade Procedure](upgrade-procedure.md).
+Read this page before you upgrade a cluster from GridGain 9.1.29 to 9.2. It helps you choose an upgrade path, find the changes that affect you, and estimate the work. When you are ready, follow the [Upgrade Procedure](upgrade-procedure.md).
+
+{% hint style="info" %}
+This guide uses 9.1.29 for the primary starting version, 9.1.x for behavior across the 9.1 line, and 9.1 for a cluster or node that you work with.
+{% endhint %}
 
 ## Supported Starting Versions
 
@@ -25,25 +29,24 @@ If your cluster runs a release that is not listed, contact MariaDB [support](htt
 
 ## Choose Your Upgrade Path
 
-Use a [full-cluster upgrade](../../upgrade/full-cluster-upgrade.md) if you can schedule downtime. It is simpler, because no node runs a different version. Use a [rolling upgrade](../../upgrade/rolling-upgrade.md) if the applications must keep using the key-value and table APIs. SQL does not work while the cluster runs both versions, so you must pause it. See [The Query Protocol Changed](sql-changes.md#the-query-protocol-changed).
+- *Full-cluster upgrade.* You stop the cluster, replace the binaries on every node, and start it again. Use it if you can schedule downtime. It is simpler, because no node runs a different version. See [Full-Cluster Upgrade](../../upgrade/full-cluster-upgrade.md).
+- *Rolling upgrade.* You upgrade the nodes one at a time. Use it if the applications must keep using the key-value and table APIs. SQL does not work while the cluster runs both versions, so you must pause it. See [Rolling Upgrade](../../upgrade/rolling-upgrade.md) and [The Query Protocol Changed](sql-changes.md#the-query-protocol-changed).
 
 | | Full-cluster upgrade | Rolling upgrade |
 | --- | --- | --- |
-| Key-value and table API operations | Stopped | Continue |
-| SQL, including JDBC and ODBC | Stopped | Pause from `upgrade start` to the commit |
-| DDL and cluster configuration changes | Stopped | Rejected until the commit |
-| Cancel | Not needed | Not possible. Finish the upgrade or restore the backup |
-| Restart after the commit | Not needed | Required, so that the system views get their 9.2 definitions |
-| Effort | Lower | Higher |
+| Key-value and table API operations | Unavailable while the cluster is stopped | Continue |
+| SQL, including JDBC and ODBC | Unavailable while the cluster is stopped | Pause from `upgrade start` to the commit |
+| DDL and cluster configuration changes | Unavailable while the cluster is stopped | Rejected until the commit |
+| Cancel | No commit point. To go back, restore the backup | Not possible. Finish the upgrade or restore the backup |
+| Restart after the commit | Included, because every node restarts on 9.2 | Required, so that the system views get their 9.2 definitions |
 
 ## Upgrade Constraints
 
-- *Downgrade is not supported.* After you start the cluster on 9.2, the only way back is to restore a backup. Take a backup first. See [Recovery Path](upgrade-procedure.md#recovery-path).
+- *Downgrade is not supported.* After you start the cluster on 9.2, the only way back is to restore a backup, and everything written after the backup is lost. On Ultimate Edition, take a full snapshot of all tables. On Enterprise Edition, which has no snapshots, stop the cluster and copy the `work` directory of every node. Also save the cluster configuration and the list of users and roles, because a snapshot does not contain them. See [Back Up the Data](upgrade-procedure.md#back-up-the-data) and [Recovery Path](upgrade-procedure.md#recovery-path).
 - *Java 21 or later is required* on every server host, on the CLI host, and for every application that uses the Java client, JDBC, Spring, Hibernate, or Kafka Connect. See [Java 21 or Later](platform-and-packaging.md#java-21-or-later).
 - *A removed configuration key stops the node.* A node refuses to start when its node configuration file contains a key that 9.2 does not know. See [Removed and Renamed Configuration Keys](configuration-and-storage.md#removed-and-renamed-configuration-keys).
 - *Tables on the RocksDB engine have no migration path.* Re-create them on another storage profile before you upgrade. See [RocksDB Storage Engine Removed](configuration-and-storage.md#rocksdb-storage-engine-removed).
-- *9.2 nodes match user names exactly as soon as they join,* even before a rolling upgrade is committed. A login whose case differs from the stored name fails. See [User and Role Names Are Case-Sensitive](security-changes.md#user-and-role-names-are-case-sensitive).
-- *DDL and cluster configuration changes are blocked during a rolling upgrade.* Make the changes that this guide asks for before you run `upgrade start`.
+- *User names are case-sensitive as soon as a 9.2 node joins,* even before a rolling upgrade is committed. A login whose case differs from the stored name fails. See [User and Role Names Are Case-Sensitive](security-changes.md#user-and-role-names-are-case-sensitive).
 
 ## Which Pages Apply to You
 
@@ -53,7 +56,7 @@ Use a [full-cluster upgrade](../../upgrade/full-cluster-upgrade.md) if you can s
 
 ## Upgrade Scope and Effort
 
-The tables list each change, when it applies to you, and the effort it needs.
+The tables list each change, when it applies to you, and the effort it needs. If an item does not apply to your deployment, skip it.
 
 *Effort* is one of the following:
 
@@ -93,14 +96,15 @@ The tables list each change, when it applies to you, and the effort it needs.
 | Removed and renamed configuration keys | Your node configuration files or cluster configuration use any key in the tables | Config-only | [Removed and Renamed Configuration Keys](configuration-and-storage.md#removed-and-renamed-configuration-keys) |
 | RocksDB engine removed | A storage profile uses `engine = rocksdb` | Redesign | [RocksDB Storage Engine Removed](configuration-and-storage.md#rocksdb-storage-engine-removed) |
 | Page replacement policies | A profile sets `replacementMode` | Config-only | [Page Replacement Policies](configuration-and-storage.md#page-replacement-policies) |
-| Raft logs migrate to a new log storage | Always | Planning | [Raft Log Storage Changes](configuration-and-storage.md#raft-log-storage-changes) |
+| Raft logs migrate to a new log storage, and every node needs free disk space for the old and new logs | Always | Planning | [Raft Log Storage Changes](configuration-and-storage.md#raft-log-storage-changes) |
 | Storage profile metrics renamed, `PageAcquireTime` removed | Dashboards or alerts use `storage.aipersist.<profile>` or `PageAcquireTime` | Mechanical | [Metric Changes](configuration-and-storage.md#metric-changes) |
 | SQL does not work across versions | You use a rolling upgrade | Planning | [The Query Protocol Changed](sql-changes.md#the-query-protocol-changed) |
 | System view columns removed | Dashboards, scripts, or monitoring queries read system views | Code | [System View Columns Removed](sql-changes.md#system-view-columns-removed) |
-| User and role migration | You use authentication | Config-only | [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase) |
+| User names are case-sensitive | Your scripts or tooling create users, run `GRANT`, or log in | Code | [User and Role Names Are Case-Sensitive](security-changes.md#user-and-role-names-are-case-sensitive) |
+| Role names are migrated to uppercase | You use roles. Two role names that differ only in case make the migration fail | Planning | [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase) |
 | LDAP role mappings | You map LDAP groups to roles | Config-only | [LDAP Role Mappings](security-changes.md#ldap-role-mappings) |
 | Index privileges | You grant `CREATE_INDEX` or `DROP_INDEX` | Config-only | [Index Privileges Are Checked on the Table](security-changes.md#index-privileges-are-checked-on-the-table) |
-| Stopping stopped tables returns an error | Your automation stops specific tables of a replication | Code | [Data Center Replication REST API](clients-and-apis.md#data-center-replication-rest-api) |
+| Stopping a table that is already stopped returns an error | Your automation stops specific tables of a replication | Code | [Data Center Replication REST API](clients-and-apis.md#data-center-replication-rest-api) |
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
