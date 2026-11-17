@@ -11,13 +11,13 @@ GridGain 9.2 removes the legacy and deprecated configuration keys, the RocksDB s
 
 GridGain 9.1 accepted many keys under two names: an old name without a unit, such as `delayDuration`, and a new name with a unit, such as `delayDurationMillis`. GridGain 9.2 accepts only the new name. The tables below list each old and new name. 9.2 also removes the keys that 9.1 had deprecated. For how configuration works, see [Cluster and Node Configuration](../../cluster-configuration.md).
 
+A 9.1.29 node converts old key names to the new ones and rewrites its node configuration file each time it starts. A file that a 9.1.29 node has already used may therefore contain only new names. Check the file before you rename anything.
+
 A 9.2 node does not start if its node configuration file contains a key that 9.2 does not know. The node reports an error such as `Failed to parse HOCON: '<path>' configuration doesn't have the '<key>' sub-configuration`.
 
 In the node configuration file, only the `ignite.storage.engines.rocksdb` section is still ignored. Rename or delete every other key from the tables below before you start a node on 9.2.
 
 In the cluster configuration, 9.2 ignores the removed key `ignite.license.signature`.
-
-A 9.1.29 node rewrites its node configuration file on every start and converts old key names to the new ones, so a file that a 9.1.29 node has used may already contain only new names. See [RocksDB Storage Engine Removed](#rocksdb-storage-engine-removed) for how to remove a storage profile.
 
 {% hint style="warning" %}
 The cluster configuration cannot be changed during a rolling upgrade. 9.1.29 converts old key names when it loads the cluster configuration, so `cluster config show` normally lists only the new names. Before you run `upgrade start`, check it and fix any key from the tables that is still there.
@@ -109,7 +109,7 @@ For the properties, see the [cluster configuration](../../../reference/configura
 
 ### Removed Keys Without a Replacement
 
-Delete these keys. 9.2 still ignores `ignite.license.signature`, but use `ignite.license.content` instead.
+Delete these keys. In the cluster configuration, 9.2 still ignores `ignite.license.signature`, but use `ignite.license.content` instead.
 
 | Level | Key |
 | --- | --- |

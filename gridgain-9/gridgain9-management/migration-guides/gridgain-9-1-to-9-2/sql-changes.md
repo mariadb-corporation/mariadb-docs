@@ -5,7 +5,16 @@ description: >-
 
 # SQL and System View Changes
 
-GridGain 9.2 replaces the query protocol, removes the `CREATE ZONE ... WITH` syntax and the legacy system view columns, reserves the `ADD` keyword, and keeps microseconds in date and time values.
+This page covers these changes:
+
+- A new query protocol that does not work across 9.1 and 9.2 nodes.
+- `CREATE ZONE` accepts only the form with an option list in parentheses. The `WITH` form is removed.
+- Zone names cannot include a schema.
+- The legacy system view columns are removed.
+- The `__part` alias is removed.
+- `ADD` is a reserved word.
+- Date and time values keep microseconds.
+- The aggregate operators have new names in `EXPLAIN` output.
 
 ## The Query Protocol Changed
 
@@ -21,6 +30,12 @@ A query fails only if one of its fragments is mapped onto a node of the other ve
 Stop all SQL traffic, including JDBC, ODBC, scheduled jobs, and the SQL CLI, from `upgrade start` until `upgrade commit` finishes. Key-value and table API operations are not affected. Schema changes are also blocked during a rolling upgrade. See [Rolling Upgrade](../../upgrade/rolling-upgrade.md#limitations).
 
 If you cannot pause SQL, use a [full-cluster upgrade](../../upgrade/full-cluster-upgrade.md).
+
+## Restart a Node After a Rolling Upgrade
+
+This section applies if you use a rolling upgrade.
+
+After the commit, the system views keep their 9.1 definitions until a node restarts, and queries against them can fail. Restart one node after `upgrade commit`. It registers the 9.2 definitions for the whole cluster, so the other nodes need no restart. A full-cluster upgrade needs no restart.
 
 ## CREATE ZONE Syntax
 
@@ -50,7 +65,7 @@ The options change as follows:
 | `CONSISTENCY_MODE = 'x'` | `CONSISTENCY MODE 'x'` |
 | `STORAGE_PROFILES = 'a, b'` | `STORAGE PROFILES ['a', 'b']` |
 
-The Java Catalog DSL generates the new syntax, so code that builds zones with `ZoneDefinition` needs no change. Search your SQL scripts and deployment tooling for `CREATE ZONE` with `WITH`. Existing zones are not affected.
+The Java Catalog DSL of the 9.2 client library generates the new syntax, so code that builds zones with `ZoneDefinition` needs no change after you update the library. A 9.1 client library sends the old form, which a 9.2 cluster rejects. Search your SQL scripts and deployment tooling for `CREATE ZONE` with `WITH`. Existing zones are not affected.
 
 For all options, see [Distribution Zones](../../../reference/sql/distribution-zones.md).
 
@@ -96,12 +111,6 @@ SELECT table_name FROM system.tables WHERE schema_name = 'PUBLIC' AND zone_name 
 ```
 
 A query that uses a removed column fails with `IGN-SQL-4: Failed to validate query ... Column 'NAME' not found in any table`. Check monitoring queries, dashboards, and scripts first. For all columns, see [System Views](../../../reference/monitoring/system-views.md).
-
-## Restart a Node After a Rolling Upgrade
-
-This section applies if you use a rolling upgrade.
-
-After the commit, the system views keep their 9.1 definitions until a node restarts, and queries against them can fail. Restart one node after `upgrade commit`. It registers the 9.2 definitions for the whole cluster, so the other nodes need no restart. A full-cluster upgrade needs no restart.
 
 ## The __part Alias Is Removed
 
