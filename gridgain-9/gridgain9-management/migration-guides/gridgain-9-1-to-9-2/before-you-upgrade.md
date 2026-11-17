@@ -9,7 +9,19 @@ Use this page to choose an upgrade path, find the changes that affect you, and e
 
 ## Supported Starting Versions
 
-You can upgrade to 9.2 only from GridGain 9.1.29. If your cluster runs another release, upgrade it to 9.1.29 first, or contact MariaDB [support](https://mariadb.com/support/).
+You can upgrade to 9.2 from the following 9.1.x releases.
+
+<details>
+
+<summary>Show supported releases</summary>
+
+`9.1.21`, `9.1.22`, `9.1.23`, `9.1.24`, `9.1.25`, `9.1.26`, `9.1.27`, `9.1.28`, `9.1.29`
+
+</details>
+
+{% hint style="info" %}
+If your cluster runs a release that is not listed, contact MariaDB [support](https://mariadb.com/support/) before you upgrade.
+{% endhint %}
 
 ## Choose Your Upgrade Path
 
