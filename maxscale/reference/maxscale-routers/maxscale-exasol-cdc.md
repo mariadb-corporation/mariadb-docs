@@ -64,6 +64,17 @@ also be declared in `/etc/odbcinst.ini` and the connection given as a DSN, see
 MaxScale adds the driver options that make Exasol exchange text as UTF-8, so
 they need not be given.
 
+**From MaxScale 26.10.1,** the password in the connection string may be
+either a plain text password or an [encrypted password](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#encrypting-passwords).
+An encrypted password is created using `maxpasswd` and is given as the
+value of `PWD`, `PASSWORD` or `PASSWD`, whichever the connection string
+uses.
+```
+odbc_connection_string=DRIVER=/usr/lib64/maxscale/exasol/current/lib/libexaodbc.so;EXAHOST=exasoldb:8563;UID=cdc_user;PWD=61DD955512C39A4A8BC4BB1E5F116705;FINGERPRINT=NOCERTCHECK
+```
+MaxScale decrypts the password before the connection string is given to
+the ODBC driver. Only the password can be encrypted.
+
 ### `odbc_include_tables`
 
 * Type: stringlist

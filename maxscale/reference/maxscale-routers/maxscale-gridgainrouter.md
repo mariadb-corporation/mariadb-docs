@@ -68,6 +68,17 @@ The values of the credential keys `UID`, `USER`, `USERNAME`, `PWD`,
 `PASSWORD` and `PASSWD` are shown as `*****` where MaxScale displays the
 setting, for instance in the output of `maxctrl show service`.
 
+**From MaxScale 26.10.1,** the password in the connection string may be
+either a plain text password or an [encrypted password](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#encrypting-passwords).
+An encrypted password is created using `maxpasswd` and is given as the
+value of `PWD`, `PASSWORD` or `PASSWD`, whichever the connection string
+uses.
+```
+odbc_connection_string=DRIVER={Apache Ignite};ADDRESS=127.0.0.1:10800;USER=ignite;PASSWORD=61DD955512C39A4A8BC4BB1E5F116705
+```
+MaxScale decrypts the password before the connection string is given to
+the ODBC driver. Only the password can be encrypted.
+
 ### `odbc_login_timeout`
 
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
