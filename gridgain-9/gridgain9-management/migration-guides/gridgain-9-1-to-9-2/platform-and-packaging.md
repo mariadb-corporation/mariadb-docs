@@ -50,11 +50,17 @@ See [Installing Using Docker](../../installation/installing-using-docker.md).
 Set the machine-wide `JAVA_HOME` to Java 21 or later before you install. The Windows MSI installer refuses to install when it points at an older Java. Point it at Java 21 or later and run the installer again.
 
 If `JAVA_HOME` is not set, or is set only for the current user, the installation completes but the service fails to start.
+
 ## CLI Launchers
 
 This section applies if your scripts or CI jobs pass JVM options to the CLI through `JAVA_OPTS`, or set `GRIDGAIN9_EXIT_CONSOLE` on Windows.
 
-In 9.1, only the Windows launcher read `JAVA_OPTS`. The ZIP, DEB, RPM, and Docker launchers never did. In 9.2, every launcher reads `GRIDGAIN9_OPTS` and ignores `JAVA_OPTS` without an error. Rename the variable. On Windows this keeps your options working, and on the other platforms it makes them take effect. The ZIP launcher of 9.1.29 already reads `GRIDGAIN9_OPTS`, so you can rename the variable before the upgrade:
+In 9.2, every launcher reads `GRIDGAIN9_OPTS` and ignores `JAVA_OPTS` without an error. Rename the variable in your scripts:
+
+- *Windows.* The launcher of 9.1 read `JAVA_OPTS`, so your options keep working only after you rename the variable.
+- *ZIP, DEB, RPM, and Docker.* The launchers of 9.1 never read `JAVA_OPTS`, so your options were not applied. After the rename, they take effect.
+
+The ZIP launcher of 9.1.29 already reads `GRIDGAIN9_OPTS`, so you can rename the variable before the upgrade:
 
 ```bash
 export GRIDGAIN9_OPTS="-Duser.home=/tmp/gridgain-cli"
@@ -77,7 +83,11 @@ For any other value, the node still starts, but the script prints a warning and 
 ```text
 WARNING: JVM_GC=ConcMarkSweepGC is not in the supported list; using G1GC.
 ```
-Check `JVM_GC` in your `vars.env` (`vars.bat` on Windows) before you upgrade. A package upgrade keeps your `vars.env`, so a collector that Java 21 does not support, such as `ConcMarkSweepGC`, can still be set there. Remove it or set a supported value, or the node runs with a different collector than you expect. To pass other JVM options, use `GRIDGAIN9_EXTRA_JVM_ARGS`. For the other `vars.env` settings, see [General Configuration Tips](../../../tuning-and-troubleshooting/performance-tuning/general-configuration-tips.md).
+
+Before you upgrade, check `JVM_GC` in your `vars.env` (`vars.bat` on Windows). A package upgrade keeps your `vars.env`, so a collector that Java 21 does not support, such as `ConcMarkSweepGC`, can still be set there. Remove it or set a supported value. Otherwise the node runs with a different collector than you expect.
+
+To pass other JVM options, use `GRIDGAIN9_EXTRA_JVM_ARGS`. For the other `vars.env` settings, see [General Configuration Tips](../../../tuning-and-troubleshooting/performance-tuning/general-configuration-tips.md).
+
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}
