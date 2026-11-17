@@ -1,33 +1,11 @@
 ---
 description: >-
-  How to upgrade a GridGain 9.1 cluster and its applications to 9.2, and which changes to check first.
+  How to upgrade a GridGain 9.1.29 cluster and its applications to 9.2, with links to the step-by-step procedure, the planning page, and the reference pages for each change.
 ---
 
 # Upgrading from GridGain 9.1 to 9.2
 
-This guide explains how to upgrade a GridGain 9.1 cluster and its applications to GridGain 9.2. Start with the planning page to choose between a [full-cluster upgrade](../../upgrade/full-cluster-upgrade.md) and a [rolling upgrade](../../upgrade/rolling-upgrade.md), then follow the upgrade procedure. Use the other pages as a reference for the changes that affect you.
-
-Key points:
-
-* You can upgrade to 9.2 only from GridGain 9.1.29.
-* You cannot downgrade from 9.2 to 9.1. Take a backup before you upgrade.
-* 9.2 requires Java 21 or later.
-* 9.2 removes the RocksDB storage engine and the legacy configuration key names.
-* Each node migrates its Raft logs to a new log storage on first start.
-* The `CREATE ZONE` syntax, the system views, and the SQL query protocol change.
-* User and role names become case-sensitive.
-
-{% columns %}
-{% column %}
-{% content-ref url="before-you-upgrade.md" %}
-[What to Know Before Upgrading](before-you-upgrade.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Upgrade constraints, how to choose between a full-cluster and a rolling upgrade, and the scope and effort of each change.
-{% endcolumn %}
-{% endcolumns %}
+This guide describes how to upgrade a GridGain 9.1.29 cluster and its applications to GridGain 9.2. GridGain 9.2 raises the Java baseline to Java 21, removes the RocksDB storage engine and the legacy configuration key names, changes the SQL syntax and system views, and makes user and role names case-sensitive. For other supported starting releases, see [Supported Starting Versions](before-you-upgrade.md#supported-starting-versions).
 
 {% columns %}
 {% column %}
@@ -37,7 +15,19 @@ Upgrade constraints, how to choose between a full-cluster and a rolling upgrade,
 {% endcolumn %}
 
 {% column %}
-Steps for a full-cluster or rolling upgrade, how to verify the result, and what to do if something fails.
+Step-by-step procedure for a full-cluster or rolling upgrade, with verification, troubleshooting, and a recovery path back to 9.1.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="before-you-upgrade.md" %}
+[What to Know Before Upgrading](before-you-upgrade.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Planning reference: supported starting versions, upgrade constraints, the choice between a full-cluster and a rolling upgrade, and a scope and effort table for every change.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -73,7 +63,7 @@ Removed and renamed configuration keys, the removed RocksDB engine, page replace
 {% endcolumn %}
 
 {% column %}
-The `CREATE ZONE` syntax, system view columns, the `__part` column, the `ADD` keyword, microsecond precision, and the query protocol.
+The `CREATE ZONE` syntax, system view columns, and other syntax and behavior changes to check in your queries and DDL.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -85,7 +75,7 @@ The `CREATE ZONE` syntax, system view columns, the `__part` column, the `ADD` ke
 {% endcolumn %}
 
 {% column %}
-Case-sensitive user and role names, the role migration, and index privileges.
+Case-sensitive user and role names, the role migration, and index privileges. Check your existing roles before you upgrade.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -97,7 +87,7 @@ Case-sensitive user and role names, the role migration, and index privileges.
 {% endcolumn %}
 
 {% column %}
-Java 21 for client libraries, `PartitionManager`, `RecordSupportInternal`, and the data center replication REST API.
+Java 21 for client libraries, removed Java APIs, and renamed fields in the data center replication REST API.
 {% endcolumn %}
 {% endcolumns %}
 
