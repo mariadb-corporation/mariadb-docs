@@ -1,8 +1,8 @@
-# Logical backups
+# Logical backups 
 
 ## What is a logical backup?
 
-A logical backup is a backup that contains the logical structure of the database, such as tables, indexes, and data, rather than the physical storage format. It is created using [mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump), which generates SQL statements that can be used to recreate the database schema and populate it with data.
+A logical backup is a backup that contains the logical structure of the database, such as tables, indexes, and data, rather than the physical storage format. It is created using [mariadb-dump](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump), which generates SQL statements that can be used to recreate the database schema and populate it with data.
 
 Logical backups serve not just as a source of restoration, but also enable data mobility between `MariaDB` instances. These backups are called "logical" because they are independent from the `MariaDB` topology, as they only contain DDLs and `INSERT` statements to populate data.
 
@@ -38,7 +38,6 @@ spec:
       accessModes:
         - ReadWriteOnce
 ```
-
 This will use the default `StorageClass` to provision a PVC that would hold the backup files, but ideally you should use a S3 compatible storage:
 
 ```yaml
@@ -67,7 +66,6 @@ spec:
           name: minio-ca
           key: tls.crt
 ```
-
 By providing the authentication details and the TLS configuration via references to `Secret` keys, this example will store the backups in a local Minio instance.
 
 Alternatively you can use dynamic credentials from an EKS Service Account using EKS Pod Identity or IRSA:
@@ -99,7 +97,6 @@ spec:
       tls:
         enabled: true
 ```
-
 By leaving out the `accessKeyIdSecretKeyRef` and `secretAccessKeySecretKeyRef` credentials and pointing to the correct `serviceAccountName`, the backup Job will use the dynamic credentials from EKS.
 
 #### Scheduling
@@ -123,7 +120,7 @@ spec:
 
 This resource gets reconciled into a `CronJob` that periodically takes the backups.
 
-It is important to note that regularly scheduled `Backups` complement very well the [target recovery time](logical_backup.md#target-recovery-time) feature detailed below.
+It is important to note that regularly scheduled `Backups` complement very well the [target recovery time](#target-recovery-time) feature detailed below.
 
 #### Retention policy
 
@@ -144,7 +141,7 @@ spec:
 
 #### Compression
 
-You are able to compress backups by providing the compression algorithm you want to use in the `spec.compression` field:
+You are able to compress backups by providing the compression algorithm you want to use in the  `spec.compression` field:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -160,10 +157,9 @@ spec:
 ```
 
 The following compression algorithms are supported:
-
-* `bzip2`: Good compression ratio, but slower compression/decompression speed compared to gzip.
-* `gzip`: Good compression/decompression speed, but worse compression ratio compared to bzip2.
-* `none`: No compression.
+- `bzip2`: Good compression ratio, but slower compression/decompression speed compared to gzip.
+- `gzip`: Good compression/decompression speed, but worse compression ratio compared to bzip2.
+- `none`: No compression.
 
 `compression` is defaulted to `none` by the operator.
 
@@ -269,7 +265,7 @@ spec:
 
 #### Target recovery time
 
-If you have multiple backups available, specially after configuring a [scheduled Backup](logical_backup.md#scheduling), the operator is able to infer which backup to restore based on the `spec.targetRecoveryTime` field.
+If you have multiple backups available, specially after configuring a [scheduled Backup](#scheduling), the operator is able to infer which backup to restore based on the `spec.targetRecoveryTime` field.
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -357,7 +353,7 @@ spec:
   # [...]
 ```
 
-When it comes to restore, all the databases available in the backup will be restored, but you may also choose a single database to be restored via the `database` field available in the `Restore` resource:
+When it comes to restore, all the databases available in the backup will be restored, but you may also choose a single database to be restored via the  `database` field available in the `Restore` resource:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -373,9 +369,8 @@ spec:
 ```
 
 There are a couple of points to consider here:
-
-* The referred database (`db1` in the example) must previously exist for the `Restore` to succeed.
-* The `mariadb` CLI invoked by the operator under the hood only supports selecting a single database to restore via the [`--one-database`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mariadb-command-line-client#o-one-database) option, restoration of multiple specific databases is not supported.
+- The referred database (`db1` in the example) must previously exist for the `Restore` to succeed.
+- The `mariadb` CLI invoked by the operator under the hood only supports selecting a single database to restore via the [`--one-database`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mariadb-command-line-client#o-one-database) option, restoration of multiple specific databases is not supported.
 
 ## Extra options
 
@@ -411,7 +406,7 @@ spec:
   # [...]
 ```
 
-Refer to the `mariadb-dump` and `mariadb` CLI options in the [reference](logical_backup.md#reference) section.
+Refer to the `mariadb-dump` and `mariadb` CLI options in the [reference](#reference) section.
 
 ## Staging area
 
@@ -460,11 +455,11 @@ spec:
       accessModes:
         - ReadWriteOnce
   # [...]
-```
+``` 
 
 In the examples above, a PVC with the default `StorageClass` will be used as staging area. Refer to the [API reference](../api-reference.md) for more configuration options.
 
-Similarly, you may also use a custom staging area when [bootstrapping from backup](logical_backup.md#bootstrap-new-mariadb-instances):
+Similarly, you may also use a custom staging area when [bootstrapping from backup](#bootstrap-new-mariadb-instances):
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -514,7 +509,7 @@ spec:
           memory: 128Mi
         limits:
           memory: 1Gi
-```
+``` 
 
 ### Galera backup limitations
 
@@ -525,17 +520,15 @@ Galera only replicates the tables with InnoDB engine, see the [Galera docs](http
 Something that does not include `mysql.global_priv`, the table used to store users and grants, which uses the MyISAM engine. This basically means that a Galera instance with `mysql.global_priv` populated will not replicate this data to an empty Galera instance. However, DDL statements (`CREATE USER`, `ALTER USER` ...) will be replicated.
 
 Taking this into account, if we think now about a restore scenario where:
-
-* The backup file includes a `DROP TABLE` statement for the `mysql.global_priv` table.
-* The backup has some `INSERT` statements for the `mysql.global_priv` table.
-* The Galera cluster has 3 nodes: `galera-0`, `galera-1` and `galera-2`.
-* The backup is restored in `galera-0`.
+- The backup file includes a `DROP TABLE` statement for the `mysql.global_priv` table.
+- The backup has some `INSERT` statements for the `mysql.global_priv` table.
+- The Galera cluster has 3 nodes: `galera-0`, `galera-1` and `galera-2`.
+- The backup is restored in `galera-0`.
 
 This is what will happen under the scenes while restoring the backup:
-
-* The `DROP TABLE` statement is a DDL so it will be executed in `galera-0`, `galera-1` and `galera-2`.
-* The `INSERT` statements are not DDLs, so they will only be applied to `galera-0`.
-* This results in the `galera-1` and `galera-2` not having the `mysql.global_priv` table.
+- The `DROP TABLE` statement is a DDL so it will be executed in `galera-0`, `galera-1` and `galera-2`.
+- The `INSERT` statements are not DDLs, so they will only be applied to `galera-0`.
+- This results in the `galera-1` and `galera-2` not having the `mysql.global_priv` table.
 
 After the backup is fully restored, the liveness and readiness probes will kick in, they will succeed in `galera-0`, but they will fail in `galera-1` and `galera-2`, as they rely in the root credentials available in `mysql.global_priv`, resulting in the `galera-1` and `galera-2` getting restarted.
 
@@ -555,15 +548,13 @@ spec:
 ```
 
 Also, to avoid situations where `mysql.global_priv` is unreplicated, all the entries in that table must be managed via DDLs. This is the recommended approach suggested in the [Galera docs](https://galeracluster.com/library/kb/user-changes.html). There are a couple of ways that we can guarantee this:
+- Use the `rootPasswordSecretKeyRef`, `username` and `passwordSecretKeyRef` fields of the `MariaDB` CR to create the root and initial user respectively. This fields will be translated into DDLs by the image entrypoint.
+- Rely on the [`User`](../sql-resources.md#user-cr) and [`Grant`](../sql-resources.md#grant-cr) CRs to create additional users and grants. Refer to the [SQL resource documentation](../sql-resources.md) for further detail.
 
-* Use the `rootPasswordSecretKeyRef`, `username` and `passwordSecretKeyRef` fields of the `MariaDB` CR to create the root and initial user respectively. This fields will be translated into DDLs by the image entrypoint.
-* Rely on the [`User`](../sql-resources.md#user-cr) and [`Grant`](../sql-resources.md#grant-cr) CRs to create additional users and grants. Refer to the [SQL resource documentation](../sql-resources.md) for further detail.
-
-#### `LOCK TABLES`
+#### `LOCK TABLES` 
 
 Galera is not compatible with the `LOCK TABLES` statement:
-
-* [LOCK TABLES Limitations](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/transactions/lock-tables#limitations)
+* [LOCK TABLES Limitations](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/transactions/lock-tables#limitations)
 
 For this reason, the operator automatically adds the `--skip-add-locks` option to the `Backup` to overcome this limitation.
 
@@ -574,13 +565,12 @@ For this reason, the operator automatically adds the `--skip-add-locks` option t
 You can leverage logical backups to bring your external MariaDB data into a new `MariaDB` instance running in Kubernetes. Follow this runbook for doing so:
 
 1. Take a logical backup of your external MariaDB using one of the commands below:
-
 ```bash
 mariadb-dump --user=${MARIADB_USER} --password=${MARIADB_PASSWORD} --host=${MARIADB_HOST} --single-transaction --events --routines --all-databases > backup.2024-08-26T12:24:34Z.sql
 ```
 
 {% hint style="warning" %}
-If you are using Galera or planning to migrate to a Galera instance, make sure you understand the [Galera backup limitations](logical_backup.md#galera-backup-limitations) and use the following command instead:
+If you are using Galera or planning to migrate to a Galera instance, make sure you understand the [Galera backup limitations](#galera-backup-limitations) and use the following command instead:
 {% endhint %}
 
 ```bash
@@ -588,8 +578,10 @@ mariadb-dump --user=${MARIADB_USER} --password=${MARIADB_PASSWORD} --host=${MARI
 ```
 
 1. Ensure that your backup file is named in the following format: `backup.2024-08-26T12:24:34Z.sql`. If the file name does not follow this format, it will be ignored by the operator.
-2. Upload the backup file to one of the supported [storage types](logical_backup.md#storage-types). We recommend using S3.
-3. Create your `MariaDB` resource declaring that you want to [bootstrap from the previous backup](logical_backup.md#bootstrap-new-mariadb-instances) and providing a [root password `Secret`](logical_backup.md#root-credentials) that matches the backup:
+
+2. Upload the backup file to one of the supported [storage types](#storage-types). We recommend using S3.
+
+3. Create your `MariaDB` resource declaring that you want to [bootstrap from the previous backup](#bootstrap-new-mariadb-instances) and providing a [root password `Secret`](#root-credentials) that matches the backup:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -623,7 +615,6 @@ spec:
           key: tls.crt
     targetRecoveryTime: 2024-08-26T12:24:34Z
 ```
-
 5. If you are using Galera in your new instance, migrate your previous users and grants to use the `User` and `Grant` CRs. Refer to the [SQL resource documentation](../sql-resources.md) for further detail.
 
 ### Migrating to a `MariaDB` with different topology
@@ -636,7 +627,7 @@ This should be fully compatible, no issues have been detected.
 
 #### Migrating from standalone/replicated to Galera `MariaDBs`
 
-There are a couple of limitations regarding the backups in Galera, please make sure you read the [Galera backup limitations](logical_backup.md#galera-backup-limitations) section before proceeding.
+There are a couple of limitations regarding the backups in Galera, please make sure you read the [Galera backup limitations](#galera-backup-limitations) section before proceeding.
 
 To overcome this limitations, the `Backup` in the standalone/replicated instance needs to be taken with `spec.ignoreGlobalPriv=true`. In the following example, we are backing up a standalone `MariaDB` (single instance):
 
@@ -672,16 +663,15 @@ spec:
 ```
 
 ## Reference
-
 * [API reference](../api-reference.md)
-* [`mariadb-dump` options](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump#options)
-* [`mariadb` options](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mariadb-command-line-client#options)
+* [`mariadb-dump` options](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump#options)
+* [`mariadb` options](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mariadb-command-line-client#options)
 
 ## Troubleshooting
 
 #### Galera `Pods` restarting after bootstrapping from a backup
 
-Please make sure you understand the [Galera backup limitations](logical_backup.md#galera-backup-limitations).
+Please make sure you understand the [Galera backup limitations](#galera-backup-limitations).
 
 After doing so, ensure that your backup does not contain a `DROP TABLE mysql.global_priv;` statement, as it will make your liveness and readiness probes to fail after the backup restoration.
 
