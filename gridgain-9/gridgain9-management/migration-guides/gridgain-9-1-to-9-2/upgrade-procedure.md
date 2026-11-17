@@ -1,22 +1,23 @@
 ---
 description: >-
-  Steps to upgrade a GridGain 9.1 cluster to 9.2, verify the result, and recover if something fails.
+  Step-by-step procedure for upgrading a GridGain 9.1.29 cluster to 9.2, with verification, troubleshooting, and a recovery path back to 9.1.
 ---
 
 # Upgrading a Cluster from GridGain 9.1 to 9.2
 
-This guide describes how to upgrade a GridGain 9.1 cluster to GridGain 9.2 and how to check the result. Read [What to Know Before Upgrading](before-you-upgrade.md) first. It lists the changes that this guide refers to and helps you choose a path:
+This guide describes how to upgrade a GridGain 9.1.29 cluster to GridGain 9.2, and how to check that the upgrade worked.
 
-- *Full-cluster upgrade.* You stop the cluster, replace the binaries, and start the cluster on 9.2. The cluster is unavailable during the upgrade.
-- *Rolling upgrade.* You restart the nodes one at a time. The cluster stays up, but SQL does not work during the upgrade.
+Before you start, read [What to Know Before Upgrading](before-you-upgrade.md). It helps you choose between a full-cluster and a rolling upgrade and lists the changes that this guide refers to. If you have a staging cluster, rehearse the whole procedure there first.
 
-Both paths use the same preparation, backup, and verification. If you have a staging cluster, rehearse the whole procedure there first.
+The procedure has these phases: prerequisites, preparation, the upgrade itself, and verification. Troubleshooting and the recovery path follow.
+
+A downgrade from 9.2 to 9.1 is not supported. To recover 9.1, see the [Recovery Path](#recovery-path).
 
 ## Prerequisites
 
 Confirm all of the following before you start:
 
-- The cluster runs GridGain 9.1.29. See [Supported Starting Versions](before-you-upgrade.md#supported-starting-versions).
+- The cluster runs a supported 9.1.x release, 9.1.21 to 9.1.29. See [Supported Starting Versions](before-you-upgrade.md#supported-starting-versions).
 - Java 21 or later is installed on every server host and on every host that runs the CLI. See [Java 21 or Later](platform-and-packaging.md#java-21-or-later).
 - A valid license is installed.
 - You chose an [upgrade path](before-you-upgrade.md#choose-your-upgrade-path) and scheduled the downtime or the SQL pause that it needs.
@@ -29,9 +30,9 @@ Confirm all of the following before you start:
 Do all of the following before you stop or upgrade any node. Only the backup on Enterprise Edition needs downtime.
 
 1. *Re-create the RocksDB tables.* If any zone or table uses a RocksDB storage profile, move it to another profile, wait for the dropped tables to be cleaned up, and remove the profile from every node. Do this on 9.1.29, because 9.2 cannot clean up a dropped RocksDB table. See [RocksDB Storage Engine Removed](configuration-and-storage.md#rocksdb-storage-engine-removed). For the storage engines that remain, see [Storage Engines and Profiles](../../../architecture/storage/engines/README.md).
-2. *Update the node configuration files.* Rename or delete every key from the tables in [Removed and Renamed Configuration Keys](configuration-and-storage.md#removed-and-renamed-configuration-keys), and remove the `replacementMode` property. A node does not start on 9.2 if its file contains an old key. 9.1.29 already accepts the new key names, so you can update the files now. If you deploy with the Helm chart, check the chart version on that page. Test the final files on a 9.2 node in a staging cluster.
+2. *Update the node configuration files.* Rename or delete every key from the tables in [Removed and Renamed Configuration Keys](configuration-and-storage.md#removed-and-renamed-configuration-keys), and remove the `replacementMode` property. A node does not start on 9.2 if its file contains an old key. 9.1.29 already accepts the new key names, so you can update the files now. Test the final files on a 9.2 node in a staging cluster. If you deploy with the `gridgain/gridgain9` Helm chart, also check the chart version. See [Helm Chart Versions](configuration-and-storage.md#helm-chart-versions).
 3. *Check the cluster configuration.* Run `cluster config show` and compare it with the same tables. If an old key is still there, fix it before you run `upgrade start`, because cluster configuration changes are blocked during a rolling upgrade.
-4. *Check `vars.env` and the CLI environment.* Review `JVM_GC` in `vars.env`. In the scripts that start the CLI, review `JAVA_OPTS`, and on Windows `GRIDGAIN9_EXIT_CONSOLE`. See [Platform and Packaging Changes](platform-and-packaging.md).
+4. *Check `vars.env` and the CLI environment.* Check that `JVM_GC` in `vars.env` has a supported value. In the scripts that start the CLI, review `JAVA_OPTS`, and on Windows `GRIDGAIN9_EXIT_CONSOLE`. See [Platform and Packaging Changes](platform-and-packaging.md).
 5. *Update SQL and scripts.* The new forms below also work on 9.1.29.
    - Replace `CREATE ZONE ... WITH` with `CREATE ZONE z (PARTITIONS 25, REPLICAS 3) STORAGE PROFILES ['default']`. See [CREATE ZONE Syntax](sql-changes.md#create-zone-syntax).
    - Replace zone names that include a schema, such as `public.my_zone`, with `my_zone`. See [Zone Names Are Simple Identifiers](sql-changes.md#zone-names-are-simple-identifiers).
@@ -42,7 +43,7 @@ Do all of the following before you stop or upgrade any node. Only the backup on 
    - Find the stored name of each user. See [How to Find the Stored Name](security-changes.md#how-to-find-the-stored-name).
    - Make sure that applications, scripts, and connection settings use exactly that name. It works on both versions, and a 9.2 node rejects other spellings as soon as it joins.
    - Change the role names in LDAP `roleMapping` settings to uppercase, which 9.1.29 also accepts. See [LDAP Role Mappings](security-changes.md#ldap-role-mappings).
-   - Review the role migration that runs on first start. See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase).
+   - Check the role names for case-only duplicates, such as `Reader` and `READER`. The role migration that runs on first start fails if two role names differ only in case. See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase).
 7. *Update the applications.* Move them to Java 21 or later, replace `PartitionManager` and `RecordSupportInternal`, and test them against the 9.2 client libraries. See [Client and API Changes](clients-and-apis.md), [Project Setup](../../../gridgain9-development/project-setup.md), and [Client Upgrade](../../upgrade/client-upgrade.md).
 8. *Back up the data.* See [Back Up the Data](#back-up-the-data).
 
@@ -90,13 +91,13 @@ Start all nodes in any order. The cluster forms again with its data, and you do 
 
 Continue with [Verify and Stabilize](#verify-and-stabilize).
 
-## Alternative: Rolling Upgrade
+## Rolling Upgrade
 
 Use this path to restart the nodes one at a time. [Rolling Upgrade](../../upgrade/rolling-upgrade.md) describes the commands and the per-platform steps. For 9.2, note the following:
 
 - *Pause SQL* from `upgrade start` until the commit finishes. See [The Query Protocol Changed](sql-changes.md#the-query-protocol-changed).
 - *DDL and cluster configuration changes are rejected* until the commit.
-- *You cannot cancel the upgrade.* `upgrade cancel` is not implemented. After `upgrade start`, finish the upgrade or restore the backup.
+- *You cannot cancel the upgrade.* 9.2 has no `upgrade cancel` command. After `upgrade start`, finish the upgrade or restore the backup.
 
 ### Step 1: Start the Upgrade
 
@@ -136,13 +137,16 @@ With the cluster running on 9.2, check the following:
 5. *Check the system views.* Run `SELECT * FROM system.zones`, and run your monitoring queries. See [System Views](../../../reference/monitoring/system-views.md).
 6. *Run the real workload.* Run your regression suite or production workload end to end, including SQL. Check the queries that compare or filter on fractions of a second. See [Date and Time Values Keep Microseconds](sql-changes.md#date-and-time-values-keep-microseconds).
 7. *Reconnect monitoring.* Update dashboards and alerts for the renamed storage profile metrics, which exist only in 9.2. See [Metric Changes](configuration-and-storage.md#metric-changes) and [Available Metrics](../../../reference/monitoring/metrics-list.md).
+
 {% hint style="info" %}
 The upgrade is complete when data, applications, and monitoring all check out under the production workload. Keep the backup and the 9.1 distribution until then. Afterward, on Ultimate Edition, take a first snapshot on 9.2 and check that it completes.
 {% endhint %}
 
 ## Troubleshooting
 
-Common errors during the upgrade. For anything not covered here, contact MariaDB [support](https://mariadb.com/support/).
+The tables list common errors during the upgrade, grouped by when you see them. For anything else, contact MariaDB [support](https://mariadb.com/support/).
+
+### Node Start and Join
 
 | Message or symptom | Cause | Fix |
 | --- | --- | --- |
@@ -151,35 +155,80 @@ Common errors during the upgrade. For anything not covered here, contact MariaDB
 | `Failed to parse HOCON: '<path>' configuration doesn't have the '<key>' sub-configuration` when a node starts | The node configuration file contains a key that 9.2 removed or renamed. | Rename or delete the key. See [Removed and Renamed Configuration Keys](configuration-and-storage.md#removed-and-renamed-configuration-keys). |
 | `Failed to parse HOCON: Polymorphic configuration type is not correct: rocksdb` when a node starts | A storage profile uses `engine = rocksdb`. | Re-create the zones and tables on another engine, and remove the profile. See [RocksDB Storage Engine Removed](configuration-and-storage.md#rocksdb-storage-engine-removed). |
 | `Table uses an unknown storage profile or engine` when a node starts, and the node stops | A table on a RocksDB profile still exists, or was dropped and not yet cleaned up. | Restore the 9.1 backup, finish the cleanup on 9.1.29, and upgrade again. See [RocksDB Storage Engine Removed](configuration-and-storage.md#rocksdb-storage-engine-removed) and [Recovery Path](#recovery-path). |
+| A 9.1 node does not start with `Some node has already been validated with a different version` | A node on another version is trying to join a cluster that runs 9.2. | Start every node of the cluster on the same version, or start a rolling upgrade first. |
+
+### Rolling Upgrade
+
+| Message or symptom | Cause | Fix |
+| --- | --- | --- |
 | `IGN-CMN-65535: Legacy query start protocol is no longer supported, the sending node must be upgraded` | A 9.1 node coordinated a SQL query that needs a 9.2 node. | Stop the SQL workload until the upgrade is committed. See [The Query Protocol Changed](sql-changes.md#the-query-protocol-changed). |
 | `IGN-SQL-8: The query was mapped onto node '<node>' which runs version <version> and does not support latest query execution protocol ...` | A 9.2 node coordinated a SQL query that needs a 9.1 node during the rolling upgrade. | Stop the SQL workload until the upgrade is committed. |
-| `upgrade commit` fails with `Legacy role names collide after uppercasing` or `Legacy role name conflicts with a built-in role` | Two roles differ only in case, or a role name becomes a built-in role name. | Contact MariaDB [support](https://mariadb.com/support/). See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase). |
+| `Schema modification command was aborted because a cluster upgrade is currently in progress` or `Cannot change configuration while rolling upgrade is in progress` | A rolling upgrade is in progress. | Wait for the commit, and then run the statement or the update again. |
 | `Cannot commit rolling upgrade. Nodes not on target version <version>: {<node>=<version>, ...}` | `upgrade commit` ran while some nodes still run 9.1. | Upgrade the listed nodes, check `upgrade state`, and run `upgrade commit` again. |
+| `upgrade commit` fails with `Legacy role names collide after uppercasing` or `Legacy role name conflicts with a built-in role` | Two roles differ only in case, or a role name becomes a built-in role name. | Contact MariaDB [support](https://mariadb.com/support/). See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase). |
+| `SELECT * FROM system.zones` or another system view fails with `class java.lang.Integer cannot be cast to class java.lang.String` (rolling upgrade) | The nodes were not restarted after the commit. | Restart the nodes. See [Restart the Nodes After a Rolling Upgrade](sql-changes.md#restart-the-nodes-after-a-rolling-upgrade). |
+
+### SQL
+
+| Message or symptom | Cause | Fix |
+| --- | --- | --- |
+| `Failed to parse query: Encountered "WITH"` on `CREATE ZONE` | The statement uses the removed `CREATE ZONE ... WITH` syntax. | Use `CREATE ZONE z (PARTITIONS 25, REPLICAS 3) STORAGE PROFILES ['default']`. See [CREATE ZONE Syntax](sql-changes.md#create-zone-syntax). |
+| `Failed to parse query: Encountered "."` on `CREATE ZONE`, `ALTER ZONE`, or `DROP ZONE` | The zone name includes a schema, such as `public.my_zone`. | Use the zone name alone, such as `my_zone`. See [Zone Names Are Simple Identifiers](sql-changes.md#zone-names-are-simple-identifiers). |
+| `Failed to parse query: Incorrect syntax near the keyword` on a statement with an object named `add` | `ADD` is a reserved word in 9.2. | Write the name as `"ADD"`, in uppercase and double quotes. See [ADD Is a Reserved Word](sql-changes.md#add-is-a-reserved-word). |
+| `Column '__PART' not found in any table` | The query uses the `__part` alias, which 9.2 removed. | Use `__partition_id`. See [The __part Alias Is Removed](sql-changes.md#the-__part-alias-is-removed). |
+| `Column 'NAME' not found in any table` on a system view | The query uses a system view column that 9.2 removed. | Use the replacement column, such as `table_name`, `schema_name`, or `zone_name`. See [System View Columns Removed](sql-changes.md#system-view-columns-removed). |
+
+### Users and Roles
+
+| Message or symptom | Cause | Fix |
+| --- | --- | --- |
 | `Authentication failed` for a user that worked on 9.1, or ``GG-RBAC-2: User `<NAME>` is not found`` | The name differs in case from the stored name. Unquoted SQL names are converted to uppercase. | Use the exact stored name, in double quotes in SQL. See [How to Find the Stored Name](security-changes.md#how-to-find-the-stored-name). |
 | ``GG-RBAC-7: Role `SYSTEM` is not found``, or `GG-RBAC-9: Cannot assign the built-in role: system` | A script grants the super role with SQL. The built-in super role is `system` in lowercase, and SQL cannot assign it. | Remove the statement. Put `system` in the `roles` list of the user in the authentication provider configuration. See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase). |
 | An LDAP user gets no privileges | An LDAP `roleMapping` names a role in a different case. | Change the mapping to the uppercase role name. See [LDAP Role Mappings](security-changes.md#ldap-role-mappings) and [User Authentication](../../../security/authentication.md#ldap-authentication). |
-| `Failed to parse query` on `CREATE ZONE`, `DROP ZONE`, or an object named `add` | The statement uses the removed syntax, a zone name with a schema, or the reserved word `ADD`. | See [SQL and System View Changes](sql-changes.md). |
-| `Column 'NAME' not found in any table` on a system view, or `Column '__PART' not found in any table` | The query uses a column that 9.2 removed. | Use the replacement column. See [System View Columns Removed](sql-changes.md#system-view-columns-removed). |
-| `SELECT * FROM system.zones` or another system view fails with `class java.lang.Integer cannot be cast to class java.lang.String` (rolling upgrade) | The nodes were not restarted after the commit. | Restart the nodes. See [Restart the Nodes After a Rolling Upgrade](sql-changes.md#restart-the-nodes-after-a-rolling-upgrade). |
-| `Schema modification command was aborted because a cluster upgrade is currently in progress` or `Cannot change configuration while rolling upgrade is in progress` | A rolling upgrade is in progress. | Wait for the commit, and then run the statement or the update again. |
-| A 9.1 node does not start with `Some node has already been validated with a different version` | A node on another version is trying to join a cluster that runs 9.2. | Start every node of the cluster on the same version, or start a rolling upgrade first. |
 
 ## Recovery Path
 
-GridGain does not provide a downgrade path from 9.2 to 9.1, and `upgrade cancel` is not implemented. Once a rolling upgrade is committed, or after a full-cluster upgrade, a 9.1 node cannot join a cluster whose nodes run 9.2.
+GridGain does not provide a downgrade path from 9.2 to 9.1, and 9.2 has no `upgrade cancel` command. Once a rolling upgrade is committed, or after a full-cluster upgrade, a 9.1 node cannot join a cluster whose nodes run 9.2.
 
 The supported recovery depends on when you decide:
 
-- *While the rolling upgrade is in progress.* You can stop an upgraded node and start it again from the 9.1 distribution and configuration files, and it rejoins the cluster. However, only a commit ends the upgrade state, and a commit needs every node on 9.2. Until then, DDL and cluster configuration changes stay blocked. Finish the upgrade or restore the backup.
-- *After you commit, or after a full-cluster upgrade.* Restore the backup that you took before the upgrade into a 9.1 cluster.
-  - On Ultimate Edition, restore the snapshot, as described in [Restoring Snapshots](../../snapshots/data-snapshots.md#restoring-snapshots), and then re-create the users, roles, privileges, and cluster configuration.
-  - On Enterprise Edition, stop all nodes and put the copies of the `work` directories back. Restore the copies of all nodes together, and only copies that were taken at the same time.
+- Before the commit of a rolling upgrade, you roll the upgraded nodes back. See [Before the Commit](#before-the-commit).
+- After the commit, or after a full-cluster upgrade, you restore the backup that you took before the upgrade. See [After the Commit](#after-the-commit).
 
 {% hint style="warning" %}
-Restoring a backup replaces all data in the cluster with the data from the moment of the backup. Everything written after the backup is lost. Move the current data aside instead of deleting it if you may need it.
+Restoring a backup replaces all data in the cluster with the data from the moment of the backup. Everything written after the backup is lost, including the data that 9.2 wrote. Move the current data aside instead of deleting it if you may need it.
 {% endhint %}
 
-For other problems, contact MariaDB [support](https://mariadb.com/support/).
+The backup that you can restore depends on your edition:
+
+| Edition | Backup you take before the upgrade | Recovery |
+| --- | --- | --- |
+| Ultimate | A full snapshot, plus the saved cluster configuration and the list of users and roles | Restore the snapshot into a 9.1 cluster: [Recover From a Snapshot](#recover-from-a-snapshot). |
+| Enterprise | A copy of the `work` directory of every node | Put the copies back and start 9.1: [Recover From a Copy of the Work Directories](#recover-from-a-copy-of-the-work-directories). |
+
+### Before the Commit
+
+You can roll a node back by stopping it and starting it again from the 9.1 distribution and configuration files, and it rejoins the cluster. This does not end the upgrade. Only a commit does, and a commit needs every node on 9.2. Until then, DDL and cluster configuration changes stay blocked. Finish the upgrade or restore the backup.
+
+### After the Commit
+
+After the commit, a 9.1 node cannot join the cluster any more. This section also applies after a full-cluster upgrade, where there is no commit. Use one of the two recoveries below. Both return the cluster to the state at the time of the backup.
+
+#### Recover From a Snapshot
+
+Ultimate Edition only. Restore the full snapshot that you took before the upgrade into a 9.1 cluster, as described in [Restoring Snapshots](../../snapshots/data-snapshots.md#restoring-snapshots). A snapshot does not contain users, roles, privileges, or the cluster configuration, so re-create them from the output that you saved before the upgrade.
+
+#### Recover From a Copy of the Work Directories
+
+Enterprise Edition only. Use the copies that you took before the upgrade, as described in [Back Up the Data](#back-up-the-data):
+
+1. Stop all nodes.
+2. On every node, move the current `work` directory aside. Remove it instead if you do not need the 9.2 data. Copy the backup of that same node back to the same path.
+3. Replace the 9.2 binaries with the 9.1 distribution, and put back the node configuration files that you used on 9.1.
+4. Start all nodes in any order. The cluster forms again with the data of the backup, and you do not run `cluster init`.
+5. Run `cluster status` and check that the status is `active` and the node count is the number of your nodes. Compare the row count of one of your tables with the value before the upgrade.
+
+Restore the copies of all nodes together, and only copies that you took at the same time. Do not restore only some of the nodes, and do not mix copies from different moments.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
