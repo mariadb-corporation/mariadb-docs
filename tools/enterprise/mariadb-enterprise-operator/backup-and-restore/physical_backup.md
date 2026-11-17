@@ -9,8 +9,9 @@ Physical backups are the recommended method for backing up `MariaDB` databases, 
 ## Backup strategies
 
 Multiple strategies are available for performing physical backups, including:
-- **mariadb-backup**: Taken using the enterprise version of [mariadb-backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup), specifically [MariaDB Enterprise backup](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-enterprise-backup#nonblocking-backups), which is available in the `MariaDB` enterprise images. The operator supports scheduling `Jobs` to perform backups using this utility.
-- **Kubernetes VolumeSnapshot**: Leverage [Kubernetes VolumeSnapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/)  to create snapshots of the persistent volumes used by the `MariaDB` `Pods`. This method relies on a compatible CSI (Container Storage Interface) driver that supports volume snapshots. See the [VolumeSnapshots](#volumesnapshots) section for more details.
+
+* **mariadb-backup**: Taken using the enterprise version of [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup), specifically [MariaDB Enterprise backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-enterprise-backup#nonblocking-backups), which is available in the `MariaDB` enterprise images. The operator supports scheduling `Jobs` to perform backups using this utility.
+* **Kubernetes VolumeSnapshot**: Leverage [Kubernetes VolumeSnapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/) to create snapshots of the persistent volumes used by the `MariaDB` `Pods`. This method relies on a compatible CSI (Container Storage Interface) driver that supports volume snapshots. See the [VolumeSnapshots](physical_backup.md#volumesnapshots) section for more details.
 
 In order to use `VolumeSnapshots`, you will need to provide a `VolumeSnapshotClass` that is compatible with your storage provider. The operator will use this class to create snapshots of the persistent volumes:
 
@@ -27,7 +28,7 @@ spec:
       volumeSnapshotClassName: csi-hostpath-snapclass
 ```
 
-For the rest of compatible [backup storage types](#storage-types), the `mariadb-backup` CLI will be used to perform the backup. For instance, to use `S3` as backup storage:
+For the rest of compatible [backup storage types](physical_backup.md#storage-types), the `mariadb-backup` CLI will be used to perform the backup. For instance, to use `S3` as backup storage:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -57,12 +58,12 @@ spec:
 ## Storage types
 
 Multiple storage types are supported for storing physical backups, including:
-- **S3 compatible storage**: Store backups in a S3 compatible storage, such as [AWS S3](https://aws.amazon.com/s3/) or [Minio](https://github.com/minio/minio).
-- **Azure Blob Storage**: Store backups in an [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs).
-- **Persistent Volume Claims (PVC)**: Use any of the [StorageClasses](https://kubernetes.io/docs/concepts/storage/storage-classes/) available in your Kubernetes cluster to create a `PersistentVolumeClaim` (PVC) for storing backups.
-- **Kubernetes Volumes**: Store backups in any of the [in-tree storage providers](https://kubernetes.io/docs/concepts/storage/volumes/#volume-types) supported by Kubernetes out of the box, such as NFS.
-- **Kubernetes VolumeSnapshots**: Use [Kubernetes VolumeSnapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/) to create snapshots of the persistent volumes used by the `MariaDB` `Pods`. This method relies on a compatible CSI (Container Storage Interface) driver that supports volume snapshots. See the [VolumeSnapshots](#volumesnapshots) section for more details.
 
+* **S3 compatible storage**: Store backups in a S3 compatible storage, such as [AWS S3](https://aws.amazon.com/s3/) or [Minio](https://github.com/minio/minio).
+* **Azure Blob Storage**: Store backups in an [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs).
+* **Persistent Volume Claims (PVC)**: Use any of the [StorageClasses](https://kubernetes.io/docs/concepts/storage/storage-classes/) available in your Kubernetes cluster to create a `PersistentVolumeClaim` (PVC) for storing backups.
+* **Kubernetes Volumes**: Store backups in any of the [in-tree storage providers](https://kubernetes.io/docs/concepts/storage/volumes/#volume-types) supported by Kubernetes out of the box, such as NFS.
+* **Kubernetes VolumeSnapshots**: Use [Kubernetes VolumeSnapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/) to create snapshots of the persistent volumes used by the `MariaDB` `Pods`. This method relies on a compatible CSI (Container Storage Interface) driver that supports volume snapshots. See the [VolumeSnapshots](physical_backup.md#volumesnapshots) section for more details.
 
 ## Scheduling
 
@@ -86,20 +87,21 @@ spec:
   # [...]
 ```
 
-- `cron`: [Cron expression](https://en.wikipedia.org/wiki/Cron) to define the backup schedule.
-- `suspend`: Setting it to `true`, it prevents new backups from being scheduled.
-- `immediate`: Setting it `true`, it schedules a backup immediately after creating the `PhysicalBackup` resource.
-- `onDemand`: Schedule identifier for triggering an on-demand backup. If the identifier is different from the one tracked under `status.lastScheduleOnDemand`, a new physical backup is triggered.
-- `onPrimaryChange`: By setting it to `true`, it schedules a new backup after the  primary `Pod` in the referred `MariaDB` instance is changed. This is particularly useful for [point-in-time recovery](./pitr.md#full-base-backup).
+* `cron`: [Cron expression](https://en.wikipedia.org/wiki/Cron) to define the backup schedule.
+* `suspend`: Setting it to `true`, it prevents new backups from being scheduled.
+* `immediate`: Setting it `true`, it schedules a backup immediately after creating the `PhysicalBackup` resource.
+* `onDemand`: Schedule identifier for triggering an on-demand backup. If the identifier is different from the one tracked under `status.lastScheduleOnDemand`, a new physical backup is triggered.
+* `onPrimaryChange`: By setting it to `true`, it schedules a new backup after the primary `Pod` in the referred `MariaDB` instance is changed. This is particularly useful for [point-in-time recovery](pitr.md#full-base-backup).
 
 It is very important to note that, by default, backups are only scheduled if the referred `MariaDB` resource is in ready state. You can override this behavior by setting `mariaDbRef.waitForIt=false` which allows backups to be scheduled even if the `MariaDB` resource is not ready.
 
 ## Compression
 
 When using physical backups based on `mariadb-backup`, you are able to choose the compression algorithm used to compress the backup files. The available options are:
-- `bzip2`: Good compression ratio, but slower compression/decompression speed compared to gzip.
-- `gzip`: Good compression/decompression speed, but worse compression ratio compared to bzip2.
-- `none`: No compression.
+
+* `bzip2`: Good compression ratio, but slower compression/decompression speed compared to gzip.
+* `gzip`: Good compression/decompression speed, but worse compression ratio compared to bzip2.
+* `none`: No compression.
 
 To specify the compression algorithm, you can use the `compression` field in the `PhysicalBackup` resource:
 
@@ -190,7 +192,6 @@ When using physical backups based on `mariadb-backup`, the operator will automat
 
 When using `VolumeSnapshots`, the operator will automatically delete the `VolumeSnapshot` resources older than the retention period using the Kubernetes API. The cleanup process will be performed after a `VolumeSnapshot` is successfully created.
 
-
 ## Target policy
 
 You can define a target policy both for backups based on `mariadb-backup` and for `VolumeSnapshots`. The target policy allows you to specify in which `Pod` the backup should be taken. This can be defined via the `target` field in the `PhysicalBackup` resource:
@@ -209,8 +210,9 @@ spec:
 ```
 
 The following target policies are available:
-- `Replica`: The backup will be taken in a ready replica. If no ready replicas are available, the backup will not be scheduled.
-- `PreferReplica`: The backup will be taken in a ready replica if available, otherwise it will be taken in the primary `Pod`.
+
+* `Replica`: The backup will be taken in a ready replica. If no ready replicas are available, the backup will not be scheduled.
+* `PreferReplica`: The backup will be taken in a ready replica if available, otherwise it will be taken in the primary `Pod`.
 
 When using the `PreferReplica` target policy, you may be willing to schedule the backups even if the `MariaDB` resource is not ready. In this case, you can set `mariaDbRef.waitForIt=false` to allow scheduling the backup even if no replicas are available.
 
@@ -297,6 +299,7 @@ spec:
     targetRecoveryTime: 2025-06-17T08:07:00Z
   # [...]
 ```
+
 Only backups strictly before or at `targetRecoveryTime` will be matched.
 
 ## Timeout
@@ -353,7 +356,7 @@ spec:
   # [...]
 ```
 
-Refer to the [mariadb-backup documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options) for a list of available options.
+Refer to the [mariadb-backup documentation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options) for a list of available options.
 
 ## Azure Blob Storage Credentials
 
@@ -496,7 +499,7 @@ spec:
         - ReadWriteOnce
 ```
 
-Similarly, you may also use a staging area when [bootstrapping from backup](#restoration), in the `MariaDB` resource:
+Similarly, you may also use a staging area when [bootstrapping from backup](physical_backup.md#restoration), in the `MariaDB` resource:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -539,11 +542,11 @@ In the examples above, a PVC with the default `StorageClass` will be provisioned
 ## `VolumeSnapshots`
 
 {% hint style="warning" %}
- Before using this feature, ensure that you meet the following prerequisites :
- - [external-snapshotter](https://github.com/kubernetes-csi/external-snapshotter) and its CRs are installed in the cluster.
- - You have a compatible CSI driver that supports `VolumeSnapshots` installed in the cluster.
- - You have a `VolumeSnapshotClass` configured for your CSI driver.
+Before using this feature, ensure that you meet the following prerequisites :
 
+* [external-snapshotter](https://github.com/kubernetes-csi/external-snapshotter) and its CRs are installed in the cluster.
+* You have a compatible CSI driver that supports `VolumeSnapshots` installed in the cluster.
+* You have a `VolumeSnapshotClass` configured for your CSI driver.
 {% endhint %}
 
 The operator is capable of creating [`VolumeSnapshot` resources](https://kubernetes.io/docs/concepts/storage/volume-snapshots/) of the PVCs used by the `MariaDB` `Pods`. This allows you to create point-in-time snapshots of your data in a Kubernetes-native way, leveraging the capabilities of your storage provider.
@@ -551,16 +554,17 @@ The operator is capable of creating [`VolumeSnapshot` resources](https://kuberne
 Most of the fields described in this documentation apply to `VolumeSnapshots`, including scheduling, retention policy, and compression. The main difference with the `mariadb-backup` based backups is that the operator will not create a `Job` to perform the backup, but instead it will create a `VolumeSnapshot` resource directly.
 
 In order to create consistent, point-in-time snapshots of the `MariaDB` data, the operator will perform the following steps:
+
 1. Execute a `BACKUP STAGE START` statement followed by `BACKUP STAGE BLOCK_COMMIT` in one of the secondary `Pods`.
 2. Create a `VolumeSnapshot` resource of the data PVC mounted by the `MariaDB` secondary `Pod`.
 3. Wait until the `VolumeSnapshot` is provisioned by the storage system. When timing out, the operator will delete the `VolumeSnapshot` resource and retry the operation.
 4. Issue a `BACKUP STAGE END` statement.
 
-This backup process is described in the [MariaDB documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/backup-optimization#taking-snapshots) and is designed to be [non-blocking](#non-blocking-physical-backups).
+This backup process is described in the [MariaDB documentation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/backup-optimization#taking-snapshots) and is designed to be [non-blocking](physical_backup.md#non-blocking-physical-backups).
 
 ## Non-blocking physical backups
 
-Both for `mariadb-backup` and `VolumeSnapshot` [backup strategies](#backup-strategies), the enterprise operator performs non-blocking physical backups by leveraging the [`BACKUP STAGE` feature.](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-and-backup-stage-commands). This implies that the backups are taken without long read locks, enabling consistent, production-grade backups with minimal impact on running workloads, ideal for high-availability and performance-sensitive environments.
+Both for `mariadb-backup` and `VolumeSnapshot` [backup strategies](physical_backup.md#backup-strategies), the enterprise operator performs non-blocking physical backups by leveraging the [`BACKUP STAGE` feature.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-and-backup-stage-commands). This implies that the backups are taken without long read locks, enabling consistent, production-grade backups with minimal impact on running workloads, ideal for high-availability and performance-sensitive environments.
 
 ## Important considerations and limitations
 
@@ -595,7 +599,6 @@ spec:
 When using backups based on `mariadb-backup`, the data PVC used by the `MariaDB` `Pod` cannot use the [`ReadWriteOncePod`](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes) access mode, as it needs to be mounted at the same time by both the `MariaDB` `Pod` and the `PhysicalBackup` `Job`. In this case, please use either the `ReadWriteOnce` or `ReadWriteMany` access modes instead.
 
 Alternatively, if you want to keep using the `ReadWriteOncePod` access mode, you must use backups based on `VolumeSnapshots`, which do not require creating a `Job` to perform the backup and therefore avoid the volume sharing limitation.
-
 
 ### `PhysicalBackup` `Jobs` scheduling
 

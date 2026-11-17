@@ -4,7 +4,7 @@ description: >-
   export and import, time periods, zooming, and parameter-based filtering.
 ---
 
-# Dashboard Overview for GridGain 9 Clusters
+# Dashboard overview
 
 In addition to the [My Cluster tab](my-cluster.md), the **Dashboard** screen contains a default dashboard (the **Default** tab) that provides metrics for and essential information about the GridGain 9 cluster.
 
@@ -42,7 +42,7 @@ You can adjust the `periodMillis` value; it should be less than or equal to `con
 
 ## Viewing the Default Tab
 
-The **Default** tab contains several *widgets*. A widget is a UI element that provides a visual representation of a set of metrics or provides information about the state of the cluster.
+The **Default** tab contains several _widgets_. A widget is a UI element that provides a visual representation of a set of metrics or provides information about the state of the cluster.
 
 On **Default**, you can add any number of widgets.
 
@@ -50,9 +50,9 @@ On **Default**, you can add any number of widgets.
 
 The **Default** tab includes the following elements:
 
-- **Tab bar** — for arranging widgets into tabs. Initially, there are two tabs - "My Cluster" and "Default". You can add tabs and reorganize the size and location of any widget.
-- **Time period** control — for selecting the time period for charts.
-- **Add widget** button — for [adding a widget](configuring-widgets-gg9.md).
+* **Tab bar** — for arranging widgets into tabs. Initially, there are two tabs - "My Cluster" and "Default". You can add tabs and reorganize the size and location of any widget.
+* **Time period** control — for selecting the time period for charts.
+* **Add widget** button — for [adding a widget](configuring-widgets-gg9.md).
 
 ## Adding Tabs
 
@@ -62,8 +62,8 @@ To add a tab, click the `➕` icon located in the tab bar and select to create a
 
 Dashboard templates are a quick way to create a dashboard with predefined widgets. For GridGain 9 clusters, Control Center provides the following templates:
 
-- **Default**: The default dashboard for monitoring cluster status. Has the following widgets: `Nodes`, `Heat Map`, `Memory`, `Cpu Load`, `Heap Size widgets`.
-- **Empty**: This dashboard is an empty container where you can add a custom combination of widgets.
+* **Default**: The default dashboard for monitoring cluster status. Has the following widgets: `Nodes`, `Heat Map`, `Memory`, `Cpu Load`, `Heap Size widgets`.
+* **Empty**: This dashboard is an empty container where you can add a custom combination of widgets.
 
 ### Saving Dashboard as Template
 
@@ -88,15 +88,15 @@ The file named `Dashboard - <Dashboard_Name>.json` is saved to your local `Downl
 To import a dashboard definition from the previously exported JSON file:
 
 1. Click the **+** icon ou your **Dashboard** toolbar.
-2. From the menu that opens, select **Import**.
+2.  From the menu that opens, select **Import**.
 
-   The **Import dashboard** dialog opens.
+    The **Import dashboard** dialog opens.
 
-   ![Import Dashboard](../../../../.gitbook/assets/cc-gg9-import_dashboard.png)
+    ![Import Dashboard](../../../../.gitbook/assets/cc-gg9-import_dashboard.png)
 3. Drag and drop, or browse for, the required file.
-4. Click **Import**.
+4.  Click **Import**.
 
-   The selected file is imported. The dashboard it defines is shown as the current dashboard in your UI.
+    The selected file is imported. The dashboard it defines is shown as the current dashboard in your UI.
 
 ### Relative to the Current Time
 
@@ -109,7 +109,7 @@ To select a period relative to the current date/time:
 
 To define a period in absolute terms:
 
-![](../../../../.gitbook/assets/cc-gg9-picker-12.png)
+![](../../../../.gitbook/assets/cc-gg8-picker-12.png)
 
 1. In the left-hand section of the picker, select the `Custom` option.
 2. In the right-hand (calendar) section of the picker, select the first and last dates of the period.
@@ -120,9 +120,9 @@ To define a period in absolute terms:
 To interactively zoom into the details of a chart:
 
 1. Click your mouse within the chart at the "start" moment of the period you want to zoom into.
-2. Drag the cursor to the "end" moment of the period you want to zoom into.
+2.  Drag the cursor to the "end" moment of the period you want to zoom into.
 
-   All charts on the current dashboard are redrawn to show only the period you have defined (rather than the default period or the one specified previously with the time picker - see Changing the Time Period for Charts). The chart scale automatically adjusts to the chart segment in the selected zoom.
+    All charts on the current dashboard are redrawn to show only the period you have defined (rather than the default period or the one specified previously with the time picker - see Changing the Time Period for Charts). The chart scale automatically adjusts to the chart segment in the selected zoom.
 3. Repeat steps (1) and (2) as needed.
 4. To return to the initial zoom and scale, click the **Zoom out** button in the right-hand part of the dashboard toolbar.
 
@@ -130,9 +130,9 @@ To interactively zoom into the details of a chart:
 
 You can use dashboard parameters to filter the data shown in widgets. Three types of filters are available:
 
-- **Nodes** – Filters the display to selected node(s). Widgets still collect metrics according to their configuration (e.g., all nodes), but only show data for the selected ones.
-- **Tables** – Filters all replications containing the selected table(s) and display the associated nodes if [Data Center Replication](../dcr/dcr.md) is configured and at least one replication is running.
-- **Replications** – Filters by replication name to displays metrics for the topology nodes linked to this replication.
+* **Nodes** – Filters the display to selected node(s). Widgets still collect metrics according to their configuration (e.g., all nodes), but only show data for the selected ones.
+* **Tables** – Filters all replications containing the selected table(s) and display the associated nodes if [Data Center Replication](../dcr/dcr.md) is configured and at least one replication is running.
+* **Replications** – Filters by replication name to displays metrics for the topology nodes linked to this replication.
 
 Each widget collects metrics according to its configuration. This does not change when you apply node filtering. What does change is what the widget shows in the UI. For example, if a widget is configured to collect a metric for all nodes in the cluster, and the selected parameter filters the widget to node A, the widget will keep collecting that metric for all nodes, but it will display the data only for node A.
 
@@ -142,22 +142,22 @@ If a widget is configured for a specific node (e.g., node A), and a different no
 
 ### Applying Filters
 
-1. Click the filter icon next to the **Add widget** button to open the **Parameters** panel.
+1.  Click the filter icon next to the **Add widget** button to open the **Parameters** panel.
 
-   The panel appears at the top of the dashboard.
+    The panel appears at the top of the dashboard.
 
-   ![](../../../../.gitbook/assets/cc-gg9-parameters.png)
+    ![](../../../../.gitbook/assets/cc-gg9-parameters.png)
 2. Use the drop-down menus to select:
-   - One or more **Nodes**
-   - One or more **Tables**
-   - One or more **Replications** (if DCR is configured)
+   * One or more **Nodes**
+   * One or more **Tables**
+   * One or more **Replications** (if DCR is configured)
 3. To reset all selections, click **Clear**.
 
 All selected filters apply globally to all widgets on the dashboard.
 
 ## Next Steps
 
-- [Add a widget](configuring-widgets-gg9.md)
+* [Add a widget](configuring-widgets-gg9.md)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

@@ -1,7 +1,7 @@
 ---
 description: >-
-  The environment variables required to run each MySQL to MariaDB Migrator
-  mode, plus the common source, target, and optional tuning variables.
+  The environment variables required to run each MySQL to MariaDB Migrator mode,
+  plus the common source, target, and optional tuning variables.
 ---
 
 # Environment Variables
@@ -20,20 +20,20 @@ The interactive launcher prompts for any required input that is not already set,
 
 Most modes share the same source and target connection variables:
 
-| Variable | Purpose |
-| --- | --- |
-| `SRC_HOST`, `SRC_PORT` | Source MySQL host and port. |
-| `SRC_ADMIN_USER`, `SRC_ADMIN_PASS` | Source admin credentials. |
-| `SRC_DB` or `SRC_DBS` | A single source database, or a comma-separated list. |
-| `TGT_HOST`, `TGT_PORT` | Target MariaDB host and port. |
-| `TGT_ADMIN_USER`, `TGT_ADMIN_PASS` | Target admin credentials. |
-| `SRC_SSL_MODE` | Optional source TLS mode (`DISABLED`, `PREFERRED`, `REQUIRED`, `VERIFY_CA`, or `VERIFY_IDENTITY`) for TLS-required sources. |
+| Variable                           | Purpose                                                                                                                     |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `SRC_HOST`, `SRC_PORT`             | Source MySQL host and port.                                                                                                 |
+| `SRC_ADMIN_USER`, `SRC_ADMIN_PASS` | Source admin credentials.                                                                                                   |
+| `SRC_DB` or `SRC_DBS`              | A single source database, or a comma-separated list.                                                                        |
+| `TGT_HOST`, `TGT_PORT`             | Target MariaDB host and port.                                                                                               |
+| `TGT_ADMIN_USER`, `TGT_ADMIN_PASS` | Target admin credentials.                                                                                                   |
+| `SRC_SSL_MODE`                     | Optional source TLS mode (`DISABLED`, `PREFERRED`, `REQUIRED`, `VERIFY_CA`, or `VERIFY_IDENTITY`) for TLS-required sources. |
 
 ## Serial Streaming Copy (`one_step`)
 
 Requires the common source and target variables above. Optional:
 
-* `ANALYZE_TARGET` — `1` by default; runs [`ANALYZE TABLE`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/analyze-table) on the target after the load to refresh optimizer statistics. Set to `0` to skip. (Applies to `one_step`, `two_step`, and `staged`.)
+* `ANALYZE_TARGET` — `1` by default; runs [`ANALYZE TABLE`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/analyze-table) on the target after the load to refresh optimizer statistics. Set to `0` to skip. (Applies to `one_step`, `two_step`, and `staged`.)
 
 ## Parallel Restartable Streaming Copy (`two_step`)
 
@@ -64,28 +64,28 @@ The phase selector and connection requirements depend on the phase:
 
 Dump and load tuning (all optional):
 
-| Variable | Default | Purpose |
-| --- | --- | --- |
-| `STAGED_DUMP_DIR` | run directory | Dump location; required for `load_only` to point at the manifest directory. |
-| `STAGED_COMPRESS` | `1` | Gzip-compress the dump. |
-| `STAGED_PV` | `1` | Show a progress meter through `pv` or the fallback probe. |
-| `STAGED_PARALLEL` | `4` | Concurrent per-database dumps. |
-| `STAGED_LOAD_PARALLEL` | `1` | Concurrent per-database loads. |
-| `STAGED_VERIFY_CHECKSUM` | `1` | Verify each dump file's integrity before load. |
-| `STAGED_DISK_HEADROOM_FACTOR` | `2` | Multiplier on the source data size for the free-space check. |
-| `STAGED_FINALIZE_VARIANCE_PCT` | `50` | Row-count variance threshold above which finalize warns. |
-| `STAGED_CONFIRM_OFFLINE` | — | Set to bypass the interactive offline-acknowledgment prompt for non-interactive runs. |
+| Variable                       | Default       | Purpose                                                                               |
+| ------------------------------ | ------------- | ------------------------------------------------------------------------------------- |
+| `STAGED_DUMP_DIR`              | run directory | Dump location; required for `load_only` to point at the manifest directory.           |
+| `STAGED_COMPRESS`              | `1`           | Gzip-compress the dump.                                                               |
+| `STAGED_PV`                    | `1`           | Show a progress meter through `pv` or the fallback probe.                             |
+| `STAGED_PARALLEL`              | `4`           | Concurrent per-database dumps.                                                        |
+| `STAGED_LOAD_PARALLEL`         | `1`           | Concurrent per-database loads.                                                        |
+| `STAGED_VERIFY_CHECKSUM`       | `1`           | Verify each dump file's integrity before load.                                        |
+| `STAGED_DISK_HEADROOM_FACTOR`  | `2`           | Multiplier on the source data size for the free-space check.                          |
+| `STAGED_FINALIZE_VARIANCE_PCT` | `50`          | Row-count variance threshold above which finalize warns.                              |
+| `STAGED_CONFIRM_OFFLINE`       | —             | Set to bypass the interactive offline-acknowledgment prompt for non-interactive runs. |
 
 ## Run-Control Variables
 
 These apply across modes:
 
-| Variable | Purpose |
-| --- | --- |
-| `MODE` | Selects the mode (`one_step`, `two_step`, `staged`, or `binlog`) for non-interactive runs. |
-| `ALLOW_TARGET_DB_OVERWRITE` | Set to `1` to allow migrating into an existing target database. |
-| `ALLOW_ROOT_USERS` | Set to `1` to allow `root` as a source or target admin user. |
-| `FORCE_NEW_RUN` | Set to `1` to force a fresh run instead of resuming a previous one. |
+| Variable                    | Purpose                                                                                    |
+| --------------------------- | ------------------------------------------------------------------------------------------ |
+| `MODE`                      | Selects the mode (`one_step`, `two_step`, `staged`, or `binlog`) for non-interactive runs. |
+| `ALLOW_TARGET_DB_OVERWRITE` | Set to `1` to allow migrating into an existing target database.                            |
+| `ALLOW_ROOT_USERS`          | Set to `1` to allow `root` as a source or target admin user.                               |
+| `FORCE_NEW_RUN`             | Set to `1` to force a fresh run instead of resuming a previous one.                        |
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
