@@ -5,6 +5,15 @@ name: Check Post Download Pages in PR
 # Server release and no standalone package was ever published. There is no download for a reader
 # to land on, so there is no page to write.
 #
+# And the `pending-postdownload:` register, which says a release's page is coming in the NEXT PR.
+# A round's Post Download pages must land after its release notes are live, never in the same
+# merge: GitBook resolves a cross-space link when its file syncs, so a Post Download page merged
+# with the notes it links to saves those links as raw app.gitbook.com URLs, and they stay broken
+# until the page changes again (Connector/J and Connector/ODBC rounds, DOCS-6951 and DOCS-6961).
+# Until DOCS-6962 the new-page gate below demanded the opposite and turned the correct first step
+# red. Now the release notes PR adds a pending entry per new page, and the follow-up PR adds the
+# pages and removes the entries -- the audit fails until it does.
+#
 # WHY THE SIGNAL NEEDS A GATE OF ITS OWN
 #   DOCS-6408 proposes requiring a Post Download page whenever a PR adds connector release notes.
 #   That check, as specified, would have blocked PR #1011 -- Connector/C 3.3.20 and 3.4.10, both
@@ -27,13 +36,15 @@ name: Check Post Download Pages in PR
 # WHAT THIS GATES
 #   Two things, both in postdownload.py:
 #
-#   1. The register audits itself (`audit`). An entry whose page is gone, whose release has since
-#      gained a Post Download page, or which names something that could never need one (a
-#      changelog, a landing page, a product with no Post Download pages) fails. Self-pruning in
-#      both directions -- unlike the `shrink:` section, which has no "un-shrink" signal.
+#   1. The register audits itself (`audit`). A no-standalone or pending-postdownload entry whose
+#      page is gone, whose release has since gained a Post Download page, or which names
+#      something that could never need one (a changelog, a landing page, a product with no Post
+#      Download pages) fails, and so does a page listed in both sections. Self-pruning in both
+#      directions -- unlike the `shrink:` section, which has no "un-shrink" signal.
 #
 #   2. A release notes page ADDED by the PR must have its Post Download page, linked from
-#      platform/SUMMARY.md, unless the register acknowledges it (`new <base>`, DOCS-6408). It
+#      platform/SUMMARY.md, unless the register acknowledges it as no-standalone or pending
+#      (`new <base>`, DOCS-6408). In practice a same-repo round takes the pending route. It
 #      reads only pages absent at the base, because it cannot run tree-wide -- dozens of existing
 #      releases would fail it, a mix of pages predating the system (Connector/J 1.1.x is from
 #      2013) and untriaged gaps. `hidden: true` notes are held to the same rule.
@@ -130,7 +141,7 @@ jobs:
             exit "$rc"
           fi
 
-      - name: Audit the no-standalone register
+      - name: Audit the no-standalone and pending-postdownload entries
         id: postdownload
         run: |
           set -uo pipefail
@@ -145,7 +156,7 @@ jobs:
 
           case "$rc" in
             0) ;;
-            1) echo "::error::An entry in the no-standalone section of .claude/hooks/doc-lint-allow.yml no longer records something true -- its page is gone, its release has since gained a Post Download page, or it names something that could never need one. The register is meant to prune itself at the point someone forgets. Details in the job log and the run summary." ;;
+            1) echo "::error::An entry in the no-standalone or pending-postdownload section of .claude/hooks/doc-lint-allow.yml no longer records something true -- its page is gone, its release has since gained a Post Download page, it names something that could never need one, or it is in both sections. A PR that adds a pending release's Post Download page removes its pending entry. Details in the job log and the run summary." ;;
             2) echo "::error::postdownload.py rejected its arguments, or could not read the acknowledgment register -- this workflow or that file is at fault, not necessarily the PR." ;;
             *) echo "::error::postdownload.py exited $rc (crash). This is a tooling failure, not a PR finding." ;;
           esac
@@ -165,7 +176,7 @@ jobs:
             echo "::error::postdownload found no platform/post-download/ directory and SKIPPED, in a checkout that must contain one. A space directory has been renamed or moved, not the PR's pages -- and a pass here would mean nothing."
             exit 1
           fi
-          if ! grep -qE '^postdownload: [0-9]+ no-standalone entr(y|ies) audited' postdownload.log; then
+          if ! grep -qE '^postdownload: [0-9]+ no-standalone entr(y|ies) and [0-9]+ pending-postdownload entr(y|ies) audited' postdownload.log; then
             cat postdownload.log
             echo "::error::Could not read the audited-entry count out of postdownload's output. Either the summary line changed shape (update this assertion with it) or the script never got to print it."
             exit 1
@@ -202,14 +213,14 @@ jobs:
           # A fork PR's findings (exit 1) are demoted to a warning. Exit 2 and crashes stay
           # failures: they mean the tooling broke, whoever opened the PR.
           if [[ "$rc" == "1" && "$fork" == "true" ]]; then
-            echo "::warning::This fork PR adds release notes pages with no Post Download page or nav entry under platform/post-download/. A docs-team member owes them before or right after merge -- the contributor does not. Details in the run summary."
+            echo "::warning::This fork PR adds release notes pages with no Post Download page or nav entry under platform/post-download/. A docs-team member owes them in a separate PR once these notes are live -- the contributor does not. Details in the run summary."
             rc=0
           fi
           echo "rc=$rc" >> "$GITHUB_OUTPUT"
 
           case "$rc" in
             0) ;;
-            1) echo "::error::A release notes page added by this PR has no Post Download page under platform/post-download/, or that page is not linked from platform/SUMMARY.md. Add them in this PR. If the version shipped only inside a Server release and has no standalone package, add a no-standalone entry with a reason to .claude/hooks/doc-lint-allow.yml. Details in the job log and the run summary." ;;
+            1) echo "::error::A release notes page added by this PR has no Post Download page under platform/post-download/, or that page is not linked from platform/SUMMARY.md. The page belongs in a separate PR, after these notes are live: add a pending-postdownload entry with a reason to .claude/hooks/doc-lint-allow.yml in this PR, and the page, its nav entry, and the entry's removal in the next one. If the version shipped only inside a Server release and has no standalone package, add a no-standalone entry instead. Details in the job log and the run summary." ;;
             2) echo "::error::postdownload.py rejected its arguments, or could not read the acknowledgment register -- this workflow or that file is at fault, not necessarily the PR." ;;
             *) echo "::error::postdownload.py exited $rc (crash). This is a tooling failure, not a PR finding." ;;
           esac
@@ -253,8 +264,8 @@ jobs:
               echo "No output was produced -- an earlier step failed before the audit ran."
             else
               case "${RC:-}" in
-                0) echo "Every \`no-standalone:\` acknowledgment still records something true." ;;
-                1) echo "An acknowledgment has gone stale. If the release now has a Post Download page, or its notes were removed, delete the entry -- the register prunes itself at the point someone forgets rather than piling up entries nobody dares remove." ;;
+                0) echo "Every \`no-standalone:\` and \`pending-postdownload:\` acknowledgment still records something true." ;;
+                1) echo "An acknowledgment has gone stale. If the release now has a Post Download page, or its notes were removed, delete the entry -- the register prunes itself at the point someone forgets rather than piling up entries nobody dares remove. A PR that adds a pending release's page deletes its pending entry." ;;
                 *) echo "The check did not complete (exit ${RC:-unknown}). This is a tooling failure, not a PR finding." ;;
               esac
               echo
@@ -287,11 +298,11 @@ jobs:
             else
               case "${NEW_RC:-}" in
                 0) if [[ "${NEW_RAW_RC:-0}" == "1" && "${NEW_FORK:-}" == "true" ]]; then
-                     echo "**Docs-team action needed.** This PR comes from a fork, so the check is advisory and passed. The release notes pages it adds still need their \`platform/post-download/\` pages and \`platform/SUMMARY.md\` entries, written by a docs-team member before or right after merge. The contributor does not need to do anything."
+                     echo "**Docs-team action needed.** This PR comes from a fork, so the check is advisory and passed. The release notes pages it adds still need their \`platform/post-download/\` pages and \`platform/SUMMARY.md\` entries, written by a docs-team member in a separate PR once these notes are live. The contributor does not need to do anything."
                    else
-                     echo "Every release notes page this PR adds has its Post Download page, or a register entry saying it has none."
+                     echo "Every release notes page this PR adds has its Post Download page, or a register entry saying it has none or that it follows in the next PR."
                    fi ;;
-                1) echo "A release notes page this PR adds is missing its Post Download page or its \`platform/SUMMARY.md\` entry. Add them in this PR, or acknowledge a no-standalone release in \`.claude/hooks/doc-lint-allow.yml\`." ;;
+                1) echo "A release notes page this PR adds is missing its Post Download page or its \`platform/SUMMARY.md\` entry. The page belongs in a separate PR once these notes are live: add a \`pending-postdownload:\` entry to \`.claude/hooks/doc-lint-allow.yml\` in this PR, and the page, its nav entry, and the entry's removal in the next one. A release with no standalone package takes a \`no-standalone:\` entry instead." ;;
                 *) echo "The check did not complete (exit ${NEW_RC:-unknown}). This is a tooling failure, not a PR finding." ;;
               esac
               echo
