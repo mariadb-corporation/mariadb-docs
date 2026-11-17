@@ -40,27 +40,33 @@ Thin client requests are checked more strictly:
 
 Compare your license with your configuration before you upgrade.
 
-GridGain 8.10 checks the license for every feature that the node configuration uses. GridGain 8.9 checked only snapshots, compression, vector search, and z/OS, so a configuration that started on 8.9 can fail on 8.10 with the same license file. When the check fails depends on the feature:
+{% hint style="warning" %}
+Upgrade to GridGain 8.10.1 or later. GridGain 8.10.0 checked more features against XML license files than GridGain 8.9 did, so a node with a license issued before GridGain 8.10 could fail to start, for example with `Security feature is not allowed by the licence.` GridGain 8.10.1 fixes this. This section describes GridGain 8.10.1 and later.
+{% endhint %}
 
-- *At node start.* Authentication or authorization, data center replication, rolling upgrades, and snapshots (including point-in-time recovery) fail the node start, with a message such as `Security feature is not allowed by the licence.`
+GridGain 8.10 checks the license for every feature that the node configuration uses. GridGain 8.9 checked only snapshots, compression, vector search, and z/OS. When the check fails depends on the feature:
+
+- *At node start.* Authentication or authorization, data center replication, rolling upgrades, and snapshots (including point-in-time recovery) fail the node start, with a message such as `Data center replication feature is not allowed by the licence.`
 - *When a cache starts.* Rack awareness, cache encryption, and vector indexes are checked for each cache configuration. The cache fails to start, and a cache from the node configuration also stops the node from starting, with `Rack awareness is not allowed by the licence [cacheName=...]`, `Encryption is not allowed by the licence [cacheName=...]`, or `Vector search is not allowed by the licence [cacheName=...]`.
 
-The license file lists its features as `<enabled-feature name="..."/>` entries and has a `<type>` element (`ENT` for Enterprise). Feature names are matched exactly, and most of them use underscores, not hyphens. A license with the `ultimate` feature passes every check. The table shows what else is accepted:
+What a license allows depends on its format: an XML license file, or a MariaDB license key. An XML license file lists its features as `<enabled-feature name="..."/>` entries. Feature names are matched exactly, and most of them use underscores, not hyphens. The license type, such as `ENT`, is not checked.
 
-| Your configuration uses | The license must have | 8.9.x |
-| --- | --- | --- |
-| Authentication or authorization (`authenticator` or `authenticationEnabled`) | `security` | Not checked |
-| Data center replication (a data center ID) | `data_center_replication` | Not checked |
-| Rack awareness (an affinity backup filter) | `rack_awareness` | Not checked |
-| Rolling upgrades (`rollingUpdatesEnabled=true`) | Type `ENT`, or `rolling_upgrades` | Not checked |
-| Cache encryption | Type `ENT`, or `encryption` | Not checked |
-| Vector search index | Type `ENT`, or `vector-search` | `vector-search` only |
-| Local snapshots (a `snapshotConfiguration`) | `local_snapshots` | `ultimate` |
-| Remote (SFTP) snapshots | `remote_snapshots` | `ultimate` |
-| Point-in-time recovery | `point_in_time_recovery` | `ultimate` |
-| Entry compression | `compression` | `compression` or `ultimate` |
+| Your configuration uses | XML license file | MariaDB license key | 8.9.x |
+| --- | --- | --- | --- |
+| Authentication or authorization (`authenticator` or `authenticationEnabled`) | Any license | Any license | Not checked |
+| Rolling upgrades (`rollingUpdatesEnabled=true`) | Any license | Any license | Not checked |
+| Cache encryption | Any license | Any license | Not checked |
+| Data center replication (a data center ID) | Any license | `data_center_replication` or `ultimate` | Not checked |
+| Rack awareness (any affinity backup filter) | Any license | `rack_awareness` or `ultimate` | Not checked |
+| Vector search index | `vector-search` | Any license | `vector-search` |
+| Local snapshots (a `snapshotConfiguration`) | `local_snapshots` or `ultimate` | `local_snapshots` or `ultimate` | `ultimate` |
+| Remote (SFTP) snapshots | `remote_snapshots` or `ultimate` | `remote_snapshots` or `ultimate` | `ultimate` |
+| Point-in-time recovery | `point_in_time_recovery` or `ultimate` | `point_in_time_recovery` or `ultimate` | `ultimate` |
+| Entry compression | `compression` or `ultimate` | `compression` or `ultimate` | `compression` or `ultimate` |
 
-In every row, a license with the `ultimate` feature is also accepted. Before you upgrade, compare the features of your license with your configuration, and contact MariaDB [support](https://mariadb.com/support/) if a feature is missing. A license file that works on 8.9 is accepted by 8.10 as a file, and the checks above decide only which features it enables.
+With an XML license file, the `ultimate` feature does not enable vector search. The license must list `vector-search`, as in GridGain 8.9.
+
+An XML license file that works with your configuration on GridGain 8.9 also works with it on GridGain 8.10.1. If you switch to a MariaDB license key, compare its features with your configuration, and contact MariaDB [support](https://mariadb.com/support/) if a feature is missing.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
