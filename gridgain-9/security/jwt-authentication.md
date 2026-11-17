@@ -46,7 +46,7 @@ GridGain supports two ways to revoke tokens:
 - Use the `/management/v1/authentication/jwt/{token}` endpoint to revoke a specific JWT token
 
 {% hint style="info" %}
-The user who attempts to revoke tokens must have the `REVOKE_TOKEN` [permission](user-permissions-and-roles.md) on the cluster. Otherwise, the operation will fail.
+To revoke tokens issued to another user, the user must have the `REVOKE_TOKEN` [permission](user-permissions-and-roles.md) on the cluster. Otherwise, the operation will fail. Users can always revoke their own tokens.
 {% endhint %}
 
 Here is how you can revoke all tokens from a specific user:
