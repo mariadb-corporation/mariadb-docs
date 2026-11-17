@@ -9,9 +9,13 @@ GridGain 9.2 removes the legacy and deprecated configuration keys, the RocksDB s
 
 ## Removed and Renamed Configuration Keys
 
-GridGain 9.1 accepted many keys under two names: the name without a unit, for example `delayDuration`, and the name with a unit, for example `delayDurationMillis`. GridGain 9.2 accepts only the new names. It also removes the keys that 9.1 had deprecated. For how configuration works, see [Cluster and Node Configuration](../../cluster-configuration.md).
+GridGain 9.1 accepted many keys under two names: an old name without a unit, such as `delayDuration`, and a new name with a unit, such as `delayDurationMillis`. GridGain 9.2 accepts only the new name. The tables below list each old and new name. 9.2 also removes the keys that 9.1 had deprecated. For how configuration works, see [Cluster and Node Configuration](../../cluster-configuration.md).
 
-A 9.2 node does not start if its node configuration file contains a key that 9.2 does not know. The node reports an error such as `Failed to parse HOCON: '<path>' configuration doesn't have the '<key>' sub-configuration`. Only two removed keys are still ignored: `ignite.license.signature` and the `ignite.storage.engines.rocksdb` section. Rename or delete every other key from the tables below before you start a node on 9.2.
+A 9.2 node does not start if its node configuration file contains a key that 9.2 does not know. The node reports an error such as `Failed to parse HOCON: '<path>' configuration doesn't have the '<key>' sub-configuration`.
+
+In the node configuration file, only the `ignite.storage.engines.rocksdb` section is still ignored. Rename or delete every other key from the tables below before you start a node on 9.2.
+
+In the cluster configuration, 9.2 ignores the removed key `ignite.license.signature`.
 
 A 9.1.29 node rewrites its node configuration file on every start and converts old key names to the new ones, so a file that a 9.1.29 node has used may already contain only new names. See [RocksDB Storage Engine Removed](#rocksdb-storage-engine-removed) for how to remove a storage profile.
 
@@ -182,7 +186,7 @@ For the list of metrics, see [Metrics List](../../../reference/monitoring/metric
 GridGain 9.2 stores the Raft logs in the segment-based log storage (SegStore) by default, replacing the RocksDB-based log storage that 9.1 used and that is deprecated in 9.2.
 
 - *Migration.* The logs migrate automatically. A node starts writing to the new storage once the cluster version is 9.2, at the commit of a rolling upgrade or when all cluster management nodes have joined on 9.2 in a full-cluster upgrade.
-- *Disk space.* Until the old log entries of a group are truncated after a snapshot, the node keeps the old RocksDB log files next to the new `segstore` directory under `work`. Make sure that every node has free disk space for both.
+- *Disk space.* Make sure that every node has free disk space for both the old and the new logs.
 - *Metrics.* 9.2 adds a `raft.segstore.<name>` metric source for each log, for example `raft.segstore.meta-storage-log`. See [Metrics List](../../../reference/monitoring/metrics-list.md).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
