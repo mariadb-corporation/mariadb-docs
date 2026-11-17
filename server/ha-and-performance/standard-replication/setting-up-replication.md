@@ -65,7 +65,7 @@ server_id=1
 ```
 
 {% hint style="warning" %}
-Replication from MySQL 8.0 to MariaDB [requires more configuration](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-compatibility).
+Replication from MySQL 8.0 to MariaDB [requires more configuration](../../editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-compatibility.md).
 {% endhint %}
 {% endstep %}
 
@@ -165,7 +165,7 @@ Slave_SQL_Running: Yes
 * Replication from MySQL 5.6 with GTID, binlog\_rows\_query\_log\_events and ignorable events works. In this case MariaDB will remove the MySQL GTIDs and other unneeded events and instead adds its own GTIDs.
 
 {% hint style="warning" %}
-[Replication from MySQL 8 to MariaDB](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-compatibility) requires [MariaDB 11.4.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.5) or newer.
+[Replication from MySQL 8 to MariaDB](../../editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-compatibility.md) requires [MariaDB 11.4.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.5) or newer.
 {% endhint %}
 {% endstep %}
 {% endstepper %}

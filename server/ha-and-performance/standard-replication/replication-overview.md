@@ -273,12 +273,12 @@ The table shows the general version constraint only; it does not mean that every
 **MariaDB Enterprise Server:** The table above applies to MariaDB Community Server. MariaDB Enterprise Server releases are based on a Community Server version with additional backported features, so cross-version replication combinations are not separately tested for Enterprise Server. The same general rule applies — a replica should run the same or a later version than its primary — but before replicating between different Enterprise Server versions, or between Enterprise Server and Community Server, review the [MariaDB Enterprise Server release notes](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases) for the versions involved for any changes that affect replication.
 {% endhint %}
 
-For replication compatibility details between MariaDB and MySQL, see [MariaDB versus MySQL - Compatibility: Replication Compatibility](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-compatibility#replication-compatibility).
+For replication compatibility details between MariaDB and MySQL, see [MariaDB versus MySQL - Compatibility: Replication Compatibility](../../editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-compatibility.md#replication-compatibility).
 
 ## See Also
 
 * [Setting Up Replication](setting-up-replication.md)
-* [Replication Compatibility Between MariaDB and MySQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-compatibility#replication-compatibility)
+* [Replication Compatibility Between MariaDB and MySQL](../../editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-compatibility.md#replication-compatibility)
 * [MariaDB Galera Cluster and M/S replication](https://www.youtube.com/watch?v=Nd0nvltLPdQ) (video)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

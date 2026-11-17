@@ -131,7 +131,7 @@ From [MariaDB 11.4.5](11.4.5.md):
 
 #### Miscellaneous
 
-* Added support for packages ([CREATE PACKAGE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-package)) outside of [ORACLE sql\_mode](../about/compatibility-and-differences/sql_modeoracle.md) ([MDEV-32101](https://jira.mariadb.org/browse/MDEV-32101))
+* Added support for packages ([CREATE PACKAGE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-package)) outside of [ORACLE sql\_mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle) ([MDEV-32101](https://jira.mariadb.org/browse/MDEV-32101))
 * Setting a non-default [old\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old_mode) value will now always issue a deprecation warning ([MDEV-31811](https://jira.mariadb.org/browse/MDEV-31811), [MariaDB 11.3](../old-releases/11.3/what-is-mariadb-113.md))
 * [ALTER TABLE IMPORT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table) enhancement ([MDEV-26137](https://jira.mariadb.org/browse/MDEV-26137), [MariaDB 11.2](../old-releases/11.2/what-is-mariadb-112.md))
 * Temporary tables are now displayed in the [Information Schema TABLES Table](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-tables-table), [SHOW TABLES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-tables) and [SHOW TABLE STATUS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-table-status) ([MDEV-12459](https://jira.mariadb.org/browse/MDEV-12459), [MariaDB 11.2](../old-releases/11.2/what-is-mariadb-112.md))
@@ -163,6 +163,19 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 
 | CVE ID (with cve.org link)                                                      | CVSS base score (v3.1) | Community Server 11.4 Release |
 | ------------------------------------------------------------------------------- | ---------------------- | ----------------------------- |
+| [CVE-2026-101802](https://www.cve.org/CVERecord?id=CVE-2026-101802)             | 6.5                    | [MariaDB 11.4.14](11.4.14.md) |
+| [CVE-2026-101796](https://www.cve.org/CVERecord?id=CVE-2026-101796)             | 7.5                    | [MariaDB 11.4.14](11.4.14.md) |
+| [CVE-2026-101794](https://www.cve.org/CVERecord?id=CVE-2026-101794)             | 6.5                    | [MariaDB 11.4.14](11.4.14.md) |
+| [CVE-2026-101775](https://www.cve.org/CVERecord?id=CVE-2026-101775)             | 7.4                    | [MariaDB 11.4.14](11.4.14.md) |
+| [CVE-2026-101747](https://www.cve.org/CVERecord?id=CVE-2026-101747)             | 6.5                    | [MariaDB 11.4.14](11.4.14.md) |
+| [CVE-2026-101725](https://www.cve.org/CVERecord?id=CVE-2026-101725)             | 6.5                    | [MariaDB 11.4.14](11.4.14.md) |
+| [CVE-2026-101679](https://www.cve.org/CVERecord?id=CVE-2026-101679)             | 7.5                    | [MariaDB 11.4.14](11.4.14.md) |
+| [CVE-2026-101619](https://www.cve.org/CVERecord?id=CVE-2026-101619)             | 4.9                    | [MariaDB 11.4.14](11.4.14.md) |
+| [CVE-2026-101618](https://www.cve.org/CVERecord?id=CVE-2026-101618)             | 4.9                    | [MariaDB 11.4.14](11.4.14.md) |
+| [CVE-2026-101617](https://www.cve.org/CVERecord?id=CVE-2026-101617)             | 4.9                    | [MariaDB 11.4.14](11.4.14.md) |
+| [CVE-2026-101615](https://www.cve.org/CVERecord?id=CVE-2026-101615)             | 4.4                    | [MariaDB 11.4.14](11.4.14.md) |
+| [CVE-2026-101614](https://www.cve.org/CVERecord?id=CVE-2026-101614)             | 4.9                    | [MariaDB 11.4.14](11.4.14.md) |
+| [CVE-2026-101608](https://www.cve.org/CVERecord?id=CVE-2026-101608)             | 6.5                    | [MariaDB 11.4.14](11.4.14.md) |
 | [CVE-2026-107823](https://www.cve.org/CVERecord?id=CVE-2026-107823)             | 7.2                    | [MariaDB 11.4.13](11.4.13.md) |
 | [CVE-2026-107822](https://www.cve.org/CVERecord?id=CVE-2026-107822)             | 6.4                    | [MariaDB 11.4.13](11.4.13.md) |
 | [CVE-2026-107821](https://www.cve.org/CVERecord?id=CVE-2026-107821)             | 8.0                    | [MariaDB 11.4.13](11.4.13.md) |
@@ -216,6 +229,7 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 
 | Date        | Release         | Status      | Release Notes               | Changelog                                  |
 | ----------- | --------------- | ----------- | --------------------------- | ------------------------------------------ |
+| 16 Nov 2026 | MariaDB 11.4.14 | Stable (GA) | [Release Notes](11.4.14.md) | [Changelog](../changelogs/11.4/11.4.14.md) |
 | 24 Aug 2026 | MariaDB 11.4.13 | Stable (GA) | [Release Notes](11.4.13.md) | [Changelog](../changelogs/11.4/11.4.13.md) |
 | 27 May 2026 | MariaDB 11.4.12 | Stable (GA) | [Release Notes](11.4.12.md) | [Changelog](../changelogs/11.4/11.4.12.md) |
 | 18 May 2026 | MariaDB 11.4.11 | Stable (GA) | [Release Notes](11.4.11.md) | [Changelog](../changelogs/11.4/11.4.11.md) |

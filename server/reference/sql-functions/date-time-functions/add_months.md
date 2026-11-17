@@ -100,7 +100,7 @@ SELECT ADD_MONTHS('2011-01-15', 2.1);
 
 ## See Also
 
-* [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [SQL\_MODE=ORACLE](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

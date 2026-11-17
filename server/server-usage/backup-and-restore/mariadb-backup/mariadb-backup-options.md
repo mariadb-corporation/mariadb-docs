@@ -61,7 +61,7 @@ mariadb-backup --backup --target-dir=/backups/inc1 \
 
 ### `--apply-log`
 
-Prepares an existing backup to restore to the MariaDB Server. This is only valid in `innobackupex` mode, which can be enabled with the [--innobackupex](mariadb-backup-options.md#innobackupex) option.
+Prepares an existing backup to restore to the MariaDB Server. This option is an alias for [--prepare](mariadb-backup-options.md#prepare).
 
 Files that `mariadb-backup` generates during [--backup](mariadb-backup-options.md#backup) operations in the target directory are not ready for use on the Server. Before you can restore the data to MariaDB, you first need to prepare the backup.
 

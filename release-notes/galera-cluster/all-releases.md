@@ -8,6 +8,7 @@ description: A list of all Galera Cluster releases
 
 | Name                       | Release Date | Release Status |
 | -------------------------- | ------------ | -------------- |
+| [26.4.29](26.4/26.4.29.md) | 2026-11-16   | Stable (GA)    |
 | [26.4.28](26.4/26.4.28.md) | 2026-08-17   | Stable (GA)    |
 | [26.4.27](26.4/26.4.27.md) | 2026-05-12   | Stable (GA)    |
 | [26.4.26](26.4/26.4.26.md) | 2026-02-16   | Stable (GA)    |

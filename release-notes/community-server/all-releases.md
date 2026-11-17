@@ -27,14 +27,19 @@ description: A list of all MariaDB Community Server releases
 
 ## MariaDB Community Server 12.3
 
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 12 June 2029.
+
 | Name                     | Release date | Release status |
 | ------------------------ | ------------ | -------------- |
+| [12.3.4](12.3/12.3.4.md) | 2026-11-16   | Stable (GA)    |
 | [12.3.3](12.3/12.3.3.md) | 2026-08-24   | Stable (GA)    |
 | [12.3.2](12.3/12.3.2.md) | 2026-05-28   | Stable (GA)    |
 | [12.3.1](12.3/12.3.1.md) | 2026-02-12   | RC             |
 | 12.3.0                   | 2025-12-22   | Preview        |
 
 ## MariaDB Community Server 12.2
+
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 28 May 2026.
 
 | Name                     | Release date | Release status |
 | ------------------------ | ------------ | -------------- |
@@ -44,6 +49,8 @@ description: A list of all MariaDB Community Server releases
 
 ## MariaDB Community Server 12.1
 
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 12 February 2026.
+
 | Name                                  | Release date | Release status |
 | ------------------------------------- | ------------ | -------------- |
 | [12.1.2](old-releases/12.1/12.1.2.md) | 2025-11-18   | Stable (GA)    |
@@ -51,6 +58,8 @@ description: A list of all MariaDB Community Server releases
 | 12.1.0                                | 2025-06-26   | Preview        |
 
 ## MariaDB Community Server 12.0
+
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 18 November 2025.
 
 | Name                                  | Release date | Release status |
 | ------------------------------------- | ------------ | -------------- |
@@ -60,8 +69,11 @@ description: A list of all MariaDB Community Server releases
 
 ## MariaDB Community Server 11.8
 
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 4 June 2028.
+
 | Name                     | Release date | Release status |
 | ------------------------ | ------------ | -------------- |
+| [11.8.10](11.8/11.8.10.md) | 2026-11-16   | Stable (GA)    |
 | [11.8.9](11.8/11.8.9.md) | 2026-08-24   | Stable (GA)    |
 | [11.8.8](11.8/11.8.8.md) | 2026-05-27   | Stable (GA)    |
 | [11.8.7](11.8/11.8.7.md) | 2026-05-18   | Stable (GA)    |
@@ -75,6 +87,8 @@ description: A list of all MariaDB Community Server releases
 
 ## MariaDB Community Server 11.7
 
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 5 June 2025.
+
 | Name                                  | Release date | Release status |
 | ------------------------------------- | ------------ | -------------- |
 | [11.7.2](old-releases/11.7/11.7.2.md) | 2025-02-13   | Stable (GA)    |
@@ -82,6 +96,8 @@ description: A list of all MariaDB Community Server releases
 | [11.7.0](old-releases/11.7/11.7.0.md) | 2024-09-19   | Preview        |
 
 ## MariaDB Community Server 11.6
+
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 13 February 2025.
 
 | Name                                                | Release date | Release status |
 | --------------------------------------------------- | ------------ | -------------- |
@@ -92,6 +108,8 @@ description: A list of all MariaDB Community Server releases
 
 ## MariaDB Community Server 11.5
 
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 22 November 2024.
+
 | Name                                  | Release date | Release status |
 | ------------------------------------- | ------------ | -------------- |
 | [11.5.2](old-releases/11.5/11.5.2.md) | 2024-08-15   | Stable (GA)    |
@@ -100,8 +118,11 @@ description: A list of all MariaDB Community Server releases
 
 ## MariaDB Community Server 11.4
 
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 29 May 2029.
+
 | Name                       | Release date | Release status |
 | -------------------------- | ------------ | -------------- |
+| [11.4.14](11.4/11.4.14.md) | 2026-11-16   | Stable (GA)    |
 | [11.4.13](11.4/11.4.13.md) | 2026-08-24   | Stable (GA)    |
 | [11.4.12](11.4/11.4.12.md) | 2026-05-27   | Stable (GA)    |
 | [11.4.11](11.4/11.4.11.md) | 2026-05-18   | Stable (GA)    |
@@ -118,6 +139,8 @@ description: A list of all MariaDB Community Server releases
 
 ## MariaDB Community Server 11.3
 
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 30 May 2024.
+
 | Name                                  | Release date | Release status |
 | ------------------------------------- | ------------ | -------------- |
 | [11.3.2](old-releases/11.3/11.3.2.md) | 2024-02-19   | Stable (GA)    |
@@ -125,6 +148,8 @@ description: A list of all MariaDB Community Server releases
 | [11.3.0](old-releases/11.3/11.3.0.md) | 2023-09-20   | Alpha          |
 
 ## MariaDB Community Server 11.2
+
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 21 November 2024.
 
 | Name                                  | Release date | Release status |
 | ------------------------------------- | ------------ | -------------- |
@@ -138,6 +163,8 @@ description: A list of all MariaDB Community Server releases
 
 ## MariaDB Community Server 11.1
 
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 21 August 2024.
+
 | Name                                  | Release date | Release status |
 | ------------------------------------- | ------------ | -------------- |
 | [11.1.6](old-releases/11.1/11.1.6.md) | 2024-08-14   | Stable (GA)    |
@@ -149,6 +176,8 @@ description: A list of all MariaDB Community Server releases
 | [11.1.0](old-releases/11.1/11.1.0.md) | 2023-03-27   | Alpha          |
 
 ## MariaDB Community Server 11.0
+
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 6 June 2024.
 
 | Name                                  | Release date | Release status |
 | ------------------------------------- | ------------ | -------------- |
@@ -162,8 +191,11 @@ description: A list of all MariaDB Community Server releases
 
 ## MariaDB Community Server 10.11
 
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 16 February 2028.
+
 | Name                          | Release date | Release status |
 | ----------------------------- | ------------ | -------------- |
+| [10.11.20](10.11/10.11.20.md) | 2026-11-16   | Stable (GA)    |
 | [10.11.19](10.11/10.11.19.md) | 2026-08-24   | Stable (GA)    |
 | [10.11.18](10.11/10.11.18.md) | 2026-05-27   | Stable (GA)    |
 | [10.11.17](10.11/10.11.17.md) | 2026-05-18   | Stable (GA)    |
@@ -186,6 +218,8 @@ description: A list of all MariaDB Community Server releases
 
 ## MariaDB Community Server 10.10
 
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 17 November 2023.
+
 | Name                                     | Release date | Release status |
 | ---------------------------------------- | ------------ | -------------- |
 | [10.10.7](old-releases/10.10/10.10.7.md) | 2023-11-14   | Stable (GA)    |
@@ -198,6 +232,8 @@ description: A list of all MariaDB Community Server releases
 | [10.10.0](old-releases/10.10/10.10.0.md) | 2022-06-21   | Alpha          |
 
 ## MariaDB Community Server 10.9
+
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 22 August 2023.
 
 | Name                                  | Release date | Release status |
 | ------------------------------------- | ------------ | -------------- |
@@ -213,6 +249,8 @@ description: A list of all MariaDB Community Server releases
 
 ## MariaDB Community Server 10.8
 
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 20 May 2023.
+
 | Name                                  | Release date | Release status |
 | ------------------------------------- | ------------ | -------------- |
 | [10.8.8](old-releases/10.8/10.8.8.md) | 2023-05-10   | Stable (GA)    |
@@ -226,6 +264,8 @@ description: A list of all MariaDB Community Server releases
 
 ## MariaDB Community Server 10.7
 
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 9 February 2023.
+
 | Name                                  | Release date | Release status |
 | ------------------------------------- | ------------ | -------------- |
 | [10.7.8](old-releases/10.7/10.7.8.md) | 2023-02-06   | Stable (GA)    |
@@ -238,6 +278,8 @@ description: A list of all MariaDB Community Server releases
 | [10.7.0](old-releases/10.7/10.7.0.md) | 2021-09-17   | Alpha          |
 
 ## MariaDB Community Server 10.6
+
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 6 July 2026.
 
 | Name                       | Release date | Release status |
 | -------------------------- | ------------ | -------------- |
@@ -272,6 +314,8 @@ description: A list of all MariaDB Community Server releases
 
 ## MariaDB Community Server 10.5
 
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 24 June 2025.
+
 | Name                                    | Release date | Release status |
 | --------------------------------------- | ------------ | -------------- |
 | [10.5.29](old-releases/10.5/10.5.29.md) | 2025-05-08   | Stable (GA)    |
@@ -305,6 +349,8 @@ description: A list of all MariaDB Community Server releases
 | [10.5.0](old-releases/10.5/10.5.0.md)   | 2019-12-03   | Alpha          |
 
 ## MariaDB Community Server 10.4
+
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 18 June 2024.
 
 | Name                                    | Release date | Release status |
 | --------------------------------------- | ------------ | -------------- |
@@ -343,6 +389,8 @@ description: A list of all MariaDB Community Server releases
 | [10.4.0](old-releases/10.4/10.4.0.md)   | 2018-11-09   | Alpha          |
 
 ## MariaDB Community Server 10.3
+
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 25 May 2023.
 
 | Name                                    | Release date | Release status |
 | --------------------------------------- | ------------ | -------------- |
@@ -386,6 +434,8 @@ description: A list of all MariaDB Community Server releases
 | [10.3.0](old-releases/10.3/10.3.0.md)   | 2017-04-16   | Alpha          |
 
 ## MariaDB Community Server 10.2
+
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 23 May 2022.
 
 | Name                                    | Release date | Release status |
 | --------------------------------------- | ------------ | -------------- |
@@ -434,6 +484,8 @@ description: A list of all MariaDB Community Server releases
 | [10.2.0](old-releases/10.2/10.2.0.md)   | 2016-04-18   | Alpha          |
 
 ## MariaDB Community Server 10.1
+
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 17 October 2020.
 
 | Name                                    | Release date | Release status |
 | --------------------------------------- | ------------ | -------------- |
@@ -486,6 +538,8 @@ description: A list of all MariaDB Community Server releases
 
 ## MariaDB Community Server 10.0
 
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 31 March 2019.
+
 | Name                                    | Release date | Release status |
 | --------------------------------------- | ------------ | -------------- |
 | [10.0.38](old-releases/10.0/10.0.38.md) | 2019-01-31   | Stable (GA)    |
@@ -529,6 +583,8 @@ description: A list of all MariaDB Community Server releases
 | [10.0.0](old-releases/10.0/10.0.0.md)   | 2012-11-12   | Alpha          |
 
 ## MariaDB Community Server 5.5
+
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 11 April 2020.
 
 | Name                                   | Release date | Release status |
 | -------------------------------------- | ------------ | -------------- |
@@ -585,6 +641,8 @@ description: A list of all MariaDB Community Server releases
 
 ## MariaDB Community Server 5.3
 
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 1 March 2017.
+
 | Name                                 | Release date | Release status |
 | ------------------------------------ | ------------ | -------------- |
 | [5.3.12](old-releases/5.3/5.3.12.md) | 2013-01-30   | Stable (GA)    |
@@ -602,6 +660,8 @@ description: A list of all MariaDB Community Server releases
 | [5.3.0](old-releases/5.3/5.3.0.md)   | 2011-07-26   | Beta           |
 
 ## MariaDB Community Server 5.2
+
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 10 November 2015.
 
 | Name                                 | Release date | Release status |
 | ------------------------------------ | ------------ | -------------- |
@@ -622,6 +682,8 @@ description: A list of all MariaDB Community Server releases
 | [5.2.0](old-releases/5.2/5.2.0.md)   | 2010-04-10   | Beta           |
 
 ## MariaDB Community Server 5.1
+
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 1 February 2015.
 
 | Name                                 | Release date | Release status |
 | ------------------------------------ | ------------ | -------------- |

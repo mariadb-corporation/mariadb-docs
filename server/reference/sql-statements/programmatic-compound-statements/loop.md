@@ -24,7 +24,7 @@ See [Delimiters](../../../clients-and-utilities/mariadb-client/mariadb-command-l
 
 ## See Also
 
-* [LOOP in Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [LOOP in Oracle mode](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md)
 * [ITERATE](iterate.md)
 * [LEAVE](leave.md)
 * [FOR Loops](for.md)

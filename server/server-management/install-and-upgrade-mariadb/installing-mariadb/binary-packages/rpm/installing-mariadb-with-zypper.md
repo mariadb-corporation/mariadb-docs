@@ -141,7 +141,7 @@ sudo zypper install MariaDB-server
 ### Installing MariaDB Galera Cluster with ZYpp
 
 {% hint style="info" %}
-Note for MariaDB 12.3 and later: Galera Cluster support is no longer included in the base `MariaDB-server` package. To enable cluster functionality, you must explicitly install the `MariaDB-server-galera` package. This package contains cluster-specific scripts, systemd bootstrap capability, and the `wsrep_info` plugin.
+Note for MariaDB Community Server 12.3.2 and later: Galera Cluster support is no longer included in the base `MariaDB-server` package. To enable cluster functionality, you must explicitly install the `MariaDB-server-galera` package. This package contains cluster-specific scripts, systemd bootstrap capability, and the `wsrep_info` plugin.
 {% endhint %}
 
 You also need to install the `galera-4` package to obtain the [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) 4 wsrep provider library.
@@ -247,7 +247,7 @@ To install an older version of a package instead of the latest version we just n
 
 However, when installing an older version of a package, if `zypper` has to install dependencies, then it will automatically choose to install the latest versions of those packages. To ensure that all MariaDB packages are on the same version in this scenario, it is necessary to specify them all.
 
-The core packages required for a server installation include `MariaDB-server`, `MariaDB-client`, `MariaDB-shared`, `MariaDB-backup`, and `MariaDB-common`. For MariaDB 12.3 and later, you must also explicitly include the `MariaDB-server-galera` package if cluster functionality is required.&#x20;
+The core packages required for a server installation include `MariaDB-server`, `MariaDB-client`, `MariaDB-shared`, `MariaDB-backup`, and `MariaDB-common`. For MariaDB Community Server 12.3.2 and later, you must also explicitly include the `MariaDB-server-galera` package if cluster functionality is required.&#x20;
 
 Therefore, to install [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.21) from this `zypper` repository, we would do the following:
 

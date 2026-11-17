@@ -30,7 +30,7 @@ All basic calculations (+, -, \*, /) with `DECIMAL` columns are done with a prec
 
 For more details on the attributes, see [Numeric Data Type Overview](numeric-data-type-overview.md).
 
-`DEC`, `NUMERIC`, and `FIXED` are synonyms, as well as `NUMBER` in [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle).
+`DEC`, `NUMERIC`, and `FIXED` are synonyms, as well as `NUMBER` in [Oracle mode](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md).
 
 ## Examples
 
@@ -262,7 +262,7 @@ SELECT * FROM decimal_zerofill_example;
 ## See Also
 
 * [Numeric Data Type Overview](numeric-data-type-overview.md)
-* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle mode](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
