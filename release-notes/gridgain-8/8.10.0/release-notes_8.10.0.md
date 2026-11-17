@@ -20,6 +20,10 @@ Server-side SQL `COPY` against a file or an object store is now closed by defaul
 
 Due to changes in how licenses are checked, certain Enterprise edition features (for example, cluster security) may become blocked by license permissions after the update, preventing the node from starting. To avoid issues, [request a new license](https://mariadb.com/support/) before starting the update process.
 
+{% hint style="info" %}
+This issue is fixed in GridGain 8.10.1. For details, see the [GridGain 8.10.1 Release Notes](../8.10.1/release-notes_8.10.1.md#licenses-issued-before-gridgain-8.10).
+{% endhint %}
+
 ## Breaking Changes
 
 ### Java 17 or Later is Required
