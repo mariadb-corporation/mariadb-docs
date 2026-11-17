@@ -182,6 +182,18 @@ var cache = client.GetOrCreateCache<int, string>(cacheCfg);
 
 Use `IIgnite​Client.GetCacheNames()` to obtain a list of all existing caches.
 
+### Destroying Caches
+
+To destroy a single cache and remove all of its data from the cluster, use `IIgniteClient.DestroyCache(name)` method. You can also destroy several caches at once by using the `IIgniteClient.DestroyCaches(names)` method. In this case, the client removes all listed caches in a single request.
+
+```csharp
+// Destroy a single cache.
+client.DestroyCache("myCache");
+
+// Destroy multiple caches in a single request.
+client.DestroyCaches(new[] { "cache1", "cache2", "cache3" });
+```
+
 ### Basic Operations
 
 The following code snippet demonstrates how to execute basic cache operations on a specific cache.
