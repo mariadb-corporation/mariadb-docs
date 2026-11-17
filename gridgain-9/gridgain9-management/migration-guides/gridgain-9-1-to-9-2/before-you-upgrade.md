@@ -29,16 +29,15 @@ If your cluster runs a release that is not listed, contact MariaDB [support](htt
 
 ## Choose Your Upgrade Path
 
-- *Full-cluster upgrade.* You stop the cluster, replace the binaries on every node, and start it again. Use it if you can schedule downtime. It is simpler, because no node runs a different version. See [Full-Cluster Upgrade](../../upgrade/full-cluster-upgrade.md).
-- *Rolling upgrade.* You upgrade the nodes one at a time. Use it if the applications must keep using the key-value and table APIs. SQL does not work while the cluster runs both versions, so you must pause it. See [Rolling Upgrade](../../upgrade/rolling-upgrade.md) and [The Query Protocol Changed](sql-changes.md#the-query-protocol-changed).
+- *Rolling upgrade.* You upgrade the nodes one at a time while the cluster stays available, and commit the upgrade at the end.
+- *Full-cluster upgrade.* You stop the cluster, replace the binaries on every node, and start it again.
 
-| | Full-cluster upgrade | Rolling upgrade |
-| --- | --- | --- |
-| Key-value and table API operations | Unavailable while the cluster is stopped | Continue |
-| SQL, including JDBC and ODBC | Unavailable while the cluster is stopped | Pause from `upgrade start` to the commit |
-| DDL and cluster configuration changes | Unavailable while the cluster is stopped | Rejected until the commit |
-| Cancel | No commit point. To go back, restore the backup | Not possible. Finish the upgrade or restore the backup |
-| Restart after the commit | Included, because every node restarts on 9.2 | One node, so that the system views get their 9.2 definitions |
+The right path depends on your 9.1 cluster and its applications:
+
+| Your 9.1 cluster                                          | Path |
+|-----------------------------------------------------------| --- |
+| Applications must keep using the key-value and table APIs | Rolling upgrade. Pause SQL from `upgrade start` until `upgrade commit`. DDL and cluster configuration changes are rejected until the commit, and you cannot cancel the upgrade. On Enterprise Edition, the backup needs a short stop of the whole cluster. See [Rolling Upgrade](upgrade-procedure.md#rolling-upgrade), [Back Up the Data](upgrade-procedure.md#back-up-the-data), and [The Query Protocol Changed](sql-changes.md#the-query-protocol-changed). |
+| You can schedule downtime                                 | Full-cluster upgrade in that window. It is simpler, because no node runs a different version. See [Full-Cluster Upgrade](upgrade-procedure.md#full-cluster-upgrade). |
 
 ## Upgrade Constraints
 
@@ -47,6 +46,7 @@ If your cluster runs a release that is not listed, contact MariaDB [support](htt
 - *A removed configuration key stops the node.* A node refuses to start when its node configuration file contains a key that 9.2 does not know. See [Removed and Renamed Configuration Keys](configuration-and-storage.md#removed-and-renamed-configuration-keys).
 - *Tables on the RocksDB engine have no migration path.* Re-create them on another storage profile before you upgrade. See [RocksDB Storage Engine Removed](configuration-and-storage.md#rocksdb-storage-engine-removed).
 - *User names are case-sensitive as soon as a 9.2 node joins,* even before a rolling upgrade is committed. A login whose case differs from the stored name fails. See [User and Role Names Are Case-Sensitive](security-changes.md#user-and-role-names-are-case-sensitive).
+- *A rolling upgrade and a point-in-time recovery (PITR) cannot run at the same time.* Wait until one finishes before you start the other.
 
 ## Which Pages Apply to You
 
