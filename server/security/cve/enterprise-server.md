@@ -201,13 +201,13 @@ Vulnerabilities fixed in MariaDB MaxScale are listed separately, in [Security Vu
 
 ## Enterprise Server Benefits
 
-MariaDB Enterprise Server is an enhanced, hardened, and secured product with:
+MariaDB Enterprise Server is a hardened, secured, and fully supported version of MariaDB Server with added Enterprise-only features. It provides:
 
-* Enterprise-grade testing to drive a low defect rate
+* Testing focused on a low defect rate
 * Increased code stability through restricted release of new functionality
 * Reduced risk from untested or incompatible features through inclusion of only features with level 3 support (Engineering code-level support) from MariaDB Corporation
 * Optimized configuration defaults
-* Premium features to meet enterprise scaling and operations requirements
+* Enterprise-only features for scaling and operations
 * Documentation maintained by MariaDB Corporation
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
