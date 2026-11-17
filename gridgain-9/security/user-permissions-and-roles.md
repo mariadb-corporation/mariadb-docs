@@ -195,7 +195,21 @@ access before either privilege has any effect.
 
 GridGain protects two built-in roles: the `system` super role, which cluster initialization seeds with every action, and the internal `gridgain-system-bypass` role.
 
-The operations below are refused whatever letter case you use, over both SQL and the REST API:
+{% tabs %}
+{% tab title="9.2" %}
+User and role names are case-sensitive, so `system` and `SYSTEM` are different roles. The `system` restrictions apply only to the exact name `system`; `SYSTEM` is an ordinary role that you can create, drop, grant privileges to, and assign. The `gridgain-system-bypass` restrictions are case-insensitive.
+
+In SQL, an unquoted identifier is converted to upper case, so quote the super role: `DROP ROLE "system"` targets the super role, while `DROP ROLE system` targets the ordinary role `SYSTEM`. Quoting is not needed over the REST API. `SHOW` commands print role names as stored, so the super role appears as `system`.
+
+The operations below are refused over both SQL and the REST API:
+{% endtab %}
+
+{% tab title="9.1" %}
+Role names are case-insensitive, so the restrictions on `system` and `gridgain-system-bypass` apply regardless of case.
+
+The operations below are refused over both SQL and the REST API:
+{% endtab %}
+{% endtabs %}
 
 | Operation | `system` | `gridgain-system-bypass` |
 |---|---|---|
@@ -233,13 +247,13 @@ Supported DML privileges:
 - Applies to all current and future tables in schema `STATICDATA`:
 
   ```sql
-  GRANT SELECT_FROM_TABLE ON STATICDATA TO ROLE analyst;
+  GRANT PRIVILEGES SELECT_FROM_TABLE ON STATICDATA TO analyst;
   ```
 
 - Mixed case requires quoting:
 
   ```sql
-  GRANT UPDATE_TABLE ON "StaticData" TO ROLE data_editor;
+  GRANT PRIVILEGES UPDATE_TABLE ON "StaticData" TO data_editor;
   ```
 
 {% hint style="info" %}
