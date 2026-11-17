@@ -68,6 +68,8 @@ description: A list of all Galera Cluster releases
 
 ## mysql-wsrep 8.4
 
+Galera Cluster for MySQL reached end of life on 30 Sep 2026. 8.4.11-26.28 was the last mysql-wsrep 8.4 release.
+
 | Name                                            | Release Date | Release Status |
 | ----------------------------------------------- | ------------ | -------------- |
 | [8.4.11-26.28](mysql-wsrep/8.4/8.4.11-26.28.md) | 2026-08-18   | LTS            |
@@ -80,6 +82,8 @@ description: A list of all Galera Cluster releases
 | [8.4.2-26.20](mysql-wsrep/8.4/8.4.2-26.20.md)   | 2024-08-02   | Stable (GA)    |
 
 ## mysql-wsrep 8.0
+
+Galera Cluster for MySQL reached end of life on 30 Sep 2026. 8.0.46-26.27 was the last mysql-wsrep 8.0 release.
 
 | Name                                            | Release Date | Release Status |
 | ----------------------------------------------- | ------------ | -------------- |
