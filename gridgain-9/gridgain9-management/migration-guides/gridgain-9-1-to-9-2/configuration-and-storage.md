@@ -179,15 +179,11 @@ For the list of metrics, see [Metrics List](../../../reference/monitoring/metric
 
 ## Raft Log Storage Changes
 
-<!-- TODO (GG-52937, GG-53310..53312): this section describes 9.2. Main (after 9.2.0-b1) gates the migration: a Raft group switches to SegStore on its first append, and only when the stable cluster version is 9.2.0 or later (marker file raft-log-migration-permitted). A full-cluster upgrade does not change the cluster version, so it never migrates there; ask dev if that is intended. Main also assumes `upgrade cancel` exists, but it is not implemented in 9.2. When the gate and `upgrade cancel` ship, rewrite this section, the README bullet, the Raft row in before-you-upgrade.md, the disk-space prerequisite and Recovery Path in upgrade-procedure.md, and the Cancel row in before-you-upgrade.md. -->
+GridGain 9.2 stores the Raft logs in the segment-based log storage (SegStore) by default, replacing the RocksDB-based log storage that 9.1 used and that is deprecated in 9.2.
 
-GridGain 9.2 stores the Raft logs in the segment-based log storage (SegStore) by default. 9.1.29 used the RocksDB-based log storage unless you turned SegStore on. The RocksDB-based log storage is deprecated in 9.2. For the protocol that uses the logs, see [RAFT Consensus](../../../architecture/raft-consensus.md).
-
-Make sure that every node has free disk space for both the old and the new logs. The first time a 9.2 node starts on 9.1 data, it migrates its Raft logs to SegStore automatically, and the migration cannot be reverted.
-
-Until the old log entries of a group are truncated after a snapshot, the node keeps the old RocksDB log files next to the new `segstore` directory under `work`.
-
-9.2 adds a `raft.segstore.<name>` metric source for each log, for example `raft.segstore.meta-storage-log`. See [Metrics List](../../../reference/monitoring/metrics-list.md).
+- *Migration.* The logs migrate automatically. A node starts writing to the new storage once the cluster version is 9.2, at the commit of a rolling upgrade or when all cluster management nodes have joined on 9.2 in a full-cluster upgrade.
+- *Disk space.* Until the old log entries of a group are truncated after a snapshot, the node keeps the old RocksDB log files next to the new `segstore` directory under `work`. Make sure that every node has free disk space for both.
+- *Metrics.* 9.2 adds a `raft.segstore.<name>` metric source for each log, for example `raft.segstore.meta-storage-log`. See [Metrics List](../../../reference/monitoring/metrics-list.md).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
