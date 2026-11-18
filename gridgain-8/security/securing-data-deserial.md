@@ -95,7 +95,7 @@ The whitelist and blacklist also apply to remote filters of continuous queries s
 If the class is not allowed, the continuous query fails with a security error: `Deserialization of class <class name> is disallowed.`
 
 {% hint style="info" %}
-In GridGain 8.9.x, filter classes passed by name were not checked. If you use `IGNITE_MARSHALLER_WHITELIST`, add the remote filter classes of your thin client continuous queries to the whitelist before upgrading.
+GridGain 8.9.39 and earlier did not check filter classes passed by name. If you use `IGNITE_MARSHALLER_WHITELIST`, add the remote filter classes of your thin client continuous queries to the whitelist before upgrading.
 {% endhint %}
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
