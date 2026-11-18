@@ -16,10 +16,16 @@ Privileges consist of two components: an action and an object. An action refers 
 
 ## List of Actions
 
-Some privileges must specify the exact **object** with which the relation applies to by using a selector.
-In this case the object is a specific entity, identified by its name, such as a schema, table, view, configuration, deployment unit and others.
-For example, `CLUSTER` - `READ_CLUSTER_CONFIG` does not have a selector. `READ_SCHEMA` - `SCHEMA` needs to specify which schema should be used `(PUBLIC, MY_SCHEMA_NAME)`.
-These privileges are listed below as `Has selector`.
+Actions with **Has Selector** set to `yes` can be limited to a specific **object** by using a selector: the `ON` clause of `GRANT PRIVILEGES`, or the `--on` option of the CLI.
+The object is identified by its name, such as a schema, table, view, sequence, or deployment unit. For example, `GRANT PRIVILEGES READ_SCHEMA ON MY_SCHEMA TO analyst` limits `READ_SCHEMA` to the `MY_SCHEMA` schema.
+
+The selector is always optional. If you omit it, the privilege applies to all objects in the cluster. For example, `GRANT PRIVILEGES CREATE_TABLE TO analyst` lets `analyst` create tables in every schema.
+
+Actions with **Has Selector** set to `no`, such as `READ_CLUSTER_CONFIG`, are cluster-wide. Granting them with a selector fails.
+
+Some actions also have a **self** form: users can perform them on their own jobs, user record, or tokens without being granted the action. The action descriptions below say when this applies.
+
+Actions marked _Available since_ a version are not recognized by earlier releases. On those releases, a `GRANT PRIVILEGES` statement that names such an action fails as a whole.
 
 ### Cluster Configuration
 
@@ -27,7 +33,7 @@ These privileges are listed below as `Has selector`.
 |---|---|---|
 |READ_CLUSTER_CONFIG|no|Allows the user to access information about cluster configuration.|
 |WRITE_CLUSTER_CONFIG|no|Allows the user to change cluster configuration.|
-|WRITE_SECURITY_CONFIG|no|Allows the user to change the `ignite.security` part of the cluster configuration, which holds the authentication and authorization settings. Required in addition to `WRITE_CLUSTER_CONFIG`: both privileges must be granted to change these settings. This also covers an update that replaces a parent node, such as `ignite = null`, and so wipes the security settings without naming them. Even with both privileges, user cannot modify the `system` role.|
+|WRITE_SECURITY_CONFIG|no|Allows the user to change the `ignite.security` part of the cluster configuration, which holds the authentication and authorization settings. Required in addition to `WRITE_CLUSTER_CONFIG`: both privileges must be granted to change these settings. This also covers an update that replaces a parent node, such as `ignite = null`, and so wipes the security settings without naming them. Even with both privileges, user cannot modify the `system` role. _Available since 9.1.26._|
 |READ_NODE_CONFIG|no|Allows the user to access information about individual node configuration.|
 |WRITE_NODE_CONFIG|no|Allows the user to change node configuration.|
 
@@ -35,24 +41,25 @@ These privileges are listed below as `Has selector`.
 
 | Name | Has Selector | Description |
 |---|---|---|
-|RENAME_CLUSTER|no|Allows the user to rename an initialized cluster.|
-|MANAGE_LICENSE|no|Allows the user to replace the cluster license with the REST API or the `license update` CLI command. A cluster configuration update that changes the `ignite.license` part of the configuration requires both `MANAGE_LICENSE` and `WRITE_CLUSTER_CONFIG`. On upgrade, the `system` role gets this action automatically. Other roles, including roles that were granted all actions, do not: grant it explicitly.|
+|RENAME_CLUSTER|no|Allows the user to rename an initialized cluster. _Available since 9.1.26._|
+|MANAGE_LICENSE|no|Allows the user to replace the cluster license with the REST API or the `license update` CLI command. A cluster configuration update that changes the `ignite.license` part of the configuration requires both `MANAGE_LICENSE` and `WRITE_CLUSTER_CONFIG`. On upgrade, the `system` role gets this action automatically. Other roles, including roles that were granted `ALL`, do not: grant it explicitly. See [The ALL Alias](#the-all-alias). _Available since 9.1.29._|
 
 ### Code Deployment
 
 | Name | Has Selector | Description |
 |---|---|---|
-|DEPLOY_UNIT|yes|Allows the user to send deployment units to the cluster.|
-|UNDEPLOY_UNIT|yes|Allows the user to remove deployments units from the cluster.|
+|DEPLOY_UNIT|no|Allows the user to send deployment units to the cluster.|
+|UNDEPLOY_UNIT|no|Allows the user to remove deployments units from the cluster.|
 |READ_UNIT|no|Allows the user to access information about deployment units.|
 
 ### Distributed Computing
 
 | Name | Has Selector | Description |
 |---|---|---|
-|GET_JOB_STATE|yes|Allows the user to access information about a job user has access to, and their results if any.  User always has access to jobs they started. If allowed on `CLUSTER`, allows to read all jobs.|
-|EXEC_JOB|yes|Allows the user to execute a distributed computing job.|
-|KILL_JOB|yes|Allows the user to stop a distributed computing job.|
+|GET_JOB_STATE|no|Allows the user to access information about all jobs, and their results if any. Without this action, users can still access the jobs they started.|
+|EXEC_JOB|yes|Allows the user to execute a distributed computing job. The selector is a deployment unit.|
+|KILL_JOB|no|Allows the user to stop any distributed computing job. Without this action, users can still stop the jobs they started.|
+|CHANGE_JOB_PRIORITY|no|Allows the user to change the priority of any distributed computing job. Without this action, users can still change the priority of the jobs they started.|
 
 ### Metrics
 
@@ -68,8 +75,8 @@ These privileges are listed below as `Has selector`.
 | Name | Has Selector | Description |
 |---|---|---|
 |CREATE_USER|no|Allows the user to create more users.|
-|EDIT_USER|no|Allows the user to edit user configuration.|
-|READ_USER|no|Allows the user to access information about users.|
+|EDIT_USER|no|Allows the user to edit the configuration of any user. Without this action, users can still edit their own user record.|
+|READ_USER|no|Allows the user to access information about any user. Without this action, users can still read their own user record.|
 |DROP_USER|no|Allows the user to delete users.|
 |CREATE_ROLE|no|Allows the user to create roles.|
 |READ_ROLE|no|Allows the user to access information about user roles.|
@@ -78,25 +85,26 @@ These privileges are listed below as `Has selector`.
 |REVOKE_ROLE|no|Allows the user to revoke roles from users. Does not apply to [Protected Built-In Roles](#protected-built-in-roles).|
 |GRANT_PRIVILEGE|no|Allows the user to assign privileges to roles.|
 |REVOKE_PRIVILEGE|no|Allows user to revoke privileges from roles.|
+|REVOKE_TOKEN|no|Allows the user to revoke the [JWT tokens](jwt-authentication.md) of any user. Without this action, users can still revoke their own tokens.|
 
 ### CDC Management
 
 | Name | Has Selector | Description |
 |---|---|---|
-|MANAGE_CDC|no|Allows the user to manage change data capture sources and sinks, as well as start and stop the CDC process.|
+|MANAGE_CDC|no|Allows the user to manage change data capture sources and sinks, as well as start and stop the CDC process. _Available since 9.1.5._|
 
 ### Data Center Replication
 
 | Name | Has Selector | Description |
 |---|---|---|
-|MANAGE_DCR|no|Allows the user to run every data center replication operation: creating, starting, stopping, flushing, and deleting replications, and also listing them and viewing their status. There is no separate read-only privilege for replication.|
+|MANAGE_DCR|no|Allows the user to run every data center replication operation: creating, starting, stopping, flushing, and deleting replications, and also listing them and viewing their status. There is no separate read-only privilege for replication. _Available since 9.1.26._|
 
 ### Data Import and Export
 
 | Name | Has Selector | Description |
 |---|---|---|
-|COPY_FROM_FILE|no|Allows the user to name a server-side filesystem path or object-store URI as the source of a `COPY` statement. Reading from a table instead requires `SELECT_FROM_TABLE` on that table.|
-|COPY_TO_FILE|no|Allows the user to name a server-side filesystem path or object-store URI as the target of a `COPY` statement. Writing to a table instead requires `INSERT_INTO_TABLE` and `UPDATE_TABLE` on that table.|
+|COPY_FROM_FILE|no|Allows the user to name a server-side filesystem path or object-store URI as the source of a `COPY` statement. Reading from a table instead requires `SELECT_FROM_TABLE` on that table. _Available since 9.1.27._|
+|COPY_TO_FILE|no|Allows the user to name a server-side filesystem path or object-store URI as the target of a `COPY` statement. Writing to a table instead requires `INSERT_INTO_TABLE` and `UPDATE_TABLE` on that table. _Available since 9.1.27._|
 
 Both privileges apply to the cluster and take no selector: they permit file access as such, not
 access to a named location. Restrict which locations a user can reach with the `ignite.importExport`
@@ -111,6 +119,14 @@ access before either privilege has any effect.
 |ALTER_DISTRIBUTION_ZONE|no|Allows the user to alter distribution zones.|
 |DROP_DISTRIBUTION_ZONE|no|Allows the user to delete distribution zones.|
 
+### Disaster Recovery
+
+| Name | Has Selector | Description |
+|---|---|---|
+|RESET_DISTRIBUTION_STATE|no|Allows the user to reset the distribution state of distribution zones during [data recovery](../gridgain9-management/disaster-recovery/data-recovery.md).|
+|RESET_PARTITIONS|no|Allows the user to reset partitions of a distribution zone during [data recovery](../gridgain9-management/disaster-recovery/data-recovery.md).|
+|RESTART_PARTITIONS|no|Allows the user to restart partitions of a distribution zone during [data recovery](../gridgain9-management/disaster-recovery/data-recovery.md).|
+
 ### Rolling Upgrade
 
 | Name | Has Selector | Description |
@@ -121,6 +137,8 @@ access before either privilege has any effect.
 
 | Name | Has Selector | Description |
 |---|---|---|
+|CREATE_SCHEMA|yes|Allows the user to use the `CREATE SCHEMA` SQL statement.|
+|DROP_SCHEMA|yes|Allows the user to use the `DROP SCHEMA` SQL statement.|
 |READ_SCHEMA|yes|Allows the user to access schema information.|
 
 ### Sequence Configuration
@@ -145,10 +163,12 @@ access before either privilege has any effect.
 |UPDATE_TABLE|yes|Allows the user to use the `UPDATE` SQL statement.|
 |CREATE_INDEX|yes|Allows the user to use the `CREATE INDEX` SQL statement.|
 |DROP_INDEX|yes|Allows the user to use the `DROP INDEX` SQL statement.|
-|USE_INDEX|yes|Allows the user to use the index in their SQL statements.|
-|MANAGE_RLS|yes|Allows the user to manage row-level security on a table.|
+|USE_INDEX|yes|Reserved. This action can be granted, but it has no effect.|
+|MANAGE_RLS|yes|Allows the user to manage row-level security on a table. _Available since 9.1.25._|
 
-### System View
+### View
+
+The view actions are reserved. They can be granted, but they have no effect.
 
 | Name | Has Selector | Description |
 |---|---|---|
@@ -184,9 +204,18 @@ access before either privilege has any effect.
 
 | Name | Has Selector | Description |
 |---|---|---|
-|EXECUTE_SQL|no|Allows the user to execute SQL statements, including over the [REST API](../gridgain9-development/rest-api.md#running-sql). The user also needs the object privileges that a statement requires, such as `SELECT_FROM_TABLE`.|
+|EXECUTE_SQL|no|Allows the user to execute SQL statements over the [REST API](../gridgain9-development/rest-api.md#running-sql) (`/management/v1/sql`). The user also needs the object privileges that each statement requires, such as `SELECT_FROM_TABLE`. SQL over JDBC, ODBC, and the client APIs is controlled by object privileges only and does not require this action. _Available since 9.1.27._|
 |GET_SQL_QUERY_STATE|no|Allows the user to get status of running queries.|
-|KILL_SQL_QUERY|no|Allows the user to stop running queries.|
+|KILL_QUERY|no|Allows the user to stop running SQL queries.|
+
+## The ALL Alias
+
+`ALL` grants every action at once, for example `GRANT PRIVILEGES ALL TO admin_role`. It is accepted by SQL, the REST API, and the CLI.
+
+- `ALL` is expanded into the individual actions that exist **when the grant runs**. Actions that a later upgrade adds are not granted to the role: grant them explicitly after the upgrade.
+- `ALL ON <schema>` grants only the actions that accept a schema selector: the schema, table, view, and sequence actions.
+
+To list every action that the running version supports, use the `GET /management/v1/rbac/pg/system` REST endpoint.
 
 ## Protected Built-In Roles
 
@@ -216,32 +245,24 @@ Actions allowed on the object are also allowed on its children.
 For example, if you have a `PUBLIC` schema and allow the `SELECT_FROM_TABLE` action on it,
 the user with the role will be able to perform the `SELECT` SQL action on all tables in the `PUBLIC` schema.
 
-### Schema-level DML Grants
+### Schema-level Grants
 
-Granting a DML privilege on a **schema** applies to **all existing tables** in that
-schema and to **tables created in the future**. Privileges are evaluated **at access time**.
+Any action with **Has Selector** set to `yes`, except `EXEC_JOB`, can be granted on a **schema**.
+The grant applies to **all existing** tables, views, and sequences in that schema and to those **created in the future**. Privileges are evaluated **at access time**.
 
-Supported DML privileges:
-- `SELECT_FROM_TABLE`
-- `INSERT_INTO_TABLE`
-- `UPDATE_TABLE`
-- `DELETE_FROM_TABLE`
+For example, the following statement applies to all current and future tables in schema `STATICDATA`:
 
-- Applies to all current and future tables in schema `STATICDATA`:
+```sql
+GRANT PRIVILEGES SELECT_FROM_TABLE ON STATICDATA TO analyst;
+```
 
-  ```sql
-  GRANT SELECT_FROM_TABLE ON STATICDATA TO ROLE analyst;
-  ```
-
-- Mixed case requires quoting:
-
-  ```sql
-  GRANT UPDATE_TABLE ON "StaticData" TO ROLE data_editor;
-  ```
+{% hint style="warning" %}
+Privileges granted on a schema whose name requires quoting, such as a mixed-case name or a name with special characters like `-`, are not applied correctly. Use upper-case schema names made of letters, digits, and underscores for schemas that you secure with RBAC.
+{% endhint %}
 
 {% hint style="info" %}
 A selector **without a dot** (e.g., `STATICDATA`) targets a **schema**,
-and the grant covers both existing and future tables in that schema. For more details check the `role privilege grant` [command syntax](../reference/cli-tool.md).
+and the grant covers both existing and future objects in that schema. For more details check the `role privilege grant` [command syntax](../reference/cli-tool.md).
 {% endhint %}
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
