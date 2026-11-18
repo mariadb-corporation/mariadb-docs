@@ -1,85 +1,54 @@
 ---
 description: >-
-  Evaluate MariaDB MaxScale with the free Trial version. Learn about its
-  features and installation steps, limited only by a license key.
+  Evaluate MariaDB MaxScale with a free trial license key. Install the standard
+  MaxScale packages, add the trial key, and switch to a production key later
+  without reinstalling.
 ---
 
 # MaxScale Trial
 
-MariaDB MaxScale offers a free Trial version with a flexible, license-key based
-evaluation period. This free version allows users to explore the latest GA
-features of MaxScale under a [proprietary license](https://mariadb.com/terms/).
+You can evaluate MariaDB MaxScale free of charge with a trial license key, under a
+[proprietary license](https://mariadb.com/terms/). The trial license key determines the length of
+your evaluation period.
 
-Unlike previous versions, access to this trial is now managed via a specific
-license key. This key determines the duration of your evaluation period,
-providing a hands-on way to test MaxScale’s capabilities and performance
-within your environment before committing to an enterprise subscription.
+Starting with MaxScale 26.10, there is no separate trial edition. A trial uses the standard
+MaxScale packages, and MaxScale accepts either a trial license key or a production license key.
+When your evaluation ends and you have an Enterprise Platform subscription, you replace the trial
+key with a production key, without reinstalling MaxScale.
 
-The next section explains how to obtain your license key.
+{% hint style="info" %}
+MaxScale 25.10 had a separate MaxScale Trial edition, in the `maxscale-trial` package. If you are
+running it, see [Moving from MaxScale 25.10 Trial](#moving-from-maxscale-25-10-trial).
+{% endhint %}
 
 ### Getting the License Key
 
-To use MaxScale 25.10.3 Trial mode, you must first obtain a trial license
-key from the MariaDB Customer Portal. This key validates your trial and
-determines the duration of your evaluation period.
+To evaluate MaxScale, you must first obtain a trial license key from the MariaDB Customer Portal.
+This key validates your trial and determines the duration of your evaluation period.
 
 1. **Log in to MariaDB ID**: Navigate to the [MaxScale Trial License page](https://customers.mariadb.com/license/maxscale-trial/).
    You will be prompted to sign in with your MariaDB ID. If you do not have an account,
    you can create one using your email, Google, GitHub, or LinkedIn credentials.
-
-1. **Generate the Key**: Once logged in, follow the on-screen instructions
+2. **Generate the Key**: Once logged in, follow the on-screen instructions
    to generate your unique MaxScale Trial license key.
-
-1. **Save the Key**: Copy or download the generated key. You will need to provide
+3. **Save the Key**: Copy or download the generated key. You will need to provide
    this key during the MaxScale configuration process.
 
-### Obtaining MaxScale Trial
+### Downloading MaxScale
 
-MaxScale Trial can be downloaded from the
-[MariaDB Download](https://mariadb.com/downloads/community/maxscale/) page.
-Choose the correct version for your OS.
+Download MaxScale for your operating system from the
+[MaxScale Trial download page](https://mariadb.com/downloads/trials/maxscale-trial/). It offers the
+same packages as the [MaxScale download page](https://mariadb.com/downloads/enterprise/enterprise-maxscale/)
+for Enterprise Platform subscribers.
 
-The downloaded file is a tar-package that must be extracted. Create
-a directory and extract the package into that.
-```
-mkdir maxscale
-cd maxscale
-tar -xf path/to/maxscale-25.10.3-trial-release.ubuntu.noble.x86_64.tar
-```
-The filename will be different for different OSs.
+### Installing MaxScale <a href="#installing-maxscale-trial" id="installing-maxscale-trial"></a>
 
-The extracted tar contains 6 packages.
+Install the packages as described in the
+[MaxScale Installation Guide](../maxscale-management/installation-and-configuration/maxscale-installation-guide.md).
 
-* `maxscale-common_25.10.3~noble-1_amd64.deb`
-* `maxscale-trial_25.10.3~noble-1_amd64.deb`
-* `maxscale-maxctrl_25.10.3~noble-1_amd64.deb`
-* `maxscale-maxctrl2_25.10.3~noble-1_amd64.deb`
-* `maxscale-exasol_25.10.3~noble-1_amd64.deb`
-
-Also these filenames will be different depending on the OS.
-
-* `maxscale-common` contains common components used by the other packages, except for `maxscale-maxctrl`.
-* `maxscale-trial` contains _MaxScale_  itself.
-* `maxscale-maxctrl` contains _maxctrl_, a [Node.js](https://nodejs.org/en) based command line tool for managing _MaxScale_.
-* `maxscale-maxctrl2` contains _maxctrl2_, which provides the same functionality as _maxctrl_, but is a native application.
-* `maxscale-exasol` contains [exasolrouter](../reference/maxscale-routers/maxscale-exasolrouter.md), a router capable of routing to [Exasol](https://www.exasol.com/).
-
-### Installing MaxScale Trial <a href="#installing-maxscale-trial" id="installing-maxscale-trial"></a>
-
-**NOTE** If you have an earlier MaxScale Trial version, please uninstall it first.
-
-Enter the directory where the tar-package was extracted and execute
-on a Debian based system
-```
-sudo apt install ./*.deb
-```
-and on a RedHat based system
-```
-sudo dnf install ./*.rpm
-```
-When the MaxScale Trial package has been installed, a template MaxScale configuration file
-will be copied to `/etc/maxscale.cnf.template` and `/etc/maxscale.cnf`; the former for
-reference and the latter for actual use. The configuration file has been written with
+If `/etc/maxscale.cnf` does not exist yet, the installation copies the template
+`/etc/maxscale.cnf.template` to `/etc/maxscale.cnf`. The template is for reference, and
+`/etc/maxscale.cnf` is the file MaxScale uses. The configuration file has been written with
 the assumption that a MariaDB server is running on the same machine where MaxScale is installed.
 
 Before starting MaxScale, the license key must be specified and the database
@@ -97,6 +66,10 @@ The value of `license_key` can either be the license key itself or the
 _absolute_ path to a file containing the license.
 
 **NOTE** If the license is read from a file, it must be readable by the user `maxscale`.
+
+MaxScale does not start without a valid license key. For the error messages MaxScale logs when the
+key is missing, invalid, or expired, see
+[Install a MaxScale License Key](../maxscale-management/installation-and-configuration/maxscale-license-key.md#troubleshoot).
 
 #### Database Users used by MaxScale <a href="#database-users-used-by-maxscale" id="database-users-used-by-maxscale"></a>
 
@@ -167,9 +140,9 @@ Please note that unless TLS is configured, your administrative credentials
 will be exposed in plain text over the network. Not using TLS should only
 be in a trial context in a controlled environment.
 
-#### Starting MaxScale Trial <a href="#starting-maxscale-trial" id="starting-maxscale-trial"></a>
+#### Starting MaxScale <a href="#starting-maxscale-trial" id="starting-maxscale-trial"></a>
 
-Once the database users have been created, MaxScale Trial can be started.
+Once the database users have been created, MaxScale can be started.
 
 ```bash
 sudo systemctl start maxscale.service
@@ -217,20 +190,38 @@ admin_host=0.0.0.0
 
 to the `[maxscale]` section in `/etc/maxscale.cnf`.
 
-<figure><img src="../.gitbook/assets/MaxGUI_login.png" alt="MaxScale Trial login dialog, containing two form fields to input user name and password, a Remember me checkbox, and a Sign In button."><figcaption><p>MaxScale Trial Login Dialog</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/MaxGUI_login.png" alt="MaxScale login dialog, containing two form fields to input user name and password, a Remember me checkbox, and a Sign In button."><figcaption><p>MaxScale Login Dialog</p></figcaption></figure>
 
-### Upgrading to MaxScale <a href="#upgrading-to-maxscale" id="upgrading-to-maxscale"></a>
+### Moving to a Production License Key <a href="#upgrading-to-maxscale" id="upgrading-to-maxscale"></a>
 
-The configuration file of MaxScale Trial is 100% compatible with MaxScale. To replace MaxScale Trial
-with MaxScale, the following steps are needed:
+A trial and a production installation use the same MaxScale packages and the same configuration
+file. To move from a trial to production, replace the trial key in `license_key` with a production
+license key. You do not need to reinstall MaxScale. To get a production key, see
+[Install a MaxScale License Key](../maxscale-management/installation-and-configuration/maxscale-license-key.md#get-your-license-key).
 
-* Uninstall MaxScale Trial.
-* Install MaxScale 25.10.3 or higher.
+You can also change the key on a running MaxScale, without a restart:
 
-Although the uninstallation of MaxScale Trial will not cause the configuration file to be erased,
-it is recommended to make a backup of it before the operation.
+```bash
+maxctrl alter maxscale license_key=<new-key>
+```
 
-It is not possible to have MaxScale Trial and MaxScale installed simultaneously on the same machine.\\
+MaxScale rejects the change if the new key is not valid.
+
+### Moving from MaxScale 25.10 Trial <a href="#moving-from-maxscale-25-10-trial" id="moving-from-maxscale-25-10-trial"></a>
+
+MaxScale 25.10 Trial was a separate edition, installed from the `maxscale-trial` package. That
+package conflicts with the standard `maxscale` package, so the two cannot be installed on the same
+machine. To move from MaxScale 25.10 Trial to MaxScale 26.10:
+
+1. Make a backup of `/etc/maxscale.cnf`. Uninstalling MaxScale Trial does not remove it, but the
+   backup protects your configuration.
+2. Uninstall the `maxscale-trial` package. Uninstalling it stops MaxScale.
+3. Install MaxScale 26.10, as described in [Installing MaxScale](#installing-maxscale-trial).
+   The installation keeps your existing `/etc/maxscale.cnf`.
+4. Make sure `license_key` holds a valid license key: a trial key or a production key. The 25.10
+   Trial configuration file already has a `license_key` entry, and MaxScale 26.10 reads it the
+   same way.
+5. Start MaxScale.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
