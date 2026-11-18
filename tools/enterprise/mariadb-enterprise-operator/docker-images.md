@@ -37,14 +37,11 @@ Refer to the registry documentation to [access docker.mariadb.com with your cust
 
 The tags in the table are version ranges, where `x` stands for any patch version. To find the latest patch release, either let a tool track it or list the tags yourself.
 
-### Automatic updates
-
-Tools such as [Dependabot](https://docs.github.com/en/code-security/dependabot) and [Renovate](https://docs.renovatebot.com/) can watch the image references in your manifests and open a pull request when a new tag appears. Configure them with your [docker.mariadb.com customer credentials](customer-access-to-docker-mariadb-com.md), because the registry is private. Review each pull request against the supported tags above before you merge it.
-
 ### Listing tags manually
 
-Authenticate against the registry first, then list the tags. For example, for `enterprise-server`:
+[Authenticate](customer-access-to-docker-mariadb-com.md) against the registry first, then list the tags. For example, for `enterprise-server`:
 
+If you use [skopeo](https://github.com/podman-container-tools/skopeo) already, you can run:
 ```bash
 skopeo login docker.mariadb.com
 skopeo list-tags docker://docker.mariadb.com/enterprise-server
