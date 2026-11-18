@@ -48,6 +48,18 @@ Ignite 2 features that work differently or have no equivalent in GridGain 8, wit
 
 {% columns %}
 {% column %}
+{% content-ref url="sql-engine-calcite-to-h2.md" %}
+[Migrating SQL From the Calcite Engine](sql-engine-calcite-to-h2.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How to move queries from the Ignite 2 Calcite engine to the GridGain 8 H2 engine: queries that return different results, queries that fail, and changed defaults.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="configuration.md" %}
 [Configuration and Validation Changes](configuration.md)
 {% endcontent-ref %}
