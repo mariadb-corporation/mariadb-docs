@@ -83,6 +83,26 @@ These statements do not cause an implicit commit in the following cases:
 * [CREATE FUNCTION](../data-definition/create/create-function.md) and [DROP FUNCTION](../../../server-usage/stored-routines/stored-functions/drop-function.md), when used to create a UDF (instead of a stored function). However, [CREATE INDEX](../data-definition/create/create-index.md) and [DROP INDEX](../data-definition/drop/drop-index.md) cause commits even when used with temporary tables.
 * [UNLOCK TABLES](lock-tables.md) causes a commit only if a [LOCK TABLES](lock-tables.md) was used on non-transactional tables.
 
+## Statements That Start a Transaction Implicitly
+
+When [autocommit](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#autocommit) is `0`, any statement that accesses a table starts a transaction if none is active. This includes read-only statements such as a plain `SELECT`, not only statements that modify data. A statement that accesses no table, such as `SELECT 1+1`, does not start one.
+
+The transaction stays open until a [COMMIT](commit.md), a [ROLLBACK](rollback.md), or a statement that causes an implicit commit. Until then, the session holds [metadata locks](metadata-locking.md) on every table the transaction has accessed. A session left idle with `autocommit=0` therefore blocks DDL, such as [ALTER TABLE](../data-definition/alter/alter-table/), on those tables in other sessions:
+
+```sql
+-- Session 1
+SET SESSION autocommit=0;
+SELECT * FROM t1;
+-- No COMMIT yet
+
+-- Session 2
+SET SESSION lock_wait_timeout=2;
+ALTER TABLE t1 ADD COLUMN b INT;
+ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+```
+
+To check whether a session has an open transaction, query the [in\_transaction](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#in_transaction) system variable. To close transactions that are left idle, see [Transaction Timeouts](transaction-timeouts.md).
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
