@@ -18,12 +18,14 @@ Pull with the customer credentials described in [Customer Access to docker.maria
 
 ## GridGain 8
 
-The operator reconciles GridGain 8 server pods from `spec.image`. Minimum supported tag: **8.9.37** (probes and drain REST). Examples in this release use **8.9.38**.
+The operator reconciles GridGain 8 server pods from `spec.image`. Minimum supported tag: **8.9.37** (probes and drain REST). When `spec.image.tag` is omitted the operator applies **8.10.0**. Examples in this release use **8.10.0**.
 
 | Component | Image | Tag | Digest | Architecture |
 | --------- | ----- | --- | ------ | ------------ |
 | GridGain 8 | `gridgain/ultimate` | `8.9.37` | `sha256:<digest>` | follow the image you pull |
 | GridGain 8 | `gridgain/ultimate` | `8.9.38` | `sha256:<digest>` | follow the image you pull |
+| GridGain 8 | `gridgain/ultimate` | `8.9.39` | `sha256:<digest>` | follow the image you pull |
+| GridGain 8 | `gridgain/ultimate` | `8.10.0` (default) | `sha256:<digest>` | follow the image you pull |
 
 {% hint style="info" %}
 The operator version (`1.0.0`) and the GridGain 8 tag are independent. Changing `spec.image.tag` is a version upgrade: scale the cluster to zero first. See [Updates](updates.md).

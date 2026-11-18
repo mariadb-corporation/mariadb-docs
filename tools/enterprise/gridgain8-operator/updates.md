@@ -65,7 +65,7 @@ kubectl get pods -l app.kubernetes.io/instance=gridgaincluster
 kubectl patch gridgaincluster gridgaincluster --type=merge -p '{
   "spec": {
     "replicas": 3,
-    "image": {"repository": "gridgain/ultimate", "tag": "8.9.38"}
+    "image": {"repository": "gridgain/ultimate", "tag": "8.10.0"}
   }
 }'
 ```

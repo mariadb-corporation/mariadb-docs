@@ -284,7 +284,7 @@ _Appears in:_
 | --- | --- | --- | --- |
 | `registry` _string_ | Registry is the image registry (e.g. docker.io). |  |  |
 | `repository` _string_ | Repository is the image repository path (e.g. gridgain/community). |  |  |
-| `tag` _string_ | Tag is the image tag. If empty, the operator applies a default tied to the supported GridGain 8 line.<br />Operator default probes require GridGain 8.9.37 or newer. |  |  |
+| `tag` _string_ | Tag is the image tag. If empty, the operator applies 8.10.0.<br />Operator default probes require GridGain 8.9.37 or newer. |  |  |
 | `pullPolicy` _[PullPolicy](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#pullpolicy-v1-core)_ | PullPolicy is the image pull policy. |  |  |
 | `pullSecrets` _[LocalObjectReference](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#localobjectreference-v1-core) array_ | PullSecrets are references to registry pull secrets. |  |  |
 

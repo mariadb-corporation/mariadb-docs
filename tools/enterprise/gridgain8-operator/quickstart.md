@@ -12,7 +12,7 @@ This page deploys one GridGain 8 node after the operator is installed.
 
 * The operator is installed and Ready. See [Helm](installation/helm.md).
 * A GridGain license file.
-* GridGain 8 **8.9.37** or newer. This example uses `8.9.38`.
+* GridGain 8 **8.9.37** or newer. This example uses `8.10.0`, the operator default.
 
 ## Create the License Secret
 
@@ -36,7 +36,7 @@ spec:
     allowSingleReplicaRoll: true
   image:
     repository: gridgain/ultimate
-    tag: "8.9.38"
+    tag: "8.10.0"
     pullPolicy: IfNotPresent
   resources:
     requests:
