@@ -1,7 +1,8 @@
 ---
 description: >-
   Operational SQL commands in GridGain 9: SELECT, COPY INTO for data import and
-  export, and the KILL QUERY, KILL TRANSACTION, and KILL COMPUTE commands.
+  export, the KILL QUERY, KILL TRANSACTION, and KILL COMPUTE commands, and
+  REFRESH STATISTICS.
 ---
 
 # Operational Commands
@@ -346,6 +347,52 @@ Optional(Terminal('NO WAIT'))
 
 - `job_id` - job identifier that can be retrieved via the `COMPUTE_JOBS` [system view](../monitoring/system-views.md).
 - `NO WAIT` - if specified, the command will return control immediately, without waiting for the job to be cancelled. You can monitor job status through the `COMPUTE_JOBS` [system view](../monitoring/system-views.md) to make sure it was cancelled.
+
+## REFRESH STATISTICS
+
+Collects [SQL statistics](../../tuning-and-troubleshooting/performance-tuning/sql-tuning/sql-statistics.md) for the column groups of statistics objects. GridGain reads the data of the tables, saves the result, and updates the query plans that use these tables.
+
+```bnf
+REFRESH { ALL STATISTICS | STATISTICS { qualified_statistics_name | FROM qualified_table_name } } [ NO WAIT ]
+```
+
+<!-- Diagram(
+Terminal('REFRESH'),
+Choice(0,
+  Terminal('ALL STATISTICS'),
+  Sequence(Terminal('STATISTICS'), Choice(0, NonTerminal('qualified_statistics_name'), Sequence(Terminal('FROM'), NonTerminal('qualified_table_name'))))
+),
+Optional(Terminal('NO WAIT'))
+) -->
+
+### Parameters
+
+- `ALL STATISTICS` - collect statistics for all statistics objects in the cluster.
+- `qualified_statistics_name` - collect statistics for the specified statistics object. The statement fails if the statistics object does not exist.
+- `FROM qualified_table_name` - collect statistics for all statistics objects of the specified table. If the table has no statistics objects, the statement does nothing.
+- `NO WAIT` - if specified, the statement starts the collection and returns control immediately. You can monitor the collection through the `STATISTICS_GATHERING_JOBS` [system view](../monitoring/system-views.md#statistics_gathering_jobs), and see the result in the `COLLECTED_STATISTICS` [system view](../monitoring/system-views.md#collected_statistics).
+
+Statistics objects are created with the [`CREATE STATISTICS`](ddl.md#create-statistics) statement.
+
+### Examples
+
+Collect statistics for one statistics object:
+
+```sql
+REFRESH STATISTICS person_stats;
+```
+
+Collect statistics for all statistics objects of the `Person` table:
+
+```sql
+REFRESH STATISTICS FROM Person;
+```
+
+Start the collection for all statistics objects in the cluster and do not wait for the result:
+
+```sql
+REFRESH ALL STATISTICS NO WAIT;
+```
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

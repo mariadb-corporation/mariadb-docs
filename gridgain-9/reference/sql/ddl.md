@@ -1,8 +1,8 @@
 ---
 description: >-
   Reference for the Data Definition Language (DDL) commands supported by
-  GridGain 9, including CREATE, ALTER, and DROP for tables, indexes, schemas,
-  caches, and sequences.
+  GridGain 9, including CREATE, ALTER, and DROP for tables, indexes, statistics,
+  schemas, caches, and sequences.
 ---
 
 # Data Definition Language (DDL)
@@ -654,6 +654,139 @@ Drop index if the one exists:
 
 ```sql
 DROP INDEX IF EXISTS department_name_idx;
+```
+
+## CREATE STATISTICS
+
+Creates a statistics object for a table. A statistics object defines the column groups for which GridGain collects [SQL statistics](../../tuning-and-troubleshooting/performance-tuning/sql-tuning/sql-statistics.md).
+
+{% hint style="info" %}
+This statement does not collect statistics. To collect the statistics, use the [`REFRESH STATISTICS`](operational-commands.md#refresh-statistics) statement.
+{% endhint %}
+
+```bnf
+CREATE STATISTICS [IF NOT EXISTS] statistics_name ON qualified_table_name
+  [ ( column_group [, ...] ) ]
+
+column_group:
+  DEFAULT | column_name | ( column_name [, ...] )
+```
+
+<!-- railroad-source:
+Diagram(Terminal('CREATE STATISTICS'),Optional(Terminal('IF NOT EXISTS')),NonTerminal('statistics_name'),Terminal('ON'),NonTerminal('qualified_table_name'),Optional(Sequence(Terminal('('),OneOrMore(NonTerminal('column_group'),Terminal(',')),Terminal(')'))))
+Diagram(Choice(0,Terminal('DEFAULT'),NonTerminal('column_name'),Sequence(Terminal('('),OneOrMore(NonTerminal('column_name'),Terminal(',')),Terminal(')'))))
+-->
+
+**Keywords and parameters:**
+
+- `IF NOT EXISTS` - do not throw an error if a statistics object with the same name already exists.
+- `statistics_name` - the name of the statistics object. The name must be unique among the statistics objects of the schema. The statistics object is created in the schema of the table, so the name cannot have a schema prefix.
+- `qualified_table_name` - the name of the table. System schemas are not supported.
+- `column_group` - a column group to collect statistics for:
+  - `DEFAULT` - the default set of column groups. The set contains a group for all columns of each hash index, a group for each prefix of each sorted index, a group for the colocation columns, and a separate group for each column. GridGain stops adding single-column groups when the set contains 100 groups.
+  - `column_name` - a group of one column.
+  - `( column_name [, ...] )` - a group of several columns. The order of the columns is not important.
+
+If the list of column groups is omitted, GridGain uses the `DEFAULT` set. You can combine `DEFAULT` with other column groups in one list.
+
+The set of column groups is resolved one time, when the statement runs. Columns and indexes that are added to the table later are not added to the statistics object. Use [`ALTER STATISTICS`](#alter-statistics) to add them.
+
+**Examples:**
+
+Create a statistics object with the default set of column groups:
+
+```sql
+CREATE STATISTICS person_stats ON Person;
+```
+
+Create a statistics object with two single-column groups and one group of two columns:
+
+```sql
+CREATE STATISTICS IF NOT EXISTS person_city_stats ON Person (age, city_id, (city_id, zip_code));
+```
+
+Create a statistics object with the default set and one additional group:
+
+```sql
+CREATE STATISTICS person_stats ON Person (DEFAULT, (city_id, zip_code));
+```
+
+## ALTER STATISTICS
+
+Adds column groups to a statistics object or removes column groups from it.
+
+```bnf
+ALTER STATISTICS [IF EXISTS] qualified_statistics_name
+  { ADD | DROP } COLUMN GROUPS ( column_group [, ...] )
+
+column_group:
+  DEFAULT | column_name | ( column_name [, ...] )
+```
+
+<!-- railroad-source:
+Diagram(Terminal('ALTER STATISTICS'),Optional(Terminal('IF EXISTS')),NonTerminal('qualified_statistics_name'),Choice(0,Terminal('ADD'),Terminal('DROP')),Terminal('COLUMN GROUPS'),Terminal('('),OneOrMore(NonTerminal('column_group'),Terminal(',')),Terminal(')'))
+-->
+
+**Keywords and parameters:**
+
+- `IF EXISTS` - do not throw an error if a statistics object with the specified name does not exist.
+- `qualified_statistics_name` - the name of the statistics object, with an optional schema name.
+- `ADD COLUMN GROUPS` - adds the listed column groups. The groups that already exist in the statistics object are ignored. A new group has no collected data until the next [`REFRESH STATISTICS`](operational-commands.md#refresh-statistics).
+- `DROP COLUMN GROUPS` - removes the listed column groups. The statement fails if a listed group does not exist in the statistics object, or if the statement removes all groups of the statistics object. The optimizer stops using the collected data of the removed groups immediately.
+- `column_group` - a column group. See [`CREATE STATISTICS`](#create-statistics). With `ADD`, `DEFAULT` adds the default set of column groups for the current columns and indexes of the table. With `DROP`, `DEFAULT` removes the groups of the default set that exist in the statistics object.
+
+**Examples:**
+
+Add a group of two columns:
+
+```sql
+ALTER STATISTICS person_stats ADD COLUMN GROUPS ((city_id, zip_code));
+```
+
+Add the groups for the columns and indexes that were created after the statistics object:
+
+```sql
+ALTER STATISTICS person_stats ADD COLUMN GROUPS (DEFAULT);
+```
+
+Remove a single-column group and a group of two columns:
+
+```sql
+ALTER STATISTICS IF EXISTS person_stats DROP COLUMN GROUPS (age, (city_id, zip_code));
+```
+
+## DROP STATISTICS
+
+Drops a statistics object, or all statistics objects of a table. The optimizer stops using the collected data of the dropped statistics objects.
+
+```bnf
+DROP STATISTICS [IF EXISTS] { qualified_statistics_name | FROM qualified_table_name }
+```
+
+<!-- railroad-source:
+Diagram(Terminal('DROP STATISTICS'),Optional(Terminal('IF EXISTS')),Choice(0,NonTerminal('qualified_statistics_name'),Sequence(Terminal('FROM'),NonTerminal('qualified_table_name'))))
+-->
+
+**Keywords and parameters:**
+
+- `IF EXISTS` - do not throw an error if the statistics object or the table does not exist.
+- `qualified_statistics_name` - the name of the statistics object to drop, with an optional schema name.
+- `FROM qualified_table_name` - drop all statistics objects of the specified table.
+
+GridGain also drops statistics objects automatically when you drop the table or the schema. When you drop a column, GridGain removes the column groups that contain this column.
+
+**Examples:**
+
+Drop a statistics object:
+
+```sql
+DROP STATISTICS IF EXISTS person_stats;
+```
+
+Drop all statistics objects of the `Person` table:
+
+```sql
+DROP STATISTICS FROM Person;
 ```
 
 ## CREATE SCHEMA

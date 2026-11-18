@@ -150,6 +150,8 @@
     * [SQL Tuning](tuning-and-troubleshooting/performance-tuning/sql-tuning/README.md)
       * [Improving Queries with EXPLAIN](tuning-and-troubleshooting/performance-tuning/sql-tuning/using-explain.md)
       * [SQL Performance Tips](tuning-and-troubleshooting/performance-tuning/sql-tuning/sql-performance-tips.md)
+      * [SQL Statistics](tuning-and-troubleshooting/performance-tuning/sql-tuning/sql-statistics.md)
+      * [Improving Query Plans With Statistics](tuning-and-troubleshooting/performance-tuning/sql-tuning/statistics-tutorial.md)
 * [Reference](reference/README.md)
   * [GridGain CLI Tool](reference/cli-tool.md)
   * [REST API](reference/rest-api/README.md)

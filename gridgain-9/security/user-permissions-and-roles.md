@@ -150,6 +150,9 @@ access before either privilege has any effect.
 |DROP_INDEX|yes|Allows the user to use the `DROP INDEX` SQL statement. See [Index Grants](#index-grants).|
 |USE_INDEX|yes|Allows the user to use the index in their SQL statements.|
 |MANAGE_RLS|yes|Allows the user to manage row-level security on a table.|
+|MANAGE_STATISTICS|yes|Allows the user to use the `CREATE STATISTICS`, `ALTER STATISTICS`, and `DROP STATISTICS` SQL statements for the table.|
+|REFRESH_TABLE_STATISTICS|yes|Allows the user to collect [SQL statistics](../tuning-and-troubleshooting/performance-tuning/sql-tuning/sql-statistics.md) for the table with the `REFRESH STATISTICS` SQL statement, and to reload the statistics of the table with the `sql statistics reload` CLI command.|
+|REFRESH_ALL_STATISTICS|no|Allows the user to use the `REFRESH ALL STATISTICS` SQL statement, and to reload the statistics of all tables with the `sql statistics reload` CLI command.|
 
 ### System View
 
