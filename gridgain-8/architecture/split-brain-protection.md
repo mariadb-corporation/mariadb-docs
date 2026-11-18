@@ -68,6 +68,30 @@ GridGain provides a `SegmentationResolver` interface for active segment validati
 
 The `isValidSegment` method checks a segment for validity. It is recommended to run the resolver in parallel with the topology validator to perform light-weight single checks (for example, accessibility of one IP address or one shared folder). Compound segment checks should be performed by using several resolver instances.
 
+## Distributed Metastorage on a Segmented Network
+
+In clusters with native persistence, GridGain stores cluster-wide settings in the distributed metastorage. For example, distributed properties that you set with `control.sh --property set` are written there. Each server node keeps the metastorage with a version and a history of changes. When a node joins the cluster, the cluster compares the node's version and history with its own.
+
+If a group of nodes is isolated from the rest of the cluster and changes the distributed metastorage, its history diverges from the history of the other nodes. GridGain does not warn you when the change is made. The problem becomes visible later, when the nodes try to rejoin and the join can be rejected:
+
+```
+Joining node has conflicting distributed metastorage data: ...
+```
+
+A node whose metastorage version is ahead of the cluster cannot join an active cluster:
+
+```
+Attempting to join node with larger distributed metastorage version id. The node is most likely in invalid state and can't be joined.
+```
+
+GridGain cannot merge two diverged histories. To recover, decide which group of nodes holds the correct data and keep the cluster on that group. A rejected node can rejoin only after its persistent storage is cleaned, which destroys the data stored on that node. If the error says `Please check the order in which you start cluster nodes`, the joining node is too far ahead for the cluster to compare histories: start the node with the highest metastorage version first, then start the other nodes.
+
+### Preventing Metastorage Conflicts
+
+- **Deactivate the cluster before a planned shutdown.** While the cluster is active, nodes that stop under the `GRACEFUL` shutdown policy write to the distributed metastorage. They skip this write when the cluster is inactive.
+- **Do not activate the cluster while baseline nodes are missing.** If a missing node has a newer metastorage version than the nodes you activated, it cannot join the active cluster.
+- **Run network isolation tests on an inactive cluster.** Deactivate the cluster before you partition the network. While the network is partitioned, do not activate either segment and do not change distributed properties. Restore connectivity, wait until all nodes are in the topology, and then activate the cluster.
+
 ## Recovering from Split-Brain
 
 While using topology validator helps you identify split brain issues and act on them quickly, it does not provide 100% guarantee that they will not happen.  If your topology does encounter split-brain issues, you may need to recover some data manually.
