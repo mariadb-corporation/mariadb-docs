@@ -185,6 +185,7 @@
       * [Stored Routine Privileges](server-usage/stored-routines/stored-functions/stored-routine-privileges.md)
       * [DROP FUNCTION](server-usage/stored-routines/stored-functions/drop-function.md)
       * [Stored Function Limitations](server-usage/stored-routines/stored-functions/stored-function-limitations.md)
+    * [Stored Packages](server-usage/stored-routines/stored-packages.md)
     * [Binary Logging of Stored Routines](server-usage/stored-routines/binary-logging-of-stored-routines.md)
     * [Stored Routine Limitations](server-usage/stored-routines/stored-routine-limitations.md)
     * [DBMS\_OUTPUT](server-usage/stored-routines/dbms_output.md)
