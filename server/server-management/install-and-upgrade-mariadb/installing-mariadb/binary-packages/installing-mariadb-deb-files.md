@@ -425,31 +425,36 @@ For MariaDB Enterprise, version numbers are similar, but have an extra point. Fo
 
 The rest of the install and setup process is as normal.
 
-## Installing MariaDB with dpkg
+## Installing MariaDB from a Package Tarball
 
-While it is not recommended, it is possible to download and install the`.deb` packages manually. However, it is generally recommended to use a package manager like `apt-get`.
+If a server can't use the MariaDB package repositories, for example because it has no internet access, you can install from a package tarball instead. Each tarball holds the `.deb` packages of one MariaDB Server release for one distribution, set up as a local APT repository: it includes a signed package index and a `setup_repository` script that adds the directory to APT.
 
-A tarball that contains the `.deb` packages can be downloaded from the following URL:
+Download the `.deb` package tarball for your MariaDB Server version and distribution from the [MariaDB Community Server downloads page](https://mariadb.com/downloads/community/community-server/).
 
-* [downloads.mariadb.com](https://downloads.mariadb.com)
+Install the packages with APT rather than with `dpkg`. The packages depend on each other and on packages from your distribution, and `dpkg` doesn't resolve those dependencies, so installing the `.deb` files directly with `dpkg` leaves them unconfigured.
 
-For example, to install the [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.21) `.deb` packages on Ubuntu 18.04 LTS (Bionic), you could execute the following:
+For example, to install MariaDB Server 12.3.4 on Ubuntu 24.04 LTS (Noble Numbat):
 
-```bash
-sudo apt-get update
-sudo apt-get install libdbi-perl libdbd-mysql-perl psmisc libaio1 socat
-wget https://downloads.mariadb.com/MariaDB/mariadb-10.6.21/repo/ubuntu/mariadb-10.6.21-ubuntu-bionic-amd64-debs.tar
-tar -xvf mariadb-10.6.21-ubuntu-bionic-amd64-debs.tar
-cd mariadb-10.6.21-ubuntu-bionic-amd64-debs/
-sudo dpkg --install ./mariadb-common*.deb \
-   ./mysql-common*.deb \
-   ./mariadb-client*.deb \
-   ./libmariadb3*.deb \
-   ./libmysqlclient18*.deb 
-sudo dpkg --install ./mariadb-server*.deb \
-   ./mariadb-backup*.deb \
-   ./galera-4*.deb
-```
+1.  Extract the tarball in a directory that APT can read, such as `/opt`, and run `setup_repository` from the extracted directory. It creates `/etc/apt/sources.list.d/mariadb.list`, which points APT at that directory:
+
+    ```bash
+    cd /opt
+    sudo tar -xf ~/mariadb-12.3.4-ubuntu-noble-amd64-debs.tar
+    cd mariadb-12.3.4-ubuntu-noble-amd64-debs
+    sudo ./setup_repository
+    ```
+2.  Update the package cache and install MariaDB Server:
+
+    ```bash
+    sudo apt update
+    sudo apt-get install mariadb-server
+    ```
+
+    APT installs the MariaDB packages from the tarball, and any other packages they need from your distribution's repositories.
+
+To install other packages from the tarball, such as `mariadb-backup` or the Galera Cluster packages, use the same commands as in [Installing MariaDB Packages with APT](#installing-mariadb-packages-with-apt).
+
+If your distribution also provides MariaDB packages, APT installs whichever version is newer. To check which version APT will install, run `apt-cache policy mariadb-server`. To install the version from the tarball regardless, name it, for example `sudo apt-get install mariadb-server=1:12.3.4+maria~ubu2404`.
 
 ## After Installation
 
