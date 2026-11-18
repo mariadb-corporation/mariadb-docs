@@ -598,7 +598,6 @@ Slow Query Log Extended Statistics
 
 The PBXT storage engine
 
-*
 * Created by Paul McCullagh
 * License: GPL
 

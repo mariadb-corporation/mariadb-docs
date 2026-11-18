@@ -130,10 +130,10 @@ jobs:
           # notes. bazaar.launchpad.net is the decommissioned bzr host (revision
           # links 404). The github connector /commit/ links are changelog
           # entries whose SHAs predate history rewrites, so ~5% now 404 with no
-          # valid replacement. lists.askmonty.org (a mailing-list archive) and
-          # support2.microsoft.com (a decommissioned Microsoft domain) are cited
-          # in old changelog commit text and are unreachable with no modern
-          # equivalent. All are unmaintainable historical refs, not fixable links.
+          # valid replacement. support2.microsoft.com (a decommissioned Microsoft
+          # domain) is cited in old changelog commit text and is unreachable with
+          # no modern equivalent. All are unmaintainable historical refs, not
+          # fixable links.
           #
           # DOCS-6369: the same problem in the *server* changelogs. Those pages
           # cite one github.com/MariaDB/server/commit/<short-sha> per revision --
@@ -144,11 +144,10 @@ jobs:
           # only surface when a PR happens to touch a changelog page.
           #
           # DOCS-6369: decommissioned hosts cited in the pre-1.0/5.x release
-          # notes. downloads.askmonty.org was the download host before the
-          # rename to MariaDB; montyprogram.com was the company domain;
-          # forge.mysql.com and lists.mysql.com were retired by Oracle
-          # (forge now serves a cert for another host); blogs.msdn.com folded
-          # into learn.microsoft.com. None have a modern equivalent to point at.
+          # notes. montyprogram.com was the company domain; forge.mysql.com and
+          # lists.mysql.com were retired by Oracle (forge now serves a cert for
+          # another host); blogs.msdn.com folded into learn.microsoft.com. None
+          # have a modern equivalent to point at.
           #
           # DOCS-5976: three more hosts that block automated clients, same
           # class as www.reddit.com above. stackoverflow.com and
@@ -310,12 +309,10 @@ jobs:
             --exclude 'bazaar\.launchpad\.net'
             --exclude 'github\.com/mariadb-corporation/mariadb-connector-[a-z0-9]+/commit/'
             --exclude 'github\.com/MariaDB/server/commit/'
-            --exclude 'downloads\.askmonty\.org'
             --exclude 'montyprogram\.com'
             --exclude 'forge\.mysql\.com'
             --exclude 'lists\.mysql\.com'
             --exclude 'blogs\.msdn\.com'
-            --exclude 'lists\.askmonty\.org'
             --exclude 'support2\.microsoft\.com'
             --exclude dev\.mysql\.com
             --exclude docs\.oracle\.com

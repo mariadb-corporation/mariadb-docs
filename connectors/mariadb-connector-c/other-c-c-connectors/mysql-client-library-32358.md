@@ -7,7 +7,7 @@ description: >-
 
 # MySQL Client Library 3.23.58
 
-Download | **Release Notes**
+**Release Notes**
 
 **Release date:** 30 Aug 2010
 
