@@ -550,7 +550,7 @@ On Debian and Ubuntu, the MariaDB Package Repository setup script performs the f
 
 ```ini
 Package: *
-Pin: origin downloads.mariadb.com
+Pin: origin dlm.mariadb.com
 Pin-Priority: 1000
 ```
 
