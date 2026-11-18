@@ -20,6 +20,8 @@ Only one role can be current at a time. Executing `SET ROLE` replaces the curren
 
 The `SET ROLE` statement switches the current role for the session, enabling its associated permissions. To have no current role, set `NONE`.
 
+Being [granted](grant.md#roles) a role does not give a user the role's privileges. They apply only while the role is the current role of the session, which means after `SET ROLE` names it, or from the start of the session if it is the user's default role.
+
 If a role that doesn't exist, or to which the user has not been assigned, is specified, an `ERROR 1959 (OP000): Invalid role specification` error occurs.
 
 An automatic SET ROLE is implicitly performed when a user connects if that user has been assigned a default role. See [SET DEFAULT ROLE](set-default-role.md).
