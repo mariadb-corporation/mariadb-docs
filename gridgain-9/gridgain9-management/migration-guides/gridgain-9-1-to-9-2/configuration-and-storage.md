@@ -148,23 +148,30 @@ Before you upgrade, move zones and tables from a RocksDB profile to another engi
    cluster config update 'ignite.gc.lowWatermark{dataAvailabilityTimeMillis=30000,updateIntervalMillis=15000}'
    ```
 
-5. Remove the RocksDB profile from the node configuration file of every node, after step 4. On each node, stop the node, delete the profile from `ignite.storage.profiles` in the node configuration file, and start the node on 9.1.29. If you remove the profile before the dropped tables are cleaned up, the node stops with `Table uses an unknown storage profile or engine`.
+5. Remove the RocksDB profile from the node configuration files, after step 4. A node that starts without the profile stops with `Table uses an unknown storage profile or engine` if a table on it still exists, or if a dropped table is not cleaned up yet (see step 4). How you remove the profile depends on how you prepare the files for 9.2:
 
-6. Check that the profile is gone. Run the following command against every node. The output lists only the profiles of the remaining engines, for example `engine=aipersist`. If the RocksDB profile is listed, contact MariaDB [support](https://mariadb.com/support/).
+   - *Reuse the 9.1.29 files.* On each node, stop the node, delete the profile from `ignite.storage.profiles`, and start the node on 9.1.29. Stop the node before you edit the file, because a running node rewrites the file from memory on the next configuration update. If the node stops with the error above, put the profile back, start the node, wait a few more minutes, and repeat.
+   - *Create new files for 9.2.* Leave the 9.1.29 files unchanged, and write the new files without the profile. If you start from a copy of a 9.1.29 file, delete the profile from the copy.
 
-   ```bash
-   node config show ignite.storage.profiles
-   ```
+6. Check that the profile is gone:
 
-   Then check that no zone uses the profile. The query must return no rows:
+   - If you reuse your 9.1.29 files, run the following command against every node after the restart. The output lists only the profiles of the remaining engines, for example `engine=aipersist`. If the RocksDB profile is listed, contact MariaDB [support](https://mariadb.com/support/).
+
+     ```bash
+     node config show ignite.storage.profiles
+     ```
+
+   - If you create new files, search them for `rocksdb`. The new files must not contain the profile.
+
+   In both cases, check that no zone uses the profile. The query must return no rows:
 
    ```sql
    SELECT zone_name, storage_profile FROM system.zone_storage_profiles WHERE storage_profile = '<profile_name>';
    ```
 
-7. Remove the RocksDB profiles from the node configuration files that you prepared for 9.2.
+7. Upgrade as described in the [Upgrade Procedure](upgrade-procedure.md). A 9.2 node does not start if its node configuration file contains a RocksDB profile.
 
-9.2 cannot clean up a dropped RocksDB table, because it has no RocksDB engine. A 9.2 node that finds one stops with `Table uses an unknown storage profile or engine`. The old `rocksdb-*` directory under `work/partitions/db` stays on disk after the upgrade.
+Dropping the tables does not free the disk space of the old RocksDB storage. The old `rocksdb-*` directory under `work/partitions/db` stays on each node after the upgrade.
 
 ## Page Replacement Policies
 
