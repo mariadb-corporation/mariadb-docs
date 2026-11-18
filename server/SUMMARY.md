@@ -658,6 +658,7 @@
       * [MariaDB Enterprise Container Image Configuration Reference](server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/mariadb-enterprise-container-image-configuration-reference.md)
     * [Kubernetes and MariaDB](server-management/automated-mariadb-deployment-and-administration/kubernetes-and-mariadb/README.md)
       * [Kubernetes Operators for MariaDB](server-management/automated-mariadb-deployment-and-administration/kubernetes-and-mariadb/kubernetes-operators-for-mariadb.md)
+      * [HelmForge Community Helm Chart for MariaDB](server-management/automated-mariadb-deployment-and-administration/kubernetes-and-mariadb/helmforge-community-helm-chart.md)
       * [Kubernetes Overview for MariaDB Users](server-management/automated-mariadb-deployment-and-administration/kubernetes-and-mariadb/kubernetes-overview-for-mariadb-users.md)
     * [Vagrant and MariaDB](server-management/automated-mariadb-deployment-and-administration/vagrant-and-mariadb/README.md)
       * [Creating a Vagrantfile](server-management/automated-mariadb-deployment-and-administration/vagrant-and-mariadb/creating-a-vagrantfile.md)
