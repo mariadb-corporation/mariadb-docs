@@ -36,7 +36,7 @@ $ sudo systemctl start mariadb
 
 ## Test Local Client Connections
 
-Use [MariaDB Client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client) to test the local connection to the Enterprise Server node.
+Use [MariaDB Client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mariadb-command-line-client) to test the local connection to the Enterprise Server node.
 
 This action is performed **on each Enterprise ColumnStore node**:
 
@@ -63,6 +63,7 @@ This action is performed on each Enterprise ColumnStore node.
 
 Execute the following query:
 
+{% code expandable="true" %}
 ```sql
 SELECT PLUGIN_NAME, PLUGIN_STATUS
 FROM information_schema.PLUGINS
@@ -78,6 +79,7 @@ WHERE PLUGIN_LIBRARY LIKE 'ha_columnstore%';
 | COLUMNSTORE_EXTENTS | ACTIVE        |
 +---------------------+---------------+
 ```
+{% endcode %}
 
 The `PLUGIN_STATUS` column for each ColumnStore-related plugin should contain ACTIVE.
 
@@ -112,6 +114,7 @@ $ curl -k -s https://mcs1:8640/cmapi/0.4.0/cluster/status \
    | jq .
 ```
 
+{% code expandable="true" %}
 ```json
 {
   "timestamp": "2020-12-15 00:40:34.353574",
@@ -214,6 +217,7 @@ $ curl -k -s https://mcs1:8640/cmapi/0.4.0/cluster/status \
   "num_nodes": 3
 }
 ```
+{% endcode %}
 
 ## Test DDL
 

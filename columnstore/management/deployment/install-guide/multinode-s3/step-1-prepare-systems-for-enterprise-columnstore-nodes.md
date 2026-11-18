@@ -156,11 +156,11 @@ S3 bucket configuration will be performed later in this procedure.
 
 ## Next Step
 
-Navigation in the Single-Node ColumnStore topology with Object storage deployment procedure:
+Navigation in the Multi-Node ColumnStore topology with Object storage deployment procedure:
 
 This page was step 1 of 5.
 
-[Next: Step 2: Install MariaDB ColumnStore](step-3-start-and-configure-enterprise-columnstore.md).
+[Next: Step 2: Install MariaDB ColumnStore.](step-2-install-enterprise-columnstore.md)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

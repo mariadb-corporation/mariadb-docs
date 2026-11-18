@@ -28,6 +28,7 @@ This action is performed **on the MaxScale node**:
 $ maxctrl show maxscale
 ```
 
+{% code expandable="true" %}
 ```sql
 ┌──────────────┬───────────────────────────────────────────────────────┐
 │ Version      │ 22.08.15                                              │
@@ -113,6 +114,7 @@ $ maxctrl show maxscale
 │              │ }                                                     │
 └──────────────┴───────────────────────────────────────────────────────┘
 ```
+{% endcode %}
 
 Output should align to the global MaxScale configuration in the new configuration file you created.
 
@@ -146,6 +148,7 @@ For each server object, view the configuration:
 $ maxctrl show server mcs1
 ```
 
+{% code expandable="true" %}
 ```sql
 ┌─────────────────────┬───────────────────────────────────────────┐
 │ Server              │ mcs1                                      │
@@ -217,6 +220,7 @@ $ maxctrl show server mcs1
 │                     │ }                                         │
 └─────────────────────┴───────────────────────────────────────────┘
 ```
+{% endcode %}
 
 Output should align to the Server Object configuration you performed.
 
@@ -246,6 +250,7 @@ $ maxctrl list monitors
 $ maxctrl show monitor columnstore_monitor
 ```
 
+{% code expandable="true" %}
 ```sql
 ┌─────────────────────┬─────────────────────────────────────┐
 │ Monitor             │ columnstore_monitor                 │
@@ -278,6 +283,7 @@ $ maxctrl show monitor columnstore_monitor
 │ Monitor Diagnostics │ {}                                  │
 └─────────────────────┴─────────────────────────────────────┘
 ```
+{% endcode %}
 
 Output should align to the MariaDB Monitor (mariadbmon) configuration you performed.
 
@@ -309,6 +315,7 @@ $ maxctrl list services
 $ maxctrl show service query_router_service
 ```
 
+{% code expandable="true" %}
 ```sql
 ┌─────────────────────┬─────────────────────────────────────────────────────────────┐
 │ Service             │ query_router_service                                        │
@@ -396,6 +403,7 @@ $ maxctrl show service query_router_service
 │                     │ }                                                           │
 └─────────────────────┴─────────────────────────────────────────────────────────────┘
 ```
+{% endcode %}
 
 Output should align to the [Read Connection Router (readconnroute)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readconnroute) or [Read/Write Split Router (readwritesplit)](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit) configuration you performed.
 
