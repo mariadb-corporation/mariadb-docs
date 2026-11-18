@@ -115,12 +115,12 @@ OneOrMore (NonTerminal('parameter', {href:'./grammar-reference/#parameter'}), Te
   - `ICEBERG`
 - `WITH` - accepts additional parameters. All properties are case-sensitive:
   - `delimiter` - for CSV files only; default delimiter is `,`. Delimiter syntax is `'char'`. Any alphanumeric character can be a delimiter.
-  - `charset` - for CSV files only; the character set of the file. Default value is `UTF-8`. On export, a character the charset cannot encode fails the statement.
+  - `charset` - for CSV files only; the character set of the file. Default value is `UTF-8`. On export, a character the charset cannot encode fails the statement. Before GridGain 9.1.30, an export to S3 ignores `charset`: it writes the file in the default charset of the node's JVM and replaces a character that charset cannot encode with `?`.
   - `pattern` - the file pattern used when importing partitioned Parquet tables in the regular expression format. The regular expression must be enclosed in `'` signs. For example, `'.*'` imports all files. Partitioned column will not be imported.
   - `header` - for CSV files only; if set to `true`, specifies that the created file should contain a header line with column names. Column names of the table are used to create the header line.
   - `quoteChar` - for CSV files only; the character to use for quoted elements. Default quote character is `"`.
   - `escapeChar` - for CSV files only; the character to use for escaping a separator or quote. Default escape character is `\`.
-  - `ignoreLeadingWhiteSpace` - for CSV files only; if `true`, ignore leading whitespace, keep them otherwise. Default value is `true`.
+  - `ignoreLeadingWhiteSpace` - for CSV files only; if `true`, ignore leading whitespace, keep them otherwise. Default value is `true`. Accepted in GridGain 9.1.30 and later; earlier versions fail a statement that sets it.
   - `ignoreQuotations` - for CSV files only; if `true`, quoted elements are ignored, otherwise they are kept. Default value is `false`.
   - `strictQuotes` - for CSV files only; if `true`, characters outside the quoted elements are ignored, otherwise they are kept. Default value is `false`.
   - `batchSize` - the number of entries loaded in each batch. Default value is `1024`.
@@ -129,7 +129,7 @@ OneOrMore (NonTerminal('parameter', {href:'./grammar-reference/#parameter'}), Te
     - Besides `table-identifier` and `batchSize`, only these properties are accepted; any other `WITH` property fails the statement:
       - `catalog-impl`, which is required, `io-impl`, `uri`, `warehouse` and `client.factory`.
       - `client.region`, `client.assume-role.*` and `jdbc.*`.
-      - `glue.skip-name-validation`.
+      - `glue.skip-name-validation`, in GridGain 9.1.30 and later.
       - The S3 properties `s3.access-key-id`, `s3.secret-access-key`, `s3.session-token`, `s3.endpoint`, `s3.path-style-access`, `s3.checksum-enabled`, `s3.multipart.*`, `s3.retry.*` and `s3.delete.*`.
       - `s3.client-region`, which sets `client.region` when `client.region` is not set.
       - The Hadoop S3A properties `fs.s3a.access.key`, `fs.s3a.secret.key`, `fs.s3a.session.token`, `fs.s3a.endpoint` and `fs.s3a.endpoint.region`.
@@ -164,6 +164,8 @@ The configuration is node specific, so you need to apply the same settings on ev
 statement may succeed or fail depending on which node the client connected to.
 
 ### Failed and Cancelled Statements
+
+This section describes GridGain 9.1.30 and later. In earlier versions, a failed or cancelled export leaves its partial output, and cancelling a statement or reaching its query timeout does not stop the copy, which keeps running on the node.
 
 An export creates its target (a file, an S3 object or an Iceberg table) and fails if the target already exists. How the target is checked depends on where it is:
 
@@ -304,7 +306,7 @@ WITH
 ```
 
 {% hint style="warning" %}
-Glue catalog requires the table identifier pattern `db_name.table_name - [a-z0-9_]` (all letters must be in low case with underscores and no spaces). It can be disabled by setting the `glue.skip-name-validation` property to `true` to skip validation. When database name and table name validation are skipped, there is no guarantee that downstream systems would all support the names.
+Glue catalog requires the table identifier pattern `db_name.table_name - [a-z0-9_]` (all letters must be in low case with underscores and no spaces). In GridGain 9.1.30 and later, it can be disabled by setting the `glue.skip-name-validation` property to `true` to skip validation. When database name and table name validation are skipped, there is no guarantee that downstream systems would all support the names.
 {% endhint %}
 
 Imports data from partitioned Parquet database:
