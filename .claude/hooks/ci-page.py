@@ -61,6 +61,33 @@ CHECK (at RC and initial-GA time)
         left out on purpose.
     A key counts as on the page if it appears anywhere in it.
 
+CORRECTION AGAINST THE RELEASE COMMITS (--no-correct turns it off)
+    Jira can be wrong: on 2026-11-13, MDEV-25515 (CIDR host names) had a
+    13.1 fix version, so it was reported missing from the 13.1 page, but
+    its only commit was on main, which is 13.2 (DOCS-7113, DOCS-7116). So
+    `check` also reads the release commits, with rn-generate.py's rule: an
+    MDEV is in the release when a commit whose message names it is
+    reachable from the release revision.
+      * missing is reported only for an item with such a commit. One whose
+        commits are all elsewhere is reported as "not in source" instead,
+        so that its Jira fix version gets corrected, not the page.
+      * An item on the page, A or not, with no commit at the revision
+        though one exists elsewhere is reported as "on page, not in
+        source". That is the case DOCS-7111 fixed by hand.
+      * An item no commit names at all is kept and flagged ("no commit
+        anywhere"), as rn-generate.py does: it may be fixed in another
+        repository (the Galera library, ColumnStore) or under another MDEV.
+    "Elsewhere" means any branch of the clone, in commits since 2024.
+
+    The release revision is the one on the release TODO, which is never
+    the X.Y branch: bb-X.Y-release carries release-only commits, and on
+    2026-11-13 it was 107 commits ahead of 13.1. --rev names it. Otherwise
+    --release-todo reads it from the TODO's Server table: the Commit
+    column, else origin/ plus the Branch column. Without either,
+    origin/bb-X.Y-release is used. Only `git log` and `git rev-parse` run
+    in the clone; the script never fetches, checks out, or resets, so
+    fetch the clone first.
+
 PROVEN
     On DOCS-7110 (2026-11-12):
       * create reproduced the MDEV sets of the 13.1 page as first committed
@@ -72,6 +99,18 @@ PROVEN
       * check --stage rc on 13.1 found the 11 items of DOCS-7111 (8 remove,
         3 check) on both the C&I page and 13.1.1.md, and the RC features
         missing from the page.
+    On DOCS-7116 (2026-11-18):
+      * check --series 13.1 --stage ga --release-todo TODO-6330 (13.1.2,
+        8d5822650763) agreed with the hand check recorded for DOCS-7113:
+        MDEV-25515 "not in source" instead of missing, MDEV-39169 and
+        MDEV-39548 missing (both in the release, left out by choice), and
+        no other page item without a commit, on the C&I page and 13.1.2.md.
+        --no-correct reproduced the old output.
+      * check --series 13.2 --stage rc --release-todo TODO-6329 (13.2.1,
+        17a468d62c47) flagged MDEV-19 (a duplicate of MDEV-38975) and
+        MDEV-38190 as having no commit anywhere. DOCS-7114 had found
+        MDEV-38190's code in the release under another key, which is why
+        such items are kept, not dropped.
 
 USAGE
     ci-page.py create --series 13.2 (--prev 13.1 | --long-term "June 2029")
@@ -79,15 +118,18 @@ USAGE
                       [--banner unreleased-13.2.md] [--force]
     ci-page.py check  --series 13.1 --stage rc|ga --page <C&I page>
                       [--also <release notes page> ...]
+                      (--repo <server clone> [--rev <revision> | --release-todo TODO-6330]
+                       | --no-correct)
 
     The token is found as for rn-generate.py ($JIRA_MARIADB_TOKEN, or the
     file named by $JIRA_MARIADB_TOKEN_FILE, default
     ~/.config/mariadb-jira/token). It is never printed. Read-only: the
-    script only reads jira.mariadb.org, and writes only --out.
+    script only reads jira.mariadb.org and the server clone, and writes
+    only --out.
 
 Exit: create: 0 = page written. check: 0 = nothing to report, 1 =
-differences listed. 2 = usage error, missing token, or no MDEV with the
-label.
+differences listed. 2 = usage error, missing token, no MDEV with the
+label, or a revision git cannot resolve.
 """
 
 import argparse
@@ -95,6 +137,7 @@ import importlib.util
 import json
 import pathlib
 import re
+import subprocess
 import sys
 import urllib.parse
 import urllib.request
@@ -170,6 +213,39 @@ def latest_include(series):
 def mdev_links(tok, key):
     return {k for l in issue(tok, key)['fields']['issuelinks']
             for k in [(l.get('outwardIssue') or l.get('inwardIssue'))['key']] if k.startswith('MDEV-')}
+
+
+def git(repo, *args):
+    r = subprocess.run(['git', '-C', repo, *args], capture_output=True, text=True)
+    if r.returncode:
+        die(f'git {" ".join(args)}: {r.stderr.strip()}')
+    return r.stdout
+
+
+def git_keys(repo, *args):
+    """The MDEV keys named in the messages of `git log <args>`."""
+    return set(KEY_RE.findall(git(repo, 'log', *args)))
+
+
+def release_rev(tok, a):
+    """The release revision: --rev, else the TODO's Server table, else origin/bb-X.Y-release."""
+    if a.rev:
+        return a.rev, '--rev'
+    if a.release_todo:
+        req = urllib.request.Request(f'{rn.JIRA}/rest/api/2/issue/{a.release_todo}?fields=description',
+                                     headers={'Authorization': 'Bearer ' + tok})
+        desc = json.load(urllib.request.urlopen(req))['fields']['description'] or ''
+        server = desc.split('h3. Server', 1)[1] if 'h3. Server' in desc else ''
+        for row in server.splitlines():
+            cells = [c.strip() for c in row.strip().strip('|').split('|')]
+            if row.startswith('|') and not row.startswith('||') and len(cells) >= 4 and cells[0] == a.series:
+                commit, branch = cells[3], cells[2]
+                if re.fullmatch(r'[0-9a-f]{7,40}', commit):
+                    return commit, f'{a.release_todo} Commit'
+                if branch:
+                    return f'origin/{branch}', f'{a.release_todo} Branch (no Commit yet)'
+        die(f'{a.release_todo}: no {a.series} row with a Branch or Commit in its Server table')
+    return f'origin/bb-{a.series}-release', 'default'
 
 
 def create(a):
@@ -267,6 +343,22 @@ def check(a):
         url = f'{rn.JIRA}/issues/?' + urllib.parse.urlencode({'jql': jql})
         note(f'  {q}: {len(found[q])} — {url}')
 
+    if a.no_correct:
+        in_rev = anywhere = None
+        note('  release commits: not checked (--no-correct)')
+    else:
+        rev, why = release_rev(tok, a)
+        sha = git(a.repo, 'rev-parse', '--verify', rev + '^{commit}').strip()
+        in_rev = git_keys(a.repo, sha, '--format=%B')
+        anywhere = git_keys(a.repo, '--all', '--since=2024-01-01', '--format=%B')
+        note(f'  release commits: {rev} = {sha[:12]} ({why}), in {a.repo}')
+
+    def source(k):
+        """None when unchecked or the release has a commit naming k; else why not."""
+        if in_rev is None or k in in_rev:
+            return None
+        return 'no commit at the release, only elsewhere' if k in anywhere else 'no commit anywhere'
+
     expected = {i['key']: i for i in found[features] + found['D']}
     total = 0
     for path in [a.page] + (a.also or []):
@@ -288,6 +380,8 @@ def check(a):
             else:
                 verdict = (f'check: {f["status"]["name"]}/{(f["resolution"] or {}).get("name") or "unresolved"}, '
                            f'fix version {", ".join(fv) or "none"}')
+            if source(i['key']):
+                verdict += f'; {source(i["key"])}'
             print(f'  {verdict} | {i["key"]} {f["summary"]}')
             differences += 1
         for k, i in sorted(expected.items(), key=lambda kv: rn.key_num(kv[0])):
@@ -295,8 +389,22 @@ def check(a):
                 continue
             f = i['fields']
             rns = 'RNS' if (f.get('customfield_13206') or '').strip() else 'no RNS'
-            print(f'  missing: {f["issuetype"]["name"]}, {f["status"]["name"]}, {rns} | {k} {f["summary"]}')
+            why = source(k)
+            if why == 'no commit at the release, only elsewhere':
+                verdict = f'not in source: Jira says {", ".join(fix_versions(f))}, but {why}'
+            else:
+                verdict = 'missing' + (f' ({why}: another repository or MDEV?)' if why else '')
+            print(f'  {verdict}: {f["issuetype"]["name"]}, {f["status"]["name"]}, {rns} | {k} {f["summary"]}')
             differences += 1
+        # Page items the searches above don't cover, such as a Bug that a writer added.
+        reported = {i['key'] for i in found['A']}
+        for k in sorted(on - reported, key=rn.key_num):
+            why = source(k)
+            if why:
+                verdict = ('on page, not in source' if why.startswith('no commit at')
+                           else 'on page, keep and confirm')
+                print(f'  {verdict}: {why} | {k}')
+                differences += 1
         if not differences:
             print('  nothing to report')
         total += differences
@@ -320,9 +428,16 @@ def main(argv):
     k.add_argument('--stage', required=True, choices=('rc', 'ga'))
     k.add_argument('--page', required=True, help='the C&I page')
     k.add_argument('--also', action='append', help='a release notes page copied from it; repeatable')
+    k.add_argument('--repo', help='the server clone, to check the items against the release commits')
+    rev = k.add_mutually_exclusive_group()
+    rev.add_argument('--rev', help='the release revision (default: from --release-todo, else origin/bb-X.Y-release)')
+    rev.add_argument('--release-todo', metavar='TODO', help="read the revision from this release TODO's Server table")
+    k.add_argument('--no-correct', action='store_true', help='Jira only; skip the release commits')
     a = ap.parse_args(argv)
     if not re.fullmatch(r'\d+\.\d+', a.series):
         die(f'--series {a.series}: expected X.Y')
+    if a.cmd == 'check' and not a.no_correct and not a.repo:
+        die('check needs --repo <server clone> to read the release commits (or --no-correct for Jira only)')
     return create(a) if a.cmd == 'create' else check(a)
 
 
