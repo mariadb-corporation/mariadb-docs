@@ -20,14 +20,14 @@ helm repo update
 helm install mariadb helmforge/mariadb
 ```
 
-The default installation creates a standalone MariaDB instance with persistent storage. To install a source with two read replicas, use a values file such as:
+The default installation creates a standalone MariaDB instance with persistent storage. To install a source with read replicas, set `architecture: replication`. The chart creates two read replicas by default. To change the number, set `replication.readReplicas.replicaCount` in a values file such as:
 
 ```yaml
 architecture: replication
 
 replication:
   readReplicas:
-    replicaCount: 2
+    replicaCount: 3
 ```
 
 ```bash
@@ -38,7 +38,7 @@ helm install mariadb helmforge/mariadb --values values.yaml
 
 Review the chart values and test the configuration in an environment that matches the target cluster. In particular, plan and validate persistent storage, backup and restore, upgrades, credentials, network access, and disruption behavior. Replication improves availability for some failure scenarios, but it does not replace backups.
 
-See the [HelmForge MariaDB chart documentation](https://helmforge.dev/docs/charts/mariadb) for configuration details. The [chart source](https://github.com/helmforgedev/charts/tree/main/charts/mariadb) includes its templates, default values, tests, and release history.
+See the [HelmForge MariaDB chart documentation](https://helmforge.dev/docs/charts/mariadb) for configuration details. The [chart source](https://github.com/helmforgedev/charts/tree/main/charts/mariadb) includes its templates, default values, and tests. Chart versions are published as [GitHub releases](https://github.com/helmforgedev/charts/releases).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
