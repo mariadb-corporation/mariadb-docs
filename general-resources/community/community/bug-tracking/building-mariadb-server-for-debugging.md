@@ -34,15 +34,7 @@ Now when you get a crash do the following:
 sh> tar cvfz /tmp/mariadb-bug-'short-description'.tgz mariadb-data-dir/core* mariadb-install-dir/libexec/mysqld README
 ```
 
-* Send it to our secure ftp server:
-
-```
-sh> ftp -a ftp.askmonty.org
-ftp> cd private
-ftp> binary 
-ftp> put /tmp/mariadb-bug-'short-description'.tgz
-ftp> quit
-```
+* Upload it to the **private** folder of the [MariaDB Public FTP Server](../../contributing-participating/mariadb-public-ftp-server.md), which describes the supported upload methods.
 
 * To be able to follow the progress, create a bug report in [JIRA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/server-development/tools/jira) about this. This should be easy to do based on the information you have in your README file.
 
