@@ -255,7 +255,7 @@ GRANT PRIVILEGES ALL TO role2;
 ```
 
 {% hint style="info" %}
-In the `ON` clause, a single name (for example, `PUBLIC`) targets a schema, and the privilege covers all current and future objects in that schema. A schema-qualified name (for example, `PUBLIC.MY_TABLE`) targets a single object. Unquoted names are folded to upper case; quote individual parts to preserve case, for example `"public"."MyTable"`.
+The `ON` clause is optional. Without it, the privilege applies to all objects in the cluster: `GRANT PRIVILEGES CREATE_TABLE TO role1` allows `role1` to create tables in every schema. In the `ON` clause, a single name (for example, `PUBLIC`) targets a schema, and the privilege covers all current and future objects in that schema. A schema-qualified name (for example, `PUBLIC.MY_TABLE`) targets a single object. Unquoted names are folded to upper case; quote individual parts to preserve case, for example `"public"."MyTable"`. This does not work for a schema on its own: privileges granted on a schema whose name requires quoting are not applied correctly. See [Schema-level Grants](../../security/user-permissions-and-roles.md#schema-level-grants).
 {% endhint %}
 
 ### GRANT TO user

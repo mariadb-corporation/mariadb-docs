@@ -38,19 +38,21 @@ If required, you can provide ownership-like capabilities by fine-tuning the priv
 Object privileges have the following hierarchy:
 
 ```
-ALL
-  └── CLUSTER
-       └── Schema
-            ├── Table
-            ├── View
-            ├── Index
-            └── Sequence
+CLUSTER
+ ├── Schema
+ │    ├── Table   (includes index actions)
+ │    ├── View
+ │    └── Sequence
+ ├── Deployment unit
+ └── User
 ```
+
+Index actions (`CREATE_INDEX`, `DROP_INDEX`, `USE_INDEX`) apply to tables. `ALL` is an [alias for all actions](user-permissions-and-roles.md#the-all-alias), not an object.
 
 When you grant a privilege on a parent object, it automatically applies to all child objects. For example, `SELECT_FROM_TABLE` privilege on schema `PUBLIC` allows user to execute `SELECT` statement on all tables in that schema. This includes both existing tables and tables that will be created in the future, as permissions are checked when the user attempts access.
 
 {% hint style="info" %}
-When no object is specified for singleton actions like `READ_CLUSTER_CONFIG`, the default object is `CLUSTER`.
+The object is optional for every action. When no object is specified, the default object is `CLUSTER`, and the privilege applies to all objects in the cluster. For example, `GRANT PRIVILEGES CREATE_TABLE TO SAMPLEROLE` allows creating tables in every schema. Cluster-wide actions, such as `READ_CLUSTER_CONFIG`, cannot be granted on any other object.
 {% endhint %}
 
 ## Object Name Resolution
@@ -62,6 +64,8 @@ When specifying objects in GRANT statements, the following syntax rules apply:
 
 {% hint style="warning" %}
 By default, all names are in upper case. Use double quotes for mixed-case or special characters, for example: `PUBLIC."Orders"`
+
+Quoting does not work for schema targets: privileges granted on a schema whose name requires quoting, such as `"MixedCase"` or `"app-A"`, are not applied correctly. Use upper-case schema names made of letters, digits, and underscores for schemas that you secure with RBAC.
 {% endhint %}
 
 ## User Configuration

@@ -1941,7 +1941,7 @@ role privilege grant --to=<roleName> --action=<action> [--on=<object>] [--url=<c
 | Parameter | Type | Required | Description |
 |---|---|---|---|
 | `‑‑to` | Option | Yes | To role name (comma-separated). |
-| `‑‑action` | Option | Yes | Action (comma-separated). |
+| `‑‑action` | Option | Yes | Action (comma-separated). The CLI does not accept the following actions: `CHANGE_JOB_PRIORITY`, `CHECK_PITR`, `CREATE_SCHEMA`, `DROP_SCHEMA`, `EXECUTE_SQL`, `GET_JOB_STATE`, `GET_SQL_QUERY_STATE`, `GET_TRANSACTION_STATE`, `KILL_QUERY`, `KILL_TRANSACTION`, `MANAGE_CDC`, `MANAGE_DCR`, `RESET_DISTRIBUTION_STATE`, `RESET_PARTITIONS`, `RESTART_PARTITIONS`, `RESTORE_PITR`, `REVOKE_TOKEN`, `ROLLING_UPGRADE`. Grant or revoke them with SQL (`GRANT PRIVILEGES`, `REVOKE PRIVILEGES`) or the REST API. |
 | `‑‑on` | Option | No | Object. If target object name has no dot(`STATICDATA`), its interpreted as a **schema** name. If it has one dot (`STATICDATA.Customer`), its interpreted as `"SCHEMA"."TABLE"`. Wildcards are not supported, only canonical SQL identifiers are accepted. Use **double quotes** for mixed-case or non-standard identifiers (`"StaticData"."Customer"`). |
 | `‑‑url` | Option | No | URL of cluster endpoint. |
 | `‑‑profile` | Option | No | Local CLI profile name. |
@@ -1976,7 +1976,7 @@ role privilege revoke --from=<roleName> --action=<action> [--on=<object>] [--url
 | Parameter | Type | Required | Description |
 |---|---|---|---|
 | `‑‑from` | Option | Yes | From role (comma-separated). |
-| `‑‑action` | Option | Yes | Action (comma-separated). |
+| `‑‑action` | Option | Yes | Action (comma-separated). The CLI does not accept the following actions: `CHANGE_JOB_PRIORITY`, `CHECK_PITR`, `CREATE_SCHEMA`, `DROP_SCHEMA`, `EXECUTE_SQL`, `GET_JOB_STATE`, `GET_SQL_QUERY_STATE`, `GET_TRANSACTION_STATE`, `KILL_QUERY`, `KILL_TRANSACTION`, `MANAGE_CDC`, `MANAGE_DCR`, `RESET_DISTRIBUTION_STATE`, `RESET_PARTITIONS`, `RESTART_PARTITIONS`, `RESTORE_PITR`, `REVOKE_TOKEN`, `ROLLING_UPGRADE`. Grant or revoke them with SQL (`GRANT PRIVILEGES`, `REVOKE PRIVILEGES`) or the REST API. |
 | `‑‑on` | Option | No | Object. If target object name has no dot(`STATICDATA`), its interpreted as a **schema** name. If it has one dot (`STATICDATA.Customer`), its interpreted as `"SCHEMA"."TABLE"`. Wildcards are not supported, only canonical SQL identifiers are accepted. Use **double quotes** for mixed-case or non-standard identifiers (`"StaticData"."Customer"`). |
 | `‑‑url` | Option | No | URL of cluster endpoint. |
 | `‑‑profile` | Option | No | Local CLI profile name. |
