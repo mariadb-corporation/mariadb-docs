@@ -54,7 +54,7 @@ select_random_points.lua --random-points=100
 
 #### Detailed numbers of all runs on pitbull
 
-You can find the absolute and relative numbers in our OpenOffice.org spread sheet here: SysBench v0.5 select\_random\_points on pitbull
+The spread sheet with the absolute and relative numbers ("SysBench v0.5 select\_random\_points on pitbull") is no longer available.
 
 ### On our machine perro
 
@@ -96,7 +96,7 @@ select_random_points.lua --random-points=100
 
 #### Detailed numbers of all runs on perro
 
-You can find the absolute and relative numbers in our OpenOffice.org spread sheet here: SysBench v0.5 select\_random\_points on perro
+The spread sheet with the absolute and relative numbers ("SysBench v0.5 select\_random\_points on perro") is no longer available.
 
 ## Table and query used
 
