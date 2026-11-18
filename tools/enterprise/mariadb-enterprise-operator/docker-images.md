@@ -23,16 +23,40 @@ MariaDB Enterprise Kubernetes Operator is compatible with the following Docker i
 
 | Component | Image | Supported Tags | CPU Architecture |
 |-----------|-------|----------------|------------------|
-| MariaDB Enterprise Kubernetes Operator | docker.mariadb.com/mariadb-enterprise-operator |  26.10.1 <br>  26.10.0 <br>  26.6.8 <br>  26.6.7 <br>  26.6.6 <br>  26.6.5 <br>  26.6.4 <br>  26.6.3 <br>  26.6.2 <br>  26.6.1 <br>  26.6.0 <br>  26.3.2 <br>  26.3.1 <br>  26.3.0 <br>  25.10.4 <br>  25.10.3 <br>  25.10.2 <br>  25.10.1 <br>  25.10.0 <br>  25.8.0 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MariaDB Enterprise Server | docker.mariadb.com/enterprise-server |  11.8.6-3 <br>  11.8.5-2 <br>  11.8.3-1 <br>  11.4.10-7 <br>  11.4.9-6 <br>  11.4.8-5 <br>  11.4.7-4.3 <br>  11.4.7-4.2 <br>  11.4.7-4.1 <br>  10.6.25-21 <br>  10.6.24-20 <br>  10.6.23-19 <br>  10.6.22-18.1 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MariaDB Enterprise Server (tiered) | docker.mariadb.com/enterprise-server |  12.3.3-1 <br>  12.3.3-1-minimal <br>  12.3.3-1-standard <br>  12.3-minimal <br>  12.3-standard <br>  12.3 <br>  11.8.8-5 <br>  11.8.8-5-minimal <br>  11.8.8-5-standard <br>  11.8-minimal <br>  11.8-standard <br>  11.8 <br>  11.8.6-4 <br>  11.8.6-4-minimal <br>  11.8.6-4-standard <br>  11.8.6-3.2 <br>  11.8.6-3.2-minimal <br>  11.8.6-3.2-standard <br>  11.8.6-3.1 <br>  11.8.6-3.1-minimal <br>  11.8.6-3.1-standard <br>  11.4.12-9-minimal <br>  11.4.12-9-standard <br>  11.4.12-9 <br>  11.4-minimal <br>  11.4-standard <br>  11.4 <br>  11.4.10-8-minimal <br>  11.4.10-8-standard <br>  11.4.10-8 <br>  11.4.10-7.2-minimal <br>  11.4.10-7.2-standard <br>  11.4.10-7.2 <br>  11.4.10-7.1-minimal <br>  11.4.10-7.1-standard <br>  11.4.10-7.1 <br>  10.6.27-23-minimal <br>  10.6.27-23-standard <br>  10.6.27-23 <br>  10.6-minimal <br>  10.6-standard <br>  10.6 <br>  10.6.25-22-minimal <br>  10.6.25-22-standard <br>  10.6.25-22 <br>  10.6.25-21.5-minimal <br>  10.6.25-21.5-standard <br>  10.6.25-21.5 <br>  10.6.25-21.1-minimal <br>  10.6.25-21.1-standard <br>  10.6.25-21.1 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MaxScale Enterprise | docker.mariadb.com/maxscale |  26.10.0 <br>  25.10.4 <br>  25.10.3 <br>  25.10.1 <br>  25.10.0 <br>  25.01.4 <br>  25.01.3-1 <br>  25.01 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MaxScale | mariadb/maxscale |  23.08.9-ubi <br>  23.08-ubi <br>  24.02.5-ubi <br>  24.02-ubi <br>  |  amd64 <br>  arm64 <br>  |
-| MariaDB Prometheus Exporter | mariadb/mariadb-prometheus-exporter-ubi |  1.2.1 <br>  1.2.0 <br>  1.1.1 <br>  1.1.0 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MaxScale Prometheus Exporter | mariadb/maxscale-prometheus-exporter-ubi |  1.2.1 <br>  1.2.0 <br>  1.1.1 <br>  1.1.0 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MariaDB Enterprise nslcd sidecar | docker.mariadb.com/nslcd |  0.9.10-13 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise Kubernetes Operator | docker.mariadb.com/mariadb-enterprise-operator |  ^26.10.x <br>  ^26.6.x <br>  ^26.3.x <br>  ^25.10.x <br>  ^25.8.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise Server | docker.mariadb.com/enterprise-server |  ^11.8.x <br>  ^11.4.x <br>  ^10.6.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise Server (tiered) | docker.mariadb.com/enterprise-server |  ^12.3.x (also -minimal, -standard) <br>  ^11.8.x (also -minimal, -standard) <br>  ^11.4.x (also -minimal, -standard) <br>  ^10.6.x (also -minimal, -standard) <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MaxScale Enterprise | docker.mariadb.com/maxscale |  ^26.10.x <br>  ^25.10.x <br>  ^25.01.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Prometheus Exporter | mariadb/mariadb-prometheus-exporter-ubi |  ^1.2.x <br>  ^1.1.x <br>  ^0.0.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MaxScale Prometheus Exporter | mariadb/maxscale-prometheus-exporter-ubi |  ^1.2.x <br>  ^1.1.x <br>  ^0.0.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise nslcd sidecar | docker.mariadb.com/nslcd |  ^0.9.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 
 Refer to the registry documentation to [access docker.mariadb.com with your customer credentials](customer-access-to-docker-mariadb-com.md).
+
+## Finding the latest tag
+
+The tags in the table are version ranges, where `x` stands for any patch version. To find the latest patch release, either let a tool track it or list the tags yourself.
+
+### Automatic updates
+
+Tools such as [Dependabot](https://docs.github.com/en/code-security/dependabot) and [Renovate](https://docs.renovatebot.com/) can watch the image references in your manifests and open a pull request when a new tag appears. Configure them with your [docker.mariadb.com customer credentials](customer-access-to-docker-mariadb-com.md), because the registry is private. Review each pull request against the supported tags above before you merge it.
+
+### Listing tags manually
+
+Authenticate against the registry first, then list the tags. For example, for `enterprise-server`:
+
+```bash
+skopeo login docker.mariadb.com
+skopeo list-tags docker://docker.mariadb.com/enterprise-server
+```
+
+Or query the registry API directly and sort the result by version:
+
+```bash
+curl -s -u "$USER:$PASS" https://docker.mariadb.com/v2/enterprise-server/tags/list | jq -r '.tags[]' | grep -v 'community' | grep -E '^11\.8\.' | sort -V
+```
+
+Replace `enterprise-server` with `maxscale`, `mariadb-enterprise-operator` or `nslcd` to list the tags of the other images.
 
 ### MariaDB Enterprise Server Tiered Images.
 
