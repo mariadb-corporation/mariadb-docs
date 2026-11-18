@@ -18,8 +18,7 @@ MariaDB Cloud supports MaxScale Redundancy as an option at time of launch:
 
 ## Compatibility
 
-* Replicated Transactions
-`{{space.vars.server}}`
+* Replicated Transactions `{{space.vars.server}}`
 
 ## Enable MaxScale Redundancy
 
@@ -46,18 +45,18 @@ When more than one MaxScale node monitors the same cluster, the nodes need to ag
 
 The `cooperative_monitoring_locks` parameter accepts these values:
 
-| Value | Behavior |
-| --- | --- |
+| Value                 | Behavior                                                                                                  |
+| --------------------- | --------------------------------------------------------------------------------------------------------- |
 | `majority_of_running` | **MariaDB Cloud default.** The primary monitor needs locks on a majority of the servers that are running. |
-| `majority_of_all` | The primary monitor needs locks on a majority of all configured servers, including servers that are down. |
-| `none` | Cooperative monitoring is disabled. This is the MaxScale default. |
+| `majority_of_all`     | The primary monitor needs locks on a majority of all configured servers, including servers that are down. |
+| `none`                | Cooperative monitoring is disabled. This is the MaxScale default.                                         |
 
 The two majority settings trade off differently:
 
 * With `majority_of_running`, a monitor can always claim a majority, even when several servers are down, so failover stays possible. However, in a network split where each MaxScale node reaches only part of the cluster, both nodes can consider themselves primary and promote different servers.
 * With `majority_of_all`, two monitors cannot be primary at the same time. However, if too many servers are down, or a network split leaves neither node with a majority, no monitor is primary: the cluster stays read-only and no failover occurs.
 
-Choose `majority_of_all` if it is unlikely that several servers are down at once. Choose `majority_of_running` if split-brain is unlikely but several servers can be down at once. To change the value, set `cooperative_monitoring_locks` under **Intelligent Proxy variables** in a database configuration for the **MariaDB Server With Replicas** topology, then apply that configuration to your service. Applying a database configuration restarts the affected service. For the other Intelligent Proxy parameters, see [MariaDB Cloud Intelligent Proxy](../cloud-management/config/maxscale.md). For details of the MaxScale parameter, see the [MariaDB Monitor](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-monitors/mariadb-monitor#cooperative_monitoring_locks) reference.
+Choose `majority_of_all` if it is unlikely that several servers are down at once. Choose `majority_of_running` if split-brain is unlikely but several servers can be down at once. To change the value, set `cooperative_monitoring_locks` under **Intelligent Proxy variables** in a database configuration for the **MariaDB Server With Replicas** topology, then apply that configuration to your service. Applying a database configuration restarts the affected service. For the other Intelligent Proxy parameters, see [MariaDB Cloud Intelligent Proxy](../cloud-management/config/maxscale.md). For details of the MaxScale parameter, see the [MariaDB Monitor](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-monitors/mariadb-monitor#cooperative_monitoring_locks) reference.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

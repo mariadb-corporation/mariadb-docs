@@ -1,20 +1,16 @@
 ---
 description: >-
   Create a MariaDB Cloud AI Retrieval document knowledge base, add documents by
-  upload or from an S3 or GCS bucket, test retrieval, and connect an
-  application through the REST API.
+  upload or from an S3 or GCS bucket, test retrieval, and connect an application
+  through the REST API.
 icon: file-lines
 ---
-
-<!-- DOCS-6592. Open items are marked TODO. -->
 
 # Document Knowledge Bases
 
 A document knowledge base indexes files so that applications can retrieve passages or generated answers from them. This page shows how to create one, add documents, test it, and call it from an application.
 
-<figure><img src="../../.gitbook/assets/ai-retrieval-document-kb-diagram.png" alt="Documents from object storage or a direct upload are processed in the region of the knowledge base, using a MariaDB-hosted parser and an embedding model, and stored as chunks and embeddings in your MariaDB Cloud database. Clients retrieve chunks or generated answers through hybrid search, with a MariaDB-hosted reranker and a generation model."><figcaption><p>How a document knowledge base ingests documents and answers requests.</p></figcaption></figure>
-
-<!-- Diagram: "Unstructured RAG: Diagram" slide of Egor Ustinov's "Copy of 03 - AI - Training" deck, chosen by him for this page (call of 2026-10-29). Labels reworded to the docs terms (no structured/unstructured RAG), title and logo cropped. -->
+<figure><img src="../../.gitbook/assets/image (10).png" alt=""><figcaption><p>How a document knowledge base ingests documents and answers requests.</p></figcaption></figure>
 
 ## Create a Knowledge Base
 
@@ -30,25 +26,21 @@ A document knowledge base indexes files so that applications can retrieve passag
 
 <figure><img src="../../.gitbook/assets/ai-retrieval-create-kb.png" alt="The Create Knowledge Base page with a document knowledge base, AWS in Frankfurt, an existing vector store service, and the Advanced Options expanded showing the embedding model, the generation model, and the reranker turned on."><figcaption><p>The Create Knowledge Base page</p></figcaption></figure>
 
-<!-- TODO: recapture this screenshot. It shows the reranker off, but the reranker is on by default in portal 4.13.13. The model names can also change. -->
-
 The knowledge base shows the status **Provisioning**, which usually takes a few minutes. When the status changes to **Ready**, you can add documents.
 
 <figure><img src="../../.gitbook/assets/ai-retrieval-kb-ready.png" alt="A ready knowledge base showing its configuration, statistics, an empty data source list, and an empty document list."><figcaption><p>A new knowledge base that is ready for documents</p></figcaption></figure>
 
 ### Advanced Options
 
-| Option | Description |
-| --- | --- |
-| Embedding Model | Converts text into the vectors that semantic search uses. |
-| Generation Model | The default model that generates answers for Retrieve & Generate requests. A request can select a different model. |
-| Reranker | Re-scores the retrieved chunks with a reranking model, at the cost of slightly higher latency. It is on by default. When it is on, reranking applies to every retrieval. When it is off, a request can still turn it on. The reranker is billed per 1,000 queries. |
+| Option           | Description                                                                                                                                                                                                                                                        |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Embedding Model  | Converts text into the vectors that semantic search uses.                                                                                                                                                                                                          |
+| Generation Model | The default model that generates answers for Retrieve & Generate requests. A request can select a different model.                                                                                                                                                 |
+| Reranker         | Re-scores the retrieved chunks with a reranking model, at the cost of slightly higher latency. It is on by default. When it is on, reranking applies to every retrieval. When it is off, a request can still turn it on. The reranker is billed per 1,000 queries. |
 
 {% hint style="warning" %}
 After you create a knowledge base, you can edit only its name and description. To use a different embedding model, generation model, or reranker setting for all requests, create a new knowledge base. A single request can still select a different generation model or turn reranking on or off.
 {% endhint %}
-
-<!-- TODO: confirm in the Edit Knowledge Base dialog. The API accepts only name and description changes. -->
 
 ## Add Documents
 
@@ -68,14 +60,12 @@ You can add documents in two ways. Upload files from your computer, or connect a
 
 The files appear in the **Documents** table. The **Status** column shows the stage that each document has reached. A document starts as **Queued**, then moves through download, parsing, chunking, embedding, and storage. It ends as **Ingested**.
 
-| Status | Meaning |
-| --- | --- |
-| Queued | The document is waiting to be processed. |
-| Download | AI Retrieval is fetching the file. |
-| Ingested | The document is indexed. The **Chunks** column shows how many chunks it produced. |
+| Status   | Meaning                                                                                                               |
+| -------- | --------------------------------------------------------------------------------------------------------------------- |
+| Queued   | The document is waiting to be processed.                                                                              |
+| Download | AI Retrieval is fetching the file.                                                                                    |
+| Ingested | The document is indexed. The **Chunks** column shows how many chunks it produced.                                     |
 | Retrying | Processing met an error, and AI Retrieval retries the document automatically. A warning icon shows the error message. |
-
-<!-- TODO: confirm the portal labels of the stages after Download, and the label of a document that fails. The ingestion service defines the stages queued, download, parse, chunk, cleanse, enrich_metadata, embed, and store. -->
 
 The status can lag behind the actual state of a document. See [Troubleshooting](document-knowledge-bases.md#troubleshooting).
 
@@ -85,24 +75,21 @@ The **Documents** table shows the status of each document, and the **Chunks** co
 
 To monitor ingestion from an application, register a webhook with the ingestion API. AI Retrieval then notifies your endpoint when a document is ingested and when an ingestion job completes or fails.
 
-<!-- Source: ai-retrieval-cloud services/ingestion/api/routes/webhooks.py (prefix /ingestion/v1/webhooks: register, list, get, delete, activate, deactivate, reset, test, deliveries) and api/schemas/enums.py (events document.ingested, job.completed, job.failed) @ f9bd8c0e. The portal also receives DATA_SOURCE_SYNC_UPDATED and KB_PROVISIONING_UPDATED server-sent events through the API gateway (ai-service pkg/events), which customers do not call directly. Egor (2026-10-20) asked for the portal status plus a pointer to the API. Egor\'s unified API spec of 2026-10-27 keeps a public "Webhooks for Document KB" group while hiding ingestion jobs. TODO: link that section of the API reference once it is published. -->
-
 ### Connect a Storage Bucket
 
 A data source connects a bucket to the knowledge base. AI Retrieval reads the documents in the bucket when you sync the data source.
 
 1. Open the knowledge base and select **Add Datasource**.
-2. On the **Connect** step, enter the following values.
+2.  On the **Connect** step, enter the following values.
 
-   | Field | Description |
-   | --- | --- |
-   | Name | 3 to 63 characters. It must start and end with a letter or number, and it can contain letters, numbers, spaces, hyphens, and underscores. |
-   | Cloud Provider | **AWS** for Amazon S3, or **Google Cloud** for Google Cloud Storage. |
-   | Storage Path | The bucket, for example `s3://my_bucket`, or `gs://my_bucket` for Google Cloud Storage. The `s3://` prefix is optional. |
-   | Prefix | Optional. Limits the scan to objects whose keys begin with this value, for example `documents/2026/`. Leave it empty to scan the whole bucket. |
-   | Access Key ID and Access Key | The credentials of an AWS identity that can read the bucket. |
-   | Region | The region of the bucket. |
-
+    | Field                        | Description                                                                                                                                    |
+    | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+    | Name                         | 3 to 63 characters. It must start and end with a letter or number, and it can contain letters, numbers, spaces, hyphens, and underscores.      |
+    | Cloud Provider               | **AWS** for Amazon S3, or **Google Cloud** for Google Cloud Storage.                                                                           |
+    | Storage Path                 | The bucket, for example `s3://my_bucket`, or `gs://my_bucket` for Google Cloud Storage. The `s3://` prefix is optional.                        |
+    | Prefix                       | Optional. Limits the scan to objects whose keys begin with this value, for example `documents/2026/`. Leave it empty to scan the whole bucket. |
+    | Access Key ID and Access Key | The credentials of an AWS identity that can read the bucket.                                                                                   |
+    | Region                       | The region of the bucket.                                                                                                                      |
 3. Select **Test Connection** to check the values.
 4. Select **Next**, and then choose the parsing and chunking strategies for the data source.
 5. On the **Sync** step, select **Sync** to ingest the documents now, or **Later**.
@@ -117,8 +104,6 @@ The credentials need these permissions on the bucket:
 For Google Cloud Storage, the dialog asks for a service account key in JSON format instead of access keys.
 
 <figure><img src="../../.gitbook/assets/ai-retrieval-add-datasource-gcs.png" alt="The Add Datasource dialog on the Connect step with Google Cloud selected, showing the Storage Path, Prefix, and Service Account Key (JSON) fields."><figcaption><p>The Connect step with Google Cloud selected</p></figcaption></figure>
-
-<!-- TODO: capture the Processing step of the data source dialog, and document the permissions that a service account needs. -->
 
 AI Retrieval does not ingest the documents of a data source automatically. Removing a file from the bucket does not remove its document from the knowledge base, so delete the document in the knowledge base. If you delete a document in the knowledge base while its file is still in the bucket, the next sync ingests the file again. Select **Sync Now**, or **Sync** in the data source list, whenever you add files to the bucket. To review earlier syncs, select **View Sync History**.
 
@@ -140,20 +125,20 @@ The portal highlights the words of your question in the results. The highlightin
 
 Open **Advanced Options** to change how a test runs.
 
-| Option | Default | Description |
-| --- | --- | --- |
-| Top K Results | 5 | The number of chunks to retrieve. The portal accepts 1 to 100. |
-| Retrieval Method | Hybrid | Hybrid, Semantic, or Full text. |
-| Documents | All documents | Limits the search to specific documents. |
-| Temperature | 0.3 | A value from 0 to 2. Lower values give more focused answers. |
-| Top P | 1 | A value from 0 to 1. The model considers only the most likely tokens whose probabilities add up to this value. |
-| Max Tokens | 8192 | A value from 64 to 8192. The maximum length of the generated answer. |
-| Reranker | Knowledge base setting | Reorders the retrieved chunks with a reranking model. The choice applies to this test only. |
-| Rerank Top K | Top K | A value from 1 to 50. The number of chunks to keep after reranking. It appears when the reranker is on. |
+| Option           | Default                | Description                                                                                                    |
+| ---------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Top K Results    | 5                      | The number of chunks to retrieve. The portal accepts 1 to 100.                                                 |
+| Retrieval Method | Hybrid                 | Hybrid, Semantic, or Full text.                                                                                |
+| Documents        | All documents          | Limits the search to specific documents.                                                                       |
+| Temperature      | 0.3                    | A value from 0 to 2. Lower values give more focused answers.                                                   |
+| Top P            | 1                      | A value from 0 to 1. The model considers only the most likely tokens whose probabilities add up to this value. |
+| Max Tokens       | 8192                   | A value from 64 to 8192. The maximum length of the generated answer.                                           |
+| Reranker         | Knowledge base setting | Reorders the retrieved chunks with a reranking model. The choice applies to this test only.                    |
+| Rerank Top K     | Top K                  | A value from 1 to 50. The number of chunks to keep after reranking. It appears when the reranker is on.        |
 
 The Retrieve & Generate tab also has a **Generation Model** list. Temperature, Top P, Max Tokens, and the model apply only to generated answers.
 
-<figure><img src="../../.gitbook/assets/ai-retrieval-test-options.png" alt="The Test Knowledge Base drawer on the Retrieve and Generate tab, showing the Generation Model list and the expanded Advanced Options: Top K Results, Retrieval Method, Documents, the Reranker toggle turned on, Rerank Top K, Temperature, and Top P."><figcaption><p>Advanced Options of the Retrieve & Generate tab</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/ai-retrieval-test-options.png" alt="The Test Knowledge Base drawer on the Retrieve and Generate tab, showing the Generation Model list and the expanded Advanced Options: Top K Results, Retrieval Method, Documents, the Reranker toggle turned on, Rerank Top K, Temperature, and Top P."><figcaption><p>Advanced Options of the Retrieve &#x26; Generate tab</p></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/ai-retrieval-test-options-more.png" alt="The Test Knowledge Base drawer scrolled down to the end of the Advanced Options, showing Rerank Top K, Temperature, Top P, and Max Tokens, followed by the query box and the Test Query button."><figcaption><p>The remaining Advanced Options</p></figcaption></figure>
 
@@ -174,8 +159,6 @@ Applications call the knowledge base through a REST API and authenticate with an
 
 An API key belongs to your user account, not to a single knowledge base. To stop a key from working, select **Revoke** in the actions menu of its row. Select **Delete** to remove it.
 
-<!-- TODO: confirm the key scope and the roles that can create keys. -->
-
 ### Send a Request
 
 Select **Connect** on the knowledge base to see its endpoint and examples in cURL, Python, and JavaScript. The endpoint has this form:
@@ -184,12 +167,10 @@ Select **Connect** on the knowledge base to see its endpoint and examples in cUR
 https://ENDPOINT/retrieval/v1/knowledgebases/KB_ID/retrieve-chunks
 ```
 
-<!-- TODO: replace ENDPOINT with the production host when it is known. -->
-
-| Endpoint | Result |
-| --- | --- |
-| `…/retrieve-chunks` | The most relevant chunks. |
-| `…/retrieve-chunks-and-generate` | A generated answer with citations. |
+| Endpoint                                | Result                                      |
+| --------------------------------------- | ------------------------------------------- |
+| `…/retrieve-chunks`                     | The most relevant chunks.                   |
+| `…/retrieve-chunks-and-generate`        | A generated answer with citations.          |
 | `…/retrieve-chunks-and-generate/stream` | The generated answer as a stream of events. |
 
 The following request retrieves chunks:
@@ -207,20 +188,20 @@ curl -X POST "https://ENDPOINT/retrieval/v1/knowledgebases/KB_ID/retrieve-chunks
 
 The request body accepts these fields.
 
-| Field | Applies to | Description |
-| --- | --- | --- |
-| `query` | All | Required. The question, from 1 to 4096 characters. |
-| `retrieval_method` | All | `hybrid` (default), `semantic`, or `fulltext`. |
-| `top_k` | All | The number of chunks to retrieve, from 1 to 100. The default is 10. |
-| `document_ids` | All | Limits the search to these document IDs. |
-| `enable_rerank` | All | Turns reranking on or off for this request. The default is the knowledge base setting. |
-| `rerank_top_k` | All | The number of chunks to keep after reranking, from 1 to 50. The default is `top_k`. |
-| `min_similarity` | All | A value from 0 to 1. Semantic matches must exceed it. The default is 0.5. Full-text matches ignore it. |
-| `llm_provider`, `llm_model` | Generate | The model for this request. The default is the knowledge base setting. |
-| `temperature` | Generate | A value from 0 to 2. The default is 0.3. |
-| `top_p` | Generate | A value from 0 to 1. The default is 1. |
-| `max_tokens` | Generate | A value from 64 to 8192. The default is 8192. |
-| `enable_citations` | Generate | Returns citations. The default is `true`. |
+| Field                       | Applies to | Description                                                                                            |
+| --------------------------- | ---------- | ------------------------------------------------------------------------------------------------------ |
+| `query`                     | All        | Required. The question, from 1 to 4096 characters.                                                     |
+| `retrieval_method`          | All        | `hybrid` (default), `semantic`, or `fulltext`.                                                         |
+| `top_k`                     | All        | The number of chunks to retrieve, from 1 to 100. The default is 10.                                    |
+| `document_ids`              | All        | Limits the search to these document IDs.                                                               |
+| `enable_rerank`             | All        | Turns reranking on or off for this request. The default is the knowledge base setting.                 |
+| `rerank_top_k`              | All        | The number of chunks to keep after reranking, from 1 to 50. The default is `top_k`.                    |
+| `min_similarity`            | All        | A value from 0 to 1. Semantic matches must exceed it. The default is 0.5. Full-text matches ignore it. |
+| `llm_provider`, `llm_model` | Generate   | The model for this request. The default is the knowledge base setting.                                 |
+| `temperature`               | Generate   | A value from 0 to 2. The default is 0.3.                                                               |
+| `top_p`                     | Generate   | A value from 0 to 1. The default is 1.                                                                 |
+| `max_tokens`                | Generate   | A value from 64 to 8192. The default is 8192.                                                          |
+| `enable_citations`          | Generate   | Returns citations. The default is `true`.                                                              |
 
 A `retrieve-chunks` response contains the `chunks` array. Each chunk has `chunk_id`, `document_id`, `chunk_text`, `chunk_index`, `score`, `document_name`, `file_name`, and `file_format`. The response also reports `total_chunks`, `retrieval_method`, and `reranking_enabled`.
 
@@ -248,16 +229,14 @@ A document can stay in **Queued** or **Retrying** for a long time. The warning i
 * A vector store on a small Serverless instance can slow ingestion down.
 * Contact MariaDB Support if the problem continues.
 
-<!-- TODO: re-verify the retry behavior before the launch. The retry sweep is on by default with 3 retries (ai-retrieval-cloud services/ingestion/config.py @ 5393bced). The Retry endpoints still return HTTP 501 and Egor said on 2026-10-14 that the ingestion jobs endpoints will be hidden. -->
-
 ### Test Connection Fails
 
-| Problem | Likely cause |
-| --- | --- |
-| The bucket is not found | The bucket name is wrong, or it does not exist in the region that you selected. |
-| The credentials are not valid | The access key ID or the access key is wrong. |
-| Access is denied | The credentials lack the `s3:ListBucket` permission on the bucket. |
-| The storage provider cannot be reached | A network problem, or a wrong region. |
+| Problem                                | Likely cause                                                                    |
+| -------------------------------------- | ------------------------------------------------------------------------------- |
+| The bucket is not found                | The bucket name is wrong, or it does not exist in the region that you selected. |
+| The credentials are not valid          | The access key ID or the access key is wrong.                                   |
+| Access is denied                       | The credentials lack the `s3:ListBucket` permission on the bucket.              |
+| The storage provider cannot be reached | A network problem, or a wrong region.                                           |
 
 ### A Document Produces No Text
 
