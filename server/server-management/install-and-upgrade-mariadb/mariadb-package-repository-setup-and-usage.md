@@ -545,17 +545,16 @@ On Red Hat Enterprise Linux (RHEL) and equivalents, the MariaDB Package Reposito
 
 On Debian and Ubuntu, the MariaDB Package Repository setup script performs the following tasks:
 
-1. Creates a repository configuration file at `/etc/apt/sources.list.d/mariadb.list`
-2. Creates a package preferences file at `/etc/apt/preferences.d/mariadb-enterprise.pref`, which gives packages from MariaDB repositories a higher priority than packages from OS and other repositories, which can help avoid conflicts. It looks like the following:
+1. Creates a repository configuration file at `/etc/apt/sources.list.d/mariadb.sources`, in the Deb822 format. With the `--list` option, it writes the older one-line format to `/etc/apt/sources.list.d/mariadb.list` instead.
+2.  Creates a package preferences file at `/etc/apt/preferences.d/mariadb-enterprise.pref`, which gives packages from MariaDB repositories a higher priority than packages from OS and other repositories, which can help avoid conflicts. It looks like the following:
 
-```ini
-Package: *
-Pin: origin dlm.mariadb.com
-Pin-Priority: 1000
-```
-
-1. Imports the GPG public key used to verify the signature of MariaDB software package
-2. Updates the package cache with package definitions from the MariaDB Package Repository with `apt update`
+    ```ini
+    Package: *
+    Pin: origin dlm.mariadb.com
+    Pin-Priority: 1000
+    ```
+3. Imports the GPG public key used to verify the signature of MariaDB software package
+4. Updates the package cache with package definitions from the MariaDB Package Repository with `apt update`
 {% endtab %}
 
 {% tab title="SLES" %}
