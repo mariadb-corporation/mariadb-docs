@@ -1,8 +1,8 @@
 ---
 description: >-
   How GridGain 9 partitions and replicates table data across cluster nodes,
-  including RAFT consensus, the Fair distribution algorithm, and primary replica
-  leases.
+  including partition functions, RAFT consensus, the Fair distribution
+  algorithm, and primary replica leases.
 ---
 
 # Data Partitioning
@@ -15,7 +15,7 @@ When the table is created, it is always assigned to a [distribution zone](distri
 
 GridGain 9 uses the *Fair* partition distribution algorithm. It stores information on partition distribution and uses this information for assigning new partitions. This information is preserved in cluster metastorage, and is recalculated only when necessary.
 
-Once partitions and all replicas are created, they are distributed across the available cluster nodes that are included in the distribution zone following the `DATA_NODES_FILTER` parameter and according to the *partition distribution algorithm*. Thus, each key is mapped to a list of nodes owning the corresponding partition and is stored on those nodes. When data is added, it is distributed evenly between partitions.
+Once partitions and all replicas are created, they are distributed across the available cluster nodes that are included in the distribution zone following the `DATA_NODES_FILTER` parameter and according to the *partition distribution algorithm*. Thus, each key is mapped to a list of nodes owning the corresponding partition and is stored on those nodes. With the default [partition function](#partition-function), data is distributed almost evenly between partitions. This needs many more colocation key values than partitions, and a similar amount of data for each value.
 
 ![GridGain Partitions](../../.gitbook/assets/gg9-administrators-guide-partitioning.png)
 
@@ -75,6 +75,156 @@ For example, with 5 replicas and quorum size of 2, 3 replicas will be part of co
 It is recommended to always have an odd number of replicas and at least 3 replicas of your data on the cluster. When only 2 data replicas exist, losing one will always lead to losing majority, while having 3 or 5 data replicas will allow the cluster to stay functional in [network segmentation](../cluster-lifecycle.md#network-segmentation-scenario) scenarios.
 
 For maximum read availability, you can create a replicated zone by setting `REPLICAS ALL`, which stores a copy of every partition on every node in the cluster. This provides local data access for read-only queries and eliminates network latency for reads, making it ideal for reference data and lookup tables. However, replicated zones come with storage overhead and write amplification costs. See [Replicated Zones](distribution-zones.md#replicated-zones) for detailed information on when to use this configuration and how to combine it with standard zones.
+
+## Partition Function
+
+The partition function maps the colocation key of a row to a partition. Starting with GridGain 9.2, you can set the function for a table or cache when you create it. Use the `USING FUNCTION` clause after `COLOCATE BY` in [CREATE TABLE](../../reference/sql/ddl.md#create-table) or [CREATE CACHE](../../reference/sql/ddl.md#create-cache), or the Java [catalog API](../../gridgain9-development/tables-from-java-classes.md#partition-function). You cannot change the function later. To use `MODULO` for existing data, see [Upgrade and Existing Tables](#upgrade-and-existing-tables).
+
+GridGain 9 supports these partition functions:
+
+| Function | Partition of a row | Colocation key |
+| --- | --- | --- |
+| `MURMUR3_MODULO` (default) | The MurmurHash3 hash of the colocation key modulo the partition count. | One or more columns of the primary key. |
+| `MODULO` | The colocation key value modulo the partition count. | Exactly one primary key column of type `TINYINT`, `SMALLINT`, `INT`, or `BIGINT`. |
+
+With `MODULO` and 16 partitions, a row with the colocation key value `5` is in partition `5`, and a row with the value `21` is also in partition `5`. A negative key value also gives a partition from `0` to the partition count minus 1.
+
+### Choosing a Partition Function
+
+Use `MODULO` only if all of these conditions are true:
+
+- The colocation key is one integer column.
+- The key values are dense. They are consecutive integers with few gaps, such as `1` to `N`, and you know `N` or its maximum when you create the zone.
+- All tables that are colocated by this key can use `MODULO`.
+
+Typical colocation keys for `MODULO` are warehouse, tenant, region, and shard numbers. To select the partition count, see [Planning the Partition Count](#planning-the-partition-count).
+
+Keep the default `MURMUR3_MODULO` function if any of these conditions is true:
+
+- The key values are sparse or random, such as generated identifiers with gaps or hash-based numbers.
+- The colocation key is not one integer column. Strings, UUIDs, and composite keys need the default function.
+- The table must be colocated with tables that use the default function.
+- One key value has much more data or load than the others, and you want to spread its rows with a composite colocation key. These rows are then not colocated with tables that are colocated by the first column alone.
+
+#### Placement of Dense Key Values
+
+A hash does not place a small number of key values evenly. Some partitions get several key values, and other partitions stay empty. `MODULO` places consecutive key values in consecutive partitions. Each partition gets the same number of key values, or one more.
+
+The table below compares the placement of `INT` key values from `1` to `N`:
+
+| Key values (`N`) | Partitions | Key values in a partition, `MURMUR3_MODULO` | Key values in a partition, `MODULO` |
+| --- | --- | --- | --- |
+| 16 | 16 | 0 to 3 (6 partitions empty) | 1 |
+| 30 | 40 | 0 to 3 (21 partitions empty) | 0 or 1 (10 partitions empty) |
+| 100 | 25 | 1 to 9 | 4 |
+| 1000 | 25 | 31 to 57 | 40 |
+| 100000 | 25 | 3855 to 4153 | 4000 |
+
+With the default function, the placement gets closer to even as the number of key values in each partition grows. With `MODULO`, partitions differ by one key value at most. The placement is fully even when the number of key values is a multiple of the partition count.
+
+#### Example: Colocated Tables
+
+The main use case is a set of tables that are colocated by the same dense key. In the example below, all tables are colocated by the warehouse number:
+
+```sql
+CREATE ZONE IF NOT EXISTS warehouseZone (PARTITIONS 16, REPLICAS 3) STORAGE PROFILES ['default'];
+
+CREATE TABLE Warehouse (
+  w_id INT PRIMARY KEY,
+  name VARCHAR
+) COLOCATE BY (w_id) USING FUNCTION MODULO ZONE warehouseZone;
+
+CREATE TABLE District (
+  d_w_id INT,
+  d_id INT,
+  name VARCHAR,
+  PRIMARY KEY (d_w_id, d_id)
+) COLOCATE BY (d_w_id) USING FUNCTION MODULO ZONE warehouseZone;
+
+CREATE TABLE Stock (
+  s_w_id INT,
+  s_i_id INT,
+  quantity INT,
+  PRIMARY KEY (s_w_id, s_i_id)
+) COLOCATE BY (s_w_id) USING FUNCTION MODULO ZONE warehouseZone;
+```
+
+A warehouse, its districts, and its stock rows are in the same partition. For warehouse `21`, this is partition `5`. For warehouses `1` to `16`, each partition has one warehouse. A join on the warehouse number, such as `Warehouse JOIN District ON w_id = d_w_id`, does not move data between nodes to match the rows.
+
+{% hint style="warning" %}
+Write `USING FUNCTION MODULO` in each colocated table. If one table uses the default function, there is no error, but this table is not colocated with the other tables. Joins with this table move data between nodes.
+{% endhint %}
+
+#### Planning the Partition Count
+
+- **Use a separate zone.** All tables in a zone use the same partition count. Create a zone for the tables that use `MODULO`, and set `PARTITIONS` explicitly. Put all tables that are colocated by this key in this zone. The [default partition count](#partition-number) depends on the number of nodes, CPU cores, and replicas, so it does not match your key values.
+- **Fit the partition count to the key values first.** Set the partition count to the number of key values `N` or to a divisor of `N`. For 100 key values, use 100, 50, or 25 partitions. If you can, also choose a count close to the recommended partition count for your cluster.
+- **Then fit the partition count to the nodes, if you can.** The [Fair distribution algorithm](#fair-distribution-algorithm) can spread the partition replicas fully evenly only when the partition count multiplied by the replica count is a multiple of the number of data nodes.
+- **Avoid a common factor of the key values and the partition count.** If all key values are multiples of 10 and the zone has 20 partitions, `MODULO` puts all rows in partitions `0` and `10`.
+- **Plan for growth.** You cannot change the partition count of a zone. Choose the partition count for the largest number of key values you expect. If the number of key values grows beyond it, some partitions get more key values than others. With 16 partitions and warehouses `1` to `20`, partitions `1` to `4` have 2 warehouses each, and the other partitions have 1.
+
+#### Limitations
+
+- **Key values with much more data or load.** All rows with the same colocation key value are in one partition. With the default function, you can add a column to the colocation key to spread these rows over partitions. `MODULO` supports one column only.
+- **The partition does not identify the node.** The partition of a key value is fixed. The node that holds the partition is not fixed. The Fair distribution algorithm selects it, and it can change after a rebalance or a node failure. Do not use the partition ID to find a node. To find the node with the primary replica of a partition, use the `primaryReplica` method of `PartitionDistribution`.
+
+### How the Function is Used
+
+All operations place and read the rows with the partition function of the table. This includes SQL, `RecordView` and `KeyValueView`, the data streamer, the partition API, and colocated compute jobs. Tables with different partition functions are not colocated, even in the same zone.
+
+### Checking the Placement
+
+To see the partition function of each table, query the `TABLE_PARTITION_FUNCTION` column of the [TABLES](../../reference/monitoring/system-views.md#tables) system view:
+
+```sql
+SELECT TABLE_NAME, TABLE_PARTITION_FUNCTION FROM SYSTEM.TABLES WHERE ZONE_NAME = 'WAREHOUSEZONE';
+```
+
+Zone names that are not quoted are stored in uppercase.
+
+To count the rows in each partition of a table, use the [`__PARTITION_ID`](../../gridgain9-development/sql/sql-api.md#partition-specific-selects) system column:
+
+```sql
+SELECT __PARTITION_ID, COUNT(*) FROM Stock GROUP BY __PARTITION_ID ORDER BY __PARTITION_ID;
+```
+
+To get the partition of a key value in Java, use the [partition API](../../gridgain9-development/table-api.md#partition-api):
+
+```java
+Partition partition = client.tables().table("Warehouse")
+        .partitionDistribution()
+        .partition(Tuple.create().set("w_id", 5));
+
+long partitionId = partition.id(); // 5
+```
+
+### Client Support
+
+Clients with partition awareness send a request directly to the node that holds the partition of the key value. For a `MODULO` table, they compute the partition with the function of the table. The table shows which clients have partition awareness for `MODULO` tables:
+
+| Client | Key-value operations | SQL |
+| --- | --- | --- |
+| Java | Yes | Yes |
+| JDBC | Not applicable | Yes |
+| .NET | Yes | Yes |
+| C++ | Yes | No |
+| ODBC | Not applicable | No |
+| Python DB API | Not applicable | No |
+| Python native client | No | No |
+
+Where the table shows No, the server routes the request to the correct node.
+
+Clients before GridGain 9.2 also work with `MODULO` tables, without partition awareness. The server routes their requests to the correct node.
+
+{% hint style="warning" %}
+The partition API of a client before GridGain 9.2 can return a wrong partition ID for a key of a `MODULO` table. To get the partition of a key value, use a client of GridGain 9.2 or later.
+{% endhint %}
+
+### Upgrade and Existing Tables
+
+Tables created before the upgrade to GridGain 9.2 use `MURMUR3_MODULO` and keep their partitions after the upgrade. The cluster rejects schema changes during a [rolling upgrade](../../gridgain9-management/upgrade/rolling-upgrade.md#schema-changes-and-ddl-are-blocked), so you can create a `MODULO` table only after the upgrade is complete.
+
+To use `MODULO` for an existing table, create a new table with `USING FUNCTION MODULO` in a zone with a partition count that fits the key values. Then copy the rows with a statement such as `INSERT INTO new_table SELECT * FROM old_table`. Do this for all tables that are colocated by the same key.
 
 ## Understanding RAFT Consensus
 
