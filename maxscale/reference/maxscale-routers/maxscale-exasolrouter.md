@@ -272,8 +272,9 @@ client's own Exasol user are applied.
 * The users to be impersonated need not have the privilege `CREATE SESSION`,
   as the session is opened by the account in `odbc_connection_string`.
 
-An Exasol `IMPERSONATE` cannot be undone, so changing the user of a
-session is not supported, see [Limitations](#limitations).
+An Exasol `IMPERSONATE` cannot be undone, so when the client changes the
+user, a new connection to Exasol is made for the new user, see
+[Changing the User and Resetting the Connection](#changing-the-user-and-resetting-the-connection).
 
 ### `gtid_polling`
 
@@ -457,6 +458,31 @@ reconnects to Exasol the next time a query is to be sent to it. If Exasol
 is then still not available, the session may be closed. If Exasol is the
 primary, the session is closed.
 
+## Changing the User and Resetting the Connection
+
+{% hint style="info" %}
+This functionality is available from MaxScale 26.10.1.
+{% endhint %}
+
+When a client changes the user (`COM_CHANGE_USER`) or resets the
+connection (`COM_RESET_CONNECTION`), _ExasolRouter_ makes a new connection
+to Exasol and uses it instead of the current one. The client thus gets a
+new Exasol session, with nothing left of the state of the previous one.
+
+When the user is changed, the new connection is made for the new user, see
+[impersonate](#impersonate). The default database specified with the
+change, if any, is opened as the schema. If the connection cannot be made,
+for instance because the new user does not exist in Exasol, the client
+gets an error and the session continues as it was, as the previous user.
+
+When the connection is reset, the user and the current database of the
+client are kept. If the new connection cannot be made, the session is
+closed.
+
+If _ExasolRouter_ is used via [SmartRouter](maxscale-smartrouter.md), a
+change of user must succeed on all targets of SmartRouter, see
+[Changing the User](maxscale-smartrouter.md#changing-the-user).
+
 ## Examples
 
 ### SmartRouter
@@ -573,9 +599,6 @@ of `maxctrl show service`, has the following field.
 
 ## Limitations
 
-* Changing the user of a session using `COM_CHANGE_USER` is not supported.
-  The session is closed with an error message and the client must reconnect
-  as the desired user.
 * A MariaDB `KILL` statement does not kill a running statement on Exasol, see
   [Killing a Query](#killing-a-query).
 

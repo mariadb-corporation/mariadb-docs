@@ -155,13 +155,17 @@ connection to GridGain. GridGain may silently fall back to the schema
 schema in use is the requested one. If it is not, the session is refused
 with the error 1927 (`Could not verify the current schema`).
 
-The schema is fixed for the lifetime of the session. A `USE` statement
-(`COM_INIT_DB`) that names the schema the client connected with is
-accepted and does nothing. A `USE` statement that names another schema
-fails with the error 1235
+The schema is fixed when the connection to GridGain is made. A `USE`
+statement (`COM_INIT_DB`) that names the schema in use is accepted and
+does nothing. A `USE` statement that names another schema fails with the
+error 1235
 
 > Changing the database is not supported by the router of this service;
 > reconnect with the desired database instead.
+
+The schema can also be changed by changing the user, as a new connection
+to GridGain is then made, see
+[Changing the User and Resetting the Connection](#changing-the-user-and-resetting-the-connection).
 
 ## Queries
 
@@ -232,6 +236,34 @@ reconnects to GridGain the next time a query is to be sent to it. If
 GridGain is then still not available, the session may be closed. If
 GridGain is the primary, the session is closed.
 
+## Changing the User and Resetting the Connection
+
+{% hint style="info" %}
+This functionality is available from MaxScale 26.10.1.
+{% endhint %}
+
+When a client changes the user (`COM_CHANGE_USER`) or resets the
+connection (`COM_RESET_CONNECTION`), _GridGainRouter_ makes a new
+connection to GridGain and uses it instead of the current one. The client
+thus gets a new GridGain session, with nothing left of the state of the
+previous one.
+
+When the user is changed, the default database specified with the change
+is used as the schema of the new connection, see [Schemas](#schemas). If
+none is specified, the change fails with the error 1046
+
+> A database must be specified with the router of this service.
+
+If the connection cannot be made, the client gets an error. In both
+cases the session continues as it was.
+
+When the connection is reset, the schema is kept. If the new connection
+cannot be made, the session is closed.
+
+If _GridGainRouter_ is used via [SmartRouter](maxscale-smartrouter.md), a
+change of user must succeed on all targets of SmartRouter, see
+[Changing the User](maxscale-smartrouter.md#changing-the-user).
+
 ## Examples
 
 ### Stand-Alone
@@ -275,11 +307,8 @@ mariadb --port=4008 --database=PUBLIC
 
 ## Limitations
 
-* The schema cannot be changed after the connection has been made, see
+* The schema cannot be changed with a `USE` statement, see
   [Schemas](#schemas).
-* Changing the user of a session using `COM_CHANGE_USER` is not supported.
-  The session is closed with an error message and the client must reconnect
-  as the desired user.
 * A `KILL` statement with a MaxScale connection id does not kill a running
   query on GridGain, see [Killing a Query](#killing-a-query).
 

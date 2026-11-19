@@ -299,6 +299,16 @@ This feature is only available in MaxScale 26.10.0 and later.
 {% endtab %}
 {% endtabs %}
 
+## Changing the User
+
+{% hint style="info" %}
+This functionality is available from MaxScale 26.10.1.
+{% endhint %}
+
+When a client changes the user (`COM_CHANGE_USER`), the change is made on
+all targets of the session. If it fails on any of them, the session is
+closed, as its targets would otherwise no longer have the same user.
+
 ## Limitations
 
 * `LOAD DATA LOCAL INFILE` is not supported.
