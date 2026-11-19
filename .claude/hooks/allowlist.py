@@ -21,7 +21,7 @@ WHY A FILE AND NOT AN ENVIRONMENT VARIABLE
     before stops working.
 
 FORMAT
-    Three sections, one per guard, because the conditions are independent: a
+    Four sections, one per guard, because the conditions are independent: a
     page can be legitimately unlisted without being gutted, and a release can
     legitimately have no Post Download page while being neither. Every entry
     needs a `reason`, and the ticket it traces to where one exists:
@@ -37,6 +37,10 @@ FORMAT
         no-standalone:
           - path: release-notes/connectors/c/3.4/3.4.10.md
             reason: "shipped only inside Server; 3.4.11 is the standalone -- DOCS-6732"
+
+        url-path:
+          - path: tools/community/mariadb-shell/extending-mariadb-shell/extension-objects.md
+            reason: "synced from the MariaDB Shell repo; fix it there -- DOCS-7069"
 
     A section name is written the way YAML reads best, so it may contain `-`.
     The matching environment variable normalizes that to `_`, because
@@ -79,7 +83,9 @@ STALE ENTRIES
     gone. There is no "un-shrink" signal, so that half cannot self-prune
     further. postdownload.py fails on a no-standalone entry whose page is gone
     OR whose release has since gained a Post Download page -- that second signal
-    exists, so that section prunes itself in both directions.
+    exists, so that section prunes itself in both directions. urlcheck.py fails
+    on a url-path entry whose page is gone, is no longer in SUMMARY.md, or now
+    matches its URL.
 
 MODES
     allowlist.py validate [<file>]   parse and report the counts (exit 2 if bad)
@@ -94,7 +100,7 @@ import pathlib
 import sys
 
 REL_PATH = os.path.join('.claude', 'hooks', 'doc-lint-allow.yml')
-SECTIONS = ('orphan', 'shrink', 'no-standalone')
+SECTIONS = ('orphan', 'shrink', 'no-standalone', 'url-path')
 
 
 class AllowlistError(Exception):

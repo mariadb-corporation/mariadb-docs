@@ -1,0 +1,150 @@
+name: Check Published URLs in PR
+
+# Gates pages whose published URL does not match their file path (DOCS-7069). GitBook builds a
+# page's URL from SUMMARY.md alone -- the entry's nesting, any `## Group` heading above it, and
+# the lowercased file name -- so a nav edit or a file filed in a different folder from its nav
+# position publishes fine, at a URL the repo doesn't show. DOCS-7069 found 618 such pages, the
+# first 12 under /readme/ paths, and each one fixed after the fact cost a move, link repointing,
+# and sometimes redirects. urlcheck.py's header has the derivation rules and how they were proved
+# against the GitBook API.
+#
+# Built the same way as navcheck-pr.yml, and for the same reasons, which that file's header gives
+# in full:
+#   * `new` and not `check`: main still carries pre-existing mismatches (take the count fresh
+#     with `urlcheck.py check`), so only what the PR introduces fails.
+#
+# The GridGain docs (their spaces, their release notes and clients, and Control Center) are not
+# checked: urlcheck.py's NOT_CHECKED, until the GridGain docs team decides how to file them.
+#   * no changed-files filter: re-nesting an entry in SUMMARY.md moves the URLs of pages the diff
+#     doesn't contain, and the stale-acknowledgment audit has to run on every PR.
+#   * the acknowledgment is the `url-path:` section of .claude/hooks/doc-lint-allow.yml, for a
+#     page synced from another repo that can only be fixed there.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+# A second push supersedes the first.
+concurrency:
+  group: urlcheck-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  urlcheck:
+    runs-on: ubuntu-latest
+    # The scan takes well under a second; the rest is headroom for the checkout.
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          # REQUIRED. The base side of `new` is read with git show, and without the base commit
+          # urlcheck.py prints "base revision not found -- SKIPPED" and exits ZERO.
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Resolve and verify the base revision
+        id: base
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          # On a merge ref, the first parent is the base the PR is measured against.
+          if git rev-parse -q --verify 'HEAD^2' >/dev/null 2>&1; then
+            EFFECTIVE_BASE="$(git rev-parse 'HEAD^1')"
+            echo "HEAD is a merge commit; measuring against its first parent ${EFFECTIVE_BASE}."
+          else
+            EFFECTIVE_BASE="${BASE_SHA:-}"
+            echo "HEAD is not a merge commit; measuring against the PR base ${EFFECTIVE_BASE}."
+          fi
+          if [[ -z "${EFFECTIVE_BASE:-}" ]]; then
+            echo "::error::The PR base SHA is empty, so the URL gate has no baseline to compare against."
+            exit 1
+          fi
+          if ! git cat-file -e "${EFFECTIVE_BASE}^{commit}" 2>/dev/null; then
+            echo "::error::Base commit ${EFFECTIVE_BASE} is not in this clone, so the URL gate would SKIP and report success. Check that fetch-depth: 0 is still set on the checkout step."
+            exit 1
+          fi
+          echo "sha=${EFFECTIVE_BASE}" >> "$GITHUB_OUTPUT"
+
+      - name: Validate the acknowledgment register
+        run: |
+          set -uo pipefail
+          set +e
+          python3 .claude/hooks/allowlist.py validate
+          rc=$?
+          set -e
+          if [[ "$rc" != "0" ]]; then
+            echo "::error::.claude/hooks/doc-lint-allow.yml is malformed -- see the message above for the line. The accepted shape is in .claude/hooks/allowlist.py's header."
+            exit "$rc"
+          fi
+
+      - name: Check published URLs
+        id: urlcheck
+        env:
+          BASE_SHA: ${{ steps.base.outputs.sha }}
+        run: |
+          set -uo pipefail
+          set +e
+          python3 .claude/hooks/urlcheck.py new "$BASE_SHA" > urlcheck.log 2>&1
+          rc=$?
+          set -e
+          cat urlcheck.log
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          case "$rc" in
+            0) ;;
+            1) echo "::error::This PR publishes a page at a URL that doesn't match its file path, or leaves a stale entry in the acknowledgment register. Details, with the path each file would need, in the job log and the run summary." ;;
+            2) echo "::error::urlcheck.py rejected its arguments, or could not read the acknowledgment register -- this workflow or that file is at fault, not necessarily the PR's pages." ;;
+            *) echo "::error::urlcheck.py exited $rc (crash). This is a tooling failure, not a PR finding." ;;
+          esac
+          exit "$rc"
+
+      - name: Assert the check was not vacuous
+        if: steps.urlcheck.outputs.rc == '0'
+        run: |
+          set -euo pipefail
+          count="$(sed -n 's/.*[^0-9]\([0-9]\{1,\}\) page(s) scanned.*/\1/p' urlcheck.log | head -1)"
+          if [[ -z "$count" || "$count" -lt 1 ]]; then
+            cat urlcheck.log
+            echo "::error::Could not read a nonzero page count out of urlcheck's output, so this run scanned no pages. Either the summary line changed shape (update this assertion with it) or no space was found to scan."
+            exit 1
+          fi
+          echo "Scanned $count page(s) -- the check ran against real content."
+
+      - name: Record the result in the run summary
+        if: always()
+        env:
+          RC: ${{ steps.urlcheck.outputs.rc }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## Published-URL check"
+            echo
+            if [[ ! -s urlcheck.log ]]; then
+              echo "No output was produced -- an earlier step failed before the scan ran."
+            else
+              case "${RC:-}" in
+                0) echo "No page this PR adds, moves, or re-nests publishes at a URL that differs from its file path, and no acknowledgment in \`.claude/hooks/doc-lint-allow.yml\` has gone stale." ;;
+                1) echo "Move each file listed to the path shown, which changes nothing for readers -- or change its \`SUMMARY.md\` entry so the URL follows the file, which needs a redirect for the old URL. A page synced from another repo can be acknowledged in the \`url-path:\` section of \`.claude/hooks/doc-lint-allow.yml\` with its reason." ;;
+                *) echo "The check did not complete (exit ${RC:-unknown}). This is a tooling failure, not a PR finding." ;;
+              esac
+              echo
+              echo '````text'
+              cat urlcheck.log
+              echo '````'
+              echo
+              echo "Run the same check locally with:"
+              echo
+              echo '````bash'
+              echo "python3 .claude/hooks/urlcheck.py new ${GITHUB_BASE_REF:-main}"
+              echo '````'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

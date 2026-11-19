@@ -401,6 +401,8 @@ build_navbox() {
   # one case below deletes it on purpose to assert exactly that.
   cp "$SCRIPT_DIR/allowlist.py"    "$NAVBOX/.claude/hooks/allowlist.py"
   cp "$SCRIPT_DIR/shrinkcheck.py"  "$NAVBOX/.claude/hooks/shrinkcheck.py"
+  # urlcheck.py reuses navcheck.py's helpers and reads the same register (DOCS-7069).
+  cp "$SCRIPT_DIR/urlcheck.py"     "$NAVBOX/.claude/hooks/urlcheck.py"
 
   # Ignored paths, for the enumeration case. `scratch/` is the shape that motivated the fix:
   # /graphify writes GRAPH_REPORT.md into the tree, git ignores it, and os.walk did not.
@@ -553,6 +555,22 @@ navreset() {
   # keeps the whole directory, so a case that wrote one has to have it removed here or the
   # next case inherits its acknowledgments.
   rm -f "$NAVBOX/.claude/hooks/doc-lint-allow.yml"
+}
+
+# urlc <env-assignments...> -- <urlcheck args...>
+# urlcheck.py driven directly, in the orphan sandbox, the same way nav() drives navcheck.py.
+urlc() {
+  local cmd=(env -i "PATH=$MIN_PATH" "HOME=$NAVBOX")
+  while [ "$#" -gt 0 ] && [ "$1" != '--' ]; do cmd+=("$1"); shift; done
+  shift  # drop the --
+  cmd+=(python3 "$NAVBOX/.claude/hooks/urlcheck.py" "$@")
+
+  set +e
+  ( cd "$NAVBOX" && "${cmd[@]}" ) > "$OUT" 2> "$ERR"
+  RC=$?
+  set -e
+
+  if [ "$VERBOSE" = "1" ]; then sed 's/^/      | /' < "$ERR"; fi
 }
 
 # shrink <env-assignments...> -- <shrinkcheck args...>
@@ -1253,6 +1271,141 @@ end
 begin 'the check mode honours DOC_LINT_ALLOW_ORPHAN=all'
 nav DOC_LINT_ALLOW_ORPHAN=all -- check alpha
 want_rc 0
+end
+
+# ---- published URL vs file path / urlcheck.py (DOCS-7069) ------------------------------------
+# Runs in the orphan sandbox. Its alpha/SUMMARY.md lists sub/nested-listed.md at the top level, so
+# that page publishes at /alpha/nested-listed while its file is in sub/: a committed mismatch,
+# the backlog in miniature, which must stay quiet under `new`.
+
+begin 'urlcheck: a committed mismatch is pre-existing, not new'
+urlc -- new HEAD
+want_rc 0
+want_out 'no newly mismatched URLs vs HEAD (1 pre-existing, unchanged'
+want_out 'page(s) scanned'    # urlcheck-pr.yml asserts on this count
+navreset
+end
+
+begin 'urlcheck: `check` lists the committed mismatch with the path that would match'
+urlc -- check
+want_rc 1
+want_err 'alpha/sub/nested-listed.md'
+want_err 'publishes at /alpha/nested-listed'
+want_err 'would match as alpha/nested-listed.md'
+navreset
+end
+
+begin 'urlcheck: a page added under a group heading is newly mismatched'
+printf '# Guide\n\nUnder a group.\n' > "$NAVBOX/alpha/guide.md"
+printf '\n## Guides\n\n* [Guide](guide.md)\n' >> "$NAVBOX/alpha/SUMMARY.md"
+urlc -- new HEAD alpha/guide.md
+want_rc 1
+want_err 'added, moved, or re-nested'
+want_err 'publishes at /alpha/guides/guide'
+want_err 'would match as alpha/guides/guide.md'
+want_err 'DOCS-7069'
+navreset
+end
+
+begin 'urlcheck: the same page filed where its URL points is not reported'
+mkdir -p "$NAVBOX/alpha/guides"
+printf '# Guide\n\nUnder a group.\n' > "$NAVBOX/alpha/guides/guide.md"
+printf '\n## Guides\n\n* [Guide](guides/guide.md)\n' >> "$NAVBOX/alpha/SUMMARY.md"
+urlc -- new HEAD alpha/guides/guide.md
+want_rc 0
+want_out 'no newly mismatched URLs'
+navreset
+end
+
+begin 'urlcheck: re-nesting an untouched page under the home page is caught'
+# The diff holds only SUMMARY.md. The first entry is the home page; GitBook publishes the pages
+# nested under it under its slug -- readme/... for a README.md home, which is how DOCS-7069's
+# first 12 pages went wrong. This fixture's home is listed.md, so its slug is `listed`.
+printf '# Alpha\n\n* [Listed](listed.md)\n  * [Nav To Delete](deleted-nav.md)\n* [Nested](sub/nested-listed.md)\n' \
+  > "$NAVBOX/alpha/SUMMARY.md"
+urlc -- new HEAD alpha/SUMMARY.md
+want_rc 1
+want_err 'alpha/deleted-nav.md'
+want_err 'publishes at /alpha/listed/deleted-nav'
+want_no_err 'alpha/listed.md'  # the home page itself serves at the space root
+navreset
+end
+
+begin 'urlcheck: a divider ends a group, an anchored entry is no place, case counts'
+printf '# Upper\n' > "$NAVBOX/alpha/Upper.md"
+printf '# After\n' > "$NAVBOX/alpha/after.md"
+printf '\n## Group\n\n* [Link](deleted-nav.md#part)\n\n***\n\n* [After](after.md)\n* [Upper](Upper.md)\n' \
+  >> "$NAVBOX/alpha/SUMMARY.md"
+urlc -- new HEAD alpha/SUMMARY.md
+want_rc 1
+want_err 'alpha/Upper.md'       # GitBook lowercases the slug, so the file name mismatches
+want_no_err 'alpha/after.md'    # after the divider, at the space root
+want_no_err 'alpha/deleted-nav.md'  # its anchored entry is a link, not a second place
+navreset
+end
+
+begin 'urlcheck: an entry with children wins over an earlier leaf entry for the same page'
+mkdir -p "$NAVBOX/alpha/topic"
+printf '# Topic\n' > "$NAVBOX/alpha/topic/README.md"
+printf '# Child\n' > "$NAVBOX/alpha/topic/child.md"
+printf '\n## Elsewhere\n\n* [Topic](topic/README.md)\n\n***\n\n* [Topic](topic/README.md)\n  * [Child](topic/child.md)\n' \
+  >> "$NAVBOX/alpha/SUMMARY.md"
+urlc -- new HEAD alpha/SUMMARY.md
+want_rc 0
+navreset
+end
+
+begin 'urlcheck: GridGain paths are not checked, and acknowledging one is stale'
+# Left out until the GridGain docs team decides how to file their pages (DOCS-7069).
+mkdir -p "$NAVBOX/gridgain-8"
+printf '# GridGain 8\n\n* [Home](README.md)\n\n## Guides\n\n* [Guide](guide.md)\n' \
+  > "$NAVBOX/gridgain-8/SUMMARY.md"
+printf '# Home\n' > "$NAVBOX/gridgain-8/README.md"
+printf '# Guide\n' > "$NAVBOX/gridgain-8/guide.md"
+urlc -- new HEAD gridgain-8/guide.md
+want_rc 0
+want_out 'GridGain paths not checked'
+printf 'url-path:\n  - path: gridgain-8/guide.md\n    reason: "not needed"\n' \
+  > "$NAVBOX/.claude/hooks/doc-lint-allow.yml"
+urlc -- new HEAD gridgain-8/guide.md
+want_rc 1
+want_err 'a GridGain page, which this check skips'
+navreset
+end
+
+begin 'urlcheck: a url-path acknowledgment passes, and a stale one fails'
+printf '# Guide\n\nSynced.\n' > "$NAVBOX/alpha/guide.md"
+printf '\n## Guides\n\n* [Guide](guide.md)\n' >> "$NAVBOX/alpha/SUMMARY.md"
+printf 'url-path:\n  - path: alpha/guide.md\n    reason: "synced; fixed upstream"\n' \
+  > "$NAVBOX/.claude/hooks/doc-lint-allow.yml"
+urlc -- new HEAD alpha/guide.md
+want_rc 0
+printf 'url-path:\n  - path: alpha/deleted-nav.md\n    reason: "no longer true"\n' \
+  > "$NAVBOX/.claude/hooks/doc-lint-allow.yml"
+urlc -- new HEAD alpha/deleted-nav.md
+want_rc 1
+want_err 'stale acknowledgment'
+want_err 'now matches its URL'
+navreset
+end
+
+begin 'urlcheck: DOC_LINT_ALLOW_URL_PATH acknowledges a path locally'
+printf '# Guide\n' > "$NAVBOX/alpha/guide.md"
+printf '\n## Guides\n\n* [Guide](guide.md)\n' >> "$NAVBOX/alpha/SUMMARY.md"
+urlc DOC_LINT_ALLOW_URL_PATH=alpha/guide.md -- new HEAD alpha/guide.md
+want_rc 0
+navreset
+end
+
+begin 'doc-lint.sh fails when urlcheck.py reports a newly mismatched page'
+printf '# Guide\n\nUnder a group.\n' > "$NAVBOX/alpha/guide.md"
+printf '\n## Guides\n\n* [Guide](guide.md)\n' >> "$NAVBOX/alpha/SUMMARY.md"
+LINT_ROOT="$NAVBOX" lint . - "$NOFRAG" DOC_LINT_BASE=HEAD -- alpha/guide.md
+LINT_ROOT=''
+want_rc 1
+want_err 'publishes at /alpha/guides/guide'
+want_empty_stdout       # urlcheck's clean line is swallowed; findings go to stderr
+navreset
 end
 
 # ---- navcheck.py through doc-lint.sh (the delegation, not the checker) -----------------------

@@ -20,6 +20,11 @@
 #           download for a reader to land on, so there is no page to write --
 #           and a missing page everywhere else (DOCS-6408, DOCS-6734).
 #
+#   url-path
+#           a page whose published URL, built by GitBook from SUMMARY.md,
+#           does not match its file path (DOCS-7069). Correct only for a page
+#           synced from another repo, which has to be fixed there.
+#
 # Every entry needs a `reason`, and the ticket it traces to where there is one:
 #
 #   orphan:
@@ -34,15 +39,20 @@
 #     - path: release-notes/connectors/c/3.4/3.4.10.md
 #       reason: "shipped only inside Server; 3.4.11 is the standalone — DOCS-6732"
 #
+#   url-path:
+#     - path: tools/community/mariadb-shell/extending-mariadb-shell/extension-objects.md
+#       reason: "synced from the MariaDB Shell repo; fix it there — DOCS-7069"
+#
 # Two things this file will NOT take. `all`, because in a checked-in file that
 # is a permanent repo-wide disable rather than an acknowledgment (the local
 # DOC_LINT_ALLOW_* environment variables still accept it for a one-off run).
 # And a stale entry: the orphan guard FAILS on an entry whose page is now
 # listed in SUMMARY.md or no longer exists, the shrink guard fails on an entry
 # whose page no longer exists, and the no-standalone guard fails on an entry
-# whose page is gone or whose release has since gained a Post Download page. So
-# the register prunes itself at the point someone forgets instead of piling up
-# quietly.
+# whose page is gone or whose release has since gained a Post Download page, and
+# the url-path guard fails on an entry whose page is gone, unlisted, or now
+# matches its URL. So the register prunes itself at the point someone forgets
+# instead of piling up quietly.
 #
 # Adding an entry is a review decision. Keep the sections alphabetical by
 # path — a convention for the reader, not a rule the parser enforces; what it
@@ -86,3 +96,5 @@ no-standalone:
     reason: "shipped only inside Server 10.6; 3.3.21 is the standalone — DOCS-6732"
   - path: release-notes/connectors/c/3.4/3.4.10.md
     reason: "shipped only inside Community Server; 3.4.11 is the standalone — DOCS-6732"
+
+url-path:
