@@ -15,7 +15,7 @@ This tutorial assumes that one of the standard MaxScale binary distributions is 
 
 ### Installing MaxScale
 
-The precise installation process varies from one distribution to another. Details on package installation can be found in the [Installation Guide](../maxscale-management/installation-and-configuration/maxscale-installation-guide.md).
+The precise installation process varies from one distribution to another. Details on package installation can be found in the [Installation Guide](../maxscale-management/deployment/installation-and-configuration/maxscale-installation-guide.md).
 
 {% hint style="info" %}
 If you are evaluating MaxScale with a trial license key, see [MaxScale Trial](../maxscale-use-cases/maxscale-trial.md).
@@ -82,7 +82,7 @@ threads=auto
 license_key=<key>
 ```
 
-Starting with MaxScale 26.10, MaxScale does not start without `license_key`. The configuration template does not include it, so add it yourself. A production license key and a trial license key both work. To get a key, or to store it in a file instead, see [Install a MaxScale License Key](../maxscale-management/installation-and-configuration/maxscale-license-key.md). For MaxScale 25.10 and earlier, leave `license_key` out unless you use [MaxScale Trial](../maxscale-use-cases/maxscale-trial.md).
+Starting with MaxScale 26.10, MaxScale does not start without `license_key`. The configuration template does not include it, so add it yourself. A production license key and a trial license key both work. To get a key, or to store it in a file instead, see [Install a MaxScale License Key](../maxscale-management/deployment/installation-and-configuration/maxscale-license-key.md). For MaxScale 25.10 and earlier, leave `license_key` out unless you use [MaxScale Trial](../maxscale-use-cases/maxscale-trial.md).
 
 ### Configuring the servers
 

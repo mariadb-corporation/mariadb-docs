@@ -13,14 +13,14 @@ configuration file, and validated every time MaxScale starts.
 MaxScale accepts either a production license key from an Enterprise Platform subscription or a
 trial license key. Both use the same `license_key` parameter. This page covers production keys.
 To evaluate MaxScale with a trial key, follow
-[MaxScale Trial](../../maxscale-use-cases/maxscale-trial.md) instead.
+[MaxScale Trial](../../../maxscale-use-cases/maxscale-trial.md) instead.
 
 {% hint style="warning" %}
 **Upgrading from MaxScale 25.10 or earlier:** get your license key before you upgrade. Stop
 MaxScale before you upgrade the packages, add the key after you install MaxScale 26.10, and then
 start MaxScale. The 26.10 package restarts a running MaxScale, and earlier versions, except
 MaxScale Trial, report `license_key` as an unknown parameter. For the steps, see
-[Upgrading MaxScale](../deployment/upgrading-maxscale/README.md#license-key-required).
+[Upgrading MaxScale](../upgrading-maxscale/README.md#license-key-required).
 {% endhint %}
 
 For the full list of MariaDB products that use a license key, see
@@ -35,7 +35,7 @@ Do these steps before you install the license key:
      customer account. Then download MaxScale from
      [Download MariaDB](https://mariadb.com/downloads/enterprise/enterprise-maxscale/).
    * If you want to evaluate MaxScale, use the
-     [MaxScale Trial](../../maxscale-use-cases/maxscale-trial.md) page instead.
+     [MaxScale Trial](../../../maxscale-use-cases/maxscale-trial.md) page instead.
 2. Install MaxScale. For instructions, see the
    [MaxScale Installation Guide](maxscale-installation-guide.md).
    The installation creates the file `/etc/maxscale.cnf`. You add the license
@@ -203,10 +203,10 @@ sudo cat /var/log/maxscale/maxscale.log
 
 * [Install a MariaDB Enterprise License](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/JqgUabdZsoY5EiaJmqgn/enterprise-license-install) — license
   installation across MariaDB products
-* [MaxScale Trial](../../maxscale-use-cases/maxscale-trial.md) — evaluating MaxScale
+* [MaxScale Trial](../../../maxscale-use-cases/maxscale-trial.md) — evaluating MaxScale
 * [MaxScale Installation Guide](maxscale-installation-guide.md)
-* [MaxScale Configuration Guide](../deployment/installation-and-configuration/maxscale-configuration-guide/README.md)
-* [Setting up MariaDB MaxScale](../../mariadb-maxscale-tutorials/setting-up-mariadb-maxscale.md)
+* [MaxScale Configuration Guide](maxscale-configuration-guide/README.md)
+* [Setting up MariaDB MaxScale](../../../mariadb-maxscale-tutorials/setting-up-mariadb-maxscale.md)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

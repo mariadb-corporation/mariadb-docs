@@ -65,7 +65,7 @@ you still run 25.10. MaxScale 25.10 and earlier, except MaxScale Trial, report i
 parameter.
 
 To store the key in a file, or to troubleshoot it, see
-[Install a MaxScale License Key](../../installation-and-configuration/maxscale-license-key.md).
+[Install a MaxScale License Key](../installation-and-configuration/maxscale-license-key.md).
 
 ### Log Timestamp Format
 
