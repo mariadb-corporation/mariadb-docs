@@ -115,20 +115,23 @@ OneOrMore (NonTerminal('parameter', {href:'./grammar-reference/#parameter'}), Te
   - `ICEBERG`
 - `WITH` - accepts additional parameters. All properties are case-sensitive:
   - `delimiter` - for CSV files only; default delimiter is `,`. Delimiter syntax is `'char'`. Any alphanumeric character can be a delimiter.
+  - `charset` - for CSV files only; the character set of the file. Default value is `UTF-8`. On export, a character the charset cannot encode fails the statement. Before GridGain 9.1.30, an export to S3 ignores `charset`: it writes the file in the default charset of the node's JVM and replaces a character that charset cannot encode with `?`.
   - `pattern` - the file pattern used when importing partitioned Parquet tables in the regular expression format. The regular expression must be enclosed in `'` signs. For example, `'.*'` imports all files. Partitioned column will not be imported.
   - `header` - for CSV files only; if set to `true`, specifies that the created file should contain a header line with column names. Column names of the table are used to create the header line.
   - `quoteChar` - for CSV files only; the character to use for quoted elements. Default quote character is `"`.
   - `escapeChar` - for CSV files only; the character to use for escaping a separator or quote. Default escape character is `\`.
-  - `ignoreLeadingWhiteSpace` - for CSV files only; if `true`, ignore leading whitespace, keep them otherwise. Default value is `true`.
+  - `ignoreLeadingWhiteSpace` - for CSV files only; if `true`, ignore leading whitespace, keep them otherwise. Default value is `true`. Accepted in GridGain 9.1.30 and later; earlier versions fail a statement that sets it.
   - `ignoreQuotations` - for CSV files only; if `true`, quoted elements are ignored, otherwise they are kept. Default value is `false`.
   - `strictQuotes` - for CSV files only; if `true`, characters outside the quoted elements are ignored, otherwise they are kept. Default value is `false`.
   - `batchSize` - the number of entries loaded in each batch. Default value is `1024`.
   - `null` - what value empty values are mapped to on import, and `null` values are mapped to on export. By default, empty values are mapped to `null` on import, and `null` values are mapped to an empty string (`""`) on export.
-  - Iceberg-specific:
-    - The [catalog properties](https://iceberg.apache.org/docs/latest/configuration/#catalog-properties) are supported.
+  - Iceberg-specific. Besides `table-identifier` and `batchSize`, a `WITH` property not listed here fails the statement:
+    - Catalog and client properties: `catalog-impl` (required), `io-impl`, `uri`, `warehouse`, `client.factory`, `client.region`, `client.assume-role.*`, `jdbc.*` and, in GridGain 9.1.30 and later, `glue.skip-name-validation`.
+    - S3 properties: `s3.access-key-id`, `s3.secret-access-key`, `s3.session-token`, `s3.endpoint`, `s3.path-style-access`, `s3.checksum-enabled`, `s3.multipart.*`, `s3.retry.*`, `s3.delete.*`, and `s3.client-region`, which sets `client.region` when `client.region` is not set.
+    - Hadoop S3A properties: `fs.s3a.access.key`, `fs.s3a.secret.key`, `fs.s3a.session.token`, `fs.s3a.endpoint` and `fs.s3a.endpoint.region`.
     - The `table-identifier` property describes Apache Iceberg TableIdentifier names. The names can be dot-separated. For example, `db_name.table_name` or `table`.
     - The `warehouse` path can be defined explicitly as a `'warehouse'='path'` property, or implicitly as a source or target `COPY FROM source INTO target`. If both ways are defined, the explicit property is used.
-  - `S3`:
+  - `S3`, for CSV and Parquet files:
 
     {% hint style="warning" %}
     These properties are deprecated and will be removed in a later release. To configure SQL credentials, follow the credentials provider chain configuration instructions, available in the [AWS SDK Developer Guide](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials-chain.html).
@@ -155,6 +158,45 @@ A statement that copies between tables needs neither.
 
 The configuration is node specific, so you need to apply the same settings on every node. Otherwise, the same
 statement may succeed or fail depending on which node the client connected to.
+
+### Failed and Cancelled Statements
+
+This section describes GridGain 9.1.30 and later. In earlier versions, a failed export leaves its partial output, and cancelling a statement or reaching its query timeout does not stop the copy, which keeps running on the node and writes its full output.
+
+#### Existing Export Targets
+
+An export operation creates its target (a file, an S3 object or an Iceberg table) and fails if the target already exists. How the target is checked depends on where it is located:
+
+- A local file is checked and created in a single atomic operation, so of two exports to the same file, only one succeeds.
+- A CSV file on S3 is checked once, before the export starts writing.
+- A Parquet file on S3 is checked only when its first data is uploaded, which can be after the whole source has been read.
+- An Iceberg table is checked when the export creates it in the catalog, before any rows are written. Only an existing table stops the export.
+
+{% hint style="warning" %}
+`HadoopCatalog` (`catalog-impl` set to `org.apache.iceberg.hadoop.HadoopCatalog`) keeps each Iceberg table in its own directory under the warehouse path. A directory at the table location that has no Iceberg metadata does not stop the export, and if the export fails, dropping its table deletes that directory recursively, including any files that were in it before the export.
+{% endhint %}
+
+#### Failed Exports
+
+A failed export deletes the output it has written: a CSV or Parquet file is deleted, and an Iceberg table is dropped with its data and metadata files, unless another writer has committed to it in the meantime.
+
+On S3, removing the output requires the `s3:DeleteObject` permission on the target bucket; an Iceberg table in a `HadoopCatalog` on `s3a` also needs `s3:ListBucket`. Without these permissions, the partial output remains, and the statement reports only the error that failed the export, not the failure to remove its output.
+
+The output also remains if the node process is killed during the export. A node that stops gracefully cancels the export, which removes its output.
+
+A CSV export to S3 is written to a local file and uploaded only when it succeeds, so a partial CSV object never appears in the bucket. A Parquet export to S3 completes each upload before it can delete the object, so the partial object is briefly visible in the bucket. An Iceberg table is visible in the catalog for the whole export.
+
+#### Failed Imports
+
+A failed import keeps the batches it has already written and discards the last partial batch. Rows are written as upserts, so running the import again overwrites rows with the same primary key.
+
+#### Cancelled Statements
+
+[Cancelling](#kill-query) a statement or reaching its query timeout stops the copy at the next row. The statement fails with the [`IGN-SQL-6`](../error-codes/README.md) error and otherwise ends like a failed one: an export removes what it created, and an import keeps the batches it has already written.
+
+A statement cancelled before it starts copying creates nothing.
+
+The statement returns only once the copy has stopped. If it is blocked reading or writing an external file, for example on a stalled S3 connection, it returns after that operation completes.
 
 ### Examples
 
@@ -265,7 +307,7 @@ WITH
 ```
 
 {% hint style="warning" %}
-Glue catalog requires the table identifier pattern `db_name.table_name - [a-z0-9_]` (all letters must be in low case with underscores and no spaces). It can be disabled by setting the `glue.skip-name-validation` property to `true` to skip validation. When database name and table name validation are skipped, there is no guarantee that downstream systems would all support the names.
+Glue catalog requires the table identifier pattern `db_name.table_name - [a-z0-9_]` (all letters must be in low case with underscores and no spaces). In GridGain 9.1.30 and later, it can be disabled by setting the `glue.skip-name-validation` property to `true` to skip validation. When database name and table name validation are skipped, there is no guarantee that downstream systems would all support the names.
 {% endhint %}
 
 Imports data from partitioned Parquet database:
