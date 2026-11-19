@@ -55,6 +55,10 @@ In this case, GridGain will try to colocate these tables together for storage.
 The `COLOCATE BY` clause of colocated table (`Person` table in the example above) must contain the same set of columns and in the same order as the `PRIMARY KEY` clause of the main table (Company table in the example above) to colocate the data.
 {% endhint %}
 
+{% hint style="warning" %}
+Colocated tables must also use the same [partition function](storage/data-partitioning.md#partition-function). A table created with `USING FUNCTION MODULO` is not colocated with a table that uses the default `MURMUR3_MODULO` function.
+{% endhint %}
+
 ## See Also
 
 - [Design a Schema for Distributed SQL](../gridgain9-get-started/learning-paths/schema-design-for-distributed-sql/schema-distributed-sql.md)

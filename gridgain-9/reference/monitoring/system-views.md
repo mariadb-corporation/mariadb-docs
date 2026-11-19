@@ -502,6 +502,7 @@ From GridGain 9.2:
 | ARCHIVE_COLUMN_NAME | STRING | The name of the column used for archiving. Returns `NULL` if the table has no archive column. |
 | PROPERTIES | STRING | The table options set with the `WITH (...)` clause, in the form `MIN STALE ROWS <n>, STALE ROWS FRACTION <f>`. Tables created without these options show the defaults: `MIN STALE ROWS 500, STALE ROWS FRACTION 0.2`. |
 | TABLE_SCHEMA_VERSION | INT32 | The latest schema version of the table. The version increases every time the table's schema changes, for example when a column is added or dropped. |
+| TABLE_PARTITION_FUNCTION | STRING | The [partition function](../../architecture/storage/data-partitioning.md#partition-function) of the table or cache. Possible values: `MURMUR3_MODULO`, `MODULO`. |
 {% endtab %}
 
 {% tab title="< 9.2" %}

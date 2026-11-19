@@ -204,6 +204,67 @@ System.out.println(
 );
 ```
 
+## Partition Function
+
+To set the [partition function](../architecture/storage/data-partitioning.md#partition-function) of a table, use the `partitionFunction` attribute of the `@Table` annotation or the `partitionFunction` method of `TableDefinition.Builder`. The functions are in the `org.apache.ignite.catalog.PartitionFunction` enum. A function other than the default needs a colocation key set with `colocateBy`. To decide when to use `MODULO`, see [Choosing a Partition Function](../architecture/storage/data-partitioning.md#choosing-a-partition-function).
+
+The annotation creates the `Warehouse` table. It also creates the `warehouseZone` zone if the zone does not exist. If the zone exists, its partition count does not change:
+
+```java
+@Table(
+        value = "Warehouse",
+        colocateBy = @ColumnRef("w_id"),
+        partitionFunction = PartitionFunction.MODULO,
+        zone = @Zone(value = "warehouseZone", partitions = 16, storageProfiles = "default")
+)
+public class WarehouseRecord {
+    @Id
+    @Column("w_id")
+    Integer warehouseId;
+
+    @Column
+    String name;
+}
+
+client.catalog().createTable(WarehouseRecord.class);
+```
+
+The builder creates the same table. The `warehouseZone` zone must exist:
+
+```java
+client.catalog().createTable(
+        TableDefinition.builder("Warehouse")
+                .columns(
+                        column("w_id", ColumnType.INT32),
+                        column("name", ColumnType.VARCHAR)
+                )
+                .primaryKey("w_id")
+                .colocateBy("w_id")
+                .partitionFunction(PartitionFunction.MODULO)
+                .zone("warehouseZone")
+                .build()
+);
+```
+
+{% hint style="warning" %}
+Servers before GridGain 9.2 do not support a partition function other than the default. They fail to create such a table with a parse error.
+{% endhint %}
+
+The `tableDefinition` method of `IgniteCatalog` returns the partition function of an existing table:
+
+```java
+TableDefinition warehouse = client.catalog().tableDefinition("Warehouse");
+
+PartitionFunction function = warehouse.partitionFunction(); // MODULO
+```
+
+The value that the `partitionFunction` method returns depends on the source of the `TableDefinition` object:
+
+- If the `tableDefinition` method returned the object, the value is the partition function of the existing table. The value is `null` if a client of version 9.2 or later is connected to a server before GridGain 9.2. Such a server does not report the partition function.
+- If you built the object with the builder, the value is the function you set. The value is `null` if you did not set a function.
+
+Caches work the same way. Use the `partitionFunction` attribute of the `@Cache` annotation, the `partitionFunction` method of `CacheDefinition.Builder`, and the `cacheDefinition` method of `IgniteCatalog`.
+
 ## Next Steps
 
 Once you have created a table using the Java API, you can manipulate it using the [SQL commands](../reference/sql/ddl.md).
