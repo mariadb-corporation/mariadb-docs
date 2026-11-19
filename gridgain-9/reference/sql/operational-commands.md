@@ -369,7 +369,7 @@ Optional(Terminal('NO WAIT'))
 
 - `ALL STATISTICS` - collect statistics for all statistics objects in the cluster.
 - `qualified_statistics_name` - collect statistics for the specified statistics object. The statement fails if the statistics object does not exist.
-- `FROM qualified_table_name` - collect statistics for all statistics objects of the specified table. If the table has no statistics objects, the statement does nothing.
+- `FROM qualified_table_name` - collect statistics for all statistics objects of the specified table. If the table has no statistics objects, the statement does nothing. Without `NO WAIT`, the statement fails if the table does not exist.
 - `NO WAIT` - if specified, the statement starts the collection and returns control immediately. You can monitor the collection through the `STATISTICS_GATHERING_JOBS` [system view](../monitoring/system-views.md#statistics_gathering_jobs), and see the result in the `COLLECTED_STATISTICS` [system view](../monitoring/system-views.md#collected_statistics).
 
 If the collection fails for a table, the statement does not return an error. GridGain writes a warning to the log of the node.

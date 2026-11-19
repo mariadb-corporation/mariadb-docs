@@ -178,7 +178,7 @@ The statistics objects are empty at this point. Collect the statistics for all o
 REFRESH ALL STATISTICS;
 ```
 
-The statement waits until the collection is complete. In the test environment, the collection for all eight tables takes 11 seconds.
+The statement waits until the collection is complete. In the test environment, the collection for all eight tables takes from 5 to 11 seconds.
 
 Check the result in the `COLLECTED_STATISTICS` system view:
 
