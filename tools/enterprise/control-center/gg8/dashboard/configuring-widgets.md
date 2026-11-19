@@ -207,7 +207,7 @@ To stop a service:
 2. Click the **More** (⋮) button at the end of the row.
 3. Select **Stop service**.
 
-![Stop Service](../../../.gitbook/assets/cc-gg8-system-view-services-stop.png)
+![Stop Service](../../../../.gitbook/assets/cc-gg8-system-view-services-stop.png)
 
 Control Center stops the service immediately, without asking for confirmation, and shows a **Service stopped** notification.
 
