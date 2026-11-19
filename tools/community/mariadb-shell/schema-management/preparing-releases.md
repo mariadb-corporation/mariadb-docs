@@ -65,14 +65,15 @@ Write the statements into these sections of the update script:
 
 | Section | What to write |
 | --- | --- |
-| 240 | `ALTER TABLE` statements, new `CREATE TABLE` statements, data changes with `INSERT`, `UPDATE`, or `DELETE`, and `DROP … IF EXISTS` for every object that the new version no longer has. Order matters, because each statement changes the state that the next one works on. |
+| 240 | `ALTER TABLE` statements, new `CREATE TABLE` statements, data changes with `INSERT`, `UPDATE`, or `DELETE`, and `DROP … IF EXISTS` for every view, trigger, and event that the new version no longer has. Order matters, because each statement changes the state that the next one works on. |
+| 260 | `DROP PROCEDURE IF EXISTS` and `DROP FUNCTION IF EXISTS` for every stored procedure and function that the new version no longer has. |
 | 270 | `REVOKE` for privileges and `DROP ROLE` for roles that the new version no longer has. |
 | 230 | Helper routines for the update, with names starting with `msm_`. |
-| 290 | `DROP … IF EXISTS` for the helpers of section 230. |
+| 290 | `DROP … IF EXISTS` for the helpers of section 230. Nothing else belongs here. |
 
-Leave out everything that sections 150 and 170 of the development script already define. New and changed views, routines, triggers, and events reach the server through section 150 of the new version, and new roles and privileges through section 170; both run on every deployment, after the table changes. The update script only needs what these sections can't express: table changes, and the removal of objects, privileges, and roles. Section 250 of the update script isn't used. See [MSM Sections](msm-sections.md#update-script).
+Leave out everything that sections 150 and 170 of the development script already define. New and changed views, routines, triggers, and events reach the server through section 150 of the new version, and new roles and privileges through section 170; both run on every deployment, after the table changes. The update script only needs what these sections can't express: table changes, and the removal of objects, privileges, and roles. See [MSM Sections](msm-sections.md#update-script).
 
-Sections 240 and 270 become the bodies of stored procedures, so end each statement with `;`, don't use `DELIMITER`, and qualify names with the schema. See [Statements Inside Stored Procedures](msm-sections.md#statements-inside-stored-procedures).
+Sections 240 and 270 become the bodies of stored procedures, so end each statement with `;`, don't use `DELIMITER`, and qualify names with the schema. See [Statements Inside Stored Procedures](msm-sections.md#statements-inside-stored-procedures). When `msm.deploy_schema()` upgrades a schema, it runs the `ALTER TABLE` statements of section 240 online; write them as plain statements, without `ALGORITHM` or `LOCK` clauses. See [Online ALTER TABLE](deploying-schemas.md#online-alter-table).
 
 ```python
 update_script = project + "/releases/updates/shop_1.0.0_to_1.1.0.sql"
@@ -90,6 +91,13 @@ REVOKE DELETE ON `shop`.* FROM `shop_writer`;""")
 ```
 
 Don't grant privileges in section 270. On an upgrade, it runs before section 170, so a role that is new in this version doesn't exist yet, and the `GRANT` fails the deployment with error 1133. See [Server Variables](msm-sections.md#server-variables).
+
+If the new version no longer has a stored procedure or function, remove it from section 150 of the development script, and drop it in section 260. MariaDB doesn't allow a `DROP PROCEDURE` or `DROP FUNCTION` inside a stored procedure, so it can't go into section 240. Section 260 runs on every deployment, also when a schema is created, so always write `IF EXISTS`:
+
+```python
+msm.set.section_sql_content(update_script, "260", """
+DROP PROCEDURE IF EXISTS `shop`.`add_product`;""")
+```
 
 The table definitions in the new snapshot and the result of the update script must match: a schema upgraded from the previous release must end up with the same tables as one created fresh with the new release. Test both paths before you deploy to production, as described in [Test a Release](#test-a-release).
 

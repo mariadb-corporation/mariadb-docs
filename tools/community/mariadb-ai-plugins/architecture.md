@@ -107,7 +107,7 @@ All harnesses get the same skills and the same MCP server, but the plugins are p
 * **Cursor** reads the Claude Code marketplace manifest and installs the Claude Code plugins into its own directory. Claude Code doesn't need to be installed.
 * **OpenCode** has no marketplace. You merge an `mcp` block into your configuration, set an environment variable, and link the skills directory.
 * **Pi** has no marketplace. The repository-root `package.json` is the Pi package manifest, and the extension in the package registers the MCP server with Pi 1.0 or later.
-* **Hermes Agent** has no marketplace. Each plugin folder is a portable Agent Plugins v1 package with a root `plugin.json`, a `skills/` directory, and, for the `dev` and `sql` plugins, an `mcp.json` that declares the MCP server. Hermes installs the folder directly from the repository.
+* **Hermes Agent** installs the `dev` plugin and the guard plugin from the Hermes plugin catalog. Each catalog entry pins the exact commit of an ai-plugins release and points at a plugin folder. Each plugin folder is a portable Agent Plugins v1 package with a root `plugin.json`, a `skills/` directory, and, for the `dev` and `sql` plugins, an `mcp.json` that declares the MCP server. Hermes can also install the folder directly from the repository, which is how the `sql` and `contributor` plugins are installed.
 
 ## Vendored Skills
 

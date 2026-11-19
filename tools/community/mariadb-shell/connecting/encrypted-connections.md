@@ -116,7 +116,6 @@ mariadb-shell 'mariadb://app@db1.example.com/shop?ssl-mode=VERIFY_IDENTITY' \
 | --- | --- |
 | `tls-version` | A comma-separated list of the TLS versions to allow. The valid versions are `TLSv1.2` and `TLSv1.3`. |
 | `ssl-cipher` | A colon-separated list of the ciphers to allow, in OpenSSL syntax. With OpenSSL, the list also selects the TLS 1.3 cipher suites. |
-| `tls-ciphersuites` | Accepted for compatibility, but has no effect: Connector/C has no setting for TLS 1.3 cipher suites. |
 
 For example, to restrict a connection to TLS 1.2 with one cipher:
 
