@@ -57,7 +57,7 @@ The server's tools are organized in function groups. By default, the server prov
 | Group | What its tools do |
 | --- | --- |
 | `db` | List the configured connections, open and close sessions, list schemas and objects, describe objects, and run SQL statements and scripts. |
-| `msm` | Create and work with versioned schema projects of [MariaDB Schema Management](../schema-management/README.md), prepare releases, and deploy schemas. |
+| `msm` | Create and work with versioned schema projects of [MariaDB Schema Management](../schema-management/README.md), also from a schema on a server, prepare releases, deploy schemas, and run `ALTER TABLE` statements online. |
 | `rest` | Work with the files of the MariaDB REST Service: generate client SDKs, dump and load REST services and service projects, and load static content. The REST services themselves are managed with REST SQL, which the `db` tools run. |
 | `sandbox` | List the server versions that can be deployed, and deploy, start, stop, and delete local sandbox instances. A sandbox's MariaDB REST Daemon starts and stops with it. |
 | `migrator` | Plan and run a migration from MySQL to MariaDB. Only available on Linux and macOS, after you install the [migration tooling](migration-tooling.md) with `mcp setup`. |

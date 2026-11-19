@@ -109,9 +109,9 @@ Add options to the query string of a URI, separated by `&`, or use them as keys 
 
 | Option | Description |
 | --- | --- |
-| `ssl-mode`, `ssl-ca`, `ssl-capath`, `ssl-cert`, `ssl-key`, `ssl-crl`, `ssl-crlpath`, `ssl-cipher`, `tls-version`, `tls-ciphersuites` | TLS settings. See [Encrypted Connections](encrypted-connections.md). |
+| `ssl-mode`, `ssl-ca`, `ssl-capath`, `ssl-cert`, `ssl-key`, `ssl-crl`, `ssl-crlpath`, `ssl-cipher`, `tls-version` | TLS settings. See [Encrypted Connections](encrypted-connections.md). |
 | `connect-timeout` | How long to wait for the server, in milliseconds. `0` waits indefinitely. Default: the `connectTimeout` shell option, 10 seconds. |
-| `compression`, `compression-algorithms`, `compression-level` | Protocol compression. See [Compressed Connections](compressed-connections.md). |
+| `compression` | Protocol compression. See [Compressed Connections](compressed-connections.md). |
 | `connection-attributes` | Key-value pairs that the server records for the session. See [Connection Attributes](#connection-attributes). |
 | `local-infile` | Whether the client allows `LOAD DATA LOCAL INFILE`. See [Local Data Loading](#local-data-loading). |
 | `ssh-host`, `ssh-user`, `ssh-port`, `ssh-identity-file`, `ssh-config-file` | SSH tunnel settings, valid only with a `+ssh` scheme. See [SSH Tunnels](ssh-tunnels.md). |
@@ -238,7 +238,7 @@ You can pass a URI as the first argument of `mariadb-shell`, or with `--uri`, an
 | `--connect-timeout=<ms>` | The connection timeout, in milliseconds. |
 | `-C`, `--compress[=<value>]` | Protocol compression. See [Compressed Connections](compressed-connections.md). |
 | `--local-infile[=<bool>]` | Allow or refuse `LOAD DATA LOCAL INFILE`. |
-| `--ssl-mode`, `--ssl-ca`, `--ssl-capath`, `--ssl-cert`, `--ssl-key`, `--ssl-crl`, `--ssl-crlpath`, `--ssl-cipher`, `--tls-version`, `--tls-ciphersuites` | TLS settings. See [Encrypted Connections](encrypted-connections.md). |
+| `--ssl-mode`, `--ssl-ca`, `--ssl-capath`, `--ssl-cert`, `--ssl-key`, `--ssl-crl`, `--ssl-crlpath`, `--ssl-cipher`, `--tls-version` | TLS settings. See [Encrypted Connections](encrypted-connections.md). |
 | `--ssh`, `--ssh-identity-file`, `--ssh-config-file` | An SSH tunnel. See [SSH Tunnels](ssh-tunnels.md). |
 | `--credential-store-helper`, `--save-passwords` | The credential store. See [Credential Store](credential-store.md). |
 

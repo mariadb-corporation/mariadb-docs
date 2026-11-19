@@ -89,7 +89,7 @@ The load opens the dump, compares it with the target, and checks for objects tha
 
 ### Resuming a Load
 
-The load records every step, completed or failed, in a progress file. By default the file is `load-progress.<server_id>.json` in the dump directory, where `<server_id>` is the `server_id` of the target. With `progressFile` you choose another path; an empty string turns progress tracking off.
+The load records every step, completed or failed, in a progress file. By default the file is `load-progress.<hostname>-<port>-<server_id>.json` in the dump directory, named after the target server as it reports itself (MySQL targets use `load-progress.<server_uuid>.json`). With `progressFile` you choose another path; an empty string turns progress tracking off.
 
 If you run the same load again, it skips the completed steps and retries the rest. Chunks that were started but not finished are loaded again: duplicate rows are discarded by the server, and a table without a unique key is truncated before its chunks are reloaded. Resuming assumes that nobody changed the partially loaded data in between.
 

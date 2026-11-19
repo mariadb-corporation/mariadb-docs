@@ -85,6 +85,8 @@ MariaDB Shell reads the following environment variables. Each variable is also a
 | `MARIADB_SHELL_CREDENTIAL_STORE_SAVE_PASSWORDS` | When to save passwords: `always`, `prompt`, or `never`. Equivalent to `--save-passwords`. |
 | `MARIADB_SHELL_CREDENTIAL_STORE_KEYCHAIN` | On macOS, the keychain that the `keychain` helper uses. When it is not set, the helper uses the default keychain. |
 | `MARIADB_SHELL_MMAP` | Whether the shell memory-maps local files that it reads, such as dump files: `on` (default), `off`, or `required`. |
+| `MARIADB_SHELL_PLUGINS_PATH` | The directories to load user plugins from, separated by `:` (`;` on Windows). When it is set, the shell searches these directories instead of the `plugins` directory of the user configuration directory; an empty value loads no user plugins. `--disable-plugins` skips them. See [Plugins](extending-mariadb-shell/plugins.md). |
+| `MARIADB_SHELL_DISABLE_BUILTIN_PLUGINS` | Set to `1`, `true`, or `on` to skip the built-in plugins, like `--disable-builtin-plugins`. `0`, `false`, `off`, or an empty value leaves them enabled; any other value is an error. |
 
 The shell also reads these variables:
 

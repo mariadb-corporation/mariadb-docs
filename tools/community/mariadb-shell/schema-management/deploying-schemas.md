@@ -41,6 +41,8 @@ mariadb-shell mariadb://admin@db.example.com:3306 -- msm deploy-schema --schema-
 | `version` | string | The latest release | The release to deploy. A deployment script for it must exist. |
 | `backup` | Boolean | `false` | Take a backup of an existing schema before it is upgraded, and restore it if the upgrade fails. See [Backups](#backups). |
 | `backup_directory` | string | `plugin_data/msm_plugin/backups/<schema>_backup_<version>` | Where to write the backup. |
+| `online_alter` | Boolean or dictionary | The project's setting | This deployment's setting for online `ALTER TABLE`, over the project's `onlineAlter` setting. `false` runs every `ALTER TABLE` as written. See [Online ALTER TABLE](#online-alter-table). |
+| `substitutions` | dictionary | The defaults of the project | The values of the substitutions that the project declares in its `substitutions` setting, for example `{"schema_prefix": "acme_"}`. Every `/*<msm:name>*/` in the scripts and in the schema name is replaced with its value before the scripts run. |
 | `session` | Session | The global session | The session to deploy with. |
 
 The function returns a message that describes what it did. It requires a deployment script for every released version, so generate them first, as described in [Preparing Releases](preparing-releases.md#generate-the-deployment-script).
@@ -60,7 +62,7 @@ Before it runs the deployment script, the function compares the schema on the se
 
 A schema is managed by MSM when it contains the view `msm_schema_version`. See [The Schema Version](msm-sections.md#the-schema-version).
 
-The deployment script then runs statement by statement on the session. While it runs, MSM holds the user lock `MSM_METADATA_LOCK` on the server, so two deployments on the same server can't overlap. If the lock isn't free within one second, the deployment fails with *Failed to acquire MSM schema update lock*.
+The deployment script then runs statement by statement on the session. While it runs, MSM holds a user lock for the schema on the server, `MSM_METADATA_LOCK_` followed by the MD5 hash of the schema name, so two deployments of the same schema can't overlap, while different schemas can be deployed at the same time. If the lock isn't free within one second, the deployment fails with *Failed to acquire MSM schema update lock*.
 
 ### When a Deployment Fails
 
@@ -71,6 +73,120 @@ DDL statements commit implicitly, so a deployment can't be rolled back as a whol
 * **An upgrade with a backup** drops the schema and loads the backup, so that the schema is back at its previous release.
 
 The error message contains the statement that failed and the server's error.
+
+## Online ALTER TABLE
+
+When `msm.deploy_schema()` upgrades a schema, it runs the `ALTER TABLE` statements of the update scripts' section 240 the least disruptive way that the server accepts, so that the application can go on reading and writing the tables while they change. It tries each statement with the following clauses, in this order, and the first step that the server accepts applies the change:
+
+| Step | The statement is sent with | While it runs |
+| --- | --- | --- |
+| `INSTANT` | `ALGORITHM=INSTANT` | Only the table's metadata changes. |
+| `NOCOPY` | `ALGORITHM=NOCOPY, LOCK=NONE` | Reads and writes go on. |
+| `INPLACE` | `ALGORITHM=INPLACE, LOCK=NONE` | InnoDB rebuilds the table in place; reads and writes go on. |
+| `COPY` | `ALGORITHM=COPY, LOCK=NONE` | The table is copied; reads and writes go on. MariaDB versions before 11.2 refuse this step. |
+| `NBO` | `LOCK=SHARED` or `LOCK=EXCLUSIVE`, as a non-blocking operation | Galera clusters only, and only when `nboLock` is set. Writes are blocked, with `EXCLUSIVE` reads too. |
+| `SHARED_LOCK` | `LOCK=SHARED` | Writes are blocked. |
+| `EXCLUSIVE_LOCK` | `LOCK=EXCLUSIVE` | Reads and writes are blocked. |
+
+The server refuses a step that it can't run with these clauses at once, without changing anything, and MSM goes on with the next step. Size limits leave out steps for large tables; see [Online ALTER TABLE Settings](#online-alter-table-settings). A lock wait timeout is retried, waiting 2, 4, 8, and up to 30 seconds in between. Every other error stops the deployment, as described in [When a Deployment Fails](#when-a-deployment-fails).
+
+The scripts themselves keep plain `ALTER TABLE` statements: a deployment script that you run without MSM, for example with the `mariadb` client, runs them as written. The creation of a new schema isn't affected, because it creates the tables with `CREATE TABLE`.
+
+MSM runs these `ALTER TABLE` statements as written:
+
+* a statement with its own `ALGORITHM` or `LOCK` clause, or with `ONLINE`, `IGNORE`, or `IF EXISTS`
+* a statement that changes the partitioning of a table
+* a statement inside a compound statement, such as `IF … END IF`
+* every statement of an update step that declares a variable with `DECLARE`
+* a statement on a table for which online `ALTER TABLE` is turned off
+
+All other statements of an update step run in their order, as they would in the stored procedure. Each `ALTER TABLE` and the step that applied it are written to the [deployment log](#the-deployment-log), for example ``ALTER TABLE `product`: INSTANT (0.01 s).``
+
+{% hint style="info" %}
+The binary log records each `ALTER TABLE` with the clauses of the step that applied it. Replicas must therefore run the same MariaDB version as the primary.
+{% endhint %}
+
+### Online ALTER TABLE Settings
+
+The setting `onlineAlter` in `msm.project.json` controls online `ALTER TABLE` for a project. It is on by default, and a new project has it written as `{"enabled": true}`. The value `true` or `false` stands for `{"enabled": true}` or `{"enabled": false}`, and a project without the setting has it on, with the defaults. Values for one table go into `tables`, under the name of the table:
+
+{% code title="msm.project.json" %}
+```json
+{
+    ...
+    "onlineAlter": {
+        "enabled": true,
+        "maxRebuildBytes": 1073741824,
+        "tables": {
+            "order_item": {"maxLockedBytes": 0}
+        }
+    },
+    ...
+}
+```
+{% endcode %}
+
+| Key | Default | Description |
+| --- | --- | --- |
+| `enabled` | `true` | Whether to run the `ALTER TABLE` statements online. |
+| `maxRebuildBytes` | 10 GiB | The largest table on which the `INPLACE` and `COPY` steps may run, in bytes. `null` sets no limit, `0` leaves the steps out. |
+| `maxLockedBytes` | No limit | The largest table on which the `SHARED_LOCK` and `EXCLUSIVE_LOCK` steps, which block writes, may run, in bytes. `0` leaves the steps out. |
+| `galeraMaxBytes` | 256 MiB | On a Galera cluster, the largest table on which a step other than `INSTANT` and `NBO` may run, in bytes. These steps run under Total Order Isolation, which pauses the cluster. `null` or `0` allows only `INSTANT` and `NBO`. |
+| `nboLock` | `null` | On a Galera cluster, `SHARED` or `EXCLUSIVE` allows the `NBO` step with this lock. MariaDB Community Server refuses non-blocking operations. |
+| `lockWait` | 5 | The seconds to wait for the table's metadata lock in each attempt, at least 1. |
+| `maxRetries` | 10 | The attempts after a lock wait timeout, in each step. |
+
+The size of a table is the sum of `DATA_LENGTH` and `INDEX_LENGTH` in `information_schema.TABLES`, which is an estimate for InnoDB tables.
+
+The `online_alter` option of `msm.deploy_schema()` takes the same format, for the values that depend on the server you deploy to:
+
+```python
+msm.deploy_schema(schema_project_path=project, online_alter={"maxRebuildBytes": 0})
+```
+
+For each table, the most specific value wins, in this order, from the least to the most specific: the project's general values, the deployment's general values, the project's values for the table, and the deployment's values for the table. The names in `tables` are the names of the project's tables, matched exactly; an `ALTER TABLE` of a table in another schema gets the general values. MSM checks both settings before the deployment starts, and refuses a setting with an unknown key or a value out of range.
+
+To read the setting, use `msm.get_online_alter_settings()`, which also returns the defaults and, with the `table` option, the values that a table gets. To change it, pass the whole setting to `msm.set.project_settings()`, as described in [Change Project Settings](schema-projects.md#change-project-settings).
+
+### When No Step Applies
+
+If none of the steps applies a change, the deployment stops. Its error message names the update step, the table, and the reason, for example for the table `order_item` of the settings above, when it is larger than `maxRebuildBytes`:
+
+```text
+… The update from 1.0.0 to 1.1.0 needs an external tool for an ALTER TABLE of `order_item`: online rebuilds (INPLACE, COPY) skipped: table size 2147483648 > max_rebuild_bytes 1073741824; blocking writes skipped: table size 2147483648 > max_locked_bytes 0; the server refused INSTANT, NOCOPY (last: …). Nothing of that statement was changed; the statements before it ran. Statement: ALTER TABLE `shop`.`order_item` …
+```
+
+The reason lists each limit that left a step out, and then the steps that the server refused, so that you can see which limit would allow more. The statements of the update before this `ALTER TABLE` have run, and the schema is left as after any failed upgrade, as described in [When a Deployment Fails](#when-a-deployment-fails). Raise the limit, run the change in a maintenance window with online `ALTER TABLE` turned off for the table or the deployment, or make it with a tool of your own.
+
+{% hint style="warning" %}
+On a Galera cluster, an `ALTER TABLE` of a table larger than `galeraMaxBytes` that can't run with `ALGORITHM=INSTANT` stops the deployment, unless `nboLock` is set. Without online `ALTER TABLE`, it would run under Total Order Isolation and pause the cluster for the whole change. To allow that, raise `galeraMaxBytes`, or turn online `ALTER TABLE` off for the table or the deployment. MSM refuses a session whose `wsrep_OSU_method` is `RSU`, which would change the table on one node only.
+{% endhint %}
+
+### Run One ALTER TABLE Online
+
+`msm.online_alter_table()` runs a single `ALTER TABLE` on a table of a server through the same steps, outside of a deployment, on the global session or the one passed with the `session` option:
+
+```python
+msm.online_alter_table("shop", "product", "ADD COLUMN `sku` VARCHAR(20)")
+```
+
+```text
+{
+    "method": "INSTANT",
+    "applied": true,
+    ...
+}
+```
+
+| Parameter or option | Description |
+| --- | --- |
+| `schema` | The schema of the table. |
+| `table` | The table. |
+| `spec` | Everything after `ALTER TABLE <table>`. It must not contain an `ALGORITHM` or `LOCK` clause, which the steps set, or a change of the partitioning. |
+| `options` | The limits, with the keys of `onlineAlter` other than `enabled` and `tables`. The defaults apply to those you leave out. |
+| `session` | The session to use. The default is the global session. |
+
+The function returns `method`, the step that applied the change, or `NEEDS_EXTERNAL` when none did and nothing changed; `applied`; `reason`; `table_size`; `galera`; and `steps`, the outcome of each step that was tried or left out. `msm.get_online_alter_defaults()` returns the default limits.
 
 ## Backups
 
@@ -157,7 +273,9 @@ To list what the project can deploy, use `msm.get.deployment_script_versions()` 
 | *… there is no deployment script available for this version.* | The requested version isn't a release of the project. |
 | *… requested but the schema is not managed by MSM.* | A schema of the same name exists without an `msm_schema_version` view. |
 | *… the version … cannot be updated.* | The deployed version isn't a release of the project, so no upgrade path leads from it. The version `0.0.0` means that an earlier upgrade failed and left the schema behind; repair or restore it. |
-| *Failed to acquire MSM schema update lock.* | Another deployment runs on the same server. |
+| *Failed to acquire MSM schema update lock.* | Another deployment of the same schema runs on the server. |
+| *… needs an external tool for an ALTER TABLE of …* | No step of online `ALTER TABLE` could apply a statement of the update. See [When No Step Applies](#when-no-step-applies). |
+| *Unknown key … onlineAlter …* or *… must be …* | The `onlineAlter` setting of the project or the `online_alter` option has a key or value that MSM doesn't accept. Nothing has run. |
 | *MariaDB session not specified.* | No global session is open and no `session` was passed. |
 | *Failed to run the SQL script.* followed by a statement and an error | A statement of the deployment script failed on the server. |
 
