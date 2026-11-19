@@ -89,8 +89,8 @@ Migration from MariaDB Connector/Python 1.1 to 2.0 covers renamed parameters, re
 
 {% columns %}
 {% column %}
-{% content-ref url="api.md" %}
-[api.md](api.md)
+{% content-ref url="api/" %}
+[api](api/)
 {% endcontent-ref %}
 {% endcolumn %}
 

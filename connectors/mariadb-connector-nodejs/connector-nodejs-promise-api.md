@@ -815,8 +815,8 @@ connection.query({ typeCast: tinyToBoolean, sql: '...' });
 
 * `collation`: Object indicates the column collation. It has the properties: `index`, `name`, `encoding`, and `maxlen`. For instance, `33, "UTF8_GENERAL_CI", "utf8", 3`
 * `columnLength`: Shows the column's maximum length if there's a limit and `0` if there is no limit, (such as with a `BLOB` column).
-* `type`: Shows the column type as a String value. For more information on the relevant values, see [`field-type.js`](../mariadb-connector-python/constants.md#field_type.json)
-* `columnType`: Shows the column type as an integer value. For more information on the relevant values, see [`field-type.js`](../mariadb-connector-python/constants.md#field_type.json)
+* `type`: Shows the column type as a String value. For more information on the relevant values, see [`field-type.js`](../mariadb-connector-python/api/constants.md#field_type.json)
+* `columnType`: Shows the column type as an integer value. For more information on the relevant values, see [`field-type.js`](../mariadb-connector-python/api/constants.md#field_type.json)
 * `scale`: Provides the decimal part length.
 * `flags`: Shows the byte-encoded flags. For more information, see `field-detail.js`.
 * `db()`: Name of the database schema. You can also retrieve this using `schema()`.

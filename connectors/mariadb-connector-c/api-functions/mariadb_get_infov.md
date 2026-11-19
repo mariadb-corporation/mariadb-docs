@@ -49,14 +49,14 @@ For these information types of parameters mysql needs to be set to NULL.
 * `MARIADB_CONNECTION_CLIENT_CAPABILITIES`: Returns the capability flags of the client.Parameter type: `unsigned long`.
 * `MARIADB_CONNECTION_ERROR`: Retrieves error message for last used command. Parameter type: `const char *`.
 * `MARIADB_CONNECTION_ERROR_ID`: Retrieves error number for last used command. Parameter type: `unsigned int`.
-* `MARIADB_CONNECTION_EXTENDED_SERVER_CAPABILITIES`: Returns the extended [capability flags](../../mariadb-connector-python/constants.md#capability) of the connected MariaDB server.Parameter type: `unsigned long`.
+* `MARIADB_CONNECTION_EXTENDED_SERVER_CAPABILITIES`: Returns the extended [capability flags](../../mariadb-connector-python/api/constants.md#capability) of the connected MariaDB server.Parameter type: `unsigned long`.
 * `MARIADB_CONNECTION_HOST`: Retrieves connection's host name. Parameter type: `const char *`.
 * `MARIADB_CONNECTION_INFO`: Retrieves generic info for last used command.Parameter type: `const char *`.
 * `MARIADB_CONNECTION_PORT`: Retrieves the port number of server host.Parameter type: `unsigned int`.
 * `MARIADB_CONNECTION_PROTOCOL_VERSION_ID`: Retrieves the protocol version number.Parameter type: `unsigned int`.
 * `MARIADB_CONNECTION_PVIO_TYPE`: Retrieves the pvio plugin used for specified connection.Parameter type: `unsigned int`.
 * `MARIADB_CONNECTION_SCHEMA`: Retrieves the current schema.Parameter type: `const char*`.
-* `MARIADB_CONNECTION_SERVER_CAPABILITIES`: Returns the [capability flags](../../mariadb-connector-python/constants.md#capability) of the connected server.Parameter type: `unsigned long`.
+* `MARIADB_CONNECTION_SERVER_CAPABILITIES`: Returns the [capability flags](../../mariadb-connector-python/api/constants.md#capability) of the connected server.Parameter type: `unsigned long`.
 * `MARIADB_CONNECTION_SERVER_STATUS`: Returns server status after last operation. A list of possible flags can be found in the description OK packet.Parameter type: `unsigned int`.
 * `MARIADB_CONNECTION_SERVER_TYPE`: Retrieves the type of the server.Parameter type: `const char*`.
 * `MARIADB_CONNECTION_SERVER_VERSION`: Retrieves the server version in literal format.Parameter type: `const char *`.
