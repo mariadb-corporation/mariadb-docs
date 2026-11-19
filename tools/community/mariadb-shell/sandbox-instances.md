@@ -232,7 +232,7 @@ mariadb-13.1.1-windows-x86-64bit-sandbox.tar.gz
 mariadb-13.1.1-windows-arm-64bit-sandbox.tar.gz
 ```
 
-The packages contain only what a sandbox needs, such as the server, `mariadb-install-db`, and `mariadb-admin`. The Linux packages run on distributions with glibc 2.34 or later, such as RHEL 9, Ubuntu 22.04, and Debian 12.
+The packages contain only what a sandbox needs, such as the server, `mariadb-install-db`, and `mariadb-admin`. The Linux packages run on distributions with glibc 2.34 or later, such as RHEL 9, Ubuntu 22.04, and Debian 12. Every package includes its own OpenSSL libraries, and the Windows packages also include the Visual C++ runtime, so nothing else needs to be installed.
 
 Neither the `sandbox` plugin nor the installation scripts download these packages. Download one, verify it, unpack it, and point `mariadbdPath` at it, or put its `bin` directory on the `PATH`:
 

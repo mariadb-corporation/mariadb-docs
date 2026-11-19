@@ -77,6 +77,18 @@ irm https://github.com/mariadb-corporation/mariadb-shell/raw/main/install.ps1 | 
 
 Environment variables that you set with `$env:` remain set for the rest of the PowerShell session. Remove them with `Remove-Item Env:MARIADB_SHELL_TAG` before you install another version in the same window.
 
+## Verify Against Your Own Checksums
+
+By default, the script checks the package against the `SHA256SUMS` file published with the release. To check it against checksums that you keep instead, save a copy of that release's `SHA256SUMS` and set `MARIADB_SHELL_SHA256SUMS` to its path, or use the `-Sha256Sums` parameter. The script then reads the package list and checksums from your copy and downloads only the package. This setting requires `MARIADB_SHELL_TAG`, because a `SHA256SUMS` file lists the packages of one release:
+
+```powershell
+$env:MARIADB_SHELL_TAG = 'v26.10.4'
+$env:MARIADB_SHELL_SHA256SUMS = "$PWD\SHA256SUMS"
+irm https://github.com/mariadb-corporation/mariadb-shell/raw/main/install.ps1 | iex
+```
+
+If the downloaded package does not match your copy, the script stops with `checksum mismatch` and installs nothing.
+
 ## Add the Command Directory to PATH
 
 The script changes your user `PATH` only when you ask it to with `-AddToPath` or `MARIADB_SHELL_ADDTOPATH`. Otherwise, it prints the command to add the directory yourself:
@@ -100,6 +112,7 @@ mariadb-shell --version
 | `-AddToPath` | `MARIADB_SHELL_ADDTOPATH` | Off | Add the command directory to the user `PATH`. |
 | `-Prefix` | `MARIADB_SHELL_PREFIX` | `%LOCALAPPDATA%\Programs\mariadb-shell` | Directory that holds the unpacked versions. |
 | `-BinDir` | `MARIADB_SHELL_BINDIR` | `<prefix>\bin` | Directory where `mariadb-shell.cmd`, `msh.cmd` and `mariadb-lsp.cmd` are written. |
+| `-Sha256Sums` | `MARIADB_SHELL_SHA256SUMS` | The release's own `SHA256SUMS` | Path to a local copy of the release's `SHA256SUMS`, used to select and verify the package. Requires `-Tag` or `MARIADB_SHELL_TAG`. |
 | `-Repo` | `MARIADB_SHELL_REPO` | `mariadb-corporation/mariadb-shell` | GitHub repository, in `owner/repo` form, to install from. It must be public. |
 
 A parameter takes precedence over its environment variable. For the switch variables `MARIADB_SHELL_PRERELEASE` and `MARIADB_SHELL_ADDTOPATH`, any non-empty value turns the setting on.
@@ -134,7 +147,8 @@ The script has no uninstall mode. To remove MariaDB Shell:
 | `tar was not found` | Your Windows build is older than Windows 10 version 1803. Install manually as described in [Manual Installation](manual-installation.md), using another tool to unpack the package. |
 | `32-bit Windows is not supported` | Only 64-bit packages are built. |
 | `could not download SHA256SUMS from the latest release` | The release does not exist or is a prerelease. Set `MARIADB_SHELL_PRERELEASE` or `MARIADB_SHELL_TAG`. |
-| `checksum mismatch` | The download is corrupt or incomplete. Run the script again. |
+| `checksum mismatch` | The download is corrupt or incomplete. Run the script again. If you set `MARIADB_SHELL_SHA256SUMS`, check that the file belongs to the release in `MARIADB_SHELL_TAG`. |
+| `-Sha256Sums (MARIADB_SHELL_SHA256SUMS) needs -Tag (MARIADB_SHELL_TAG)` | A local `SHA256SUMS` lists the packages of one release. Set `MARIADB_SHELL_TAG` to that release. |
 | `LOCALAPPDATA is not set` | The default installation directory cannot be determined. Set `MARIADB_SHELL_PREFIX` or pass `-Prefix`. |
 
 <sub>_This page is licensed: GPLv2_</sub>
