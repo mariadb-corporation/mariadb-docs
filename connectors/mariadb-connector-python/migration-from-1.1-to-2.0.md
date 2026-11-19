@@ -15,8 +15,8 @@ This guide helps you migrate your applications from MariaDB Connector/Python 1.1
 
 ## API Reference
 
-- **[Connection API](connection.md)** - Connection parameters, methods, and attributes
-- **[Cursor API](cursor.md)** - Cursor parameters, methods, and attributes  
+- **[Connection API](api/connection.md)** - Connection parameters, methods, and attributes
+- **[Cursor API](api/cursor.md)** - Cursor parameters, methods, and attributes  
 - **[Connection Pooling API](pooling.md)** - Pool configuration and usage
 
 ## Overview

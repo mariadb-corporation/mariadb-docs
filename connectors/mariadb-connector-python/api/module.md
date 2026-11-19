@@ -68,7 +68,7 @@ For the full list of accepted parameters — including SSL/TLS options, timeouts
 - **`cursor_type`** (cursor option) - Removed in the pure-Python implementation; use `buffered=False` instead. The C extension still accepts it.
 - **`prepared`** (cursor option) - Deprecated in favor of `binary=True`. It still works but emits a `DeprecationWarning`.
 
-For migration guidance, see the [Migration Guide](migration-from-1.1-to-2.0.md).
+For migration guidance, see the [Migration Guide](../migration-from-1.1-to-2.0.md).
 
 **Examples:**
 
@@ -133,7 +133,7 @@ async def main():
 asyncio.run(main())
 ```
 
-For detailed async usage, see [Async/Await Support](async-usage.md).
+For detailed async usage, see [Async/Await Support](../async-usage.md).
 
 ### Connection Pool
 
@@ -175,7 +175,7 @@ Keyword Arguments:
 - **\`ping_threshold\`** (`float`) - Ping connections idle for more than this many seconds. Default: 0.25
 - **\*\*kwargs** - Connection arguments as described in mariadb.connect() method
 
-For detailed pooling documentation, see [Connection Pooling](pooling.md).
+For detailed pooling documentation, see [Connection Pooling](../pooling.md).
 
 ### create_async_pool(\*\*kwargs)
 
@@ -210,7 +210,7 @@ async def main():
 asyncio.run(main())
 ```
 
-For detailed async pooling, see [Async/Await Support](async-usage.md).
+For detailed async pooling, see [Async/Await Support](../async-usage.md).
 
 ### Type constructors
 
