@@ -16,8 +16,8 @@ MariaDB Connector/Python is the official Python client library for connecting ap
 
 ## API Reference
 
-- **[Connection API](../mariadb-connector-python/connection.md)** - Connection parameters, methods, and attributes
-- **[Cursor API](../mariadb-connector-python/cursor.md)** - Cursor parameters, methods, and attributes  
+- **[Connection API](../mariadb-connector-python/api/connection.md)** - Connection parameters, methods, and attributes
+- **[Cursor API](../mariadb-connector-python/api/cursor.md)** - Cursor parameters, methods, and attributes  
 - **[Connection Pooling API](../mariadb-connector-python/pooling.md)** - Pool configuration and usage
 
 #### 1. Prerequisites
