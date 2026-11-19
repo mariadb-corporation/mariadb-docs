@@ -58,7 +58,7 @@ Only non-zero members are printed.
 
 #### Adaptive hash index statistics
 
-**MariaDB starting with** [**13.1.1**]({release-notes}/community-server/changelogs/13.1/13.1.1)
+**MariaDB starting with** [**13.1.1**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/13.1/13.1.1)
 
 The `r_ahi_stats` object is nested inside `r_engine_stats` and has the following members:
 
