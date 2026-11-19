@@ -18,7 +18,7 @@ A well defined, versioned and stable interface specification. It's also abstract
 ## Plugin
 A named and versioned implementation of a specific [Plugin API](#plugin-api).
 
-**See also**: [Plugin Types](plugin_types.md) for a list of the available plugin types and what they do
+**See also**: [Plugin Types](plugin_api/plugin_types/README.md) for a list of the available plugin types and what they do
 
 ## Plugin Library
 (habitually abbreviated as a plugin) An executable binary that contains one or more [Plugin](#plugin) that can be accessed by the server when it needs to call plugin API implementations.
