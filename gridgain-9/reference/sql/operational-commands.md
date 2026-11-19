@@ -161,7 +161,7 @@ statement may succeed or fail depending on which node the client connected to.
 
 ### Failed and Cancelled Statements
 
-This section describes GridGain 9.1.30 and later. In earlier versions, a failed or cancelled export leaves its partial output, and cancelling a statement or reaching its query timeout does not stop the copy, which keeps running on the node.
+This section describes GridGain 9.1.30 and later. In earlier versions, a failed export leaves its partial output, and cancelling a statement or reaching its query timeout does not stop the copy, which keeps running on the node and writes its full output.
 
 #### Existing Export Targets
 
