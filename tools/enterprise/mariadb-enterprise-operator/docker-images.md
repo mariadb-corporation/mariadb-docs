@@ -23,13 +23,13 @@ MariaDB Enterprise Kubernetes Operator is compatible with the following Docker i
 
 | Component | Image | Supported Tags | CPU Architecture |
 |-----------|-------|----------------|------------------|
-| MariaDB Enterprise Kubernetes Operator | docker.mariadb.com/mariadb-enterprise-operator |  ^26.10.x <br>  ^26.6.x <br>  ^26.3.x <br>  ^25.10.x <br>  ^25.8.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MariaDB Enterprise Server | docker.mariadb.com/enterprise-server |  ^11.8.x <br>  ^11.4.x <br>  ^10.6.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MariaDB Enterprise Server (tiered) | docker.mariadb.com/enterprise-server |  ^12.3.x (also -minimal, -standard) <br>  ^11.8.x (also -minimal, -standard) <br>  ^11.4.x (also -minimal, -standard) <br>  ^10.6.x (also -minimal, -standard) <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MaxScale Enterprise | docker.mariadb.com/maxscale |  ^26.10.x <br>  ^25.10.x <br>  ^25.01.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MariaDB Prometheus Exporter | mariadb/mariadb-prometheus-exporter-ubi |  ^1.2.x <br>  ^1.1.x <br>  ^0.0.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MaxScale Prometheus Exporter | mariadb/maxscale-prometheus-exporter-ubi |  ^1.2.x <br>  ^1.1.x <br>  ^0.0.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MariaDB Enterprise nslcd sidecar | docker.mariadb.com/nslcd |  ^0.9.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise Kubernetes Operator | docker.mariadb.com/mariadb-enterprise-operator |  26.10.x <br>  26.6.x <br>  26.3.x <br>  25.10.x <br>  25.8.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise Server | docker.mariadb.com/enterprise-server |  11.8.x <br>  11.4.x <br>  10.6.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise Server (tiered) | docker.mariadb.com/enterprise-server |  12.3.x (also -minimal, -standard) <br>  11.8.x (also -minimal, -standard) <br>  11.4.x (also -minimal, -standard) <br>  10.6.x (also -minimal, -standard) <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MaxScale Enterprise | docker.mariadb.com/maxscale |  26.10.x <br>  25.10.x <br>  25.01.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Prometheus Exporter | mariadb/mariadb-prometheus-exporter-ubi |  1.2.x <br>  1.1.x <br>  0.0.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MaxScale Prometheus Exporter | mariadb/maxscale-prometheus-exporter-ubi |  1.2.x <br>  1.1.x <br>  0.0.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise nslcd sidecar | docker.mariadb.com/nslcd |  0.9.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 
 Refer to the registry documentation to [access docker.mariadb.com with your customer credentials](customer-access-to-docker-mariadb-com.md).
 
