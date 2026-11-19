@@ -125,14 +125,10 @@ OneOrMore (NonTerminal('parameter', {href:'./grammar-reference/#parameter'}), Te
   - `strictQuotes` - for CSV files only; if `true`, characters outside the quoted elements are ignored, otherwise they are kept. Default value is `false`.
   - `batchSize` - the number of entries loaded in each batch. Default value is `1024`.
   - `null` - what value empty values are mapped to on import, and `null` values are mapped to on export. By default, empty values are mapped to `null` on import, and `null` values are mapped to an empty string (`""`) on export.
-  - Iceberg-specific:
-    - Besides `table-identifier` and `batchSize`, only these properties are accepted; any other `WITH` property fails the statement:
-      - `catalog-impl`, which is required, `io-impl`, `uri`, `warehouse` and `client.factory`.
-      - `client.region`, `client.assume-role.*` and `jdbc.*`.
-      - `glue.skip-name-validation`, in GridGain 9.1.30 and later.
-      - The S3 properties `s3.access-key-id`, `s3.secret-access-key`, `s3.session-token`, `s3.endpoint`, `s3.path-style-access`, `s3.checksum-enabled`, `s3.multipart.*`, `s3.retry.*` and `s3.delete.*`.
-      - `s3.client-region`, which sets `client.region` when `client.region` is not set.
-      - The Hadoop S3A properties `fs.s3a.access.key`, `fs.s3a.secret.key`, `fs.s3a.session.token`, `fs.s3a.endpoint` and `fs.s3a.endpoint.region`.
+  - Iceberg-specific. Besides `table-identifier` and `batchSize`, a `WITH` property not listed here fails the statement:
+    - Catalog and client properties: `catalog-impl` (required), `io-impl`, `uri`, `warehouse`, `client.factory`, `client.region`, `client.assume-role.*`, `jdbc.*` and, in GridGain 9.1.30 and later, `glue.skip-name-validation`.
+    - S3 properties: `s3.access-key-id`, `s3.secret-access-key`, `s3.session-token`, `s3.endpoint`, `s3.path-style-access`, `s3.checksum-enabled`, `s3.multipart.*`, `s3.retry.*`, `s3.delete.*`, and `s3.client-region`, which sets `client.region` when `client.region` is not set.
+    - Hadoop S3A properties: `fs.s3a.access.key`, `fs.s3a.secret.key`, `fs.s3a.session.token`, `fs.s3a.endpoint` and `fs.s3a.endpoint.region`.
     - The `table-identifier` property describes Apache Iceberg TableIdentifier names. The names can be dot-separated. For example, `db_name.table_name` or `table`.
     - The `warehouse` path can be defined explicitly as a `'warehouse'='path'` property, or implicitly as a source or target `COPY FROM source INTO target`. If both ways are defined, the explicit property is used.
   - `S3`, for CSV and Parquet files:
@@ -167,29 +163,34 @@ statement may succeed or fail depending on which node the client connected to.
 
 This section describes GridGain 9.1.30 and later. In earlier versions, a failed or cancelled export leaves its partial output, and cancelling a statement or reaching its query timeout does not stop the copy, which keeps running on the node.
 
-An export creates its target (a file, an S3 object or an Iceberg table) and fails if the target already exists. How the target is checked depends on where it is:
+#### Existing Export Targets
 
-- A local file is checked and created in one step.
+An export operation creates its target (a file, an S3 object or an Iceberg table) and fails if the target already exists. How the target is checked depends on where it is located:
+
+- A local file is checked and created in a single atomic operation, so of two exports to the same file, only one succeeds.
 - A CSV file on S3 is checked once, before the export starts writing.
 - A Parquet file on S3 is checked only when its first data is uploaded, which can be after the whole source has been read.
-- For Iceberg, only an existing table stops the export. With `HadoopCatalog`, a directory without Iceberg metadata at the table location does not stop it.
-
-When the export fails, it removes what it created:
-
-- A CSV or Parquet file is deleted.
-- The Iceberg table is dropped with its data and metadata files, unless another writer has committed to it in the meantime.
+- An Iceberg table is checked when the export creates it in the catalog, before any rows are written. Only an existing table stops the export.
 
 {% hint style="warning" %}
-With `HadoopCatalog`, dropping the table deletes its directory recursively, including any files that were in the directory before the export.
+`HadoopCatalog` (`catalog-impl` set to `org.apache.iceberg.hadoop.HadoopCatalog`) keeps each Iceberg table in its own directory under the warehouse path. A directory at the table location that has no Iceberg metadata does not stop the export, and if the export fails, dropping its table deletes that directory recursively, including any files that were in it before the export.
 {% endhint %}
 
-A CSV export to S3 is written to a local file and uploaded only when it succeeds, so a partial CSV object never appears in the bucket. A Parquet export to S3 completes each upload before it can delete the object, so the partial object is briefly visible in the bucket. An Iceberg table is visible in the catalog for the whole export.
+#### Failed Exports
 
-Deleting the object of a failed export from S3, and dropping an Iceberg table on S3, requires the `s3:DeleteObject` permission on the target bucket; a `HadoopCatalog` on `s3a` also needs `s3:ListBucket`. Without these permissions, the partial output remains. The statement reports only the error that failed the export, not the failure to remove its output.
+A failed export deletes the output it has written: a CSV or Parquet file is deleted, and an Iceberg table is dropped with its data and metadata files, unless another writer has committed to it in the meantime.
+
+On S3, removing the output requires the `s3:DeleteObject` permission on the target bucket; an Iceberg table in a `HadoopCatalog` on `s3a` also needs `s3:ListBucket`. Without these permissions, the partial output remains, and the statement reports only the error that failed the export, not the failure to remove its output.
 
 The output also remains if the node process is killed during the export. A node that stops gracefully cancels the export, which removes its output.
 
+A CSV export to S3 is written to a local file and uploaded only when it succeeds, so a partial CSV object never appears in the bucket. A Parquet export to S3 completes each upload before it can delete the object, so the partial object is briefly visible in the bucket. An Iceberg table is visible in the catalog for the whole export.
+
+#### Failed Imports
+
 A failed import keeps the batches it has already written and discards the last partial batch. Rows are written as upserts, so running the import again overwrites rows with the same primary key.
+
+#### Cancelled Statements
 
 [Cancelling](#kill-query) a statement or reaching its query timeout stops the copy at the next row. The statement fails with the [`IGN-SQL-6`](../error-codes/README.md) error and otherwise ends like a failed one: an export removes what it created, and an import keeps the batches it has already written.
 
