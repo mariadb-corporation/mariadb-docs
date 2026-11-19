@@ -681,7 +681,7 @@ Both differ from the hard limits in several important ways:
 |offloadingDataDir|sql_offloading|Absolute or relative path to the directory SQL data will be offloaded to.|1 - Integer.MAX_VALUE|
 |offloadingDataLimit|0g|Node-wide limit for the amount of data that can be offloaded to disk. A number with a dimension identifier:<br>- % - percentage of the node's heap memory<br>- k - Kb<br>- m - Mb<br>- g - Gb<br>`0` with any of the dimension identifiers removes the data limit for data offloaded to disk. Exceeding this limit will cause the `SQL query ran out of memory: Offloading data limit was exceeded.` error.|1 - Integer.MAX_VALUE|
 |planner.threadCount|4|Number of threads for query planning.|1 - Integer.MAX_VALUE|
-|statistics.collectionConcurrency|4|Maximum number of partitions that the node scans at the same time when it collects [SQL statistics](../../tuning-and-troubleshooting/performance-tuning/sql-tuning/sql-statistics.md). Each scan uses additional memory. The scans use the thread pool for partition operations, so keep this value much smaller than the size of that pool. The node reads this property at startup.|1 - Integer.MAX_VALUE|
+|statistics.collectionConcurrency|4|Maximum number of partitions that the node scans at the same time when it collects [SQL statistics](../../tuning-and-troubleshooting/performance-tuning/sql-tuning/sql-statistics.md). Each scan uses additional memory.|1 - Integer.MAX_VALUE|
 
 ### Storage Configuration
 
