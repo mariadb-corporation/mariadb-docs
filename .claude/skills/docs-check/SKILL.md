@@ -71,6 +71,11 @@ on the file set, from the repo root:
   the author never opened, and reproduce it with
   `git ls-files -z -- '*.md' '*.html' | .claude/hooks/includecheck.sh --stdin0`. There is no
   acknowledgment path and should not be one: a dead include is always a bug.
+- It fails a **relative link that leaves its own space** (`crossspacecheck.py`, DOCS-7156), such
+  as `../../../../server/...` from a MaxScale page. Rewrite it as a space link,
+  `{alias}/<published path>`; the message names the alias, and the published path can differ
+  from the file path, so take it from the live URL. History-aware (main still has MaxScale ones
+  that need the upstream fix too), no acknowledgment path, gated by `crossspacecheck-pr.yml`.
 - It also fails a **Mermaid flowchart with edge labels** (`A -->|Yes| B`, `A -- No --> B`) that
   lacks the dark-mode contrast fix: an `%%{init}%%` directive setting `edgeLabelBackground` as
   the block's first line and `linkStyle default color:…` as its last, at >= 4.5:1. Without it,

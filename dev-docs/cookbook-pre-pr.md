@@ -12,6 +12,7 @@ skill, which runs them for you; this page documents what it does and how to run 
 | Broken links | `lychee` | `link-check-pr.yml` |
 | Heading anchors | `fragcheck.py new` | `fragcheck-pr.yml` |
 | GitBook includes | `includecheck.sh --stdin0` | `includecheck-pr.yml` |
+| Relative links into another space | `crossspacecheck.py new` | `crossspacecheck-pr.yml` |
 | Mermaid edge-label contrast | `mermaidcheck.py --stdin0` | `mermaidcheck-pr.yml` |
 | Page descriptions (length, Markdown, title repeat) | `desccheck.py --stdin0` | `desccheck-pr.yml` |
 | Railroad-diagram dark-mode card | `railroadcheck.py --stdin0` | `railroadcheck-pr.yml` |
@@ -20,7 +21,7 @@ skill, which runs them for you; this page documents what it does and how to run 
 | Alias expansion | sed (auto-commit) | `expand-gitbook-aliases.yml` |
 | Help-tables regen | Python | `generate-help-tables.yml` |
 
-Only the first nine can fail your PR; aliases and help-tables are regenerated automatically.
+Only the first ten can fail your PR; aliases and help-tables are regenerated automatically.
 
 The heading-anchor gate arrived in DOCS-6524 and the other three in DOCS-6586: **every check in
 the table above has a CI counterpart**, so a finding on your machine is a finding CI will repeat.
@@ -105,6 +106,16 @@ one implementation. Two differences from the local run are worth knowing:
 * **There is no acknowledgment path, deliberately.** Unlike the shrink and orphan guards, a dead
   include has no legitimate form — fix the path, restore the target, or use the by-ID form for a
   genuinely cross-space snippet.
+
+The same rule applies to links: `crossspacecheck.py` fails a **relative link that leaves its own
+space**, such as `../../../../server/...` (DOCS-7156). It resolves on disk, so lychee passes it,
+but it addresses the target by its file path and breaks when that file moves. Write a space link,
+`{alias}/<published path>`, instead ([link-aliases.md](link-aliases.md)); the message names the
+alias. It checks Markdown links, reference definitions, and `href`, `src`, and content-ref `url`
+attributes, and skips code. It's history-aware, because the MaxScale pages still carry some that
+also need fixing in the MaxScale source: `new` fails only on a link the file didn't already have
+at `DOC_LINT_BASE`. Like the include check it has no acknowledgment path. Gated in CI by
+`crossspacecheck-pr.yml`; `crossspacecheck.py check` lists every one in the tree.
 
 It also gates **heading anchors** — links of the form `page.md#some-heading`. This one is
 history-aware: it reports only anchors that resolved at `DOC_LINT_BASE` (default `HEAD`) and are
