@@ -30,3 +30,5 @@ Before implementing a hybrid setup, it is critical to understand the technical c
 | Failover Complexity | Failover within Galera Cluster is automatic, but failing over to the asynchronous DR replica is manual and requires careful planning.          |
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

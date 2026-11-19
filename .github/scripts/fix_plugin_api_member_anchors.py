@@ -31,6 +31,23 @@ change that breaks this assumption shows up as a skip rather than as a
 plausible-looking wrong link. Links that already resolve are never touched, and
 neither is any cross-page link.
 
+One exception, from MDBF-1224 (DOCS-6988): a struct with two fields of the same
+name. `sql_service_st` has two `length` fields; moxygen links them as
+`#length-1` and `#length-2`, GitBook publishes `#length` and `#length-1`. The
+second link is dead and has two candidates, and the first resolves -- to the
+wrong field. When the section holds as many links of that name as headings,
+they are paired in document order (the attribute table lists the fields in the
+order of their headings), and all of them are rewritten, the live one too.
+
+The same suffix drift reaches links to a sibling generated page (DOCS-7004).
+`api.md` repeats every group page's text, but links each member to its group
+page: `MYSQL_FTFLAGS_NEED_COPY` refers to `st_mysql_ftparser::deinit()` as
+`ftparser_plugin_data.md#deinit-2`, while that page has one `deinit` heading
+and publishes `#deinit`. A dead fragment on a sibling page is retargeted when
+the target page holds exactly one heading of that base name; there is no
+section to narrow by on another page, so anything ambiguous is left alone and
+reported. Links that leave the directory are never touched.
+
 An unresolved fragment is reported on stderr and left as it was, but does NOT
 fail the step: blocking the whole daily sync -- frontmatter, SUMMARY.md, the
 pull request -- over an in-page navigation nit would be out of proportion, and
@@ -89,38 +106,102 @@ def section_bounds(page, fragcheck, line_no):
     return start, end
 
 
-def fix_page(page, fragcheck):
+def pair_by_order(links, line_no, frag, want, in_section, fragcheck, start, end):
+    """[(line_no, frag, anchor)] for a section whose repeated name can't resolve.
+
+    When a struct has two fields of the same name, the links in its attribute
+    table and the field headings below come in the same order, so the k-th link
+    belongs to the k-th heading. Only used when the counts match; every link of
+    that name in the section is paired, because a link whose suffix happens to
+    resolve may resolve to the wrong field (`#length-1` asked for the first
+    `length` of `sql_service_st`, which GitBook publishes as `#length`).
+    """
+    same = [(n, t[1:]) for t, n in links
+            if t.startswith('#') and start < n < end and
+            fragcheck.gitbook_slug(SUFFIX.sub('', t[1:])) == want]
+    if len(same) != len(in_section) or (line_no, frag) not in same:
+        return None
+    return [(n, f, in_section[k][2]) for k, (n, f) in enumerate(same)]
+
+
+def fix_cross_page(page, fragcheck, target, line_no, lines, cache):
+    """(rewrite, unresolved) for one link to a sibling page; either may be None.
+
+    `cache` maps a sibling page's name to its published_anchors(), so a page
+    that thousands of api.md links point at is parsed once.
+    """
+    name, frag = target.split('#', 1)
+    sibling = page.parent / name
+    if '/' in name or not name.endswith('.md') or not sibling.is_file():
+        return None, None                 # leaves the directory; not ours
+    if name not in cache:
+        cache[name] = published_anchors(sibling, fragcheck)
+    anchors = cache[name]
+    if not frag or frag in {anchor for _, _, anchor in anchors}:
+        return None, None                 # already resolves; leave it alone
+    want = fragcheck.gitbook_slug(SUFFIX.sub('', frag))
+    candidates = [a for a in anchors if a[1] == want]
+    if len(candidates) != 1:
+        return None, (line_no, target, len(candidates))
+    old, new = f']({target})', f']({name}#{candidates[0][2]})'
+    if old not in lines[line_no - 1]:
+        return None, (line_no, target, -1)
+    lines[line_no - 1] = lines[line_no - 1].replace(old, new, 1)
+    return (line_no, target, f'{name}#{candidates[0][2]}'), None
+
+
+def fix_page(page, fragcheck, cache=None):
     """Returns (rewrites, unresolved) for one page, rewriting it in place."""
     anchors = published_anchors(page, fragcheck)
     live = {anchor for _, _, anchor in anchors}
     lines = page.read_text().split('\n')
+    links = fragcheck.links_of(page)
+    cache = {} if cache is None else cache
 
-    rewrites, unresolved = [], []
-    for target, line_no in fragcheck.links_of(page):
+    rewrites, unresolved, paired = [], [], set()
+    for target, line_no in links:
         if not target.startswith('#'):
-            continue                      # cross-page; not this defect
+            if '#' in target:
+                rewrite, failure = fix_cross_page(page, fragcheck, target,
+                                                  line_no, lines, cache)
+                rewrites += [rewrite] if rewrite else []
+                unresolved += [failure] if failure else []
+            continue
         frag = target[1:]
-        if frag in live:
+        if frag in live or (line_no, frag) in paired:
             continue                      # already resolves; leave it alone
         want = fragcheck.gitbook_slug(SUFFIX.sub('', frag))
         matches = [a for a in anchors if a[1] == want]
         start, end = section_bounds(page, fragcheck, line_no)
         in_section = [a for a in matches if start < a[0] < end]
         candidates = in_section or matches
-        if len(candidates) != 1:
-            unresolved.append((line_no, frag, len(candidates)))
-            continue
-        anchor = candidates[0][2]
-        old, new = f']({target})', f'](#{anchor})'
-        if old not in lines[line_no - 1]:
-            unresolved.append((line_no, frag, -1))
-            continue
-        lines[line_no - 1] = lines[line_no - 1].replace(old, new)
-        rewrites.append((line_no, frag, anchor))
+        if len(candidates) == 1:
+            todo = [(line_no, frag, candidates[0][2])]
+        else:
+            todo = pair_by_order(links, line_no, frag, want, in_section,
+                                 fragcheck, start, end)
+            if todo is None:
+                unresolved.append((line_no, frag, len(candidates)))
+                continue
+        for n, f, anchor in todo:
+            paired.add((n, f))
+            if f == anchor:
+                continue
+            old, new = f'](#{f})', f'](#{anchor})'
+            if old not in lines[n - 1]:
+                unresolved.append((n, f, -1))
+                continue
+            lines[n - 1] = lines[n - 1].replace(old, new, 1)
+            rewrites.append((n, f, anchor))
 
     if rewrites:
         page.write_text('\n'.join(lines))
     return rewrites, unresolved
+
+
+def show(ref):
+    """A same-page fragment as `#frag`; a cross-page target as written."""
+    return ref if '#' in ref else f'#{ref}'
 
 
 def main():
@@ -129,17 +210,17 @@ def main():
     assert dest_dir.is_dir(), f'not a directory: {dest_dir}'
 
     fragcheck = load_fragcheck(base_dir)
-    total, failed = 0, 0
+    total, failed, cache = 0, 0, {}
     for page in sorted(dest_dir.glob('*.md')):
-        rewrites, unresolved = fix_page(page, fragcheck)
+        rewrites, unresolved = fix_page(page, fragcheck, cache)
         total += len(rewrites)
         failed += len(unresolved)
         for line_no, frag, anchor in rewrites:
-            print(f'{page.name}:{line_no}: #{frag} -> #{anchor}')
+            print(f'{page.name}:{line_no}: {show(frag)} -> {show(anchor)}')
         for line_no, frag, count in unresolved:
             reason = ('the link text moved' if count < 0
                       else f'{count} candidate headings')
-            print(f'{page.name}:{line_no}: #{frag} LEFT ALONE ({reason})',
+            print(f'{page.name}:{line_no}: {show(frag)} LEFT ALONE ({reason})',
                   file=sys.stderr)
     print(f'retargeted {total} dead member anchor(s); {failed} left alone')
 

@@ -7,7 +7,7 @@ description: >-
 
 # Managing Sequences in Galera Cluster
 
-[Sequences](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sequences/sequence-overview) allows for the generation of unique integers independent of any specific table. While standard sequences function normally in a standalone MariaDB server, using them in a [MariaDB Galera Cluster](../../readme/mariadb-galera-cluster-usage-guide.md) requires specific configurations to ensure conflict-free operation and optimal performance.
+[Sequences](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sequences/sequence-overview) allows for the generation of unique integers independent of any specific table. While standard sequences function normally in a standalone MariaDB server, using them in a [MariaDB Galera Cluster](../../mariadb-galera-cluster-usage-guide.md) requires specific configurations to ensure conflict-free operation and optimal performance.
 
 {% hint style="success" %}
 **Streaming Replication Support in MariaDB**
@@ -45,6 +45,16 @@ The following diagram illustrates how two nodes in a 3-node cluster generate uni
 
 ```mermaid
 sequenceDiagram
+    accTitle: Sequence ID generation across two Galera nodes
+    accDescr {
+        A sequence of four numbered requests for the next sequence value, NEXTVAL.
+        Node A has Offset=1 and Node B has Offset=2, and a note says the cluster
+        size is 3. Request 1: App (Node A) asks Node A, which calculates 1 + (0 *
+        3) and returns ID 1. Request 2: App (Node B) asks Node B, which calculates
+        2 + (0 * 3) and returns ID 2. Request 3: App (Node A) asks Node A again,
+        which calculates 1 + (1 * 3) and returns ID 4. Request 4: App (Node B)
+        asks Node B again, which calculates 2 + (1 * 3) and returns ID 5.
+    }
     participant Client_A as "App (Node A)"
     participant Node_A as "Node A (Offset=1)"
     participant Node_B as "Node B (Offset=2)"
@@ -113,3 +123,5 @@ COMMIT;
 | `ERROR 1213: Deadlock found when trying to get lock` | The sequence was likely defined with `INCREMENT BY 1` (default), causing nodes to contend for the same value. | Alter the sequence to use the Galera offset logic: `ALTER SEQUENCE my_seq INCREMENT BY 0;`                 |
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

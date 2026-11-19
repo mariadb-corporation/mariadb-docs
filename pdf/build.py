@@ -11,17 +11,21 @@ reading order. Pages not listed there (375 in `server/`) are unpublished and
 excluded on purpose.
 
 Pipeline: SUMMARY.md -> manifest -> preprocess -> Pandoc (md->html) ->
-headless Chrome --print-to-pdf. Chrome rather than LaTeX because the corpus
-contains raw HTML tables and Mermaid diagrams that a TeX engine cannot render.
+headless Chrome (Page.printToPDF over the DevTools protocol). Chrome rather
+than LaTeX because the corpus contains raw HTML tables and Mermaid diagrams
+that a TeX engine cannot render.
 """
 
 import argparse
+import base64
 import datetime
+import fcntl
 import hashlib
 import html
 import json
 import os
 import re
+import select
 import shutil
 import subprocess
 import sys
@@ -44,21 +48,32 @@ SPACE_TITLES = {
     "maxscale": "MariaDB MaxScale",
     "platform": "MariaDB Enterprise Platform",
     "connectors": "MariaDB Connectors",
-    "analytics": "MariaDB Analytics and ColumnStore",
-    "tools": "MariaDB Enterprise Tools",
+    "columnstore": "MariaDB ColumnStore",
+    "tools": "MariaDB Tools",
     "mariadb-cloud": "MariaDB Cloud",
     "general-resources": "MariaDB General Resources",
     "galera-cluster": "MariaDB Galera Cluster",
-    "home": "MariaDB Documentation",
-    "gridgain": "GridGain",
+    "gridgain-8": "GridGain 8",
+    "gridgain-9": "GridGain 9",
+    "raft-cluster": "MariaDB Raft Cluster",
+    "exa": "MariaDB Exa",
+    "ai-tools": "MariaDB AI Tools",
 }
 
 # `help-tables/` is generated SQL, and the remaining top-level directories are
 # include containers or contributor docs -- none are browsable spaces.
+#
+# Left out on purpose (DOCS-7043): `get-started` and the `gridgain` hub are
+# navigation pages whose entries point into other spaces, so offline they would
+# be a PDF of links to other PDFs. The download table is on
+# general-resources/about/offline-downloads.md. The Analytics and Home
+# spaces were retired in DOCS-7062: ColumnStore and Exa have their own spaces,
+# and Get Started is the site root.
 ALL_SPACES = [
     "server", "release-notes", "maxscale", "platform", "connectors",
-    "analytics", "tools", "mariadb-cloud", "general-resources",
-    "galera-cluster", "home", "gridgain",
+    "columnstore", "tools", "mariadb-cloud", "general-resources",
+    "galera-cluster", "gridgain-8", "gridgain-9", "raft-cluster",
+    "exa", "ai-tools",
 ]
 
 CHROME_CANDIDATES = [
@@ -279,6 +294,71 @@ def run_pandoc(markdown, title):
 
 
 MERMAID_JS = os.path.join(PDF_DIR, "vendor", "mermaid.min.js")
+FONT_DIR = os.path.join(PDF_DIR, "vendor", "fonts")
+LOGO_DIR = os.path.join(PDF_DIR, "assets")
+
+# The brand faces (Enterprise Platform 2027), fetched by `pdf/fetch-deps.sh`:
+# (family, weight, style, file, unicode-range or None). Figtree comes split
+# into the Latin and Latin Extended subsets that @fontsource publishes; Geist
+# and Geist Mono ship whole. The brand allows Figtree SemiBold only, and Geist
+# Regular and Medium, plus the italics prose needs.
+BRAND_FONTS = [
+    ("Figtree", 600, "normal", "figtree-latin-600-normal.woff2",
+     "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,"
+     "U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,"
+     "U+FEFF,U+FFFD"),
+    ("Figtree", 600, "normal", "figtree-latin-ext-600-normal.woff2",
+     "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,"
+     "U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,"
+     "U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"),
+    ("Geist", 400, "normal", "Geist-Regular.woff2", None),
+    ("Geist", 400, "italic", "Geist-Italic.woff2", None),
+    ("Geist", 500, "normal", "Geist-Medium.woff2", None),
+    ("Geist", 500, "italic", "Geist-MediumItalic.woff2", None),
+    ("Geist Mono", 400, "normal", "GeistMono-Regular.woff2", None),
+    ("Geist Mono", 400, "italic", "GeistMono-Italic.woff2", None),
+]
+
+
+def font_faces():
+    """Return @font-face rules for the brand faces that are present.
+
+    Missing files only warn: a local build without `pdf/fetch-deps.sh` still
+    renders, in the fallback faces. CI checks the finished PDF with `pdffonts`
+    instead, which also catches a face that is present but never applied.
+    """
+    rules, missing = [], []
+    for family, weight, style, name, urange in BRAND_FONTS:
+        path = os.path.join(FONT_DIR, name)
+        if not os.path.isfile(path):
+            missing.append(name)
+            continue
+        rules.append(
+            "@font-face {"
+            f" font-family: '{family}'; font-weight: {weight};"
+            f" font-style: {style}; font-display: block;"
+            f" src: url('file://{quote(path)}') format('woff2');"
+            + (f" unicode-range: {urange};" if urange else "")
+            + " }")
+    if missing:
+        print(f"  note: {len(missing)} brand font file(s) absent from "
+              "pdf/vendor/fonts -- text falls back to system faces "
+              "(run pdf/fetch-deps.sh)", file=sys.stderr)
+    return "\n".join(rules)
+
+
+def load_logo(cover):
+    """Return the horizontal lockup as inline SVG for the cover.
+
+    The brand's rule is one color only: white on a dark cover, Trench on a
+    light one. The files are the brand page's own downloads, unmodified.
+    """
+    variant = "white" if cover == "ultraviolet" else "trench"
+    path = os.path.join(LOGO_DIR, f"mariadb-lockup-horizontal-{variant}.svg")
+    with open(path, encoding="utf-8") as fh:
+        svg = fh.read()
+    return svg.replace("<svg ", '<svg class="logo" role="img" '
+                       'aria-label="MariaDB" ', 1)
 
 
 def load_mermaid():
@@ -296,21 +376,24 @@ def load_mermaid():
 
 
 def build_html(space, body_html, toc_html, entries, version_label,
-               cover="azure"):
+               cover="ultraviolet"):
     with open(os.path.join(PDF_DIR, "style.css"), encoding="utf-8") as fh:
-        css = fh.read()
+        css = font_faces() + "\n" + fh.read()
     mermaid_js = load_mermaid()
     mermaid_block = (
         f"<script>{mermaid_js}</script>\n<script>"
         "(async () => {"
         "  try {"
-        "    mermaid.initialize({ startOnLoad: false, theme: 'neutral' });"
+        "    mermaid.initialize({ startOnLoad: false, theme: 'neutral',"
+        "                         fontFamily: 'Geist, sans-serif' });"
         "    await mermaid.run({ querySelector: 'pre.mermaid' });"
         "  } catch (e) { console.error('mermaid', e); }"
+        "  await document.fonts.ready;"
         "  window.__renderComplete = true;"
         "})();</script>"
         if mermaid_js else
-        "<script>window.__renderComplete = true;</script>"
+        "<script>document.fonts.ready.then("
+        "() => { window.__renderComplete = true; });</script>"
     )
 
     title = SPACE_TITLES.get(space, space)
@@ -321,8 +404,9 @@ def build_html(space, body_html, toc_html, entries, version_label,
 <style>{css}</style>
 </head><body>
 <section class="cover cover-{cover_class}">
+  {load_logo(cover)}
+  <p class="eyebrow">Documentation</p>
   <h1>{html.escape(title)}</h1>
-  <p class="subtitle">Documentation</p>
   <p class="meta">{html.escape(version_label)}<br>{len(entries)} pages</p>
   <p class="legal">&copy; MariaDB. Content licensed CC BY-SA / GNU FDL.
   The authoritative, continuously updated version of this documentation is at
@@ -341,81 +425,181 @@ class RenderError(RuntimeError):
     """Chrome failed to produce a PDF for one space."""
 
 
-# Headless Chrome writes a complete, valid PDF and then sometimes fails to
-# exit -- observed on `tools` and `mariadb-cloud`, where the finished file was
-# already on disk while the process sat idle for tens of minutes. So the PDF on
-# disk is the completion signal, not the process exit, and Chrome is terminated
-# once its output stops growing. `--virtual-time-budget` is virtual-clock only
-# and bounds nothing in wall-clock terms.
+# Chrome is driven over the DevTools protocol, not with --print-to-pdf. That
+# flag hands the finished PDF back in one piece, and Chrome 155's renderer dies
+# on one that large: release-notes (~308 MB before qpdf) failed on every run
+# with "V8 error: Empty MaybeLocal" while each half of it printed fine
+# (DOCS-6945). Page.printToPDF with transferMode=ReturnAsStream returns the PDF
+# in chunks instead, and gives the same pages, links and destinations.
+#
+# The protocol runs over --remote-debugging-pipe -- Chrome reads fd 3, writes
+# fd 4, NUL-delimited JSON -- so it needs no WebSocket library. Controlling the
+# session also retires two workarounds: the page itself says when it is ready
+# (`window.__renderComplete`, set after Mermaid), where --virtual-time-budget
+# only advanced a virtual clock; and the build closes Chrome itself, where
+# --print-to-pdf sometimes left it idling for tens of minutes after writing the
+# file.
 CHROME_TIMEOUT_S = 1800
-STABLE_CHECKS = 3          # consecutive equal sizes before the file is settled
-POLL_INTERVAL_S = 2.0
+READY_POLL_S = 0.5
+PDF_CHUNK = 8 << 20         # bytes per IO.read; the result is base64 on top
+PAGE_READY_JS = ("document.readyState === 'complete'"
+                 " && window.__renderComplete === true")
+
+
+class ChromePipe:
+    """One headless Chrome, spoken to over the DevTools protocol pipe."""
+
+    def __init__(self, chrome, deadline):
+        self.deadline = deadline
+        # Private profile: never contend with another instance's singleton lock.
+        self.profile = tempfile.mkdtemp(prefix="mariadb-pdf-chrome-")
+        self.log = open(os.path.join(self.profile, "stderr.log"), "w+")
+        to_r, self.wr = os.pipe()        # Chrome reads on fd 3
+        self.rd, from_w = os.pipe()      # Chrome writes on fd 4
+
+        def child_fds():
+            # Park both ends above fd 9 first. os.pipe() can itself return 3
+            # or 4, and dup2 onto the same number would keep close-on-exec.
+            a = fcntl.fcntl(to_r, fcntl.F_DUPFD_CLOEXEC, 10)
+            b = fcntl.fcntl(from_w, fcntl.F_DUPFD_CLOEXEC, 10)
+            os.dup2(a, 3)
+            os.dup2(b, 4)
+
+        self.proc = subprocess.Popen(
+            [chrome, "--headless", "--disable-gpu", "--no-sandbox",
+             "--remote-debugging-pipe", f"--user-data-dir={self.profile}",
+             "--no-first-run", "--disable-extensions",
+             "--allow-file-access-from-files", "about:blank"],
+            # close_fds runs after preexec_fn and would close fds 3 and 4
+            # again. Everything else Python opens is non-inheritable anyway.
+            close_fds=False, preexec_fn=child_fds,
+            stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+            stderr=self.log)
+        os.close(to_r)
+        os.close(from_w)
+        self.buf = b""
+        self.next_id = 0
+
+    def diagnosis(self):
+        """Chrome's own account of a failure, without the dbus noise."""
+        self.log.seek(0)
+        lines = self.log.read().splitlines()
+        fatal = [ln for ln in lines
+                 if "FATAL" in ln or "renderer termination" in ln]
+        return "\n".join(fatal or lines[-20:])[:2000]
+
+    def _recv(self):
+        while b"\0" not in self.buf:
+            left = self.deadline - time.monotonic()
+            if left <= 0:
+                raise RenderError(
+                    f"Chrome exceeded {CHROME_TIMEOUT_S}s with no complete PDF")
+            ready, _, _ = select.select([self.rd], [], [], min(left, 5))
+            if not ready:
+                continue
+            chunk = os.read(self.rd, 1 << 20)
+            if not chunk:
+                raise RenderError(
+                    f"Chrome exited mid-render:\n{self.diagnosis()}")
+            self.buf += chunk
+        msg, self.buf = self.buf.split(b"\0", 1)
+        return json.loads(msg)
+
+    def call(self, method, params=None, session=None):
+        self.next_id += 1
+        msg = {"id": self.next_id, "method": method, "params": params or {}}
+        if session:
+            msg["sessionId"] = session
+        data = json.dumps(msg).encode() + b"\0"
+        while data:
+            data = data[os.write(self.wr, data):]
+        while True:
+            reply = self._recv()
+            if reply.get("method") == "Inspector.targetCrashed":
+                raise RenderError(
+                    f"Chrome's renderer crashed:\n{self.diagnosis()}")
+            if reply.get("id") == self.next_id:
+                if "error" in reply:
+                    raise RenderError(
+                        f"{method} failed: {reply['error'].get('message')}\n"
+                        f"{self.diagnosis()}")
+                return reply["result"]
+            # Anything else is an event this build has no use for.
+
+    def close(self):
+        try:
+            if self.proc.poll() is None:
+                self.deadline = time.monotonic() + 10
+                self.call("Browser.close")
+        except (RenderError, OSError):
+            pass
+        try:
+            self.proc.wait(timeout=30)
+        except subprocess.TimeoutExpired:
+            self.proc.kill()
+            self.proc.wait(timeout=30)
+        for fd in (self.wr, self.rd):
+            os.close(fd)
+        self.log.close()
+        shutil.rmtree(self.profile, ignore_errors=True)
 
 
 def html_to_pdf(html_path, pdf_path, chrome):
     if os.path.exists(pdf_path):
         os.remove(pdf_path)     # a stale file would look like instant success
 
-    profile = tempfile.mkdtemp(prefix="mariadb-pdf-chrome-")
-    cmd = [
-        chrome,
-        "--headless",
-        "--disable-gpu",
-        "--no-sandbox",
-        "--no-pdf-header-footer",
-        "--allow-file-access-from-files",
-        # Private profile: never contend with another instance's singleton lock.
-        f"--user-data-dir={profile}",
-        "--no-first-run",
-        "--disable-extensions",
-        "--virtual-time-budget=600000",
-        f"--print-to-pdf={pdf_path}",
+    chrome_pipe = ChromePipe(chrome, time.monotonic() + CHROME_TIMEOUT_S)
+    try:
+        target = chrome_pipe.call(
+            "Target.createTarget", {"url": "about:blank"})["targetId"]
+        session = chrome_pipe.call(
+            "Target.attachToTarget",
+            {"targetId": target, "flatten": True})["sessionId"]
+        chrome_pipe.call("Inspector.enable", session=session)
         # Percent-encode: an --out-dir containing spaces would otherwise
         # truncate the URL and Chrome would print an error page.
-        "file://" + quote(os.path.abspath(html_path)),
-    ]
+        chrome_pipe.call(
+            "Page.navigate",
+            {"url": "file://" + quote(os.path.abspath(html_path))},
+            session=session)
 
-    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE, text=True)
-    deadline = time.monotonic() + CHROME_TIMEOUT_S
-    last_size, stable = -1, 0
-    try:
-        while True:
-            if proc.poll() is not None:
-                break           # exited on its own: the normal path
-            size = os.path.getsize(pdf_path) if os.path.isfile(pdf_path) else -1
-            if size >= 0 and size == last_size:
-                stable += 1
-                if stable >= STABLE_CHECKS:
-                    break       # output settled; Chrome is just not leaving
-            else:
-                stable = 0
-            last_size = size
-            if time.monotonic() > deadline:
-                raise RenderError(
-                    f"Chrome exceeded {CHROME_TIMEOUT_S}s with no complete PDF")
-            time.sleep(POLL_INTERVAL_S)
+        # Wait until images have loaded and Mermaid has run.
+        while not chrome_pipe.call(
+                "Runtime.evaluate",
+                {"expression": PAGE_READY_JS, "returnByValue": True},
+                session=session)["result"].get("value"):
+            time.sleep(READY_POLL_S)
+
+        stream = chrome_pipe.call(
+            "Page.printToPDF",
+            {"printBackground": True, "preferCSSPageSize": True,
+             "transferMode": "ReturnAsStream"},
+            session=session)["stream"]
+        with open(pdf_path, "wb") as fh:
+            while True:
+                chunk = chrome_pipe.call(
+                    "IO.read", {"handle": stream, "size": PDF_CHUNK},
+                    session=session)
+                data = chunk.get("data", "")
+                fh.write(base64.b64decode(data) if chunk.get("base64Encoded")
+                         else data.encode("latin-1"))
+                if chunk.get("eof"):
+                    break
+        chrome_pipe.call("IO.close", {"handle": stream}, session=session)
     finally:
-        if proc.poll() is None:
-            proc.terminate()
-            try:
-                proc.wait(timeout=30)
-            except subprocess.TimeoutExpired:
-                proc.kill()
-                proc.wait(timeout=30)
-        shutil.rmtree(profile, ignore_errors=True)
+        chrome_pipe.close()
 
-    if not os.path.isfile(pdf_path) or os.path.getsize(pdf_path) == 0:
-        stderr = (proc.stderr.read() if proc.stderr else "")[:2000]
-        raise RenderError(f"Chrome produced no PDF:\n{stderr}")
+    with open(pdf_path, "rb") as fh:
+        if fh.read(5) != b"%PDF-":
+            raise RenderError(f"Chrome's output is not a PDF: {pdf_path}")
 
 
 # Cover treatments, both verified against WCAG (see pdf/style.css).
-COVER_CLASS = {"azure": "azure", "sea-fresh": "sea"}
+COVER_CLASS = {"ultraviolet": "ultraviolet", "foam": "foam"}
 
 
 def build_space(space, out_dir, version_label, limit=None, keep_html=False,
-                no_optimize=False, cover="azure"):
+                no_optimize=False, cover="ultraviolet"):
     print(f"[{space}] parsing SUMMARY.md")
     entries = parse_summary(space)
     print(f"[{space}] {len(entries)} pages in navigation order")
@@ -529,9 +713,10 @@ def main():
                     help="retain the intermediate HTML for debugging")
     ap.add_argument("--no-optimize", action="store_true",
                     help="skip the qpdf lossless size pass")
-    ap.add_argument("--cover", choices=sorted(COVER_CLASS), default="azure",
-                    help="cover treatment: Blue Azure with white text "
-                         "(default) or Sea Fresh with Deep Ocean text")
+    ap.add_argument("--cover", choices=sorted(COVER_CLASS),
+                    default="ultraviolet",
+                    help="cover treatment: Ultraviolet with white text and "
+                         "logo (default) or Foam with Trench text and logo")
     ap.add_argument("--list-spaces", action="store_true",
                     help="print the buildable spaces as JSON and exit; with "
                          "space arguments, validate them first (CI matrix)")

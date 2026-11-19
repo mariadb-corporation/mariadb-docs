@@ -21,6 +21,18 @@ MariaDB Corporation provides two shell scripts that configure access to the [Mar
 [mariadb-es-repo-setup-changelog.md](mariadb-es-repo-setup-changelog.md)
 {% endcontent-ref %}
 
+## MariaDB Migrator
+
+MariaDB Migrator automates end-to-end migrations from MySQL to MariaDB. It uses `mariadb-mtk`, a data-transfer engine released alongside it, to load data in parallel:
+
+{% content-ref url="migrator/README.md" %}
+[README.md](migrator/README.md)
+{% endcontent-ref %}
+
+{% content-ref url="mtk/README.md" %}
+[README.md](mtk/README.md)
+{% endcontent-ref %}
+
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -14,8 +14,6 @@ MariaDB Enterprise Server 10.6.19-15 was released on 2024-09-09.
 
 * (MENT-1304) No Method to Shrink ibdata1
 * (MENT-2031) Backport [MDEV-30879](https://jira.mariadb.org/browse/MDEV-30879) - Add conversion to based 62 for CONV function
-* (MENT-1897) Backport [MDEV-26182](https://jira.mariadb.org/browse/MDEV-26182) - Functions JSON\_OBJECT\_FILTER\_KEYS, JSON\_OBJECT\_TO\_ARRAY, JSON\_ARRAY\_INTERSECT
-* (MENT-1896) Backport [MDEV-30145](https://jira.mariadb.org/browse/MDEV-30145) - Function JSON\_KEY\_VALUE()
 * (MENT-2092) Backport Improvements/Bug fixes from MariaDB Backup of 10.11
 * ([MDEV-33650](https://jira.mariadb.org/browse/MDEV-33650)) Q2 2024 release merge
 * ([MDEV-34353](https://jira.mariadb.org/browse/MDEV-34353)) Revert changes for indefinite wait during signal handler under --bootstrap

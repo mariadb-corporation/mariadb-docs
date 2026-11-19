@@ -288,6 +288,7 @@ By default, the Connector returns `BIGINT` column values (and `insertId`) as Jav
 
 * [`pool.getConnection() → Promise`](connector-nodejs-promise-api.md#pool.getconnection-promise): Creates a new connection.
 * [`pool.query(sql [, values]) → Promise`](connector-nodejs-promise-api.md#pool.query-sql-values-promise): Executes a query.
+* [`pool.execute(sql [, values]) → Promise`](connector-nodejs-promise-api.md#pool.execute-sql-values-promise): Prepares and executes a query.
 * [`pool.batch(sql, values) → Promise`](connector-nodejs-promise-api.md#pool.batch-sql-values-promise): Executes a batch
 * [`pool.end() → Promise`](connector-nodejs-promise-api.md#pool.end-promise): Gracefully closes the connection.
 * [`pool.escape(value) → String`](connector-nodejs-promise-api.md#pool.escape-value-string): Escape parameter
@@ -1695,6 +1696,8 @@ async function transferFunds(fromAccount, toAccount, amount) {
 
 Executes a query using a connection from the pool. The connection is automatically acquired and released, making this method ideal for simple queries.
 
+This is the pool counterpart of [`connection.query()`](connector-nodejs-promise-api.md#connection.query-sql-values-greater-than-promise): the query is sent with the text protocol, and placeholder values are escaped client-side into the query text. To run the statement as a server-side prepared statement instead, use [`pool.execute()`](connector-nodejs-promise-api.md#pool.execute-sql-values-promise). Both methods bind placeholder values safely. Only the protocol differs.
+
 **Example: Simple query with error handling**
 
 ```javascript
@@ -1739,6 +1742,32 @@ async function getRecentOrders(options) {
     console.error('Failed to fetch recent orders:', err);
     throw err;
   }
+}
+```
+
+#### `pool.execute(sql[, values]) → Promise`
+
+> * `sql`: _string | JSON_ SQL string or JSON object with query options
+> * `values`: _array | object_ Placeholder values
+>
+> Returns a promise that:
+>
+> * resolves with query results (same as [connection.execute()](connector-nodejs-promise-api.md#connection.execute-sql-values-promise))
+> * rejects with an [Error](connector-nodejs-promise-api.md#error)
+
+Prepares and executes a query using a connection from the pool. The connection is automatically acquired and released.
+
+This is the pool counterpart of [`connection.execute()`](connector-nodejs-promise-api.md#connection.execute-sql-values-promise): the statement runs as a server-side prepared statement (PREPARE + EXECUTE + CLOSE, or EXECUTE alone when the prepare cache already holds the statement), and placeholder values are sent with the binary protocol instead of being escaped into the query text.
+
+**Example: Prepared statement through the pool**
+
+```javascript
+async function getUserById(id) {
+  const rows = await pool.execute(
+    'SELECT id, name, email FROM users WHERE id = ?',
+    [id]
+  );
+  return rows[0];
 }
 ```
 
@@ -1925,7 +1954,9 @@ pool.on('release', (connection) => {
 
 **`error`**
 
-Emitted when an error occurs in the pool, such as failure to create a connection.
+Emitted when the pool fails to create a connection, once `initializationTimeout` is reached.
+
+Since 3.5.5, when the application registers no `error` listener, the failure is reported through the [`logger`](node-js-connection-options.md#logger) option instead (its `error` function, or `warning` when no `error` function is set). Earlier versions installed a default listener that silently dropped it.
 
 ```javascript
 pool.on('error', (err) => {

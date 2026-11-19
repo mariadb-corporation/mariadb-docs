@@ -25,7 +25,7 @@ The schema qualifiers listed below are supported:
 
 Both prefixes describe the same mechanism, however the behavior differs based on the desired compatibility.
 
-Certain SQL modes, such as [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), affect how MariaDB understands data type and functions. MariaDB translates several data type names and function behaviors according to Oracle Database standards when [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is active. This translation may lead to ambiguity: depending on the SQL mode in use, a data type or function name written without a qualifier could be interpreted differently.
+Certain SQL modes, such as [SQL\_MODE=ORACLE](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md), affect how MariaDB understands data type and functions. MariaDB translates several data type names and function behaviors according to Oracle Database standards when [SQL\_MODE=ORACLE](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md) is active. This translation may lead to ambiguity: depending on the SQL mode in use, a data type or function name written without a qualifier could be interpreted differently.
 
 For example, in Oracle mode, the data type [DATE](../../data-types/date-and-time-data-types/date.md) is interpreted as [DATETIME](../../data-types/date-and-time-data-types/datetime.md#oracle-mode). This behavior can be explicitly overridden at the statement level using schema qualifiers, without modifying the SQL mode session.
 
@@ -226,7 +226,7 @@ This makes it easier to determine whether a column uses MariaDB-native or Oracle
 
 ### History
 
-When running with [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), MariaDB server translates the `DATE` data type to `DATETIME`, for Oracle compatibility.&#x20;
+When running with [SQL\_MODE=ORACLE](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md), MariaDB server translates the `DATE` data type to `DATETIME`, for Oracle compatibility.&#x20;
 
 ```sql
 SET SQL_mode=ORACLE;
@@ -292,8 +292,10 @@ This enables consistent and unambiguous behavior across all SQL modes.
 ### See Also
 
 * [SQL Mode](../../../server-management/variables-and-modes/sql_mode.md)
-* [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [SQL\_MODE=ORACLE](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md)
 * [Data Types](../../data-types/)
 * [SHOW CREATE TABLE](../../sql-statements/administrative-sql-statements/show/show-create-table.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

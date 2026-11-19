@@ -1,13 +1,13 @@
 ---
 name: mariadb-string-functions
-description: "MariaDB string functions — extraction (SUBSTRING/SUBSTR, LEFT, RIGHT, MID, SUBSTRING_INDEX); length in bytes (LENGTH/OCTET_LENGTH/LENGTHB) vs characters (CHAR_LENGTH/CHARACTER_LENGTH); search (LOCATE, INSTR, POSITION, FIND_IN_SET, FIELD); concatenation (CONCAT, CONCAT_WS); modification (REPLACE, INSERT, REVERSE, REPEAT, SPACE, LPAD/RPAD, TRIM/LTRIM/RTRIM); case (LOWER/UPPER); PCRE2 regular expressions (REGEXP/RLIKE, REGEXP_REPLACE, REGEXP_INSTR, REGEXP_SUBSTR); formatting (FORMAT, SFORMAT); encoding (HEX/UNHEX, TO_BASE64/FROM_BASE64, ASCII, CHAR, ORD); plus the LIKE, REGEXP, SOUNDS LIKE, and BINARY operators. Use when writing SQL that searches, slices, pads, concatenates, case-folds, or pattern-matches string data in MariaDB."
+description: "MariaDB string functions — extraction (SUBSTRING/SUBSTR, LEFT, RIGHT, MID, SUBSTRING_INDEX); length in bytes (LENGTH/OCTET_LENGTH/LENGTHB) vs characters (CHAR_LENGTH/CHARACTER_LENGTH); search (LOCATE, INSTR, POSITION, FIND_IN_SET, FIELD); concatenation (CONCAT, CONCAT_WS); modification (REPLACE, INSERT, REVERSE, REPEAT, SPACE, LPAD/RPAD, TRIM/LTRIM/RTRIM); case (LOWER/UPPER); PCRE2 regular expressions (REGEXP/RLIKE, REGEXP_REPLACE, REGEXP_INSTR, REGEXP_SUBSTR); formatting (FORMAT, SFORMAT); encoding (HEX/UNHEX, TO_BASE64/FROM_BASE64, ASCII, CHAR, ORD); XPath over XML strings (EXTRACTVALUE, UPDATEXML); plus the LIKE, REGEXP, SOUNDS LIKE, and BINARY operators. Use when writing SQL that searches, slices, pads, concatenates, case-folds, or pattern-matches string data in MariaDB."
 ---
 
 # MariaDB String Functions
 
-*Last updated: 2026-06-24*
+*Last updated: 2026-11-03*
 
-Catalog of every built-in string function in MariaDB, with signature and a one-line semantic summary per entry. For a function not listed here, fall back to the canonical reference at <https://mariadb.com/docs/server/reference/sql-functions/string-functions> (PCRE2 regex syntax: <https://mariadb.com/docs/server/reference/sql-functions/string-functions/regular-expressions-functions>).
+Catalog of every built-in string function in MariaDB, plus the two XML functions, with signature and a one-line semantic summary per entry. For a function not listed here, fall back to the canonical reference at <https://mariadb.com/docs/server/reference/sql-functions/string-functions> (PCRE2 regex syntax: <https://mariadb.com/docs/server/reference/sql-functions/string-functions/regular-expressions-functions>; XML functions: <https://mariadb.com/docs/server/reference/sql-functions/special-functions/xml-functions>).
 
 > **Default context:** Assume MariaDB **11.8 LTS** (GA May 2025) unless the user states another version. Functions with a `*(since X.Y)*` annotation are only available from that version onward; everything else is in every current LTS branch (10.6, 10.11, 11.4, 11.8).
 
@@ -41,10 +41,10 @@ To join multiple rows into one string, see `GROUP_CONCAT` in **`mariadb-aggregat
 
 ## Functions
 
-Auto-generated from the canonical `server/reference/sql-functions/string-functions/` pages by `agent-skills/extractor/extract_function_category.py`; regenerate when the doc tree changes. Do not hand-edit between the markers.
+Auto-generated from the canonical `server/reference/sql-functions/string-functions/` and `special-functions/xml-functions/` pages by `agent-skills/extractor/extract_function_category.py`; regenerate when the doc tree changes. Do not hand-edit between the markers.
 
 <!-- BEGIN GENERATED -->
-<!-- Extracted from server/reference/sql-functions/string-functions -->
+<!-- Extracted from server/reference/sql-functions/string-functions, server/reference/sql-functions/special-functions/xml-functions -->
 <!-- 59 functions, 7 pages skipped on extraction failure -->
 
 ### ASCII
@@ -288,6 +288,6 @@ Returns a binary string representing the string's sorting and comparison value.
 - **`mariadb-features`** (topical) — the `latin1` → `utf8mb4` default-charset (since 11.6) and `uca1400_ai_ci` default-collation (since 11.5) changes that drive every case-sensitivity row
 - **`mysql-to-mariadb`** (topical) — the `||`-as-OR default and collation-alias behavior
 - **`mariadb-aggregate-functions`** — `GROUP_CONCAT` for joining rows into a string
-- Canonical reference on `mariadb.com/docs`: <https://mariadb.com/docs/server/reference/sql-functions/string-functions>
+- Canonical reference on `mariadb.com/docs`: <https://mariadb.com/docs/server/reference/sql-functions/string-functions> and <https://mariadb.com/docs/server/reference/sql-functions/special-functions/xml-functions>
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

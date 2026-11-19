@@ -23,6 +23,17 @@ While a momentary delay before a new article appears on all servers is an accept
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: Asynchronous replication: writes to the primary, reads from replicas
+    accDescr {
+        Two groups are drawn. Client Application holds Content Admins / Writers
+        and Web Traffic / Readers. Database Cluster holds Primary Node, Replica 1,
+        Replica 2 and Replica N. Numbered arrows: 1. Write Transaction, from
+        Content Admins / Writers to Primary Node. 2. Commit Locally & Confirm
+        Success, an arrow from Primary Node back to itself. 3. Background Stream
+        (Replication Lag), from Primary Node to each of Replica 1, Replica 2 and
+        Replica N. Three arrows labelled Read lead from Web Traffic / Readers to
+        Replica 1, Replica 2 and Replica N.
+    }
     subgraph Client Application
         W[Content Admins / Writers]
         R[Web Traffic / Readers]
@@ -66,6 +77,24 @@ A middle ground where the primary waits for at least one replica to acknowledge 
 
 ```mermaid
 sequenceDiagram
+    accTitle: Semi-synchronous replication commit sequence
+    accDescr {
+        A sequence between three participants: Client App (e.g., Checkout),
+        Primary Database and Replica Database (Backup). Arrows are numbered in
+        order. 1. Client App sends Send Write Transaction to Primary Database. 2.
+        Primary Database sends itself Prepare & Write to Binary Log. A shaded
+        block, with a note over Primary Database and Replica Database reading
+        Write Latency Penalty (Round-Trip), holds the next three steps. 3. Primary
+        Database sends Stream Transaction Data to Replica Database. A note to the
+        right of Primary Database reads Primary pauses and WAITS. 4. Replica
+        Database sends itself Securely write to Relay Log. 5. Replica Database
+        replies Send Acknowledgment (ACK) to Primary Database. After the block: 6.
+        Primary Database sends itself Commit to Storage Engine. 7. Primary
+        Database replies Confirm Commit Success to Client App. A final note over
+        Primary Database and Replica Database reads: Crash Caveat: If Primary
+        fails before/during commit, failover is complex and may require log
+        truncation.
+    }
     autonumber
     actor Client as Client App (e.g., Checkout)
     participant Primary as Primary Database
@@ -96,6 +125,30 @@ A multi-primary solution where all active nodes must receive and accept a transa
 
 ```mermaid
 sequenceDiagram
+    accTitle: Galera synchronous commit and conflict example
+    accDescr {
+        A sequence between five participants: Doctor/App A, Nurse/App B, and three
+        nodes, Galera Node 1 (Primary), Galera Node 2 (Primary) and Galera Node 3
+        (Slowest Node). Arrows are numbered in order. A note over the three nodes
+        reads True High Availability: All nodes are Active Primaries. Doctor/App A
+        sends Write Transaction (e.g., Update Record X) to Galera Node 1, which
+        sends itself Execute Optimistically (Local). A shaded block, with a note
+        over the three nodes reading Certification & Replication Phase, holds the
+        next steps. In a parallel block labelled Broadcast Write-Set, Galera Node
+        1 sends Send Write-Set to Galera Node 2 and to Galera Node 3. Galera Node
+        2 replies Certification Passed (ACK) to Galera Node 1. A note to the right
+        of Galera Node 3 reads Trade-off: Write performance dictated by slowest
+        node. Galera Node 3 replies Certification Passed (Delayed ACK) to Galera
+        Node 1. After the block, a note over the three nodes reads Guarantee: 100%
+        Up-to-date (Zero Data Loss). In a parallel block labelled Simultaneous
+        Commit, each of the three nodes sends itself Commit. Galera Node 1 replies
+        Confirm Commit Success to Doctor/App A. A second shaded block, with a note
+        over Nurse/App B and Galera Node 3 reading Trade-off: High Contention
+        Workloads, holds the last steps. Nurse/App B sends Tries to update SAME
+        Record X simultaneously to Galera Node 2, which sends itself Write-Set
+        Certification Fails (Conflict detected) and replies Transaction Rollback /
+        Deadlock Error to Nurse/App B.
+    }
     autonumber
     actor ClientA as Doctor/App A
     actor ClientB as Nurse/App B
@@ -149,6 +202,29 @@ A Raft-based solution that requires acknowledgment from a _majority_ of nodes (a
 
 ```mermaid
 sequenceDiagram
+    accTitle: Raft quorum commit across three nodes
+    accDescr {
+        A sequence between four participants: Financial App, Leader Node (New
+        York), Follower Node (London) and Follower Node (Tokyo). Arrows are
+        numbered in order. A note over the three nodes reads Raft Quorum: 3 Nodes
+        Total (Majority = 2). Financial App sends Write Transaction (e.g.,
+        Transfer Funds) to Leader Node (New York), which sends itself Append to
+        local log (1st vote). A first shaded block, with a note over Leader Node
+        (New York) and Follower Node (London) reading Fast Path (Quorum Reached),
+        holds the next steps. In a parallel block labelled Broadcast Log Entry,
+        Leader Node (New York) sends Replicate Log Entry to Follower Node (London)
+        and to Follower Node (Tokyo). Follower Node (London) replies
+        Acknowledgment (2nd vote - Fast WAN) to Leader Node (New York). A note
+        over Leader Node (New York) and Follower Node (London) reads Majority (2
+        of 3) achieved! Leader Node (New York) sends itself Commit Transaction and
+        replies Confirm Commit Success to Financial App. A second shaded block,
+        with a note over Leader Node (New York) and Follower Node (Tokyo) reading
+        Ignored Lag (Furthest Data Center), holds the last steps. Follower Node
+        (Tokyo) replies Acknowledgment (Slow WAN) to Leader Node (New York). A
+        note to the right of Leader Node (New York) reads Tokyo's lag does not
+        affect the client's write latency. Follower Node (Tokyo) sends itself
+        Commit Transaction locally.
+    }
     autonumber
     actor Client as Financial App
     participant NY as Leader Node (New York)
@@ -204,7 +280,7 @@ Identify your primary architectural challenge below to discover the best-fit rep
 Zero data loss and automatic failover. If one server dies, another takes over instantly without impacting the application.
 {% endhint %}
 
-* [Galera Cluster (Virtually Synchronous)](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide): The "gold standard" for local high availability. It is a synchronous, multi-primary solution where every node has the exact same data at the same time.
+* [Galera Cluster (Virtually Synchronous)](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-guide): The "gold standard" for local high availability. It is a synchronous, multi-primary solution where every node has the exact same data at the same time.
   * _Trade-off:_ Write latency is dictated by the slowest node, as all active nodes must acknowledge the transaction.
 * [MariaDB Enterprise Cluster (Quorum/Raft](https://mariadb.com/resources/blog/redefining-high-availability-introducing-mariadb-advanced-cluster-technical-preview/)): _(Enterprise Technical Preview)_ Designed for environments that need HA but cannot afford Galera's write latency. It requires acknowledgment from only a _majority_ (quorum) of nodes to commit a write, effectively ignoring network lag from the slowest data centers.
 * [Semisynchronous Replication](semisynchronous-replication.md): A middle ground where the primary server waits for at least one replica to acknowledge receipt of the data before confirming a "success" to the client. It prevents data loss during a crash without the full performance overhead of Galera.
@@ -266,3 +342,5 @@ Once you select your replication strategy, you must configure how data changes a
 [Statement-Based Replication (SBR)](unsafe-statements-for-statement-based-replication.md) should generally be avoided in HA setups due to reliability concerns, acting only as a fallback for specific bulk-update operations.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

@@ -49,4 +49,6 @@ If your application crashes, please also provide if possible a backtrace and out
 
 ### Report bugs in English only!
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

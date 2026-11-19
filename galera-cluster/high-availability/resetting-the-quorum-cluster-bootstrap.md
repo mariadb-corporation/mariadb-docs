@@ -84,6 +84,10 @@ SET GLOBAL wsrep_provider_options='pc.bootstrap=YES';
 
 This node will now form a new Primary Component by itself.
 
+{% hint style="info" %}
+If the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled, `SET GLOBAL wsrep_provider_options` fails. Run `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead. See [pc.bootstrap](../reference/wsrep-variable-details/wsrep_provider_options.md#pc.bootstrap).
+{% endhint %}
+
 ### Manual Bootstrap
 
 This method involves a [full shutdown](recovering-a-primary-component.md#manual-bootstrap-using-grastate.dat) and a special startup of the most advanced node.
@@ -106,3 +110,5 @@ systemctl start mariadb
 They will detect the existing Primary Component, connect to it, and automatically initiate a [State Transfer](state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md) to synchronize their data and rejoin the cluster.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

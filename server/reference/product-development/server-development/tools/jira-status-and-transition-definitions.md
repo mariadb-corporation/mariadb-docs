@@ -6,7 +6,7 @@ description: >-
 
 # Jira - Status and Transition Definitions
 
-Here is the MariaDB Server (MDEV) [Jira](jira.md) project workflow.
+Here is the workflow of the MariaDB Server [Jira](jira.md) projects (MDEV and MENT), including how the reviewer and the implementer are assigned when an issue moves into and out of review.
 
 **OPEN**
 
@@ -32,7 +32,7 @@ Here is the MariaDB Server (MDEV) [Jira](jira.md) project workflow.
 
 * Status utilised when progress is contingent on receiving essential feedback
 * Feedback requests should be clearly communicated to the designated individual
-* Issue can be closed after staying in a month in NEED FEEDBACK with no activity
+* The issue can be closed after it has been in NEEDS FEEDBACK for a month with no activity
 * Transitions
   * Provide feedback → OPEN
   * No Feedback → CLOSED
@@ -43,28 +43,47 @@ Here is the MariaDB Server (MDEV) [Jira](jira.md) project workflow.
 * Denotes that the issue is being actively addressed and moving forward
 * Transitions
   * Stop Progress → STALLED
-    * From the end of 2023, we are moving the issues “IN PROGRESS”, which didn’t get any time to get meaningful updates from the assignee for 6 weeks in this status, to STALLED.
+    * We move issues marked “IN PROGRESS” that have had no meaningful updates from the assignee for six weeks to STALLED.
   * Request testing → IN TESTING
   * Needs feedback → NEEDS FEEDBACK
   * Close Issue → CLOSED
   * Request Review → IN REVIEW
+    * The transition screen shows the "Assigned for review" field so the reviewer
+      can be checked, changed, or filled in if missing.
+    * On transition, the current Assignee is saved to "Assigned for implementation",
+      and the "Assigned for review" person becomes the Assignee.
 
 **IN REVIEW**
 
 * Status used to request a peer review of an issue, typically involving code evaluation
 * Seeking input from another assignee to ensure quality and adherence to standards
 * Transitions
-  * Review done → STALLED
+  * Redo → STALLED
+    * The transition screen shows the "Assigned for implementation" field so the
+      implementer can be checked, changed, or filled in if missing.
+    * On transition, the current Assignee is saved to "Assigned for review",
+      and the "Assigned for implementation" person becomes the Assignee again.
   * Request testing → IN TESTING
-  * Close Issue → CLOSED
+  * Approved → APPROVED
 
 **IN TESTING**
 
 * Status employed to initiate testing of completed work, often involving a quality engineer
 * Ensuring that the implemented solution meets functional and performance requirements
 * Transitions
+  * Approved → APPROVED
   * Stop Testing → STALLED
   * Close Issue → CLOSED
+
+**APPROVED**
+
+* Status used when reviewed or tested work has been approved and is ready
+  for closure or release follow-up
+* Indicates that the issue has passed the required review/testing gate and
+  no further implementation changes are expected before final closure
+* Transitions
+  * Close Issue → CLOSED
+  * Reopen Issue → STALLED
 
 **STALLED**
 

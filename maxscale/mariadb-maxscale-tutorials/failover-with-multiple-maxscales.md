@@ -26,13 +26,13 @@ cooperative locking needs to be safe.
 The examples use three servers, _server1_ to _server3_, with _server1_ as the
 initial primary, and two MaxScale instances, _MaxScale A_ and _MaxScale B_. Both
 instances
-run [MariaDB Monitor](../reference/maxscale-monitors/mariadb-monitor.md) over
+run [MariaDB Monitor](../reference/maxscale-monitors/mariadb-monitor/README.md) over
 the same three servers with `auto_failover` and `auto_rejoin` enabled.
 
 {% hint style="info" %}
 This page assumes you are familiar with GTID-based
 replication, [automatic failover](automatic-failover-with-mariadb-monitor.md),
-and [MariaDB Monitor](../reference/maxscale-monitors/mariadb-monitor.md).
+and [MariaDB Monitor](../reference/maxscale-monitors/mariadb-monitor/README.md).
 {% endhint %}
 
 ## Comparing the Coordination Modes
@@ -53,7 +53,7 @@ See [Choosing a Mode](#choosing-a-mode).
 
 In an active/passive deployment, you choose which MaxScale is the primary
 manually by using the MaxScale global setting
-[passive](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#passive).
+[passive](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#passive).
 Set _passive_ to `false` on one MaxScale instance and `true` on every other
 MaxScale instance. A passive MaxScale still monitors the cluster and still
 routes queries; it only refrains from performing failover, switchover, and
@@ -170,7 +170,7 @@ of the MaxScales as required.
 
 ## Cooperative Locking
 
-[Cooperative monitoring](../reference/maxscale-monitors/mariadb-monitor.md#cooperative-monitoring)
+[Cooperative monitoring](../reference/maxscale-monitors/mariadb-monitor/README.md#cooperative-monitoring)
 makes the MaxScale instances agree on both questions — who performs cluster
 operations and which server is the primary — by coordinating through the
 database itself rather than directly with each other.
@@ -190,10 +190,10 @@ auto_rejoin=true
 ```
 {% endcode %}
 
-With [majority_of_running](../reference/maxscale-monitors/mariadb-monitor.md#majority-of-running),
+With [majority_of_running](../reference/maxscale-monitors/mariadb-monitor/cooperative-monitoring.md#majority-of-running),
 the required majority is counted over the servers MaxScale can currently reach
 and lock. In a three-server cluster with all three running, that is two locks.
-With [majority_of_all](../reference/maxscale-monitors/mariadb-monitor.md#majority-of-all),
+With [majority_of_all](../reference/maxscale-monitors/mariadb-monitor/cooperative-monitoring.md#majority-of-all),
 all configured servers are counted. See the specific documentation for more
 details.
 
@@ -247,6 +247,12 @@ primary and written to it. The two partitions have thus diverged.
 flowchart TD
     accTitle: majority_of_all with the primary server in the minority partition
     accDescr {
+    Two groups of boxes, Partition 1 — minority and Partition 2 — majority, are joined by an
+    arrow labelled partitioned that leads from Partition 1 to Partition 2. Partition 1 holds
+    MaxScale A (secondary monitor) and server1 (read-only). Partition 2 holds MaxScale B
+    (primary monitor), server2 (primary) and server3 (replica). An arrow labelled read-only
+    leads from MaxScale A to server1. An arrow labelled write leads from MaxScale B to server2,
+    and an unlabelled arrow leads from MaxScale B to server3.
     MaxScale A is alone with server1 and cannot reach a lock majority, so it releases its locks
     and allows only reads. MaxScale B holds locks on server2 and server3, a majority of the three
     configured servers, and has promoted server2 to primary.
@@ -326,7 +332,7 @@ raise `backend_timeout` or lower `monitor_interval` or `failcount`.
 
 {% hint style="info" %} Do not confuse this with the worst-case failover delay
 estimate, `(monitor_interval + backend_timeout) * failcount`, on
-the [failcount](../reference/maxscale-monitors/mariadb-monitor.md#failcount)
+the [failcount](../reference/maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#failcount)
 reference. That formula answers "how long before a failover starts?" for a given
 `failcount`. The formula here answers "how small can `failcount` be and still be
 safe?" when cooperative locking is enabled. {% endhint %}
@@ -372,8 +378,10 @@ read the **primary** field. Per-server lock state is in the server-specific `loc
 [failure-tolerant-replication-and-failover.md](failure-tolerant-replication-and-failover.md)
 {% endcontent-ref %}
 
-{% content-ref url="../reference/maxscale-monitors/mariadb-monitor.md" %}
-[mariadb-monitor.md](../reference/maxscale-monitors/mariadb-monitor.md)
+{% content-ref url="../reference/maxscale-monitors/mariadb-monitor/README.md" %}
+[mariadb-monitor.md](../reference/maxscale-monitors/mariadb-monitor/README.md)
 {% endcontent-ref %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

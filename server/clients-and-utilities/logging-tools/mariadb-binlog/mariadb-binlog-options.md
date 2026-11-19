@@ -35,7 +35,7 @@ Directory where the [character sets](../../../reference/data-types/string-data-t
 
 #### -d, --database=_name_
 
-Output entries from the binary log (local log only) that occur while the name has been selected as the default database by [USE](../../../reference/sql-statements/administrative-sql-statements/use-database.md). Only one database can be specified. The effects depend on whether the [statement-based or row-based logging format](../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) is in use. For statement-based logging, the server only logs statements where the default database is _name_. The default database is set with the [USE](../../../reference/sql-statements/administrative-sql-statements/use-database.md) statement. For row-based logging, the server logs any updates to any tables in the named database, irrespective of the current database. Ignored in `--raw` mode.
+Output only the entries for this database (local log only). Only one database can be specified. Which database is checked depends on the format an event was logged in (see [binary log formats](../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md)). For statement events, which include all DDL statements, it's the default database that was selected with [USE](../../../reference/sql-statements/administrative-sql-statements/use-database.md) when the statement ran. For row events, it's the database of the table that was changed. Ignored in `--raw` mode.
 
 #### ## \[options], --debug\[=options]
 

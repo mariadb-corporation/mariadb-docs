@@ -23,6 +23,8 @@ Current charges, prior billing date, and next invoice date are shown.
 
 Usage information can be shown by service or by resource.
 
+For services with MariaDB Exa enabled, the Exa node compute, Exa storage, IOPS, and throughput are metered separately from the MariaDB resources. On BYOC services, MariaDB Cloud bills only the Exa compute, and your cloud provider bills the Exa storage.
+
 Click the resource name or service name to expand the view.
 
 <figure><img src="../.gitbook/assets/billing-history.png" alt=""><figcaption></figcaption></figure>
@@ -38,3 +40,5 @@ From the [Portal](https://app.skysql.com/dashboard), you can access prior invoic
 3. Click the "Billing History" tab to show available invoices.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

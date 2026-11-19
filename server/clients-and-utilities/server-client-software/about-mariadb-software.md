@@ -54,8 +54,8 @@ It's highly likely that, for any job to which you apply or take as a database de
 
 ### Related Pages
 
-* [MariaDB versus MySQL - Features](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-features)
-* [MariaDB versus MySQL - Compatibility](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-compatibility)
+* [MariaDB versus MySQL - Features](../../editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-features.md)
+* [MariaDB versus MySQL - Compatibility](../../editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-compatibility.md)
 * [MariaDB Release Notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

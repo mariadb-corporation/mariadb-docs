@@ -1,12 +1,14 @@
 ---
 description: >-
   GridGain 9.1.24 adds leaseholder balancing, improves the .NET cluster API, SQL
-  system views, SQL planning, and transactions, and fixes issues in SQL, thin
-  clients, and continuous queries.
-hidden: true
+  system views, SQL planning, and transactions, and fixes SQL and thin client
+  issues.
+  Released on 2026-06-29.
 ---
 
 # GridGain 9.1.24 Release Notes
+
+**Release date:** 29 Jun 2026
 
 ## Overview
 
@@ -34,7 +36,7 @@ ignite.compute.dotnet {
 }
 ```
 
-See [.NET Compute Executor](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/about-distributed-computing#configuring-the-.net-compute-executor) for more information.
+See [.NET Compute Executor](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/distributed-computing-and-services/distributed-computing/about-distributed-computing#configuring-the-.net-compute-executor) for more information.
 
 ### .NET Client: Cluster API
 
@@ -58,7 +60,7 @@ GridGain 9 now lets you manually rebalance primary replica leaseholders across c
 distribution balance-leases
 ```
 
-See [CLI tool documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/cli-tool#distribution-commands).
+See [CLI tool documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/cli-tool#distribution-commands).
 
 ### Idempotent Cluster Initialization
 
@@ -68,7 +70,7 @@ The `cluster init` CLI command now accepts two optional flags that make it safe 
 cluster init --name=myCluster --license=/path/to/license --if-needed --if-nodes=3
 ```
 
-See [CLI tool documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/cli-tool#cluster-init).
+See [CLI tool documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/cli-tool#cluster-init).
 
 ### Data Streamer and Continuous Query Cooperation
 
@@ -80,7 +82,7 @@ var options = DataStreamerOptions.builder()
     .build();
 ```
 
-See [same-key update mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/data-streaming#same-key-update-mode) and [continuous query events](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/continuous-queries#event-generation) for more information.
+See [same-key update mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/data-streaming#same-key-update-mode) and [continuous query events](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/continuous-queries#event-generation) for more information.
 
 ### Schema-Qualified Objects in SQL GRANT/REVOKE
 
@@ -90,7 +92,7 @@ SQL `GRANT`/`REVOKE PRIVILEGES ... ON <object>` now accepts a schema-qualified o
 GRANT PRIVILEGES CREATE_INDEX ON PUBLIC.MY_TABLE TO role1;
 ```
 
-See [GRANT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/sql/access-control-functions#grant-to-role) for details.
+See [GRANT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/sql/access-control-functions#grant-to-role) for details.
 
 ## Improvements and Fixed Issues
 
@@ -124,7 +126,7 @@ See [GRANT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZK
 | GG-47788 | General | Fixed a memory leak in Raft. |
 | GG-47737 | Cluster SQL Engine | Added the DEFAULT_VALUE column to the TABLE_COLUMNS system view. |
 | GG-47636 | Platforms & Clients | C++ client: fixed continuous query duplicate events when the enable_empty_batches option is enabled. |
-| GG-46610 | CLI Tool | Added the --if-needed and --if-nodes=<N> flags for cluster initialization. |
+| GG-46610 | CLI Tool | Added the `--if-needed` and `--if-nodes=<N>` flags for cluster initialization. |
 | GG-46148 | Platforms & Clients | Added DataStreamerOptions.sameKeyUpdateMode with SQUASH (default, existing behavior) and PRESERVE modes. |
 
 ## Upgrade Information
@@ -162,4 +164,8 @@ There are known issues with the performance of SQL read-write transactions in co
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

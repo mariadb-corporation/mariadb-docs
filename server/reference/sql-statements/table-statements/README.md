@@ -253,7 +253,7 @@ Get the SQL statement to recreate a table. This statement shows the complete `CR
 {% endcolumn %}
 
 {% column %}
-Complete `SHOW INDEX` reference: `SHOW INDEX FROM`` `_`tbl_name`_ syntax, output fields, and `WHERE`/`LIKE` filters.
+Complete `SHOW INDEX` reference: `SHOW INDEX FROM tbl_name` syntax, output fields, and `WHERE`/`LIKE` filters.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -286,3 +286,5 @@ Complete `UPDATE` statement guide for MariaDB. Complete syntax reference with `W
 {% endcolumns %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

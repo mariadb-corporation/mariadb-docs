@@ -12,10 +12,10 @@ Using a single MaxScale in a production environment forms a single point of
 failure. You can mitigate this issue by using multiple
 MaxScales with similar configurations. With multiple MaxScales, one MaxScale
 should control the server cluster, i.e. run cluster manipulation commands such
-as [failover](../reference/maxscale-monitors/mariadb-monitor.md#auto_failover).
+as [failover](../reference/maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#auto_failover).
 
 MariaDB recommends using
-[cooperative monitoring](../reference/maxscale-monitors/mariadb-monitor.md#cooperative-monitoring)
+[cooperative monitoring](../reference/maxscale-monitors/mariadb-monitor/README.md#cooperative-monitoring)
 to achieve this. Cooperative monitoring uses locks on the backend servers to
 ensure that the different MaxScale instances agree on the primary MaxScale and
 also on the primary server of the cluster. Only the primary MaxScale can perform
@@ -44,7 +44,7 @@ prefer to avoid.
 
 The manual management is readily available by disabling cooperative monitoring
 and using the
-[passive-setting](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#passive).
+[passive-setting](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#passive).
 
 In this guide, we show how to automate the management of multiple MaxScales with
 [Keepalived](https://www.keepalived.org/) when cooperative monitoring is not an
@@ -90,7 +90,7 @@ this simple setup. The MaxScale configurations should be similar if not totally
 identical on both hosts. Specifically, both instances should have the same
 services, monitors and listeners so they appear identical to client
 applications. The
-[configuration synchronization](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#configuration-synchronization)
+[configuration synchronization](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/runtime-configuration-changes.md#configuration-synchronization)
 feature can help.
 
 If you are not using configuration synchronization, you can set the
@@ -353,9 +353,9 @@ below. The example shows output when MaxScale is active.
 
 ## Cooperative monitoring and passive-mode
 
-[MariaDB Monitor cooperative monitoring](../reference/maxscale-monitors/mariadb-monitor.md#cooperative-monitoring)
+[MariaDB Monitor cooperative monitoring](../reference/maxscale-monitors/mariadb-monitor/README.md#cooperative-monitoring)
 should generally not be combined with the
-[passive-setting](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#passive).
+[passive-setting](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#passive).
 
 The passive MaxScale will monitor and claim the MariaDB Server locks (if
 possible) just like an active MaxScale would, it just won't perform failover or
@@ -387,3 +387,5 @@ time, the active MaxScale node will not hold the locks even if they are
 unclaimed. The cluster will remain unusable until one MaxScale claims the locks.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

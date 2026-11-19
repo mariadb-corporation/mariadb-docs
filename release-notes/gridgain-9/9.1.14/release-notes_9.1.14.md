@@ -1,12 +1,14 @@
 ---
 description: >-
-  GridGain 9.1.14 is an emergency release that fixes issues discovered in
-  GridGain 9.1.13, including a metadata format incompatibility and missing
-  columnar libraries. No new features are included.
-hidden: true
+  GridGain 9.1.14 is an emergency release that fixes issues found in GridGain
+  9.1.13, including a metadata format incompatibility and missing columnar
+  libraries.
+  Released on 2025-11-28.
 ---
 
 # GridGain 9.1.14 Release Notes
+
+**Release date:** 28 Nov 2025
 
 ## Overview
 
@@ -66,4 +68,8 @@ There are known issues with the performance of SQL read-write transactions in co
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -903,7 +903,7 @@ The relationships of a server can also be defined at creation time. This allows 
 }
 ```
 
-Refer to the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md) for a full list of server parameters.
+Refer to the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md) for a full list of server parameters.
 
 #### Response
 
@@ -925,7 +925,7 @@ The request body must be a valid JSON document representing the modified server.
 
 ### Modifiable Fields
 
-In addition to the server [parameters](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#server-1), the _services_ and _monitors_ fields of the _relationships_ object can be modified. Removal, addition and modification of the links will change which service and monitors use this server.
+In addition to the server [parameters](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#server-1), the _services_ and _monitors_ fields of the _relationships_ object can be modified. Removal, addition and modification of the links will change which service and monitors use this server.
 
 For example, removing the first value in the _services_ list in the _relationships_ object from the following JSON document will remove the _server1_ from the service _RW-Split-Router_.
 
@@ -1056,6 +1056,7 @@ This endpoint requires that the `state` parameter is passed with the request. Th
 | running     | Server is up and running         |
 | synced      | Server is a Galera node          |
 | drain       | Server is drained of connections |
+| throttle    | Server transactions are throttled|
 
 For example, to set the server _db-server-1_ into maintenance mode, a request to the following URL must be made:
 
@@ -1064,6 +1065,18 @@ PUT /v1/servers/db-server-1/set?state=maintenance
 ```
 
 This endpoint also supports the `force=yes` parameter that will cause all connections to the server to be closed if `state=maintenance` is also set. By default setting a server into maintenance mode will cause connections to be closed only after the next request is sent.
+
+{% tabs %}
+{% tab title="Current" %}
+The master server of a `mariadbmon` cluster can be set into maintenance mode
+with `force=yes`.
+{% endtab %}
+
+{% tab title="< 26.10" %}
+The master server of a `mariadbmon` cluster cannot be set into maintenance
+mode.
+{% endtab %}
+{% endtabs %}
 
 The following example forcefully closes all connections to server _db-server-1_ and sets it into maintenance mode:
 

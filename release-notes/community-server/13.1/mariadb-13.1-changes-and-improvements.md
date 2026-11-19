@@ -12,34 +12,98 @@ MariaDB 13.1 is a [rolling release](../about/release-model.md). It is an evoluti
 
 ## New Features
 
- * Support for JSON operators [`column->path` and `column->>path`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json-arrow-operators) ([MDEV-13594](https://jira.mariadb.org/browse/MDEV-13594))
- * [DENY](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/deny) clause for access control a.k.a. "negative grants" ([MDEV-14443](https://jira.mariadb.org/browse/MDEV-14443))
- * [Auto-adding new partitions for `PARTITION BY RANGE`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/partitioning-tables/partitioning-types/range-columns-interval-partitioning) ([MDEV-15621](https://jira.mariadb.org/browse/MDEV-15621))
- * Improve error reporting of [mysqlbinlog when used with `--flashback`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/flashback) ([MDEV-20749](https://jira.mariadb.org/browse/MDEV-20749))
- * Locking full table scan fails to use table-level locking ([MDEV-24813](https://jira.mariadb.org/browse/MDEV-24813))
- * Add [formatted column support to `JSON_TABLE`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_table#format-json-columns) ([MDEV-25727](https://jira.mariadb.org/browse/MDEV-25727))
- * [Ignored domain ids](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to#ignore_domain_ids) skip validation when connecting to a master ([MDEV-28213](https://jira.mariadb.org/browse/MDEV-28213))
- * [The default `utf8` character set is now `utf8mb4`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old_mode#utf8_is_utf8mb3) ([MDEV-30041](https://jira.mariadb.org/browse/MDEV-30041))
- * New statement `CREATE TRIGGER FOR { STARTUP | SHUTDOWN }` ([MDEV-30645](https://jira.mariadb.org/browse/MDEV-30645))
- * Optional lengths for string types: `VARCHAR[(N)]` ([MDEV-31414](https://jira.mariadb.org/browse/MDEV-31414))
- * [`mariadbd --validate-config`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#validate_config) to check the configuration for validity without starting the server ([MDEV-31527](https://jira.mariadb.org/browse/MDEV-31527))
- * [`mariadb-dump` no longer includes generated column values in a dump](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump#generated-columns) ([MDEV-32362](https://jira.mariadb.org/browse/MDEV-32362))
- * `NEW` and `OLD` in a trigger can be used as row variables ([MDEV-34723](https://jira.mariadb.org/browse/MDEV-34723))
- * [`INFORMATION_SCHEMA.VECTOR_INDEXES`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-vector_indexes-table) provides information about vector indexes ([MDEV-34805](https://jira.mariadb.org/browse/MDEV-34805))
- * [`parsec_iterations`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-parsec#parsec_iterations) session variables allows to set the number of PBKDF2 rounds for PARSEC plugin ([MDEV-35254](https://jira.mariadb.org/browse/MDEV-35254))
- * [`ADAPTIVE_HASH_INDEX = { YES | NO | DEFAULT }`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-table#adaptive_hash_index) can specify per InnoDB table whether to use AHI ([MDEV-37070](https://jira.mariadb.org/browse/MDEV-37070))
- * XMLISVALID() schema validation function ([MDEV-37262](https://jira.mariadb.org/browse/MDEV-37262))
- * [`AND`/`OR` can now short-circuit](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/operators/operator-precedence#short-circuit-evaluation) the execution for any argument not in a strictly left-to-right fashion ([MDEV-37713](https://jira.mariadb.org/browse/MDEV-37713), [MDEV-37714](https://jira.mariadb.org/browse/MDEV-37714))
- * [`XXH3`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/numeric-functions/xxh3) and [`XXH32`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/numeric-functions/xxh32) hash functions ([MDEV-38180](https://jira.mariadb.org/browse/MDEV-38180))
- * Adaptive hash index statistics is shown in ANALYZE FORMAT=JSON ([MDEV-38305](https://jira.mariadb.org/browse/MDEV-38305))
- * Optimizer Context Recorder to record the optimizer data and then analyze query optimization on another server instance ([MDEV-38701](https://jira.mariadb.org/browse/MDEV-38701))
- * [`innodb_tablespace_size_warning_threshold`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_tablespace_size_warning_threshold) and [`innodb_tablespace_size_warning_pct`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_tablespace_size_warning_pct) variables to get a warning when InnoDB tablespace is getting close to full (before it's 100% full and the service is disrupted) ([MDEV-38936](https://jira.mariadb.org/browse/MDEV-38936))
- * MEMORY tables support variable-length data types, `VARCHAR` and `TEXT`/`BLOB` ([MDEV-38975](https://jira.mariadb.org/browse/MDEV-38975))
- * Local routine variables usable in [`PREPARE`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements/prepare-statement#local-statement-names)/[`EXECUTE`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements/execute-statement)/[`DEALLOCATE`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements/deallocate-drop-prepare) and [`OPEN ... FOR`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors/open) ([MDEV-39022](https://jira.mariadb.org/browse/MDEV-39022))
- * [Package-wide TYPE declarations](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/declare-type#package-wide-types) ([MDEV-39587](https://jira.mariadb.org/browse/MDEV-39587))
- * CHECK TABLE supports MEMORY tables ([MDEV-40030](https://jira.mariadb.org/browse/MDEV-40030))
- * `slave_skip_errors` variable can be modified without server restart ([MDEV-7394](https://jira.mariadb.org/browse/MDEV-7394))
+* Support for JSON operators [`column->path` and `column->>path`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json-arrow-operators) ([MDEV-13594](https://jira.mariadb.org/browse/MDEV-13594))
+  * `json_doc -> path` is equivalent to `JSON_EXTRACT(json_doc, path)`, and `json_doc ->> path` to `JSON_UNQUOTE(JSON_EXTRACT(json_doc, path))`, so queries written for MySQL 5.7 and later work unchanged; the path must be a string literal
+* [DENY](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/deny) clause for access control, a.k.a. "negative grants" ([MDEV-14443](https://jira.mariadb.org/browse/MDEV-14443))
+  * `DENY` records a privilege that an account must never have, and a deny wins over a grant, so "grant broadly, then carve out exceptions" is easy to express: for example, `GRANT SELECT ON *.* TO alice` followed by `DENY SELECT ON secrets.payroll TO alice`
+  * Denies are hierarchical: a deny at a higher level blocks grants further down, even grants issued afterwards; for example, a table-level `DENY SELECT` on `hr.staff` still blocks a column-level `GRANT SELECT (id, name)` on that table
+  * Only `REVOKE DENY` removes a deny; a later `GRANT` does not
+  * `SHOW GRANTS` shows denies only to users with the `SELECT` privilege on the `mysql` database
+* [Auto-adding new partitions for `PARTITION BY RANGE`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/partitioning-tables/partitioning-types/range-columns-interval-partitioning) ([MDEV-15621](https://jira.mariadb.org/browse/MDEV-15621))
+  * An `INTERVAL` clause on a `RANGE COLUMNS` partitioned table makes MariaDB add partitions by a fixed interval as rows are inserted, without `ALTER TABLE ... ADD PARTITION`; Oracle's `NUMTODSINTERVAL()` and `NUMTOYMINTERVAL()` are accepted as an alternative spelling
+* Improve error reporting of [mysqlbinlog when used with `--flashback`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/flashback) ([MDEV-20749](https://jira.mariadb.org/browse/MDEV-20749))
+* Locking full table scans can use table-level locking ([MDEV-24813](https://jira.mariadb.org/browse/MDEV-24813))
+  * A locking statement that scans a whole table, with no `WHERE` condition and no `LIMIT`, used to lock rows one at a time; this applies to `SELECT ... FOR UPDATE`, `UPDATE`, and `DELETE`, and to reads under `SERIALIZABLE` isolation
+  * With the new `innodb_table_lock_on_full_scan` variable enabled (global and session, default `OFF`), InnoDB takes a single table-level lock instead: shared (S) for reads, and exclusive (X) for writes and `FOR UPDATE` reads; `SKIP LOCKED` scans keep row locks
+* Add [formatted column support to `JSON_TABLE`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_table#format-json-columns) ([MDEV-25727](https://jira.mariadb.org/browse/MDEV-25727))
+  * A column declared with `FORMAT JSON PATH` returns the JSON value it finds, including nested arrays and objects, as text in a single column
+* Galera SST works for tables with `DATA DIRECTORY` whose data files don't fit in the datadir ([MDEV-29909](https://jira.mariadb.org/browse/MDEV-29909))
+  * The new read-only `wsrep_sst_tmp_dir` variable sets the directory where the joiner stores the transferred data files during SST; MariaBackup then moves them to their final locations
+* [The default `utf8` character set is now `utf8mb4`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old_mode#utf8_is_utf8mb3) ([MDEV-30041](https://jira.mariadb.org/browse/MDEV-30041))
+  * The default `old_mode` no longer includes `UTF8_IS_UTF8MB3`; add `UTF8_IS_UTF8MB3` to `old_mode` to keep `utf8` meaning `utf8mb3`
+* [`mariadb-dump` no longer includes generated column values in a dump](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump#generated-columns) ([MDEV-32362](https://jira.mariadb.org/browse/MDEV-32362))
+  * By default, a generated column keeps its place in the `INSERT` statement and its value is written as `DEFAULT`; with `--complete-insert`, generated columns are left out of both the column list and the values (see [Tools](mariadb-13.1-changes-and-improvements.md#tools))
+* `log_slow_max_query_length` limits the size of queries written to the slow query log ([MDEV-33463](https://jira.mariadb.org/browse/MDEV-33463))
+  * A statement longer than this many bytes is skipped entirely, not truncated, which keeps statements with very large `TEXT` or `BLOB` literals out of the log; global and session, default `4294967295` (no limit)
+* [`INFORMATION_SCHEMA.VECTOR_INDEXES`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-vector_indexes-table) provides information about vector indexes ([MDEV-34805](https://jira.mariadb.org/browse/MDEV-34805))
+* [`parsec_iterations`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-parsec#parsec_iterations) sets the number of PBKDF2 rounds for the PARSEC authentication plugin ([MDEV-35254](https://jira.mariadb.org/browse/MDEV-35254))
+  * The value is a power of two, minimum 1024, and other values are rounded up with a warning; a higher value increases resistance to brute-force attacks at the cost of more work per authentication
+  * The count in effect when a password is set is stored with the account, so changing the variable only affects passwords set afterwards
+* [`ADAPTIVE_HASH_INDEX = { YES | NO | DEFAULT }`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-table#adaptive_hash_index) can specify per InnoDB table whether to use the adaptive hash index ([MDEV-37070](https://jira.mariadb.org/browse/MDEV-37070))
+  * Also available per index, where `YES` or `NO` overrides the table setting
+  * `NO` disables the adaptive hash index for that table or index even when it is enabled globally; `YES` enables it when `innodb_adaptive_hash_index` is `ON`, or when it is the new `IF_SPECIFIED`, which enables the adaptive hash index only for tables and indexes marked `YES`; `DEFAULT` follows the global setting
+  * When `innodb_adaptive_hash_index` is `OFF`, the adaptive hash index stays disabled whatever the table and index options say
+* [`XXH3`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/numeric-functions/xxh3) and [`XXH32`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/numeric-functions/xxh32) hash functions ([MDEV-38180](https://jira.mariadb.org/browse/MDEV-38180))
+* Adaptive hash index statistics are shown in `ANALYZE FORMAT=JSON` ([MDEV-38305](https://jira.mariadb.org/browse/MDEV-38305))
+  * A table's `r_engine_stats` object can include an `r_ahi_stats` object with `ahi_searches` (searches that used the adaptive hash index), `ahi_searches_btree` (searches that fell back to the B-tree), `ahi_pages_added`, and `ahi_rows_added`; counters that are zero are left out
+  * The new global status variables `Innodb_adaptive_hash_pages_added` and `Innodb_adaptive_hash_rows_added` count the pages and rows added to the adaptive hash index server-wide
+* Optimizer Context Recorder to record the optimizer data and then analyze query optimization on another server instance ([MDEV-38701](https://jira.mariadb.org/browse/MDEV-38701))
+  * `optimizer_record_context` records the context; to replay it, put the recorded context in a user variable and set the new `optimizer_replay_context` to that variable's name ([MDEV-36523](https://jira.mariadb.org/browse/MDEV-36523)); both variables are session-only
+* [`innodb_tablespace_size_warning_threshold`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_tablespace_size_warning_threshold) and [`innodb_tablespace_size_warning_pct`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_tablespace_size_warning_pct) variables to get a warning when an InnoDB tablespace is getting close to full, before it's 100% full and the service is disrupted ([MDEV-38936](https://jira.mariadb.org/browse/MDEV-38936))
+  * Disabled by default (`innodb_tablespace_size_warning_threshold` is `0`); once a threshold is set, a warning is written to the error log when a tablespace reaches `innodb_tablespace_size_warning_pct` percent of it (default `85`, range `0` to `100`), and again on each further one-percent increase
+* Local routine variables usable in [`PREPARE`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements/prepare-statement#local-statement-names)/[`EXECUTE`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements/execute-statement)/[`DEALLOCATE`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements/deallocate-drop-prepare) and [`OPEN ... FOR`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors/open) ([MDEV-39022](https://jira.mariadb.org/browse/MDEV-39022))
+  * `PREPARE LOCAL spvar FROM ...` takes the name of the prepared statement from the value of the stored routine variable `spvar`; the `LOCAL` form is only valid inside a stored routine
+* [Package-wide TYPE declarations](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/declare-type#package-wide-types) ([MDEV-39587](https://jira.mariadb.org/browse/MDEV-39587))
+  * A package specification can declare types next to its public routines; a routine outside the package can declare variables of such a type as `package_name.type_name`, which requires the `EXECUTE` privilege on the package
+
+## Interface Changes
+
+### Status Variables
+
+| Status variable                    | Description                                                                 |
+| ---------------------------------- | --------------------------------------------------------------------------- |
+| `Innodb_adaptive_hash_pages_added` | New. Pages added to the adaptive hash index ([MDEV-38305](https://jira.mariadb.org/browse/MDEV-38305)) |
+| `Innodb_adaptive_hash_rows_added`  | New. Rows added to the adaptive hash index ([MDEV-38305](https://jira.mariadb.org/browse/MDEV-38305))  |
+
+### System Variables
+
+| System variable                            | Default        | Notes |
+| ------------------------------------------ | -------------- | ----- |
+| `innodb_adaptive_hash_index`               | unchanged      | New value `IF_SPECIFIED`, which enables the adaptive hash index only for tables and indexes marked `ADAPTIVE_HASH_INDEX=YES` ([MDEV-37070](https://jira.mariadb.org/browse/MDEV-37070)) |
+| `innodb_table_lock_on_full_scan`           | `OFF`          | New. Global and session. Take a table-level lock for locking full table scans ([MDEV-24813](https://jira.mariadb.org/browse/MDEV-24813)) |
+| `innodb_tablespace_size_warning_pct`       | `85`           | New. Range `0` to `100`. Percentage of the threshold at which warnings begin ([MDEV-38936](https://jira.mariadb.org/browse/MDEV-38936)) |
+| `innodb_tablespace_size_warning_threshold` | `0` (disabled) | New. Tablespace size, in bytes, that warnings are measured against ([MDEV-38936](https://jira.mariadb.org/browse/MDEV-38936)) |
+| `log_slow_max_query_length`                | `4294967295`   | New. Global and session. Statements longer than this many bytes are not written to the slow query log ([MDEV-33463](https://jira.mariadb.org/browse/MDEV-33463)) |
+| `old_mode`                                 | changed        | `UTF8_IS_UTF8MB3` is no longer in the default, so `utf8` means `utf8mb4` ([MDEV-30041](https://jira.mariadb.org/browse/MDEV-30041)) |
+| `optimizer_record_context`                 | unchanged      | Now session-only ([MDEV-38701](https://jira.mariadb.org/browse/MDEV-38701)) |
+| `optimizer_replay_context`                 | empty          | New. Session-only. Name of the user variable that holds an optimizer context to replay ([MDEV-36523](https://jira.mariadb.org/browse/MDEV-36523)) |
+| `parsec_iterations`                        | `1024`         | New. Global and session. PBKDF2 rounds for the PARSEC plugin, rounded up to a power of two, minimum 1024 ([MDEV-35254](https://jira.mariadb.org/browse/MDEV-35254)) |
+| `wsrep_sst_tmp_dir`                        | empty          | New. Read-only. Directory where the joiner stores data files during SST ([MDEV-29909](https://jira.mariadb.org/browse/MDEV-29909)) |
+
+### SQL Enhancements
+
+* `DENY` and `REVOKE DENY` for negative grants; `SHOW GRANTS` shows denies only to users with `SELECT` on the `mysql` database ([MDEV-14443](https://jira.mariadb.org/browse/MDEV-14443))
+* JSON operators `->` and `->>`, equivalent to `JSON_EXTRACT()` and `JSON_UNQUOTE(JSON_EXTRACT())` ([MDEV-13594](https://jira.mariadb.org/browse/MDEV-13594))
+* `FORMAT JSON PATH` columns in `JSON_TABLE` ([MDEV-25727](https://jira.mariadb.org/browse/MDEV-25727))
+* `INTERVAL` clause for `PARTITION BY RANGE COLUMNS`, which adds partitions automatically, including the Oracle-style `NUMTODSINTERVAL()` and `NUMTOYMINTERVAL()` spellings ([MDEV-15621](https://jira.mariadb.org/browse/MDEV-15621))
+* `PREPARE LOCAL`, and local routine variables in `EXECUTE`, `DEALLOCATE PREPARE`, and `OPEN ... FOR` ([MDEV-39022](https://jira.mariadb.org/browse/MDEV-39022))
+* Package-wide `TYPE` declarations in package specifications, usable as `package_name.type_name` ([MDEV-39587](https://jira.mariadb.org/browse/MDEV-39587))
+* `ADAPTIVE_HASH_INDEX = { YES | NO | DEFAULT }` table and index option for `CREATE TABLE` and `ALTER TABLE` ([MDEV-37070](https://jira.mariadb.org/browse/MDEV-37070))
+* `ANALYZE FORMAT=JSON` output includes an `r_ahi_stats` object with the adaptive hash index counters `ahi_searches`, `ahi_searches_btree`, `ahi_pages_added`, and `ahi_rows_added` in `r_engine_stats` ([MDEV-38305](https://jira.mariadb.org/browse/MDEV-38305))
+* `XXH3()` and `XXH32()` hash functions ([MDEV-38180](https://jira.mariadb.org/browse/MDEV-38180))
+* New table `INFORMATION_SCHEMA.VECTOR_INDEXES` ([MDEV-34805](https://jira.mariadb.org/browse/MDEV-34805))
+
+### Tools
+
+* `mariadb-dump` no longer writes the computed values of generated columns ([MDEV-32362](https://jira.mariadb.org/browse/MDEV-32362)); no new option is added, and the behavior depends on the existing `--complete-insert` option:
+  * By default, a generated column keeps its position in the row, and its value is written as `DEFAULT`; `--xml` output also writes `DEFAULT` for generated columns
+  * With `--complete-insert`, generated columns are left out of both the column list and the values; if every column in a table is generated, an empty column list is written, which preserves the row count
+  * A table with an `INVISIBLE` column turns on `--complete-insert` for that table even when the option isn't given; generated columns are then left out only from the first `INVISIBLE` column onward, and a generated column declared before it stays in the column list with its value written as `DEFAULT`
+  * `--tab` and `--dir` are unaffected
+* `mariadb-dump` writes the server's DDL as returned, without wrapping `DEFINER` clauses in `/*!50017 ... */` comments, which broke when the statement contained a comment ([MDEV-30295](https://jira.mariadb.org/browse/MDEV-30295))
+  * The client tools no longer write `/*!NNNNN */` version comments for versions older than MySQL 5.7, and `SHOW CREATE DATABASE` no longer wraps `IF NOT EXISTS` and `DEFAULT CHARACTER SET` in comments
+* Improved error reporting of `mysqlbinlog --flashback` ([MDEV-20749](https://jira.mariadb.org/browse/MDEV-20749))
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
-{% @marketo/form formid="4316" formId="4316" %}
+{% @marketo/form formId="4316" %}

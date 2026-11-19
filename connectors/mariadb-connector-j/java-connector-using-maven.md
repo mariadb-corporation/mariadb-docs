@@ -148,7 +148,7 @@ Hello World!
 
 ## See Also
 
-* More information at [About MariaDB Connector/J](about-mariadb-connector-j.md)
+* More information at [About MariaDB Connector/J](about-mariadb-connector-j/README.md)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

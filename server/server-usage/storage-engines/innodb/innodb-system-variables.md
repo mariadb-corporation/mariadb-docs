@@ -24,7 +24,8 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_adaptive_flushing`
 
-* Description: If set to `1`, the default, the server will dynamically adjust the flush rate of dirty pages in the [InnoDB buffer pool](innodb-buffer-pool.md). This assists to reduce brief bursts of I/O activity. If set to `0`, adaptive flushing will only take place when the limit specified by [innodb\_adaptive\_flushing\_lwm](innodb-system-variables.md#innodb_adaptive_flushing_lwm) is reached.
+* Description: If set to `1`, the default, the page cleaner adjusts the rate at which it flushes dirty pages from the [InnoDB buffer pool](innodb-buffer-pool.md) to how quickly the workload generates redo log and dirty pages. This helps avoid bursts of I/O activity. If set to `0`, flushing still starts under the same conditions, including when the [innodb\_adaptive\_flushing\_lwm](innodb-system-variables.md#innodb_adaptive_flushing_lwm) low-water mark is reached, but the page cleaner writes a fixed [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity) pages per second. Setting it to `0` does not disable flushing.
+  * See [Adaptive Flushing](innodb-page-flushing.md#adaptive-flushing) for more information.
 * Command line: `--innodb-adaptive-flushing={0|1}`
 * Scope: Global
 * Dynamic: Yes
@@ -33,7 +34,8 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_adaptive_flushing_lwm`
 
-* Description: Adaptive flushing is enabled when this low water mark percentage of the [InnoDB redo log](innodb-redo-log.md) capacity is reached. Takes effect even if [innodb\_adaptive\_flushing](innodb-system-variables.md#innodb_adaptive_flushing) is disabled.
+* Description: Low-water mark, as a percentage of the [InnoDB redo log](innodb-redo-log.md) capacity (about 90% of [innodb\_log\_file\_size](#innodb_log_file_size)). When the checkpoint age, in bytes, exceeds this percentage of the capacity, the page cleaner flushes dirty pages to advance the checkpoint. Takes effect even if [innodb\_adaptive\_flushing](innodb-system-variables.md#innodb_adaptive_flushing) is disabled. An idle page cleaner isn't woken up at this mark while [innodb\_max\_dirty\_pages\_pct\_lwm](#innodb_max_dirty_pages_pct_lwm) is `0` ([MDEV-39824](https://jira.mariadb.org/browse/MDEV-39824)).
+  * See [InnoDB Page Flushing](innodb-page-flushing.md#innodb_adaptive_flushing_lwm) for more information.
 * Command line: `--innodb-adaptive-flushing-lwm=#`
 * Scope: Global
 * Dynamic: Yes
@@ -115,6 +117,15 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 * Data Type: `numeric`
 * Default Value: `0`
 * Range: `0` to `100`
+
+#### `innodb_buf_flush_list_now`
+
+* Description: Setting to `ON` immediately writes dirty pages from the [buffer pool](innodb-buffer-pool.md) to disk. If [innodb\_fil\_make\_page\_dirty\_debug](innodb-system-variables.md#innodb_fil_make_page_dirty_debug) is `0` or names an undo tablespace, only that tablespace's pages are written (`0` is the system tablespace). Otherwise, all dirty pages are written. Intended for testing. Debug builds only (built with `-DCMAKE_BUILD_TYPE=Debug`).
+* Command line: `--innodb-buf-flush-list-now[={0|1}]`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `boolean`
+* Default Value: `OFF`
 
 #### `innodb_buffer_pool_chunk_size`
 
@@ -427,6 +438,16 @@ Automatic upward dynamic resizing is not implemented ([MDEV-36197](https://jira.
 * Data Type: `numeric`
 * Default Value: `ibdata1:12M:autoextend`
 
+#### `innodb_data_file_size_debug`
+
+* Description: InnoDB system tablespace size, in pages, to set during crash recovery. `0` leaves the size unchanged. Intended for testing. Debug builds only (built with `-DCMAKE_BUILD_TYPE=Debug`).
+* Command line: `--innodb-data-file-size-debug=#`
+* Scope: Global
+* Dynamic: No
+* Data Type: `numeric`
+* Default Value: `0`
+* Range: `0` to `268435456`
+
 #### `innodb_data_file_write_through`
 
 * Description: Whether writes to InnoDB data files (including the temporary tablespace) are write through. Set to `OFF` by default, are set to `ON` if [innodb\_flush\_method](innodb-system-variables.md#innodb_flush_method) is set to `O_DSYNC`. On systems that support FUA it may make sense to enable write-through, to avoid extra system calls. See [InnoDB Flush Method](innodb-flush-method.md) for a discussion of FUA and write-through behavior.
@@ -618,6 +639,15 @@ Before MariaDB 11.0.6:
 {% endtab %}
 {% endtabs %}
 
+#### `innodb_enable_xap_unlock_unmodified_for_primary_debug`
+
+* Description: Unlock unmodified records on `XA PREPARE` on a primary server. Intended for testing. Debug builds only (built with `-DCMAKE_BUILD_TYPE=Debug`). Can also be enabled in other builds by compiling with `-DINNODB_ENABLE_XAP_UNLOCK_UNMODIFIED_FOR_PRIMARY`.
+* Command line: `--innodb-enable-xap-unlock-unmodified-for-primary-debug`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `boolean`
+* Default Value: `OFF`
+
 #### `innodb_encrypt_log`
 
 * Description: Enables encryption of the [InnoDB redo log](innodb-redo-log.md). This also enables encryption of some temporary files created internally by InnoDB, such as those used for merge sorts and row logs.
@@ -687,6 +717,15 @@ Before MariaDB 11.0.6:
 * Default Value: `0`
 * Range: `0` to `255`
 
+#### `innodb_evict_tables_on_commit_debug`
+
+* Description: On transaction commit, try to evict tables from the data dictionary cache. Intended for testing. Debug builds only (built with `-DCMAKE_BUILD_TYPE=Debug`).
+* Command line: `--innodb-evict-tables-on-commit-debug[={0|1}]`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `boolean`
+* Default Value: `OFF`
+
 #### `innodb_fast_shutdown`
 
 * Description: The shutdown mode:
@@ -710,6 +749,16 @@ Before MariaDB 11.0.6:
 * Data Type: `numeric`
 * Default Value: `600`
 * Range: `1` to `4294967295`
+
+#### `innodb_fil_make_page_dirty_debug`
+
+* Description: Setting to a tablespace ID makes a page of that tablespace dirty in the [buffer pool](innodb-buffer-pool.md). The page number is taken from [innodb\_saved\_page\_number\_debug](innodb-system-variables.md#innodb_saved_page_number_debug) (`0`, the first page, by default). Also selects the tablespace that [innodb\_buf\_flush\_list\_now](innodb-system-variables.md#innodb_buf_flush_list_now) flushes. Intended for testing. Debug builds only (built with `-DCMAKE_BUILD_TYPE=Debug`).
+* Command line: `--innodb-fil-make-page-dirty-debug=#`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `numeric`
+* Default Value: `0`
+* Range: `0` to `4294967295`
 
 #### `innodb_file_per_table`
 
@@ -1050,6 +1099,16 @@ Before MariaDB 11.0:
 * Default Value: `2000` or twice [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity), whichever is higher.
 * Range : `100` to `4294967295` (2<sup>32</sup>-1)
 
+#### `innodb_limit_optimistic_insert_debug`
+
+* Description: Artificially limit the number of records per B-tree page. `0` means unlimited. Intended for testing B-tree page splits. Debug builds only (built with `-DCMAKE_BUILD_TYPE=Debug`).
+* Command line: `--innodb-limit-optimistic-insert-debug=#`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `numeric`
+* Default Value: `0`
+* Range: `0` to `4294967295`
+
 #### `innodb_lock_wait_timeout`
 
 * Description: Time in seconds that an InnoDB transaction waits for an InnoDB record lock (or table lock) before giving up with the error `ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction`. When this occurs, the statement (not transaction) is rolled back. The whole transaction can be rolled back if the [innodb\_rollback\_on\_timeout](innodb-system-variables.md#innodb_rollback_on_timeout) option is used. Increase this for data warehousing applications or where other long-running operations are common, or decrease for OLTP and other highly interactive applications. This setting does not apply to deadlocks, which InnoDB detects immediately, rolling back a deadlocked transaction. `0` means no wait. See [WAIT and NOWAIT](../../../reference/sql-statements/transactions/wait-and-nowait.md). Setting to `100000000` or more (from [MariaDB 10.6.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.3), `100000000` is the maximum) means the timeout is infinite.
@@ -1311,6 +1370,16 @@ If you set a target that is unreachable in the other direction (for example, low
   * `10485760`
 * Range: `10485760` to `18446744073709551615`
 
+#### `innodb_merge_threshold_set_all_debug`
+
+* Description: Override the current `MERGE_THRESHOLD` setting, the page-full percentage below which InnoDB tries to merge index pages, for all indexes in the data dictionary cache. Intended for testing. Debug builds only (built with `-DCMAKE_BUILD_TYPE=Debug`).
+* Command line: `--innodb-merge-threshold-set-all-debug=#`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `numeric`
+* Default Value: `50`
+* Range: `1` to `50`
+
 #### `innodb_monitor_disable`
 
 * Description: Disables the specified counters in the [INFORMATION\_SCHEMA.INNODB\_METRICS](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_metrics-table.md) table.
@@ -1526,6 +1595,16 @@ If you set a target that is unreachable in the other direction (for example, low
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `0`
+
+#### `innodb_saved_page_number_debug`
+
+* Description: A page number, used by [innodb\_fil\_make\_page\_dirty\_debug](innodb-system-variables.md#innodb_fil_make_page_dirty_debug) to choose which page to make dirty. Intended for testing. Debug builds only (built with `-DCMAKE_BUILD_TYPE=Debug`).
+* Command line: `--innodb-saved-page-number-debug=#`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `numeric`
+* Default Value: `0`
+* Range: `0` to `4294967295`
 
 #### `innodb_snapshot_isolation`
 
@@ -1750,6 +1829,14 @@ If you set a target that is unreachable in the other direction (for example, low
 * Default Value: `OFF`
 * Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
+#### `innodb_trx_purge_view_update_only_debug`
+
+* Description: Pause the actual purging of delete-marked records, but still update the purge view. Used to create the situation where the purge view has been updated but the purges have not run yet. Intended for testing. Debug builds only (built with `-DCMAKE_BUILD_TYPE=Debug`).
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `boolean`
+* Default Value: `OFF`
+
 #### `innodb_undo_directory`
 
 * Description: Path to the directory (relative or absolute) that InnoDB uses to create separate tablespaces for the [undo logs](innodb-undo-log.md). The default value is NULL: if no path is specified, undo tablespaces are created in the directory defined by [datadir](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir). `.` leaves the undo logs in the same directory as the other log files. Use together with [innodb\_undo\_tablespaces](innodb-system-variables.md#innodb_undo_tablespaces). Undo logs are most usefully placed on a separate storage device.
@@ -1770,7 +1857,7 @@ If you set a target that is unreachable in the other direction (for example, low
 
 #### `innodb_undo_tablespaces`
 
-* Description: Number of tablespaces files used for dividing up the [undo logs](innodb-undo-log.md). Zero (the default before [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110)) means that undo logs are all part of the system tablespace, which contains one undo tablespace more than the `innodb_undo_tablespaces` setting. A value of 1 is reset to 0 as 2 or more are needed for separate tablespaces. When the undo logs can grow large, splitting them over multiple tablespaces will reduce the size of any single tablespace. Until [MariaDB 10.11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114), must be set before InnoDB is initialized, or else MariaDB will fail to start, with an error saying that `InnoDB did not find the expected number of undo tablespaces`. The files are created in the directory specified by [innodb\_undo\_directory](innodb-system-variables.md#innodb_undo_directory), and are named `undoN`, N being an integer. The default size of an undo tablespace is 10MB.From [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110), multiple undo tablespaces are enabled by default, and the default is changed to 3 so that the space occupied by possible bursts of undo log records can be reclaimed after [innodb\_undo\_log\_truncate](innodb-system-variables.md#innodb_undo_log_truncate) is set.
+* Description: Number of tablespaces files used for dividing up the [undo logs](innodb-undo-log.md). Zero (the default before [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110)) means that undo logs are all part of the system tablespace, which contains one undo tablespace more than the `innodb_undo_tablespaces` setting. A value of 1 is reset to 0 as 2 or more are needed for separate tablespaces. When the undo logs can grow large, splitting them over multiple tablespaces will reduce the size of any single tablespace. Until [MariaDB 10.11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.1) and MariaDB Enterprise Server 10.6.12-7, must be set before InnoDB is initialized, or else MariaDB will fail to start, with an error saying that `InnoDB did not find the expected number of undo tablespaces`. The files are created in the directory specified by [innodb\_undo\_directory](innodb-system-variables.md#innodb_undo_directory), and are named `undoN`, N being an integer. The default size of an undo tablespace is 10MB.From [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110), multiple undo tablespaces are enabled by default, and the default is changed to 3 so that the space occupied by possible bursts of undo log records can be reclaimed after [innodb\_undo\_log\_truncate](innodb-system-variables.md#innodb_undo_log_truncate) is set.
 * Command line: `--innodb-undo-tablespaces=#`
 * Scope: Global
 * Dynamic: No

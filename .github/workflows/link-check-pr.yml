@@ -102,6 +102,26 @@ jobs:
           # The 429 is host-level rate limiting, so replacing the URLs with
           # their resolved /projects/ansible/ form would not help.
           #
+          # DOCS-6723 adds seven more of the same kind, surfaced by the GridGain 8
+          # docs migration. All serve 200 to a normal browser but are unreachable
+          # from the runners: gridgain.com/resources/download (Cloudflare 403,
+          # 301 -> /tryfree, which is already excluded), bugs.openjdk.java.net
+          # (Atlassian 403, the old domain of the already-excluded
+          # bugs.openjdk.org), docs.openshift.com (403, 301 -> docs.redhat.com,
+          # which is already excluded), unix.stackexchange.com (403, same class
+          # as the excluded stackoverflow/dba.stackexchange), www.tableau.com
+          # (403), lists.apache.org (mailing-list archive, 302), and
+          # www.javatpoint.com (times out from the runners).
+          #
+          # DOCS-6926 adds openai.com, synced in with the MariaDB AI Plugins docs
+          # (the Codex link on about-mariadb-ai-plugins.md). It answered the Actions
+          # runners with 403 on the gate run of the first sync (2026-10-15) while
+          # serving 200 to a browser, and to lychee from a developer machine, so a
+          # local run PASSES while CI fails. The page is synced from
+          # mariadb-corporation/ai-plugins, so the link can't be changed here
+          # anyway. The pattern also covers subdomains such as help.openai.com,
+          # which answers a non-browser client with 403 too.
+          #
           # Note for editors: the args block below is a YAML folded scalar, so
           # a '#' line inside it is NOT a comment -- it would be passed to
           # lychee as arguments. Document new excludes up here.
@@ -110,10 +130,10 @@ jobs:
           # notes. bazaar.launchpad.net is the decommissioned bzr host (revision
           # links 404). The github connector /commit/ links are changelog
           # entries whose SHAs predate history rewrites, so ~5% now 404 with no
-          # valid replacement. lists.askmonty.org (a mailing-list archive) and
-          # support2.microsoft.com (a decommissioned Microsoft domain) are cited
-          # in old changelog commit text and are unreachable with no modern
-          # equivalent. All are unmaintainable historical refs, not fixable links.
+          # valid replacement. support2.microsoft.com (a decommissioned Microsoft
+          # domain) is cited in old changelog commit text and is unreachable with
+          # no modern equivalent. All are unmaintainable historical refs, not
+          # fixable links.
           #
           # DOCS-6369: the same problem in the *server* changelogs. Those pages
           # cite one github.com/MariaDB/server/commit/<short-sha> per revision --
@@ -124,11 +144,10 @@ jobs:
           # only surface when a PR happens to touch a changelog page.
           #
           # DOCS-6369: decommissioned hosts cited in the pre-1.0/5.x release
-          # notes. downloads.askmonty.org was the download host before the
-          # rename to MariaDB; montyprogram.com was the company domain;
-          # forge.mysql.com and lists.mysql.com were retired by Oracle
-          # (forge now serves a cert for another host); blogs.msdn.com folded
-          # into learn.microsoft.com. None have a modern equivalent to point at.
+          # notes. montyprogram.com was the company domain; forge.mysql.com and
+          # lists.mysql.com were retired by Oracle (forge now serves a cert for
+          # another host); blogs.msdn.com folded into learn.microsoft.com. None
+          # have a modern equivalent to point at.
           #
           # DOCS-5976: three more hosts that block automated clients, same
           # class as www.reddit.com above. stackoverflow.com and
@@ -209,7 +228,7 @@ jobs:
           #
           #
           # DOCS-6415 (2026-09-14): medium.com, cited twice from
-          # tools/control-center/admin-guide/configuration.md as further reading on
+          # tools/enterprise/control-center/admin-guide/configuration.md as further reading on
           # Active Directory configuration. Medium serves 403 to automated clients
           # across the board -- same class as docs.oracle.com and access.redhat.com
           # above -- while both posts load normally in a browser. Nothing to
@@ -280,17 +299,20 @@ jobs:
           # GSSAPI page. The JDK bug tracker answers 403 to lychee and to a browser
           # User-Agent but 200 to plain curl, so it is User-Agent-based bot
           # protection, not a dead page. Same class as www.reddit.com above.
+          #
+          # GG-52371: mvnrepository.com, cited from gridgain-8/gridgain8-get-started/
+          # how-to-guides/prometheus-grafana-step-by-step.md. It answers lychee with
+          # 403 Forbidden (the bot is blocked) while serving 200 to a browser, so
+          # the link is fine and can't be fixed on our side.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
             --exclude 'github\.com/mariadb-corporation/mariadb-connector-[a-z0-9]+/commit/'
             --exclude 'github\.com/MariaDB/server/commit/'
-            --exclude 'downloads\.askmonty\.org'
             --exclude 'montyprogram\.com'
             --exclude 'forge\.mysql\.com'
             --exclude 'lists\.mysql\.com'
             --exclude 'blogs\.msdn\.com'
-            --exclude 'lists\.askmonty\.org'
             --exclude 'support2\.microsoft\.com'
             --exclude dev\.mysql\.com
             --exclude docs\.oracle\.com
@@ -364,6 +386,15 @@ jobs:
             --exclude 'www\.oreilly\.com'
             --exclude 'www\.gridgain\.com/tryfree'
             --exclude 'bugs\.openjdk\.org'
+            --exclude 'gridgain\.com/resources/download'
+            --exclude 'bugs\.openjdk\.java\.net'
+            --exclude 'docs\.openshift\.com'
+            --exclude 'unix\.stackexchange\.com'
+            --exclude 'www\.tableau\.com'
+            --exclude 'lists\.apache\.org'
+            --exclude 'www\.javatpoint\.com'
+            --exclude 'openai\.com'
+            --exclude 'mvnrepository\.com'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee

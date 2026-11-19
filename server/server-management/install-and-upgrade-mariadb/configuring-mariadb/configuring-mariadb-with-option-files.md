@@ -166,7 +166,7 @@ The syntax of MariaDB option files is as follows:
 * Option groups use the syntax `[group-name]`. See the [Option Groups](configuring-mariadb-with-option-files.md#option-groups) section below for more information on available option groups.
 * The same option group can appear multiple times.
 * The `!include` directive can be used to include other option files. See the [Including Option Files](configuring-mariadb-with-option-files.md#including-option-files) section below for more information on this syntax.
-* The `!includedir` directive can be used to include all `.cnf` files (and potentially `.ini` files) in a given directory. The option files within the directory are read in alphabetical order. See the [Including Option File Directories](configuring-mariadb-with-option-files.md#including-option-file-directories) section below for more information on this syntax.
+* The `!includedir` directive can be used to include all `.cnf` files (and potentially `.ini` files) in a given directory. The option files within the directory are read in the byte order of their file names. See the [Including Option File Directories](configuring-mariadb-with-option-files.md#including-option-file-directories) section below for more information on this syntax.
 * The `?includedir` (introduced in MariaDB 11.4.10 and 11.8.6) directive works like `!includedir` but skips unreadable files, instead of failing with an error.
 * Dashes (`-`) and underscores (`_`) in options are interchangeable.
 * Double quotes can be used to quote values
@@ -303,7 +303,7 @@ It is also possible to include all option files in a directory from another opti
 !includedir /etc/my.cnf.d/
 ```
 
-The option files within the directory are read in alphabetical order.
+The option files within the directory are read in the byte order of their file names, not in dictionary order. Digits sort before letters, and uppercase letters sort before lowercase letters. For example, `10-base.cnf` is read before `50-server.cnf`, `50-server.cnf` before `99-local.cnf`, and `Z.cnf` before `a.cnf`. If the same option is set in more than one file, the value from the file read last takes effect. This is why packaged option files carry numeric prefixes such as `50-server.cnf`: the prefix controls the order.
 
 All option file names must end in `.cnf` on Unix-like operating systems. On Windows, all option file names must end in `.cnf` or `.ini`.
 

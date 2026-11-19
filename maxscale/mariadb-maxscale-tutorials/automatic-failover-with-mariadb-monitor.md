@@ -7,7 +7,7 @@ description: >-
 
 # Automatic Failover With MariaDB Monitor
 
-[MariaDB Monitor](../reference/maxscale-monitors/mariadb-monitor.md) can do more than just monitor the state of a MariaDB replication cluster. The monitor can perform cluster manipulation operations such as _failover_, _switchover_ and _rejoin_. By default, these operations are launched manually, but they can be configured to also trigger automatically. All replication modifying operations assume GTID-based replication, and refuse to launch or may work incorrectly when using file-and-position-based replication. Also, the operations are mainly designed to work with simple topologies, for instance 1 primary and one to multiple replicas. More complicated setups (multilayered replication, multimaster rings etc.) may work, but should be tested separately to ensure the results are predictable.
+[MariaDB Monitor](../reference/maxscale-monitors/mariadb-monitor/README.md) can do more than just monitor the state of a MariaDB replication cluster. The monitor can perform cluster manipulation operations such as _failover_, _switchover_ and _rejoin_. By default, these operations are launched manually, but they can be configured to also trigger automatically. All replication modifying operations assume GTID-based replication, and refuse to launch or may work incorrectly when using file-and-position-based replication. Also, the operations are mainly designed to work with simple topologies, for instance 1 primary and one to multiple replicas. More complicated setups (multilayered replication, multimaster rings etc.) may work, but should be tested separately to ensure the results are predictable.
 
 The following examples have four servers: _server1_ is the initial primary and _server2_ to _server4_ are replicas. The servers are monitored by _TheMonitor_. The MaxScale configuration file looks as follows:
 
@@ -121,7 +121,7 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-This case can be handled by the [rejoin-command](automatic-failover-with-mariadb-monitor.md#rejoin). For more details on what exactly failover does, see [MariaDB Monitor documentation](../reference/maxscale-monitors/mariadb-monitor.md#operation-details).
+This case can be handled by the [rejoin-command](automatic-failover-with-mariadb-monitor.md#rejoin). For more details on what exactly failover does, see [MariaDB Monitor documentation](../reference/maxscale-monitors/mariadb-monitor/cluster-manipulation-operations.md#operation-details).
 
 ## Automatic Failover
 
@@ -170,7 +170,7 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴────────────────────────┘
 ```
 
-If you are continuously monitoring the server states, you may notice that, for a brief period, the state of _server1_ is _Down_ and the state of _server2_ is still _Slave, Running_. This is because the monitor does not begin failover immediately when the server goes down, as the problem could be temporary. The monitor waits for _server1_ to come back for [failcount](../reference/maxscale-monitors/mariadb-monitor.md#failcount) monitor intervals. The recommended value for _failcount_ depends on _monitor\_interval_ and the stability of the network.
+If you are continuously monitoring the server states, you may notice that, for a brief period, the state of _server1_ is _Down_ and the state of _server2_ is still _Slave, Running_. This is because the monitor does not begin failover immediately when the server goes down, as the problem could be temporary. The monitor waits for _server1_ to come back for [failcount](../reference/maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#failcount) monitor intervals. The recommended value for _failcount_ depends on _monitor\_interval_ and the stability of the network.
 
 ```ini
 [TheMonitor]
@@ -278,7 +278,55 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-For more details on what exactly switchover does, see [MariaDB Monitor documentation](../reference/maxscale-monitors/mariadb-monitor.md#operation-details).
+For more details on what exactly switchover does, see [MariaDB Monitor documentation](../reference/maxscale-monitors/mariadb-monitor/cluster-manipulation-operations.md#operation-details).
+
+## Using MariaDB Monitor With ReadWriteSplit
+
+When a cluster managed by `mariadbmon` is accessed through a
+[readwritesplit](../reference/maxscale-routers/maxscale-readwritesplit/README.md)
+service, enabling `transaction_replay` on the router makes failover and
+switchover transparent to the application. When the primary fails, the router
+remembers any in-progress transaction and replays it on the newly promoted
+primary once failover completes. The replay is verified using checksums to
+confirm the results are identical, making it safe to use in production. If the
+replay succeeds, the client sees no error. Without `transaction_replay`, writes
+will be interrupted and in-flight transactions will be lost during the failover
+window.
+
+`transaction_replay=true` enables all required high-availability features in
+`readwritesplit` automatically. No additional router parameters are needed.
+
+```ini
+[MariaDB-Monitor]
+type=monitor
+module=mariadbmon
+servers=server1,server2,server3
+auto_failover=true
+auto_rejoin=true
+
+[Split-Router]
+type=service
+router=readwritesplit
+cluster=MariaDB-Monitor
+transaction_replay=true
+```
+
+`failover_timeout` controls how long the monitor will attempt failover before
+giving up and disabling automatic failover. Set it based on your cluster's
+expected failover time. `transaction_replay_timeout` on the router controls how
+long the client will wait for a replay to succeed before receiving an error; the
+default of 30 seconds is appropriate for most deployments.
+
+Transactions exceeding `transaction_replay_max_size` (default 1 MiB) will not be
+replayed and will result in a client error. Increase this limit for workloads
+with large transactions.
+
+## Planned Switchover With ReadWriteSplit
+
+For planned switchovers, the monitor and router cooperate automatically to
+drain in-progress transactions before the switchover proceeds. See the
+[Switchover](#switchover) section for details on how to perform a planned
+switchover.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

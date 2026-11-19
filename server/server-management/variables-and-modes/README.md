@@ -97,8 +97,8 @@ Complete SQL_MODE reference: set via SET/SET GLOBAL/--sql-mode, view @@SQL_MODE,
 
 {% columns %}
 {% column %}
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql" %}
-[SQL\_MODE=MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql)
+{% content-ref url="../../editions-and-compatibility/comparisons-with-other-databases/sql_modemssql.md" %}
+[SQL\_MODE=MSSQL](../../editions-and-compatibility/comparisons-with-other-databases/sql_modemssql.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -109,8 +109,8 @@ SQL_MODE=MSSQL enables Microsoft SQL Server compatibility behaviors in MariaDB.
 
 {% columns %}
 {% column %}
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle" %}
-[SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+{% content-ref url="../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md" %}
+[SQL\_MODE=ORACLE](../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -120,3 +120,5 @@ SQL_MODE=ORACLE enables Oracle Database compatibility behaviors in MariaDB.
 {% endcolumns %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

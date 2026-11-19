@@ -3,5 +3,5 @@ title: latest-es
 ---
 
 {% hint style="success" %}
-The latest long-term stable series is [MariaDB Enterprise Server 11.8](../../enterprise-server/11.8/whats-new.md)
+The latest long-term stable series is [MariaDB Enterprise Server 12.3](../../enterprise-server/12.3/whats-new.md)
 {% endhint %}

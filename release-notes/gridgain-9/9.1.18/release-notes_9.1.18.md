@@ -1,12 +1,13 @@
 ---
 description: >-
-  GridGain 9.1.18 brings major monitoring improvements, a better CLI tool
-  experience, and a reworked transaction API, and documents known data center
-  replication and SQL performance issues.
-hidden: true
+  GridGain 9.1.18 improves monitoring and the CLI tool, reworks the transaction
+  API, and documents known data center replication and SQL performance issues.
+  Released on 2026-02-20.
 ---
 
 # GridGain 9.1.18 Release Notes
+
+**Release date:** 20 Feb 2026
 
 ## Overview
 
@@ -137,7 +138,7 @@ readinessProbe:
 
 ### Custom Transformations for DCR Connector
 
-With this release, a new API was added for the [DCR Connector](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8) that can be used for complex data mapping.
+With this release, a new API was added for the [DCR Connector](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-management/migration-guides/migration-from-gridgain-8/dcr-from-gridgain-8) that can be used for complex data mapping.
 
 With it, instead of mapping GridGain 8 fields to GridGain 9 columns you can create a transformer class, and add it to the connector.
 
@@ -203,7 +204,7 @@ With it, instead of mapping GridGain 8 fields to GridGain 9 columns you can crea
   You cannot mix mapping via transformer with direct mapping. Make sure all of your fields are mapped correctly.
   {% endhint %}
 
-For more information about transformer configuration, see [DCR Connector](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8) documentation.
+For more information about transformer configuration, see [DCR Connector](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-management/migration-guides/migration-from-gridgain-8/dcr-from-gridgain-8) documentation.
 
 ### Improved CLI Tool Usability
 
@@ -233,7 +234,7 @@ cli config set ignite.cli.color-scheme=solarized-light
 
 ### Expanded Metrics
 
-This release adds a large number of metrics. For more information about working with metrics, see [Metrics Configuration](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/monitoring/configuring-metrics) documentation.
+This release adds a large number of metrics. For more information about working with metrics, see [Metrics Configuration](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-management/monitoring/configuring-metrics) documentation.
 
 #### Cache Metrics
 
@@ -273,7 +274,7 @@ A new `groups.localLeadersCount` metric is available for monitoring raft group l
 
 ### Extended Transaction Information
 
-Transaction labels are now included when transactions are referenced in [system views](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/system-views) and logs.
+Transaction labels are now included when transactions are referenced in [system views](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/monitoring/system-views) and logs.
 
 ### Long Polling for Continuous Queries
 
@@ -292,9 +293,9 @@ var options = ContinuousQueryOptions.builder()
 
 ### Low Latency Continuous Queries
 
-This release significantly reduces [continuous query](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/continuous-queries) latency with the following improvements:
+This release significantly reduces [continuous query](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/continuous-queries) latency with the following improvements:
 
-- Long polling, configurable with [`ContinuousQueryOptions.longPollingWaitTimeMs`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/continuous-queries#parameters), immediately delivers new events when the table was previously idle;
+- Long polling, configurable with [`ContinuousQueryOptions.longPollingWaitTimeMs`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/continuous-queries#parameters), immediately delivers new events when the table was previously idle;
 - Parallel partition polling removes event delivery delays caused by other partitions;
 - Active transactions no longer delay event delivery.
 
@@ -310,7 +311,7 @@ This release improves performance of correlated SQL queries by automatically con
 | IGN-30116 | General | Expected exceptions are no longer logged on connection attempt. |
 | IGN-30073 | CLI Tool | Added theme configuration for CLI tool. |
 | IGN-30072 | General | Extended log coverage for Placement Driver mechanism to track some edge cases during its recovery. |
-| IGN-30054 | Platforms and Clients | .NET: Added predefined mappers for simple types, so that reflection and runtime codegen are not required for things like table.GetRecordView<long>() and table.GetKeyValueView<Guid, string>(). |
+| IGN-30054 | Platforms and Clients | .NET: Added predefined mappers for simple types, so that reflection and runtime codegen are not required for things like `table.GetRecordView<long>()` and `table.GetKeyValueView<Guid, string>()`. |
 | IGN-30053 | General | Optimized read-only sql requests. |
 | IGN-30052 | General | Fixed an issue where a critical system error was triggered when a command observed an unexpected but legitimate state change. |
 | IGN-30051 | Cluster SQL Engine | Fixed an issue that caused queries to return result with duplicated rows when LEFT JOIN is performed. |
@@ -388,4 +389,8 @@ There are known issues with the performance of SQL read-write transactions in co
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

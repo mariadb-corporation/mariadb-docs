@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="790" height="420" viewBox="0 0 790 420" role="img" aria-label="Run MariaDB Server anywhere. Your code stays the same. Your application connects through a MariaDB connector, and your coding agent connects through the MariaDB MCP server. Both reach MariaDB Server, Community or Enterprise. MariaDB Server runs on any of four environments. You run it with Docker on your laptop, with Linux on your servers and VMs, or with the operator on your Kubernetes cluster, and MariaDB Enterprise Platform adds MaxScale, Galera Cluster, ColumnStore, Exa, and GridGain to any of these. Or MariaDB runs it for you in MariaDB Cloud. Switching environments changes only your connection settings: host, user, password, and TLS.">
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkacc" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs>
+<style>
+  text { fill: #ececef; font: 13px Lato, "Helvetica Neue", Arial, sans-serif; }
+  .mono { font-family: "JetBrains Mono", Menlo, Consolas, monospace; font-size: 12px; font-variant-ligatures: none; }
+  .t { font-weight: 700; font-size: 14px; } .sm { font-size: 12px; } .xs { font-size: 11px; }
+  .mut { fill: #a1a1aa; } .acct { fill: #BEA4FD; }
+  .box { fill: #1e1e22; stroke: #45454d; } .plain { fill: none; stroke: #45454d; }
+  .accbox { fill: #2b2242; stroke: #BEA4FD; } .frame { fill: none; stroke: #a1a1aa; stroke-dasharray: 5 4; }
+  .ln { fill: none; stroke: #ececef; stroke-width: 1.4; } .dash { stroke-dasharray: 5 4; }
+  .acc { stroke: #BEA4FD; stroke-width: 2; } .mut-ln { stroke: #a1a1aa; }
+  .fillacc { fill: #BEA4FD; } .fillsoft { fill: #2b2242; } .fillpanel { fill: #1e1e22; }
+  .halo { paint-order: stroke; stroke: #111113; stroke-width: 4px; stroke-linejoin: round; }
+  .on { fill: #18181b; } .cmd { font-size: 10.5px; font-variant-ligatures: none; }
+  .mk { fill: #ececef; } .mkacc { fill: #BEA4FD; }
+</style>
+
+<text class="t" x="395" y="26" text-anchor="middle">Run MariaDB Server anywhere. Your code stays the same.</text>
+
+<rect class="box" x="20" y="127" width="170" height="64" rx="6"/>
+<text class="t" x="105" y="155" text-anchor="middle">Your application</text>
+<text class="xs mut" x="105" y="174" text-anchor="middle">Python, Node.js, Java, PHP, .NET</text>
+<rect class="box" x="20" y="231" width="170" height="64" rx="6"/>
+<text class="t" x="105" y="259" text-anchor="middle">Your coding agent</text>
+<text class="xs mut" x="105" y="278" text-anchor="middle">Claude Code, Codex, and more</text>
+<line class="ln" x1="190" y1="159" x2="258" y2="193" marker-end="url(#a)"/>
+<text class="xs mut halo" x="228" y="155" text-anchor="middle">connector</text>
+<line class="ln" x1="190" y1="263" x2="258" y2="229" marker-end="url(#a)"/>
+<text class="xs mut halo" x="228" y="279" text-anchor="middle">MCP server</text>
+
+<rect class="accbox" x="260" y="159" width="190" height="104" rx="8"/>
+<text class="t acct" x="355" y="189" text-anchor="middle">MariaDB Server</text>
+<text class="xs" x="355" y="211" text-anchor="middle">SQL, JSON, vectors,</text>
+<text class="xs" x="355" y="227" text-anchor="middle">storage engines, replication</text>
+<text class="xs mut" x="355" y="249" text-anchor="middle">Community or Enterprise</text>
+
+<path class="plain" d="M450,211 H486"/>
+<path class="plain" d="M486,88 V334 M486,88 H510 M486,144 H510 M486,200 H510 M486,334 H510"/>
+<text class="xs mut" transform="rotate(-90 478 140)" x="478" y="140" text-anchor="middle">runs on any of these</text>
+
+<rect class="frame" x="500" y="40" width="270" height="242" rx="8"/>
+<text class="xs mut" x="512" y="56">You run it</text>
+<rect class="box" x="510" y="64" width="250" height="48" rx="6"/>
+<text class="t" x="526" y="85">Docker</text>
+<text class="xs mut" x="526" y="102">Your laptop, one command</text>
+<rect class="box" x="510" y="120" width="250" height="48" rx="6"/>
+<text class="t" x="526" y="141">Linux</text>
+<text class="xs mut" x="526" y="158">Your servers and VMs</text>
+<rect class="box" x="510" y="176" width="250" height="48" rx="6"/>
+<text class="t" x="526" y="197">Kubernetes</text>
+<text class="xs mut" x="526" y="214">Your cluster, with the operator</text>
+<text class="t xs" x="512" y="242">MariaDB Enterprise Platform adds</text>
+<text class="xs mut" x="512" y="257">MaxScale, Galera Cluster, ColumnStore,</text>
+<text class="xs mut" x="512" y="272">Exa, and GridGain to any of these</text>
+
+<text class="xs mut" x="512" y="302">MariaDB runs it</text>
+<rect class="box" x="510" y="310" width="250" height="48" rx="6"/>
+<text class="t" x="526" y="331">MariaDB Cloud</text>
+<text class="xs mut" x="526" y="348">MariaDB runs it for you</text>
+
+<text class="sm mut" x="395" y="390" text-anchor="middle">Switching environments changes only your connection settings: host, user, password, TLS.</text>
+<text class="sm acct" x="395" y="410" text-anchor="middle">Pick your environment in the tabs below.</text>
+
+</svg>

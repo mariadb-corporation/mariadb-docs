@@ -388,8 +388,9 @@ If the replication relationship between _main_ and _other_ is anything else, Dif
 * Type: server
 * Mandatory: Yes
 * Dynamic: No
+* Description: Specifies the primary server from which query results are returned to the client.
 
-The main target from which results are returned to the client. Must be a server and must be one of the servers listed in [targets](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#targets).
+The main target from which results are returned to the client. Must be a server and must be one of the servers listed in [targets](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#targets).
 
 If the connection to the main target cannot be created or is lost mid-session, the client connection will be closed.
 
@@ -398,16 +399,18 @@ If the connection to the main target cannot be created or is lost mid-session, t
 * Type: service
 * Mandatory: Yes
 * Dynamic: No
+* Description: Defines the service that Diff will operate on.
 
 Specifies the service Diff will modify.
 
 ### `explain`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `none`, `other`, \`both'
 * Default: `both`
+* Description: Determines whether queries are EXPLAINed on the main server, other servers, or both.
 
 Specifies whether a request should be EXPLAINed on only _other_, both _other_ and _main_ or neither.
 
@@ -417,15 +420,17 @@ Specifies whether a request should be EXPLAINed on only _other_, both _other_ an
 * Mandatory: No
 * Dynamic: Yes
 * Default: 2
+* Description: Sets the maximum number of times a canonical statement is EXPLAINed throughout the explain period.
 
 Specifies how many times at most a particular canonical statement is EXPLAINed during the period specified by [explain\_period](maxscale-diff.md#explain_period).
 
 ### `explain_period`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 15m
+* Description: Defines the time window over which the `explain_entries` limit applies for EXPLAIN operations.
 
 Specifies the length of the period during which at most [explain\_entries](maxscale-diff.md#explain_entries) number of EXPLAINs are executed for a statement.
 
@@ -435,16 +440,18 @@ Specifies the length of the period during which at most [explain\_entries](maxsc
 * Mandatory: No
 * Dynamic: Yes
 * Default: 10
+* Description: Sets the maximum allowed request la on replica servers before SELECTs are skipped to connect with the primary server.
 
 Specifies the maximum number of requests _other_ may be lagging behind _main_ before the execution of SELECTs against _other_ are skipped to bring it back in line with _main_.
 
 ### `on_error`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `close`, `ignore`
 * Default: `ignore`
+* Description: Determines whether errors from replica servers close the session or are ignored.
 
 Specifies whether an error from _other_, will cause the session to be closed. By default it will not.
 
@@ -456,34 +463,38 @@ Specifies whether an error from _other_, will cause the session to be closed. By
 * Min: 1
 * Max: 100
 * Default: 99
+* Description: Defines the percentile of samples used to calculate histogram width and bin count.
 
 Specifies the percentile of samples that will be considered when calculating the width and number of bins of the histogram.
 
 ### `qps_window`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: 15m
+* Description: Specifies the time window over which queries per second (QPS) are calculated and logged.
 
 Specifies the size of the sliding window during which QPS is calculated and stored. When a [summary](maxscale-diff.md#summary) is requested, the QPS information will also be saved.
 
 ### `report`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `always`, `on_discrepancy`, `never`
 * Default: `on_discrepancy`
+* Description: Defines when results from main and other executions are logged: always, on discrepancy, or never.
 
 Specifies when the results of executing a statement on _other_ and _main_ should be logged; _always_, when there is a significant difference or\_never\_.
 
 ### `reset_replication`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Controls whether replication on other is reset and restarted after a read-write Diff session completes.
 
 If Diff has started in read-write mode and the value of`reset_replication` is `true`, when the comparison ends it will execute the following on _other_:
 
@@ -502,6 +513,7 @@ Note that since Diff writes updates directly to both _main_ and\_other\_ there i
 * Mandatory: No
 * Dynamic: Yes
 * Default: 5
+* Description: Sets how many of the fastest statements are kept in memory for summary reporting.
 
 Specifies the number of faster statements that are retained in memory. The statements will be saved in the summary when the comparison ends, or when Diff is explicitly instructed to do so.
 
@@ -511,6 +523,7 @@ Specifies the number of faster statements that are retained in memory. The state
 * Mandatory: No
 * Dynamic: Yes
 * Default: 5
+* Description: Sets how many of the slowest statements are kept in memory for summary reporting.
 
 ### `samples`
 
@@ -519,6 +532,7 @@ Specifies the number of faster statements that are retained in memory. The state
 * Dynamic: Yes
 * Min: 100
 * Default: 1000
+* Description: Defines the number of samples collected to determine histrogram bin edges and counts.
 
 Specifies the number of samples that will be collected in order to define the edges and number of bins of the histograms.
 
@@ -526,7 +540,7 @@ Specifies the number of samples that will be collected in order to define the ed
 
 Diff is not capable of adapting to any changes made in the cluster configuration. For instance, if Diff starts up in read-only mode and _main_ is subsequently made _primary_, Diff will not sever the replication from _main_ to _other_. The result will be that _other_ receives the same writes twice; once via the replication from the server it is replicating from and once when Diff executes the same writes.
 
-Diff is not compatible with [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#configuration-synchronization). If _configuration synchronization_ is enabled, an attempt to create a Diff router will fail.
+Diff is not compatible with [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/runtime-configuration-changes.md#configuration-synchronization). If _configuration synchronization_ is enabled, an attempt to create a Diff router will fail.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

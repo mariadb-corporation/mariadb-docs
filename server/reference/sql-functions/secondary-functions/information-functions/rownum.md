@@ -10,7 +10,7 @@
 ROWNUM()
 ```
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) one can just use `ROWNUM`, without the parentheses.
+In [Oracle mode](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md) one can just use `ROWNUM`, without the parentheses.
 
 ## Description
 

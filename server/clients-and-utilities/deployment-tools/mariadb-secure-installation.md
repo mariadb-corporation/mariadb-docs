@@ -80,14 +80,17 @@ Thanks for using MariaDB!
 
 `mariadb-secure-installation` accepts some options:
 
-| Option                  | Description                                      |
-| ----------------------- | ------------------------------------------------ |
-| --basedir=dir           | Base directory.                                  |
-| --no-defaults           | Don't read default options from any option file. |
-| --defaults-file=#       | Only read default options from the given file #. |
-| --defaults-extra-file=# | Read this file after the global files are read.  |
+| Option                    | Description                                                                         |
+| ------------------------- | ----------------------------------------------------------------------------------- |
+| --basedir=dir             | Base directory.                                                                     |
+| --no-defaults             | Don't read default options from any option file.                                    |
+| --defaults-file=#         | Only read default options from the given file #.                                    |
+| --defaults-extra-file=#   | Read this file after the global files are read.                                     |
+| --defaults-group-suffix=# | In addition to the default option groups, also read option groups with this suffix. |
 
-Other unrecognized options is passed on to the server.
+Any other option is passed on to the [mariadb](../mariadb-client/mariadb-command-line-client.md) client that `mariadb-secure-installation` runs to connect to the server, for example `--socket` or `--port`.
+
+`mariadb-secure-installation` doesn't support `--print-defaults`. To list the options in the option groups it reads, run `my_print_defaults client client-server client-mariadb` (see [my\_print\_defaults](../administrative-tools/my_print_defaults.md)).
 
 ### Option Files
 
@@ -115,7 +118,7 @@ The following options relate to how MariaDB command-line tools handle option fil
 ## Use With Galera Cluster
 
 {% hint style="warning" %}
-This script is not completely safe for use with [Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide) as it directly manipulates the [mysql.user](../../reference/system-tables/the-mysql-database-tables/mysql-user-table.md)/[mysql.global\_priv](../../reference/system-tables/the-mysql-database-tables/mysql-global_priv-table.md) table, which is not propagated by Galera to the other nodes.
+This script is not completely safe for use with [Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide) as it directly manipulates the [mysql.user](../../reference/system-tables/the-mysql-database-tables/mysql-user-table.md)/[mysql.global\_priv](../../reference/system-tables/the-mysql-database-tables/mysql-global_priv-table.md) table, which is not propagated by Galera to the other nodes.
 {% endhint %}
 
 You should run this script on the first node in the cluster before adding more nodes.

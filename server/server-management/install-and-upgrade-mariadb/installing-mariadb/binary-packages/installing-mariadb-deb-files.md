@@ -1,16 +1,21 @@
 ---
 description: >-
   Complete .deb installation guide: add repo via mariadb_repo_setup, import GPG
-  keys, apt install mariadb-server galera-4, and APT configuration.
+  keys, install MariaDB Server and Galera packages with apt, and APT
+  configuration.
 ---
 
 # Installing MariaDB .deb Files
 
 ## Installing MariaDB with APT
 
-On Debian, Ubuntu, and other similar Linux distributions, it is highly recommended to install the relevant `.deb` packages from MariaDB's repository using [apt](https://manpages.ubuntu.com/manpages/bionic/man8/apt.8.html), [aptitude](https://manpages.ubuntu.com/manpages/bionic/man8/aptitude-curses.8.html), [Ubuntu Software Center](https://help.ubuntu.com/community/UbuntuSoftwareCenter), [Synaptic Package Manager](https://help.ubuntu.com/community/SynapticHowto), or another package manager.
+On Debian, Ubuntu, and other similar Linux distributions, it is highly recommended to install the relevant `.deb` packages from MariaDB's repository using [apt](https://manpages.ubuntu.com/manpages/bionic/man8/apt.8.html), [aptitude](https://manpages.ubuntu.com/manpages/bionic/man8/aptitude-curses.8.html), [Ubuntu Software Center](https://web.archive.org/web/20231224042152/https://help.ubuntu.com/community/UbuntuSoftwareCenter), [Synaptic Package Manager](https://web.archive.org/web/20240112002937/https://help.ubuntu.com/community/SynapticHowto), or another package manager.
 
 This page walks you through the simple installation steps using `apt`.
+
+{% hint style="info" %}
+Note for MariaDB Community Server 12.3.2 and later: Galera Cluster support is no longer included in the base `mariadb-server` package. To enable cluster functionality, you must explicitly install the `mariadb-server-galera` package, which also installs `galera-4`. In earlier versions, `mariadb-server` includes this functionality, there is no `mariadb-server-galera` package, and installing it fails with `E: Unable to locate package mariadb-server-galera`.
+{% endhint %}
 
 ### Adding the MariaDB APT repository
 
@@ -85,23 +90,23 @@ sudo apt update
 
 **Using Ubuntu Software Center**
 
-Another way to add an `apt` repository is by using [Ubuntu Software Center](https://help.ubuntu.com/community/UbuntuSoftwareCenter).
+Another way to add an `apt` repository is by using [Ubuntu Software Center](https://web.archive.org/web/20231224042152/https://help.ubuntu.com/community/UbuntuSoftwareCenter).
 
 You can do this by going to the **Software Sources** window. This window can be opened either by navigating to **Edit** > **Software Sources** or by navigating to **System** > **Administration** > **Software Sources**.
 
 Once the **Software Sources** window is open, go to the **Other Software** tab, and click the **Add** button. At that point, you can input the repository information provided by the [MariaDB Repository Configuration Tool](https://downloads.mariadb.org/mariadb/repositories/).
 
-See [here](https://help.ubuntu.com/community/UbuntuSoftwareCenter#Managing_software_sources) for more information.
+See [here](https://web.archive.org/web/20231224042152/https://help.ubuntu.com/community/UbuntuSoftwareCenter#Managing_software_sources) for more information.
 
 **Using Synaptic Package Manager**
 
-Another way to add an `apt` repository is by using [Synaptic Package Manager](https://help.ubuntu.com/community/SynapticHowto).
+Another way to add an `apt` repository is by using [Synaptic Package Manager](https://web.archive.org/web/20240112002937/https://help.ubuntu.com/community/SynapticHowto).
 
 You can do this by going to the **Software Sources** window. This window can be opened either by navigating to **System** > **Administrator** > **Software Sources** or by navigating to **Settings** > **Repositories**.
 
 Once the **Software Sources** window is open, go to the **Other Software** tab, and click the **Add** button. At that point, you can input the repository information provided by the [MariaDB Repository Configuration Tool](https://downloads.mariadb.org/mariadb/repositories/).
 
-See [here](https://help.ubuntu.com/community/SynapticHowto#Managing_Repositories) for more information.
+See [here](https://web.archive.org/web/20240112002937/https://help.ubuntu.com/community/SynapticHowto#Managing_Repositories) for more information.
 
 #### Pinning the MariaDB Repository to the repository of a Specific Minor Release
 
@@ -226,9 +231,19 @@ sudo apt update
 
 To Install the most common packages, execute the following command:
 
+{% tabs %}
+{% tab title="12.3.2 and later" %}
 ```bash
 sudo apt-get install mariadb-server mariadb-server-galera galera-4 mariadb-client libmariadb3 mariadb-backup mariadb-common
 ```
+{% endtab %}
+
+{% tab title="Earlier versions" %}
+```bash
+sudo apt-get install mariadb-server galera-4 mariadb-client libmariadb3 mariadb-backup mariadb-common
+```
+{% endtab %}
+{% endtabs %}
 
 #### Installing MariaDB Server with APT
 
@@ -248,9 +263,9 @@ sudo apt-get install mariadb-server
 
 The process to install MariaDB Galera Cluster with the MariaDB `apt-get` repository is practically the same as installing standard MariaDB Server.
 
-Galera Cluster support is included in the standard MariaDB Server packages, so you will need to install the `mariadb-server` package, as you normally would.
+In MariaDB Community Server 12.3.2 and later, you need to install the `mariadb-server` and `mariadb-server-galera` packages. In earlier versions, Galera Cluster support is included in the standard `mariadb-server` package, so you only need to install `mariadb-server`, as you normally would.
 
-You also need to install the `galera-4` package to obtain the [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide) 4 wsrep provider library.
+You also need the `galera-4` package to obtain the [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide) 4 wsrep provider library. In 12.3.2 and later, `mariadb-server-galera` installs it for you.
 
 To install MariaDB Galera Cluster, first you would have to update the package cache by executing the following command:
 
@@ -260,9 +275,19 @@ sudo apt update
 
 To install MariaDB Galera Cluster, you could execute the following command:
 
+{% tabs %}
+{% tab title="12.3.2 and later" %}
+```bash
+sudo apt-get install mariadb-server mariadb-server-galera mariadb-client galera-4
+```
+{% endtab %}
+
+{% tab title="Earlier versions" %}
 ```bash
 sudo apt-get install mariadb-server mariadb-client galera-4
 ```
+{% endtab %}
+{% endtabs %}
 
 MariaDB Galera Cluster also has a separate package that can be installed on arbitrator nodes. The package is called `galera-arbitrator-4`. This package should be installed on whatever node you want to serve as the arbitrator. It can either run on a separate server that is not acting as a cluster node, which is the recommended configuration, or it can run on a server that is also acting as an existing cluster node.
 
@@ -319,6 +344,23 @@ Then, execute the following command:
 ```bash
 sudo apt-get install mariadb-cracklib-password-check
 ```
+
+{% hint style="warning" %}
+In MariaDB 10.3 and 10.4, the `mariadb-plugin-rocksdb` DEB package includes `/usr/bin/sst_dump`. If the `rocksdb-tools` package provided by your distribution is already installed, installing the plugin fails because both packages provide that file:
+
+```
+trying to overwrite '/usr/bin/sst_dump', which is also in package rocksdb-tools
+```
+
+Remove `rocksdb-tools` and install the plugin again:
+
+```bash
+sudo apt remove rocksdb-tools
+sudo apt install mariadb-plugin-rocksdb
+```
+
+Starting with MariaDB 10.5, on most architectures the plugin package depends on `rocksdb-tools` instead of including its own copy of `sst_dump`, so do not remove it.
+{% endhint %}
 
 ### Installing Older Versions from the Repository
 
@@ -383,37 +425,42 @@ For MariaDB Enterprise, version numbers are similar, but have an extra point. Fo
 
 The rest of the install and setup process is as normal.
 
-## Installing MariaDB with dpkg
+## Installing MariaDB from a Package Tarball
 
-While it is not recommended, it is possible to download and install the`.deb` packages manually. However, it is generally recommended to use a package manager like `apt-get`.
+If a server can't use the MariaDB package repositories, for example because it has no internet access, you can install from a package tarball instead. Each tarball holds the `.deb` packages of one MariaDB Server release for one distribution, set up as a local APT repository: it includes a signed package index and a `setup_repository` script that adds the directory to APT.
 
-A tarball that contains the `.deb` packages can be downloaded from the following URL:
+Download the `.deb` package tarball for your MariaDB Server version and distribution from the [MariaDB Community Server downloads page](https://mariadb.com/downloads/community/community-server/).
 
-* [downloads.mariadb.com](https://downloads.mariadb.com)
+Install the packages with APT rather than with `dpkg`. The packages depend on each other and on packages from your distribution, and `dpkg` doesn't resolve those dependencies, so installing the `.deb` files directly with `dpkg` leaves them unconfigured.
 
-For example, to install the [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.21) `.deb` packages on Ubuntu 18.04 LTS (Bionic), you could execute the following:
+For example, to install MariaDB Server 12.3.4 on Ubuntu 24.04 LTS (Noble Numbat):
 
-```bash
-sudo apt-get update
-sudo apt-get install libdbi-perl libdbd-mysql-perl psmisc libaio1 socat
-wget https://downloads.mariadb.com/MariaDB/mariadb-10.6.21/repo/ubuntu/mariadb-10.6.21-ubuntu-bionic-amd64-debs.tar
-tar -xvf mariadb-10.6.21-ubuntu-bionic-amd64-debs.tar
-cd mariadb-10.6.21-ubuntu-bionic-amd64-debs/
-sudo dpkg --install ./mariadb-common*.deb \
-   ./mysql-common*.deb \
-   ./mariadb-client*.deb \
-   ./libmariadb3*.deb \
-   ./libmysqlclient18*.deb 
-sudo dpkg --install ./mariadb-server*.deb \
-   ./mariadb-backup*.deb \
-   ./galera-4*.deb
-```
+1.  Extract the tarball in a directory that APT can read, such as `/opt`, and run `setup_repository` from the extracted directory. It creates `/etc/apt/sources.list.d/mariadb.list`, which points APT at that directory:
+
+    ```bash
+    cd /opt
+    sudo tar -xf ~/mariadb-12.3.4-ubuntu-noble-amd64-debs.tar
+    cd mariadb-12.3.4-ubuntu-noble-amd64-debs
+    sudo ./setup_repository
+    ```
+2.  Update the package cache and install MariaDB Server:
+
+    ```bash
+    sudo apt update
+    sudo apt-get install mariadb-server
+    ```
+
+    APT installs the MariaDB packages from the tarball, and any other packages they need from your distribution's repositories.
+
+To install other packages from the tarball, such as `mariadb-backup` or the Galera Cluster packages, use the same commands as in [Installing MariaDB Packages with APT](#installing-mariadb-packages-with-apt).
+
+If your distribution also provides MariaDB packages, APT installs whichever version is newer. To check which version APT will install, run `apt-cache policy mariadb-server`. To install the version from the tarball regardless, name it, for example `sudo apt-get install mariadb-server=1:12.3.4+maria~ubu2404`.
 
 ## After Installation
 
 After the installation is complete, you can start MariaDB.
 
-If you are using [MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide), then keep in mind that the first node will have to be [bootstrapped](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster#bootstrapping-a-new-cluster).
+If you are using [MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide), then keep in mind that the first node will have to be [bootstrapped](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster#bootstrapping-a-new-cluster). In MariaDB Community Server 12.3.2 and later, bootstrapping requires the `mariadb-server-galera` package, so install it first.
 
 ## Upgrading to a new version of MariaDB
 
@@ -431,6 +478,16 @@ sudo apt install mariadb-server galera-4
 
 The reason for specifying the `galera-4` package is to ensure the correct updated version of Galera is installed along with the new server version, replacing the versions that were there before.
 
+{% hint style="warning" %}
+Note for MariaDB Community Server: if you run Galera Cluster and upgrade from a version earlier than 12.3.2 to 12.3.2 or later, install `mariadb-server-galera` explicitly:
+
+```bash
+sudo apt install mariadb-server mariadb-server-galera galera-4
+```
+
+The two commands earlier in this section (`apt upgrade mariadb-server` and `apt install mariadb-server galera-4`) don't install it, because `mariadb-server` doesn't depend on `mariadb-server-galera` or recommend it. Without it, the node loses `galera_new_cluster`, `galera_recovery`, and the `wsrep_sst_*` scripts.
+{% endhint %}
+
 ## Available DEB Packages
 
 The available DEB packages depend on the specific MariaDB release series.
@@ -441,7 +498,7 @@ For MariaDB, the following DEBs are available:
 
 | Package Name                             | Description                                                                                                                                                                                                                                        |
 | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `galera-4`                               | The WSREP provider for [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide) 4.                                                                                                                       |
+| `galera-4`                               | The WSREP provider for [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide) 4.                                                                                                                       |
 | `libmariadb3`                            | Dynamic client libraries.                                                                                                                                                                                                                          |
 | `libmariadb-dev`                         | Development headers and static libraries.                                                                                                                                                                                                          |
 | `libmariadbclient18`                     | Virtual package to satisfy external depends                                                                                                                                                                                                        |
@@ -457,7 +514,7 @@ For MariaDB, the following DEBs are available:
 | `mariadb-plugin-rocksdb`                 | The [MyRocks](../../../../server-usage/storage-engines/myrocks/) storage engine.                                                                                                                                                                   |
 | `mariadb-plugin-spider`                  | The [SPIDER](../../../../server-usage/storage-engines/spider/) storage engine.                                                                                                                                                                     |
 | `mariadb-server`                         | The server and server tools, like [myisamchk](../../../../clients-and-utilities/myisam-clients-and-utilities/myisamchk.md) and [mariadb-hotcopy](../../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-hotcopy.md) are here. |
-| `mariadb-server-galera`                  | Required for MariaDB Cluster (Galera) functionality. Includes cluster-specific scripts, systemd bootstrap logic, and the `wsrep_info` plugin.                                                                                                      |
+| `mariadb-server-galera`                  | Required for MariaDB Cluster (Galera) functionality. Includes cluster-specific scripts, systemd bootstrap logic, and the `wsrep_info` plugin. Available only in MariaDB Community Server 12.3.2 and later; in earlier versions this functionality is in `mariadb-server`.                                                                                                      |
 | `mariadb-server-core`                    | The core server.                                                                                                                                                                                                                                   |
 | `mariadb-test`                           | mysql-client-test executable, and mysql-test framework with the tests.                                                                                                                                                                             |
 | `mariadb-test-data`                      | MariaDB database regression test suite - data files                                                                                                                                                                                                |

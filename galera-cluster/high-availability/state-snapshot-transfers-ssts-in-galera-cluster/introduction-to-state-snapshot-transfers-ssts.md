@@ -94,10 +94,8 @@ tcert = /etc/my.cnf.d/certificates/client-cert.pem
 
 You also need to run the certificate directory through [openssl rehash](mariadb-backup-sst-method.md).
 
-{% hint style="warning" %}
-**MariaDB Enterprise Server 12.3.3-0 Beta does not install `stunnel`.** Its packages list `stunnel` neither as a requirement nor as a recommendation, on RPM or DEB, so an encrypted rsync SST cannot work until you install `stunnel` yourself. Enterprise Server 11.8 and earlier shipped it as a recommended package.
-
-**MariaDB Community Server 12.3 is not affected the same way.** There, `stunnel` is a recommended package of `mariadb-server-galera`, so a default install includes it. It is left out only when you install with recommendations disabled — `apt --no-install-recommends`, or `dnf`/`yum` with `install_weak_deps=False`.
+{% hint style="info" %}
+`stunnel` is a recommended package, not a required one: of `MariaDB-server` in MariaDB Enterprise Server, and of `mariadb-server-galera` in MariaDB Community Server 12.3. A default install includes it. It is left out only when you install with recommendations disabled — `apt --no-install-recommends`, or `dnf`/`yum` with `install_weak_deps=False` — and an encrypted rsync SST then cannot work until you install `stunnel` yourself.
 {% endhint %}
 
 ### mysqldump

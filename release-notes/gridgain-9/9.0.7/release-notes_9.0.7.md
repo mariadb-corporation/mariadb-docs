@@ -2,10 +2,12 @@
 description: >-
   GridGain 9.0.7 limits implicit SQL type casting and adds fair partition
   distribution, selective CSV import, and license monitoring.
-hidden: true
+  Released on 2024-10-08.
 ---
 
 # GridGain 9.0.7 Release Notes
+
+**Release date:** 8 Oct 2024
 
 ## Overview
 
@@ -124,4 +126,8 @@ The following features of GridGain 8 are not available in this version, and will
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

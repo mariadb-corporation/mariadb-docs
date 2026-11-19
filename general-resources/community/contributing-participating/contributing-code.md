@@ -66,7 +66,7 @@ All code in MariaDB comes from one of the following sources:
 * Code shared with the MariaDB Foundation under the [MCA](../community/legal-documents/mca.md).
 * Code with a known origin that is under a permissive license (BSD or public domain).
 
-If you want the code to be part of the main [MariaDB](https://app.gitbook.com/s/gmXC0YXB3rRhXvpg5mb1/) tree, you also have to give the MariaDB Foundation a shared copyright to your code. This is needed so that the foundation can offer the code to other projects (like MySQL).
+If you want the code to be part of the main [MariaDB](https://app.gitbook.com/s/1H8tuThi64HJmOJHG6nV/) tree, you also have to give the MariaDB Foundation a shared copyright to your code. This is needed so that the foundation can offer the code to other projects (like MySQL).
 
 You do this by either:
 

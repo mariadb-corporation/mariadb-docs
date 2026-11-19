@@ -96,3 +96,5 @@ In the rare case that you need to force a specific set of nodes to form a new Pr
 A node failure can also occur if a [State Snapshot Transfer (SST)](state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md) is interrupted. This will cause the receiving node (the "joiner") to abort its startup process. To recover, simply restart the MariaDB service on the failed joiner node.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

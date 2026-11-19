@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the first non-NULL value in a list, or NULL if every value is NULL.
+  Useful for substituting a default value for NULL.
+---
+
 # COALESCE
 
 ## Syntax

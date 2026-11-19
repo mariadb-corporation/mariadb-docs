@@ -41,13 +41,11 @@ space** — see *Non-space directories* below. Full breakdown and sub-structure:
 | Platform | `platform/` | MariaDB Enterprise Platform | ~820 |
 | MaxScale | `maxscale/` | MaxScale proxy | ~780 |
 | Connectors | `connectors/` | C, C++, Java, ODBC, Python, Node.js, .NET, R2DBC | ~290 |
-| Analytics | `analytics/` | ColumnStore / analytics | ~190 |
 | MariaDB Cloud | `mariadb-cloud/` | Cloud / DBaaS | ~135 |
 | Tools | `tools/` | Enterprise Manager, MCP server, Operator, AI-RAG | ~130 |
 | General Resources | `general-resources/` | About, community, style, legal | ~130 |
 | Galera Cluster | `galera-cluster/` | Galera replication | ~95 |
 | Help Tables | `help-tables/` | **Generated** SQL help tables | 2 |
-| Home | `home/` | Landing / portal | 4 |
 
 > `tools/` is documentation content (a space), **not** a scripts directory.
 
@@ -129,6 +127,10 @@ Pull requests run these GitHub Actions. Mirror them locally with the **`docs-che
 - Server **error-code pages** are refreshed by the nightly error-sync job, which also
   auto-commits `server/SUMMARY.md` — an authorized exception to the "SUMMARY.md is hand-curated"
   rule. Don't treat its entries as anomalies.
+- **`tools/community/mariadb-ai-plugins/` and `tools/community/mariadb-shell/`** are copied from
+  the products' own repos by `sync-community-tools-docs.yml`, which also writes their entries in
+  `tools/SUMMARY.md` and their sections on the Tools landing pages. Fix those pages in the
+  product repo; see `dev-docs/cookbook-community-tools-sync.md`.
 
 ## Style
 

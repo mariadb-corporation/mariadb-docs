@@ -220,6 +220,7 @@ The Connector with the Callback API is similar to the one using Promise, but wit
 
 * [`pool.getConnection([callback])`](connector-nodejs-callback-api.md#pool.getconnection-callback) : Creates a new connection.
 * [`pool.query(sql [, values][, callback])`](connector-nodejs-callback-api.md#pool.query-sql-values-callback): Executes a query.
+* [`pool.execute(sql [, values][, callback])`](connector-nodejs-callback-api.md#pool.execute-sql-values-callback): Prepares and executes a query.
 * [`pool.batch(sql, values [, callback])`](connector-nodejs-callback-api.md#pool.batch-sql-values-callback): Executes a batch
 * [`pool.end([callback])`](connector-nodejs-callback-api.md#pool.end-callback): Gracefully closes the connection.
 * [`pool.escape(value) → String`](connector-nodejs-callback-api.md#pool.escape-value-string): escape parameter
@@ -920,7 +921,7 @@ pool.getConnection((err, conn => {
 > * `values`: _array | object_ Placeholder values. Usually an array, but in cases of only one placeholder, it can be given as is.
 > * `callback`: _function_ Callback function with arguments (error, results, metadata).
 
-This is a shortcut to get a connection from the pool, execute a query, and release the connection.
+This is a shortcut to get a connection from the pool, execute a query, and release the connection. It works like [`connection.query()`](connector-nodejs-callback-api.md#connection.query-sql-values-callback-greater-than-emitter): the query is sent with the text protocol, and placeholder values are escaped client-side into the query text. To run the statement as a server-side prepared statement instead, use [`pool.execute()`](connector-nodejs-callback-api.md#pool.execute-sql-values-callback). Both methods bind placeholder values safely. Only the protocol differs.
 
 ```javascript
 const mariadb = require('mariadb/callback');
@@ -930,6 +931,26 @@ pool.query("SELECT NOW()", (err, results, metadata) => {
     //handle error
   } else {
     console.log(results); //[ { 'NOW()': 2018-07-02T17:06:38.000Z }, meta: [ ... ] ]
+  }
+});
+```
+
+### `pool.execute(sql[, values][, callback])`
+
+> * `sql`: _string | JSON_ SQL string or JSON object to supersede default connection options. When using JSON object, object must have an "sql" key. For instance, `{ dateStrings: true, sql: 'SELECT now()' }`
+> * `values`: _array | object_ Placeholder values. Usually an array, but in cases of only one placeholder, it can be given as is.
+> * `callback`: _function_ Callback function with arguments (error, results, metadata).
+
+This is a shortcut to get a connection from the pool, prepare and execute a query, and release the connection. The statement runs as a server-side prepared statement, like [`connection.execute()`](connector-nodejs-promise-api.md#connection.execute-sql-values-promise) in the Promise API, so placeholder values are sent with the binary protocol rather than escaped into the query text.
+
+```javascript
+const mariadb = require('mariadb/callback');
+const pool = mariadb.createPool({ host: 'mydb.com', user:'myUser' });
+pool.execute("SELECT id, name FROM users WHERE id = ?", [1], (err, results, metadata) => {
+  if (err) {
+    //handle error
+  } else {
+    console.log(results); //[ { id: 1, name: 'john' }, meta: [ ... ] ]
   }
 });
 ```

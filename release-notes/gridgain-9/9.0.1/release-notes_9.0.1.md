@@ -2,10 +2,12 @@
 description: >-
   GridGain 9.0.1 improves cluster stability and performance and adds continuous
   query metrics for Java and .NET clients.
-hidden: true
+  Released on 2024-07-16.
 ---
 
 # GridGain 9.0.1 Release Notes
+
+**Release date:** 16 Jul 2024
 
 ## Overview
 
@@ -74,4 +76,8 @@ The following features of GridGain 8 are not available in this version, and will
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

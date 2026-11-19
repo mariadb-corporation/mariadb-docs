@@ -161,12 +161,12 @@ The exact storage behavior may vary depending on the storage engine. For the spe
 ## Difference Between VARCHAR and TEXT
 
 * **Indexing differences**: `VARCHAR` columns can be fully indexed. [TEXT](text.md) columns can only be indexed over a specified length.
-* **Temporary table behavior**: Using [TEXT](text.md) or [BLOB](blob.md) in a [SELECT](../../sql-statements/data-manipulation/selecting-data/select.md) query that uses temporary tables for storing intermediate results will force the temporary table to be disk-based (using the [Aria storage engine](../../../server-usage/storage-engines/aria/aria-storage-engine.md) instead of the [memory storage engine](../../../server-usage/storage-engines/memory-storage-engine.md), which is a bit slower. This is not that bad, as the [Aria storage engine](../../../server-usage/storage-engines/aria/aria-storage-engine.md) caches the rows in memory. To get the benefit of this, one should ensure that the [aria\_pagecache\_buffer\_size](../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_pagecache_buffer_size) variable is big enough to hold most of the row and index data for temporary tables.
+* **Temporary table behavior**: Before MariaDB 13.2, using `TEXT` or [BLOB](blob.md) in a [SELECT](../../sql-statements/data-manipulation/selecting-data/select.md) query that uses temporary tables for storing intermediate results forces the temporary table to be disk-based, using the [Aria storage engine](../../../server-usage/storage-engines/aria/aria-storage-engine.md) instead of the [MEMORY storage engine](../../../server-usage/storage-engines/memory-storage-engine.md). From MariaDB 13.2, such temporary tables are created in memory as well, and are converted to Aria tables only when they grow too large. See [MEMORY: Internal Temporary Tables](../../../server-usage/storage-engines/memory-storage-engine.md#internal-temporary-tables). Disk-based temporary tables are cached in the Aria page cache, so make sure [aria\_pagecache\_buffer\_size](../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_pagecache_buffer_size) is big enough to hold most of their row and index data.
 * **Storage characteristics**: Although both can overflow, `TEXT` is primarily designed for off-page storage, beginning with a pointer in the main row. In contrast, `VARCHAR` is optimized to remain in-page and only overflows when row size limits necessitate it.
 
 ## Oracle Mode
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), `VARCHAR2` is a synonym.
+In [Oracle mode](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md), `VARCHAR2` is a synonym.
 
 ### For Storage Engine Developers
 
@@ -180,7 +180,7 @@ In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server
 * [CHAR](char.md)
 * [Character Sets and Collations](character-sets/)
 * [Data Type Storage Requirements](../data-type-storage-requirements.md)
-* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle#synonyms-for-basic-sql-types)
+* [Oracle mode](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md#synonyms-for-basic-sql-types)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

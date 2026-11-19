@@ -256,4 +256,6 @@ Several standard python types are converted into SQL types and returned as Pytho
 | Time             | TIME                                 |
 | Timestamp        | TIMESTAMP                            |
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

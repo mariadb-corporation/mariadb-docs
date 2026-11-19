@@ -30,6 +30,7 @@ port=3306
 * Mandatory: Yes, if `socket` is not provided.
 * Dynamic: Yes
 * Default: `""`
+* Description: Specifies the hostname or IP address of the backend server to which MaxScale connects.
 
 The IP-address or hostname of the machine running the database server. MaxScale uses this address to connect to the server.
 
@@ -41,6 +42,7 @@ Either _address_ or _socket_ must be defined, but not both. If the address is gi
 * Mandatory: No
 * Dynamic: Yes
 * Default: `3306`
+* Description: Identifies the port that connections are accepted by the backend server.
 
 The port the backend server listens on for incoming connections. MaxScale uses this port to connect to the server.
 
@@ -50,6 +52,7 @@ The port the backend server listens on for incoming connections. MaxScale uses t
 * Mandatory: Yes, if `address` is not provided.
 * Dynamic: Yes
 * Default: `""`
+* Description: Specifies the Unix domain socket route that is used to establish a connection with the backend server.
 
 The absolute path to a UNIX domain socket the MariaDB server is listening on.
 
@@ -59,8 +62,9 @@ The absolute path to a UNIX domain socket the MariaDB server is listening on.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: An alternate hostname or IP address is used for internal communications.
 
-Alternative IP-address or hostname for the server. This is only used by MariaDB Monitor to detect and set up replication. See [MariaDB Monitor documentation](maxscale-monitors/mariadb-monitor.md) for more information.
+Alternative IP-address or hostname for the server. This is only used by MariaDB Monitor to detect and set up replication. See [MariaDB Monitor documentation](maxscale-monitors/mariadb-monitor/README.md) for more information.
 
 ### `monitoruser`
 
@@ -68,6 +72,7 @@ Alternative IP-address or hostname for the server. This is only used by MariaDB 
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies the username used for authentication in server‑specific monitoring.
 
 This setting together with [monitorpasswd](maxscale-servers.md#monitorpw) define server-specific credentials for monitoring the server. Monitors typically use the credentials in their own configuration sections to connect to all servers. If server-specific settings are given, the monitor uses those instead.
 
@@ -82,6 +87,7 @@ monitorpw=mymonitorpasswd
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies the password that is needed to authenticate server-specific monitoring.
 
 This setting together with [monitoruser](maxscale-servers.md#monitoruser) define server-specific credentials for monitoring the server. Monitors typically use the credentials in their own configuration sections to connect to all servers. If server-specific settings are given, the monitor uses those instead.
 
@@ -90,7 +96,7 @@ monitoruser=mymonitoruser
 monitorpw=mymonitorpasswd
 ```
 
-`monitorpw` may be either a plain text password or an encrypted password. See the section [encrypting passwords](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#encrypting-passwords) for more information.
+`monitorpw` may be either a plain text password or an encrypted password. See the section [encrypting passwords](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#encrypting-passwords) for more information.
 
 ### `extra_port`
 
@@ -98,6 +104,7 @@ monitorpw=mymonitorpasswd
 * Mandatory: No
 * Dynamic: Yes
 * Default: `0`
+* Description: Specifies an alternative port that MaxScale uses for administrative connections to the backend server.
 
 An alternative port used for administrative connections to the server. If this setting is defined, MaxScale uses it for monitoring the server and to fetch user accounts. Client sessions will still use the normal port.
 
@@ -113,6 +120,7 @@ For more information, see [extra\_port](../../server/ha-and-performance/optimiza
 * Mandatory: No
 * Dynamic: Yes
 * Default: `0`
+* Description: Defines the server connection pool's maximum size.
 
 Sets the size of the server connection pool. Disabled by default. When enabled, MaxScale places unused connections to the server to a pool and reuses them later. Connections typically become unused when a session closes. If the size of the pool reaches _persistpoolmax_, unused connections are closed instead.
 
@@ -122,12 +130,13 @@ When a MariaDB-protocol connection is taken from the pool to be used in a new se
 
 ### `persistmaxtime`
 
-* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `0s`
+* Description: Shows how long a connection can stay in the persistent pool before being discarded.
 
-The `persistmaxtime` parameter defaults to zero but can be set to a duration as documented [here](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations). If no explicit unit is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent versions a value without a unit may be rejected. Note that since the granularity of the parameter is seconds, a value specified in milliseconds will be rejected, even if the duration is longer than a second.
+The `persistmaxtime` parameter defaults to zero but can be set to a duration as documented [here](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations). If no explicit unit is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent versions a value without a unit may be rejected. Note that since the granularity of the parameter is seconds, a value specified in milliseconds will be rejected, even if the duration is longer than a second.
 
 A DCB placed in the persistent pool for a server will only be reused if the elapsed time since it joined the pool is less than the given value. Otherwise, the DCB will be discarded and the connection closed.
 
@@ -139,14 +148,15 @@ A DCB placed in the persistent pool for a server will only be reused if the elap
 * Default: 0 in MaxScale, 15 in MaxScale Trial.
 * Minimum: 0 in MaxScale, 1 in MaxScale Trial.
 * Maximum: Unlimited in MaxScale, 15 in MaxScale Trial.
+* Description: Provides the maximum number of routing connections to the server.
 
 Maximum number of routing connections to this server. Connections held in a pool also count towards this maximum. Does not limit monitor connections or user account fetching. A value of 0 means no limit, which is the default for MaxScale. MaxScle Trial is limited to a maximum of 15 connections per server.
 
-Since every client session can generate a connection to a server, the server may run out of memory when the number of clients is high enough. This setting limits server memory use caused by MaxScale. The effect depends on if the service setting [idle\_session\_pool\_time](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#idle_session_pool_time), i.e. connection sharing, is enabled or not.
+Since every client session can generate a connection to a server, the server may run out of memory when the number of clients is high enough. This setting limits server memory use caused by MaxScale. The effect depends on if the service setting [idle\_session\_pool\_time](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#idle_session_pool_time), i.e. connection sharing, is enabled or not.
 
 If connection sharing is not on, _max\_routing\_connections_ simply sets a limit. Any sessions attempting to exceed this limit will fail to connect to the backend. The client can still connect to MaxScale, but queries will fail.
 
-If connection sharing is on, sessions exceeding the limit will be put on hold until a connection is available. Such sessions will appear unresponsive, as queries will hang, possibly for a long time. The timeout is controlled by [multiplex\_timeout](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#multiplex_timeout).
+If connection sharing is on, sessions exceeding the limit will be put on hold until a connection is available. Such sessions will appear unresponsive, as queries will hang, possibly for a long time. The timeout is controlled by [multiplex\_timeout](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#multiplex_timeout).
 
 ```
 max_routing_connections=1234
@@ -154,10 +164,11 @@ max_routing_connections=1234
 
 ### `proxy_protocol`
 
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Allows the original client IP address and port to be forwarded to backend servers using PROXY protocol headers.
 
 If `proxy_protocol` is enabled, MaxScale will send a [PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt) header when connecting client sessions to the server. The header contains the original client IP address and port, as seen by MaxScale. The server will then read the header and perform authentication as if the connection originated from this address instead of MaxScale's IP address. With this feature, the user accounts on the backend server can be simplified to only contain the actual client hosts and not the MaxScale host.
 
@@ -173,6 +184,7 @@ Other SQL-servers may support PROXY protocol as well, but the implementation may
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Defines disk usage threshold that triggers warnings or actions when exceeded.
 
 This parameter specifies how full a disk may be, before MaxScale should start logging warnings or take other actions (e.g. perform a switchover). This functionality only works if the `DISKS` _information schema plugin_ has been installed.
 
@@ -215,11 +227,12 @@ There is no default value, but this parameter must be explicitly specified if th
 
 ### `rank`
 
-* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `primary`, `secondary`
 * Default: `primary`
+* Description: Specifies the server's priority when making routing decisions.
 
 This parameter controls the order in which servers are used. Valid values for this parameter are `primary` and `secondary`. The default value is `primary`.
 
@@ -227,7 +240,7 @@ This behavior depends on the router implementation but the general rule of thumb
 
 Readconnroute will always use primary servers before secondary servers as long as they match the configured server type.
 
-Readwritesplit will pick servers that have the same rank as the current primary. Read the [readwritesplit documentation on server ranks](maxscale-routers/maxscale-readwritesplit.md#server-ranks) for a detailed description of the behavior.
+Readwritesplit will pick servers that have the same rank as the current primary. Read the [readwritesplit documentation on server ranks](maxscale-routers/maxscale-readwritesplit/README.md#server-ranks) for a detailed description of the behavior.
 
 The following example server configuration demonstrates how `rank` can be used to exclude `DR-site` servers from routing.
 
@@ -261,6 +274,7 @@ The `main-site-primary` and `main-site-replica` servers will be used as long as 
 * Mandatory: No
 * Dynamic: Yes
 * Default: 0
+* Description: Sets the server's priority for selecting the main node.
 
 Server priority. Only used by galeramon to choose the order in which nodes are selected as the current primary server. Refer to the [Server Priorities](maxscale-monitors/galera-monitor.md#interaction-with-server-priorities) section of the galeramon documentation for more information on how to use it.
 
@@ -273,6 +287,7 @@ Starting with MaxScale 2.5.21, this parameter also accepts negative values. In o
 * Dynamic: Yes
 * Values: `down`, `up`, `read`, `write`
 * Default: `down`
+* Description: Provides the initial status of the server when it starts or its reconfigured.
 
 The initial state of a server. This is the status in which the server is set into whenever it starts up or is reconfigured. This is only taken into account if the server is not being monitored by a monitor.
 
@@ -283,17 +298,19 @@ The main use-case of this setting is to enable static roles for servers that hav
 * Type: string
 * Default: None
 * Dynamic: Yes
+* Description: Defines custom options added to replication commands for server.
 
 Server-specific custom string added to "CHANGE MASTER TO"-commands sent by MariaDB Monitor. Overrides `replication_custom_options` setting set in the monitor. This setting affects the server where the command is ran at, not the source of the replication. That is, if monitor sends a "CHANGE MASTER TO"- command to server A telling it to replicate from server B, the setting value from MaxScale configuration for server A would be used.
 
-See [MariaDB Monitor documentation](maxscale-monitors/mariadb-monitor.md#replication_custom_options) for more information.
+See [MariaDB Monitor documentation](maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#replication_custom_options) for more information.
 
 ### `use_service_credentials`
 
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Manages whether service credentials are used for backend authentication before switching to the client user.
 
 Whether to use the service credentials to log into MariaDB and then switch to the client account. This feature is only used when the backend database is MariaDB version 12 or newer and if the service user has the `SET USER` grant.
 
@@ -307,7 +324,10 @@ To disable this and log in directly using the client credentials, add `use_servi
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies a comma-separated list of user-defined labels assigned to the server.
 
 Comma-separated list of labels that are assigned for this server. These are user-defined labels that by default aren't interpreted by MaxScale. Some router modules may use them to customize the routing or to provide other mechanisms that otherwise depend on user-defined parameters.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

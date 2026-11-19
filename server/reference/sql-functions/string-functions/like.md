@@ -37,7 +37,7 @@ if it is valid in the expression's character set. For example, `_` will match `_
 will not match `_latin1"€"` because the Euro sign is not a valid latin1 character. If necessary,
 use [CONVERT](convert.md) to use the expression in a different character set.
 
-If you need to match the characters `_` or `%`, you must escape them. By default, you can prefix the wildcard characters the backslash character `\` to escape them. The backslash is used both to encode special characters like newlines when a string is parsed as well as to escape wildcards in a pattern after parsing. Thus, to match an actual backslash, you sometimes need to double-escape it as `"\``\``\``\"`.
+If you need to match the characters `_` or `%`, you must escape them. By default, you can prefix the wildcard characters with the backslash character `\` to escape them. The backslash is used both to encode special characters like newlines when a string is parsed as well as to escape wildcards in a pattern after parsing. Thus, to match a literal backslash in a string literal, write it as four backslashes: `'a\\\\b'` matches the string `a\b`.
 
 To avoid difficulties with the backslash character, you can change the wildcard escape character using `ESCAPE` in a `LIKE` expression. The argument to `ESCAPE` must be a single-character string.
 
@@ -115,12 +115,12 @@ SELECT * FROM t1 where d like "t%";
 Use [collate](../secondary-functions/information-functions/collation.md) to specify a binary collation, forcing case-sensitive matches:
 
 ```sql
-SELECT * FROM t1 WHERE d like "t%" COLLATE latin1_bin;
+SELECT * FROM t1 WHERE d like "t%" COLLATE utf8mb4_bin;
 ```
 
 ```sql
-SELECT * FROM t1 WHERE d like "t%" COLLATE latin1_bin;
-Empty SET (0.00 sec)
+SELECT * FROM t1 WHERE d like "t%" COLLATE utf8mb4_bin;
+Empty set (0.00 sec)
 ```
 
 You can include functions and operators in the expression to match. Select dates based on their day name:
@@ -139,14 +139,32 @@ SELECT * FROM t2 WHERE DAYNAME(d) LIKE "T%";
 
 ```sql
 SELECT * FROM t2 WHERE DAYNAME(d) LIKE "T%";
-+------------------+
-| d                |
-+------------------+
-| 2007-01-30 21:31 |
-| 2011-04-21 12:34 |
-| 2004-10-07 11:19 |
-+------------------+
-3 rows in set, 7 warnings (0.00 sec)
++---------------------+
+| d                   |
++---------------------+
+| 2007-01-30 21:31:07 |
+| 2011-04-21 12:34:56 |
+| 2004-10-07 11:19:34 |
++---------------------+
+3 rows in set (0.00 sec)
+```
+
+Match a literal `%` by escaping it, either with the default backslash or with a different escape character set by `ESCAPE`:
+
+```sql
+SELECT '10% off' LIKE '10\%%', '100 off' LIKE '10\%%';
++------------------------+------------------------+
+| '10% off' LIKE '10\%%' | '100 off' LIKE '10\%%' |
++------------------------+------------------------+
+|                      1 |                      0 |
++------------------------+------------------------+
+
+SELECT '10% off' LIKE '10=%%' ESCAPE '=';
++-----------------------------------+
+| '10% off' LIKE '10=%%' ESCAPE '=' |
++-----------------------------------+
+|                                 1 |
++-----------------------------------+
 ```
 
 ## Optimizing LIKE

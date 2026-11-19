@@ -117,6 +117,7 @@ During shutdown, the Kafka event queue is flushed. This can take up to 60 second
 * Type: string
 * Mandatory: Yes
 * Dynamic: No
+* Description: Specifies the list of Kafka brokers in `host:port` format for connecting to the cluster. 
 
 The list of Kafka brokers to use in `host:port` format. Multiple values can be separated with commas. This is a mandatory parameter.
 
@@ -125,15 +126,17 @@ The list of Kafka brokers to use in `host:port` format. Multiple values can be s
 * Type: string
 * Mandatory: Yes
 * Dynamic: No
+* Description: Specifies the Kafka topic where replicated events are published.
 
 The Kafka topic where the replicated events will be sent. This is a mandatory parameter.
 
 ### `enable_idempotence`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
+* Description: Enables idempotent Kafka producer mode to reduce duplicate message delivery and preserve message order.
 
 Enable idempotent producer mode. This feature requires Kafka version 0.11 or newer to work and is disabled by default.
 
@@ -145,10 +148,11 @@ When set to true, the producer will ensure that messages are successfully produc
 
 ### `timeout`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `10s`
+* Description: Defines the timeout for establishing and reading from the replication stream connection.
 
 The connection and read timeout for the replication stream.
 
@@ -158,6 +162,7 @@ The connection and read timeout for the replication stream.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Specifies the initial GTID position for replication; supports `newest` and `oldest` special values. 
 
 The initial GTID position from where the replication is started. By default the replication is started from the beginning. The value of this parameter is only used if no previously replicated events with GTID positions can be retrieved from Kafka.
 
@@ -174,15 +179,17 @@ Once the replication has started and a GTID position has been recorded, this par
 * Mandatory: No
 * Dynamic: No
 * Default: `1234`
+* Description: Specifies the server ID used when connecting to the primary for replication.
 
 The [server\_id](../../../server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#server_id) used when replicating from the primary in direct replication mode. The default value is 1234. This parameter was added in MaxScale 2.5.7.
 
 ### `match`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Includes only tables whose combined database and table names match the specified pattern for Kafka replication.
 
 Only include data from tables that match this pattern.
 
@@ -207,10 +214,11 @@ exclude=db1[.](accounts|users)
 
 ### `exclude`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Excludes tables matching a specified pattern from being sent to Kafka.
 
 Exclude data from tables that match this pattern.
 
@@ -220,10 +228,11 @@ The pattern matching works the same way for both of the `exclude` and `match` pa
 
 ### `cooperative_replication`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
+* Description: Enables coperative replication, allowing multiple MaxScale instances to replicate from the same cluster while ensuring each event is processed only once.
 
 Controls whether multiple instances cooperatively replicate from the same cluster. This is a boolean parameter and is disabled by default. It was added in MaxScale 6.0.
 
@@ -235,10 +244,11 @@ This means that multiple MaxScale instances can replicate from the same set of s
 
 ### `send_schema`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
+* Description: Controls whether table schema change events are sent as JSON objects into the Kafka stream.
 
 Send JSON schema object into the stream whenever the table schema changes. These events, as described [here](maxscale-kafkacdc.md#overview), can be used to detect whenever the format of the data being sent changes.
 
@@ -246,19 +256,35 @@ If this information in these schema change events is not needed or the code that
 
 ### `read_gtid_from_kafka`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
+* Description: Determines whether to read the latest GTID from Kafka on startup to resume replication.
 
 On startup, the latest GTID is by default read from the Kafka cluster. This makes it possible to recover the replication position stored by another MaxScale. Sometimes this is not desirable and the GTID should only be read from the local file or started anew. Examples of these are when the GTIDs are reset or the replication topology has changed.
 
-### `kafka_ssl`
+### `lower_case_table_names`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
+* Description: Enables conversion of database and table names to lowercase.
+
+If enabled, all events will have their database and table names converted to their lowercase form. The conversion only works for names in the ASCII character set.
+
+Enable this parameter when the MariaDB server runs with [lower\_case\_table\_names](../../../server/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lower_case_table_names) set to `1`. The server then writes lowercase table names into row events but keeps the original case in DDL statements, so without this parameter KafkaCDC can't match the row events to the table definitions.
+
+This parameter was added in MaxScale 23.02.19, 24.02.10, 25.01.7, and 25.10.3.
+
+### `kafka_ssl`
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
+* Mandatory: No
+* Dynamic: No
+* Default: `false`
+* Description: Enables SSL encryption for Kafka connections.
 
 Enable SSL for Kafka connections. This is a boolean parameter and is disabled by default.
 
@@ -268,6 +294,7 @@ Enable SSL for Kafka connections. This is a boolean parameter and is disabled by
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Specifies the path to the CA certificate file for SSL Kafka connections.
 
 Path to the certificate authority file in PEM format. If this is not provided, the default system certificates will be used.
 
@@ -277,6 +304,7 @@ Path to the certificate authority file in PEM format. If this is not provided, t
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Specifies the path to the client SSL certificate file for Kafka connections.
 
 Path to the public certificate in PEM format.
 
@@ -290,6 +318,7 @@ If `kafka_ssl_cert` is provided, `kafka_ssl_key` must also be provided.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Specifies the path to the client SSL private key for Kafka connections.
 
 Path to the private key in PEM format.
 
@@ -301,6 +330,7 @@ If `kafka_ssl_key` is provided, `kafka_ssl_cert` must also be provided.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Specifies the username used for SASL authentication with Kafka.
 
 Username for SASL authentication.
 
@@ -312,6 +342,7 @@ If `kafka_sasl_user` is provided, `kafka_sasl_password` must also be provided.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Specifies the password used for SASL authentication with Kafka.
 
 Password for SASL authentication.
 
@@ -319,11 +350,12 @@ If `kafka_sasl_password` is provided, `kafka_sasl_user` must also be provided.
 
 ### `kafka_sasl_mechanism`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`
 * Default: `PLAIN`
+* Description: Specifies the SASL authentication mechanism for connecting to Kafka, such as `PLAIN` or `SCRAM-SHA` variants.
 
 The SASL mechanism used. The default value is `PLAIN` which uses plaintext authentication. It is recommended to enable SSL whenever plaintext authentication is used.
 
@@ -369,6 +401,8 @@ topic=my-cdc-topic
 ## Limitations
 
 * The KafkaCDC module provides at-least-once semantics for the generated events. This means that each replication event is delivered to kafka at least once but there can be duplicate events in case of failures.
+
+* `lower_case_table_names` only works for names in the ASCII character set.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

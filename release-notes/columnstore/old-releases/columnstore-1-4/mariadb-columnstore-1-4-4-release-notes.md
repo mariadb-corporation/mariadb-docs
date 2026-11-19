@@ -22,7 +22,7 @@ columnstore\_use\_import\_for\_batchinsert system variable option ALWAYS added t
 
 * A hang may occur in `load_brm` on `dbroot1` failover. ([MCOL-3945](https://jira.mariadb.org/browse/MCOL-3945))
 * [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/create-table) may be blocked by improper failover. ([MCOL-3999](https://jira.mariadb.org/browse/MCOL-3999))
-* Crash may occur when using cpimport ([LOAD DATA LOCAL INFILE](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/reference/data-manipulation-statements/columnstore-load-data-infile)) to process data containing multi-byte characters. ([MCOL-4005](https://jira.mariadb.org/browse/MCOL-4005))
+* Crash may occur when using cpimport ([LOAD DATA LOCAL INFILE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/reference/data-manipulation-statements/columnstore-load-data-infile)) to process data containing multi-byte characters. ([MCOL-4005](https://jira.mariadb.org/browse/MCOL-4005))
 * Rollback may trigger crash of StorageManager. ([MCOL-4021](https://jira.mariadb.org/browse/MCOL-4021))
 * PM failover and `movePmDbrootConfig` failure on CentOS 7 with glusterfs. ([MCOL-3842](https://jira.mariadb.org/browse/MCOL-3842))
 

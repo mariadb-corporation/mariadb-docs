@@ -1,3 +1,9 @@
+---
+description: >-
+  Test whether a value is not NULL. IS NOT NULL returns 1 for any non-NULL
+  value and 0 for NULL.
+---
+
 # IS NOT NULL
 
 ## Syntax

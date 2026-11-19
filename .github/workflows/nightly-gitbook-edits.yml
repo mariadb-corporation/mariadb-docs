@@ -1,0 +1,307 @@
+name: Nightly GitBook-edit digest
+
+# Lists every edit merged in the GitBook app since the last run, with content-gate results,
+# so the docs team reviews it after the fact (DOCS-6914).
+#
+# WHY THIS EXISTS
+#   A GitBook-UI edit reaches `main` as a `GITBOOK-<n>: <title>` commit, committer gitbook-bot,
+#   author the editor. No pull request, so none of the PR gates run on it and nobody reviews it:
+#   about 58 such commits between July and October 2026. Blocking those merges is not
+#   practical, so this is post-hoc review instead, for EVERY GitBook editor rather than for one
+#   person. The review routine (who looks, how a post is marked done, how fixes are filed) is in
+#   dev-docs/cookbook-gitbook-edit-review.md.
+#
+# HOW IT DIFFERS FROM THE OTHER NIGHTLY DIGESTS
+#   nightly-fragcheck, nightly-aliascheck and nightly-timeless each check one rule and speak
+#   only when it broke. This one lists every GitBook commit, failing or not, because the point
+#   is that a human looks at each diff; the gate results ride along. It runs every gate
+#   run-doc-gates.sh runs (DOCS-6675), per commit, against that commit's parent, and reports
+#   only what the commit itself introduced -- see .github/scripts/gitbook-edit-digest.sh.
+#
+# Report only, by design: it never rewrites or pushes. A correction goes through a normal PR
+# that names the original commit.
+
+on:
+  workflow_dispatch:
+    inputs:
+      always_post:
+        description: 'Post to Slack even when there were no GitBook edits'
+        required: false
+        default: false
+        type: boolean
+      base_rev:
+        description: 'Override the start of the window (a sha or anything git rev-parse accepts)'
+        required: false
+        default: ''
+        type: string
+      head_rev:
+        description: 'Override the end of the window (default: the checked-out commit)'
+        required: false
+        default: ''
+        type: string
+  # 06:35 UTC, after the other four digests (06:15-06:30), so this one -- the longest -- does
+  # not land in the middle of them. Weekends are skipped, as for the others.
+  #
+  # Two entries so the steps can tell Monday apart: github.event.schedule carries the cron
+  # string verbatim.
+  schedule:
+    # Tue-Fri: posts when there was at least one GitBook edit.
+    - cron: '35 6 * * 2-5'
+    # Monday: covers the whole weekend, and also posts when there was nothing, as the
+    # weekly heartbeat.
+    - cron: '35 6 * * 1'
+
+permissions:
+  contents: read
+  # To read the head of the previous successful scheduled run, which starts the window.
+  actions: read
+
+concurrency:
+  group: nightly-gitbook-edits
+  cancel-in-progress: false
+
+jobs:
+  digest:
+    # Upstream only: forks must not open bot PRs, post to Slack or publish (DOCS-6934).
+    if: github.repository == 'mariadb-corporation/mariadb-docs'
+    runs-on: ubuntu-latest
+    # About 35 seconds per gated commit, twice that for one with findings (the parent is gated
+    # too). The busiest day since July had six GitBook commits. Without a limit a wedged lychee
+    # would inherit the 6-hour default and end as *cancelled*, which `if: failure()` misses.
+    timeout-minutes: 45
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          # REQUIRED: every commit is checked out into its own worktree and gated against its
+          # parent, and the history-aware gates SKIP (and exit 0) on a missing base.
+          # run-doc-gates.sh turns that into an error, but only fetch-depth: 0 makes it work.
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      # Same two installs as doc-gates.yml, and load-bearing for the same reason: doc-lint.sh
+      # SKIPs a gate whose tool is absent. The canary in run-doc-gates.sh fails the run if
+      # either is missing.
+      - name: Install codespell
+        run: |
+          set -euo pipefail
+          pipx install codespell
+          codespell --version
+
+      - name: Install a pinned lychee
+        env:
+          LYCHEE_VERSION: lychee-v0.24.2
+          LYCHEE_SHA256: 1f4e0ef7f6554a6ed33dd7ac144fb2e1bbed98598e7af973042fc5cd43951c9a
+        run: |
+          set -euo pipefail
+          tarball="$RUNNER_TEMP/lychee.tar.gz"
+          curl -fsSL -o "$tarball" \
+            "https://github.com/lycheeverse/lychee/releases/download/${LYCHEE_VERSION}/lychee-x86_64-unknown-linux-gnu.tar.gz"
+          echo "${LYCHEE_SHA256}  ${tarball}" | sha256sum --check --strict
+          tar -xzf "$tarball" -C "$RUNNER_TEMP"
+          install -m 0755 "$RUNNER_TEMP/lychee-x86_64-unknown-linux-gnu/lychee" /usr/local/bin/lychee
+          lychee --version
+
+      - name: Resolve the window
+        id: window
+        env:
+          BASE_OVERRIDE: ${{ inputs.base_rev }}
+          HEAD_OVERRIDE: ${{ inputs.head_rev }}
+          SCHEDULE: ${{ github.event.schedule }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          resolve() {
+            local rev
+            rev=$(git rev-parse --verify "${1}^{commit}" 2>/dev/null || true)
+            if [[ -z "$rev" ]]; then
+              echo "::error::'$1' does not resolve to a commit in this clone."
+              exit 1
+            fi
+            echo "$rev"
+          }
+
+          if [[ -n "${HEAD_OVERRIDE:-}" ]]; then head=$(resolve "$HEAD_OVERRIDE"); else head=$(git rev-parse HEAD); fi
+
+          if [[ -n "${BASE_OVERRIDE:-}" ]]; then
+            base=$(resolve "$BASE_OVERRIDE")
+            source="the base_rev input"
+          else
+            # Start where the last successful scheduled run ended (DOCS-6930). A window
+            # measured back by time from "now" leaves gaps: GitHub starts scheduled runs 30 to
+            # 55 minutes late, by a different amount each day, so when a run starts later than
+            # the one before it, an edit landing between the two start times is the newest
+            # commit before the cutoff -- it becomes `base`, and base..head excludes it. A
+            # failed or never-started run would also leave its day uncovered for good.
+            #
+            # Only scheduled runs count: a dispatch may have covered an arbitrary window.
+            # Only successful ones: a failed run is covered again, so an entry can repeat but
+            # cannot be dropped. The run in progress is not `success` yet, so it is not found.
+            base=""
+            prev=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow nightly-gitbook-edits.yml \
+                     --event schedule --status success --branch main --limit 1 \
+                     --json headSha,databaseId --jq '.[0] | "\(.headSha) \(.databaseId)"' || true)
+            prev_sha=${prev%% *}
+            prev_run=${prev##* }
+            if [[ -n "$prev_sha" && "$prev_sha" != null ]] &&
+               git rev-parse --verify --quiet "${prev_sha}^{commit}" > /dev/null &&
+               git merge-base --is-ancestor "$prev_sha" "$head"; then
+              base=$prev_sha
+              source="the head of scheduled run ${prev_run}"
+            else
+              # No usable previous run: the first run, a lookup failure, or a rewritten
+              # history. Fall back to a time window. Monday covers 72 hours, not 24: with no
+              # weekend runs, a 24-hour Monday window would never list an edit made between
+              # Friday morning and Sunday morning.
+              hours=24
+              [[ "${SCHEDULE:-}" == '35 6 * * 1' ]] && hours=72
+              echo "::warning::No usable previous scheduled run (found: '${prev:-nothing}'), so the window falls back to the last $hours hours. An edit made just before that can be missed; check the previous post's window."
+              base=$(git rev-list -1 --before="$hours hours ago" "$head" || true)
+              source="the $hours-hour fallback"
+              if [[ -z "$base" ]]; then
+                echo "::error::No commit older than $hours hours was found, so there is no window start. Expected on a brand-new or shallow clone only."
+                exit 1
+              fi
+            fi
+          fi
+          echo "Window start: $base, from $source."
+
+          if ! git merge-base --is-ancestor "$base" "$head"; then
+            echo "::error::The window start $base is not an ancestor of $head, so base..head would not be the commits in between."
+            exit 1
+          fi
+
+          {
+            echo "base=$base"
+            echo "head=$head"
+            echo "short=$(git rev-parse --short "$base")"
+            echo "date=$(git log -1 --format=%cI "$base")"
+            echo "source=$source"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: List and gate the GitBook commits
+        id: scan
+        env:
+          BASE: ${{ steps.window.outputs.base }}
+          HEAD_REV: ${{ steps.window.outputs.head }}
+        run: |
+          set -uo pipefail
+          set +e
+          bash .github/scripts/gitbook-edit-digest.sh "$BASE" "$HEAD_REV" digest 2>&1 | tee scan.log
+          rc="${PIPESTATUS[0]}"
+          set -e
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+          if [[ -f digest/complete ]]; then
+            echo "count=$(wc -l < digest/commits.jsonl | tr -d ' ')" >> "$GITHUB_OUTPUT"
+          fi
+          # Not failed here even on rc 2: when the gates could not run on one commit, the digest
+          # still lists every commit (that one marked as not checked) and should still be
+          # posted. The last step turns rc 2 into a red run after the post.
+          exit 0
+
+      - name: Build the Slack payload
+        if: hashFiles('digest/complete') != ''
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          COMPARE_URL: ${{ github.server_url }}/${{ github.repository }}/compare/${{ steps.window.outputs.base }}...${{ steps.window.outputs.head }}
+          BASE_SHORT: ${{ steps.window.outputs.short }}
+          BASE_DATE: ${{ steps.window.outputs.date }}
+        run: |
+          set -euo pipefail
+          # The jq program carries the escaping and the 4,000-character cap, and the reasons
+          # for both; it lives in its own file so it can be run locally.
+          jq -n \
+            --slurpfile commits digest/commits.jsonl \
+            --arg repo "$GITHUB_REPOSITORY" \
+            --arg server "$GITHUB_SERVER_URL" \
+            --arg run "$RUN_URL" \
+            --arg base "$BASE_SHORT" \
+            --arg basedate "$BASE_DATE" \
+            --arg compare "$COMPARE_URL" \
+            -f .github/scripts/gitbook-edit-digest.jq > payload.json
+          jq -e . payload.json > /dev/null   # fail loudly rather than posting garbage
+          jq -r .text payload.json
+
+      - name: Record the result in the run summary
+        if: always()
+        env:
+          BASE_SHORT: ${{ steps.window.outputs.short }}
+          BASE_DATE: ${{ steps.window.outputs.date }}
+          BASE_SOURCE: ${{ steps.window.outputs.source }}
+          RC: ${{ steps.scan.outputs.rc }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## GitBook-edit digest"
+            echo
+            if [[ ! -f digest/complete ]]; then
+              echo "The digest did not complete (exit ${RC:-unknown}), so nothing was posted."
+              echo
+              echo '````text'
+              cat scan.log 2>/dev/null || true
+              echo '````'
+            else
+              echo "Window starts at \`${BASE_SHORT}\` (${BASE_DATE}), taken from ${BASE_SOURCE}. $(wc -l < digest/commits.jsonl | tr -d ' ') GitBook commit(s)."
+              echo
+              # The full list lives here, untruncated, because the Slack post is capped.
+              # Fenced, never rendered as a table: titles and paths come from unreviewed
+              # commits, and this is a GFM surface (see nightly-unlabeled-prs.yml).
+              echo '````text'
+              jq -r '"\(.short)  \(.verdict)  \(.author) <\(.email)>  \(.subject)"' digest/commits.jsonl
+              echo '````'
+              for f in digest/logs/*.log; do
+                [[ -f "$f" ]] || continue
+                sha=$(basename "$f" .log)
+                echo
+                echo "<details><summary>Gate log for ${sha:0:9}</summary>"
+                echo
+                echo '````text'
+                cat "$f"
+                echo '````'
+                echo
+                echo "</details>"
+              done
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # Never set `payload-templated`: with it on, the action expands ${{ }} inside the payload,
+      # so a GitBook title reading ${{ env.NOTIFICATIONS_WEBHOOK_URL }} would print the webhook
+      # into the channel.
+      - name: Post the digest to Slack
+        if: >-
+          hashFiles('payload.json') != '' &&
+          (steps.scan.outputs.count != '0' || github.event.schedule == '35 6 * * 1' || inputs.always_post)
+        uses: slackapi/slack-github-action@v3.0.5
+        with:
+          webhook: ${{ secrets.NOTIFICATIONS_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          # Keep the .json extension: the action picks its parser from it.
+          payload-file-path: payload.json
+          # REQUIRED: at v3.0.5 the action swallows a delivery error when this is false, and a
+          # quiet day posts nothing anyway, so a dead webhook would look like a quiet week.
+          errors: true
+
+      - name: Fail the run if the gates could not run
+        if: steps.scan.outputs.rc != '0'
+        env:
+          RC: ${{ steps.scan.outputs.rc }}
+        run: |
+          echo "::error::gitbook-edit-digest.sh exited $RC. Either the digest did not run, or the gates could not run on at least one commit (marked in the digest). See the scan step."
+          exit 1
+
+      - name: Notify Slack on failure
+        if: failure()
+        uses: slackapi/slack-github-action@v3.0.5
+        with:
+          webhook: ${{ secrets.NOTIFICATIONS_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            {
+              "text": "❌ *GitBook-edit digest failed*\n*Repo:* ${{ github.repository }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            }
+          errors: true

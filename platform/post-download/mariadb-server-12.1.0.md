@@ -7,7 +7,7 @@
 * MariaDB Server 12.1.0 was released on 26 Jun 2025
 * [What's new in this release?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
-* This release is Release Candidate (RC) maturity
+* This release is Preview maturity. Only Stable (GA) releases should be used in production.
 
 ## About this Release Series
 

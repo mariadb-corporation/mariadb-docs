@@ -22,7 +22,7 @@ First, before you get started:&#x20;
 5. Check whether replication has changed in the new MariaDB version in any way that could cause issues while the cluster contains upgraded and non-upgraded nodes.&#x20;
 6. Check whether any new features have been added to the new MariaDB version. If a new feature (such as the new [VECTOR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/vectors) data type or parsec authentication plugin) cannot be replicated to the old MariaDB version, then do not use that feature until all cluster nodes have been upgraded.
 7. Next, make sure that the Galera version numbers are compatible. Both MariaDB 11.4 and 11.8 releases ship with modern releases of Galera 4 (wsrep API 26). For the purposes of a rolling upgrade, ensure your versions align across these ecosystem baselines.
-8. See [What is MariaDB Galera Cluster](../../readme/mariadb-galera-cluster-guide.md)?: Galera wsrep provider Versions for information on which MariaDB releases use which Galera wsrep provider versions.&#x20;
+8. See [What is MariaDB Galera Cluster](../../mariadb-galera-cluster-guide.md)?: Galera wsrep provider Versions for information on which MariaDB releases use which Galera wsrep provider versions.&#x20;
 9. You want to have a large enough gcache to avoid a State Snapshot Transfer (SST) during the rolling upgrade. The gcache size can be configured by setting gcache.size. For example: [wsrep\_provider\_options](../../reference/wsrep-variable-details/wsrep_provider_options.md)="gcache.size=2G".&#x20;
 
 Before you upgrade, it would be best to take a backup of your database. This is always a good idea to do before an upgrade. We would recommend mariadb-backup.&#x20;

@@ -57,6 +57,8 @@ concurrency:
 
 jobs:
   digest:
+    # Upstream only: forks must not open bot PRs, post to Slack or publish (DOCS-6934).
+    if: github.repository == 'mariadb-corporation/mariadb-docs'
     runs-on: ubuntu-latest
     # Two gh calls and some jq. Without this the job inherits the 6-hour default,
     # so a gh call wedged on a stalled connection burns six hours of runner time

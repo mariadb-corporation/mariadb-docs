@@ -68,3 +68,5 @@ Convert vector to text. This function takes a binary VECTOR data type and return
 {% endcolumns %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

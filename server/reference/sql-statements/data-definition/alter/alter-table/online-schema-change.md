@@ -37,6 +37,19 @@ If the `INSERT` statement starts after the `ALTER TABLE` statement, it is not bl
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: Blocking and online ALTER TABLE behavior
+    accDescr {
+        Two groups are drawn. Legacy Behavior (Blocking) holds five boxes. 1.
+        Start ALTER TABLE leads to SHARED LOCK. Connection B: DML leads to SHARED
+        LOCK, labelled Wait... SHARED LOCK leads to 2. Finish ALTER TABLE, which
+        leads to 3. Connection B: DML Resumes. Online Behavior (Non-Blocking)
+        holds 1. Start ALTER TABLE, 2. Apply Buffer Changes, 3. Finish ALTER TABLE
+        and a nested group, Concurrent Processing, which holds Online Change
+        Buffer and Connection B: DML. 1. Start ALTER TABLE leads to Online Change
+        Buffer. Online Change Buffer and Connection B: DML are joined by a line
+        with no direction. Connection B: DML leads to 2. Apply Buffer Changes,
+        which leads to 3. Finish ALTER TABLE.
+    }
     subgraph "Legacy Behavior (Blocking)"
         direction TB
         L1[1. Start ALTER TABLE] --> L2(fa:fa-lock SHARED LOCK)
@@ -119,7 +132,7 @@ InnoDB supports `REPEATABLE READ` isolation layer and allows concurrent writes, 
 
 Many other storage engines do not support online schema change, for a variety of reasons:
 
-* [ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) does not support `REPEATABLE READ` isolation layer.
+* [ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud) does not support `REPEATABLE READ` isolation layer.
 * [Blackhole](../../../../../server-usage/storage-engines/blackhole.md) and [Sequence](../../../../../server-usage/storage-engines/sequence-storage-engine.md) don't support `LOCK=NONE` , or are read-only, like [S3](../../../../../server-usage/storage-engines/s3-storage-engine/).
 * [Connect](../../../../../server-usage/storage-engines/connect/) cannot perform reads during write operations.
 * [Spider](../../../../../server-usage/storage-engines/spider/) does not perform table-copy operations, but rather reassigns a table with a new set of metadata.
@@ -194,3 +207,5 @@ For more information, read this blog post: [Reduced operational downtime with ne
 [^2]: Data Definition Language, a part of the SQL language.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

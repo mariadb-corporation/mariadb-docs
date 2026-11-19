@@ -5,7 +5,7 @@ description: "MariaDB-specific features and capabilities that go beyond standard
 
 # MariaDB Features Worth Knowing
 
-*Last updated: 2026-06-24*
+*Last updated: 2026-10-13*
 
 MariaDB has grown significantly beyond its MySQL origins. Many of its best features are unknown to developers because AI agents default to generic SQL advice. This skill covers what MariaDB can do that you might not think to ask about.
 
@@ -56,9 +56,10 @@ AI agents default to MySQL 8 patterns for initial setup, which fail or mislead o
 mariadb-install-db
 ```
 
-**Root authentication** — on a fresh install, `root` uses `unix_socket` authentication by default (no password). The correct first connection is:
+**Root authentication** — on a fresh install, `root` uses `unix_socket` authentication by default (no password), so the first connection is made as the operating-system root user. The user runs this from a root shell in their own terminal — the agent does not escalate privileges itself:
 ```bash
-sudo mariadb
+# as root (the user runs this)
+mariadb
 ```
 Do not generate `mysql -u root -p` for a fresh MariaDB install — there is no root password to enter.
 
@@ -357,13 +358,13 @@ These require MariaDB **12.0 or newer** (many ship with **12.3 LTS**, currently 
 ## Sources
 
 - [Monty Widenius: Celebrating 15 years of MariaDB](http://monty-says.blogspot.com/2024/10/celebrating-15-years-of-mariadb.html)
-- [MariaDB vs MySQL Features — MariaDB Docs](https://mariadb.com/docs/release-notes/community-server/about/compatibility-and-differences/mariadb-vs-mysql-features)
+- [MariaDB vs MySQL Features — MariaDB Docs](https://mariadb.com/docs/server/editions-and-compatibility/comparisons-with-other-databases/mariadb-vs-mysql-features)
 - [System-Versioned Tables — MariaDB Docs](https://mariadb.com/docs/server/reference/sql-structure/temporal-tables/system-versioned-tables)
 - [RETURNING — MariaDB Docs](https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/inserting-loading-data/insertreturning)
 - [CREATE SEQUENCE — MariaDB Docs](https://mariadb.com/docs/server/reference/sql-structure/sequences/create-sequence)
 - [Instant ALTER TABLE — MariaDB Docs](https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-online-ddl/innodb-online-ddl-operations-with-the-instant-alter-algorithm)
 - [INet6 Data Type — MariaDB Docs](https://mariadb.com/docs/server/reference/data-types/string-data-types/inet6)
-- [Oracle Compatibility — MariaDB Docs](https://mariadb.com/docs/release-notes/community-server/about/compatibility-and-differences/sql_modeoracle)
+- [Oracle Compatibility — MariaDB Docs](https://mariadb.com/docs/server/editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle)
 - [FLASHBACK — MariaDB Docs](https://mariadb.com/docs/server/server-management/server-monitoring-logs/binary-log/flashback)
 
 *For topics not covered here, see the official MariaDB documentation at [mariadb.com/docs](https://mariadb.com/docs).*

@@ -11,6 +11,10 @@ The following options can be set as part of the Galera [wsrep\_provider\_options
 
 Options need to be provided as a semicolon (;) separated list on a single line. Options that are not explicitly set are set to their default value.
 
+{% hint style="warning" %}
+When the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled (`plugin-wsrep-provider=ON`), `wsrep_provider_options` can't be changed while the server is running, and `SET GLOBAL wsrep_provider_options=...` fails even for options marked _Dynamic: Yes_ on this page. Set the individual `wsrep_provider_<option>` system variable instead, with dots in the option name replaced by underscores. For example, use `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead of `SET GLOBAL wsrep_provider_options='pc.bootstrap=YES';`. See [Changing Provider Options at Runtime](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider#changing-provider-options-at-runtime).
+{% endhint %}
+
 Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `base_dir`
@@ -437,6 +441,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
   * The option is a trigger rather than a stored setting. It only takes effect while the node is in a non-primary state; on a node that is already part of a Primary Component the provider writes `ignoring 'pc.bootstrap' in state <state>` to the error log and nothing changes.
   * Because the value is only a trigger, it is not interpreted: `YES`, `true` and `1` all bootstrap the node — and so do `0` and `false`.
   * Setting it does not change the value the node reports for [wsrep\_provider\_options](../galera-cluster-system-variables.md#wsrep_provider_options), and it can be set again on each subsequent loss of quorum.
+  * When the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled, use `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead.
   * See [Resetting the Quorum (Cluster Bootstrap)](../../high-availability/resetting-the-quorum-cluster-bootstrap.md) for the full procedure, including how to choose the node to bootstrap from.
 * Dynamic: Yes
 * Default: None

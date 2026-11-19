@@ -191,7 +191,7 @@ The MongoDB syntax for Jpath does not allow the CONNECT specific items on arrays
 | Driver\*    | String  | C or Java.                              |
 | Version\*   | Integer | The Java Driver version (defaults to 3) |
 
-* : To be specified in the option list.
+Options marked with an asterisk (\*) must be specified in the option list.
 
 Note: For the content of these options, refer to the MongoDB documentation.
 

@@ -2,15 +2,15 @@
 description: >-
   Launch and manage MariaDB Cloud services with the Terraform provider:
   configure the provider, define a service resource, then apply and connect —
-  Enterprise Clusters not yet supported.
+  Enterprise Clusters use the galera topology.
 ---
 
 # Launch DB Using Terraform Provider
 
 {% hint style="info" %}
-**Enterprise Cluster Limitation**&#x20;
+**Enterprise Cluster**&#x20;
 
-Launching and managing [MariaDB Enterprise Clusters](enterprise-cluster.md) is **not supported** via the Terraform Provider. To provision an Enterprise cluster, use the [MariaDB Cloud Portal](using-the-portal.md) or the [REST API](launch-db-using-the-rest-api.md).
+You can launch and manage [MariaDB Enterprise Clusters](enterprise-cluster.md) with the Terraform provider by setting `topology = "galera"` on the `skysql_service` resource.
 {% endhint %}
 
 This walkthrough explains how to launch database services and manage the lifecycle of database services using the Terraform provider.
@@ -628,3 +628,5 @@ With **macOS**, manually install the provider on the target system by performing
 * [API Documentation](../reference/mariadb-cloud-api-reference-guide/)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

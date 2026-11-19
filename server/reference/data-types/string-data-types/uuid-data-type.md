@@ -7,7 +7,7 @@ description: >-
 # UUID Data Type
 
 {% hint style="info" %}
-`UUID` is available from MariaDB 10.7.
+`UUID` is available from MariaDB 10.7, and from MariaDB Enterprise Server 10.6.9-5.
 {% endhint %}
 
 ## Syntax

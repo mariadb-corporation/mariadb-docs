@@ -500,4 +500,6 @@ Session tracking constants are defined in module *mariadb.constants.SESSION_TRAC
 
 *Since version 2.0*
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

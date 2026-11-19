@@ -21,7 +21,7 @@ To enable MaxGUI in a testing mode, add `admin_host=0.0.0.0` and `admin_secure_g
 
 To make MaxGUI secure, set `admin_secure_gui=true` and configure both the`admin_ssl_key` and `admin_ssl_cert` parameters.
 
-See [Configuration Guide](installation-and-configuration/maxscale-configuration-guide.md) and [Configuration and Hardening](../../mariadb-maxscale-tutorials/rest-api-tutorial.md#configuration-and-hardening) for instructions on how to harden your MaxScale installation for production use.
+See [Configuration Guide](installation-and-configuration/maxscale-configuration-guide/README.md) and [Configuration and Hardening](../../mariadb-maxscale-tutorials/rest-api-tutorial.md#configuration-and-hardening) for instructions on how to harden your MaxScale installation for production use.
 
 ## Authentication
 
@@ -41,7 +41,7 @@ By default, the refresh interval is 10 seconds.
 
 ### Detail
 
-This page shows information on each [MaxScale object](installation-and-configuration/maxscale-configuration-guide.md) and allow to edit its parameter, relationships and perform other manipulation operations.
+This page shows information on each [MaxScale object](installation-and-configuration/maxscale-configuration-guide/README.md) and allow to edit its parameter, relationships and perform other manipulation operations.
 
 Access this page by clicking on the MaxScale object name on the [dashboard page](maxscale-maxgui-guide.md#dashboard)
 
@@ -50,7 +50,7 @@ Access this page by clicking on the MaxScale object name on the [dashboard page]
 This page visualizes MaxScale configuration and clusters.
 
 * Configuration: Visualizing MaxScale configuration.
-* Cluster: Visualizing a replication cluster into a tree graph and provides manual cluster manipulation operations such as`switchover, reset-replication, release-locks, failover, rejoin` . It supports only servers monitored by Monitor using [mariadbmon](../../reference/maxscale-monitors/mariadb-monitor.md) module.
+* Cluster: Visualizing a replication cluster into a tree graph and provides manual cluster manipulation operations such as`switchover, reset-replication, release-locks, failover, rejoin` . It supports only servers monitored by Monitor using [mariadbmon](../../reference/maxscale-monitors/mariadb-monitor/README.md) module.
 
 Access this page by clicking the graph icon on the sidebar navigation.
 

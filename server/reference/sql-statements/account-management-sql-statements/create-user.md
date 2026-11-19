@@ -265,16 +265,21 @@ See [Securing Connections for Client and Server](../../../security/encryption/da
 
 ### Matching the Certificate Subject
 
-The subject comparison is a byte-for-byte string comparison. Two consequences follow, and both bite in practice:
+The subject comparison is a byte-for-byte string comparison. Three consequences follow, and all of them bite in practice:
 
 * **Case matters.** `/CN=alice` and `/CN=Alice` are different subjects.
 * **Field order matters.** `/CN=alice/O=Example Ltd` and `/O=Example Ltd/CN=alice` are different subjects.
+* **The TLS library matters.** OpenSSL 3.0 and later render a literal `/` or `+` inside a field value with a backslash escape. OpenSSL 1.1 and WolfSSL don't. An account created for one form stops matching when the server moves to the other library. See [`X509_LENIENT_COMPARE`](../../../server-management/variables-and-modes/old_mode.md#x509_lenient_compare).
 
-Copy the DN exactly as the server renders it rather than retyping it. You can read the subject of a certificate with:
+In an SQL string literal, double the backslash: `REQUIRE SUBJECT '/CN=a\\/b\\+c'`.
+
+Copy the DN exactly as the server renders it rather than retyping it. You can print it in the server's format with:
 
 ```bash
-openssl x509 -noout -subject -in alice-cert.pem
+openssl x509 -noout -subject -nameopt compat -in alice-cert.pem
 ```
+
+When a certificate doesn't match, the server writes both strings to the error log, for example `X509 subject mismatch: should be '/CN=alice' but is '/CN=Alice'`.
 
 {% hint style="warning" %}
 `REQUIRE SUBJECT` matches the subject only — not the issuer. An account therefore accepts any certificate with a matching subject signed by **any** CA the server trusts. If `--ssl-ca` trusts more than one CA, add a `REQUIRE ISSUER` clause to pin the issuer as well.
@@ -353,7 +358,7 @@ Using `255.255.255.255` is equivalent to not using a netmask at all. Netmasks ca
 
 Note that the credentials added when creating a user with the `'%'` wildcard host will not grant access in all cases. For example, some systems come with an anonymous localhost user, and when connecting from localhost this will take precedence.
 
-Before [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the host name component could be up to 60 characters in length. Starting from [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), it can be up to 255 characters.
+The host name component can be up to 255 characters long.
 
 ### User Name Component
 
@@ -398,7 +403,7 @@ If you connect as joffrey from `192.168.0.3`, you will have the `SELECT` privile
 
 If the matching account has no grant at all at a given level, a grant belonging to a less specific account can still apply. Without the `test.t1` grant to `'joffrey'@'192.168.0.3'`, the grant to `'joffrey'@'%'` would be the only match, and a connection from `192.168.0.3` would have the `INSERT` privilege on `test.t1`.
 
-Usernames can be up to 80 characters long before 10.6 and starting from 10.6 it can be 128 characters long.
+User names can be up to 128 characters long. They are stored in the `utf8mb3` character set, so a user name is at most 384 bytes. A 4-byte character such as an emoji is stored as `?`, without a warning.
 
 Patterns are ranked according to how many hosts they can match; those that match fewer hosts are considered more specific and take precedence in the ordering. The following example shows how domain-name wildcard patterns are sorted by specificity.
 

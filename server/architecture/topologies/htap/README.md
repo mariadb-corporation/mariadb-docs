@@ -43,7 +43,7 @@ The following components are deployed during this procedure:
 
 ## MariaDB Enterprise Server Components
 
-<table><thead><tr><th valign="top">Component</th><th valign="top">Description</th></tr></thead><tbody><tr><td valign="top"><a href="../../../server-usage/storage-engines/innodb/">InnoDB</a></td><td valign="top"><ul><li>General purpose storage engine</li><li>Support for Online Transactional Processing (OLTP) workloads</li><li>ACID-compliant</li><li>Performance</li></ul></td></tr><tr><td valign="top"><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/">MariaDB Enterprise ColumnStore</a></td><td valign="top"><ul><li>Columnar storage engine</li><li>Optimized for Online Analytical</li><li>Processing (OLAP) workloads</li><li>Scalable query execution</li></ul></td></tr></tbody></table>
+<table><thead><tr><th valign="top">Component</th><th valign="top">Description</th></tr></thead><tbody><tr><td valign="top"><a href="../../../server-usage/storage-engines/innodb/">InnoDB</a></td><td valign="top"><ul><li>General purpose storage engine</li><li>Support for Online Transactional Processing (OLTP) workloads</li><li>ACID-compliant</li><li>Performance</li></ul></td></tr><tr><td valign="top"><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud">MariaDB Enterprise ColumnStore</a></td><td valign="top"><ul><li>Columnar storage engine</li><li>Optimized for Online Analytical</li><li>Processing (OLAP) workloads</li><li>Scalable query execution</li></ul></td></tr></tbody></table>
 
 ## Topology
 
@@ -226,3 +226,5 @@ Navigation in the procedure "Deploy HTAP Topology".
 Next: Step 1: Prepare ColumnStore Node.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

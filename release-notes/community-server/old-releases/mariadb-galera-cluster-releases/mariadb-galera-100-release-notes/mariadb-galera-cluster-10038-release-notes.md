@@ -1,6 +1,6 @@
 # MariaDB Galera Cluster 10.0.38 Release Notes
 
-[Download](https://downloads.mariadb.org/mariadb-galera/10.0.38)[Release Notes](mariadb-galera-cluster-10038-release-notes.md)[Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10038-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
+[Download](https://downloads.mariadb.org/mariadb-galera/10.0.38)[Release Notes](mariadb-galera-cluster-10038-release-notes.md)[Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10038-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-guide)
 
 **Release date:** 4 Feb 2019
 

@@ -509,7 +509,7 @@ See [Partitioning Overview: Converting Partitions to/from Tables](../../../../..
 
 {% tab title="< 11.4" %}
 {% hint style="info" %}
-From MariaDB 10.7 to before MariaDB 11.4:
+From Community Server (CS) 10.7 / Enterprise Server (ES) 10.6.11-6 to before CS 11.4:
 {% endhint %}
 
 `CONVERT PARTITION` can be used to remove a partition from a table and make this an ordinary table. For example:
@@ -530,9 +530,9 @@ The optional clause `[{WITH | WITHOUT} VALIDATION]` is not available.
 See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-to-from-tables) for more details.
 {% endtab %}
 
-{% tab title="< 10.7" %}
+{% tab title="< CS 10.7 / ES 10.6.11-6" %}
 {% hint style="info" %}
-Before MariaDB 10.7:
+Before Community Server (CS) 10.7 / Enterprise Server (ES) 10.6.11-6:
 {% endhint %}
 
 `CONVERT PARTITION` and `CONVERT TABLE` are not available.

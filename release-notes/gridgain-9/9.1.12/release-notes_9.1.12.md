@@ -1,10 +1,12 @@
 ---
 description: >-
   GridGain 9.1.12 focuses on stability and extended WebAssembly computing support.
-hidden: true
+  Released on 2025-11-07.
 ---
 
 # GridGain 9.1.12 Release Notes
+
+**Release date:** 7 Nov 2025
 
 ## Overview
 
@@ -14,7 +16,7 @@ GridGain 9.1.12 is a private release that is focused on stability and extended s
 
 ### WASM Improvements
 
-This release brings 2 major improvements to [WASM compute](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/webassembly-compute-jobs) jobs.
+This release brings 2 major improvements to [WASM compute](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/distributed-computing-and-services/distributed-computing/webassembly-compute-jobs) jobs.
 
 - The new `compute.wasm.enableCompiler` configuration option can be used to control if your WebAssembly code is [compiled to JVM bytecode](https://chicory.dev/docs/usage/runtime-compiler) at runtime for faster execution.
 - WebAssembly instances are now cached per deployment unit and file name, reducing repeated module loading and initialization. Cached instances are cleared on `undeploy`.  Synchronization is required since WASM is not thread-safe.
@@ -68,4 +70,8 @@ There are known issues with the performance of SQL read-write transactions in co
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

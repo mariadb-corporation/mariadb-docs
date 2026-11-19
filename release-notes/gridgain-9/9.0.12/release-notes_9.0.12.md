@@ -3,10 +3,12 @@ description: >-
   GridGain 9.0.12 adds high availability distribution zones, network backups,
   cancellation of queries, transactions and compute jobs, and cluster catalog
   pruning.
-hidden: true
+  Released on 2025-01-16.
 ---
 
 # GridGain 9.0.12 Release Notes
+
+**Release date:** 16 Jan 2025
 
 ## Overview
 
@@ -64,7 +66,7 @@ This release provides the initial implementation of stopping running queries, tr
   CompletableFuture<Void> cancelled = cancelHandle.cancelAsync();
   ```
 
-- When managing the cluster, you can use the recently added [system views](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/system-views) to get information about individual operations and cancel them with the `KILL QUERY`, `KILL TRANSACTION`, or `KILL COMPUTE` commands.
+- When managing the cluster, you can use the recently added [system views](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/monitoring/system-views) to get information about individual operations and cancel them with the `KILL QUERY`, `KILL TRANSACTION`, or `KILL COMPUTE` commands.
 
 Support for stopping queries from client code will be added in one of the upcoming releases.
 
@@ -85,7 +87,7 @@ GridGain 9 stores cluster metainformation in the cluster catalog. Prior to this 
 | IGN-26259 | General | Node is now stopped gracefully when the process is terminated. |
 | IGN-26230 | Platforms and Clients | Java thin: removed legacy reconnectThrottlingPeriod and reconnectThrottlingRetries config properties. Use RetryPolicy instead. |
 | IGN-25799 | General | Accelerated rollback abandoned transactions on a lock conflict with another transaction. |
-| IGN-25517 | Distributed Computing | Added Collection<Tuple> support as a Compute job argument and result. |
+| IGN-25517 | Distributed Computing | Added `Collection<Tuple>` support as a Compute job argument and result. |
 | GG-41601 | CLI Tool | Fixed an issue preventing failed DCR replication from being stopped. |
 | GG-41583 | Cluster Data Snapshots and Recovery | Snapshots now lock low watermark until data is no longer required. |
 | GG-41543 | GridGain Integrations | Kafka sink: added configurable temporal types handling. |
@@ -125,4 +127,8 @@ The following features of GridGain 8 are not available in this version, and will
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -1306,6 +1306,12 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Scope: Global, Session
 * Data Type: `numeric`
 
+#### `Feature_vector_index`
+
+* Description: Number of times a table with a vector index was opened.
+* Scope: Global, Session
+* Data Type: `numeric`
+
 #### `Feature_window_functions`
 
 * Description: Number of times [window functions](../../../reference/sql-functions/special-functions/window-functions/) were used.
@@ -1314,7 +1320,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Feature_xml`
 
-* Description: Number of times XML functions ([EXTRACTVALUE()](../../../reference/sql-functions/string-functions/extractvalue.md) and [UPDATEXML()](../../../reference/sql-functions/string-functions/updatexml.md)) were used.
+* Description: Number of times XML functions ([EXTRACTVALUE()](../../../reference/sql-functions/special-functions/xml-functions/extractvalue.md) and [UPDATEXML()](../../../reference/sql-functions/special-functions/xml-functions/updatexml.md)) were used.
 * Scope: Global, Session
 * Data Type: `numeric`
 

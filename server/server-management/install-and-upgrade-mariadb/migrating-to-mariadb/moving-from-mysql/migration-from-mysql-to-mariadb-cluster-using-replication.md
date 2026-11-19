@@ -7,16 +7,16 @@ description: >-
 
 # Migrating Galera Cluster
 
-**This guide covers the migration of a live database from a MySQL Galera Cluster to a** [**MariaDB Galera Cluster**](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide)**.** The migration strategy requires setting up a new MariaDB Cluster, then using [asynchronous replication](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/about-galera-replication#synchronous-vs.-asynchronous-replication) to sync it with an existing MySQL Cluster. The method includes a reliable failback route.
+**This guide covers the migration of a live database from a MySQL Galera Cluster to a** [**MariaDB Galera Cluster**](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide)**.** The migration strategy requires setting up a new MariaDB Cluster, then using [asynchronous replication](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/about-galera-replication#synchronous-vs.-asynchronous-replication) to sync it with an existing MySQL Cluster. The method includes a reliable failback route.
 
 {% hint style="info" %}
-This document focuses on the migration process itself. For detailed comparisons between the two database systems, please refer to [Incompatibilities and Feature Differences Between MariaDB and MySQL.](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences)
+This document focuses on the migration process itself. For detailed comparisons between the two database systems, please refer to [Incompatibilities and Feature Differences Between MariaDB and MySQL.](../../../../editions-and-compatibility/comparisons-with-other-databases/README.md)
 {% endhint %}
 
 ## Prerequisites
 
 * **MySQL Server**: A running MySQL Galera Cluster (version 8.0 or 8.4) to migrate.
-* **MariaDB Server**: The target [MariaDB version that supports Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide#galera-versions). This guide assumes the latest stable version.
+* **MariaDB Server**: The target [MariaDB version that supports Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-guide#galera-versions). This guide assumes the latest stable version.
 * **`mysqldump`**: A command-line utility by MySQL to create initial database backup.
 
 {% hint style="warning" %}
@@ -35,8 +35,8 @@ Due to changes in MySQL 8.0+, `mariadb-dump` may not be compatible for this init
 While MariaDB maintains a high degree of compatibility with MySQL, it is crucial to review any differences that could impact your applications.
 {% endhint %}
 
-* **Version Compatibility**: Select a [MariaDB version compatible](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/differences-between-the-mysql-and-mariadb-query-optimizer) with your MySQL version for replication.
-* **Feature Differences**: Review the [Incompatibilities and Feature Differences](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences) to identify any deprecated features or changes in [system tables](../../../../reference/system-tables/), [user accounts](../../../../security/user-account-management/), and authentication that might affect your setup.
+* **Version Compatibility**: Select a [MariaDB version compatible](../../../../editions-and-compatibility/comparisons-with-other-databases/differences-between-the-mysql-and-mariadb-query-optimizer.md) with your MySQL version for replication.
+* **Feature Differences**: Review the [Incompatibilities and Feature Differences](../../../../editions-and-compatibility/comparisons-with-other-databases/README.md) to identify any deprecated features or changes in [system tables](../../../../reference/system-tables/), [user accounts](../../../../security/user-account-management/), and authentication that might affect your setup.
 
 **Replication Compatibility**
 
@@ -45,7 +45,7 @@ While MariaDB maintains a high degree of compatibility with MySQL, it is crucial
 | 5.7           | 10.6 and newer                              |
 | 8.0           | 10.6.21, 10.11.11, 11.4.5, 11.7.2 and newer |
 
-For more details, see [MySQL to MariaDB Replication Compatibilit](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/replication-compatibility-between-mariadb-and-mysql)y.
+For more details, see [MySQL to MariaDB Replication Compatibilit](../../../../editions-and-compatibility/comparisons-with-other-databases/replication-compatibility-between-mariadb-and-mysql.md)y.
 {% endstep %}
 
 {% step %}
@@ -100,7 +100,7 @@ A full logical backup of the MySQL database is required to seed the new MariaDB 
 
 1.  **Enable Binary Logging on MySQL**
 
-    [Asynchronous replication](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/about-galera-replication#synchronous-vs.-asynchronous-replication) requires the [binary log](https://dev.mysql.com/doc/refman/8.4/en/binary-log.html) to be enabled on the MySQL source. If not enabled, enable it on at least one node in your MySQL cluster.
+    [Asynchronous replication](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/about-galera-replication#synchronous-vs.-asynchronous-replication) requires the [binary log](https://dev.mysql.com/doc/refman/8.4/en/binary-log.html) to be enabled on the MySQL source. If not enabled, enable it on at least one node in your MySQL cluster.
 
     1. **Edit `my.cnf`**: In the `[mysqld]` section of your [MySQL configuration file](https://dev.mysql.com/doc/refman/8.4/en/replication-options-binary-log.html#option_mysqld_log-bin), add `log-bin=mysql-bin`.
     2. **Restart MySQL**: A server restart is required for the change to take effect.
@@ -232,3 +232,5 @@ Once the MariaDB cluster is fully synchronized, follow these steps:
 {% endstepper %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

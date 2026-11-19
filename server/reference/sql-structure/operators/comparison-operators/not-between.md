@@ -1,3 +1,9 @@
+---
+description: >-
+  Test whether a value falls outside a range. expr NOT BETWEEN min AND max
+  is the same as NOT (expr BETWEEN min AND max).
+---
+
 # NOT BETWEEN
 
 ## Syntax

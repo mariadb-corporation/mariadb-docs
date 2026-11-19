@@ -245,10 +245,10 @@ See also the [Full list of MariaDB options, system and status variables](../../f
 * Default Value:`-1`
 * Range: `-1` to `104857600`
 
-#### `performance_schema_max_prepared_statement_instances`
+#### `performance_schema_max_prepared_statements_instances`
 
 * Description: Maximum number of instrumented prepared statements. Use 0 to disable, -1 for automated scaling.
-* Command line: `--performance-schema-max-prepared-statement-instances=#`
+* Command line: `--performance-schema-max-prepared-statements-instances=#`
 * Scope: Global
 * Dynamic: No
 * Data Type: `numeric`

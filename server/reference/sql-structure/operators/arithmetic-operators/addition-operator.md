@@ -1,3 +1,9 @@
+---
+description: >-
+  Add two numbers. When both operands are integers, the result is calculated
+  with BIGINT precision.
+---
+
 # Addition Operator (+)
 
 ## Syntax

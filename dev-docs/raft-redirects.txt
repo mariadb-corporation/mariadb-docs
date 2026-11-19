@@ -1,0 +1,6 @@
+source,destination
+/release-notes/advanced-cluster,https://mariadb.com/docs/raft-cluster
+/release-notes/advanced-cluster/mariadb-advanced-cluster-quickstart-guide,https://mariadb.com/docs/raft-cluster/mariadb-raft-cluster-quickstart-guide
+/release-notes/advanced-cluster/raft-system-variables,https://mariadb.com/docs/raft-cluster/raft-system-variables
+/release-notes/advanced-cluster/raft-cluster-ca,https://mariadb.com/docs/raft-cluster/raft-cluster-ca
+/galera-cluster/reference/mariadb-advanced-cluster-team-faq-and-architectural-guide,https://mariadb.com/docs/raft-cluster/mariadb-raft-cluster-team-faq-and-architectural-guide

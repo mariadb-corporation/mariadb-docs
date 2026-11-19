@@ -99,7 +99,7 @@ The CSV storage engine stores data in text files using comma-separated values fo
 {% endcolumn %}
 
 {% column %}
-DuckDB embedded as a MariaDB storage engine for analytical workloads. Experimental, at alpha maturity, and not built into MariaDB releases.
+DuckDB embedded as a MariaDB storage engine for analytical workloads, at gamma maturity and shipped as a separate plugin package.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -320,3 +320,5 @@ The legacy FEDERATED storage engine, superseded by the actively maintained Feder
 {% endcolumns %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

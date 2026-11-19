@@ -99,7 +99,7 @@ The format of the file is JSON and sufficiently self-explanatory that it can be 
 
 ### `mode`
 
-* **Type**: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* **Type**: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * **Mandatory**: No
 * **Dynamic**: Yes
 * **Values**: `idle`, `learn-clear`, `learn-append`, `supervise`, `enforce`
@@ -119,7 +119,7 @@ Even if there is no allow list, the firewall can be put in the `supervise` or th
 
 ### `action`
 
-* **Type**: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* **Type**: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * **Mandatory**: No
 * **Dynamic**: Yes
 * **Values**: `return-error`, `disconnect`
@@ -132,7 +132,7 @@ This enumeration option specifies the following action, if the firewall is in _e
 
 ### `user_scope`
 
-* **Type**: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* **Type**: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * **Mandatory**: No
 * **Dynamic**: Yes
 * **Values**: `collective`, `individual`
@@ -165,7 +165,7 @@ When the firewall is in `supervise` mode, a firewall violation will cause a warn
 2024-11-18 08:01:47   warning: (1) [firewall] (Service); Firewall incident (user@127.0.0.1): DELETE FROM t
 ```
 
-When the firewall is in 'enforce' mode, a firewall violation will cause the event [firewall\_incident](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#firewall_incident), which, by default, will cause a warning to be logged to the MaxScale log file, if [maxlog](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#maxlog) is enabled, and a syslog event to be generated, if [syslog](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#syslog) is enabled.
+When the firewall is in 'enforce' mode, a firewall violation will cause the event [firewall\_incident](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#firewall_incident), which, by default, will cause a warning to be logged to the MaxScale log file, if [maxlog](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#maxlog) is enabled, and a syslog event to be generated, if [syslog](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#syslog) is enabled.
 
 ## Workflow
 

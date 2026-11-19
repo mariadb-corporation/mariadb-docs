@@ -40,16 +40,17 @@ For the MariaDB protocol module, the prefix is always `mariadbprotocol`.
 
 ### `allow_replication`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
+* Description: Manages whether the replication protocol is permitted through this listener.
 
 Whether the use of the replication protocol is allowed through this listener. If disabled with `mariadbprotocol.allow_replication=false`, all attempts to start replication will be rejected with a ER\_FEATURE\_DISABLED error (error number 1289).
 
 ### `compression`
 
-* **Type**: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* **Type**: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * **Mandatory**: No
 * **Dynamic**: Yes
 * **Values**: `none`, `zlib`, `zstd`
@@ -61,7 +62,7 @@ To disable protocol level compression, set `mariadbprotocol.compression=none`.
 
 ### `compression_threshold`
 
-* **Type**: [size](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
+* **Type**: [size](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#sizes)
 * **Mandatory**: No
 * **Dynamic**: Yes
 * **Default**: 50

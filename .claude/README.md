@@ -16,6 +16,10 @@ Code. It contains:
 | `hooks/timeless.py` | High-precision finder for undated product claims ("currently in beta", "coming soon", "at the time of writing"), the check behind the style guide's *Timeless wording* rule (DOCS-6640). **Advisory only** — called by `nightly-timeless.yml` and the `style-apply` skill, never by `doc-lint.sh` or a PR gate |
 | `hooks/navcheck.py` | Orphaned-page (nav coverage) checker, called by `doc-lint.sh` and by `navcheck-pr.yml` |
 | `hooks/shrinkcheck.py` | Net line-loss ("gutted page") guard, called by `doc-lint.sh` and by `shrinkcheck-pr.yml`. Was an inline block in `doc-lint.sh` until DOCS-6586 |
+| `hooks/postdownload.py` | The Post Download page map, plus two checks: `audit` keeps the `no-standalone:` register true, and `new <rev>` fails a release-notes page added since `<rev>` that lacks its `platform/post-download/` page or its `platform/SUMMARY.md` entry (DOCS-6408). Called by `doc-lint.sh`, by `postdownload-pr.yml`, and by `nightly-postdownload.yml`, which sweeps `main` for pages that landed without theirs (DOCS-6882) |
+| `hooks/changelog-lines.py` | The revision list of a changelog page, read-only from `git log`: Server in `prep-changelog`'s format, connectors in a format inferred from the previous page, the two repo-setup scripts from their `# Notes:` block (plus the version and sha256), with `--verify` to regenerate a published page and diff it first. Used by the `prep-changelog` skill (DOCS-6612) |
+| `hooks/rn-generate.py` | A draft Community Server release notes page, read-only from jira.mariadb.org and `git log`: the field rules of the Apps Script `create_CS_RN_doc_v2()` applied per release, corrected against the release commits (`--no-correct` reproduces the script), with a TSV of review flags. The start of the planned release-notes skill (DOCS-7099) |
+| `hooks/ci-page.py` | A series' Changes & Improvements page, read-only from jira.mariadb.org and `git log`: `create` drafts it at the Preview from the `Preview_X.Y` label (cross-checked against the preview TODO's links with `--todo`), and `check` diffs it, and the RC or GA release notes copied from it, against Ralf Gebhardt's Preview and New Feature searches (DOCS-7110), corrected against the release commits as `rn-generate.py` does (DOCS-7116). Pass `--repo <server clone> --release-todo TODO-XXXX` so the revision is the TODO's release commit, not the X.Y branch; fetch the clone first, as the script never does. `--no-correct` is Jira only. Shares `rn-generate.py`'s Jira access and bullet text rules |
 | `hooks/doc-lint-allow.yml` | The acknowledgment register: `orphan:` and `shrink:` entries, each with a reason, for the two guards that have legitimate exceptions. A checked-in file rather than an environment variable so the acknowledgment is a diff line the reviewer reads |
 | `hooks/allowlist.py` | The **only** parser for that register — a strict subset of YAML, standard library only. Both guards read it through this one script |
 | `hooks/pre-commit.sh` | PreToolUse hook: gates Claude-made `git commit`s by calling `doc-lint.sh` |
@@ -47,8 +51,9 @@ commands. What you *do* set up is the per-user, gitignored pieces below.
    ```bash
    claude mcp list          # look for an Atlassian entry
    ```
-   If the account-level **`claude.ai Atlassian Rovo`** connection is present and authenticated to
-   your MariaDB account, you're done. Only if you need MariaDB *alongside* another Atlassian
+   If the account-level **`claude.ai Atlassian MCP`** connection (v2, preferred) or the older
+   **`claude.ai Atlassian Rovo`** connection is present and authenticated to your MariaDB account,
+   you're done. Only if you need MariaDB *alongside* another Atlassian
    account (e.g. GridGain) in the same session, add a second, separately-authenticated server:
    ```bash
    claude mcp add --transport http atlassian-mariadb https://mcp.atlassian.com/v1/mcp
@@ -57,6 +62,18 @@ commands. What you *do* set up is the per-user, gitignored pieces below.
    account**. Either way, verify with `getAccessibleAtlassianResources()` — it must list
    `mariadbcorp`. Full steps + the wrong-account pitfall:
    `dev-docs/cookbook-jira-workflow.md › Connecting the MariaDB Jira`.
+
+   **`jira.mariadb.org` is separate** (only `/prep-changelog` needs this). It is Jira *Server*, so
+   no Atlassian MCP connection reaches it, and release **TODO** tickets are not public: anonymously,
+   an issue GET returns 401 and a search says the `TODO` project does not exist. Create a personal access token there (profile › *Personal Access
+   Tokens*; reading is all it is used for), then either export it as `JIRA_MARIADB_TOKEN` or save
+   it to a file only you can read:
+   ```bash
+   mkdir -p ~/.config/mariadb-jira && install -m 600 /dev/stdin ~/.config/mariadb-jira/token
+   ```
+   (paste the token, then Ctrl-D). That path is the default; point `JIRA_MARIADB_TOKEN_FILE` at
+   another file to keep it elsewhere. `/triage-epic` reads only public MDEV tickets and needs no
+   token.
 4. **Configure local source repos** (for `/doc-ticket` and `/impact` verification). Clone the
    MariaDB source you work on (e.g. `MariaDB/server`); the **first run** of those commands prompts
    for the path + authoritative ref and saves `.claude/doc-sources.local.json` (gitignored).

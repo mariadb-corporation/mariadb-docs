@@ -142,7 +142,7 @@ ALTER TABLE t1 COALESCE PARTITION 2;
 ### Converting Partitions to/from Tables
 
 {% hint style="info" %}
-This feature is available from MariaDB 10.7.
+This feature is available from MariaDB 10.7, and from MariaDB Enterprise Server 10.6.11-6.
 {% endhint %}
 
 ```sql
@@ -697,9 +697,9 @@ CREATE OR REPLACE TABLE t1 (
 INSERT INTO t1 VALUES ('2012-11-01'),('2013-11-02'),('2014-11-03'),('2015-11-04');
 
 SELECT * FROM t1;
-+--------------+
-| dt           |
-+--------------+
++---------------------+
+| dt                  |
++---------------------+
 | 2012-11-01 00:00:00 |
 | 2013-11-02 00:00:00 |
 | 2014-11-03 00:00:00 |
@@ -709,9 +709,9 @@ SELECT * FROM t1;
 ALTER TABLE t1 TRUNCATE PARTITION p0,p2;
 
 SELECT * FROM t1;
-+--------------+
-| dt           |
-+--------------+
++---------------------+
+| dt                  |
++---------------------+
 | 2013-11-02 00:00:00 |
 | 2015-11-04 00:00:00 |
 +---------------------+

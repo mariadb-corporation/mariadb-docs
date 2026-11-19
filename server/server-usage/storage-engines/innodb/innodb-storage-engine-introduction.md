@@ -14,7 +14,7 @@ MariaDB Enterprise Server uses the InnoDB storage engine by default. InnoDB is a
 
 The InnoDB storage engine:
 
-* Is available with all versions of [MariaDB Enterprise Server](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/mariadb-enterprise-server-differences) and MariaDB Community Server.
+* Is available with all versions of [MariaDB Enterprise Server](../../../editions-and-compatibility/mariadb-enterprise-server-differences/README.md) and MariaDB Community Server.
 * Is a general purpose storage engine.
 * Is transactional and well-suited for online transactional processing (OLTP) workloads.
 * Is ACID-compliant.
@@ -43,7 +43,7 @@ The InnoDB storage engine:
 | Spatial Indexes         | Yes                    | InnoDB Spatial Indexes                                                                                                                                                                   |
 | Compression             | Yes                    | [Configure InnoDB Page Compression](innodb-page-compression.md)                                                                                                                          |
 | Data-at-Rest Encryption | Yes                    |                                                                                                                                                                                          |
-| High Availability (HA)  | Yes                    | • [MariaDB Replication](../../../ha-and-performance/standard-replication/) • [Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide)  |
+| High Availability (HA)  | Yes                    | • [MariaDB Replication](../../../ha-and-performance/standard-replication/) • [Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide)  |
 | Main Memory Caching     | Yes                    | [InnoDB Buffer Pool](innodb-buffer-pool.md)                                                                                                                                              |
 | Transaction Logging     | Yes                    | • [InnoDB Redo Log (Crash Safety)](mariadb-enterprise-server-innodb-operations/configure-the-innodb-redo-log.md) • [InnoDB Undo Log (MVCC)](innodb-undo-log.md) |
 | Garbage Collection      | Yes                    | [InnoDB Purge Threads](innodb-system-variables.md#innodb_purge_threads)                                                                                                                  |

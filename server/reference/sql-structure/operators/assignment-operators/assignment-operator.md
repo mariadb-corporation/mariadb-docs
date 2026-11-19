@@ -1,3 +1,9 @@
+---
+description: >-
+  Assign a value to a variable. Unlike =, the := operator can be used in any
+  context, including SELECT, with both user-defined and local variables.
+---
+
 # Assignment Operator (:=)
 
 ## Syntax

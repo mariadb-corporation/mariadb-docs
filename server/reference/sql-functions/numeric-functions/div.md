@@ -14,9 +14,9 @@ DIV
 
 ## Description
 
-Integer division. Similar to [FLOOR()](floor.md), but is safe with [BIGINT](../../data-types/numeric-data-types/bigint.md) values. Incorrect results may occur for non-integer operands that exceed the `BIGINT` range.
+Integer division. The fractional part of the result is discarded, so the result is truncated toward zero. This differs from [FLOOR()](floor.md) for negative results: `-22 DIV 7` returns `-3`, while `FLOOR(-22/7)` returns `-4`. `DIV` is safe with [BIGINT](../../data-types/numeric-data-types/bigint.md) values. Incorrect results may occur for non-integer operands that exceed the `BIGINT` range.
 
-If the `ERROR_ON_DIVISION_BY_ZERO` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) is used, a division by zero produces an error. Otherwise, it returns `NULL`.
+Dividing by zero returns `NULL`. When the [ERROR\_FOR\_DIVISION\_BY\_ZERO](../../../server-management/variables-and-modes/sql_mode.md#error_for_division_by_zero) SQL mode is enabled, as it is by default, a division by zero also produces a warning. If [strict mode](../../../server-management/variables-and-modes/sql_mode.md#strict_trans_tables) is also enabled, an `INSERT` or `UPDATE` that divides by zero fails with an error instead.
 
 The remainder of a division can be obtained using the [MOD](mod.md) operator.
 

@@ -20,7 +20,7 @@ The `CREATE PACKAGE BODY` statement can be used in any mode.
 Before MariaDB 11.4:
 {% endhint %}
 
-The `CREATE PACKAGE BODY` statement can be used in [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle).
+The `CREATE PACKAGE BODY` statement can be used in [Oracle SQL\_MODE](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md).
 {% endtab %}
 {% endtabs %}
 
@@ -124,6 +124,8 @@ A package body provides implementations of the package public routines and can o
 * forward declarations for private routines
 * an executable initialization section
 
+If the `OR REPLACE` clause is used and the package body exists, it is replaced. Existing privileges on the package body are kept, unlike with [DROP PACKAGE BODY](../drop/drop-package-body.md) followed by `CREATE PACKAGE BODY`. See [Stored Routine Privileges](../../../../server-usage/stored-routines/stored-functions/stored-routine-privileges.md#dropping-stored-routines).
+
 > Starting with MariaDB 13.0.1, package bodies can define `RECORD` and `REF CURSOR` types that can be used as:
 >
 > * Parameters (IN, OUT, INOUT) for procedures and functions defined in the package
@@ -197,7 +199,7 @@ DELIMITER ;
 * [CREATE PACKAGE](create-package.md)
 * [SHOW CREATE PACKAGE BODY](../../administrative-sql-statements/show/show-create-package-body.md)
 * [DROP PACKAGE BODY](../drop/drop-package-body.md)
-* [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle SQL\_MODE](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

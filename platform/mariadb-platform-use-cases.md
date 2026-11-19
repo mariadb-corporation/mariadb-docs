@@ -104,6 +104,7 @@ flowchart TD
         traffic to one node. Each of the three ES nodes runs a ColumnStore storage-engine
         layer, and all three ColumnStore layers share a single S3-compatible object storage
         bucket for their data.
+        Arrows lead from the S3 box to each of the three ColumnStore boxes.
     }
     E1[("ES")]
     E2[("ES")]
@@ -145,7 +146,7 @@ flowchart TD
         A MaxScale proxy routes read-only traffic to two ES ColumnStore nodes and read-write
         traffic to one node. Each of the three ES nodes runs a ColumnStore storage-engine
         layer, and all three ColumnStore layers share a single NFS storage volume for their
-        data.
+        data. Arrows lead from the NFS box to each of the three ColumnStore boxes.
     }
     E1[("ES")]
     E2[("ES")]
@@ -189,7 +190,8 @@ flowchart TD
         A MaxScale proxy routes read-write HTAP traffic to a single Enterprise Server node.
         That node reads and writes to both a ColumnStore engine for OLAP queries and an
         InnoDB engine for OLTP queries. InnoDB replicates to ColumnStore through HTAP
-        Replication, and ColumnStore stores its data on S3-compatible object storage.
+        Replication, and ColumnStore is backed by S3-compatible object storage. An arrow leads
+        from the S3 box to the ColumnStore box.
     }
     ES[("ES")]
     CS[("ColumnStore")]

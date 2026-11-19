@@ -146,7 +146,7 @@ The suffix can be upper or lower-case.
 
 #### `autocommit`
 
-* Description: If set to 1, the default, all queries are committed immediately. The [LOCK IN SHARE MODE](../../../reference/sql-statements/data-manipulation/selecting-data/lock-in-share-mode.md) and [FOR UPDATE](../../../reference/sql-statements/data-manipulation/selecting-data/for-update.md) clauses therefore have no effect. If set to 0, they are only committed upon a [COMMIT](../../../reference/sql-statements/transactions/commit.md) statement or rolled back with a [ROLLBACK](../../../reference/sql-statements/transactions/rollback.md) statement. If autocommit is set to 0, and then changed to 1, all open transactions are immediately committed.
+* Description: If set to 1, the default, all queries are committed immediately. The [LOCK IN SHARE MODE](../../../reference/sql-statements/data-manipulation/selecting-data/lock-in-share-mode.md) and [FOR UPDATE](../../../reference/sql-statements/data-manipulation/selecting-data/for-update.md) clauses therefore have no effect. If set to 0, they are only committed upon a [COMMIT](../../../reference/sql-statements/transactions/commit.md) statement or rolled back with a [ROLLBACK](../../../reference/sql-statements/transactions/rollback.md) statement. If autocommit is set to 0, and then changed to 1, all open transactions are immediately committed. With autocommit set to 0, any statement that accesses a table, including a `SELECT`, starts a transaction that holds its metadata locks until it ends. See [Statements That Start a Transaction Implicitly](../../../reference/sql-statements/transactions/sql-statements-that-cause-an-implicit-commit.md#statements-that-start-a-transaction-implicitly).
 * Command line: `--autocommit[=#]`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -155,7 +155,7 @@ The suffix can be upper or lower-case.
 
 #### `automatic_sp_privileges`
 
-* Description: When set to 1, the default, when a stored routine is created, the creator is automatically granted permission to [ALTER](../../../server-usage/stored-routines/stored-procedures/alter-procedure.md) (which includes dropping) and to EXECUTE the routine. If set to 0, the creator is not automatically granted these privileges.
+* Description: When set to 1, the default, when a stored routine is created, the creator is automatically granted permission to [ALTER](../../../server-usage/stored-routines/stored-procedures/alter-procedure.md) (which includes dropping) and to EXECUTE the routine, if the creator does not already have these privileges. When set to 1, dropping a stored routine also revokes all privileges on it, from all accounts and roles. If set to 0, the creator is not automatically granted these privileges, and dropping a routine leaves privileges on it in place. [CREATE OR REPLACE](../../../server-usage/stored-routines/stored-functions/stored-routine-privileges.md#dropping-stored-routines) keeps existing privileges in either case.
 * Command line: `--automatic-sp-privileges`, `--skip-automatic-sp-privileges`
 * Scope: Global
 * Dynamic: Yes
@@ -424,10 +424,29 @@ The suffix can be upper or lower-case.
   * `d:t:i:o,/tmp/mariadbd.trace` (Unix) or `d:t:i:O,\mariadbd.trace` (Windows)
 * Debug Options: See the option flags on the [mysql\_debug](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/api-functions/mysql_debug) page
 
+#### `debug_binlog_fsync_sleep`
+
+* Description: Extra time, in microseconds, to sleep after each `fsync()` of the [binary log](../../../server-management/server-monitoring-logs/binary-log/). Use it to artificially increase the cost of binary log flushes when testing. `0` adds no sleep. Debug builds only (built with `-DCMAKE_BUILD_TYPE=Debug`).
+* Command line: `--debug-binlog-fsync-sleep=#`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `numeric`
+* Default Value: `0`
+* Range: `0` to `4294967295`
+
+#### `debug_mutex_deadlock_detector`
+
+* Description: Enables checking for wrong mutex usage, such as mutexes locked in an inconsistent order. Available only in a server built with safe mutexes, which debug builds (`-DCMAKE_BUILD_TYPE=Debug`) use on all platforms except Windows.
+* Command line: `--debug-mutex-deadlock-detector[={0|1}]`
+* Scope: Global
+* Dynamic: No
+* Data Type: `boolean`
+* Default Value: `ON`
+
 #### `debug_no_thread_alarm`
 
 * Description: Disable system thread alarm calls. Disabling it may be useful in debugging or testing, never do it in production.
-* Command line: `--debug-no-thead-alarm=#`
+* Command line: `--debug-no-thread-alarm[={0|1}]`
 * Scope: Global
 * Dynamic: No
 * Data Type: `boolean`
@@ -436,7 +455,7 @@ The suffix can be upper or lower-case.
 
 #### `debug_sync`
 
-* Description: Used in debugging to show the interface to the [Debug Sync facility](../../../clients-and-utilities/testing-tools/mariadb-test/the-debug-sync-facility.md). MariaDB needs to be configured with -DENABLE\_DEBUG\_SYNC=1 for this variable to be available.
+* Description: Used in debugging to show the interface to the [Debug Sync facility](../../../clients-and-utilities/testing-tools/mariadb-test/the-debug-sync-facility.md). Available in debug builds only (`-DCMAKE_BUILD_TYPE=Debug`).
 * Scope: Session
 * Dynamic: Yes
 * Data Type: `string`
@@ -550,6 +569,16 @@ The suffix can be upper or lower-case.
 * Data Type: `numeric`
 * Default Value: `4`
 * Range: `0` to `30`
+
+#### `drop_before_create_or_replace`
+
+* Description: If set, [CREATE OR REPLACE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md#create-or-replace) drops the existing table before creating the new one. If not set, the existing table is temporarily renamed and renamed back if the create fails.
+* Command line: `--drop-before-create-or-replace[={0|1}]`
+* Scope: Session
+* Dynamic: Yes
+* Data Type: `boolean`
+* Default Value: `OFF`
+* Introduced: MariaDB 13.2
 
 #### `encrypt_tmp_disk_tables`
 
@@ -731,16 +760,16 @@ The suffix can be upper or lower-case.
 
 #### `group_concat_max_len`
 
-* Description: Maximum length in bytes of the returned result for the functions [GROUP\_CONCAT()](../../../reference/sql-functions/aggregate-functions/group_concat.md), [JSON\_OBJECTAGG](../../../reference/sql-functions/special-functions/json-functions/json_objectagg.md) and [JSON\_ARRAYAGG](../../../reference/sql-functions/special-functions/json-functions/json_arrayagg.md).
+* Description: Maximum length in bytes of the returned result for the functions [GROUP\_CONCAT()](../../../reference/sql-functions/aggregate-functions/group_concat.md), [JSON\_OBJECTAGG](../../../reference/sql-functions/special-functions/json-functions/json_objectagg.md) and [JSON\_ARRAYAGG](../../../reference/sql-functions/special-functions/json-functions/json_arrayagg.md). The result is also never longer than [max\_allowed\_packet](server-system-variables.md#max_allowed_packet). From MariaDB 13.2, `GROUP_CONCAT()` with `ORDER BY` may use up to this much memory to sort the rows of a group, even if [tmp\_memory\_table\_size](server-system-variables.md#tmp_memory_table_size) is smaller; see [GROUP\_CONCAT()](../../../reference/sql-functions/aggregate-functions/group_concat.md#memory-usage-with-order-by).
 * Command line: `--group-concat-max-len=#`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value:
   * `1048576` (1M)
-* Range: `4` to `1073741824`
-
-.
+* Range:
+  * `4` to `4294967295` (>= MariaDB 13.2)
+  * `4` to `1073741824` (<= MariaDB 13.1)
 
 #### `have_compress`
 
@@ -1000,7 +1029,7 @@ The suffix can be upper or lower-case.
   * This is set with `--large-pages` or disabled with `--skip-large-pages`.
   * Large pages are used for the [innodb buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) and for online DDL (of size 3\* [innodb\_sort\_buffer\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_sort_buffer_size) (or 6 when encryption is used)).
   * **Linux**: The `sysctl` variable `kernel.shmmax` must be larger than `llocation`, and the `sysctl` variable `vm.nr_hugepages` must be larger than the usage. The `ulimit` for locked memory must be sufficient to cover the amount used (`ulimit -l` and equivalent in `/etc/security/limits.conf/` or in systemd [LimitMEMLOCK](../../../server-management/starting-and-stopping-mariadb/systemd/)). If these operating system controls or insufficient free huge pages are available, the allocation of large pages falls back to conventional memory allocation, and a warning appears in the logs. The implementation supports multiple page sizes (see `Hugepagesize` in `/proc/meminfo` for the default) using the Linux built-in huge page feature with the enhancements available in the Linux kernel 3.8 and later.
-    * To configure Linux to use huge pages, set the `hugepages` and `hugepagesz` [kernel parameters](https://www.kernel.org/doc/Documentation/admin-guide/kernel-parameters.txt), which can be done via [GRUB\_CMDLINE\_LINUX](https://help.ubuntu.com/community/Grub2/Setup#Specific_Entries).
+    * To configure Linux to use huge pages, set the `hugepages` and `hugepagesz` [kernel parameters](https://www.kernel.org/doc/Documentation/admin-guide/kernel-parameters.txt), which can be done via [GRUB\_CMDLINE\_LINUX](https://www.gnu.org/software/grub/manual/grub/html_node/Simple-configuration.html).
     * To find possible huge page size values, issue this command:\
       `ls -la /sys/devices/system/node/node0/hugepages/`
     * To determine how many huge pages are free, issue this command:\
@@ -1310,19 +1339,26 @@ The suffix can be upper or lower-case.
       * Either the default `master.info` file or the file that is configured by the [master\_info\_file](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#master-info-file) option.
       * Either the default `relay-log.info` file or the file that is configured by the [relay\_log\_info\_file](../../standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable.
     * Information about a master's [binary log dump thread](../../standard-replication/replication-threads.md#binary-log-dump-thread).
+    * Connections aborted due to "Too many connections" errors.
+    * Connections closed normally without authentication.
   * log\_warnings >= 3
     * All errors and warnings during [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) repair and auto recover.
     * Information about old-style language options.
     * Information about [progress of InnoDB online DDL](../../../server-usage/storage-engines/innodb/innodb-online-ddl/).
   * log\_warnings >=4
-    * Connections aborted due to "Too many connections" errors.
-    * Connections closed normally without authentication.
     * Connections aborted due to [KILL](../../../reference/sql-statements/administrative-sql-statements/kill.md).
     * Connections closed due to released connections, such as when [completion\_type](server-system-variables.md#completion_type) is set to `RELEASE`.
     * Could not read packet: (a lot more information)
     * All read/write errors for a connection are logged to the error log.
   * log\_warnings >=9
     * Information about initializing plugins.
+
+{% hint style="info" %}
+Connections that authenticate and then close normally are not written to the error log at any `log_warnings` level (from MariaDB 10.4.29, 10.5.20, 10.6.13, 10.11.3).
+
+Messages about aborted connections are controlled by the global value of `log_warnings` only. Changing the session value has no effect on them.
+{% endhint %}
+
 * Command line: `-W [level]` or `--log-warnings[=level]`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -1444,13 +1480,13 @@ This raises the cap from systemd's default of 15% of the system's task limit to 
 
 #### `max_heap_table_size`
 
-* Description: Maximum size in bytes for user-created [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md) tables. Setting the variable while the server is active has no effect on existing tables unless they are recreated or altered. The smaller of max\_heap\_table\_size and [tmp\_table\_size](server-system-variables.md#tmp_table_size) also limits internal in-memory tables. When the maximum size is reached, any further attempts to insert data will receive a "table ... is full" error. Temporary tables created with [CREATE TEMPORARY](../../../reference/sql-statements/data-definition/create/create-table.md) will not be converted to Aria, as occurs with internal temporary tables, but will also receive a table full error.
+* Description: Maximum size in bytes for user-created [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md) tables. Setting the variable while the server is active has no effect on existing tables unless they are recreated or altered. The smaller of max\_heap\_table\_size and [tmp\_memory\_table\_size](server-system-variables.md#tmp_memory_table_size) also limits internal in-memory tables and some internal memory buffers; see `tmp_memory_table_size` for which buffers. Before MariaDB 13.2, the distinct-value counting of `ANALYZE TABLE ... PERSISTENT FOR` was limited by max\_heap\_table\_size alone, and the memory used by `GROUP_CONCAT()` with `ORDER BY` was not limited by either variable; see [GROUP\_CONCAT()](../../../reference/sql-functions/aggregate-functions/group_concat.md#memory-usage-with-order-by). When the maximum size is reached, any further attempts to insert data will receive a "table ... is full" error. Temporary tables created with [CREATE TEMPORARY](../../../reference/sql-statements/data-definition/create/create-table.md) will not be converted to Aria, as occurs with internal temporary tables, but will also receive a table full error.
 * Command line: `--max-heap-table-size=#`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `16777216`
-* Range : `16384` to `4294966272`
+* Range: `16384` to `18446744073709551615`
 
 #### `max_insert_delayed_threads`
 
@@ -1588,10 +1624,10 @@ This raises the cap from systemd's default of 15% of the system's task limit to 
   Maximum simultaneous connections permitted for each user account. When set to `0`, there is no per user limit. Setting it to `-1` stops users without the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege, from connecting to the server. The session variable is always read-only, and only privileged users can modify user limits. The session variable defaults to the global `max_user_connections` variable, unless the user's specific [MAX\_USER\_CONNECTIONS](../../../reference/sql-statements/account-management-sql-statements/create-user.md#resource-limit-options) resource option is non-zero. When both global variable and the user resource option are set, the user's [MAX\_USER\_CONNECTIONS](../../../reference/sql-statements/account-management-sql-statements/create-user.md#resource-limit-options) is used. Note: This variable does not affect users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege.
 * Command line: `--max-user-connections=#`
 * Scope: Global, Session
-* Dynamic: Yes, (except when globally set to `0` or `-1`)
+* Dynamic: Yes, unless the server was started with `max_user_connections=0`. Then `SET GLOBAL` fails with error 1290.
 * Data Type: `numeric`
 * Default Value: `0`
-* Range: `-1` to `4294967295`
+* Range: `-1` to `2147483647`
 
 #### `max_write_lock_count`
 
@@ -1916,7 +1952,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
   * `partial_match_table_scan={on|off}` - see [Non-semi-join subquery optimizations](../query-optimizations/subquery-optimizations/non-semi-join-subquery-optimizations.md)
   * `reorder_outer_joins` - see [reorder\_outer\_joins](../query-optimizations/reorder_outer_joins.md) ([MariaDB 12.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/mariadb-12.3-changes-and-improvements))
   * `rowid_filter={on|off}` - see [Rowid Filtering Optimization](../query-optimizations/rowid-filtering-optimization.md)
-  * `sargable_casefold={on|off}` (>= [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0))
+  * `sargable_casefold={on|off}` (>= [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0), MariaDB Enterprise Server 10.6.15-10)
   * `semijoin={on|off}` - see [Semi-join subquery optimizations](../query-optimizations/subquery-optimizations/semi-join-subquery-optimizations.md)
   * `semijoin_with_cache={on|off}` - see [Block-Based Join Algorithms](../query-optimizer/block-based-join-algorithms.md)
   * `split_materialized={on|off}`
@@ -1968,6 +2004,15 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Data Type: `numeric`
 * Default Value: `4`
 * Range: `1` to `5`
+
+#### `path`
+
+* Description: Comma-separated list of schemas that MariaDB searches, in order, when it resolves the names of stored routines and packages. See [SET PATH](../../../reference/sql-statements/administrative-sql-statements/set-commands/set-path.md). `CURRENT_SCHEMA` in the list stands for the default schema of the session.
+* Command line: No
+* Scope: Global, Session
+* Dynamic: Yes
+* Data Type: `string`
+* Default Value: the current schema only (`CURRENT_SCHEMA`)
 
 #### `pid_file`
 
@@ -2756,18 +2801,19 @@ Before MariaDB 12.0:
 
 #### `tmp_memory_table_size`
 
-* Description: An alias for [tmp\_table\_size](server-system-variables.md#tmp_table_size).
+* Description: The largest size for temporary tables in memory (not [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md) tables) although if [max\_heap\_table\_size](server-system-variables.md#max_heap_table_size) is smaller the lower limit will apply. When an internal in-memory temporary table exceeds this size, it is converted to an on-disk Aria or MyISAM table. You can see if it's necessary to increase by comparing the [status variables](server-status-variables.md) `Created_tmp_disk_tables` and `Created_tmp_tables` to see how many temporary tables out of the total created needed to be converted to disk. Often complex GROUP BY queries are responsible for exceeding the limit. Defaults may be different on some systems, see for example [Differences in MariaDB in Debian](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md). [tmp\_table\_size](server-system-variables.md#tmp_table_size) is an alias.
+  * The smaller of `tmp_memory_table_size` and `max_heap_table_size` also limits the memory buffers used by `COUNT(DISTINCT)`, [GROUP\_CONCAT()](../../../reference/sql-functions/aggregate-functions/group_concat.md) with `DISTINCT`, and, from MariaDB 13.2, `GROUP_CONCAT()` with `ORDER BY` (or [group\_concat\_max\_len](server-system-variables.md#group_concat_max_len), if that is larger) and the distinct-value counting of [ANALYZE TABLE ... PERSISTENT FOR](../../../reference/sql-statements/table-statements/analyze-table.md). These buffers are always about 8 KB or larger, even if `tmp_memory_table_size` is set to `0` (before MariaDB 13.2, the `COUNT(DISTINCT)` and `GROUP_CONCAT()` with `DISTINCT` buffers were at least 1 KB).
 * Command line: `--tmp-memory-table-size=#`
-
-#### `tmp_table_size`
-
-* Description: The largest size for temporary tables in memory (not [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md) tables) although if [max\_heap\_table\_size](server-system-variables.md#max_heap_table_size) is smaller the lower limit will apply. You can see if it's necessary to increase by comparing the [status variables](server-status-variables.md) `Created_tmp_disk_tables` and `Created_tmp_tables` to see how many temporary tables out of the total created needed to be converted to disk. Often complex GROUP BY queries are responsible for exceeding the limit. Defaults may be different on some systems, see for example [Differences in MariaDB in Debian](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md). [tmp\_memory\_table\_size](server-system-variables.md#tmp_memory_table_size) is an alias.
-* Command line: `--tmp-table-size=#`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `16777216` (16MB)
-* Range: `0` to `4294967295`
+* Range: `0` to `18446744073709551615`
+
+#### `tmp_table_size`
+
+* Description: An alias for [tmp\_memory\_table\_size](server-system-variables.md#tmp_memory_table_size).
+* Command line: `--tmp-table-size=#`
 
 #### `tmpdir`
 
@@ -2894,7 +2940,7 @@ Before MariaDB 12.0:
 * Scope: Global
 * Dynamic: No
 * Data Type: numeric
-* Introduced: MariaDB 13.0
+* Introduced: MariaDB 13.2
 
 #### `version`
 

@@ -8,9 +8,12 @@ erDiagram
     accDescr {
         The Customer table has Customer code, First name, Surname, and Telephone
         number columns, with Customer code as its primary key. The Sale table has
-        Invoice number, Customer code, and Amount columns. The Sale table's
-        Customer code column is a foreign key that references the primary key of
-        the Customer table, linking each sale to a customer.
+        Invoice number, Customer code, and Amount columns, with Invoice number as
+        its primary key. All columns are of type string. The Sale table's Customer
+        code column is a foreign key that references the primary key of the
+        Customer table, linking each sale to a customer. The relationship,
+        labelled "referenced by", reads: each Customer is referenced by zero or
+        many Sales, and each Sale references exactly one Customer.
     }
     CUSTOMER {
         string Customer_code PK

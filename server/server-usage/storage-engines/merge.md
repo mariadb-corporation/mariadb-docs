@@ -10,7 +10,7 @@ description: >-
 
 The MERGE storage engine, also known as the MRG\_MyISAM engine, is a collection of identical [MyISAM](myisam-storage-engine/) tables that can be used as one. "Identical" means that all tables have identical column and index information. You cannot merge MyISAM tables in which the columns are listed in a different order, do not have exactly the same columns, or have the indexes in different order. However, any or all of the MyISAM tables can be compressed with [myisampack](../../clients-and-utilities/myisam-clients-and-utilities/myisampack.md). Columns names and indexes names can be different, as long as data types and `NULL`/`NOT NULL` clauses are the same. Differences in table options such as `AVG_ROW_LENGTH`, `MAX_ROWS`, or `PACK_KEYS` do not matter.
 
-Each index in a `MERGE` table must match an index in underlying `MyISAM` tables, but the opposite is not true. Also, a `MERGE` table cannot have a `PRIMARY KEY` or `UNIQUE` indexes, because it cannot enforce uniqueness over all underlying tables.
+Each index in a `MERGE` table must match the index in the same position in every underlying `MyISAM` table, but the underlying tables can have additional indexes. A `MERGE` table can declare a `PRIMARY KEY` or `UNIQUE` index, but it cannot enforce uniqueness across the underlying tables. See [Indexes](#indexes).
 
 The following options are meaningful for `MERGE` tables:
 
@@ -35,6 +35,26 @@ ERROR 1036 (HY000): Table 'tbl_name' is read only
 ```
 
 It is possible to build a `MERGE` table on `MyISAM` tables which have one or more [virtual columns](../../reference/sql-statements/data-definition/create/generated-columns.md). `MERGE` itself does not support virtual columns, thus such columns are seen as regular columns. The data types and sizes will still need to be identical, and they cannot be `NOT NULL`.
+
+## Indexes
+
+### How MERGE Indexes Map to the Underlying Tables
+
+MariaDB compares the indexes of a `MERGE` table with the indexes of each underlying table by position: the first index with the first index, the second with the second, and so on. Each pair must index the same columns in the same order, with the same data types, lengths, collations, and sort direction (`ASC` or `DESC`). Index names do not have to match, and neither does the kind of index: a plain `INDEX` on the `MERGE` table can match a `PRIMARY KEY` or `UNIQUE` index on an underlying table.
+
+An underlying table can have more indexes than the `MERGE` table, as long as the extra indexes come after the ones the `MERGE` table defines. If the indexes don't line up, statements on the `MERGE` table fail with error 1168, as with any other definition mismatch.
+
+### Uniqueness
+
+A `PRIMARY KEY` or `UNIQUE` index on a `MERGE` table does not make values unique across the underlying tables. The same value can exist in several underlying tables, and a `SELECT` on the `MERGE` table returns every copy. When you insert through the `MERGE` table, the row is written to the first or last underlying table (see `INSERT_METHOD`), and only that table's own unique indexes are checked, including unique indexes that the `MERGE` table does not declare.
+
+{% hint style="warning" %}
+If a `MERGE` table declares a `PRIMARY KEY` or `UNIQUE` index, the optimizer treats that index as unique. An equality lookup on it, such as `WHERE a = 2`, can return only the first matching row, even when several underlying tables contain that value. To get every matching row, declare a non-unique `INDEX` on the `MERGE` table instead, as in the examples below.
+{% endhint %}
+
+### Index Lookups
+
+The optimizer can use `MERGE` table indexes for lookups, range scans, `ORDER BY`, and index-only (covering) reads. Each index lookup searches the index of every underlying table and merges the results in index order, so a lookup costs more as you add underlying tables.
 
 ## Examples
 
@@ -68,6 +88,29 @@ SELECT * FROM total;
 | 2 | table   |
 | 3 | t2      |
 +---+---------+
+```
+
+Uniqueness is enforced only within each underlying table, so the value `2` appears once in `t1` and once in `t2`. An index lookup on the `MERGE` table returns both rows:
+
+```sql
+SELECT * FROM total WHERE a = 2;
++---+---------+
+| a | message |
++---+---------+
+| 2 | table   |
+| 2 | table   |
++---+---------+
+```
+
+In the following example, the `MERGE` table declares only the first of the underlying table's two `UNIQUE` indexes. An insert through the `MERGE` table is still rejected when it would duplicate a value in the second index, because the underlying table checks its own indexes:
+
+```sql
+CREATE TABLE t4 (c1 INT, c2 INT, UNIQUE (c1), UNIQUE (c2)) ENGINE=MyISAM;
+CREATE TABLE m4 (c1 INT, c2 INT, UNIQUE (c1)) ENGINE=MERGE UNION=(t4) INSERT_METHOD=LAST;
+
+INSERT INTO m4 VALUES (1,2);
+INSERT INTO m4 VALUES (3,2);
+ERROR 1022 (23000): Can't write; duplicate key in table 'm4'
 ```
 
 In the following example, we'll create three `MyISAM` tables, and then a `MERGE` table on them. However, one of them uses a different data type for the column b, so a `SELECT` will produce an error:

@@ -1,7 +1,7 @@
 ---
 name: triage-epic
 description: Sweep a MariaDB DOCS release Epic for On Hold child tickets whose upstream MDEV development work has finished, and release them for writing. For each On Hold child it resolves the primary MDEV, checks the public jira.mariadb.org status/resolution and the local MariaDB source for merged commits, posts a short evidence-backed triage brief, and moves the ticket On Hold → TODO. Use when asked to "triage DOCS-XXXX", "triage the epic", "what's unblocked in the 13.1 epic", "which doc tickets are ready to write", or "sweep the On Hold tickets". Dry-run by default — never transitions anything without approval.
-allowed-tools: Bash, Read, Grep, Glob, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__searchJiraIssuesUsingJql, mcp__claude_ai_Atlassian_Rovo__searchJiraIssuesUsingJql, mcp__atlassian-mariadb__getJiraIssueRemoteIssueLinks, mcp__claude_ai_Atlassian_Rovo__getJiraIssueRemoteIssueLinks, mcp__atlassian-mariadb__addCommentToJiraIssue, mcp__claude_ai_Atlassian_Rovo__addCommentToJiraIssue, mcp__atlassian-mariadb__getTransitionsForJiraIssue, mcp__claude_ai_Atlassian_Rovo__getTransitionsForJiraIssue, mcp__atlassian-mariadb__transitionJiraIssue, mcp__claude_ai_Atlassian_Rovo__transitionJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
+allowed-tools: Bash, Read, Grep, Glob, mcp__claude_ai_Atlassian_MCP__getJiraIssue, mcp__claude_ai_Atlassian_MCP__searchJiraIssuesUsingJql, mcp__claude_ai_Atlassian_MCP__executeRead, mcp__claude_ai_Atlassian_MCP__addOrEditJiraIssueComment, mcp__claude_ai_Atlassian_MCP__transitionJiraIssue, mcp__claude_ai_Atlassian_MCP__getAccessibleAtlassianResources, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__searchJiraIssuesUsingJql, mcp__claude_ai_Atlassian_Rovo__searchJiraIssuesUsingJql, mcp__atlassian-mariadb__getJiraIssueRemoteIssueLinks, mcp__claude_ai_Atlassian_Rovo__getJiraIssueRemoteIssueLinks, mcp__atlassian-mariadb__addCommentToJiraIssue, mcp__claude_ai_Atlassian_Rovo__addCommentToJiraIssue, mcp__atlassian-mariadb__getTransitionsForJiraIssue, mcp__claude_ai_Atlassian_Rovo__getTransitionsForJiraIssue, mcp__atlassian-mariadb__transitionJiraIssue, mcp__claude_ai_Atlassian_Rovo__transitionJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 owners: [igusev]
 last_verified: 2026-09-08
 status: active
@@ -113,9 +113,12 @@ Both **gitignored** (paths and preferences differ per machine):
 ## 1. Setup and input
 
 1. Run the `jira` skill's **Setup** check (`getAccessibleAtlassianResources()` must return
-   `mariadbcorp.atlassian.net`, cloudId `164b0d33-ee39-4b4d-b1d5-e71a97376560`, with
-   `write:jira-work`). Never pick a connection by name. All calls below take that `cloudId`; prefix
-   tool names per the `jira` skill's table.
+   `mariadbcorp.atlassian.net`, cloudId `164b0d33-ee39-4b4d-b1d5-e71a97376560`, with Jira write
+   access). Never pick a connection by name. All calls below take that `cloudId`; prefix tool
+   names per the `jira` skill's table, and on v2 translate them with its mapping table:
+   `getJiraIssueRemoteIssueLinks` and `getTransitionsForJiraIssue` become `executeRead`
+   operations, `addCommentToJiraIssue` becomes `addOrEditJiraIssueComment`, and
+   `transitionJiraIssue` takes `transitionId` instead of `transition={"id": …}`.
 2. Resolve the input key from `DOCS-XXXX` or a `browse/DOCS-XXXX` URL. `getJiraIssue` it.
    - `issuetype == Epic` → that is the epic.
    - Anything else → use its `parent` as the epic and say so ("DOCS-6085 is a child of DOCS-6084;
@@ -142,6 +145,8 @@ budget; the result is then spilled to a file and you must parse it with `jq` ins
 ```bash
 jq -r '.issues.nodes[] | [.key, .fields.status.name, .fields.summary] | @tsv' "<spilled-file>"
 ```
+
+On v2 the issues sit under `.data.issues[]` instead of `.issues.nodes[]`.
 
 Report the totals before doing any work ("28 children: 14 Closed, 11 On Hold, 1 Review, 1 TODO,
 1 DUPLICATED — triaging the 11 On Hold"). If there are none, say so and stop.

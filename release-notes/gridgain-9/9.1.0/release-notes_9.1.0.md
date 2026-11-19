@@ -1,10 +1,12 @@
 ---
 description: >-
   GridGain 9.1.0 introduces secondary columnar storage, a new JSON license format, reworked node and cluster configuration, and numerous SQL and client improvements.
-hidden: true
+  Released on 2025-05-09.
 ---
 
 # GridGain 9.1.0 Release Notes
+
+**Release date:** 9 May 2025
 
 ## Overview
 
@@ -67,17 +69,17 @@ When data is written to the primary storage, it will automatically be propagated
 SELECT /*+ use_secondary_storage */ * FROM Person;
 ```
 
-For more information on columnar storage, see [Columnar Storage](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/storage/engines/columnar-storage) documentation.
+For more information on columnar storage, see [Columnar Storage](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/architecture/storage/engines/columnar-storage) documentation.
 
 ### Streamer Support in Kafka Sink
 
-Kafka Sink now supports receiving data via [data streamer](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/data-streaming).
+Kafka Sink now supports receiving data via [data streamer](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/data-streaming).
 
 To enable data streamer support, specify the name of the receiver class in the `ignite.streamer.receiver.class.name` kafka sink configuration property. You can specify the deployment units containing the class in the `ignite.streamer.receiver.deployment.units` property.
 
 ### Expanded COPY INTO Syntax
 
-The [COPY INTO](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/sql/operational-commands#copy-into) command syntax is expanded with new optional parameters that help support importing data from CSV files with various syntax rules. The following parameters were added:
+The [COPY INTO](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/sql/operational-commands#copy-into) command syntax is expanded with new optional parameters that help support importing data from CSV files with various syntax rules. The following parameters were added:
 
 - `quoteChar` - defines the quote character;
 - `escapeChar` - defines the character to use for escaping a separator or quote;
@@ -157,4 +159,8 @@ There are known issues with the performance of SQL read-write transactions in co
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

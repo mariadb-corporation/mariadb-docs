@@ -1087,4 +1087,6 @@ authentication.
 Returns the number of warnings from the last executed statement., or zero
 if there are no warnings.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

@@ -1,7 +1,7 @@
 ---
 name: doc-from-ticket
 description: Turn a MariaDB DOCS Jira ticket into a concrete, source-verified documentation edit for mariadb-docs. Fetches the ticket, follows it to the upstream MDEV/source change, VERIFIES the claims against local MariaDB source code, locates the right .md page, and drafts the GitBook edit. Use when asked to "document DOCS-XXXX", "write the docs for this ticket", or "draft the page for <DOCS ticket>".
-allowed-tools: Bash, Read, Grep, Glob, Edit, Write, WebFetch, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
+allowed-tools: Bash, Read, Grep, Glob, Edit, Write, WebFetch, mcp__claude_ai_Atlassian_MCP__getJiraIssue, mcp__claude_ai_Atlassian_MCP__getAccessibleAtlassianResources, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 owners: [igusev]
 last_verified: 2026-06-12
 status: active
@@ -15,8 +15,8 @@ of this skill: documentation that asserts a default, a syntax, or a "since versi
 backed by source, not by the ticket prose (which is often a paraphrase or a feature *request*).
 
 References: `dev-docs/space-map.md`, `dev-docs/gitbook-syntax.md`, `dev-docs/link-aliases.md`,
-`dev-docs/style-guide.md`. Jira access is via the `jira` skill's config (server
-`atlassian-mariadb`, cloudId `164b0d33-…`).
+`dev-docs/style-guide.md`. Jira access is via the `jira` skill's config (whichever Atlassian
+connection its Setup check shows reaching `mariadbcorp`, cloudId `164b0d33-…`).
 
 ## When to use
 

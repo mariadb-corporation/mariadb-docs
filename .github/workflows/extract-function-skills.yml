@@ -26,6 +26,8 @@ concurrency:
 
 jobs:
   regenerate:
+    # Upstream only: forks must not open bot PRs, post to Slack or publish (DOCS-6934).
+    if: github.repository == 'mariadb-corporation/mariadb-docs'
     runs-on: ubuntu-latest
     outputs:
       pr-number: ${{ steps.cpr.outputs.pull-request-number }}

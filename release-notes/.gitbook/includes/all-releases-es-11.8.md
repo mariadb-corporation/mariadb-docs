@@ -4,6 +4,7 @@ title: all-releases-es-11.8
 
 | Version                                              | Release Date | Release Status |
 | ---------------------------------------------------- | ------------ | -------------- |
+| [11.8.9-6](../../enterprise-server/11.8/11.8.9-6.md) | 2026-09-07   | Stable (GA)    |
 | [11.8.8-5](../../enterprise-server/11.8/11.8.8-5.md) | 2026-06-26   | Stable (GA)    |
 | [11.8.6-4](../../enterprise-server/11.8/11.8.6-4.md) | 2026-06-02   | Stable (GA)    |
 | [11.8.6-3](../../enterprise-server/11.8/11.8.6-3.md) | 2026-03-17   | Stable (GA)    |

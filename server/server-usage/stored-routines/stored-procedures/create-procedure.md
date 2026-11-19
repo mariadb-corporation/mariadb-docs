@@ -166,7 +166,7 @@ Procedure parameters can be declared with any character set/collation. If the ch
 
 ### Oracle Mode
 
-A subset of Oracle's PL/SQL language is supported in addition to the traditional SQL/PSM-based MariaDB syntax. See [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) for details on changes when running Oracle mode.
+A subset of Oracle's PL/SQL language is supported in addition to the traditional SQL/PSM-based MariaDB syntax. See [Oracle mode](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md) for details on changes when running Oracle mode.
 
 ## Examples
 

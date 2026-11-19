@@ -10,7 +10,7 @@ description: >-
 NUMBER[(M[,D])] [SIGNED | UNSIGNED | ZEROFILL]
 ```
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), `NUMBER` is a synonym for [DECIMAL](decimal.md).
+In [Oracle mode](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md), `NUMBER` is a synonym for [DECIMAL](decimal.md).
 
 ## EXAMPLES
 

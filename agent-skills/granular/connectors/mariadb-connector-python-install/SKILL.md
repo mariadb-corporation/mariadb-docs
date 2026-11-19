@@ -5,7 +5,7 @@ description: "Installing and configuring MariaDB Connector/Python (the `mariadb`
 
 # MariaDB Connector/Python: Installation and Configuration
 
-*Last updated: 2026-08-10*
+*Last updated: 2026-10-13*
 
 MariaDB Connector/Python is published on PyPI as **`mariadb`**. This skill covers getting it installed and configured — the install variants, their prerequisites, the build failures that follow from picking the wrong one, and the connection settings that belong in configuration rather than in code. For writing queries against an established connection, see **`mariadb-connector-python-usage`**.
 
@@ -20,6 +20,7 @@ MariaDB Connector/Python is published on PyPI as **`mariadb`**. This skill cover
 | Writes `mariadb[binary]`, `mariadb[c]`, or `mariadb[pool]` against 1.1 | Those extras are **2.0-only**. On 1.1 there is one install and it includes pooling. Combine them *since 2.0*: `pip install --pre mariadb[binary,pool]` |
 | Assumes connection pooling always ships in the box | True on 1.1. *Since 2.0* pooling is a separate optional package — without the **`[pool]`** extra, `ConnectionPool` is unavailable |
 | Build fails with `mariadb_config not found` and the agent installs a compiler | The compiler is not the missing piece. **`mariadb_config` ships with the Connector/C development package** and must be on the `PATH`: `libmariadb-dev` (Debian, Ubuntu) or `MariaDB-devel` (RHEL, Rocky, SLES). Alternatively, point at it explicitly in `site.cfg` |
+| Runs `pip` or the system package manager as root | `pip install` belongs in a **virtual environment**, which needs no root. The Connector/C packages do need root, so the agent hands that one command to the user and waits — see **Privileged steps** |
 | Targets any Python 3 | The floor differs by line: **1.1 requires Python 3.8+**, **2.0 requires Python 3.10+** |
 | Installs `mysql-connector-python`, `mysqlclient`, or `PyMySQL` and imports `mariadb` | The distribution and the module are both **`mariadb`** — `pip install mariadb`, then `import mariadb`. No other PyPI package provides this API |
 | Builds a slim container image, then wonders why `import mariadb` fails at runtime | A source install needs the Connector/C **development** files at build time and the **runtime** library afterwards. In a multi-stage image, install `libmariadb3` (or `MariaDB-shared`) in the final stage, or *since 2.0* use `mariadb[binary]`, whose wheels bundle Connector/C |
@@ -29,18 +30,22 @@ MariaDB Connector/Python is published on PyPI as **`mariadb`**. This skill cover
 
 ## Installing
 
+### Privileged steps
+
+`pip install` into a virtual environment (`python -m venv .venv`) needs no root, and *since 2.0* neither the pure-Python nor the `[binary]` variant needs any system package. Only the Connector/C packages for 1.1 (or `[c]`) do, and the agent never runs those itself: privilege escalation hangs on a password prompt the agent cannot answer, and the decision to act as root belongs to the user. Show the one command below, ask the user to run it as root in their own terminal, and wait. Then verify without root — `mariadb_config --cc_version` must print 3.3.1 or later — before running `pip`. Without root, Connector/C can instead be built into `$HOME/.local` (see **`mariadb-connector-c-install`**) with `$HOME/.local/bin` on `PATH` for the build and `$HOME/.local/lib/mariadb` on `LD_LIBRARY_PATH` at run time.
+
 ### Version 1.1 (stable, GA)
 
 Install the Connector/C development files first, then the module:
 
 ```bash
-# Debian, Ubuntu
-sudo apt install libmariadb3 libmariadb-dev
+# as root (the user runs this) — the line for the distribution
+apt install libmariadb3 libmariadb-dev           # Debian, Ubuntu
+dnf install MariaDB-shared MariaDB-devel         # RHEL, Rocky Linux, SLES
+```
 
-# RHEL, Rocky Linux, SLES
-sudo dnf install MariaDB-shared MariaDB-devel
-
-pip install mariadb            # latest 1.1
+```bash
+pip install mariadb            # latest 1.1, inside the activated virtual environment
 pip install mariadb==1.1.14    # pinned
 ```
 

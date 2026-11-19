@@ -1,3 +1,10 @@
+---
+description: >-
+  Test whether a value falls within a range. expr BETWEEN min AND max
+  returns 1 if expr is greater than or equal to min and less than or equal
+  to max.
+---
+
 # BETWEEN AND
 
 ## Syntax
@@ -48,7 +55,7 @@ SELECT 2 BETWEEN 2 AND 'x-3';
 +-----------------------+
 1 row in set, 1 warning (0.00 sec)
 
-Warning (Code 1292): Truncated incorrect DOUBLE value: 'x-3'
+Warning (Code 1292): Truncated incorrect DECIMAL value: 'x-3'
 ```
 
 `NULL`:
@@ -60,6 +67,17 @@ SELECT 1 BETWEEN 1 AND NULL;
 +----------------------+
 |                 NULL |
 +----------------------+
+```
+
+The bounds are not swapped, so a range whose lower bound is greater than its upper bound never matches:
+
+```sql
+SELECT 5 BETWEEN 5 AND 2, 5 BETWEEN 2 AND 5;
++-------------------+-------------------+
+| 5 BETWEEN 5 AND 2 | 5 BETWEEN 2 AND 5 |
++-------------------+-------------------+
+|                 0 |                 1 |
++-------------------+-------------------+
 ```
 
 `DATE`, `DATETIME` and `TIMESTAMP` examples. Omitting the time component compares against `00:00`, so later times on the same date are not returned:

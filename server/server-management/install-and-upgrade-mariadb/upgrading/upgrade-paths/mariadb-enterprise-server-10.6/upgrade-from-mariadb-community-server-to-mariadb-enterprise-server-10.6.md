@@ -23,7 +23,7 @@ When switching from MariaDB Community Server to [MariaDB Enterprise Server](http
 MariaDB Enterprise Server 10.6 is not identical to MariaDB Community Server 10.6:
 
 * MariaDB Enterprise Server includes features and fixes backported from later MariaDB versions. For details, see [What's New in MariaDB Enterprise Server 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/10.6/whats-new).
-* MariaDB Enterprise Server does not include plugins that are not supported for enterprise use. Before upgrading, review [Differences in Available Plugins for Enterprise Server](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/mariadb-enterprise-server-differences/differences-in-available-plugins-for-enterprise-server) to confirm that the plugins you rely on are available.
+* MariaDB Enterprise Server does not include plugins that are not supported for enterprise use. Before upgrading, review [Differences in Available Plugins for Enterprise Server](../../../../../editions-and-compatibility/mariadb-enterprise-server-differences/differences-in-available-plugins-for-enterprise-server.md) to confirm that the plugins you rely on are available.
 
 ### Data Backup
 

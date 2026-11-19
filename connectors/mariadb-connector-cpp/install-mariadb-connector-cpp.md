@@ -85,33 +85,32 @@ To install MariaDB Connector/C++ on Linux:
     ```
 11. Install the directories for the shared libraries:
 
-*   On CentOS, RHEL, Rocky Linux:
+    *   On CentOS, RHEL, Rocky Linux:
 
-    ```bash
-    $ sudo install -d /usr/lib64/mariadb
-    $ sudo install -d /usr/lib64/mariadb/plugin
-    ```
-*   On Debian, Ubuntu:
+        ```bash
+        $ sudo install -d /usr/lib64/mariadb
+        $ sudo install -d /usr/lib64/mariadb/plugin
+        ```
+    *   On Debian, Ubuntu:
 
-    ```bash
-    $ sudo install -d /usr/lib/mariadb
-    $ sudo install -d /usr/lib/mariadb/plugin
-    ```
+        ```bash
+        $ sudo install -d /usr/lib/mariadb
+        $ sudo install -d /usr/lib/mariadb/plugin
+        ```
+12. Install the shared libraries. The tarballs for CentOS, RHEL, and Rocky Linux keep them in `lib64/mariadb/`, the tarballs for Debian and Ubuntu in `lib/mariadb/`:
 
-1. Install the shared libraries:
+    *   On CentOS, RHEL, Rocky Linux:
 
-*   On CentOS, RHEL, Rocky Linux:
+        ```bash
+        $ sudo install lib64/mariadb/libmariadbcpp.so /usr/lib64
+        $ sudo install lib64/mariadb/plugin/* /usr/lib64/mariadb/plugin
+        ```
+    *   On Debian, Ubuntu:
 
-    ```bash
-    $ sudo install lib/mariadb/libmariadbcpp.so /usr/lib64
-    $ sudo install lib/mariadb/plugin/* /usr/lib64/mariadb/plugin
-    ```
-*   On Debian, Ubuntu:
-
-    ```bash
-    $ sudo install lib/mariadb/libmariadbcpp.so /usr/lib
-    $ sudo install lib/mariadb/plugin/* /usr/lib/mariadb/plugin
-    ```
+        ```bash
+        $ sudo install lib/mariadb/libmariadbcpp.so /usr/lib
+        $ sudo install lib/mariadb/plugin/* /usr/lib/mariadb/plugin
+        ```
 
 ## Windows Installation (MSI)
 

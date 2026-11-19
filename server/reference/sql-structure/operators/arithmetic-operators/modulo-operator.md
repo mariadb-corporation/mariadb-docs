@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the remainder of one number divided by another. N % M is the same as
+  MOD(N,M) and N MOD M.
+---
+
 # Modulo Operator (%)
 
 ## Syntax
@@ -19,6 +25,17 @@ SELECT 1042 % 50;
 +-----------+
 |        42 |
 +-----------+
+```
+
+The operands can be decimals:
+
+```sql
+SELECT 0.5 % 0.33;
++------------+
+| 0.5 % 0.33 |
++------------+
+|       0.17 |
++------------+
 ```
 
 ## See Also

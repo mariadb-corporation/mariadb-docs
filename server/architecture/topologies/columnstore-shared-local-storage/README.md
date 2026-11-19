@@ -15,7 +15,8 @@ flowchart TD
     accDescr {
         A MaxScale proxy routes read-write traffic to one MariaDB Enterprise Server node and
         read-only traffic to two others. Each node runs Enterprise ColumnStore, and all three
-        ColumnStore instances read and write their table data over shared NFS storage.
+        ColumnStore instances use shared NFS storage for their table data. Arrows lead
+        from the NFS box to each of the three ColumnStore boxes.
     }
     MX["MariaDB MaxScale"]
     E1["ES"]
@@ -90,7 +91,7 @@ The following components are deployed during this procedure:
 
 | Component                                                                                                | Description                                                                                                                                                                                                               |
 | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [MariaDB Enterprise ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) | • Columnar storage engine • Highly available • Optimized for Online Analytical Processing (OLAP) workloads • Scalable query execution • Cluster Management API (CMAPI) provides a REST API for multi-node administration. |
+| [MariaDB Enterprise ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud) | • Columnar storage engine • Highly available • Optimized for Online Analytical Processing (OLAP) workloads • Scalable query execution • Cluster Management API (CMAPI) provides a REST API for multi-node administration. |
 
 ### MariaDB MaxScale Components
 
@@ -121,7 +122,7 @@ The ColumnStore nodes:
 
 * Receive queries from MaxScale
 * Execute queries
-  * Use [shared local storage](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-storage-architecture#shared-local-storage) for the [Storage Manager directory](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-storage-architecture#storage-manager-directory)
+  * Use [shared local storage](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/architecture/columnstore-storage-architecture#shared-local-storage) for the [Storage Manager directory](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/architecture/columnstore-storage-architecture#storage-manager-directory)
 
 ## Requirements
 
@@ -197,7 +198,7 @@ The ColumnStore Object Storage topology requires the following storage types:
 
 | Storage Type                                                                                                                                                  | Description                                                                                                                                                                                                                                                          |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Shared Local Storage](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-storage-architecture#shared-local-storage) | The ColumnStore Object Storage topology uses shared local storage for the [Storage Manager directory](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-storage-architecture#storage-manager-directory) to store metadata. |
+| [Shared Local Storage](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/architecture/columnstore-storage-architecture#shared-local-storage) | The ColumnStore Object Storage topology uses shared local storage for the [Storage Manager directory](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/architecture/columnstore-storage-architecture#storage-manager-directory) to store metadata. |
 
 ### Shared Local Storage Directories
 
@@ -381,3 +382,5 @@ Navigation in the procedure Shared Local Storage topology
 Next: Step 1: Prepare ColumnStore Nodes.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

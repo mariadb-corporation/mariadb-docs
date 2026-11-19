@@ -81,7 +81,7 @@ See [this docker issue](https://github.com/MariaDB/mariadb-docker/issues/201) fo
 
 ### MariaDB Galera Cluster
 
-[MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide) builds include a built-in plugin called `wsrep`. This plugin is a replication plugin, so it is not considered an [XA-capable](../../../reference/sql-statements/transactions/xa-transactions.md) storage engine and does not force MariaDB to use a transaction coordinator log by default.
+[MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide) builds include a built-in plugin called `wsrep`. This plugin is a replication plugin, so it is not considered an [XA-capable](../../../reference/sql-statements/transactions/xa-transactions.md) storage engine and does not force MariaDB to use a transaction coordinator log by default.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

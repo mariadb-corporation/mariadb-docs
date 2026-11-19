@@ -2,7 +2,7 @@
 
 The most recent [MariaDB Galera Cluster 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) release is:[**MariaDB Galera Cluster 10.0.38**](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/10.0.29)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10029-release-notes.md)[Changelog](mariadb-galera-cluster-10029-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
+[Download](https://downloads.mariadb.org/mariadb-galera/10.0.29)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10029-release-notes.md)[Changelog](mariadb-galera-cluster-10029-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-guide)
 
 **Release date:** 16 Jan 2017
 

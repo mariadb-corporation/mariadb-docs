@@ -2,10 +2,12 @@
 description: >-
   GridGain 9.0.4 introduces a new license format and a single ignite root
   configuration node, along with user object serialization for compute jobs.
-hidden: true
+  Released on 2024-08-29.
 ---
 
 # GridGain 9.0.4 Release Notes
+
+**Release date:** 29 Aug 2024
 
 ## Overview
 
@@ -96,4 +98,8 @@ The following features of GridGain 8 are not available in this version, and will
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

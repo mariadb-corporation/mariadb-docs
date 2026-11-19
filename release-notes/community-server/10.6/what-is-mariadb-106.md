@@ -17,7 +17,7 @@ description: >-
 
 ## New Features & Improvements
 
-See the [Differences in MariaDB Enterprise Server 10.6](../../enterprise-server/about/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-10.6.md) page for items that are different between MariaDB Community Server 10.6 and MariaDB Enterprise Server 10.6.
+See the [Differences in MariaDB Enterprise Server 10.6](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-10.6) page for items that are different between MariaDB Community Server 10.6 and MariaDB Enterprise Server 10.6.
 
 ### Atomic DDL
 
@@ -32,7 +32,7 @@ See the [Differences in MariaDB Enterprise Server 10.6](../../enterprise-server/
 
 #### Oracle Compatibility
 
-* Anonymous [subqueries in a FROM clause](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/subqueries/subqueries-in-a-from-clause-derived-tables) (no AS clause) are permitted in [ORACLE mode](../about/compatibility-and-differences/sql_modeoracle.md) ([MDEV-19162](https://jira.mariadb.org/browse/MDEV-19162))
+* Anonymous [subqueries in a FROM clause](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/subqueries/subqueries-in-a-from-clause-derived-tables) (no AS clause) are permitted in [ORACLE mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle) ([MDEV-19162](https://jira.mariadb.org/browse/MDEV-19162))
 * [ADD\_MONTHS()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/add_months) added ([MDEV-20025](https://jira.mariadb.org/browse/MDEV-20025))
 * [TO\_CHAR()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/string-functions/to_char) added ([MDEV-20017](https://jira.mariadb.org/browse/MDEV-20017))
 * [SYS\_GUID()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/miscellaneous-functions/sys_guid) added ([MDEV-24285](https://jira.mariadb.org/browse/MDEV-24285))
@@ -123,7 +123,22 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 
 | CVE ID (with cve.org link)                                                      | CVSS base score (v3.1) | Community Server 10.6 Release |
 | ------------------------------------------------------------------------------- | ---------------------- | ----------------------------- |
+| [CVE-2026-107823](https://www.cve.org/CVERecord?id=CVE-2026-107823)             | 7.2                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-107822](https://www.cve.org/CVERecord?id=CVE-2026-107822)             | 6.4                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-107821](https://www.cve.org/CVERecord?id=CVE-2026-107821)             | 8.0                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-107818](https://www.cve.org/CVERecord?id=CVE-2026-107818)             | 8.4                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-107817](https://www.cve.org/CVERecord?id=CVE-2026-107817)             | 4.4                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-107816](https://www.cve.org/CVERecord?id=CVE-2026-107816)             | 6.4                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-107815](https://www.cve.org/CVERecord?id=CVE-2026-107815)             | 8.5                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-107814](https://www.cve.org/CVERecord?id=CVE-2026-107814)             | 8.4                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-101797](https://www.cve.org/CVERecord?id=CVE-2026-101797)             | 7.5                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-101770](https://www.cve.org/CVERecord?id=CVE-2026-101770)             | 8.1                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-97380](https://www.cve.org/CVERecord?id=CVE-2026-97380)               | 8.8                    | [MariaDB 10.6.28](10.6.28.md) |
 | [CVE-2026-92262](https://www.cve.org/CVERecord?id=CVE-2026-92262)               | 9.9                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-86047](https://www.cve.org/CVERecord?id=CVE-2026-86047)               | 7.7                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-85985](https://www.cve.org/CVERecord?id=CVE-2026-85985)               | 5.4                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-85746](https://www.cve.org/CVERecord?id=CVE-2026-85746)               | 9.9                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-85745](https://www.cve.org/CVERecord?id=CVE-2026-85745)               | 4.3                    | [MariaDB 10.6.28](10.6.28.md) |
 | [CVE-2026-61081](https://www.cve.org/CVERecord?id=CVE-2026-61081)               | 2.7                    | [MariaDB 10.6.28](10.6.28.md) |
 | [CVE-2026-60585](https://www.cve.org/CVERecord?id=CVE-2026-60585)               | 6.6                    | [MariaDB 10.6.28](10.6.28.md) |
 | [CVE-2026-60331](https://www.cve.org/CVERecord?id=CVE-2026-60331)               | 6.4                    | [MariaDB 10.6.28](10.6.28.md) |

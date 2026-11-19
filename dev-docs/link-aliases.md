@@ -32,25 +32,32 @@ Markdown files your own PR changes, so that follow-up commit never edits a file 
 
 | Alias | Target space |
 |-------|--------------|
-| `{home}` | Home / Landing |
 | `{server}` | MariaDB Server |
 | `{maxscale}` | MariaDB MaxScale |
 | `{galera}` | Galera Cluster |
-| `{analytics}` | Analytics (ColumnStore) |
 | `{columnstore}` | ColumnStore |
 | `{connectors}` | Connectors (Java, ODBC, etc.) |
+| `{gridgain}` | GridGain (overview of GridGain 8 and 9) |
+| `{gridgain8}` | GridGain 8 |
 | `{gridgain9}` | GridGain 9 |
 | `{skysql}` | MariaDB Cloud (legacy alias — SkySQL was renamed MariaDB Cloud) |
 | `{platform}` | MariaDB Enterprise Platform |
 | `{mariadb-cloud}` | MariaDB Cloud |
-| `{tools}` | Enterprise Tools (alias keeps the `tools` slug) |
+| `{tools}` | Tools (Enterprise and Community tools; alias keeps the `tools` slug) |
 | `{release-notes}` | Release Notes |
 | `{general-resources}` | General Resources |
+| `{exa}` | Exa |
+| `{ai-tools}` | AI Tools |
+| `{raft-cluster}` | Raft Cluster |
+| `{get-started}` | Get Started (the site's home page, `/docs/`) |
 
 ## Rules for agents
 
 - **Use an alias for any cross-space link.** Use a relative `.md` path for links within the
-  same space.
+  same space. **One exception:** the Community Tools pages synced from product repos
+  (`tools/community/mariadb-ai-plugins/`, `tools/community/mariadb-shell/`) use absolute
+  `https://mariadb.com/docs/…` URLs, because they must match their source. See
+  [the sync cookbook](cookbook-community-tools-sync.md).
 - **Never expand an alias by hand**, and never rewrite an already-expanded
   `app.gitbook.com` URL back into the source. The Action owns that transform.
 - **Aliases don't resolve in a local editor, the GitHub UI, or the GitHub app** — that's
@@ -76,7 +83,7 @@ Markdown files your own PR changes, so that follow-up commit never edits a file 
 - A few files are intentionally **excluded from alias expansion** by the Action, because they
   discuss the alias mechanism rather than use it: the repository's own `README.md` and
   `pdf/README.md`, `CONTRIBUTING.md`, everything under `dev-docs/` and `.claude/`, and
-  `general-resources/about/readme/about-links.md`. Don't rely on alias expansion in those —
+  `general-resources/about/about-links.md`. Don't rely on alias expansion in those —
   write the raw `https://app.gitbook.com/o/<org>/s/<space>/path` URL instead.
 - **Expansion is scoped to your PR's own changed Markdown files.** It used to walk the whole
   tree, so any alias that had reached `main` unexpanded was rewritten by whichever PR opened

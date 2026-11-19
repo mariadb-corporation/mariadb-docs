@@ -14,7 +14,7 @@ MariaDB MaxScale is engineered with an extensible architecture to support plugin
 For what MaxScale does feature by feature, see [MariaDB MaxScale Overview](maxscale-architecture/mariadb-maxscale-overview.md); for how it is built, see [About MariaDB MaxScale](maxscale-architecture/mariadb-maxscale-guide.md).
 
 {% hint style="info" %}
-📄 Read offline: [mariadb-maxscale.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-maxscale.pdf) (~5,800 pages, 50 MB). The PDF is a point-in-time snapshot; this site is always current.
+📄 Read offline: [mariadb-maxscale.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-maxscale.pdf) (~4,100 pages, 48 MB). The PDF is a point-in-time snapshot; this site is always current.
 {% endhint %}
 
 {% content-ref url="maxscale-quickstart-guides/" %}
@@ -46,3 +46,5 @@ For what MaxScale does feature by feature, see [MariaDB MaxScale Overview](maxsc
 {% endcontent-ref %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

@@ -4,6 +4,12 @@ description: A list of all MariaDB Enterprise Manager releases
 
 # All Releases
 
+## MariaDB Enterprise Manager 26.10
+
+| Version                     | Release Date | Release Status |
+| --------------------------- | ------------ | -------------- |
+| [26.10.0](26.10/26.10.0.md) | 2026-11-03   | Stable (GA)    |
+
 ## MariaDB Enterprise Manager 26.07
 
 | Version                     | Release Date | Release Status |

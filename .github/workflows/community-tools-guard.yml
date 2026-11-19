@@ -1,0 +1,87 @@
+name: Community Tools guard
+
+# The pages under tools/community/<product>/ for each product in .github/community-tools.json
+# are copied from the product's own repo by sync-community-tools-docs.yml (DOCS-6926). An edit
+# made here is overwritten by the next sync, so this check fails any PR that changes them,
+# except the sync's own PR, and comments with a link to each page's source file. The fix goes
+# into the product repo; the next sync brings it here.
+#
+# pull_request_target, so the comment can be posted on PRs from forks too. That is safe here
+# because the job never checks out or runs anything from the PR: it reads the PR's file list
+# through the API and the product list from the base branch.
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'tools/community/**'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the base branch (for the product list only)
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          sparse-checkout: .github/community-tools.json
+          sparse-checkout-cone-mode: false
+
+      - name: Fail on edits to synced pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+        run: |
+          set -euo pipefail
+          if [ "$HEAD_REPO" = "$REPO" ] && [ "$HEAD_REF" = automated/sync-community-tools-docs ]; then
+            echo "The sync's own PR; nothing to guard."
+            exit 0
+          fi
+
+          gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[].filename' > "$RUNNER_TEMP/files"
+          hits="$RUNNER_TEMP/hits.md"
+          : > "$hits"
+          while read -r key repo ref; do
+            prefix="tools/community/$key/"
+            while IFS= read -r f; do
+              case "$f" in
+                "$prefix"*)
+                  rel="${f#"$prefix"}"
+                  echo "- \`$f\`: edit [the source](https://github.com/$repo/blob/$ref/docs-ref/content/community/$key/$rel) in \`$repo\`" >> "$hits"
+                  ;;
+              esac
+            done < "$RUNNER_TEMP/files"
+          done < <(jq -r '.products | to_entries[] | "\(.key) \(.value.repo) \(.value.ref)"' .github/community-tools.json)
+
+          if [ ! -s "$hits" ]; then
+            echo "No synced pages changed."
+            exit 0
+          fi
+
+          marker='<!-- community-tools-guard -->'
+          {
+            echo "$marker"
+            echo "This PR changes pages that are copied from their product's own repo. The next sync"
+            echo "would overwrite the change here, so please make it in the product repo instead:"
+            echo
+            cat "$hits"
+            echo
+            echo "Those repos take pull requests. Once the fix is merged there, the sync brings it"
+            echo "into this repo. See \`dev-docs/cookbook-community-tools-sync.md\`."
+          } > "$RUNNER_TEMP/comment.md"
+
+          if gh api --paginate "repos/$REPO/issues/$PR/comments" --jq '.[].body' | grep -qF "$marker"; then
+            echo "Guard comment already posted."
+          else
+            gh pr comment "$PR" --repo "$REPO" --body-file "$RUNNER_TEMP/comment.md"
+          fi
+          cat "$RUNNER_TEMP/comment.md"
+          echo "::error::This PR edits synced Community Tools pages. Make the change in the product repo."
+          exit 1

@@ -2,11 +2,13 @@
 description: >-
   GridGain 9.1.27 restricts server-side file access for SQL COPY, adds SQL over
   the management REST API, changes the default deadlock prevention policy, and
-  hardens role and credential handling.
-hidden: true
+  hardens credentials.
+  Released on 2026-09-14.
 ---
 
 # GridGain 9.1.27 Release Notes
+
+**Release date:** 14 Sep 2026
 
 ## Overview
 
@@ -20,7 +22,7 @@ The `COPY` command previously authorized only the table side of a statement. A f
 
 Server-side file and object-store access is now disabled entirely by default. To re-enable it:
 
-- Set `importExport.fileAccessEnabled` to `true` in the [node configuration](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/configuration/node-configuration-parameters).
+- Set `importExport.fileAccessEnabled` to `true` in the [node configuration](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/configuration/node-configuration-parameters).
 - List the directories `COPY` command may read from and write to in `importExport.importRoots`. An empty list allows no local file access.
 - Grant `COPY_FROM_FILE` privilege to read a server-side location, or `COPY_TO_FILE` to write one.
 
@@ -34,9 +36,13 @@ An existing `COPY` job that names a filesystem path or object-store URI fails af
 
 Read-write transactions now use the wound-wait deadlock prevention algorithm instead of wait-die.
 
-Under wait-die, a transaction that requested a lock held by an older transaction was cancelled and retried. Under wound-wait the priority runs the other way: an older transaction that needs a lock held by a younger one aborts the younger transaction and proceeds, while a younger transaction that meets an older holder waits for the lock to be released.
+Both algorithms resolve a lock conflict in favor of the older transaction. They differ in which of the two transactions is aborted: the one requesting the lock, or the one holding it.
 
-No configuration change is required. Applications that relied on the previous behavior may see different abort patterns under contention. See [Deadlock Prevention](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/transactions#deadlock-prevention).
+Under wait-die, the requesting transaction was aborted. A younger transaction that asked for a lock held by an older one was cancelled and retried, and an older transaction that asked for a lock held by a younger one waited for the lock to be released.
+
+Under wound-wait, the holding transaction is aborted instead. An older transaction that needs a lock held by a younger one kills the younger transaction and proceeds, and a younger transaction that meets an older holder waits for the lock to be released.
+
+No configuration change is required. The practical difference is that a transaction can now be aborted while it is not waiting for anything: it is killed because an older transaction needs a row it already holds. Applications that retry on lock conflicts should expect the abort on either side of the conflict, not only on the transaction that requested the lock. See [Deadlock Prevention](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/transactions#deadlock-prevention).
 
 ### Built-In Roles Can No Longer Be Assigned, Revoked, or Dropped
 
@@ -61,7 +67,7 @@ One response shape covers every kind of statement, reporting a row set, an affec
 
 A `cursorId` is valid only on the node that issued it, so paging requests must go to that same node.
 
-See [Running SQL](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/rest-api/overview#running-sql).
+See [Running SQL](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/rest-api#running-sql).
 
 ### Connect Timeout for the C++ Client
 
@@ -69,7 +75,7 @@ The C++ client can now limit how long it waits for the handshake that follows a 
 
 ### Low Watermark Progress Metrics
 
-A new `low.watermark` metric source reports whether the low watermark is still advancing and what is holding it back: `Current`, `SinceLastUpdateMillis`, `BlockingLockCount`, and `BlockingLockLagMillis`. See [Available Metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list).
+A new `low.watermark` metric source reports whether the low watermark is still advancing and what is holding it back: `Current`, `SinceLastUpdateMillis`, `BlockingLockCount`, and `BlockingLockLagMillis`. See [Available Metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/monitoring/metrics-list).
 
 ### Table Schema Version in SYSTEM.TABLES
 
@@ -80,7 +86,7 @@ The `SYSTEM.TABLES` system view now has a `TABLE_SCHEMA_VERSION` column reportin
 | Issue ID | Category | Description |
 |---|---|---|
 | GG-51219 | Cluster Storage Engine | RANDOM_LRU and SEGMENTED_LRU page replacement policies are now deprecated. |
-| GG-51103 | Cluster Storage Engine | Increased the page memory segment count and bounded segment size over-allocation. |
+| GG-51103 | Cluster Storage Engine | Page memory data regions are now split into more segments, spreading lock traffic across more cores, and a small data region no longer allocates more off-heap memory than its configured size. |
 | GG-51034 | Cluster Storage Engine | The resource vacuum and the finished read-only broadcast now keep running after a failure. |
 | GG-50978 | Cluster SQL Engine | Fix exception in MERGE INTO query with dynamic parameters when assertions enabled |
 | GG-50916 | Cluster Data Replication | The DR connector `start.sh` now inherits `EXTRA_JVM_ARGS` from the environment, so JVM arguments no longer require editing the script after each upgrade. |
@@ -107,7 +113,7 @@ The `SYSTEM.TABLES` system view now has a `TABLE_SCHEMA_VERSION` column reportin
 | GG-50388 | Platforms & Clients | Fixed: A malformed client message could use up all of a node's memory. |
 | GG-50379 | Cluster Security | Built-in roles (system, gridgain-system-bypass) can no longer be granted or revoked via SQL, REST or the Java API, in any letter case. Appointing or removing a cluster administrator now requires a security configuration update. |
 | GG-50378 | Cluster Security | `CREATE USER` and `ALTER USER` password literals are now masked in the `SYSTEM.SQL_QUERIES` view and in query event records. The event error field is suppressed for such statements so it cannot republish the password. |
-| GG-50361 | General | ignite.nodeAttributes.nodeAttributes.<name> is deprecated in favor of the new flat ignite.userAttributes.<name>, with existing configs migrated automatically. |
+| GG-50361 | General | `ignite.nodeAttributes.nodeAttributes.<name>` is deprecated in favor of the new flat `ignite.userAttributes.<name>`, with existing configs migrated automatically. |
 | GG-50359 | Cluster Storage Engine | Fixed calculation of partition state health |
 | GG-50245 | Cluster Data Snapshots and Recovery | Primary replicas are now awaited in assignments during snapshot restore. |
 | GG-50158 | Cluster Security | Hardened machine learning marshaller deserialization with a strict object input filter. |
@@ -149,4 +155,8 @@ Currently, data rebalance may cause partition distribution to change and cause i
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

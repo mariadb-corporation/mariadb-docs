@@ -1,6 +1,6 @@
 # Reporting Software Bugs
 
-For reporting documentation bugs specifically, see [Reporting Documentation Bugs](../../../about/readme/reporting-documentation-bugs.md).
+For reporting documentation bugs specifically, see [Reporting Documentation Bugs](../../../about/reporting-documentation-bugs.md).
 
 MariaDB's bug and feature tracker is found at [jira.mariadb.org](https://jira.mariadb.org).
 
@@ -127,7 +127,7 @@ _Use {noformat}...{noformat} and {code}...{code} blocks for code and console out
 
 #### Attachments
 
-If you have SQL code, a database dump, a log etc. of a reasonable size, attach them to the report (archive them first if necessary). If they are too big, you can upload them to ftp.askmonty.org/private. It is always a good idea to attach your cnf file(s), unless it is absolutely clear from the nature of the report that configuration is irrelevant.
+If you have SQL code, a database dump, a log etc. of a reasonable size, attach them to the report (archive them first if necessary). If they are too big, you can upload them to the private folder of the [MariaDB Public FTP Server](../../contributing-participating/mariadb-public-ftp-server.md). It is always a good idea to attach your cnf file(s), unless it is absolutely clear from the nature of the report that configuration is irrelevant.
 
 #### Links
 

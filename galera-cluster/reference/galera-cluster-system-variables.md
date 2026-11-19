@@ -428,7 +428,7 @@ Multiple nodes in a cluster can share the same name, but unique names are advise
 * Description: Semicolon (`;`) separated list of `wsrep` options (see [wsrep\_provider\_options](wsrep-variable-details/wsrep_provider_options.md)).
 * Command line: `--wsrep-provider-options=value`
 * Scope: Global
-* Dynamic: No
+* Dynamic: Yes, for the options marked as dynamic on the [wsrep\_provider\_options](wsrep-variable-details/wsrep_provider_options.md) page. No, if the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled; set the individual `wsrep_provider_<option>` system variables instead.
 * Data Type: String
 * Default Value: Empty
 
@@ -507,7 +507,7 @@ More details can be found on this page:
 
 #### `wsrep_slave_threads`
 
-* Description: Number of replica threads used to apply Galera write sets in parallel. The Galera replica threads are able to determine which write sets are safe to apply in parallel. However, if your cluster nodes seem to have frequent consistency problems, then setting the value to `1` will probably fix the problem. See [About Galera Replication: Galera Replica Threads](../readme/about-galera-replication.md#galera-slave-threads) for more information.
+* Description: Number of replica threads used to apply Galera write sets in parallel. The Galera replica threads are able to determine which write sets are safe to apply in parallel. However, if your cluster nodes seem to have frequent consistency problems, then setting the value to `1` will probably fix the problem. See [About Galera Replication: Galera Replica Threads](../about-galera-replication.md#galera-slave-threads) for more information.
 * Command line: `--wsrep-slave-threads=`#
 * Scope: Global
 * Dynamic: Yes

@@ -8,7 +8,7 @@ description: >-
 
 Databases, tables, indexes, columns, aliases, views, stored routines, triggers, events, variables, partitions, tablespaces, savepoints, labels, users, roles, are collectively known as identifiers, and have certain rules for naming.
 
-Identifiers may be quoted using the backtick character (`` ` ``). Quoting is optional for identifiers that don't contain special characters, or for identifiers that are not [reserved words](reserved-words.md). If the `ANSI_QUOTES` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) flag is set, double quotes (`"`) can also be used to quote identifiers. If the [MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql) flag is set, square brackets (`[` and `]`) can be used for quoting.
+Identifiers may be quoted using the backtick character (`` ` ``). Quoting is optional for identifiers that don't contain special characters, or for identifiers that are not [reserved words](reserved-words.md). If the `ANSI_QUOTES` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) flag is set, double quotes (`"`) can also be used to quote identifiers. If the [MSSQL](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modemssql.md) flag is set, square brackets (`[` and `]`) can be used for quoting.
 
 Even when using reserved words as names, [fully qualified names](identifier-qualifiers.md) do not need to be quoted. For example, `test.select` has only one possible meaning, so it is correctly parsed even without quotes.
 
@@ -49,10 +49,10 @@ The backtick character can be used as part of an identifier. In that case the id
 ### Maximum Length
 
 * Databases, tables, columns, indexes, constraints, stored routines, triggers, events, views, tablespaces, servers and log file groups have a maximum length of 64 characters.
-* Compound statement [labels](../../sql-statements/programmatic-compound-statements/labels.md) have a maximum length of 16 characters.
 * Aliases have a maximum length of 256 characters, except for column aliases in [CREATE VIEW](../../../server-usage/views/create-view.md) statements, which are checked against the maximum column length of 64 characters (not the maximum alias length of 256 characters).
-* Users have a maximum length of 80 characters.
-* [Roles](../../../security/user-account-management/roles/) have a maximum length of 128 characters.
+* [User names](../../sql-statements/account-management-sql-statements/create-user.md#account-names) and [roles](../../../security/user-account-management/roles/) have a maximum length of 128 characters. They are stored in the `utf8mb3` character set, so a 4-byte character such as an emoji is stored as `?`, without a warning.
+* The host name part of an account name has a maximum length of 255 characters.
+* Compound statement [labels](../../sql-statements/programmatic-compound-statements/labels.md) have no fixed maximum length.
 * Multi-byte characters do not count extra towards the character limit.
 
 ### Multiple Identifiers

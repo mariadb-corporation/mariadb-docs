@@ -11,6 +11,14 @@ When deploying a Galera Cluster, it is recommended to use a minimum of three ins
 
 ```mermaid
 graph TD
+    accTitle: Galera Arbitrator in a two-data-center cluster
+    accDescr {
+        A hub-and-spoke network. A central WAN (Wide Area Network) is joined by
+        plain lines, with no direction, to six boxes: the Arbitrator (garbd), Node
+        1, Node 2, and three boxes each labelled Clients. Node 1 sits inside the
+        Data Center 1 box and Node 2 sits inside the Data Center 2 box. The
+        Arbitrator and the three Clients boxes are outside both data centers.
+    }
     WAN("WAN (Wide Area Network)")
     
     Arbitrator["Arbitrator<br>(garbd)"]
@@ -209,3 +217,5 @@ SysV init is deprecated on modern enterprise Linux distributions (such as RHEL) 
 This starts Galera Arbitrator as a background service using your defined parameters. Any cluster parameter can be utilized by the arbitrator as a service except for those prefixed with `repl`. These supplementary options can be appended inside the configuration file using the `GALERA_OPTIONS` parameter. For more details, consult the [`galera-parameters` documentation](../../reference/galera-cluster-system-tables.md).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

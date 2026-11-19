@@ -27,7 +27,7 @@ This article describes the system and status variables used by the MariaDB threa
 
 #### `thread_handling`
 
-* Description: Determines how the server handles threads for client connections. In addition to threads for client connections, this also applies to certain internal server threads, such as [Galera slave threads](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/about-galera-replication#galera-slave-threads). On Windows, if you would like to use the thread pool, then you do not need to do anything, because the default for the thread\_handling system variable is already preset to `pool-of-threads`.
+* Description: Determines how the server handles threads for client connections. In addition to threads for client connections, this also applies to certain internal server threads, such as [Galera slave threads](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/about-galera-replication#galera-slave-threads). On Windows, if you would like to use the thread pool, then you do not need to do anything, because the default for the thread\_handling system variable is already preset to `pool-of-threads`.
   * When the default `one-thread-per-connection` mode is enabled, the server uses one thread to handle each client connection.
   * When the `pool-of-threads` mode is enabled, the server uses the [thread pool](thread-pool-in-mariadb.md) for client connections.
   * When the `no-threads` mode is enabled, the server uses a single thread for all client connections, which is really only usable for debugging.

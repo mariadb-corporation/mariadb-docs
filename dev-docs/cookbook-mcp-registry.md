@@ -15,22 +15,23 @@ This cookbook is how we publish and maintain that listing. Tracked in DOCS-6400.
 > **You do not need to understand the cryptography to use this.** Two commands, one of which
 > is copy-paste. Everything above the "Publish" section is background you can skip.
 
-## Status: fill in these two placeholders first
+## Values
 
 The one-time setup is **owned by IT**, not by us (see [Why IT holds the key](#why-it-holds-the-key)).
-When their ticket closes they send back two values. Substitute them here and delete this notice:
+IT completed it on IT-21891 (2026-10-12). Neither value is a secret:
 
-| Placeholder | What it is | Value |
-|---|---|---|
-| `<KMS_PROVIDER>` | `google-kms` or `azure-key-vault` — whichever platform IT used | *awaiting IT* |
-| `<KMS_RESOURCE>` | the key identifier; for Google KMS a `projects/…/cryptoKeyVersions/1` path, for Azure the `--vault <VAULT> --key <KEY>` pair | *awaiting IT* |
+| What | Value |
+|---|---|
+| KMS provider | `google-kms` (Google Cloud KMS, Ed25519) |
+| Key resource | `projects/mdb-mcp-signing/locations/global/keyRings/mcp-registry/cryptoKeys/mariadb-com/cryptoKeyVersions/1` |
+| Who can sign | members of the Google group `mcp-registry-signers@mariadb.com`; ask IT to add you |
+| Registry entry | `com.mariadb/mariadb-docs`, defined in [`mcp-registry/server.json`](mcp-registry/server.json) |
+| Published | version `1.0.0` on 2026-10-12 |
 
-Neither value is a secret. Both can live in this file once known.
+## One-time setup (IT, done)
 
-## One-time setup (IT, already requested)
-
-Recorded here so nobody re-derives it. **Do not do these steps yourself** — they are on the IT
-ticket, and step 3 is what keeps the docs team from becoming a single point of failure.
+Recorded here so nobody re-derives it. **Do not do these steps yourself** — IT did them on
+IT-21891, and step 3 is what keeps the docs team from becoming a single point of failure.
 
 1. Create an asymmetric signing key in the corporate KMS. Google Cloud KMS uses Ed25519
    (`--purpose=asymmetric-signing --default-algorithm=ec-sign-ed25519`); Azure Key Vault uses
@@ -58,14 +59,13 @@ Worth knowing, because it explains why the setup looks heavier than "add a DNS r
 
 ## Publish
 
-Once the placeholders above are filled in.
-
-Install the publisher CLI. Prebuilt binaries exist for macOS, Linux and Windows, so nothing
-here assumes a Mac:
+Install the publisher CLI and the Google Cloud CLI. Prebuilt binaries exist for macOS, Linux
+and Windows, so nothing here assumes a Mac:
 
 ```bash
 # macOS
 brew install mcp-publisher
+brew install --cask gcloud-cli
 
 # Linux x86_64 (swap in _linux_arm64 on ARM)
 curl -sL https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_linux_amd64.tar.gz \
@@ -73,57 +73,50 @@ curl -sL https://github.com/modelcontextprotocol/registry/releases/latest/downlo
 ```
 
 Windows: take `mcp-publisher_windows_amd64.tar.gz` from the same releases page. Every tarball
-ships with a Sigstore attestation and an SBOM if you need to verify provenance first.
+ships with a Sigstore attestation and an SBOM if you need to verify provenance first. For the
+Google Cloud CLI on Linux or Windows, see <https://cloud.google.com/sdk/docs/install>.
 
-Create `server.json`. Generating the skeleton rather than copying the one below keeps the
-`$schema` version current:
-
-```bash
-mcp-publisher init
-```
-
-Then edit it to look like this:
-
-```json
-{
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "com.mariadb/mariadb-docs",
-  "title": "MariaDB Documentation",
-  "description": "Search and read the official MariaDB documentation: Server, MaxScale, connectors, Galera, release notes.",
-  "version": "1.0.0",
-  "remotes": [
-    { "type": "streamable-http", "url": "https://mariadb.com/docs/~gitbook/mcp" }
-  ]
-}
-```
-
-The `name` **must** be `com.mariadb/…`. That prefix is the reverse-DNS form of the domain we
-verified; any other prefix is rejected because we hold no proof for it.
-
-Authenticate and publish:
+Sign in to Google Cloud once per machine, with the mariadb.com account that is in
+`mcp-registry-signers@`. It opens a browser. The warning about a missing quota project is
+harmless here:
 
 ```bash
-# Google KMS
+gcloud auth application-default login
+```
+
+The entry's content lives in [`mcp-registry/server.json`](mcp-registry/server.json). Edit that
+file, never a copy, so the repo always shows what is published. Check it before publishing:
+
+```bash
+cd dev-docs/mcp-registry
+mcp-publisher validate
+```
+
+The `name` **must** stay `com.mariadb/mariadb-docs`. The `com.mariadb` prefix is the reverse-DNS
+form of the domain we verified; any other prefix is rejected because we hold no proof for it.
+The `description` is capped at **100 characters** by the registry schema. It is deliberately
+generic ("every MariaDB product") because the endpoint searches every published space, so a
+new space becomes searchable without a republish.
+
+Log in and publish **in one command**. The registry's login token expires after a few minutes,
+so a publish run later fails with `401 … token is expired`:
+
+```bash
 mcp-publisher login dns google-kms \
     --domain=mariadb.com \
-    --resource="<KMS_RESOURCE>"
-
-# Azure Key Vault
-mcp-publisher login dns azure-key-vault \
-    --domain=mariadb.com \
-    --vault <VAULT> --key <KEY>
-
-mcp-publisher publish
+    --resource="projects/mdb-mcp-signing/locations/global/keyRings/mcp-registry/cryptoKeys/mariadb-com/cryptoKeyVersions/1" \
+  && mcp-publisher publish
 ```
 
-The login needs cloud credentials that carry the signer grant — `gcloud auth
-application-default login` for Google KMS, `az login` for Azure. The private key never leaves
-the KMS; the tool asks the KMS to sign and receives only a signature.
+The login prints an "Expected proof record". It must match the TXT record at the mariadb.com
+apex (`dig +short TXT mariadb.com | grep MCPv1`); if it does not, the key and the DNS record
+are out of step and the problem is IT's to fix. The private key never leaves the KMS; the tool
+asks the KMS to sign and receives only a signature.
 
 ## Verify
 
 ```bash
-curl -s "https://registry.modelcontextprotocol.io/v0/servers?search=mariadb" | jq .
+curl -s "https://registry.modelcontextprotocol.io/v0/servers/com.mariadb%2Fmariadb-docs/versions/latest" | jq .
 ```
 
 The entry should appear with our endpoint under `remotes`. A useful smoke test on the endpoint
@@ -154,6 +147,13 @@ Rare, but non-zero:
 
 Every one of these cost real time on DOCS-6400.
 
+- **The login token expires within minutes.** Run `login` and `publish` chained with `&&`, as
+  in [Publish](#publish). A separate `publish` run later fails with `401 … token is expired`.
+- **A `504 Gateway Time-out` from `publish` does not tell you whether it worked.** Check before
+  retrying: `curl -s https://registry.modelcontextprotocol.io/v0/servers/com.mariadb%2Fmariadb-docs/versions/latest`
+  returns the entry, or `404 Server not found`. Look up the entry by name like this, not with
+  `?search=`; the search endpoint is the part of the registry that times out first. A retry is
+  safe either way: republishing an existing version is rejected rather than duplicated.
 - **The TXT record goes at the apex** (`mariadb.com`), SPF-style — **not** under a selector like
   `_mcp-auth.mariadb.com`. Selector placement fails with a *generic signature error* that gives
   no hint about placement, so you will debug the wrong thing.

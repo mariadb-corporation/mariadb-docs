@@ -24,7 +24,7 @@ MariaDB Enterprise Kubernetes Operator 26.06 introduces multi-cluster replicatio
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TB
     accTitle: Multi-cluster replication architecture
-    accDescr {A Client connects through a Load Balancer to the Primary Cluster's MaxScale Service in eu-south, which routes to maxscale-0 and maxscale-1 pods and on to the MariaDB Cluster's mariadb-0 (Primary) and mariadb-1 (Replica) pods. The Primary Cluster's mariadb-operator provisions, configures, and monitors the MariaDB Cluster, and takes physical backups from mariadb-1. The Replica Cluster in eu-central mirrors this structure with its own MaxScale Service, maxscale-0 and maxscale-1 pods, mariadb-operator, and a MariaDB Cluster containing mariadb-0 (Primary Replica) and mariadb-1 (Secondary Replica). The Replica Cluster's mariadb-0 replicates from the Primary Cluster's MaxScale Service.}
+    accDescr {A Client connects through a Load Balancer to the Primary Cluster's MaxScale Service in eu-south, which routes to maxscale-0 and maxscale-1 pods and to the MariaDB Cluster's mariadb-0 (Primary) and mariadb-1 (Replica) pods. The Primary Cluster's mariadb-operator provisions, configures, and monitors the MariaDB Cluster, and takes physical backups from mariadb-1. The Replica Cluster in eu-central has its own MaxScale Service with arrows to its maxscale-0 and maxscale-1 pods and to the mariadb-0 (Primary Replica) and mariadb-1 (Secondary Replica) pods of its MariaDB Cluster. Its own mariadb-operator provisions, configures, and monitors that MariaDB Cluster. The Replica Cluster's mariadb-0 replicates from the Primary Cluster's MaxScale Service.}
 
     Client([Client]) --> LB([Load Balancer])
 

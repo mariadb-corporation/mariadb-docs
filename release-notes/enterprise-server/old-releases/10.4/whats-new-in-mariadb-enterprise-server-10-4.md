@@ -45,7 +45,7 @@ With [data-at-rest encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/se
 MariaDB Enterprise Server includes support for [MariaDB Enterprise Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/), which incorporates Galera Cluster 4. New features include:
 
 * Parallel replication and improved performance when blocks of grouped transactions can be committed without conflict.
-* The [Streaming replication](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/about-galera-replication#streaming-replication), to eliminate transaction limitations by fragmenting huge transactions for replication.
+* The [Streaming replication](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/about-galera-replication#streaming-replication), to eliminate transaction limitations by fragmenting huge transactions for replication.
 * Rolling upgrades to permit a smooth transition of MariaDB Cluster deployments to Galera 4 functionality by operating as a Galera 3-compatible node until all nodes are Galera 4-compatible.
 
 ## Data Reliability and SQL Functionality

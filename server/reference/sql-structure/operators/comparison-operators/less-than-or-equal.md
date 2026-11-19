@@ -1,3 +1,9 @@
+---
+description: >-
+  Test whether one value is less than or equal to another. The <= operator
+  returns 1 or 0, or NULL if either operand is NULL, and also compares rows.
+---
+
 # <=
 
 ## Syntax

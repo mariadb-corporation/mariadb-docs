@@ -292,3 +292,7 @@ The following SQL data types listed in the [specification](https://docs.microsof
 | `SQL_INTERVAL_HOUR_TO_SECOND` | NO |
 | `SQL_INTERVAL_MINUTE_TO_SECOND` | NO |
 | `SQL_GUID` | YES |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

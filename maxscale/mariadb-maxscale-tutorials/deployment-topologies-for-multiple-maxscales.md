@@ -24,7 +24,7 @@ This page assumes you have read [Failover With Multiple MaxScales](failover-with
 | [2 databases + 2 MaxScales + co-located tiebreaker](deployment-topologies-for-multiple-maxscales.md#two-databases-two-maxscales-and-a-co-located-tiebreaker) | 4 | Yes | Yes |
 | [2 Galera nodes + 2 MaxScales + co-located arbitrator](deployment-topologies-for-multiple-maxscales.md#two-galera-nodes-two-maxscales-and-a-co-located-arbitrator) | 4 | Yes | Yes |
 
-The first three use [MariaDB Monitor](../reference/maxscale-monitors/mariadb-monitor.md) with `cooperative_monitoring_locks`. The fourth uses [Galera Monitor](../reference/maxscale-monitors/galera-monitor.md) and relies on a different mechanism entirely — see [How the Galera Case Differs](deployment-topologies-for-multiple-maxscales.md#how-the-galera-case-differs).
+The first three use [MariaDB Monitor](../reference/maxscale-monitors/mariadb-monitor/README.md) with `cooperative_monitoring_locks`. The fourth uses [Galera Monitor](../reference/maxscale-monitors/galera-monitor.md) and relies on a different mechanism entirely — see [How the Galera Case Differs](deployment-topologies-for-multiple-maxscales.md#how-the-galera-case-differs).
 
 ## Two Databases and Two MaxScales
 
@@ -120,6 +120,9 @@ flowchart TD
       db1 is down. MaxScale 1 holds locks on db2 and db3, two of the three configured servers,
       which is a majority, so it has promoted db2 and accepts writes. MaxScale 2 is the secondary
       monitor and follows the master lock to db2.
+      Arrows labelled write lead from MaxScale 1 and MaxScale 2 to db2. An unlabelled arrow
+      leads from each MaxScale to db3, a replica, and an unlabelled arrow leads from db2 to
+      db3.
     }
     MX1["MaxScale 1<br/>primary monitor"]:::node
     MX2["MaxScale 2<br/>secondary monitor"]:::node
@@ -191,6 +194,8 @@ flowchart TD
       db1 is down. db3, a small MariaDB instance co-located on the MaxScale 1 host, acts as the
       third vote. MaxScale 1 holds locks on db2 and db3, a majority of the three configured
       servers, so it has promoted db2 and accepts writes. Reads are never routed to db3.
+      MaxScale 2, the secondary monitor, also writes to db2: an arrow labelled write leads
+      from MaxScale 2 to db2. An unlabelled arrow leads from db2 to db3.
     }
     subgraph H1["MaxScale 1 host"]
       MX1["MaxScale 1<br/>primary monitor"]:::node
@@ -256,11 +261,11 @@ The other partitions work out the same way. If the MaxScale 1 host is isolated, 
 
 The tiebreaker is an ordinary MariaDB server replicating from the primary. Three things make it a tiebreaker rather than a third production node.
 
-**Include it in the monitor.** Locking is on by default for every monitored server, so listing it is all that is needed. Do not add it to [servers\_no\_cooperative\_monitoring\_locks](../reference/maxscale-monitors/mariadb-monitor.md#servers_no_cooperative_monitoring_locks) — that setting would remove it from the majority count, which is the one thing it is there for.
+**Include it in the monitor.** Locking is on by default for every monitored server, so listing it is all that is needed. Do not add it to [servers\_no\_cooperative\_monitoring\_locks](../reference/maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#servers_no_cooperative_monitoring_locks) — that setting would remove it from the majority count, which is the one thing it is there for.
 
 **Keep it out of query routing.** Give the service an explicit `servers` list naming only the full servers. Do not use `cluster=`, which takes the service's targets from the monitor and would include the tiebreaker.
 
-**Keep it out of promotion.** A server sharing a host with MaxScale is a poor primary. [servers\_no\_promotion](../reference/maxscale-monitors/mariadb-monitor.md#servers_no_promotion) excludes it from failover and from automatic primary selection at startup and on topology changes.
+**Keep it out of promotion.** A server sharing a host with MaxScale is a poor primary. [servers\_no\_promotion](../reference/maxscale-monitors/mariadb-monitor/mariadb-monitor-settings.md#servers_no_promotion) excludes it from failover and from automatic primary selection at startup and on topology changes.
 
 {% code title="maxscale.cnf" %}
 ```ini
@@ -318,8 +323,8 @@ flowchart TD
     accDescr {
       node1 is down. The arbitrator garbd, co-located on the MaxScale 1 host, is the third vote,
       so node2 plus the arbitrator are a majority of the Galera cluster and node2 stays in the
-      primary component. Both MaxScale instances route to node2. The arbitrator is not a MaxScale
-      server and holds no data.
+      primary component. Both MaxScale instances route to node2. An arrow labelled gcomm leads
+      from node2 to garbd. The arbitrator is not a MaxScale server and holds no data.
     }
     subgraph H1["MaxScale 1 host"]
       MX1["MaxScale 1"]:::node
@@ -380,3 +385,5 @@ Whichever you choose, `majority_of_all` needs semisynchronous replication to mak
 {% endcontent-ref %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

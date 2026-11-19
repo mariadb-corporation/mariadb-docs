@@ -27,10 +27,6 @@ The third-party tools described in this section are not developed or maintained 
 [beekeeper-studio.md](beekeeper-studio.md)
 {% endcontent-ref %}
 
-{% content-ref url="cost-effective-agentless-mariadb-database-performance-management.md" %}
-[cost-effective-agentless-mariadb-database-performance-management.md](cost-effective-agentless-mariadb-database-performance-management.md)
-{% endcontent-ref %}
-
 {% content-ref url="database-workbench.md" %}
 [database-workbench.md](database-workbench.md)
 {% endcontent-ref %}
@@ -65,6 +61,10 @@ The third-party tools described in this section are not developed or maintained 
 
 {% content-ref url="dbforge-studio-for-mariadb-universal-gui-tool-for-management-administration.md" %}
 [dbforge-studio-for-mariadb-universal-gui-tool-for-management-administration.md](dbforge-studio-for-mariadb-universal-gui-tool-for-management-administration.md)
+{% endcontent-ref %}
+
+{% content-ref url="dbine.md" %}
+[dbine.md](dbine.md)
 {% endcontent-ref %}
 
 {% content-ref url="dbschema.md" %}
@@ -139,6 +139,14 @@ The third-party tools described in this section are not developed or maintained 
 [sb-data-generator.md](sb-data-generator.md)
 {% endcontent-ref %}
 
+{% content-ref url="seqora.md" %}
+[seqora.md](seqora.md)
+{% endcontent-ref %}
+
+{% content-ref url="sql-diagnostic-manager-and-sqlyog.md" %}
+[sql-diagnostic-manager-and-sqlyog.md](sql-diagnostic-manager-and-sqlyog.md)
+{% endcontent-ref %}
+
 {% content-ref url="sqlpro-studio.md" %}
 [sqlpro-studio.md](sqlpro-studio.md)
 {% endcontent-ref %}
@@ -172,3 +180,5 @@ The third-party tools described in this section are not developed or maintained 
 {% endcontent-ref %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

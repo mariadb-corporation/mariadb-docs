@@ -172,3 +172,5 @@ The introduction of `Partial_rows_log_event` does _not_ change the transactional
 [^2]: This Row\_log\_event stems from the UPDATE statement.
 
 [^3]: This Row\_log\_event stems from the DELETE statement.
+
+{% @marketo/form formId="4316" %}

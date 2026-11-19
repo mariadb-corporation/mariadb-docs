@@ -15,19 +15,20 @@ The readconnroute router provides simple and lightweight load balancing across a
 
 Note that _readconnroute_ balances _connections_ and not _statements_. When a client connects, the router selects a server based upon the router configuration and current server load, but the single created connection is fixed and will not be changed for the duration of the session. If the connection between MaxScale and the server breaks, the connection cannot be re-established and the session will be closed. The fact that the server is fixed when the client connects also means that routing hints are ignored.
 
-**Warning:** By default `readconnroute` will not prevent writes from being done even if you define `router_options=slave`. To prevent writes, add `filters=readonly` to the service to load the [ReadOnly](../maxscale-filters/maxscale-readonly.md) module that will block all writes. Otherwise, the client application is responsible for making sure that it only performs read-only queries in such cases. `readconnroute` is simple by design: it selects a server for each client connection and routes all queries there. If something more complex is required, the [readwritesplit](maxscale-readwritesplit.md) router is usually the right choice.
+**Warning:** By default `readconnroute` will not prevent writes from being done even if you define `router_options=slave`. To prevent writes, add `filters=readonly` to the service to load the [ReadOnly](../maxscale-filters/maxscale-readonly.md) module that will block all writes. Otherwise, the client application is responsible for making sure that it only performs read-only queries in such cases. `readconnroute` is simple by design: it selects a server for each client connection and routes all queries there. If something more complex is required, the [readwritesplit](maxscale-readwritesplit/README.md) router is usually the right choice.
 
 ## Settings
 
-For more details about the standard service parameters, refer to the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md).
+For more details about the standard service parameters, refer to the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md).
 
 ### `router_options`
 
-* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `master`, `slave`, `synced`, `running`
 * Default: `running`
+* Description: Specifies which server roles are eligible for connections when establishing new router sessions.
 
 **`router_options`** can contain a comma separated list of valid server roles. These roles are used as the valid types of servers the router will form connections to when new sessions are created.
 
@@ -53,10 +54,11 @@ When a connection is being created and the candidate server is being chosen, the
 
 ### `master_accept_reads`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
+* Description: Determines whether read queries are routed to the primary server when selecting servers.
 
 This option can be used to prevent queries from being sent to the current primary. If `router_options` does not contain `master`, the readconnroute instance is usually meant for reading. Setting `master_accept_reads=false` excludes the primary from server selection (and thus from receiving reads).
 
@@ -66,10 +68,11 @@ By default `master_accept_reads=true`.
 
 ### `max_replication_lag`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 0s
+* Description: Sets the maximum allowed replication lag for a server to be used for routing.
 
 The maximum acceptable replication lag. The value is in seconds. The default value is `0s`, which means that the lag is ignored.
 

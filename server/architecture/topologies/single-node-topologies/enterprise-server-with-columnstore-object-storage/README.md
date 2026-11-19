@@ -34,7 +34,7 @@ The following components are deployed during this procedure:
 
 ### MariaDB Enterprise Server Components
 
-<table><thead><tr><th width="285.1112060546875">Component</th><th>Description</th></tr></thead><tbody><tr><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/">MariaDB Enterprise ColumnStore</a></td><td><ul><li>Columnar Storage Engine</li><li>Optimized for Online Analytical Processing (OLAP) workloads</li><li>S3-compatible object storage</li></ul></td></tr></tbody></table>
+<table><thead><tr><th width="285.1112060546875">Component</th><th>Description</th></tr></thead><tbody><tr><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud">MariaDB Enterprise ColumnStore</a></td><td><ul><li>Columnar Storage Engine</li><li>Optimized for Online Analytical Processing (OLAP) workloads</li><li>S3-compatible object storage</li></ul></td></tr></tbody></table>
 
 ## Topology
 
@@ -63,7 +63,7 @@ The Enterprise ColumnStore node:
 
 * Receives queries from the application
 * Executes queries
-* Use [S3-compatible object storage](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/clients-and-tools/storagemanager/certified-s3-object-storage-providers) for data
+* Use [S3-compatible object storage](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/clients-and-tools/storagemanager/certified-s3-object-storage-providers) for data
 
 ### High Availability
 

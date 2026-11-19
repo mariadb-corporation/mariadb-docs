@@ -30,6 +30,18 @@ Additional connectors, drivers, and tools for connecting to MariaDB, contributed
 
 {% columns %}
 {% column %}
+{% content-ref url="mariadb-adbc-driver-guide.md" %}
+[mariadb-adbc-driver-guide.md](mariadb-adbc-driver-guide.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+The ADBC driver for MariaDB connects applications to MariaDB through Arrow Database Connectivity, returning query results as Apache Arrow data.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="mariadb-connector-erlang-guide.md" %}
 [mariadb-connector-erlang-guide.md](mariadb-connector-erlang-guide.md)
 {% endcontent-ref %}
@@ -149,3 +161,5 @@ The MariaDB Jupyter Kernel lets you run MariaDB directly in Jupyter notebooks. E
 {% endcolumns %}
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

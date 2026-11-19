@@ -2,6 +2,10 @@
  *
  * Targets Chrome's print engine (see pdf/build.py). Sizing is in points and
  * page geometry is driven by @page, so the output is device-independent.
+ *
+ * The @font-face rules for Figtree, Geist and Geist Mono are not in this file:
+ * pdf/build.py generates them with absolute paths to pdf/vendor/fonts/, which
+ * pdf/fetch-deps.sh fills.
  */
 
 @page {
@@ -9,46 +13,58 @@
   margin: 20mm 18mm 20mm 18mm;
 }
 
-/* Long code samples and wide tables must not be split mid-token. */
+/* The cover bleeds to the page edge. */
 @page :first {
   margin: 0;
 }
 
-/* MariaDB brand palette (slide 26 of the corporate deck).
+/* MariaDB brand: Enterprise Platform 2027 (https://mariadb-brand-core.vercel.app/).
  *
- * Every pairing below is checked against WCAG 2.1; the ratio is noted so a
- * later edit cannot quietly break contrast. Body text is the strictest case
- * (4.5:1 minimum), headings count as large text (3:1).
+ * "Ultraviolet leads. The other four appear in small doses, each with a job to
+ * do", and "most of any layout is neutral": pages are white, panels are Foam,
+ * text and the logo are Trench.
  *
- *   Blue Azure    #0E6488   6.57:1 on white  AA  (AAA large)
- *   Sea Fresh     #96DDCF   1.55:1 on white  fill only, needs dark text
- *   Granite       #424F62   8.31:1 on white  AAA
- *   Open Seas     #00838F   4.52:1 on white  AA
- *   Deep Ocean    #003545  13.16:1 on white  AAA
- *   Electric Eel  #ABC74A   1.91:1 on white  rules and fills only, never text
+ * Every pairing below is checked against WCAG 2.1 by pdf/check_contrast.py; the
+ * ratio is noted so a later edit cannot quietly break contrast. Body text is
+ * the strictest case (4.5:1 minimum), headings count as large text (3:1).
+ *
+ *   Ultraviolet  #8328ED   6.01:1 on white  AA    links, cover, accent rules
+ *   Wave         #3DD3EE   1.79:1 on white  fills and rules only, never text
+ *   Coral        #FF7548   2.66:1 on white  not used (community/open source)
+ *   Kelp         #26D044   2.06:1 on white  fills and rules only (Tip callout)
+ *   Beacon       #FFD401   1.43:1 on white  accent only (Warning callout, cover rule)
+ *   Trench 950   #0C0C0D  19.55:1 on white  AAA   text, headings, logo
+ *   neutral 700  #514E55   8.17:1 on white  AAA   secondary text
+ *   Foam 50      #F8F6FA                          code and panel fills
  */
 :root {
-  --brand-azure: #0E6488;
-  --brand-sea: #96DDCF;
-  --brand-granite: #424F62;
-  --brand-seas: #00838F;
-  /* Open Seas is 4.52:1 on white — technically AA, but a 0.02 margin is too
-   * fragile for the 9pt labels that use it. Same hue (185deg) and saturation,
-   * darkened to 5.84:1 for small text; the pure brand tone stays for rules. */
-  --brand-seas-text: #00707a;
-  --brand-ocean: #003545;
-  --brand-eel: #ABC74A;
+  --ultraviolet: #8328ED;
+  --wave: #3DD3EE;
+  --kelp: #26D044;
+  --beacon: #FFD401;
+  --trench: #0C0C0D;
+  --foam: #F8F6FA;
+  --neutral-100: #EBE8F0;
+  --neutral-200: #DCD9E3;
+  --neutral-300: #C5C2CD;
+  --neutral-700: #514E55;
 
-  /* Deep Ocean rather than pure black: 15.3:1 on white, and it keeps body
-   * copy in the brand family without the harshness of #000. */
-  --ink: #12242b;
-  --muted: var(--brand-granite);       /* 8.31:1 — AAA */
-  --rule: #d3dbe0;
-  --accent: var(--brand-azure);        /* headings, links — 6.57:1 AA */
-  --accent-deep: var(--brand-ocean);   /* top-level headings — 13.16:1 AAA */
-  --accent-soft: #e4f4ef;              /* Sea Fresh tint, table headers */
-  --code-bg: #f4f7f8;
-  --code-ink: #14252c;
+  --ink: var(--trench);                /* 19.55:1 — AAA */
+  --muted: var(--neutral-700);         /* 8.17:1 — AAA */
+  --rule: var(--neutral-200);
+  --accent: var(--ultraviolet);        /* links — 6.01:1 AA */
+  --code-bg: var(--foam);
+  --code-ink: var(--trench);
+
+  /* Brand type: Figtree SemiBold for every heading ("one weight only"), Geist
+   * Regular for reading text, Geist Medium for labels, Geist Mono for code and
+   * eyebrows. The brand allows no Bold or Light, so emphasis that browsers
+   * would set in bold uses Geist Medium. The fallbacks only matter for a local
+   * build without pdf/fetch-deps.sh; CI fails if the brand faces are missing
+   * from the PDF. */
+  --font-heading: "Figtree", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "Geist Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 }
 
 * {
@@ -62,100 +78,106 @@ html {
 body {
   margin: 0;
   color: var(--ink);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: var(--font-body);
+  font-weight: 400;
   line-height: 1.5;
+  letter-spacing: -0.01em;    /* the brand's built-in tracking for body styles */
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
   hyphens: auto;
 }
 
+strong, b, th {
+  font-weight: 500;
+}
+
 /* ------------------------------------------------------------------ cover */
 
-/* Two brand-compliant treatments, selected by pdf/build.py --cover.
- * Both are AAA: Blue Azure carries white text (6.57:1 — AA for body, AAA at
- * cover display sizes), Sea Fresh carries near-black text (13.54:1). */
+/* Two treatments, selected by pdf/build.py --cover:
+ *   ultraviolet  Ultraviolet with white text and the white logo (default)
+ *   foam         Foam with Trench text and the Trench logo
+ * The logo is "always one color: Trench on light backgrounds, white on dark",
+ * and white text passes on Ultraviolet (6.01:1). Secondary cover text uses the
+ * same full color as the title -- never `opacity`, which drops below AA. */
 .cover {
+  position: relative;
   height: 297mm;
-  padding: 55mm 22mm 22mm;
+  padding: 92mm 22mm 22mm;
   page-break-after: always;
   break-after: page;
 }
 
-.cover-azure {
-  background: var(--brand-azure);
+.cover-ultraviolet {
+  background: var(--ultraviolet);
   color: #fff;
 }
 
-.cover-sea {
-  background: var(--brand-sea);
-  color: var(--brand-ocean);
+.cover-foam {
+  background: var(--foam);
+  color: var(--trench);
+}
+
+/* Horizontal lockup, the brand default. 64mm wide is well above the 24mm
+ * minimum, and its position keeps far more than the required clear space
+ * (half the mark's height) to the page edge and to the eyebrow below. */
+.cover .logo {
+  position: absolute;
+  top: 24mm;
+  left: 22mm;
+  width: 64mm;
+  height: auto;
+}
+
+/* Eyebrow above the title: Geist Mono, per the brand's label/eyebrow style. */
+.cover .eyebrow {
+  margin: 0 0 8pt;
+  font-family: var(--font-mono);
+  font-size: 11pt;
+  letter-spacing: -0.04em;
 }
 
 .cover h1 {
   margin: 0;
   border: 0;
   padding: 0;
-  font-size: 34pt;
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.4pt;
+  font-family: var(--font-heading);
+  font-size: 40pt;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
   color: inherit;
 }
 
-/* A thin Electric Eel rule under the title: the palette's only warm accent,
- * used as a graphic element since it can never carry text (1.91:1). */
+/* A short Beacon bar under the title on Ultraviolet: Beacon is the brand's
+ * accent for small highlights, never a large fill or text (4.20:1 against
+ * Ultraviolet as a graphic). On Foam, Ultraviolet takes that place. */
 .cover h1::after {
   display: block;
-  width: 62mm;
+  width: 40mm;
   height: 1.6mm;
-  margin-top: 7mm;
-  background: var(--brand-eel);
+  margin-top: 9mm;
   content: "";
 }
 
-/* Secondary cover text uses explicit colors, never `opacity`. Dimming white to
- * 75% over Blue Azure yields 4.45:1 — under AA, and it would land on the 8.5pt
- * legal line where contrast matters most. */
-.cover .subtitle {
-  margin: 6pt 0 0;
-  font-size: 15pt;
-  font-weight: 300;
-}
+.cover-ultraviolet h1::after { background: var(--beacon); }
+.cover-foam h1::after { background: var(--ultraviolet); }
 
 .cover .meta {
-  margin: 26pt 0 0;
-  font-size: 10pt;
+  margin: 22pt 0 0;
+  font-size: 10.5pt;
 }
 
 .cover .legal {
   position: absolute;
-  top: 245mm;
-  width: 165mm;
+  top: 250mm;
+  width: 166mm;
   font-size: 8.5pt;
   line-height: 1.45;
-}
-
-/* Pale Sea Fresh tint: 5.35:1 on Blue Azure — AA at every size used here. */
-.cover-azure .subtitle,
-.cover-azure .meta,
-.cover-azure .legal {
-  color: #d9ece6;
-}
-
-/* Deep Ocean on Sea Fresh: 8.49:1 — AAA. */
-.cover-sea .subtitle,
-.cover-sea .meta,
-.cover-sea .legal {
-  color: var(--brand-ocean);
 }
 
 .cover a {
   color: inherit;
   text-decoration: underline;
-}
-
-.cover-azure a {
-  color: #fff;   /* 6.57:1 on Blue Azure */
 }
 
 /* -------------------------------------------------------------------- toc */
@@ -167,10 +189,9 @@ body {
 
 .toc h1 {
   margin: 0 0 12pt;
-  border-bottom: 1.5pt solid var(--brand-eel);
+  border-bottom: 1.5pt solid var(--ultraviolet);
   padding-bottom: 5pt;
-  font-size: 20pt;
-  color: var(--accent-deep);
+  font-size: 22pt;
 }
 
 .toc ul {
@@ -196,7 +217,7 @@ body {
 
 .toc-d0 {
   margin-top: 5pt !important;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 9pt !important;
 }
 
@@ -208,12 +229,18 @@ body {
 
 /* --------------------------------------------------------------- headings */
 
+/* Trench, not a brand color: the brand reserves Ultraviolet for links and
+ * actions, and a heading in the link color would read as a link. Hierarchy
+ * comes from size and the Ultraviolet rule under each topic. Title Case is
+ * kept from the source pages (house style), although the brand asks for
+ * sentence case. */
 h1, h2, h3, h4, h5, h6 {
   margin: 16pt 0 6pt;
-  font-weight: 700;
-  line-height: 1.25;
-  /* Blue Azure: 6.57:1 on white — AA even at body size, AAA at heading sizes */
-  color: var(--accent);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ink);
   break-after: avoid;
   page-break-after: avoid;
 }
@@ -221,12 +248,10 @@ h1, h2, h3, h4, h5, h6 {
 /* Each top-level topic starts a fresh page; deeper ones flow inline. */
 main > h1 {
   margin-top: 0;
-  /* Deep Ocean for top-level topics: 13.16:1, and the tonal step down to
-   * Blue Azure subheadings gives hierarchy without a second hue. */
-  color: var(--accent-deep);
-  border-bottom: 1.2pt solid var(--brand-eel);
+  border-bottom: 1.2pt solid var(--ultraviolet);
   padding-bottom: 4pt;
-  font-size: 21pt;
+  font-size: 22pt;
+  letter-spacing: -0.03em;
   page-break-before: always;
   break-before: page;
 }
@@ -236,7 +261,21 @@ main > h1:first-child {
   break-before: avoid;
 }
 
-h2 { font-size: 15pt; border-bottom: 0.5pt solid var(--rule); padding-bottom: 3pt; }
+/* A top-level page whose own H1 differs from its SUMMARY.md title keeps both
+ * (the preprocessor only drops an H1 that repeats the title). Without this,
+ * the second H1 started a new page and left the title alone on an otherwise
+ * empty one -- 13 pages across the spaces. It reads as a subtitle instead. */
+main > h1 + h1 {
+  margin-top: -2pt;
+  border-bottom: 0;
+  padding-bottom: 0;
+  color: var(--muted);
+  font-size: 15.5pt;
+  page-break-before: avoid;
+  break-before: avoid;
+}
+
+h2 { font-size: 15.5pt; border-bottom: 0.5pt solid var(--rule); padding-bottom: 3pt; }
 h3 { font-size: 12.5pt; }
 h4 { font-size: 11pt; }
 h5, h6 { font-size: 10.5pt; color: var(--muted); }
@@ -248,14 +287,15 @@ p {
 }
 
 a {
-  color: var(--accent);   /* Blue Azure — 6.57:1, AA at body size */
+  color: var(--accent);   /* Ultraviolet — 6.01:1, AA at body size */
   text-decoration: none;
 }
 
 /* ------------------------------------------------------------------- code */
 
 code, kbd, samp, pre {
-  font-family: "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-family: var(--font-mono);
+  letter-spacing: 0;
 }
 
 code {
@@ -264,15 +304,18 @@ code {
   background: var(--code-bg);
   color: var(--code-ink);
   font-size: 0.87em;
-  /* SQL identifiers and long option names must wrap rather than overflow. */
+  /* SQL identifiers and long option names must wrap rather than overflow, but
+   * never with an inserted hyphen: `raft_ss-l_crl` names no variable, and a
+   * reader copying it gets the hyphen too. */
   overflow-wrap: break-word;
+  hyphens: manual;
 }
 
 pre {
   margin: 0 0 8pt;
   padding: 6pt 8pt;
   border: 0.5pt solid var(--rule);
-  border-left: 2.5pt solid var(--brand-seas);
+  border-left: 2.5pt solid var(--neutral-300);
   border-radius: 2pt;
   background: var(--code-bg);
   font-size: 8.2pt;
@@ -320,8 +363,7 @@ th, td {
 }
 
 th {
-  background: var(--accent-soft);
-  font-weight: 700;
+  background: var(--neutral-100);
 }
 
 thead {
@@ -337,27 +379,28 @@ tr {
 .hint {
   margin: 8pt 0;
   padding: 6pt 9pt;
-  border-left: 2.5pt solid var(--brand-granite);
+  border-left: 2.5pt solid var(--neutral-700);
   border-radius: 2pt;
-  background: #f5f7f8;
+  background: var(--foam);
   font-size: 9.5pt;
   break-inside: avoid;
 }
 
 .hint > :last-child { margin-bottom: 0; }
 
-/* Note and Tip come from the brand palette. Warning and Important deliberately
- * do NOT: the palette holds no amber or red, and forcing them into blues and
- * greens would make a warning indistinguishable from a note at a glance — a
- * worse accessibility outcome than being slightly off-brand. Both are darkened
- * to clear AA against their own tint.
+/* Each callout's color has a job: Ultraviolet for a note (the lead color),
+ * Kelp for a tip (the brand's "growth, success"), Beacon for a warning (its
+ * yellow reads as caution). The brand names an error color, Flare, but does
+ * not publish it, so Important keeps a dark red until it does; forcing it into
+ * the palette would make it look like a note or a tip.
  *
- * Colour is never the only signal in any case: convert_blocks() emits a bold
+ * Brand colors only draw the bar and the tint; text on every tint is Trench.
+ * Color is never the only signal in any case: convert_blocks() emits a
  * "Note:" / "Tip:" / "Warning:" / "Important:" label, so the distinction
- * survives greyscale printing and colour-vision deficiency. */
-.hint-info    { border-left-color: var(--brand-azure); background: #eaf2f6; }
-.hint-success { border-left-color: var(--brand-seas-text); background: #e4f4ef; }
-.hint-warning { border-left-color: #9a5b00;            background: #fdf4e6; }
+ * survives greyscale printing and color-vision deficiency. */
+.hint-info    { border-left-color: var(--ultraviolet); background: #f3ebfd; }
+.hint-success { border-left-color: var(--kelp);        background: #e9f9ec; }
+.hint-warning { border-left-color: var(--beacon);      background: #fff8d6; }
 .hint-danger  { border-left-color: #a81f16;            background: #fceeed; }
 
 /* ----------------------------------------------------- tabs and steppers */
@@ -366,18 +409,20 @@ tr {
 .tabs {
   margin: 8pt 0;
   padding: 4pt 0 4pt 8pt;
-  border-left: 1pt dashed var(--rule);
+  border-left: 1pt dashed var(--neutral-300);
 }
 
 .tab {
   margin: 5pt 0;
 }
 
+/* Tab titles are eyebrows: Geist Mono, in the source's own case (the brand
+ * allows no all-caps). */
 .tab > p:first-child {
-  color: var(--brand-seas-text);
+  color: var(--muted);
+  font-family: var(--font-mono);
   font-size: 9pt;
-  text-transform: uppercase;
-  letter-spacing: 0.4pt;
+  letter-spacing: -0.02em;
 }
 
 .stepper { margin: 8pt 0; }
@@ -385,14 +430,13 @@ tr {
 .step {
   margin: 6pt 0;
   padding-left: 9pt;
-  border-left: 2pt solid var(--brand-sea);
+  border-left: 2pt solid var(--neutral-300);
   break-inside: avoid;
 }
 
 .step > p:first-child {
   margin-bottom: 4pt;
-  color: var(--accent-deep);
-  font-weight: 700;
+  font-weight: 500;
 }
 
 /* ----------------------------------------------------------------- images */

@@ -65,7 +65,7 @@ Set the lock wait timeout. See [WAIT and NOWAIT](../transactions/wait-and-nowait
 
 ### Oracle-mode
 
-[Oracle-mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) permits the optional keywords `REUSE STORAGE` or `DROP STORAGE` to be used.
+[Oracle-mode](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md) permits the optional keywords `REUSE STORAGE` or `DROP STORAGE` to be used.
 
 ```sql
 TRUNCATE [TABLE] tbl_name [{DROP | REUSE} STORAGE] [WAIT n | NOWAIT]
@@ -86,7 +86,7 @@ Setting [innodb\_adaptive\_hash\_index=OFF](../../../server-usage/storage-engine
 ## See Also
 
 * [TRUNCATE function](../../sql-functions/numeric-functions/truncate.md)
-* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle mode](../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

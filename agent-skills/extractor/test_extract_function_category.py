@@ -241,6 +241,8 @@ class RealTreeTests(unittest.TestCase):
         "special-functions/window-functions":
             {"PERCENTILE_CONT", "PERCENTILE_DISC"},
         "vector-functions": {"VEC_FromText", "VEC_ToText"},
+        # Moved out of string-functions/ by DOCS-6912 (DOCS-7054).
+        "special-functions/xml-functions": {"EXTRACTVALUE", "UPDATEXML"},
     }
 
     @classmethod
@@ -248,7 +250,9 @@ class RealTreeTests(unittest.TestCase):
         if not regenerate.SQLF.is_dir():
             raise unittest.SkipTest(f"{regenerate.SQLF} not found")
         cls.results = {}
-        for category in regenerate.CATEGORIES.values():
+        dirs = {d for cat in regenerate.CATEGORIES.values()
+                for d in regenerate.source_dirs(cat)}
+        for category in sorted(dirs):
             extracted = []
             for page in sorted((regenerate.SQLF / category).glob("*.md")):
                 if page.stem in ("README", "SUMMARY"):
@@ -287,6 +291,25 @@ class RealTreeTests(unittest.TestCase):
                 with self.subTest(category=category, fn=fn["name"]):
                     self.assertFalse(fn["signature"].endswith("("),
                                      fn["signature"])
+
+    def test_no_function_is_extracted_from_two_dirs_of_one_skill(self):
+        # A skill reading several dirs must not list a function twice.
+        for skill, cat in regenerate.CATEGORIES.items():
+            names = [fn["name"] for d in regenerate.source_dirs(cat)
+                     for fn in self.results[d]]
+            dupes = sorted({n for n in names if names.count(n) > 1})
+            with self.subTest(skill=skill):
+                self.assertEqual(dupes, [])
+
+    def test_string_skill_catalog_keeps_the_xml_functions(self):
+        # End to end through regenerate.generate(): DOCS-6912 moved these
+        # pages to special-functions/xml-functions/, and the scheduled bot
+        # PR #1424 then dropped them from the only skill that listed them.
+        out = regenerate.generate(
+            regenerate.CATEGORIES["mariadb-string-functions"])
+        for name in ("EXTRACTVALUE", "UPDATEXML", "CONCAT"):
+            with self.subTest(fn=name):
+                self.assertIn(f"\n### {name}\n", out)
 
     def test_aes_decrypt_signature_names_aes_decrypt(self):
         # The page once showed AES_ENCRYPT in AES_DECRYPT's Current tab.

@@ -99,10 +99,11 @@ This would in effect allow the user 'john' to only see the database 'shard' on t
 
 ### `allow_duplicates`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Disables the detection of duplicate tables on shards while it is enabled.
 
 If enabled, the detection of duplicated tables on shards is not done.
 
@@ -114,6 +115,7 @@ This parameter was added in MaxScale 25.01 and it is a more convenient and effic
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Specifies a list of full table names to ignore when checking for duplicate tables.
 
 List of full table names (e.g. db1.t1) to ignore when checking for duplicate tables. By default no tables are ignored.
 
@@ -121,12 +123,13 @@ This parameter was once called `ignore_databases`.
 
 ### `ignore_tables_regex`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines a PCRE2 regular expression to ignore specific tables when checking for duplicate databases.
 
-A [PCRE2 regular expression](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md) that is matched against database names when checking for duplicate databases. By default no tables are ignored.
+A [PCRE2 regular expression](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md) that is matched against database names when checking for duplicate databases. By default no tables are ignored.
 
 The following configuration ignores duplicate tables in the databases `db1` and `db2`, and all tables starting with "t" in `db3`.
 
@@ -144,18 +147,19 @@ This parameter was once called `ignore_databases_regex`.
 
 ### `max_sescmd_history`
 
-This parameter has been moved to [the MaxScale core](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#max_sescmd_history) in MaxScale 6.0.
+This parameter has been moved to [the MaxScale core](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#max_sescmd_history) in MaxScale 6.0.
 
 ### `disable_sescmd_history`
 
-This parameter has been moved to [the MaxScale core](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#disable_sescmd_history) in MaxScale 6.0.
+This parameter has been moved to [the MaxScale core](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#disable_sescmd_history) in MaxScale 6.0.
 
 ### `refresh_databases`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
+* Description: Allows the database map to be refreshed when a `USE...` query fails during a session.
 
 Enable database map refreshing mid-session. These are triggered by a failure to change the database i.e. `USE ...` queries. This feature is disabled by default.
 
@@ -163,10 +167,11 @@ Before MaxScale 6.2.0, this parameter did nothing. Starting with the 6.2.0 relea
 
 ### `refresh_interval`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `300s`
+* Description: Sets the minimum interval between database map refreshes to maintain cluster metadata up to date.
 
 The minimum interval between database map refreshes in seconds. The default value is 300 seconds.
 
@@ -174,10 +179,11 @@ If no explicit unit is provided, the value is interpreted as seconds in MaxScale
 
 ### `max_staleness`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: 150s
+* Description: Specifies how long stale database map entries can be used by new connections while an update is in progress.
 
 The time how long stale database map entries can be used while an update is in progress. When a database map entry goes stale, the next connection to be created will start an update of the database map. While this update is ongoing, other connections can use the stale entry for up to `max_staleness` seconds. If this limit is exceeded and the update still hasn't completed, new connections will instead block and wait for the update to finish.
 

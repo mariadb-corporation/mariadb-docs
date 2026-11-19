@@ -70,3 +70,5 @@ Modifying these values is an advanced tuning step. In most cases, it is better t
 | Workload Contention                                                                                              | Long-running [SELECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/select) queries on [InnoDB tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-tablespaces) can create locks that prevent replication, causing receive queues to grow.                                                                                                                                               | Optimize read queries and consider [wsrep\_sync\_wait](../../reference/galera-cluster-system-variables.md#wsrep_sync_wait) for consistent read-after-write checks to avoid long locks on resources needed for replication. |
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

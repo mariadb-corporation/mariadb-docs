@@ -8,7 +8,7 @@ description: >-
 # JSON\_SCHEMA\_VALID
 
 {% hint style="info" %}
-`JSON_SCHEMA_VALID` is available from MariaDB 11.1.
+`JSON_SCHEMA_VALID` is available from MariaDB 11.1, and from MariaDB Enterprise Server 10.6.15-10.
 {% endhint %}
 
 ### Syntax

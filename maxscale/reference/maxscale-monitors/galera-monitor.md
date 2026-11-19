@@ -27,12 +27,12 @@ The following WSREP variables are inspected by Galera Monitor to see whether a n
 
 MaxScale 2.4.0 added support for replicas replicating off of Galera nodes. If a non-Galera server monitored by Galera Monitor is replicating from a Galera node also monitored by the same monitor, it will be assigned the `Read, Running` status as long as the replication works. This allows read-scaleout with Galera servers without increasing the size of the Galera cluster.
 
-### MariaDB Advanced Cluster (RAFT) support
+### MariaDB Raft Cluster support
 
 As of MaxScale 25.10.2, the Galera Monitor can monitor a
-[MariaDB Advanced Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/advanced-cluster).
-Advanced Cluster is a new synchronized replication scheme that offers reduced
-latency compared to the standard Galera implementation. An Advanced Cluster
+[MariaDB Raft Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/AmWSwHTrMJB8ojX2p6gW).
+Raft Cluster is a new synchronized replication scheme that offers reduced
+latency compared to the standard Galera implementation. A Raft Cluster
 promotes one server as the *leader*. The leader approves and orders
 transactions. Since all transactions must pass through the leader, the Galera
 Monitor gives the leader the *Write* role, causing e.g. the
@@ -41,17 +41,17 @@ the cluster is in a failure state, and both reads and writes are disabled until
 a leader emerges.
 
 The Galera Monitor automatically detects if the monitored cluster is a
-traditional Galera Cluster or an Advanced Cluster by looking at the
+traditional Galera Cluster or a Raft Cluster by looking at the
 `wsrep_provider_name` status variable. All servers in the cluster must use the
-same type of replication; mixing Galera and Advanced Cluster nodes is not
+same type of replication; mixing Galera and Raft Cluster nodes is not
 allowed and will cause the monitor to withhold all *Write* and *Read* roles.
 
 The Galera Monitor does not require any additional configuration to be used with
-a MariaDB Advanced Cluster. On the contrary, Galera Monitor ignores the values
-of most of its configuration settings when dealing with a MariaDB Advanced
+a MariaDB Raft Cluster. On the contrary, Galera Monitor ignores the values
+of most of its configuration settings when dealing with a MariaDB Raft
 Cluster. Specifically, `disable_master_failback`, `disable_master_role_setting`,
-`use_priority` and `root_node_as_master` are ineffective when dealing with an
-Advanced Cluster, as the cluster decides on the leader itself.
+`use_priority` and `root_node_as_master` are ineffective when dealing with a
+Raft Cluster, as the cluster decides on the leader itself.
 
 During startup, the monitor prints a log message specifying which cluster type
 it detected.
@@ -92,17 +92,19 @@ For a list of optional parameters that all monitors support, read the [Common Mo
 
 ### `disable_master_failback`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: false
 * Dynamic: Yes
+* Description: Prevents MaxScale from restoring the original node to primary status after a failover; the new primary retains the role while running.
 
 If a node marked as primary inside MaxScale happens to fail and the primary status is assigned to another node MaxScale will normally return the primary status to the original node after it comes back up. With this option enabled, if the primary status is assigned to a new node it will not be reassigned to the original node for as long as the new primary node is running. In this case the `Master Stickiness` status bit is set which will be visible in the `maxctrl list servers` output.
 
 ### `available_when_donor`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: false
 * Dynamic: Yes
+* Description: Allows Galera nodes to continue performing normal operations while acting as donors during non-blocking SST methods, preventing them from losing synchronized or read/write state.
 
 This option allows Galera nodes to be used normally when they are donors in an SST operation when the SST method is non-blocking (e.g. `wsrep_sst_method=mariadb-backup`).
 
@@ -112,25 +114,28 @@ The current list of non-blocking SST methods are `xtrabackup`, `xtrabackup-v2` a
 
 ### `disable_master_role_setting`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: false
 * Dynamic: Yes
+* Description: Disables automatic primary and replica role assignment in a Galera cluster; when enabled, only the Synced status is assigned.
 
 This disables the assignment of primary and replica roles to the Galera cluster nodes. If this option is enabled, Synced is the only status assigned by this monitor.
 
 ### `use_priority`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: false
 * Dynamic: Yes
+* Description: Allows the monitor to automatically select the writing node and manage controlled node replacements in a Galera cluster while keeping server priorities into account.
 
 Enable interaction with server priorities. This will allow the monitor to deterministically pick the write node for the monitored Galera cluster and will allow for controlled node replacement.
 
 ### `root_node_as_master`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: false
 * Dynamic: Yes
+* Description: Ensures that only the Galera node with `wsrep_local_index = 0` can be chosen as the primary for writes, enabling many MaxScale instances to use the same primary node.
 
 This option controls whether the write primary Galera node requires _wsrep\_local\_index_ value of 0. This option was introduced in MaxScale 2.1.0 and it is disabled by default in versions 2.1.5 and newer. In versions 2.1.4 and older, the option was enabled by default.
 
@@ -142,9 +147,10 @@ This parameter can work with `disable_master_failback` but using them together i
 
 ### `set_donor_nodes`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Default: false
 * Dynamic: Yes
+* Description: Controls whether the `wsrep_sst_donor` global variable is set on each replica node, listing eligible donor nodes for SST in a sorted order based on priority or `wsrep_local_index`. 
 
 This option controls whether the global variable _wsrep\_sst\_donor_ should be set in each cluster node with `Read` status. The variable contains a list of replica servers, automatically sorted, with possible primary candidates at its end.
 
@@ -205,7 +211,7 @@ maxctrl alter server server1 priority=2
 maxctrl alter server server2 priority=1
 ```
 
-This does not affect the Galera Cluster itself, just the roles MaxScale assigns to the servers. If multiple MaxScales monitor the same Galera Cluster without [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#configuration-synchronization), the commands should be run on all MaxScales.
+This does not affect the Galera Cluster itself, just the roles MaxScale assigns to the servers. If multiple MaxScales monitor the same Galera Cluster without [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/runtime-configuration-changes.md#configuration-synchronization), the commands should be run on all MaxScales.
 
 ## Bootstrap
 
@@ -222,14 +228,14 @@ This does not affect the Galera Cluster itself, just the roles MaxScale assigns 
 
 Any discovered servers are added to MaxScale as if created via runtime `maxctrl create server ...`. The servers are thus similar to any other runtime configured server and are visible in the GUI and `maxctrl list servers`.
 
-The _address_ and _port_-settings of the discovered servers are set to the values listed in _wsrep\_incoming\_addresses_. Other settings are copied from the server given in the _template_-setting, so that the discovered servers inherit e.g. TLS settings. If no server template is given, discovered servers will use [server default settings](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#server-1). The server template must be a valid, existing server in MaxScale configuration. It need not be monitored by any monitor and its _address_ and _port_-settings can point to a non-existing (but theoretically valid) network address. It can be configured in the config file or created runtime:
+The _address_ and _port_-settings of the discovered servers are set to the values listed in _wsrep\_incoming\_addresses_. Other settings are copied from the server given in the _template_-setting, so that the discovered servers inherit e.g. TLS settings. If no server template is given, discovered servers will use [server default settings](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#server-1). The server template must be a valid, existing server in MaxScale configuration. It need not be monitored by any monitor and its _address_ and _port_-settings can point to a non-existing (but theoretically valid) network address. It can be configured in the config file or created runtime:
 
 ```
 maxctrl create server MyServerTemplate address=123.123.123.123 port=1111 ssl=true ssl_ca=/certs/ca.crt
 maxctrl call command galeramon bootstrap monitor=MyGaleraMonitor template=MyServerTemplate address=192.168.0.4
 ```
 
-Bootstrap is incompatible with [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#configuration-synchronization) and will refuse to run if it is enabled.
+Bootstrap is incompatible with [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/runtime-configuration-changes.md#configuration-synchronization) and will refuse to run if it is enabled.
 
 ## Discover-replicas
 
@@ -244,10 +250,197 @@ Bootstrap is incompatible with [configuration synchronization](../../maxscale-ma
 
 Any discovered servers are added to MaxScale as if created via runtime `maxctrl create server ...`. The servers are thus similar to any other runtime configured server and are visible in the GUI and `maxctrl list servers`. The _address_ and _port_-settings of the discovered servers are set to the values listed in _wsrep\_incoming\_addresses_. Other settings are copied from the current primary server, so that the discovered servers inherit e.g. TLS settings. Discovered servers are named _\<monitor\_name>-server_, e.g. _MyGaleraMonitor-server3_.
 
-A server can only be removed if it is not explicitly used by any other module, e.g. a service. Thus, this command is best used when services are configured with the [cluster](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#cluster)-setting as the services will then automatically match any changes in the set of monitored servers.
+A server can only be removed if it is not explicitly used by any other module, e.g. a service. Thus, this command is best used when services are configured with the [cluster](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#cluster)-setting as the services will then automatically match any changes in the set of monitored servers.
 
 ```
 maxctrl call command galeramon discover-replicas monitor=MyGaleraMonitor remove=true
+```
+
+## External replication management
+
+A Galera Cluster node typically only replicates from other members of the
+cluster using its own, [synchronous replication implementation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/about-galera-replication).
+A Galera node can, in addition,
+[replicate asynchronously](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/high-availability/using-mariadb-replication-with-mariadb-galera-cluster)
+from a normal MariaDB Server, or even from a different Galera Cluster. Normally,
+the MaxScale Galera Monitor will not manage the asynchronous replication in any
+way. This means that if the primary server of either the Galera Cluster or the
+external cluster changes, the replication connection will not be moved or
+redirected.
+
+As of MaxScale 26.10, the Galera Monitor supports external replication
+management. This feature requires that the local MaxScale monitors the external
+cluster using a dedicated monitor. The local Galera monitor ensures that the
+primary server of its cluster always replicates from the external cluster. If
+the current external primary goes down or its role changes, the monitor
+redirects the external replication connection to replicate from another server
+in the external cluster. If there is no valid external primary in the external
+cluster, the local monitor stops the replication. If the DBA manually stops the
+external replication (i.e. `STOP SLAVE`), the monitor will not restart it.
+
+External replication management requires that the local cluster has a valid
+primary server in *Write*-status. If this is not the case, the monitor skips
+external replication management. MaxScale must also be in *active* mode, i.e.
+`passive=false`. If the external monitor is not running, the local monitor will
+not modify external replication.
+
+External replication management does not alter the GTID domains of either
+cluster. The DBA is responsible for configuring the clusters and designing the
+schemas such that one cluster can replicate from another. The Galera Monitor
+user account (defined with `user`) requires the `REPLICATION SLAVE ADMIN`
+privilege for external replication management to work.
+
+This feature works very similarly to the equivalent feature in
+the [MariaDB Monitor](mariadb-monitor/README.md#external-replication-management). The
+most significant difference between the two implementations is that when
+`external_replication_monitor` is set, the Galera Monitor will remove
+replication connections from any Galera Cluster member other than the primary.
+This culling is required so that stale external replication connections get
+removed whenever the primary server in a Galera Cluster changes. Only
+replication connections on Galera Cluster members that have the *Read* status
+are culled.
+
+To take the feature into use, designate the external monitor with
+`external_replication_monitor`. Also, define the replication credentials with
+`replication_user` and `replication_password`.
+
+```ini
+[MyGaleraMonitor]
+type=monitor
+module=galeramon
+servers=galera1,galera2,galera3
+user=galeramon
+password=galeramon
+replication_user=repl
+replication_password=repl
+external_replication_monitor=MyExternalClusterMonitor
+
+[MyExternalClusterMonitor]
+type=monitor
+#Using mariadbmon here, but could also be a Galera Monitor.
+module=mariadbmon
+servers=server1,server2
+user=mariadbmon
+password=mariadbmon
+```
+
+### Settings
+
+#### `external_replication_monitor`
+
+* Type: Monitor name
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Introduced: MaxScale 26.10
+* Description: Names the monitor of an external cluster from which the Galera primary replicates, which enables external replication management.
+
+Defines the monitor for the external cluster. Must be a valid monitor name. The
+external cluster monitor needs to be running for replication management to
+function.
+See [MariaDB Monitor documentation](mariadb-monitor/mariadb-monitor-settings.md#external_replication_monitor)
+for more information.
+
+```
+external_replication_monitor=MyExternalClusterMonitor
+```
+
+#### `external_replication_primary_role`
+
+* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `primary`, `replica`, `running`
+* Default: `primary`
+* Introduced: MaxScale 26.10
+* Description: Defines the ordered list of server roles the monitor looks for when selecting the external server to replicate from.
+
+Defines the external primary server to replicate from. This setting only has an
+effect when `external_replication_monitor` is set. The value defines a list of
+server roles the monitor looks for when selecting the external primary.
+See [MariaDB Monitor documentation](mariadb-monitor/mariadb-monitor-settings.md#external_replication_primary_role)
+for more information.
+
+```
+external_replication_primary_role=replica
+```
+
+#### `replication_user`
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Introduced: MaxScale 26.10
+* Description: Specifies the user the monitor uses when it sets up external replication.
+
+This and `replication_password` specify the credentials for the
+replication user. These are given as the values for `MASTER_USER` and
+`MASTER_PASSWORD` whenever the monitor executes a `CHANGE MASTER TO`-command.
+
+Both `replication_user` and `replication_password` parameters must be defined if
+a custom replication user is used. If neither of the parameters is defined, the
+`CHANGE MASTER TO`-command will use the monitor credentials for the replication
+user.
+
+The credentials used for replication must have the `REPLICATION SLAVE`
+privilege.
+
+#### `replication_password`
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Introduced: MaxScale 26.10
+* Description: Specifies the password of the user the monitor uses when it sets up external replication.
+
+See [replication\_user](#replication_user). `replication_password` uses the same
+encryption scheme as other password parameters. If password encryption is in
+use, `replication_password` must be encrypted with the same key to avoid
+erroneous decryption.
+
+#### `replication_master_ssl`
+
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `auto`
+* Values: `auto`, `off`, `on`
+* Introduced: MaxScale 26.10
+* Description: Controls the `MASTER_SSL` option in the `CHANGE MASTER TO` commands the monitor generates for external replication.
+
+This controls the `MASTER_SSL`-option for any `CHANGE MASTER TO`-commands the
+monitor generates. Thus, this setting affects asynchronous replication
+connections only, not Galera replication.
+
+If set to `on`, the monitor will always set `MASTER_SSL=1` to enable encryption
+for the replication stream. `on` should only be used if the backend servers are
+configured for ssl.
+
+If set to `off`, monitors sets `MASTER_SSL=0` instead, disabling encryption
+for replication connections. Use `off` when you want to ensure that the monitor
+always sets up unencrypted replication.
+
+In `auto`-mode (default), the monitor attempts to guess the correct value for
+`MASTER_SSL`. The logic is as follows:
+
+1. When redirecting an existing replication connection, do not define the
+   `MASTER_SSL`-option at all. This preserves the existing value.
+2. When recreating a previously removed external replication connection, use the
+   settings from the removed connection.
+3. If no previous settings are available, e.g. due to MaxScale restart, match
+   monitor connection SSL-mode.
+
+`auto` should work for most cases. It allows for a mix of SSL-modes, with some
+replication connections encrypted and others unencrypted.
+
+If MaxScale has to guess the encryption mode, then the replication connection
+will use SSL if the primary server for the replication connection is monitored
+via an encrypted connection.
+
+```
+replication_master_ssl=off
 ```
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

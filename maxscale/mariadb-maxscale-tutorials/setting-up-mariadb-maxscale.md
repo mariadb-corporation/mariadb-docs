@@ -18,7 +18,7 @@ This tutorial assumes that one of the standard MaxScale binary distributions is 
 The precise installation process varies from one distribution to another. Details on package installation can be found in the [Installation Guide](../maxscale-management/installation-and-configuration/maxscale-installation-guide.md).
 
 {% hint style="info" %}
-If you are using MaxScale Trial, see [Installing MaxScale Trial](../maxscale-use-cases/maxscale-trial.md#installing-maxscale-trial).
+If you are evaluating MaxScale with a trial license key, see [MaxScale Trial](../maxscale-use-cases/maxscale-trial.md).
 {% endhint %}
 
 ### Creating a user account for MaxScale
@@ -74,20 +74,15 @@ An alternative to generating two separate accounts is to use one account with a 
 
 MaxScale reads its configuration from _/etc/maxscale.cnf_. A template configuration is provided with the MaxScale installation.
 
-A global _maxscale_ section is included in every MaxScale configuration file. This section sets the values of various global parameters, such as the number of threads MaxScale uses to handle client requests. To set thread count to the number of available cpu cores, set the following.
+A global _maxscale_ section is included in every MaxScale configuration file. This section sets the values of various global parameters, such as the number of threads MaxScale uses to handle client requests and the license key. To set the thread count to the number of available CPU cores and install the license key, set the following.
 
 ```ini
 [maxscale]
 threads=auto
-```
-
-{% hint style="info" %}
-If using [MaxScale Trial](../maxscale-use-cases/maxscale-trial.md), you also need:
-
-```ini
 license_key=<key>
 ```
-{% endhint %}
+
+Starting with MaxScale 26.10, MaxScale does not start without `license_key`. The configuration template does not include it, so add it yourself. A production license key and a trial license key both work. To get a key, or to store it in a file instead, see [Install a MaxScale License Key](../maxscale-management/installation-and-configuration/maxscale-license-key.md). For MaxScale 25.10 and earlier, leave `license_key` out unless you use [MaxScale Trial](../maxscale-use-cases/maxscale-trial.md).
 
 ### Configuring the servers
 
@@ -153,7 +148,7 @@ The _maxctrl_-command can be used to confirm that MaxScale is running and the se
 
 MariaDB MaxScale is now ready to start accepting client connections and route queries to the backend cluster.
 
-More options can be found in the [Configuration Guide](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md),[readwritesplit module documentation](../reference/maxscale-routers/maxscale-readwritesplit.md) and [readconnroute module documentation](../reference/maxscale-routers/maxscale-readconnroute.md).
+More options can be found in the [Configuration Guide](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md),[readwritesplit module documentation](../reference/maxscale-routers/maxscale-readwritesplit/README.md) and [readconnroute module documentation](../reference/maxscale-routers/maxscale-readconnroute.md).
 
 For more information about MaxCtrl and how to secure it, see the [REST-API Tutorial](rest-api-tutorial.md).
 

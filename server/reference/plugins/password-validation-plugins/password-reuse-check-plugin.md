@@ -8,7 +8,7 @@ description: >-
 # Password Reuse Check Plugin
 
 {% hint style="info" %}
-`password_reuse_check` is available from [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.0).
+`password_reuse_check` is available from [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.0), and from MariaDB Enterprise Server 10.6.8-4.
 {% endhint %}
 
 ## Description

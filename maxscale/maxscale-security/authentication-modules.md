@@ -7,7 +7,7 @@ description: >-
 
 # Authentication Modules
 
-This document describes general MySQL protocol authentication in MaxScale. For REST-api authentication, see the [configuration guide](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md) and the [REST-api guide](../reference/maxscale-rest-api/maxscale-rest-api.md).
+This document describes general MySQL protocol authentication in MaxScale. For REST-api authentication, see the [configuration guide](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md) and the [REST-api guide](../reference/maxscale-rest-api/maxscale-rest-api.md).
 
 Similar to the MariaDB Server, MaxScale uses authentication plugins to implement different authentication schemes for incoming clients. The same plugins also handle authenticating the clients to backend servers. The authentication plugins available in MaxScale are [standard MySQL password](../reference/maxscale-authenticators/maxscale-mariadb-mysql-authenticator.md), [GSSAPI](../reference/maxscale-authenticators/maxscale-gssapi-client-authenticator.md), [ed25519](../reference/maxscale-authenticators/maxscale-ed25519-authenticator.md), [PARSEC](../reference/maxscale-authenticators/maxscale-parsec-authenticator.md) and [pluggable authentication modules (PAM)](../reference/maxscale-authenticators/maxscale-pam-authenticator.md).
 
@@ -21,7 +21,7 @@ The service uses the stored data when authenticating clients, checking their pas
 
 If authentication fails, the UAM updates its data from a backend. MaxScale may attempt authenticating the client again with the refreshed data without communicating the first failure to the client. This transparent user data update does not always work, in which case the client should try to log in again.
 
-As the UAM is shared between all listeners of a service, its settings are defined in the service configuration. For more information, search the [configuration guide](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md) for _users\_refresh\_time_, _users\_refresh\_interval_ and _auth\_all\_servers_. Other settings which affect how the UAM connects to backends are the global settings _auth\_connect\_timeout_ and _local\_address_, and the various server-level ssl-settings.
+As the UAM is shared between all listeners of a service, its settings are defined in the service configuration. For more information, search the [configuration guide](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md) for _users\_refresh\_time_, _users\_refresh\_interval_ and _auth\_all\_servers_. Other settings which affect how the UAM connects to backends are the global settings _auth\_connect\_timeout_ and _local\_address_, and the various server-level ssl-settings.
 
 ### Required grants
 
@@ -76,7 +76,7 @@ authenticator_options=skip_authentication=true,lower_case_table_names=1
 
 ### `skip_authentication`
 
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -93,7 +93,7 @@ authenticator_options=skip_authentication=true
 
 ### `match_host`
 
-* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `true`

@@ -12,7 +12,7 @@ This section contains release notes for MariaDB Server releases divided into the
 
 * [Release Criteria](about/release-criteria.md)
 * [Release Model](about/release-model.md)
-* [Compatibility & Differences](about/compatibility-and-differences/)
+* [Compatibility & Differences](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility/comparisons-with-other-databases)
 * [Platform Deprecation Policy](about/platform-deprecation-policy.md)
 * [Feature Deprecation Policy](about/feature-deprecation-policy.md)
 * [Maintenance Policy](about/maintenance-policy.md)

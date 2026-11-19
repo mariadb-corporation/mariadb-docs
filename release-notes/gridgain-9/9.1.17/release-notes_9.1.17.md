@@ -1,12 +1,14 @@
 ---
 description: >-
-  GridGain 9.1.17 brings monitoring improvements and new .NET features, removes
-  APIs and REST endpoints for table-based partitions, and notes a Control Center
-  compatibility requirement.
-hidden: true
+  GridGain 9.1.17 improves monitoring, adds .NET features, removes APIs and REST
+  endpoints for table-based partitions, and notes a Control Center compatibility
+  requirement.
+  Released on 2026-01-27.
 ---
 
 # GridGain 9.1.17 Release Notes
+
+**Release date:** 27 Jan 2026
 
 ## Overview
 
@@ -20,7 +22,7 @@ This release starts removing APIs and system views that were used for working wi
 
 #### Removed System Views
 
-In this release, the `GLOBAL_PARTITION_STATES` and `LOCAL_PARTITION_STATES` [system views](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/system-views) were removed. Make sure to use the `GLOBAL_ZONE_PARTITION_STATES` and `LOCAL_ZONE_PARTITION_STATES` zone-based system views instead.
+In this release, the `GLOBAL_PARTITION_STATES` and `LOCAL_PARTITION_STATES` [system views](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/monitoring/system-views) were removed. Make sure to use the `GLOBAL_ZONE_PARTITION_STATES` and `LOCAL_ZONE_PARTITION_STATES` zone-based system views instead.
 
 #### Removed REST Endpoints
 
@@ -62,9 +64,9 @@ ignite3 snapshot list
 
 ### Expanded Metrics
 
-This release adds new metrics to improve monitoring *aipersist* storage. The metrics cover [checkpoint](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#storage.aipersist.checkpoint) behavior.
+This release adds new metrics to improve monitoring *aipersist* storage. The metrics cover [checkpoint](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/monitoring/metrics-list#storage.aipersist.checkpoint) behavior.
 
-Another set of new metrics helps monitor [Raft snapshots](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#raft) activity, providing better visibility into the snapshot lifecycle. These metrics help detect stalled replication, slow recovery and excessive snapshot load.
+Another set of new metrics helps monitor [Raft snapshots](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/monitoring/metrics-list#raft) activity, providing better visibility into the snapshot lifecycle. These metrics help detect stalled replication, slow recovery and excessive snapshot load.
 
 #### Storage Metrics
 
@@ -90,7 +92,7 @@ Another set of new metrics helps monitor [Raft snapshots](https://app.gitbook.co
 
 This release introduces new `IMapper<T>` support to SQL, Compute and PartitionManager .NET APIs, enabling custom object mapping for serialization and deserialization, including AOT-friendly scenarios where reflection-based mapping is not suitable.
 
-For example, that is how you use it to create a colocated [compute](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/about-distributed-computing#running-.net-compute-jobs) job target for a specific table and key:
+For example, that is how you use it to create a colocated [compute](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/distributed-computing-and-services/distributed-computing/about-distributed-computing#running-.net-compute-jobs) job target for a specific table and key:
 
 ```csharp
 public sealed class PocoMapper : IMapper<Poco> {}
@@ -105,7 +107,7 @@ This release adds official support for [Native AOT](https://learn.microsoft.com/
 
 #### .NET Continuous Query API
 
-Continuous Query .NET [API](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/continuous-queries#continuous-query-watermark) is extended with the new `IContinuousQueryWatermark.AfterTransaction` interface to allow the user to obtain a consistent view of table data and future updates.
+Continuous Query .NET [API](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/continuous-queries#continuous-query-watermark) is extended with the new `IContinuousQueryWatermark.AfterTransaction` interface to allow the user to obtain a consistent view of table data and future updates.
 
 This is how to start a continuous query with transaction watermark:
 
@@ -126,7 +128,7 @@ var watermark = IContinuousQueryWatermark.AfterTransaction(tx);
 | IGN-29735 | CLI Tool | Added CLI-only Docker image. |
 | IGN-29718 | Cluster REST API | Fixed resource leak in a rare scenario of deploying multiple files with wrong version format. |
 | IGN-29708 | Cluster SQL Engine | Fixed an issue when wrong result is returned if result of aggregation is used in division. |
-| IGN-29699 | Cluster Storage Engine | Added new metrics under "storage.<aipersist/aimem>.checkpoint" source. |
+| IGN-29699 | Cluster Storage Engine | Added new metrics under `storage.<aipersist/aimem>.checkpoint` source. |
 | IGN-29694 | Platforms & Clients | Fixed a rare deadlock in C++ client during compute job execution. |
 | IGN-29688 | General | Fixed NPE if write intent switch happens after the table is already dropped. |
 | IGN-29678 | Distributed Data Streamer | Thin clients (all): Fixed data streamer changes not being immediately visible. |
@@ -135,7 +137,7 @@ var watermark = IContinuousQueryWatermark.AfterTransaction(tx);
 | IGN-29642 | CLI Tool | CLI tool maximum heap size is now limited to 256 Mb. |
 | IGN-29639 | General | Fixed an issue that could lead to an error during the registration of table metrics when a node restarts. |
 | IGN-29631 | General | Fixed command timestamp reordering in raft state machine on unstable group topology. |
-| IGN-29621 | Platforms & Clients | .NET: Added custom object mapping to Compute, SQL, and PartitionManager APIs with IMapper<T>. |
+| IGN-29621 | Platforms & Clients | .NET: Added custom object mapping to Compute, SQL, and PartitionManager APIs with `IMapper<T>`. |
 | IGN-29599 | General | Multi node disaster recovery operations are completed when all participating nodes finish processing. |
 | IGN-29596 | General | Fixed possible TxIdMismatchException in case of primary replica switch. |
 | IGN-29541 | Cluster REST API | Added a new /management/v1/deployment/node/units/structure/{unitId}/{unitVersion} REST endpoint that can be used to fetch deployment unit file structure on the node. |
@@ -215,4 +217,8 @@ There are known issues with the performance of SQL read-write transactions in co
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

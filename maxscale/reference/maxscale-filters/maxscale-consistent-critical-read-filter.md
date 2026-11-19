@@ -32,10 +32,11 @@ The CCR filter has no mandatory parameters.
 
 ### `time`
 
-* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `60s`
+* Description: Determines the time range during which statements are directed to the primary following a data-modifying statement.
 
 The time window during which queries are routed to the primary. The duration value will always be rounded to the nearest second. If no explicit unit has been specified, the value is interpreted as seconds in MaxScale 2.4. In subsequent versions a value without a unit may be rejected. The default value for this parameter is 60 seconds.
 
@@ -49,6 +50,7 @@ Enabling this parameter in combination with the _count_ parameter causes both th
 * Mandatory: No
 * Dynamic: Yes
 * Default: `0`
+* Description: Defines the number of statements that are sent to the primary following a data-modifying statement.
 
 The number of SQL statements to route to primary after detecting a data modifying SQL statement. This feature is disabled by default.
 
@@ -56,12 +58,13 @@ After processing a data modifying SQL statement, a counter is set to the value o
 
 ### `match`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Specifies a pattern for statements that cause re-routing of statements.
 
-These [regular expression settings](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions) control which statements trigger statement re-routing. Only non-SELECT statements are inspected. For CCRFilter, the _exclude_-parameter is instead named _ignore_, yet works similarly.
+These [regular expression settings](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions) control which statements trigger statement re-routing. Only non-SELECT statements are inspected. For CCRFilter, the _exclude_-parameter is instead named _ignore_, yet works similarly.
 
 ```
 match=.*INSERT.*
@@ -71,29 +74,32 @@ options=case,extended
 
 ### `ignore`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines a pattern for queries that should be ignored.
 
 See documentation for [match](maxscale-consistent-critical-read-filter.md#match).
 
 ### `options`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `ignorecase`, `case`, `extended`
 * Default: `ignorecase`
+* Description: Defines regular expression options used with match and ignore.
 
 Regular expression options for `match` and `ignore`.
 
 ### `global`
 
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Manages whether write activity from a single connection affects routing behavior for all connections.
 
 `global` is a boolean parameter that when enabled causes writes from one connection to propagate to all other connections. This can be used to work around cases where one connection writes data and another reads it, expecting the write done by the other connection to be visible.
 

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.mariadb/mariadb-docs",
+  "title": "MariaDB Documentation",
+  "description": "Search and read the official MariaDB documentation for every MariaDB product, plus release notes.",
+  "version": "1.0.0",
+  "websiteUrl": "https://mariadb.com/docs",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mariadb.com/docs/~gitbook/mcp"
+    }
+  ]
+}

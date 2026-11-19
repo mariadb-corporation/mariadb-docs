@@ -81,13 +81,15 @@ InnoDB begins forcing checkpoints and flushing dirty pages well before the check
 
 A larger redo log defers page writes. InnoDB can leave a page dirty in the buffer pool across many changes and write it out once, instead of flushing it repeatedly to hold the checkpoint age down. On write-heavy workloads that modify the same pages over and over, that reduces write amplification and the storage wear which comes with it. Where the workload calls for it, the redo log can be set to several times the size of the buffer pool.
 
-The cost of doing so is paid at crash recovery. Recovery buffers redo records in blocks taken from the [buffer pool](innodb-buffer-pool.md), so the amount of redo InnoDB can apply in one pass is bounded by the buffer pool size. When the redo left to apply is too large for that — roughly, when it would occupy more than a third of the buffer pool — InnoDB switches to multi-batch recovery, re-reading the log in several passes and taking correspondingly longer. It reports this in the error log:
+The cost of doing so is paid at crash recovery. Recovery buffers redo records in blocks taken from the [buffer pool](innodb-buffer-pool.md), so the amount of redo InnoDB can apply in one pass is bounded by the buffer pool size. When the redo left to apply is too large for that, and the buffered records have used up nearly the whole buffer pool, InnoDB switches to multi-batch recovery, re-reading the log in several passes and taking correspondingly longer. It reports this in the error log:
 
 ```
 InnoDB: Multi-batch recovery needed at LSN 123456789
 ```
 
 Recovery still completes; it is only slower. Size [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size) with that in mind, rather than for steady-state throughput alone.
+
+As a rough starting point on a dedicated database host, InnoDB developers have suggested giving the buffer pool around four fifths of the available memory. Treat that as a guide, not a rule: leave room for the operating system, other services on the same host, and per-connection memory, and watch for swapping.
 
 ### Changing the Redo Log Capacity
 
@@ -113,9 +115,11 @@ Records within the InnoDB redo log are identified via a log sequence number (LSN
 
 When InnoDB performs a checkpoint, it writes the LSN of the oldest dirty page in the [InnoDB buffer pool](innodb-buffer-pool.md) to the InnoDB redo log. If a page is the oldest dirty page in the [InnoDB buffer pool](innodb-buffer-pool.md), then that means that all pages with lower LSNs have been flushed to the physical InnoDB tablespace files. If the server were to crash, then InnoDB would perform crash recovery by only applying log records with LSNs that are greater than or equal to the LSN of the oldest dirty page written in the last checkpoint.
 
-Checkpoints are one of the tasks performed by the InnoDB master background thread. This thread schedules checkpoints 7 seconds apart when the server is very active, but checkpoints can happen more frequently when the server is less active.
+Checkpoints are written by the InnoDB page cleaner thread, between the batches of pages that it flushes.
 
-Dirty pages are not actually flushed from the buffer pool to the physical InnoDB tablespace files during a checkpoint. That process happens asynchronously on a continuous basis by InnoDB's write I/O background threads configured by the [innodb\_write\_io\_threads](innodb-system-variables.md#innodb_write_io_threads) system variable. If you want to make this process more aggressive, then you can decrease the value of the [innodb\_max\_dirty\_pages\_pct](innodb-system-variables.md#innodb_max_dirty_pages_pct) system variable. You may also need to better tune InnoDB's I/O capacity on your system by setting the [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity) system variable.
+Dirty pages are not actually flushed from the buffer pool to the physical InnoDB tablespace files during a checkpoint. A checkpoint can only advance as far as the page cleaner has already flushed the oldest dirty pages. While it has work to do, the page cleaner writes one batch about once per second, and it runs continuously when the redo log is nearly full or the buffer pool is running out of free pages. When the dirty page percentage is below [innodb\_max\_dirty\_pages\_pct](innodb-system-variables.md#innodb_max_dirty_pages_pct) and the checkpoint age is below [innodb\_adaptive\_flushing\_lwm](innodb-system-variables.md#innodb_adaptive_flushing_lwm), the page cleaner doesn't run, and the checkpoint doesn't advance. See [InnoDB Page Flushing](innodb-page-flushing.md) for when it starts flushing and how many pages it writes.
+
+Flushing is driven by the redo log as well as by the number of dirty pages. When the checkpoint age exceeds `innodb_adaptive_flushing_lwm` (by default, 10% of the redo log capacity), the page cleaner flushes pages to advance the checkpoint, even if few pages in the buffer pool are dirty. With [adaptive flushing](innodb-page-flushing.md#adaptive-flushing) enabled (the default), it then adjusts the number of pages it writes to how fast the redo log grows, up to [innodb\_io\_capacity\_max](innodb-system-variables.md#innodb_io_capacity_max) pages per second. If you want to make flushing more aggressive, decrease `innodb_max_dirty_pages_pct` or set [innodb\_max\_dirty\_pages\_pct\_lwm](innodb-system-variables.md#innodb_max_dirty_pages_pct_lwm), and tune InnoDB's I/O capacity with [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity) and `innodb_io_capacity_max`. Setting `innodb_max_dirty_pages_pct_lwm` also works around a [known issue](innodb-page-flushing.md#innodb_adaptive_flushing_lwm) where flushing doesn't start at `innodb_adaptive_flushing_lwm`.
 
 ### Determining the Checkpoint Age
 
@@ -202,9 +206,12 @@ Every change InnoDB makes to a page happens inside a mini-transaction. From [Mar
 * One byte holding a sequence bit, which is toggled every time writing wraps back around to offset `0x3000`. Crash recovery and [mariadb-backup](../../backup-and-restore/mariadb-backup/) use it to find where the circular log logically ends.
 * A CRC-32C checksum covering the mini-transaction, excluding the sequence bit.
 
-With [innodb\_encrypt\_log=ON](innodb-system-variables.md#innodb_encrypt_log), 8 bytes of initialization vector sit between the sequence bit and the checksum and are covered by it. File names, page identifiers, and checkpoint information are no longer encrypted — only the page-level payload is, with the tablespace ID and page number forming part of the initialization vector. This is what allows [mariadb-backup](../../backup-and-restore/mariadb-backup/) to copy an encrypted redo log without access to the encryption keys.
+With [innodb\_encrypt\_log=ON](innodb-system-variables.md#innodb_encrypt_log), 8 bytes of initialization vector sit between the sequence bit and the checksum and are covered by it. What else is encrypted depends on the format identifier (see [Format Identifiers](#format-identifiers)):
 
-Because there is no mandatory block structure, InnoDB pads a write out to a block boundary with an `FILE_CHECKPOINT` record of whatever length is needed and an all-zero payload, instead of zero-filling the tail of a 512-byte block under a mutex.
+* In the original encrypted subformat of the 10.8 format, identifier `0xd0687973`, file names, page identifiers, and checkpoint information are not encrypted. Only the page-level payload is, with the tablespace ID and page number forming part of the initialization vector. A new encryption context is set up for every snippet of record payload, which made encrypted logging much slower than unencrypted logging.
+* In the current encrypted format, identifier `0xf09f979d`, everything except the type and length of each log record is encrypted, including page identifiers and `FILE_` records. The initialization vector consists of the 8 bytes stored before the checksum plus the type and length of the first record of the mini-transaction, and page identifiers are no longer part of it. Crash recovery and `mariadb-backup --backup` decrypt each mini-transaction to parse it, so both need access to the encryption keys.
+
+InnoDB does not pad the log to a block boundary. When a write ends partway through a block, the next write starts at the beginning of that block and overwrites it, including any leftover bytes after the last mini-transaction. The block size used for these writes is set by [innodb\_log\_write\_ahead\_size](innodb-system-variables.md#innodb_log_write_ahead_size).
 
 ### Format Identifiers
 
@@ -217,12 +224,17 @@ The first 4 bytes of `ib_logfile0` identify the format, as a big-endian unsigned
 | `0x00000067` | MariaDB 10.3.2                                                         |
 | `0x00000068` | MariaDB 10.4.0                                                         |
 | `0x50485953` | MariaDB 10.5.1, the physical redo log format                           |
-| `0x50687973` | MariaDB 10.8.1, the current format                                     |
-| `0xf09f979d` | MariaDB 10.11.15, 11.4.9, 11.8.4 and 12.1.2, encrypted logs only       |
+| `0x50687973` | MariaDB 10.8.1, the current format for unencrypted logs                |
+| `0xd0687973` | MariaDB 10.8.1, encrypted logs (read, but no longer written, from the versions in the next row) |
+| `0xf09f979d` | MariaDB 10.11.15, 11.4.9, 11.8.4, 12.1.2 and later, encrypted logs only |
 
-In the 10.4 and 10.5 formats, an encrypted log set the high bit of the identifier. The 10.8 format does not: encryption is indicated instead by the presence of encryption information after the creator field, so an encrypted log written by [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1) still carries `0x50687973`.
+In the 10.4, 10.5, and 10.8 formats, an encrypted log has the high bit of the identifier set: `0x80000068`, `0xd0485953`, and `0xd0687973` respectively. The `0xf09f979d` identifier also has the high bit set.
 
-[MDEV-36024](https://jira.mariadb.org/browse/MDEV-36024) then redesigned [innodb\_encrypt\_log=ON](innodb-system-variables.md#innodb_encrypt_log) to recover a performance regression, giving encrypted logs their own format identifier, `0xf09f979d`, from [MariaDB 10.11.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.15), [MariaDB 11.4.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.9), [MariaDB 11.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.4) and MariaDB 12.1.2. Those versions still read an encrypted log in the 10.8 format, and a log written with [innodb\_encrypt\_log=OFF](innodb-system-variables.md#innodb_encrypt_log) is unaffected.
+[MDEV-36024](https://jira.mariadb.org/browse/MDEV-36024) then redesigned [innodb\_encrypt\_log=ON](innodb-system-variables.md#innodb_encrypt_log) to recover a performance regression, giving encrypted logs their own format identifier, `0xf09f979d`, from [MariaDB 10.11.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.15), [MariaDB 11.4.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.9), [MariaDB 11.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.4) and MariaDB 12.1.2. Those versions still read an encrypted log in the 10.8 format, but with `innodb_encrypt_log=ON` they write only the new format. A log written with [innodb\_encrypt\_log=OFF](innodb-system-variables.md#innodb_encrypt_log) is unaffected.
+
+{% hint style="warning" %}
+Earlier releases can't read the `0xf09f979d` format, and no conversion back to the old encrypted format exists. To downgrade to a release before those versions, first restart the server with `innodb_encrypt_log=OFF`, so that the redo log is rebuilt unencrypted, and shut it down cleanly.
+{% endhint %}
 
 ### Minimum File Size
 

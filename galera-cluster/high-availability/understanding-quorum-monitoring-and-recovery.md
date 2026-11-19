@@ -46,6 +46,10 @@ If you need to restore service before the network issue is fixed, you must manua
 
 The nodes in this group will now form a new Primary Component. When network connectivity is restored, the nodes from the other partition will automatically rejoin.
 
+{% hint style="info" %}
+If the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled, `SET GLOBAL wsrep_provider_options` fails. Run `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead. See [pc.bootstrap](../reference/wsrep-variable-details/wsrep_provider_options.md#pc.bootstrap).
+{% endhint %}
+
 {% hint style="danger" %}
 Never execute the [bootstrap command](resetting-the-quorum-cluster-bootstrap.md#manual-bootstrap) on both sides of a partition, as this will create two independent, active clusters with diverging data.
 {% endhint %}
@@ -92,3 +96,5 @@ Once you have identified the correct node, you will start the MariaDB service on
 _For detailed, step-by-step instructions on this critical procedure, see_ [_`Resetting the Quorum (Cluster Bootstrap)`_](resetting-the-quorum-cluster-bootstrap.md)&#x20;
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

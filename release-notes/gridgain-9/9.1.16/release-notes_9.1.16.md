@@ -1,12 +1,14 @@
 ---
 description: >-
-  GridGain 9.1.16 brings a large number of new features, including a reworked
-  JDBC driver, Java records support, custom object mapping in .NET, and new
-  configuration options and metrics.
-hidden: true
+  GridGain 9.1.16 adds many new features, including a reworked JDBC driver, Java
+  records support, custom object mapping in .NET, and new configuration options
+  and metrics.
+  Released on 2025-12-23.
 ---
 
 # GridGain 9.1.16 Release Notes
+
+**Release date:** 23 Dec 2025
 
 ## Overview
 
@@ -44,7 +46,7 @@ public record Person(
 ) {}
 ```
 
-For more information about using records, see [Record API documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/table-api).
+For more information about using records, see [Record API documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/table-api).
 
 ### Custom Object Mapping in .NET
 
@@ -109,7 +111,7 @@ You can now configure heartbeats in [ODBC driver](https://app.gitbook.com/o/diTp
 
 ### String Configuration Support
 
-When starting the node in [embedded mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-get-started/embedded-mode), you can now provide configuration in string format. Previously, it was required to provide configuration as a path to the file.
+When starting the node in [embedded mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-get-started/embedded-mode), you can now provide configuration in string format. Previously, it was required to provide configuration as a path to the file.
 
 For example:
 
@@ -181,7 +183,7 @@ SELECT id, name, __PARTITION_ID FROM my_table;
 | IGN-28702 | General | Data node history is now compacted. |
 | IGN-28689 | General | You can now provide node configuration as a string when starting node in embedded mode. |
 | IGN-27992 | General | Fixed possible data loss with explicit transactions in aipersist engine. |
-| IGN-22878 | General | .NET: Added custom object mapping to table view APIs with IMapper<T>. |
+| IGN-22878 | General | .NET: Added custom object mapping to table view APIs with `IMapper<T>`. |
 | GG-46406 | Cluster SQL Engine | SCHEMA DROP command now also takes sequences into account. |
 | GG-46358 | Cluster SQL Engine | Improved error message for RBAC commands. |
 | GG-46312 | CLI Tool | Syntax highlighting is now correctly disabled on unsupported platforms. |
@@ -226,4 +228,8 @@ There are known issues with the performance of SQL read-write transactions in co
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

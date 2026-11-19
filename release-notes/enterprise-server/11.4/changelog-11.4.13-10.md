@@ -80,7 +80,7 @@ hidden: true
 * A range of JSON functions taking a path argument, when passed SQL expressions that don't have a character set, would crash the server ([MDEV-32331](https://jira.mariadb.org/browse/MDEV-32331))
 * `ALTER TABLE ... AUTO_INCREMENT = NN`; should return a Warning if it can not use the provided value ([MDEV-33660](https://jira.mariadb.org/browse/MDEV-33660))
 * InnoDB Encryption threads no longer busy-wait and now respond quickly for `innodb_encrypt_tables` and `innodb_encryption_rotate_key_age` ([MDEV-34358](https://jira.mariadb.org/browse/MDEV-34358))
-* Server crashes simplifying group by <subquery> ([MDEV-35565](https://jira.mariadb.org/browse/MDEV-35565))
+* Server crashes simplifying group by `<subquery>` ([MDEV-35565](https://jira.mariadb.org/browse/MDEV-35565))
 * Cannot modify a column if there is a generated column before it and a foreign key ([MDEV-35630](https://jira.mariadb.org/browse/MDEV-35630))
 * Invalid access, use-after-free, on `rli->description_event_for_exec` ([MDEV-35691](https://jira.mariadb.org/browse/MDEV-35691))
 * Abnormal server termination on second execution of stored routine that runs a cursor after table metadata in the query was changed ([MDEV-36481](https://jira.mariadb.org/browse/MDEV-36481))

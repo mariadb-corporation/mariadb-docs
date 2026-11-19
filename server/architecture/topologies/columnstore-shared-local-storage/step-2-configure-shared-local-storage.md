@@ -72,7 +72,7 @@ GlusterFS is a distributed file system.
 
 GlusterFS is a shared local storage option, but it is not one of the recommended options.
 
-For more information, see "[Recommended Storage Options](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-storage-architecture#recommended-storage-options)".
+For more information, see "[Recommended Storage Options](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/architecture/columnstore-storage-architecture#recommended-storage-options)".
 
 ### Install GlusterFS
 

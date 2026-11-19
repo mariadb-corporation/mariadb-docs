@@ -8,7 +8,7 @@ description: >-
 
 The `prepared_statements_instances` table contains aggregated statistics of prepared statements.
 
-The maximum number of rows in the table is determined by the [performance\_schema\_max\_prepared\_statement\_instances](../performance-schema-system-variables.md#performance_schema_max_prepared_statement_instances) system variable, which is by default autosized on startup.
+The maximum number of rows in the table is determined by the [performance\_schema\_max\_prepared\_statements\_instances](../performance-schema-system-variables.md#performance_schema_max_prepared_statements_instances) system variable, which is by default autosized on startup.
 
 The table contains the following columns:
 

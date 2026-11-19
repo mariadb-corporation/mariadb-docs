@@ -4,6 +4,12 @@ description: A list of all MariaDB MaxScale releases
 
 # All Releases
 
+## MaxScale 26.10
+
+| Version                     | Release Date | Release Status |
+| --------------------------- | ------------ | -------------- |
+| [26.10.0](26.10/26.10.0.md) | 2026-11-03   | Stable (GA)    |
+
 ## MaxScale 25.10
 
 | Version                     | Release Date | Release Status |
@@ -186,3 +192,5 @@ description: A list of all MariaDB MaxScale releases
 | [2.4.0](old-releases/2.4/2.4.0.md)                     | 2019-06-28   | Stable (GA)    |
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

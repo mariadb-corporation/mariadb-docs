@@ -1,10 +1,12 @@
 ---
 description: >-
   GridGain 9.1.7 improves cluster monitoring and migration tooling and adds Windows support for the C++ client.
-hidden: true
+  Released on 2025-08-28.
 ---
 
 # GridGain 9.1.7 Release Notes
+
+**Release date:** 28 Aug 2025
 
 ## Overview
 
@@ -18,7 +20,7 @@ This release features extended backwards compatibility support for bootstrap con
 
 ### Extended Critical Worker Timeouts
 
-This release increases default timeout values for [critical workers](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/configuration/node-configuration-parameters#system-configuration). The following values are changed:
+This release increases default timeout values for [critical workers](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/configuration/node-configuration-parameters#system-configuration). The following values are changed:
 
 - `ignite.system.criticalWorkers.livenessCheckIntervalMillis` changed from 200 to 2000 milliseconds,
 - `ignite.system.criticalWorkers.maxAllowedLagMillis` changed from 500 to 5000 milliseconds,
@@ -30,14 +32,14 @@ This release increases default timeout values for [critical workers](https://app
 
 This release features multiple improvements to cluster monitoring:
 
-- New `ClockSkewExceedingMaxClockSkew` [metric](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#clock.service) can be used to monitor clock drift.
-- A set of new [compute events](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/events/available-events#compute-job-events) allows for easier monitoring of your distributed computing jobs.
+- New `ClockSkewExceedingMaxClockSkew` [metric](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/monitoring/metrics-list#clock.service) can be used to monitor clock drift.
+- A set of new [compute events](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/messaging-and-events/events/available-events#compute-job-events) allows for easier monitoring of your distributed computing jobs.
 
 ### Improved Migration Tools
 
 This release features major changes in migration tools:
 
-- A new way of configuring mapping between caches and tables during [DCR from GridGain 8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8) was added. By using it, you can map key and value cache fields separately, as well as ignore the fields that are not required. The example below shows how you can configure mapping:
+- A new way of configuring mapping between caches and tables during [DCR from GridGain 8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-management/migration-guides/migration-from-gridgain-8/dcr-from-gridgain-8) was added. By using it, you can map key and value cache fields separately, as well as ignore the fields that are not required. The example below shows how you can configure mapping:
   ```
   dr-service-config = {
     cacheMapping = [
@@ -56,7 +58,7 @@ This release features major changes in migration tools:
   }
   ```
 
-- [Code adapter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-from-gridgain-8/codebase-migration) now supports migration of GridGain 8 ScanQueries.
+- [Code adapter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-management/migration-guides/migration-from-gridgain-8/codebase-migration) now supports migration of GridGain 8 ScanQueries.
 
 ### Windows Support for C++ Client
 
@@ -107,4 +109,8 @@ There are known issues with the performance of SQL read-write transactions in co
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

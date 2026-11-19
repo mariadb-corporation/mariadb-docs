@@ -20,11 +20,11 @@ The `CREATE PACKAGE` statement can be used in any mode.
 Before MariaDB 11.4:
 {% endhint %}
 
-The `CREATE PACKAGE` statement can be used when [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is set.
+The `CREATE PACKAGE` statement can be used when [Oracle SQL\_MODE](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md) is set.
 {% endtab %}
 {% endtabs %}
 
-In [Oracle SQL mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), the PL/SQL dialect is used, while if Oracle mode is not set (the default), SQL/PSM is used.
+In [Oracle SQL mode](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md), the PL/SQL dialect is used, while if Oracle mode is not set (the default), SQL/PSM is used.
 
 ## Syntax (Oracle mode)
 
@@ -132,6 +132,8 @@ package_routine_characteristic:
 
 A package whose specification was created by the `CREATE PACKAGE` statement, should later be implemented using the [CREATE PACKAGE BODY](create-package-body.md) statement.
 
+If the `OR REPLACE` clause is used and the package exists, its specification is replaced and the existing package body is dropped, so you must create the body again with `CREATE PACKAGE BODY`. Existing privileges on the package and on its body are kept, unlike with [DROP PACKAGE](../drop/drop-package.md) followed by `CREATE PACKAGE`. See [Stored Routine Privileges](../../../../server-usage/stored-routines/stored-functions/stored-routine-privileges.md#dropping-stored-routines).
+
 ## Function parameter quantifiers IN | OUT | INOUT | IN OUT
 
 **MariaDB starting with** [**10.8.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.0)
@@ -197,7 +199,7 @@ DELIMITER ;
 * [DECLARE TYPE](../../programmatic-compound-statements/declare-type.md)
 * [SHOW CREATE PACKAGE](../../administrative-sql-statements/show/show-create-package.md)
 * [DROP PACKAGE](../drop/drop-package.md)
-* [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle SQL\_MODE](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -2,12 +2,14 @@
 """
 Tier 2 extractor for MariaDB DX skill files.
 
-Walks a single SQL-function category directory under
+Walks one or more SQL-function category directories under
 `mariadb-docs/server/reference/sql-functions/.../<category>/` and emits a
-dense per-function listing suitable for embedding in a SKILL.md.
+dense per-function listing suitable for embedding in a SKILL.md. With several
+directories, their functions are merged into one alphabetical listing.
 
 Usage:
-    extract_function_category.py <category-dir> [--exclude name [name ...]]
+    extract_function_category.py <category-dir> [<category-dir> ...]
+                                 [--exclude name [name ...]]
 
 Output: Markdown on stdout. Hand-curated frontmatter, intro, and
 "What LLMs Often Miss" sections must be assembled around it by a wrapping
@@ -279,15 +281,16 @@ def render_entry(fn: dict) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("category_dir", type=Path,
-                        help="Directory of function reference pages")
+    parser.add_argument("category_dirs", type=Path, nargs="+",
+                        metavar="category_dir",
+                        help="Directory (or directories) of function reference pages")
     parser.add_argument("--exclude", nargs="*", default=[],
                         help="Filenames (without .md) to skip")
     args = parser.parse_args()
 
     excluded = set(args.exclude) | {"README", "SUMMARY"}
 
-    pages = sorted(p for p in args.category_dir.glob("*.md")
+    pages = sorted(p for d in args.category_dirs for p in d.glob("*.md")
                    if p.stem not in excluded)
 
     extracted: list[dict] = []
@@ -301,7 +304,8 @@ def main() -> int:
 
     extracted.sort(key=lambda fn: fn["name"])
 
-    print(f"<!-- Extracted from {args.category_dir} -->")
+    print("<!-- Extracted from "
+          f"{', '.join(str(d) for d in args.category_dirs)} -->")
     print(f"<!-- {len(extracted)} functions, "
           f"{len(errors)} pages skipped on extraction failure -->")
     print()

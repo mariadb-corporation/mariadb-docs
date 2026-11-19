@@ -232,7 +232,7 @@ Before MariaDB 10.11:
 {% tabs %}
 {% tab title="Current" %}
 {% hint style="info" %}
-From MariaDB 11.6:
+From Community Server (CS) 11.6 / Enterprise Server (ES) 10.6.20-16 / 11.4.3-1:
 {% endhint %}
 
 **Master\_last\_event\_time:** Timestamp of the last event read from the primary by the IO thread. NULL until the replica has started and has read one query event from the primary that changes data.
@@ -242,9 +242,9 @@ From MariaDB 11.6:
 **Master\_Slave\_time\_diff:** The difference of the above two timestamps. NULL until the replica has started and has read one query event from the primary that changes data.
 {% endtab %}
 
-{% tab title="< 11.6" %}
+{% tab title="< CS 11.6 / ES 10.6.20-16 / 11.4.3-1" %}
 {% hint style="info" %}
-Before MariaDB 11.6:
+Before Community Server (CS) 11.6 / Enterprise Server (ES) 10.6.20-16 / 11.4.3-1:
 {% endhint %}
 
 **Master\_last\_event\_time**, **Slave\_last\_event\_time**, and **Master\_Slave\_time\_diff** are not available.

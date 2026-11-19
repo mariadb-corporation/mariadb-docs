@@ -4,8 +4,8 @@
     python3 pdf/check_contrast.py
 
 Accessibility is a stated requirement for these PDFs, and contrast is easy to
-break by eye -- dimming white to 75% over Blue Azure looks fine on screen and
-lands at 4.45:1, under the 4.5:1 floor for body text. The pairs are listed
+break by eye -- dimming white to 75% over the previous brand's blue cover looked
+fine on screen and landed at 4.45:1, under the 4.5:1 floor for body text. The pairs are listed
 explicitly here rather than parsed out of the CSS: the point is to state the
 intended contract, so a styling change that violates it fails loudly.
 
@@ -15,73 +15,83 @@ bold). Exits non-zero on any failure.
 
 import sys
 
-# MariaDB brand palette, slide 26 of the corporate deck.
-AZURE = "#0E6488"
-SEA = "#96DDCF"
-GRANITE = "#424F62"
-SEAS = "#00838F"
-SEAS_TEXT = "#00707a"   # darkened Open Seas for small text
-OCEAN = "#003545"
-EEL = "#ABC74A"
+# MariaDB brand, Enterprise Platform 2027 (https://mariadb-brand-core.vercel.app/).
+ULTRAVIOLET = "#8328ED"
+WAVE = "#3DD3EE"
+KELP = "#26D044"
+BEACON = "#FFD401"
+TRENCH = "#0C0C0D"
+FOAM = "#F8F6FA"
+NEUTRAL_100 = "#EBE8F0"
+NEUTRAL_300 = "#C5C2CD"
+NEUTRAL_700 = "#514E55"
 
-INK = "#12242b"
-MUTED = GRANITE
+INK = TRENCH
+MUTED = NEUTRAL_700
 WHITE = "#ffffff"
-CODE_BG = "#f4f7f8"
-COVER_AZURE_DIM = "#d9ece6"
+CODE_BG = FOAM
+
+# Callout tints (pdf/style.css, .hint-*)
+INFO_TINT = "#f3ebfd"
+SUCCESS_TINT = "#e9f9ec"
+WARNING_TINT = "#fff8d6"
+DANGER_TINT = "#fceeed"
 
 # (description, foreground, background, is_large_text)
 PAIRS = [
     # body
     ("body text on white",             INK,     WHITE,   False),
-    ("muted text (Granite) on white",  MUTED,   WHITE,   False),
-    ("link (Blue Azure) on white",     AZURE,   WHITE,   False),
-    ("heading (Blue Azure) on white",  AZURE,   WHITE,   True),
-    ("top heading (Deep Ocean)",       OCEAN,   WHITE,   True),
-    ("inline code on code tint",       "#14252c", CODE_BG, False),
-    ("code block text on tint",        INK,     CODE_BG, False),
+    ("muted text (neutral 700)",       MUTED,   WHITE,   False),
+    ("link (Ultraviolet) on white",    ULTRAVIOLET, WHITE, False),
+    ("heading (Trench) on white",      INK,     WHITE,   True),
+    ("h5/h6 (neutral 700) on white",   MUTED,   WHITE,   False),
+    ("inline code on Foam",            INK,     CODE_BG, False),
+    ("link inside a code-tinted cell", ULTRAVIOLET, CODE_BG, False),
 
-    # cover: Blue Azure
-    ("cover-azure title",              WHITE,   AZURE,   True),
-    ("cover-azure subtitle",           COVER_AZURE_DIM, AZURE, True),
-    ("cover-azure meta (10pt)",        COVER_AZURE_DIM, AZURE, False),
-    ("cover-azure legal (8.5pt)",      COVER_AZURE_DIM, AZURE, False),
-    ("cover-azure link",               WHITE,   AZURE,   False),
+    # cover: Ultraviolet
+    ("cover-ultraviolet title",        WHITE,   ULTRAVIOLET, True),
+    ("cover-ultraviolet eyebrow/meta", WHITE,   ULTRAVIOLET, False),
+    ("cover-ultraviolet legal (8.5pt)", WHITE,  ULTRAVIOLET, False),
 
-    # cover: Sea Fresh
-    ("cover-sea title",                OCEAN,   SEA,     True),
-    ("cover-sea subtitle",             OCEAN,   SEA,     True),
-    ("cover-sea meta (10pt)",          OCEAN,   SEA,     False),
-    ("cover-sea legal (8.5pt)",        OCEAN,   SEA,     False),
+    # cover: Foam
+    ("cover-foam title",               INK,     FOAM,    True),
+    ("cover-foam legal (8.5pt)",       INK,     FOAM,    False),
 
     # toc
     ("toc entry on white",             INK,     WHITE,   False),
-    ("toc deep entry (Granite)",       MUTED,   WHITE,   False),
-    ("toc heading (Deep Ocean)",       OCEAN,   WHITE,   True),
+    ("toc deep entry (neutral 700)",   MUTED,   WHITE,   False),
 
-    # callouts -- text sits on the tinted background
-    ("note text on info tint",         INK,     "#eaf2f6", False),
-    ("tip text on success tint",       INK,     "#e4f4ef", False),
-    ("warning text on warning tint",   INK,     "#fdf4e6", False),
-    ("important text on danger tint",  INK,     "#fceeed", False),
-    ("hint label on neutral tint",     INK,     "#f5f7f8", False),
+    # callouts -- text and links sit on the tinted background
+    ("note text on info tint",         INK,     INFO_TINT, False),
+    ("tip text on success tint",       INK,     SUCCESS_TINT, False),
+    ("warning text on warning tint",   INK,     WARNING_TINT, False),
+    ("important text on danger tint",  INK,     DANGER_TINT, False),
+    ("hint text on neutral Foam",      INK,     FOAM,    False),
+    ("link on info tint",              ULTRAVIOLET, INFO_TINT, False),
+    ("link on success tint",           ULTRAVIOLET, SUCCESS_TINT, False),
+    ("link on warning tint",           ULTRAVIOLET, WARNING_TINT, False),
+    ("link on danger tint",            ULTRAVIOLET, DANGER_TINT, False),
 
     # tables
-    ("table header on Sea Fresh tint", INK,     "#e4f4ef", False),
+    ("table header on neutral 100",    INK,     NEUTRAL_100, False),
+    ("link in table header",           ULTRAVIOLET, NEUTRAL_100, False),
     ("table cell on white",            INK,     WHITE,   False),
 
     # tabs and steppers
-    ("tab label (Open Seas dk) on white", SEAS_TEXT, WHITE, False),
-    ("step label (Deep Ocean)",        OCEAN,   WHITE,   False),
+    ("tab label (neutral 700)",        MUTED,   WHITE,   False),
+    ("step label (Trench)",            INK,     WHITE,   False),
 ]
 
 # Decorative fills: never carry text, so they are exempt from the text
 # thresholds but must still be discernible against what they sit on.
 DECORATIVE = [
-    ("Electric Eel rule on white",     EEL,     WHITE),
-    ("Electric Eel rule on azure",     EEL,     AZURE),
-    ("Electric Eel rule on sea fresh", EEL,     SEA),
-    ("Sea Fresh step rule on white",   SEA,     WHITE),
+    ("Ultraviolet rule on white",      ULTRAVIOLET, WHITE),
+    ("Beacon rule on Ultraviolet",     BEACON,  ULTRAVIOLET),
+    ("Ultraviolet rule on Foam",       ULTRAVIOLET, FOAM),
+    ("Kelp tip bar on its tint",       KELP,    SUCCESS_TINT),
+    ("Beacon warning bar on its tint", BEACON,  WARNING_TINT),
+    ("neutral 300 code/step rule",     NEUTRAL_300, WHITE),
+    ("Wave (unused; for reference)",   WAVE,    WHITE),
 ]
 
 

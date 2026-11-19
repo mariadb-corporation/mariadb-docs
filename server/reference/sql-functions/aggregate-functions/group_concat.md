@@ -20,7 +20,13 @@ It returns NULL if all arguments are NULL, or there are no matching rows.
 
 The maximum returned length in bytes is determined by the [group\_concat\_max\_len](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#group_concat_max_len) server system variable, which defaults to 1M.
 
-If group\_concat\_max\_len <= 512, the return type is [VARBINARY](../../data-types/string-data-types/varbinary.md) or [VARCHAR](../../data-types/string-data-types/varchar.md); otherwise, the return type is [BLOB](../../data-types/string-data-types/blob.md) or [TEXT](../../data-types/string-data-types/text.md). The choice between binary or non-binary types depends from the input.
+If group\_concat\_max\_len <= 512, the return type is [VARBINARY](../../data-types/string-data-types/varbinary.md) or [VARCHAR](../../data-types/string-data-types/varchar.md); otherwise, the return type is the smallest [BLOB](../../data-types/string-data-types/blob.md) or [TEXT](../../data-types/string-data-types/text.md) type that can hold a result of that length. With the default `group_concat_max_len`, that is `MEDIUMBLOB` or `MEDIUMTEXT`. The choice between binary or non-binary types depends on the input.
+
+If the result is longer than `group_concat_max_len`, it is truncated to that length, and a warning is issued:
+
+```
+Warning (Code 1260): Row 2 was cut by group_concat()
+```
 
 The full syntax is as follows:
 
@@ -42,6 +48,25 @@ GROUP_CONCAT([DISTINCT] expr [,expr ...]
 
 The [LIMIT](../../sql-statements/data-manipulation/selecting-data/limit.md) clause can be used with `GROUP_CONCAT`.
 
+### Memory Usage with ORDER BY
+
+{% hint style="info" %}
+This behavior applies from MariaDB 13.2.
+{% endhint %}
+
+With `ORDER BY`, the rows of each group are sorted in memory. The memory used for sorting is limited to the larger of these two values:
+
+* [group\_concat\_max\_len](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#group_concat_max_len), or [max\_allowed\_packet](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_allowed_packet) if that is smaller
+* The smaller of [tmp\_memory\_table\_size](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tmp_memory_table_size) and [max\_heap\_table\_size](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_heap_table_size)
+
+With the default settings, the limit is 16 MB. The limit is never set so low that the sort cannot hold a few rows. Values of `BLOB` and `TEXT` arguments are not counted toward it.
+
+When the sort reaches two thirds of the limit, the server discards the rows that come after the end of the result in `ORDER BY` order and can therefore never be returned. If the rows that belong to the result do not fit into a third of the limit, some of them are left out of the result, and the same warning as for a truncated result is issued.
+
+Before MariaDB 13.2, the rows were only discarded once the strings being sorted added up to about 1024 times `group_concat_max_len`, which is 1 GB with the default settings, so a large group could use a lot of memory.
+
+[JSON\_ARRAYAGG()](../special-functions/json-functions/json_arrayagg.md) is implemented on top of `GROUP_CONCAT()`, so `JSON_ARRAYAGG()` with `ORDER BY` has the same memory limit and issues the same warning.
+
 ## Examples
 
 ```sql
@@ -58,7 +83,7 @@ SELECT GROUP_CONCAT(DISTINCT User ORDER BY User SEPARATOR '\n')
    FROM mysql.user;
 ```
 
-In the former example, `DISTINCT` is used because the same user may occur more than once. The new line () used as a `SEPARATOR` makes the results easier to read.
+In the former example, `DISTINCT` is used because the same user may occur more than once. The new line (`\n`) used as a `SEPARATOR` makes the results easier to read.
 
 Get a readable list of hosts from which each user can connect:
 

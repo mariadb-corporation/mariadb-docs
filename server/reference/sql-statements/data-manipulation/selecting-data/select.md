@@ -153,11 +153,13 @@ When specifying a column, you can either use just the column name or qualify the
 
 You can quote column names using backticks. If you are qualifying column names with table names, quote each part separately as ``tbl_name`.`col_name``.
 
+You can give a select expression an alias with `AS alias_name`. [GROUP BY](group-by.md#aliases-in-group-by-and-having), `HAVING`, and [ORDER BY](order-by.md#aliases-in-order-by) can refer to the alias, but `WHERE` can't. Avoid aliases that have the same name as a column in the `FROM` tables, because `GROUP BY` and `ORDER BY` resolve such a name differently.
+
 If you use any [grouping functions](../../../sql-functions/aggregate-functions/) in any of the select expressions, all rows in your results will be implicitly grouped, as if you had used `GROUP BY NULL`. `GROUP BY NULL` being an expression behaves specially such that the entire result set is treated as a group.
 
 ### DISTINCT
 
-A query may produce some identical rows. By default, all rows are retrieved, even when their values are the same. To explicitly specify that you want to retrieve identical rows, use the `ALL` option. If you want duplicates to be removed from the result set, use the `DISTINCT` option. `DISTINCTROW` is a synonym for `DISTINCT`. See also [COUNT DISTINCT](../../../sql-functions/aggregate-functions/count-distinct.md) and [SELECT UNIQUE in Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle#simple-syntax-compatibility).
+A query may produce some identical rows. By default, all rows are retrieved, even when their values are the same. To explicitly specify that you want to retrieve identical rows, use the `ALL` option. If you want duplicates to be removed from the result set, use the `DISTINCT` option. `DISTINCTROW` is a synonym for `DISTINCT`. See also [COUNT DISTINCT](../../../sql-functions/aggregate-functions/count-distinct.md) and [SELECT UNIQUE in Oracle mode](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md#simple-syntax-compatibility).
 
 ### INTO
 
@@ -238,7 +240,7 @@ See [Getting Data from MariaDB](../../../../mariadb-quickstart-guides/mariadb-se
 * [FOR UPDATE](for-update.md)
 * [LOCK IN SHARE MODE](lock-in-share-mode.md)
 * [Optimizer Hints](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/)
-* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle mode](../../../../editions-and-compatibility/comparisons-with-other-databases/sql_modeoracle.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

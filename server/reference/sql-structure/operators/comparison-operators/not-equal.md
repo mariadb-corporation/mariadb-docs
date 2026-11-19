@@ -1,3 +1,9 @@
+---
+description: >-
+  Test whether two values differ. The <> and != operators return 1 if the
+  values are not equal, 0 if they are, and NULL if either is NULL.
+---
+
 # !=
 
 ## Syntax

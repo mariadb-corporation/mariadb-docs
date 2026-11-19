@@ -61,7 +61,7 @@ mariadb-backup --backup --target-dir=/backups/inc1 \
 
 ### `--apply-log`
 
-Prepares an existing backup to restore to the MariaDB Server. This is only valid in `innobackupex` mode, which can be enabled with the [--innobackupex](mariadb-backup-options.md#innobackupex) option.
+Prepares an existing backup to restore to the MariaDB Server. This option is an alias for [--prepare](mariadb-backup-options.md#prepare).
 
 Files that `mariadb-backup` generates during [--backup](mariadb-backup-options.md#backup) operations in the target directory are not ready for use on the Server. Before you can restore the data to MariaDB, you first need to prepare the backup.
 
@@ -1363,6 +1363,8 @@ Deprecated and has no effect from [MariaDB 10.11.8](https://app.gitbook.com/s/aE
 Stops replica SQL threads for backups.
 
 When running `mariadb-backup` on a server that uses replication, you may occasionally encounter locks that block backups. Using this option, it stops replica SQL threads and waits until the `Slave_open_temp_tables` in the `SHOW STATUS` statement is zero. If there are no open temporary tables, the backup runs, otherwise the SQL thread starts and stops until there are no open temporary tables.
+
+When the backup finishes, `mariadb-backup` restarts the replica SQL thread only if the thread was running when the backup started. If the SQL thread was already stopped, for example by an earlier backup attempt that stopped it and then failed, it stays stopped after the backup completes, and you must start it with `START REPLICA SQL_THREAD`.
 
 ```bash
 mariadb-backup --backup \

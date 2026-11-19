@@ -261,9 +261,11 @@ asyncio.run(main())
 #### Further Resources:
 
 * [PyPI MariaDB Connector/Python](https://pypi.org/project/mariadb/)
-* [MariaDB Connector/Python Documentation](https://mariadb-corporation.github.io/mariadb-connector-python/)
+* [MariaDB Connector/Python Documentation](../mariadb-connector-python/README.md)
 * Migration Guide (1.1 to 2.0)
 * Async/Await Support
 * [MariaDB Developers Python Quickstart (GitHub)](https://github.com/mariadb-developers/python-quickstart)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

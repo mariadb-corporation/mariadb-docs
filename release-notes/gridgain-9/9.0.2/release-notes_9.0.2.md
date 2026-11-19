@@ -2,10 +2,12 @@
 description: >-
   GridGain 9.0.2 improves CLI reporting and cluster performance and adds a SQL
   partition filter column.
-hidden: true
+  Released on 2024-07-31.
 ---
 
 # GridGain 9.0.2 Release Notes
+
+**Release date:** 31 Jul 2024
 
 ## Overview
 
@@ -65,4 +67,8 @@ The following features of GridGain 8 are not available in this version, and will
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

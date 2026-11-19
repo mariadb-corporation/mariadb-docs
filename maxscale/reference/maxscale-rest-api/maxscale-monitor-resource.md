@@ -407,9 +407,9 @@ Create a new monitor. The request body must define at least the following fields
 * `data.attributes.module`
   * The monitor module to use
 * `data.attributes.parameters.user`
-* The [`user`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#user) to use
+* The [`user`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#user) to use
 * `data.attributes.parameters.password`
-  * The [password](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#password) to use
+  * The [password](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/service-settings.md#password) to use
 
 All monitor parameters can be defined at creation time.
 

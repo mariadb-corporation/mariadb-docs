@@ -31,6 +31,26 @@ Before configuring the system, it is helpful to understand the handshake between
 
 ```mermaid
 sequenceDiagram
+    accTitle: Authentication handshake through the auth_pam plugin
+    accDescr {
+        A sequence between five participants: Client (User/App), MariaDB Server,
+        auth_pam Plugin, OS PAM Subsystem and PAM Module (pam_oidc.so). A note
+        over Client (User/App) and MariaDB Server reads Step 3: Connect via
+        Client. Client (User/App) sends Connect(Username, Password=Token) to
+        MariaDB Server. A note over MariaDB Server and auth_pam Plugin reads Step
+        2: Configure MariaDB Server. MariaDB Server sends itself Check User
+        Definition, then sends Delegate Auth (User is IDENTIFIED VIA PAM) to
+        auth_pam Plugin. A note over auth_pam Plugin and OS PAM Subsystem reads
+        Step 1: Configure PAM Service. auth_pam Plugin sends Authenticate using
+        Service "mariadb" to OS PAM Subsystem. OS PAM Subsystem sends itself Read
+        /etc/pam.d/mariadb. A note to the right of OS PAM Subsystem reads This
+        file tells OS to load pam_oidc.so. OS PAM Subsystem sends Invoke
+        pam_oidc.so with Token to PAM Module (pam_oidc.so), which sends itself
+        Validate Token (Issuer/Audience). PAM Module (pam_oidc.so) replies Return
+        Success/Failure to OS PAM Subsystem, which replies Return Success/Failure
+        to auth_pam Plugin. auth_pam Plugin replies Return Auth Result to MariaDB
+        Server, which replies Connection Accepted/Rejected to Client (User/App).
+    }
     participant Client as Client (User/App)
     participant DB as MariaDB Server
     participant Plugin as auth_pam Plugin
@@ -131,3 +151,5 @@ mariadb --user="jdoe" --password="$DB_TOKEN"
 * Username Mapping: By default, the MariaDB username must match the identity in the token (often the `sub` or `email`claim). Some PAM modules allow you to map these (e.g., mapping `user@example.com` to `user`); check your module's `user_template` or mapping documentation.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

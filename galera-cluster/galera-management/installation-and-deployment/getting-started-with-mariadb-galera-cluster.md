@@ -90,7 +90,7 @@ To make the location of the `libgalera_smm.so` library in binary tarballs more s
 
 ### Installing MariaDB Galera Cluster from Source
 
-To install MariaDB Galera Cluster by compiling it from source, you will have to compile both MariaDB Server and the Galera wsrep provider library. For some information on how to do this, see the pages at [Installing Galera From Source](advanced-installation-from-source/installing-galera-from-source.md). The pages at [Compiling MariaDB From Source](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source) and Galera Cluster Documentation: Building Galera Cluster for MySQL may also be helpful.
+To install MariaDB Galera Cluster by compiling it from source, you will have to compile both MariaDB Server and the Galera wsrep provider library. For some information on how to do this, see the pages at [Installing Galera From Source](advanced-installation-from-source/installing-galera-from-source.md). The pages at [Compiling MariaDB From Source](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source) may also be helpful.
 
 ## Configuring MariaDB Galera Cluster
 
@@ -233,8 +233,8 @@ The cluster nodes can be configured to invoke a command when cluster membership 
 
 ## See Also
 
-* [What is MariaDB Galera Cluster?](../../readme/mariadb-galera-cluster-guide.md)
-* [About Galera Replication](../../readme/about-galera-replication.md)
+* [What is MariaDB Galera Cluster?](../../mariadb-galera-cluster-guide.md)
+* [About Galera Replication](../../about-galera-replication.md)
 * [Galera Use Cases](../../galera-use-cases.md)
 * [Galera Cluster documentation: Notification Command](../configuration/using-the-notification-command-wsrep_notify_cmd.md)
 * [Introducing the “Safe-To-Bootstrap” feature in Galera Cluster](https://web.archive.org/web/20250701212656/https://galeracluster.com/2016/11/introducing-the-safe-to-bootstrap-feature-in-galera-cluster/)

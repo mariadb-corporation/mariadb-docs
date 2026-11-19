@@ -21,7 +21,7 @@ Note that if you are using [MariaDB Galera Cluster](https://app.gitbook.com/o/di
 * Galera Cluster Users (Upgrading to 12.3+): You must manually install the `mariadb-server-galera` (or `MariaDB-server-galera`) package during the upgrade. Because the automatic dependency has been removed, a standard upgrade will not pull in the necessary cluster management components, which may prevent your cluster from bootstrapping.
 * Go through the individual version upgrade notes (listed below) to look for any major changes or configuration options that have changed.
 * Ensure that the target MariaDB version supports the storage engines you are using. For example, TokuDB is not supported in MariaDB 10.6 and later.
-* Back up the database (just in case). At least, take a copy of the `mysql` system database directory under the data directory with [mariadb-dump --add-drop-table mysql](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) as most of the upgrade changes are done there (adding new fields and new system tables etc).
+* Back up the database (just in case). At least, take a copy of the `mysql` system database directory under the data directory with [mariadb-dump --add-drop-table mysql](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#add-drop-table) as most of the upgrade changes are done there (adding new fields and new system tables etc).
 * Cleanly shutdown the server. This is necessary because even if data files are compatible between versions, recovery logs may not be.
   * Ensure that the [innodb\_fast\_shutdown](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fast_shutdown) variable is not 2 (fast crash shutdown). The default of this variable is `1`.
   * [innodb\_force\_recovery](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_force_recovery) must be less than `3`.
@@ -37,7 +37,7 @@ Note that rpms don't support upgrading between major versions, only minor like 1
 
 * Upgrade MariaDB binaries and libraries, preferably without starting MariaDB.
 * If the MariaDB server process, [mariadbd](../../starting-and-stopping-mariadb/mariadbd-options.md) was not started as part of the upgrade, start it by executing `mariadbd --skip-grant-tables`. This may produce some warnings about some system tables not being up to date, but you can ignore these for now as [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) will fix that.
-* Run [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md)
+* Run [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md). If you started the server with `--skip-grant-tables`, it needs no credentials. Otherwise it connects as `root` by default, so run `sudo mariadb-upgrade` if `root@localhost` uses `unix_socket` authentication, or `mariadb-upgrade --user=root --password` if it has a password. See [Connecting to the Server](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md#connecting-to-the-server).
 * Restart MariaDB server.
 
 ## Work Done by mariadb-upgrade
@@ -62,7 +62,6 @@ The common warnings/errors are:
 * First, check the [MariaDB error log](../../server-monitoring-logs/error-log.md) to see if you are using configure options that are not supported anymore.
 * Check the upgrade notices for the MariaDB release that you are upgrading to.
 * File an issue in the [MariaDB bug tracker](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/bug-tracking) so that we know about the issue and can provide a fix to make upgrades even better.
-* Add a comment to this manual entry for how we can improve it.
 
 ### Disaster Recovery
 
@@ -82,7 +81,7 @@ In the unlikely event something goes wrong, you can try the following:
 MariaDB server is not designed for downgrading. That said, in most cases, as long as you haven't run any [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/) or [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) statements and you have a [mariadb-dump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) of your old `mysql` database , you should be able to downgrade to your previous version by doing the following:
 
 * Do a clean shutdown. For this special case you have to set [innodb\_fast\_shutdown](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fast_shutdown) to 0,before taking down the new MariaDB server, to ensure there are no redo or undo logs that need to be applied on the downgraded server.
-* Delete the tables in the `mysql` database (if you didn't use the option `--add-drop-table` to [mariadb-dump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md))
+* Delete the tables in the `mysql` database (if you didn't use the [--add-drop-table](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#add-drop-table) option of mariadb-dump)
 * Delete the new MariaDB installation
 * Install the old MariaDB version
 * Start the server with [mariadbd --skip-grant-tables](../../starting-and-stopping-mariadb/mariadbd-options.md#skip-grant-tables)
@@ -92,10 +91,10 @@ MariaDB server is not designed for downgrading. That said, in most cases, as lon
 ## See Also
 
 * [Upgrading from MySQL to MariaDB](upgrading-mariadb-upgrading-from-mysql-to-mariadb.md)
+* [Upgrading from MariaDB 11.8 to MariaDB 12.3](upgrading-from-to-specific-versions/upgrading-from-mariadb-11-8-to-mariadb-12-3.md)
+* [Upgrading from MariaDB 11.4 to MariaDB 11.8](upgrading-from-to-specific-versions/upgrading-from-mariadb-11-4-to-mariadb-11-8.md)
 * [Upgrading from MariaDB 10.11 to MariaDB 11.4](upgrading-from-to-specific-versions/upgrading-from-mariadb-10-11-to-mariadb-11-4.md)
 * [Upgrading from MariaDB 10.6 to MariaDB 10.11](upgrading-from-to-specific-versions/upgrading-from-mariadb-10-6-to-mariadb-10-11.md)
-* [Upgrading from MariaDB 10.6 to MariaDB 10.7](upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-10-6-to-mariadb-10-7.md)
-* [Upgrading from MariaDB 10.5 to MariaDB 10.6](upgrading-from-to-specific-versions/upgrading-from-mariadb-10-5-to-mariadb-10-6.md)
 * [Galera upgrading instructions](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster)
 * [innodb\_fast\_shutdown](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fast_shutdown)
 

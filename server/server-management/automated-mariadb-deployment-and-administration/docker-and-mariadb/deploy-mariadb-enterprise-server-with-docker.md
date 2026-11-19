@@ -29,6 +29,7 @@ MariaDB Enterprise Server can be deployed with Docker to support use cases that 
 
 The following products and versions can be deployed using the MariaDB Enterprise Docker Registry:
 
+* MariaDB Enterprise Server 12.3
 * MariaDB Enterprise Server 11.8
 * MariaDB Enterprise Server 11.4
 * MariaDB Enterprise Server 10.6
@@ -150,7 +151,7 @@ docker ps \
 
 ```
 CONTAINER ID   IMAGE                                         COMMAND                  CREATED          STATUS                      PORTS      NAMES
-3082ab69e565   docker.mariadb.com/enterprise-server:latest   "/es-entrypoint.sh -…"   12 seconds ago   Up 11 seconds               3306/tcp   mariadb-es-latest
+3082ab69e565   docker.mariadb.com/enterprise-server:latest   "docker-entrypoint.s…"   12 seconds ago   Up 11 seconds               3306/tcp   mariadb-es-latest
 ```
 
 By default, Docker uses Docker bridge networking for new containers. For details on how to use host networking for new containers, see "Create a Container with Host Networking".
@@ -177,7 +178,7 @@ SHOW GLOBAL VARIABLES
 ```
 *************************** 1. row ***************************
 Variable_name: version
-        Value: 11.8.3-1-MariaDB-enterprise-log
+        Value: 12.3.3-1-MariaDB-enterprise-log
 ```
 
 Exit the container using `exit`:
@@ -212,7 +213,7 @@ docker ps \
 
 ```
 CONTAINER ID   IMAGE                                         COMMAND                  CREATED         STATUS                            PORTS       NAMES
-3082ab69e565   docker.mariadb.com/enterprise-server:latest   "/es-entrypoint.sh -…"   2 minutes ago   Exited (143) About a minute ago               mariadb-es-latest
+3082ab69e565   docker.mariadb.com/enterprise-server:latest   "docker-entrypoint.s…"   2 minutes ago   Exited (143) About a minute ago               mariadb-es-latest
 ```
 
 ### Step 8: Remove Container

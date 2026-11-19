@@ -2,10 +2,12 @@
 description: >-
   GridGain 9.0.15 adds SQL schema support, metastorage compaction, and query and
   transaction cancellation from Java clients.
-hidden: true
+  Released on 2025-03-04.
 ---
 
 # GridGain 9.0.15 Release Notes
+
+**Release date:** 4 Mar 2025
 
 ## Overview
 
@@ -17,7 +19,7 @@ GridGain 9.0.15 is a release that brings a large number of new features and seve
 
 Prior to this release, you could only use the PUBLIC schema. You can now create other schemas and use it to create tables.
 
-To create a schema, use the [CREATE SCHEMA](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/sql/ddl#create-schema) statement:
+To create a schema, use the [CREATE SCHEMA](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/sql/ddl#create-schema) statement:
 
 ```sql
 CREATE SCHEMA myschema
@@ -87,4 +89,8 @@ There are known issues with the performance of SQL read-write transactions in co
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

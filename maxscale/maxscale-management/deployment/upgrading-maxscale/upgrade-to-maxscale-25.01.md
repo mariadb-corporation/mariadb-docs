@@ -15,7 +15,7 @@ MariaDB MaxScale is an advanced database proxy and query router.
 
 | Term              | Definition                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| MaxScale instance | <ul><li>MariaDB MaxScale running by itself on a single host.</li><li>It interacts with other hosts, such as deployments using <a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication">MariaDB Replication</a>, <a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/">Galera Cluster</a>, and <a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore">ColumnStore</a>.</li><li>It serves as the database proxy and load balancer.</li></ul> |
+| MaxScale instance | <ul><li>MariaDB MaxScale running by itself on a single host.</li><li>It interacts with other hosts, such as deployments using <a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication">MariaDB Replication</a>, <a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/">Galera Cluster</a>, and <a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud">ColumnStore</a>.</li><li>It serves as the database proxy and load balancer.</li></ul> |
 | upgrade           | <ul><li>A change from lower-versioned release of MariaDB MaxScale to a higher-versioned release of MariaDB MaxScale.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                      |
 
 ## Backing Up Configuration
@@ -26,7 +26,7 @@ A complete backup must include both the static configuration and any configurati
 
 * The main configuration file, `/etc/maxscale.cnf`.
 * Any auxiliary static configuration files in `/etc/maxscale.cnf.d/`.
-* The persisted configuration directory. Changes made at runtime through MaxCtrl, the REST API, or the GUI are saved here as individual `.cnf` files and override the static configuration when MaxScale restarts. This directory defaults to `/var/lib/maxscale/maxscale.cnf.d/` and is set by the [`persistdir`](../installation-and-configuration/maxscale-configuration-guide.md#persistdir) parameter in the `[maxscale]` section.
+* The persisted configuration directory. Changes made at runtime through MaxCtrl, the REST API, or the GUI are saved here as individual `.cnf` files and override the static configuration when MaxScale restarts. This directory defaults to `/var/lib/maxscale/maxscale.cnf.d/` and is set by the [`persistdir`](../installation-and-configuration/maxscale-configuration-guide/global-settings.md#persistdir) parameter in the `[maxscale]` section.
 
 ```bash
 sudo cp /etc/maxscale.cnf /data/backups/config/maxscale.cnf
@@ -404,7 +404,7 @@ GRANT SELECT ON mysql.user
 
 **MariaDB Monitor**
 
-MaxScale 2.5 includes configuration changes for [MariaDB Monitor (mariadbmon)](../../../reference/maxscale-monitors/mariadb-monitor.md):
+MaxScale 2.5 includes configuration changes for [MariaDB Monitor (mariadbmon)](../../../reference/maxscale-monitors/mariadb-monitor/README.md):
 
 *   The `detect_stale_master` and the `detect_standalone_master` parameters have been deprecated. They can still be used, but they will be removed in a later version of MaxScale. Users should use the `master_conditions` parameter instead.
 
@@ -546,3 +546,5 @@ sudo maxctrl show maxscale
 ```
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

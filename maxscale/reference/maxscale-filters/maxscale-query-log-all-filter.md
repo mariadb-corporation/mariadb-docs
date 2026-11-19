@@ -9,7 +9,10 @@ description: >-
 
 ## Overview
 
-The Query Log All (QLA) filter logs query content. Logs are written to a file in CSV format. Log elements are configurable and include the time submitted and the SQL statement text, among others.
+The Query Log All (QLA) filter logs query content. Logs are written to a file in
+CSV format, or to [Kafka](https://kafka.apache.org/). Log elements are
+configurable and include the time submitted and the SQL statement text, among
+others.
 
 ## Configuration
 
@@ -43,6 +46,7 @@ The QLA filter has one mandatory parameter, `filebase`, and a number of optional
 * Type: string
 * Mandatory: Yes
 * Dynamic: No
+* Description: Specifies the base filename for session log files with unique session identifiers appended to create individual output files.
 
 The basename of the output file created for each session. A session index is added to the filename for each written session file. For unified log files,_.unified_ is appended.
 
@@ -52,29 +56,32 @@ filebase=/tmp/SqlQueryLog
 
 ### `match`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies a regex pattern for queries ti include and process by the filter.
 
 Include queries that match the regex.
 
 ### `exclude`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Defines a regex pattern to exclude queries from matching and filtering.
 
 Exclude queries that match the regex.
 
 ### `options`
 
-* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `case`, `ignorecase`, `extended`
 * Default: `case`
+* Description: Defines the regex matching behavior (case sensitivity and extended syntax) for filter queries.
 
 The `extended` option enables PCRE2 extended regular expressions.
 
@@ -84,6 +91,7 @@ The `extended` option enables PCRE2 extended regular expressions.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Limits logging to sessions initiated by a specific username.
 
 Limit logging to sessions with this user.
 
@@ -93,14 +101,16 @@ Limit logging to sessions with this user.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Limits logging to sessions that originate from specific client source addresses.
 
 Limit logging to sessions with this client source address.
 
 ### `user_match`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
+* Description: Specifies a regex pattern to include queries only from specific users for logging.
 
 Only log queries from users that match this pattern. If the `user` parameter is used, the value of `user_match` is ignored.
 
@@ -112,9 +122,10 @@ user_match=/(^alice$)|(^bob$)/
 
 ### `user_exclude`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
+* Description: Defines a regex pattern that prevent requests from specific users from being logged.
 
 Exclude all queries from users that match this pattern. If the `user` parameter is used, the value of `user_exclude` is ignored.
 
@@ -126,9 +137,10 @@ user_exclude=/(^alice$)|(^bob$)/
 
 ### `source_match`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
+* Description: Defines a regex pattern to include only queries from specific client IP addresses or hosts from logging.
 
 Only log queries from hosts that match this pattern. If the `source` parameter is used, the value of `source_match` is ignored.
 
@@ -140,9 +152,10 @@ source_match=/(^127[.]0[.]0[.]1)|(^192[.]168[.]0[.]109)/
 
 ### `source_exclude`
 
-* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
+* Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
+* Description: Defines a regex pattern for excluding requests from specified client IP addresses or hosts from logging.
 
 Exclude all queries from hosts that match this pattern. If the `source` parameter is used, the value of `source_exclude` is ignored.
 
@@ -154,11 +167,12 @@ source_exclude=/(^127[.]0[.]0[.]1)|(^192[.]168[.]0[.]109)/
 
 ### `log_type`
 
-* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
-* Values: `session`, `unified`, `stdout`
+* Values: `session`, `unified`, `stdout`, `kafka`
 * Default: `session`
+* Description: Defines the logging output type, such as per-session files, a unified log file, or standard output.
 
 The type of log file to use.
 
@@ -167,14 +181,31 @@ The type of log file to use.
 | session | Write to session-specific files |
 | unified | Use one file for all sessions   |
 | stdout  | Same as unified, but to stdout  |
+| kafka   | Send log events to Kafka        |
+
+**From MaxScale 26.10,** the value `kafka` is available.
+
+If you enable Kafka logging, you need to also configure
+[Kafka bootstrap servers](#kafka_bootstrap_servers) and [topic](#kafka_topic).
+Depending on the Kafka broker configuration, the various other [Kafka
+settings](#kafka-settings) may also be required.
+
+When Kafka logging is enabled, MaxScale attempts to send query events to the
+Kafka broker. If the Kafka event production fails for any reason, MaxScale will
+simply log the error to the MaxScale general log and continue.  The Kafka
+messages MaxScale sends always contain the client session id as message key. If
+`log_data` includes `session`, then the session is also included in the message
+text. Kafka message timestamps match the time MaxScale receives the query from
+the client.
 
 ### `log_data`
 
-* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `service`, `session`, `date`, `user`, `reply_time`, `total_reply_time`, `query`, `default_db`, `num_rows`, `reply_size`, `transaction`, `transaction_time`, `num_warnings`, `error_msg`
 * Default: `date, user, query`
+* Description: Specifies the fields, such as query details, user, timing, and execution metadata, that are present in each log entry.
 
 Type of data to log in the log files.
 
@@ -201,6 +232,23 @@ The durations _reply\_time_ and _total\_reply\_time_ are by default in milliseco
 
 The log entry is written when the last reply from the server is received. Prior to version 6.2 the entry was written when the query was received from the client, or if _reply\_time_ was specified, on first reply from the server.
 
+If you enable SQL query logging, the log entries contain the entire SQL
+query. If the queries themselves are large (e.g. inserts with thousands of
+elements), the log entries end up equally long. This can cause slowdown and high
+disk space usage on the MaxScale host.
+
+{% tabs %}
+{% tab title="Current" %}
+The filter limits the length of the logged query to 1024 characters by
+default. Queries longer than the limit are only partially logged. See
+[logged_query_max_length](#logged_query_max_length) for more information.
+{% endtab %}
+
+{% tab title="< 26.10" %}
+The filter does not limit the length of the logged query.
+{% endtab %}
+{% endtabs %}
+
 **NOTE** The _error\_msg_ is the raw message from the server. Even if _use\_canonical\_form_ is set the error message may contain user defined constants. For example:
 
 ```
@@ -218,33 +266,37 @@ Starting with MaxScale 24.02, the `query` parameter now correctly logs the execu
 * Mandatory: No
 * Dynamic: Yes
 * Default: `milliseconds`
+* Description: Defines the time unit used for logging durations.
 
 The unit for logging a duration. The unit can be `milliseconds` or `microseconds`. The abbreviations `ms` for milliseconds and `us` for microseconds are also valid. This option is available as of MaxScale version 6.2.
 
 ### `use_canonical_form`
 
-* Type: [bool](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [bool](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Log queries in canonical format, replacing user-defined constants with placeholders to ensure consistent and secure output.
 
 When this option is true the canonical form of the query is logged. In the canonical form all user defined constants are replaced with question marks. This option is available as of MaxScale version 6.2.
 
 ### `flush`
 
-* Type: [bool](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [bool](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Manages whether log files are immediately flushed to disk after each write operation.
 
 Flush log files after every write.
 
 ### `append`
 
-* Type: [bool](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Type: [bool](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Defines whether a new routing hint is added to existing ones or replaces them when applied to matching queries.
 
 ### `separator`
 
@@ -252,6 +304,7 @@ Flush log files after every write.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `","`
+* Description: Specifies the string used to separate fields within each log entry.
 
 Defines the separator string between elements of log entries. The value should be enclosed in quotes.
 
@@ -261,12 +314,218 @@ Defines the separator string between elements of log entries. The value should b
 * Mandatory: No
 * Dynamic: Yes
 * Default: `" "`
+* Description: Specifies the string that is used to substitute newline characters in logged queries so that the log output is consistent and readable.
 
 Default value is `" "` (one space). SQL-queries may include line breaks, which, if printed directly to the log, may break automatic parsing. This parameter defines what should be written in the place of a newline sequence (\r, \n or \r\n). If this is set as the empty string, then newlines are not replaced and printed as is to the output. The value should be enclosed in quotes.
 
 ```
 newline_replacement=" NL "
 ```
+
+### `logged_query_max_length`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: count
+* Mandatory: No
+* Dynamic: Yes
+* Default: `1024`
+* Description: Limits the number of characters logged for a single query; `0` removes the limit.
+
+Limits the length of the logged SQL query when `log_data` includes `query`. If
+`logged_query_max_length` is set to N, the filter only logs up to N characters
+of any query. If `newline_replacement` is enabled, as it is by default, the
+length limit takes effect before the filter replaces newlines. This means that
+the final length of the logged query may be greater than N. This deviation
+depends on the number of newlines in the query and the length of the value of
+`newline_replacement`.
+
+Use this setting to ensure that large queries do not cause the log file to
+consume too much space. Setting `logged_query_max_length=0` removes the length
+limit, causing the filter to always log the entire query.
+
+```
+logged_query_max_length=100
+```
+
+### Kafka settings
+
+{% hint style="info" %}
+These settings are available from MaxScale 26.10.
+{% endhint %}
+
+These settings resemble the equivalent settings in the
+[KafkaCDC Router](../maxscale-routers/maxscale-kafkacdc.md#settings). Although
+these settings can be modified during runtime, this is typically ill-advised, as
+any modifications only affect new client sessions. Define at least
+`kafka_bootstrap_servers` and `kafka_topic` when logging events to Kafka. Kafka
+logging only activates when the value of `log_type` includes `kafka`.
+
+#### `kafka_bootstrap_servers`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the comma-separated list of Kafka brokers, in `host:port` format, that the filter sends log events to.
+
+The list of Kafka brokers to use in `host:port` format. Multiple values can be
+separated with commas.
+
+```
+kafka_bootstrap_servers=127.0.0.1:9092
+```
+
+#### `kafka_topic`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the Kafka topic where the filter publishes log events.
+
+The Kafka topic where the log events are published.
+
+```
+kafka_topic=maxscale_qlalogs
+```
+
+#### `kafka_enable_idempotence`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `false`
+* Description: Enables the idempotent Kafka producer mode, which avoids duplicate log events caused by broker outages or network errors.
+
+Enable idempotent producer mode. This feature requires Kafka version 0.11 or
+newer to work. When enabled, the Kafka producer enters a strict mode which
+avoids event duplication due to broker outages or other network errors.
+
+#### `kafka_ssl`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `false`
+* Description: Enables SSL for the connections to the Kafka broker.
+
+Enable SSL for Kafka connections.
+
+#### `kafka_ssl_ca`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the CA certificate file, in PEM format, used for Kafka SSL connections.
+
+Path to the certificate authority file in PEM format. If this is not provided,
+the default system certificates will be used.
+
+#### `kafka_ssl_cert`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the client certificate file, in PEM format, used for Kafka SSL connections; `kafka_ssl_key` must also be set.
+
+Path to the public certificate in PEM format. The client must provide a
+certificate if the Kafka server performs authentication of the client
+certificates. This feature is enabled by default in Kafka and is controlled by
+[ssl.endpoint.identification.algorithm](https://kafka.apache.org/documentation/#brokerconfigs_ssl.endpoint.identification.algorithm).
+
+If `kafka_ssl_cert` is provided, `kafka_ssl_key` must also be provided.
+
+#### `kafka_ssl_key`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the client private key file, in PEM format, used for Kafka SSL connections; `kafka_ssl_cert` must also be set.
+
+Path to the private key in PEM format. If `kafka_ssl_key` is provided,
+`kafka_ssl_cert` must also be provided.
+
+#### `kafka_sasl_user`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the username for SASL authentication with the Kafka broker; `kafka_sasl_password` must also be set.
+
+Username for SASL authentication. If `kafka_sasl_user` is provided,
+`kafka_sasl_password` must also be provided.
+
+#### `kafka_sasl_password`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Specifies the password for SASL authentication with the Kafka broker; `kafka_sasl_user` must also be set.
+
+Password for SASL authentication. If `kafka_sasl_password` is provided,
+`kafka_sasl_user` must also be provided.
+
+#### `kafka_sasl_mechanism`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`
+* Default: `PLAIN`
+* Description: Selects the SASL mechanism used for authenticating with the Kafka broker.
+
+The SASL mechanism used. The default value `PLAIN` uses plaintext
+authentication. You should enable SSL whenever plaintext authentication is
+used. The value that should be used depends on the SASL mechanism used by the
+Kafka broker.
 
 ## Limitations
 

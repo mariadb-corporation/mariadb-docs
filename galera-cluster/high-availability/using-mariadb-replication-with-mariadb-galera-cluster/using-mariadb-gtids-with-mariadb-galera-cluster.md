@@ -11,7 +11,7 @@ MariaDB's [global transaction IDs (GTIDs)](https://app.gitbook.com/s/SsmexDFPv2x
 
 ## GTID Support for Write Sets Replicated by Galera Cluster
 
-Galera Cluster has its own [certification-based replication method](../../readme/about-galera-replication.md) that is substantially different from [MariaDB replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication). However, it would still be beneficial if [MariaDB Galera Cluster](../../) was able to associate a Galera Cluster write set with a [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) that is globally unique but that is also consistent for that write set on each cluster node.
+Galera Cluster has its own [certification-based replication method](../../about-galera-replication.md) that is substantially different from [MariaDB replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication). However, it would still be beneficial if [MariaDB Galera Cluster](../../) was able to associate a Galera Cluster write set with a [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) that is globally unique but that is also consistent for that write set on each cluster node.
 
 ### Wsrep GTID Mode
 

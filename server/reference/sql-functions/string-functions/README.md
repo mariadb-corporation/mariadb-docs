@@ -177,8 +177,8 @@ Return a string representation of bits. This function generates a string based o
 
 {% columns %}
 {% column %}
-{% content-ref url="extractvalue.md" %}
-[extractvalue.md](extractvalue.md)
+{% content-ref url="../special-functions/xml-functions/extractvalue.md" %}
+[extractvalue.md](../special-functions/xml-functions/extractvalue.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -765,8 +765,8 @@ Convert hexadecimal to string. This function interprets pairs of hexadecimal dig
 
 {% columns %}
 {% column %}
-{% content-ref url="updatexml.md" %}
-[updatexml.md](updatexml.md)
+{% content-ref url="../special-functions/xml-functions/updatexml.md" %}
+[updatexml.md](../special-functions/xml-functions/updatexml.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -812,3 +812,5 @@ Learn about regular expression functions in MariaDB Server. This section details
 {% endcolumns %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

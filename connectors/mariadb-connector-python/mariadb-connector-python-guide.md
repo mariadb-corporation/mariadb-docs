@@ -94,10 +94,9 @@ $ pip3 install --pre mariadb[binary,pool]
 
 ## Links
 
-* [Documentation](https://mariadb-corporation.github.io/mariadb-connector-python/index.html)
 * [Bug tracker](https://jira.mariadb.org)
 * Sources are hosted on [Github](https://github.com/mariadb-corporation/mariadb-connector-python)
 
-<sub>_This page is_</sub> [<sub>_covered_</sub>](license.md) <sub>_by the_</sub> [<sub>_Creative Commons Attribution 3.0 license_</sub>](https://creativecommons.org/licenses/by/3.0/legalcode)<sub>_._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

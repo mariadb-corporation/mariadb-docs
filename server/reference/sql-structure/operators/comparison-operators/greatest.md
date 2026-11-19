@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the largest of two or more values. The arguments are compared using
+  the same rules as for LEAST().
+---
+
 # GREATEST
 
 ## Syntax

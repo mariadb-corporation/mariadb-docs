@@ -38,7 +38,7 @@ The syntax that includes the `UPGRADE DATA DIRECTORY NAME` clause. It updates th
 * It is intended to update a database directory name to the current encoding format if the name contains special characters that need encoding.
 * The statement is used by [mariadb-check](../../../../clients-and-utilities/table-tools/mariadb-check.md) (as invoked by [mariadb-upgrade](../../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md)).
 
-For example, if a database in MySQL 5.0 has a name of `a-b-c`, the name contains instance of the \`-' character. In 5.0, the database directory is also named `a-b-c`, which is not necessarily safe for all file systems. In MySQL, the same database name is encoded as `a@002db@002dc` to produce a file-system-neutral directory name.
+For example, if a database in MySQL 5.0 has a name of `a-b-c`, the name contains instance of the `-` character. In 5.0, the database directory is also named `a-b-c`, which is not necessarily safe for all file systems. In MySQL, the same database name is encoded as `a@002db@002dc` to produce a file-system-neutral directory name.
 
 When a MySQL installation is upgraded from an older version, the server displays a name such as `a-b-c` (which is in the old format) as `#mysql50#a-b-c`, and you must refer to the name using the `#mysql50#` prefix. Use `UPGRADE DATA DIRECTORY NAME` in this case to explicitly tell the server to re-encode the database directory name to the current encoding format:
 

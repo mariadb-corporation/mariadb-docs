@@ -16,7 +16,7 @@ INSTR(str,substr)
 
 Returns the position of the first occurrence of substring _substr_ in string _str_. This is the same as the two-argument form of [LOCATE()](locate.md), except that the order of the arguments is reversed.
 
-`INSTR()` performs a case-insensitive search.
+`INSTR()` follows the collation of its arguments. With the default collation the search is case-insensitive. With a case-sensitive or binary collation, or a binary string, it is case-sensitive: `INSTR(BINARY 'MariaDB','db')` returns `0`.
 
 If any argument is `NULL`, returns `NULL`.
 

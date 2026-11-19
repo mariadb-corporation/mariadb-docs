@@ -69,3 +69,5 @@ SELECT * FROM INFORMATION_SCHEMA.WSREP_BF_ABORT_HISTORY LIMIT 100;
     * Information Schema Table: The "Information schema table displaying history of BF aborts" is a system table (like `wsrep_local_bf_aborts` in Galera Cluster) that tracks the count or history of these brute force transaction terminations. This is a crucial metric for monitoring cluster health and identifying problematic transactions or high-contention ar
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

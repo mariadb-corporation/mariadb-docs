@@ -1,8 +1,8 @@
 ---
 description: >-
-  MariaDB Cloud HA via the Replicated Topology: semi-synchronous replicas
-  serve reads in active mode, with intelligent proxy-driven failover and
-  causal-reads consistency on lag.
+  MariaDB Cloud HA via the Replicated Topology: semi-synchronous replicas serve
+  reads in active mode, with intelligent proxy-driven failover and causal-reads
+  consistency on lag.
 ---
 
 # HA & Replicated Topology
@@ -102,7 +102,7 @@ In general, if the application is not performing large transactions or batch wri
 
 Our replication model is as fast as it is configured to be parallel and optimistic - on the replica, multiple SQL threads process incoming writes concurrently. It is designed to detect conflicts and revert to proper sequencing, thus being transparent to the app and ensuring consistency.
 
-* Set [causal\_reads](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-routers/maxscale-readwritesplit#causal_reads) to 'local' to achieve consistency at a connection/session level.
+* Set [causal\_reads](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-routers/maxscale-readwritesplit/readwritesplit-settings#causal_reads) to 'local' to achieve consistency at a connection/session level.
   * We recommend first exploring to see if `causal_reads` set to `local` will suffice. This is quite fast (minimal to no tradeoff) and ensures read consistency at a connection/session level. If the app is using a connection pool, it is important to understand how it is being used.
   * Example: A banking app lets a user transfer $100 between accounts in a single session. The app writes the debit and credit, then reads the updated balances to show the user. The connection pool reuses the same session for the transaction and follow-up read. Replica lag is 500ms, but semi-sync replication and parallel SQL threads keep it minimal. The write (debit $100, credit $100) is committed on the primary. Within the same session, the read on the replica waits for the write to be applied (up to 500ms), then returns the correct balances.
 * Set causal\_reads to 'global' for strict consistency across all connections.
@@ -134,14 +134,12 @@ The cluster provides [High Availability](https://app.gitbook.com/s/3VYeeVGUV4AMq
 * **Quorum-Based Health:** The cluster maintains a [voting system to prevent split-brain scenarios](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/understanding-quorum-monitoring-and-recovery). A standard 3-node cluster can tolerate the loss of one node; if a node fails, MariaDB MaxScale automatically routes traffic to the remaining healthy nodes without customer intervention.
 
 {% hint style="info" %}
-**Single-Writer Routing**&#x20;
+**Single-Writer Routing**
 
 MariaDB MaxScale is configured to route all write traffic to a **single active writer node** to ensure maximum stability and prevent transaction conflicts. Reads can be load-balanced across the remaining nodes.
 {% endhint %}
 
 * **Latency Trade-offs:** Because all nodes must acknowledge a write before it is committed, Enterprise Clusters inherently introduce slight commit latency compared to asynchronous replicas, particularly when spread across multiple Availability Zones.
-
-
 
 ## **Level 3 Resiliency - Disaster Recovery – Across Regions, Cloud Providers, or “Self-managed” Environments**
 
@@ -159,9 +157,9 @@ flowchart TD
     accTitle: Failover when an entire region or cloud provider fails
     accDescr {
       Architecture diagram of MariaDB Cloud disaster recovery across cloud regions, cloud providers, and on-premises environments.
-      An AWS region hosts the primary MariaDB Server (running as multiple pods, one active). It replicates data (relationship 1) to a MariaDB Server in a Google Cloud region and to a MariaDB Server pod in an on-premises data center.
-      A shield-and-flame icon positioned between the AWS and Google Cloud regions represents the region- or cloud-provider-outage event the diagram illustrates.
-      The primary SkySQL Intelligent Proxy connects bidirectionally to a MariaDB Connector / APPLICATION Client box. A second, standby SkySQL Intelligent Proxy connects to the same client via a dotted failover path (relationship 2): when a region or cloud goes offline, the client fails over to another cloud using DNS or the client connector, following the example JDBC connection string shown alongside: jdbc:mariadb:[sequential://&lt;primary-endpoint&gt;,&lt;alternate-endpoint&gt;...]/[database].
+      An AWS region hosts the primary MariaDB Server. It replicates data (relationship 1) to a MariaDB Server in a Google Cloud region and to a MariaDB Server in an on-premises data center.
+      A box labelled Region / cloud provider outage event is drawn outside the three region groups.
+      The primary SkySQL Intelligent Proxy connects bidirectionally to a MariaDB Connector / APPLICATION Client box. A second, standby SkySQL Intelligent Proxy connects to the same client via a dotted failover path (relationship 2): when a region or cloud goes offline, the client fails over to another cloud using DNS or the client connector, following the example JDBC connection string in a box joined to the client box by a line with no arrowhead: jdbc:mariadb:[sequential://&lt;primary-endpoint&gt;,&lt;alternate-endpoint&gt;...]/[database].
     }
 
     subgraph AWSRegion["AWS Region"]
@@ -204,3 +202,5 @@ MariaDB Cloud empowers users to configure “external” replicas that can run a
 To facilitate this, MariaDB Cloud provides several built-in stored procedures for configuring both “outbound” and “inbound” replication to any compatible MariaDB or MySQL server environment. This flexibility allows users to tailor their disaster recovery strategy based on their specific needs, whether replicating across regions, cloud providers, or maintaining self-managed standby environments.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
