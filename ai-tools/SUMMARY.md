@@ -4,7 +4,7 @@
 
 ## MCP Servers
 
-* [Choose an MCP Server](choose-an-mcp-server.md)
+* [Choose an MCP Server](mcp-servers/choose-an-mcp-server.md)
 * [MariaDB Enterprise MCP Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-enterprise-mcp-server)
 * [MariaDB Cloud MCP Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd/cloud-ai/mcp-server)
 * [MariaDB Shell MCP Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/community/mariadb-shell/mcp-server)
