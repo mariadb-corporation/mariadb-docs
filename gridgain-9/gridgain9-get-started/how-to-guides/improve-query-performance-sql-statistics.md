@@ -65,7 +65,7 @@ Exchange
 ```
 
 {% hint style="success" %}
-**Checkpoint:** The estimate of the table scan is equal to the number of rows in the table. If the estimate is smaller, wait for the next update of the table sizes and run the statement again.
+**Checkpoint:** The estimate of the table scan is equal to the number of rows in the table. If the estimate is different, wait for the next update of the table sizes and run the statement again.
 {% endhint %}
 
 ## Measure the Query Without Statistics
@@ -235,7 +235,7 @@ The histogram shows that about half of the rows have the `N` flag, and the other
 
 ## Compare the Plan and the Execution Time
 
-After the collection, GridGain builds a new plan for the query. Run `EXPLAIN` for the TPC-H query 17 again:
+After the collection, GridGain builds a new plan for the query. GridGain updates the cached plans in the background, which can take up to 30 seconds with the default configuration. Run `EXPLAIN` for the TPC-H query 17 again:
 
 ```
 HashJoin
@@ -349,7 +349,7 @@ TableScan
 The `lineitem` table has the same type of dependency between the `l_returnflag` and `l_linestatus` columns. Without a group, the optimizer expects 6 groups for a `GROUP BY` on these columns. With the group `(l_returnflag, l_linestatus)`, it expects 4 groups, which is the real number.
 
 {% hint style="warning" %}
-A correct estimate does not make a query faster by itself. In the test environment, the two queries above and a join of the filtered parts with `lineitem` keep the same plans and the same execution time after the groups are added. A column group gives a faster query only when the wrong estimate is the reason for a slow plan.
+A correct estimate does not make a query faster by itself. In the test environment, the two queries above and a join of the filtered parts with `lineitem` keep the same plans after the groups are added, so the groups do not make these queries faster. A column group gives a faster query only when the wrong estimate is the reason for a slow plan.
 {% endhint %}
 
 {% hint style="success" %}
@@ -370,7 +370,7 @@ Use this procedure for your own queries:
 <details>
 <summary>The estimates do not change after CREATE STATISTICS</summary>
 
-`CREATE STATISTICS` and `ALTER STATISTICS` only register the column groups. The optimizer uses the statistics only after `REFRESH STATISTICS`. Check that the `COLLECTED_STATISTICS` system view has rows for the statistics object.
+`CREATE STATISTICS` and `ALTER STATISTICS` only register the column groups. The optimizer uses the statistics only after `REFRESH STATISTICS`. Check that the `COLLECTED_STATISTICS` system view has rows for the statistics object. After the collection, GridGain updates the cached plans in the background, which can take up to 30 seconds with the default configuration.
 
 </details>
 

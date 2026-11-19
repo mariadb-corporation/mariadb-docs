@@ -8,7 +8,7 @@ description: >-
 
 The GridGain SQL engine uses a cost-based optimizer. For each query, the optimizer compares several execution plans and selects the plan with the lowest estimated cost. The cost depends on the number of rows that each operator returns, and the optimizer calculates this number from statistics.
 
-By default, GridGain collects only the *table size*, which is the approximate number of rows in each table. GridGain maintains this value automatically. For all other estimates, the optimizer uses fixed assumptions. For example, it assumes that a range condition returns 25% of the rows. These assumptions can be far from the real data. A wrong estimate can lead to a wrong join order, a wrong join algorithm, or a wrong choice between an index scan and a table scan.
+By default, GridGain collects only the *table size*, which is the approximate number of rows in each table. GridGain maintains this value automatically. For all other estimates, the optimizer uses fixed assumptions. For example, it assumes that an equality condition returns 33% of the rows, and a comparison such as `>` returns 50% of the rows. These assumptions can be far from the real data. A wrong estimate can lead to a wrong join order, a wrong join algorithm, or a wrong choice between an index scan and a table scan.
 
 To replace the assumptions with measured values, collect *column statistics*. Column statistics describe the distribution of values in columns and in groups of columns. To collect them, do the following:
 
@@ -41,7 +41,7 @@ GridGain collects the following values for each column group:
 | Statistic | Single Column | Multiple Columns | Description |
 | --- | --- | --- | --- |
 | Total count | Yes | Yes | The number of rows in the table at collection time. |
-| Distinct count | Yes | Yes | The approximate number of distinct values, or distinct combinations of values for a group of columns. `NULL` is not counted as a value. |
+| Distinct count | Yes | Yes | The approximate number of distinct values, or distinct combinations of values for a group of columns. For a single column, `NULL` is not counted as a value. For a group of columns, a row is not counted only if all columns of the group are `NULL`. |
 | Null count | Yes | No | The number of rows where the column is `NULL`. |
 | Histogram | Yes | No | An equi-height histogram with up to 254 buckets. It describes how the values are distributed across the value range. |
 
@@ -113,7 +113,9 @@ REFRESH STATISTICS FROM Person;
 REFRESH ALL STATISTICS;
 ```
 
-By default, the statement waits until the collection is complete. To run the collection in the background and get control back immediately, add `NO WAIT`:
+By default, the statement waits until the collection is complete. If the collection fails for a table, the statement does not return an error. GridGain writes a warning to the log of the node. To check the result, use the `COLLECTED_AT` column of the [`COLLECTED_STATISTICS`](../../../reference/monitoring/system-views.md#collected_statistics) system view.
+
+To run the collection in the background and get control back immediately, add `NO WAIT`:
 
 ```sql
 REFRESH ALL STATISTICS NO WAIT;
@@ -195,10 +197,10 @@ The optimizer uses column statistics in these cases:
 
 * **Comparison with a literal**. For conditions such as `=`, `<>`, `<`, `<=`, `>`, `>=`, `BETWEEN`, and `IN`, the optimizer reads the histogram of the column and estimates how many rows match.
 * **Equality with a value that is not a literal**. For example, with a dynamic parameter. The optimizer divides the number of rows by the distinct count of the column.
-* **Equality on several columns**. When a condition fixes the values of several columns, and a column group covers these columns, the optimizer uses the distinct count of the group. This keeps the correlation between the columns. Without the group, the optimizer treats the columns as independent.
+* **Equality on several columns**. When a condition fixes the values of several columns, and a column group contains exactly these columns, the optimizer uses the distinct count of the group. This keeps the correlation between the columns. Without the group, the optimizer treats the columns as independent. A group that also contains other columns is not used for this condition.
 * **Null checks**. For `IS NULL` and `IS NOT NULL`, the optimizer uses the null count.
 * **Grouping and distinct operations**. For `GROUP BY` and `DISTINCT`, the optimizer uses the distinct count to estimate the number of result rows.
-* **Joins**. Accurate estimates of the join inputs and the distinct counts of the join columns help the optimizer select the join order and the join algorithm.
+* **Joins**. Accurate estimates of the join inputs help the optimizer select the join order and the join algorithm. The optimizer also uses the distinct count of the join columns to calculate the cost of a hash join.
 
 If statistics do not cover a column or a condition, the optimizer uses the default assumptions for this part of the query. The plans for tables without statistics do not change.
 
@@ -210,23 +212,27 @@ When you run `REFRESH STATISTICS`, the node that receives the statement coordina
 2. Each node scans its partitions and calculates the statistics. All partitions are read at the same timestamp in a read-only transaction, so the collection does not block updates and does not take locks.
 3. The coordinator merges the results from all nodes into one result for each column group.
 4. The coordinator saves the result to a system table. The statistics are available after a cluster restart.
-5. Each node loads the new statistics into its memory, and the cached query plans for the table become invalid. The next execution of a query builds a new plan.
+5. Each node loads the new statistics into its memory. The statement waits only for the node that coordinates the collection. The other nodes load the statistics a short time later.
+6. Each node updates the cached query plans that use the table. This is a background task. Its period is half of the `ignite.sql.statistics.autoRefresh.staleRowsCheckIntervalSeconds` cluster property, which is 30 seconds by default. Until the task runs, a query that has a cached plan uses the old plan.
 
 If several statistics objects of one table are collected together, GridGain reads the table one time.
 
 The collection reads all rows of the table. When you work with large tables, account for the CPU and disk resources that each node needs to read all table data:
 
 * Run `REFRESH STATISTICS` when the load is low.
-* Limit the number of partitions that a node scans at the same time with the `ignite.sql.statistics.collectionConcurrency` [node configuration property](../../../reference/configuration/node-configuration-parameters.md#sql-configuration).
+* Limit the number of partitions that a node scans at the same time with the `ignite.sql.statistics.collectionConcurrency` [node configuration property](../../../reference/configuration/node-configuration-parameters.md#sql-configuration). The node reads this property at startup.
 * Use `NO WAIT` when the client must not wait for a long operation.
 
 ## Keeping Statistics Up to Date
 
-GridGain does not refresh column statistics automatically. The statistics describe the table at collection time. The optimizer uses them as ratios, such as the fraction of rows that match a condition, and applies the ratios to the current table size. For this reason, statistics stay useful while the distribution of the data is stable, even if the table grows.
+GridGain does not refresh column statistics automatically. The statistics describe the table at collection time. The optimizer uses them as ratios, such as the fraction of rows that match a condition, and applies the ratios to the current table size. For this reason, the estimates of conditions stay useful while the distribution of the data is stable, even if the table grows.
+
+The optimizer also scales the distinct counts with the table size. If a table grows but a column keeps the same set of values, such as a status column, the estimated number of distinct values becomes too high.
 
 Run `REFRESH STATISTICS` in these cases:
 
 * After the initial data load or a bulk load.
+* After the number of rows in the table changes significantly.
 * After the distribution of values changes. For example, when new values appear in a status column, or a date range moves forward.
 * After you add column groups with `ALTER STATISTICS`.
 * On a schedule, if the data changes continuously. Use the `COLLECTED_AT` column of the [`COLLECTED_STATISTICS`](../../../reference/monitoring/system-views.md#collected_statistics) system view to find the age of the statistics.
@@ -241,7 +247,7 @@ Each node keeps the collected statistics in memory and updates them automaticall
 sql statistics reload --table=PUBLIC.PERSON
 ```
 
-The command does not collect statistics and affects only the node that the CLI is connected to.
+Without the `--table` option, the command reloads the statistics of all tables. The command does not collect statistics and affects only the node that the CLI is connected to.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

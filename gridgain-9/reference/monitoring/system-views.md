@@ -64,9 +64,9 @@ Shows the [SQL statistics](../../tuning-and-troubleshooting/performance-tuning/s
 | COLUMN_NAMES | STRING | The names of the columns in the group, separated by commas. |
 | COLLECTED_AT | TIMESTAMP WITH LOCAL TIME ZONE | The time when the statistics were collected. |
 | TOTAL_COUNT | INT64 | The number of rows in the table at collection time. |
-| DISTINCT_COUNT | INT64 | The approximate number of distinct values in the column group. `NULL` values are not counted. |
+| DISTINCT_COUNT | INT64 | The approximate number of distinct values in the column group. For a group of one column, `NULL` values are not counted. For a group of several columns, a row is not counted only if all columns of the group are `NULL`. |
 | NULLS_COUNT | INT64 | The number of rows where the column is `NULL`. Collected only for groups of one column. For other groups, the value is `NULL`. |
-| HISTOGRAM | STRING | The equi-height histogram of the column in the JSON format. Collected only for groups of one column. For other groups, the value is `NULL`. |
+| HISTOGRAM | STRING | The equi-height histogram of the column in the JSON format. Collected only for groups of one column. The value is `NULL` for other groups, and for a column that has no values other than `NULL`. |
 
 ### COMPUTE_TASKS
 

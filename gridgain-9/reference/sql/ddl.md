@@ -708,7 +708,7 @@ CREATE STATISTICS IF NOT EXISTS person_city_stats ON Person (age, city_id, (city
 Create a statistics object with the default set and one additional group:
 
 ```sql
-CREATE STATISTICS person_stats ON Person (DEFAULT, (city_id, zip_code));
+CREATE STATISTICS person_full_stats ON Person (DEFAULT, (city_id, zip_code));
 ```
 
 ## ALTER STATISTICS
@@ -732,7 +732,7 @@ Diagram(Terminal('ALTER STATISTICS'),Optional(Terminal('IF EXISTS')),NonTerminal
 - `IF EXISTS` - do not throw an error if a statistics object with the specified name does not exist.
 - `qualified_statistics_name` - the name of the statistics object, with an optional schema name.
 - `ADD COLUMN GROUPS` - adds the listed column groups. The groups that already exist in the statistics object are ignored. A new group has no collected data until the next [`REFRESH STATISTICS`](operational-commands.md#refresh-statistics).
-- `DROP COLUMN GROUPS` - removes the listed column groups. The statement fails if a listed group does not exist in the statistics object, or if the statement removes all groups of the statistics object. The optimizer stops using the collected data of the removed groups immediately.
+- `DROP COLUMN GROUPS` - removes the listed column groups. The statement fails if a listed group does not exist in the statistics object, or if the statement removes all groups of the statistics object. The groups of the `DEFAULT` set that do not exist in the statistics object are ignored. The optimizer stops using the collected data of the removed groups immediately.
 - `column_group` - a column group. See [`CREATE STATISTICS`](#create-statistics). With `ADD`, `DEFAULT` adds the default set of column groups for the current columns and indexes of the table. With `DROP`, `DEFAULT` removes the groups of the default set that exist in the statistics object.
 
 **Examples:**
@@ -773,7 +773,7 @@ Diagram(Terminal('DROP STATISTICS'),Optional(Terminal('IF EXISTS')),Choice(0,Non
 - `qualified_statistics_name` - the name of the statistics object to drop, with an optional schema name.
 - `FROM qualified_table_name` - drop all statistics objects of the specified table.
 
-GridGain also drops statistics objects automatically when you drop the table or the schema. When you drop a column, GridGain removes the column groups that contain this column.
+GridGain also drops statistics objects automatically when you drop the table or the schema. When you drop a column, GridGain removes the column groups that contain this column. If no column groups remain, GridGain drops the statistics object.
 
 **Examples:**
 

@@ -372,6 +372,10 @@ Optional(Terminal('NO WAIT'))
 - `FROM qualified_table_name` - collect statistics for all statistics objects of the specified table. If the table has no statistics objects, the statement does nothing.
 - `NO WAIT` - if specified, the statement starts the collection and returns control immediately. You can monitor the collection through the `STATISTICS_GATHERING_JOBS` [system view](../monitoring/system-views.md#statistics_gathering_jobs), and see the result in the `COLLECTED_STATISTICS` [system view](../monitoring/system-views.md#collected_statistics).
 
+If the collection fails for a table, the statement does not return an error. GridGain writes a warning to the log of the node.
+
+GridGain updates the cached query plans in the background. With the default configuration, this can take up to 30 seconds after the collection is complete.
+
 Statistics objects are created with the [`CREATE STATISTICS`](ddl.md#create-statistics) statement.
 
 ### Examples
