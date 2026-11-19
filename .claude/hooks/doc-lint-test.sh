@@ -1286,7 +1286,7 @@ want_out 'page(s) scanned'    # urlcheck-pr.yml asserts on this count
 navreset
 end
 
-begin 'urlcheck: `check` lists the committed mismatch with the path that would match'
+begin 'urlcheck: check mode lists the committed mismatch with the path that would match'
 urlc -- check
 want_rc 1
 want_err 'alpha/sub/nested-listed.md'
