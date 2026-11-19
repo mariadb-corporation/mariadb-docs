@@ -48,6 +48,26 @@ SELECT svc.*
 
 ## Available Views
 
+### COLLECTED_STATISTICS
+
+Shows the [SQL statistics](../../tuning-and-troubleshooting/performance-tuning/sql-tuning/sql-statistics.md) that are collected for each column group. The view has one row for each column group with collected data. A column group that is not collected yet is not in this view.
+
+| Column | Data Type | Description |
+| --- | --- | --- |
+| SCHEMA_ID | INT32 | Unique schema identifier. |
+| SCHEMA_NAME | STRING | The name of the schema. |
+| TABLE_ID | INT32 | Unique table identifier. |
+| TABLE_NAME | STRING | The name of the table. |
+| STATISTICS_ID | INT32 | Unique identifier of the statistics object. |
+| STATISTICS_NAME | STRING | The name of the statistics object. |
+| COLUMNS_GROUP_ID | INT32 | The identifier of the column group. Unique within the statistics object. |
+| COLUMN_NAMES | STRING | The names of the columns in the group, separated by commas. |
+| COLLECTED_AT | TIMESTAMP WITH LOCAL TIME ZONE | The time when the statistics were collected. |
+| TOTAL_COUNT | INT64 | The number of rows in the table at collection time. |
+| DISTINCT_COUNT | INT64 | The approximate number of distinct values in the column group. For a group of one column, `NULL` values are not counted. For a group of several columns, a row is not counted only if all columns of the group are `NULL`. |
+| NULLS_COUNT | INT64 | The number of rows where the column is `NULL`. Collected only for groups of one column. For other groups, the value is `NULL`. |
+| HISTOGRAM | STRING | The equi-height histogram of the column in the JSON format. Collected only for groups of one column. The value is `NULL` for other groups, and for a column that has no values other than `NULL`. |
+
 ### COMPUTE_TASKS
 
 {% tabs %}
@@ -384,6 +404,53 @@ Before GridGain 9.2:
 | QUERY_TYPE | STRING | Query type. |
 | QUERY_PLAN | STRING | Serialized or explain representation of the chosen query plan. |
 | QUERY_PREPARE_TIME | TIMESTAMP WITH LOCAL TIME ZONE | Time the plan was prepared on the node. |
+
+### STATISTICS
+
+Shows the statistics objects that are created with the [`CREATE STATISTICS`](../sql/ddl.md#create-statistics) statement.
+
+| Column | Data Type | Description |
+| --- | --- | --- |
+| CATALOG_VERSION | INT32 | The version of the current catalog that contains this statistics object. |
+| SCHEMA_ID | INT32 | Unique schema identifier. |
+| SCHEMA_NAME | STRING | The name of the schema. |
+| TABLE_ID | INT32 | Unique table identifier. |
+| TABLE_NAME | STRING | The name of the table. |
+| STATISTICS_ID | INT32 | Unique identifier of the statistics object. |
+| STATISTICS_NAME | STRING | The name of the statistics object. |
+
+### STATISTICS_COLUMN_GROUPS
+
+Shows the column groups of the statistics objects. The view has one row for each column group.
+
+| Column | Data Type | Description |
+| --- | --- | --- |
+| CATALOG_VERSION | INT32 | The version of the current catalog that contains this statistics object. |
+| SCHEMA_ID | INT32 | Unique schema identifier. |
+| SCHEMA_NAME | STRING | The name of the schema. |
+| TABLE_ID | INT32 | Unique table identifier. |
+| TABLE_NAME | STRING | The name of the table. |
+| STATISTICS_ID | INT32 | Unique identifier of the statistics object. |
+| STATISTICS_NAME | STRING | The name of the statistics object. |
+| COLUMNS_GROUP_ID | INT32 | The identifier of the column group. Unique within the statistics object. |
+| COLUMN_NAMES | STRING | The names of the columns in the group, separated by commas. |
+
+### STATISTICS_GATHERING_JOBS
+
+Shows the statistics collections that are in progress. The view has one row for each node and table that take part in a collection. When no collection is running, the view is empty.
+
+| Column | Data Type | Description |
+| --- | --- | --- |
+| NODE_NAME | STRING | The name of the node that scans the table. |
+| GATHERING_ID | STRING | The identifier of the collection. The value is the same for all nodes and tables of one `REFRESH STATISTICS` statement. |
+| SCHEMA_ID | INT32 | Unique schema identifier. |
+| SCHEMA_NAME | STRING | The name of the schema. |
+| TABLE_ID | INT32 | Unique table identifier. |
+| TABLE_NAME | STRING | The name of the table. |
+| TOTAL_PARTITIONS | INT32 | The number of partitions that the node scans for this collection. |
+| COMPLETED_PARTITIONS | INT32 | The number of partitions that the node already scanned. |
+| ACTIVE_WORKERS | INT32 | The number of workers that scan the partitions now. The value is `0` while the collection waits in the queue. |
+| CREATED_AT | TIMESTAMP WITH LOCAL TIME ZONE | The time when the node received the collection request. |
 
 ### SYSTEM_VIEWS
 

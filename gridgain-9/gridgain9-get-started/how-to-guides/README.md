@@ -1,6 +1,6 @@
 ---
 description: >-
-  Task-focused guides for GridGain 9: Java client logging, cluster lifecycle with the REST API, and monitoring with Prometheus and Grafana.
+  Task-focused guides for GridGain 9: Java client logging, SQL statistics, cluster lifecycle with the REST API, and monitoring with Prometheus and Grafana.
 ---
 
 # How-To Guides
@@ -16,6 +16,18 @@ Each guide solves one task from start to finish.
 
 {% column %}
 Configure logging for the GridGain 9 Java thin client using java.util.logging, Logback, or Log4j2.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="improve-query-performance-sql-statistics.md" %}
+[How to Improve Query Performance With SQL Statistics](improve-query-performance-sql-statistics.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Collect SQL statistics on a TPC-H data set in GridGain 9, measure the effect on query time, and add column groups for correlated columns.
 {% endcolumn %}
 {% endcolumns %}
 
