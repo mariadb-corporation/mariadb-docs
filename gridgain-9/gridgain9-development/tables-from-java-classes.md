@@ -258,7 +258,12 @@ TableDefinition warehouse = client.catalog().tableDefinition("Warehouse");
 PartitionFunction function = warehouse.partitionFunction(); // MODULO
 ```
 
-For a definition read from a table, the `partitionFunction` method returns the function of the table. It returns `null` if the server is before GridGain 9.2. For a definition you built, it returns `null` if you did not set the function. To check the function of a table, compare the `partitionFunction` values. Do not compare whole `TableDefinition` objects. A definition read from a table can differ in other fields from the definition you built.
+The value that the `partitionFunction` method returns depends on the source of the `TableDefinition` object:
+
+- If the `tableDefinition` method returned the object, the value is the partition function of the existing table. The value is `null` only if a client of version 9.2 or later is connected to a server before GridGain 9.2. Such a server does not report the partition function.
+- If you built the object with the builder, the value is the function you set. The value is `null` if you did not set a function.
+
+To check the function of a table, compare the `partitionFunction` values. Do not compare whole `TableDefinition` objects. An object that the `tableDefinition` method returned can differ in other fields from the object you built.
 
 Caches work the same way. Use the `partitionFunction` attribute of the `@Cache` annotation, the `partitionFunction` method of `CacheDefinition.Builder`, and the `cacheDefinition` method of `IgniteCatalog`.
 
