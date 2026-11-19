@@ -13,7 +13,7 @@ We recommend to install MaxScale on a separate server, to ensure that there can 
 
 ### Install MariaDB MaxScale From MariaDB Repositories
 
-The recommended approach is to use [the MariaDB package repository](../../../server/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md) to install MaxScale. After enabling the repository by following the instructions, MaxScale can be installed with the following commands.
+The recommended approach is to use [the MariaDB package repository]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) to install MaxScale. After enabling the repository by following the instructions, MaxScale can be installed with the following commands.
 
 * For RHEL/Rocky Linux/Alma Linux, use `dnf install maxscale`.
 * For Debian and Ubuntu, run `apt update` followed by `apt install maxscale`.
@@ -70,9 +70,9 @@ cat /proc/sys/vm/overcommit_memory
 MaxScale is installed. Configuring, administering and backing it up are covered in full elsewhere,
 so this guide only points at them:
 
-* [The MaxScale Tutorial](../../mariadb-maxscale-tutorials/setting-up-mariadb-maxscale.md) covers the first steps in configuring your installation — follow it to configure and start using MaxScale.
-* The [Configuration Guide](../deployment/installation-and-configuration/maxscale-configuration-guide/README.md) is the complete parameter reference, including [Encrypting Passwords](../deployment/installation-and-configuration/maxscale-configuration-guide/README.md#encrypting-passwords) for the configuration file, [Administration](../deployment/installation-and-configuration/maxscale-configuration-guide/README.md#administration), and [Backing Up a MaxScale Installation](../deployment/installation-and-configuration/maxscale-configuration-guide/README.md#backing-up-a-maxscale-installation). Module-specific parameters are in the [reference](../../reference/).
-* [maxctrl](../../reference/maxscale-maxctrl.md) is the command line client for a running MaxScale, and the [administration tutorial](../../mariadb-maxscale-tutorials/maxscale-administration-tutorial.md) covers the common administration tasks.
+* [The MaxScale Tutorial](../../../mariadb-maxscale-tutorials/setting-up-mariadb-maxscale.md) covers the first steps in configuring your installation — follow it to configure and start using MaxScale.
+* The [Configuration Guide](maxscale-configuration-guide/README.md) is the complete parameter reference, including [Encrypting Passwords](maxscale-configuration-guide/README.md#encrypting-passwords) for the configuration file, [Administration](maxscale-configuration-guide/README.md#administration), and [Backing Up a MaxScale Installation](maxscale-configuration-guide/README.md#backing-up-a-maxscale-installation). Module-specific parameters are in the [reference](../../../reference/).
+* [maxctrl](../../../reference/maxscale-maxctrl.md) is the command line client for a running MaxScale, and the [administration tutorial](../../../mariadb-maxscale-tutorials/maxscale-administration-tutorial.md) covers the common administration tasks.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -44,7 +44,7 @@ for Enterprise Platform subscribers.
 ### Installing MaxScale <a href="#installing-maxscale-trial" id="installing-maxscale-trial"></a>
 
 Install the packages as described in the
-[MaxScale Installation Guide](../maxscale-management/installation-and-configuration/maxscale-installation-guide.md).
+[MaxScale Installation Guide](../maxscale-management/deployment/installation-and-configuration/maxscale-installation-guide.md).
 
 If `/etc/maxscale.cnf` does not exist yet, the installation copies the template
 `/etc/maxscale.cnf.template` to `/etc/maxscale.cnf`. The template is for reference, and
@@ -69,7 +69,7 @@ _absolute_ path to a file containing the license.
 
 MaxScale does not start without a valid license key. For the error messages MaxScale logs when the
 key is missing, invalid, or expired, see
-[Install a MaxScale License Key](../maxscale-management/installation-and-configuration/maxscale-license-key.md#troubleshoot).
+[Install a MaxScale License Key](../maxscale-management/deployment/installation-and-configuration/maxscale-license-key.md#troubleshoot).
 
 #### Database Users used by MaxScale <a href="#database-users-used-by-maxscale" id="database-users-used-by-maxscale"></a>
 
@@ -197,7 +197,7 @@ to the `[maxscale]` section in `/etc/maxscale.cnf`.
 A trial and a production installation use the same MaxScale packages and the same configuration
 file. To move from a trial to production, replace the trial key in `license_key` with a production
 license key. You do not need to reinstall MaxScale. To get a production key, see
-[Install a MaxScale License Key](../maxscale-management/installation-and-configuration/maxscale-license-key.md#get-your-license-key).
+[Install a MaxScale License Key](../maxscale-management/deployment/installation-and-configuration/maxscale-license-key.md#get-your-license-key).
 
 You can also change the key on a running MaxScale, without a restart:
 
