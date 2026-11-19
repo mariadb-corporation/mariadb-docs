@@ -36,7 +36,13 @@ Starting from [MariaDB 10.6.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/c
         "pages_read_count": integer,
         "pages_prefetch_read_count": integer,
         "pages_read_time_ms": double,
-        "old_rows_read": integer
+        "old_rows_read": integer,
+        "r_ahi_stats": {
+          "ahi_searches": integer,
+          "ahi_searches_btree": integer,
+          "ahi_rows_added": integer,
+          "ahi_pages_added": integer
+        }
       }
 ```
 
@@ -48,6 +54,20 @@ Only non-zero members are printed.
 * `pages_prefetch_read_count` Number of pages for which read-ahead was initiated. Not all such pages will necessarily be accessed.
 * `pages_read_time_ms` is the total time spent reading the table.
 * `old_rows_read` is the number of old row versions that InnoDB had to read. Old row version is the version of the row that is not visible to this transaction.
+* `r_ahi_stats` reports how the InnoDB [adaptive hash index](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) (AHI) was used by this statement. The object is printed only if at least one of its members is non-zero, and only non-zero members are printed. See [below](#adaptive-hash-index-statistics).
+
+#### Adaptive hash index statistics
+
+**MariaDB starting with** [**13.1.1**]({release-notes}/community-server/changelogs/13.1/13.1.1)
+
+The `r_ahi_stats` object is nested inside `r_engine_stats` and has the following members:
+
+* `ahi_searches` is the number of searches that were served by the adaptive hash index.
+* `ahi_searches_btree` is the number of searches that could not use the adaptive hash index and fell back to a B-tree search.
+* `ahi_rows_added` is the number of rows that were added to the adaptive hash index.
+* `ahi_pages_added` is the number of index pages for which the adaptive hash index was built.
+
+The same counters are available server-wide as the [Innodb\_adaptive\_hash\_hash\_searches](../../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_adaptive_hash_hash_searches), [Innodb\_adaptive\_hash\_non\_hash\_searches](../../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_adaptive_hash_non_hash_searches), [Innodb\_adaptive\_hash\_rows\_added](../../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_adaptive_hash_rows_added) and [Innodb\_adaptive\_hash\_pages\_added](../../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_adaptive_hash_pages_added) status variables.
 
 ## SHOW ANALYZE FORMAT=JSON
 
