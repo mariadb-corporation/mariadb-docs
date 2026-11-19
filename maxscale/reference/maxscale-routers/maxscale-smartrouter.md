@@ -174,6 +174,41 @@ This feature is only available in MaxScale 26.10.0 and later.
 {% endtab %}
 {% endtabs %}
 
+### `on_unavailable_target`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.1.
+{% endhint %}
+
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `master`, `error`
+* Default: `master`
+* Description: Determines whether a query whose cluster is unavailable is routed to the master or returns an error.
+
+What to do with a query when the cluster it should be routed to cannot be
+used, for instance because it is down. This applies both to a query that
+SmartRouter has measured to be fastest on that cluster, and to a query that
+a [routing hint](#routing-hints) routes to it.
+
+* `master`
+  * The query is routed to the master. This can be much more expensive than
+    running the query on the cluster it was intended for. A query that is
+    best handled by an analytical cluster may take minutes or hours on the
+    master, and also burden it. A hinted query that uses SQL that only the
+    intended cluster understands fails with an error from the master.
+* `error`
+  * The query is not run anywhere and the client receives an error (1105,
+    with a message stating that the target is unavailable). The session
+    remains usable.
+
+The measurements are not affected, so once the cluster can be used again,
+the queries are routed to it as before.
+
+A query that SmartRouter has not seen before is not affected by the setting.
+It is run on the clusters that can be used.
+
 ### `eviction_schedule`
 
 * Type: stringlist of [durations](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
@@ -292,6 +327,9 @@ causal_reads_on_timeout = error
 SmartRouter supports routing hints. Only `route to master` and
 `route to server` hints are supported. In order for hints to be used, you must
 use either the `hintfilter` or the `namedserverfilter`.
+
+If the cluster that a `route to server` hint names cannot be used, the query
+is handled according to [on\_unavailable\_target](#on_unavailable_target).
 
 {% tabs %}
 {% tab title="< 26.10" %}

@@ -297,7 +297,32 @@ Exasol is then held until the position shows that Exasol has applied the last
 write of the session, see
 [causal\_reads](maxscale-smartrouter.md#causal_reads).
 
+The position is fetched at the interval specified with
+[poll\_interval](#poll_interval).
+
 The setting should be disabled if `exasol_cdc` is not used.
+
+### `poll_interval`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.1.
+{% endhint %}
+
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: 1s
+* Description: Sets how often Exasol is polled for whether it can be reached and, if `gtid_polling` is enabled, for the GTID position.
+
+How often _ExasolRouter_ polls Exasol. A poll finds out whether Exasol can be
+reached, see [Availability of Exasol](#availability-of-exasol).
+If [gtid\_polling](#gtid_polling) is enabled, a poll also fetches the GTID
+position.
+The minimum is 100ms.
+
+The interval affects how soon it is noticed that Exasol cannot be reached,
+and that it can be reached again. A causal read may have to wait up to
+this long, in addition to the time it takes `exasol_cdc` to apply a change.
 
 ### `gtid_poll_interval`
 
@@ -309,13 +334,10 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: 1s
-* Description: Sets how often the GTID position is polled when `gtid_polling` is enabled.
+* Description: Deprecated alias of `poll_interval`.
 
-How often the GTID position is polled, see [gtid\_polling](#gtid_polling).
-The minimum is 100ms.
-
-A causal read may have to wait up to this long, in addition to the time it
-takes `exasol_cdc` to apply a change.
+This setting has been deprecated since MaxScale 26.10.1 and is an alias of
+[poll\_interval](#poll_interval).
 
 ## Transformations
 
@@ -454,9 +476,51 @@ reached does not answer a ping either.
 If _ExasolRouter_ is used via [SmartRouter](maxscale-smartrouter.md) and
 Exasol is not the primary, a lost connection to Exasol does not close the
 session of SmartRouter. It continues using its other targets, and
-reconnects to Exasol the next time a query is to be sent to it. If Exasol
-is then still not available, the session may be closed. If Exasol is the
+reconnects to Exasol the next time a query is to be sent to it. If it is
+known by then that Exasol cannot be reached, see
+[Availability of Exasol](#availability-of-exasol), the query is handled
+according to
+[on\_unavailable\_target](maxscale-smartrouter.md#on_unavailable_target).
+If it is not yet known, the session may be closed. If Exasol is the
 primary, the session is closed.
+
+## Availability of Exasol
+
+{% hint style="info" %}
+This functionality is available from MaxScale 26.10.1.
+{% endhint %}
+
+_ExasolRouter_ polls Exasol at the interval specified with
+[poll\_interval](#poll_interval), using a connection of its own that is
+made with [odbc\_connection\_string](#odbc_connection_string).
+If [gtid\_polling](#gtid_polling) is enabled, the poll consists of
+fetching the GTID position, otherwise of the statement `SELECT 1`. A
+failure to fetch the GTID position that is not caused by the connection
+having been lost, for instance because the table does not exist, does not
+mean that Exasol cannot be reached.
+
+When a poll shows that Exasol cannot be reached, a warning is logged and
+the service is marked as being down. When a later poll succeeds, a notice
+is logged and the service is marked as running again. The current state is
+shown in the [Router Diagnostics](#router-diagnostics).
+
+The state of the service matters when the service is a target of
+[SmartRouter](maxscale-smartrouter.md). SmartRouter does not connect to a
+service that is down, so its sessions do not have to wait for a connection
+attempt to Exasol to fail. Once the service is running again, SmartRouter
+connects to Exasol the next time a query is to be sent to it. That applies
+also to sessions that were created while Exasol could not be reached.
+
+The following situations are not noticed promptly. Until they are, the
+service remains marked as running.
+
+* If the network between MaxScale and Exasol stops delivering packets
+  without the connection being closed, the Exasol ODBC driver waits about
+  five minutes for the response to the poll before it gives up. Only then
+  is the service marked as being down.
+* If Exasol accepts connections but does not respond, for instance because
+  it is hung, the poll does not complete until Exasol responds again or its
+  connections are closed.
 
 ## Changing the User and Resetting the Connection
 
@@ -580,15 +644,27 @@ This functionality is available from MaxScale 26.10.
 {% endhint %}
 
 The `router_diagnostics` output of _ExasolRouter_, for instance in the output
-of `maxctrl show service`, has the following field.
+of `maxctrl show service`, has the following fields. **From MaxScale
+26.10.1,** there is the field `backend`.
 
+* `backend`: Whether Exasol can be reached, see
+  [Availability of Exasol](#availability-of-exasol).
+  * `state`: `starting` before the first poll has completed, `reachable` if
+    the last poll showed that Exasol can be reached and `unreachable` if it
+    showed that it cannot.
+  * `last_success`: The time of the last poll that showed that Exasol can
+    be reached, or `null`.
+  * `last_failure`: The time of the last poll that showed that Exasol
+    cannot be reached, or `null`.
+  * `last_error`: The error of that poll, or `null`.
 * `gtid_polling`: The state of the polling of the GTID position, see
   [gtid\_polling](#gtid_polling). If polling is disabled, the object only
   has the field `state`, with the value `disabled`. Otherwise it has the
   following fields.
   * `state`: `starting` before the first poll has completed, `ok` if the
     last poll succeeded and `failing` if it did not.
-  * `interval`: The polling interval, e.g. `1000ms`.
+  * `interval`: The polling interval, e.g. `1000ms`, see
+    [poll\_interval](#poll_interval).
   * `gtid`: The GTID position most recently read from Exasol, or `null` if
     none has been read.
   * `last_success`: The time of the last successful poll, or `null`.
@@ -599,6 +675,8 @@ of `maxctrl show service`, has the following field.
 
 ## Limitations
 
+* It is not always noticed promptly that Exasol cannot be reached, see
+  [Availability of Exasol](#availability-of-exasol).
 * A MariaDB `KILL` statement does not kill a running statement on Exasol, see
   [Killing a Query](#killing-a-query).
 

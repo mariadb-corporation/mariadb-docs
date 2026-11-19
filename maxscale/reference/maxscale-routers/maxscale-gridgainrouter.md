@@ -137,6 +137,26 @@ The duration that an unused kill connection is kept alive after the
 last KILL command before it is automatically closed; a value of 0
 closes it immediately after each use.
 
+### `poll_interval`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.1.
+{% endhint %}
+
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: 1s
+* Description: Sets how often GridGain is polled for whether it can be reached.
+
+How often _GridGainRouter_ polls GridGain. A poll finds out whether
+GridGain can be reached, see
+[Availability of GridGain](#availability-of-gridgain).
+The minimum is 100ms.
+
+The interval affects how soon it is noticed that GridGain cannot be reached,
+and that it can be reached again.
+
 ## Schemas
 
 A client must specify a default schema when it connects, for instance
@@ -232,9 +252,40 @@ be reached does not answer a ping either.
 If _GridGainRouter_ is used via [SmartRouter](maxscale-smartrouter.md) and
 GridGain is not the primary, a lost connection to GridGain does not close
 the session of SmartRouter. It continues using its other targets, and
-reconnects to GridGain the next time a query is to be sent to it. If
-GridGain is then still not available, the session may be closed. If
-GridGain is the primary, the session is closed.
+reconnects to GridGain the next time a query is to be sent to it. If it is
+known by then that GridGain cannot be reached, see
+[Availability of GridGain](#availability-of-gridgain), the query is handled
+according to
+[on\_unavailable\_target](maxscale-smartrouter.md#on_unavailable_target).
+If it is not yet known, the session may be closed. If GridGain is the
+primary, the session is closed.
+
+## Availability of GridGain
+
+{% hint style="info" %}
+This functionality is available from MaxScale 26.10.1.
+{% endhint %}
+
+_GridGainRouter_ polls GridGain at the interval specified with
+[poll\_interval](#poll_interval), using a connection of its own that is
+made with [odbc\_connection\_string](#odbc_connection_string).
+The poll consists of the statement `SELECT 1`.
+
+When a poll shows that GridGain cannot be reached, a warning is logged and
+the service is marked as being down. When a later poll succeeds, a notice
+is logged and the service is marked as running again. The current state is
+shown in the [Router Diagnostics](#router-diagnostics).
+
+The state of the service matters when the service is a target of
+[SmartRouter](maxscale-smartrouter.md). SmartRouter does not connect to a
+service that is down, so its sessions do not have to wait for a connection
+attempt to GridGain to fail. Once the service is running again, SmartRouter
+connects to GridGain the next time a query is to be sent to it. That applies
+also to sessions that were created while GridGain could not be reached.
+
+If GridGain accepts connections but does not respond, for instance because
+it is hung, that is not necessarily noticed, in which case the service
+remains marked as running.
 
 ## Changing the User and Resetting the Connection
 
@@ -304,6 +355,26 @@ queries will be sent to GridGain.
 ```
 mariadb --port=4008 --database=PUBLIC
 ```
+
+## Router Diagnostics
+
+{% hint style="info" %}
+This functionality is available from MaxScale 26.10.1.
+{% endhint %}
+
+The `router_diagnostics` output of _GridGainRouter_, for instance in the
+output of `maxctrl show service`, has the following field.
+
+* `backend`: Whether GridGain can be reached, see
+  [Availability of GridGain](#availability-of-gridgain).
+  * `state`: `starting` before the first poll has completed, `reachable` if
+    the last poll showed that GridGain can be reached and `unreachable` if it
+    showed that it cannot.
+  * `last_success`: The time of the last poll that showed that GridGain can
+    be reached, or `null`.
+  * `last_failure`: The time of the last poll that showed that GridGain
+    cannot be reached, or `null`.
+  * `last_error`: The error of that poll, or `null`.
 
 ## Limitations
 
