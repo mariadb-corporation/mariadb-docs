@@ -25,6 +25,20 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Data Type: `numeric`
 * Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
 
+#### `Innodb_adaptive_hash_pages_added`
+
+* Description: Number of index pages on which the adaptive hash index has been built. See also the `ahi_pages_added` member of `r_ahi_stats` in [ANALYZE FORMAT=JSON](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/analyze-format-json.md#adaptive-hash-index-statistics).
+* Scope: Global
+* Data Type: `numeric`
+* Introduced: [MariaDB 13.1.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/13.1/13.1.1)
+
+#### `Innodb_adaptive_hash_rows_added`
+
+* Description: Number of rows added to the adaptive hash index. See also the `ahi_rows_added` member of `r_ahi_stats` in [ANALYZE FORMAT=JSON](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/analyze-format-json.md#adaptive-hash-index-statistics).
+* Scope: Global
+* Data Type: `numeric`
+* Introduced: [MariaDB 13.1.1](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/13.1/13.1.1)
+
 #### `Innodb_async_reads_pending`
 
 * Description: Number of async read I/O operations currently in progress (from SUBMITTED to COMPLETED). See [InnoDB Asynchronous I/O](../../../server-usage/storage-engines/innodb/innodb-asynchronous-io.md).
