@@ -354,11 +354,24 @@ CREATE USER 'maria'@'247.150.130.0/255.255.255.0';
 
 the IP addresses satisfying this condition range from 247.150.130.0 to 247.150.130.255.
 
-Using `255.255.255.255` is equivalent to not using a netmask at all. Netmasks cannot be used for IPv6 addresses.
+Using `255.255.255.255` is equivalent to not using a netmask at all. Netmasks work only for IPv4 addresses, see [IPv6 Addresses](#ipv6-addresses).
 
 Note that the credentials added when creating a user with the `'%'` wildcard host will not grant access in all cases. For example, some systems come with an anonymous localhost user, and when connecting from localhost this will take precedence.
 
 The host name component can be up to 255 characters long.
+
+#### IPv6 Addresses
+
+You can use IPv6 addresses in the host name component, but the server doesn't parse them as addresses. It compares them as text with the client's address, so an IPv6 host matches in only two ways:
+
+* **Exactly.** The host must be written the way the server writes the client's address, in the compressed form, such as `::1` or `2001:db8::5`. For example, `'app'@'::1'` matches a client that connects from `::1`, but `'app'@'0:0:0:0:0:0:0:1'` doesn't, although both name the same address.
+* **By a wildcard pattern.** The `%` and `_` wildcards work as for any host name. For example, `'app'@'2001:db8:%'` matches every client address that starts with `2001:db8:`. A pattern matches the text, not the address, so write it against the compressed form: `'app'@'2001:db8::%'` doesn't match the client address `2001:db8:1::5`.
+
+Netmasks and prefix lengths don't work for IPv6 addresses. A host such as `'2001:db8::/32'` or `'::1/128'` isn't treated as an address range, and no client matches it.
+
+A client address that is a link-local address, such as `fe80::1%eth0`, includes the zone ID after the `%`, so the account's host must include it too, for example `'app'@'fe80::1%eth0'`.
+
+When an IPv4 client connects through an IPv6 socket, the server sees an IPv4-mapped address such as `::ffff:192.0.2.10`. It converts that address to the IPv4 form `192.0.2.10` before matching, so IPv4 hosts, wildcards and netmasks apply to these clients. An account host written as `::ffff:192.0.2.10` doesn't match them.
 
 ### User Name Component
 
