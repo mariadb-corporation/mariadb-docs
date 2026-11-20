@@ -306,6 +306,7 @@ $ curl -k -s https://mcs1:8640/cmapi/0.4.0/cluster/status \
    | jq .
 ```
 
+{% code expandable="true" %}
 ```json
 {
   "timestamp": "2020-12-15 00:40:34.353574",
@@ -350,6 +351,7 @@ $ curl -k -s https://mcs1:8640/cmapi/0.4.0/cluster/status \
     ]
   }
 ```
+{% endcode %}
 
 ## Add Replica Servers with CMAPI
 
@@ -384,6 +386,7 @@ $ curl -k -s https://mcs1:8640/cmapi/0.4.0/cluster/status \
    | jq .
 ```
 
+{% code expandable="true" %}
 ```json
 {
   "timestamp": "2020-12-15 00:40:34.353574",
@@ -486,6 +489,7 @@ $ curl -k -s https://mcs1:8640/cmapi/0.4.0/cluster/status \
   "num_nodes": 3
 }
 ```
+{% endcode %}
 
 ## Configure Linux Security Modules (LSM)
 
@@ -539,6 +543,7 @@ $ sudo setenforce enforcing
 
 For example, the file will usually look like this after the change:
 
+{% code expandable="true" %}
 ```systemd
 # This file controls the state of SELinux on the system.
 # SELINUX= can take one of these three values:
@@ -552,6 +557,7 @@ SELINUX=enforcing
 #     mls - Multi Level Security protection.
 SELINUXTYPE=targeted
 ```
+{% endcode %}
 
 7. Confirm that SELinux is in enforcing mode:
 

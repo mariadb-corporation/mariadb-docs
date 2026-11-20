@@ -50,6 +50,7 @@ $ sudo apt install curl apt-transport-https
 
 2. On the MaxScale node, configure package repositories and specify MariaDB MaxScale 22.08:
 
+{% code expandable="true" %}
 ```bash
 $ curl -LsSO https://dlm.mariadb.com/enterprise-release-helpers/mariadb_es_repo_setup
 
@@ -63,6 +64,7 @@ $ sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply \
       --skip-tools \
       --mariadb-maxscale-version="22.08"
 ```
+{% endcode %}
 
 _Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) _page. Substitute `${checksum}` in the example above with the latest checksum._
 

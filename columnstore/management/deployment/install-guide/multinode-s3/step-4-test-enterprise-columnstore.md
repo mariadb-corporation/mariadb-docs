@@ -169,7 +169,7 @@ WHERE  contacts.email = addr.email;
 
 ## Next Step
 
-Navigation in the Single-Node ColumnStore topology with Object storage deployment procedure:
+Navigation in the Multi-Node ColumnStore topology with Object storage deployment procedure:
 
 This page was step 4 of 5.
 

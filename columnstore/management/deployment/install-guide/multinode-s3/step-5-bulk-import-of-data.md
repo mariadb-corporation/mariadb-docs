@@ -80,7 +80,7 @@ $ mariadb --quick \
 
 ## Next Step
 
-Navigation in the Single-Node ColumnStore topology with Object storage deployment procedure:
+Navigation in the Multi-Node ColumnStore topology with Object storage deployment procedure:
 
 This page was step 5 of 5.
 
