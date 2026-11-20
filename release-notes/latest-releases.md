@@ -10,7 +10,9 @@
 
 ### MariaDB Community Server Development Releases
 
-{% include ".gitbook/includes/latest-13.0.md" %}
+{% include ".gitbook/includes/latest-13.2.md" %}
+
+{% include ".gitbook/includes/latest-13.1.md" %}
 
 ### MariaDB Community Server Long-Term Releases
 
