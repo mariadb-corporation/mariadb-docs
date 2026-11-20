@@ -2,7 +2,6 @@
 description: >-
   Post-download information for MariaDB Community Server 13.2.1, a Release
   Candidate (RC) release of the MariaDB 13.2 series
-hidden: true
 ---
 
 # MariaDB Server 13.2.1
@@ -11,7 +10,7 @@ hidden: true
 
 ## About this Release
 
-* MariaDB Server 13.2.1 RC was released on TBD
+* MariaDB Server 13.2.1 RC was released on 23 Nov 2026
 * [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/13.2/13.2.1)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is RC maturity
@@ -25,7 +24,7 @@ hidden: true
 ## Release History
 
 * The prior release in this series was MariaDB 13.2.0 Preview, released on 23 Sep 2026
-* This release (MariaDB 13.2.1 RC) was released on TBD
+* This release (MariaDB 13.2.1 RC) was released on 23 Nov 2026
 
 {% include "../.gitbook/includes/most-recent-13.2.md" %}
 
