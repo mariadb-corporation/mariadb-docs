@@ -15,7 +15,7 @@ You make the distribution visible here. You create a partitioned cache, seed it 
 
 - **A running single-node cluster** from [Start a Local Cache Development Cluster](../../quick-start/start-local-cache-cluster.md)
 - **Cache API familiarity** from [Work with the Cache API](../../quick-start/work-with-cache-api.md)
-- **Java 17 or later for the client runtime.** The Maven project compiles to Java 17 bytecode, the same version the server JVM runs.
+- **Java 17, 21, or 25 for the client runtime.** The Maven project compiles to Java 17 bytecode, the same version the server JVM runs.
 - **Maven 3.6** or later
 - **Docker Compose 2.23** or later
 

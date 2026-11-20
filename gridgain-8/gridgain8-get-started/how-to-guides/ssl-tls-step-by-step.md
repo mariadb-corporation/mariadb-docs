@@ -9,7 +9,7 @@ description: >-
 
 - A **GridGain 8** cluster
 - **OpenSSL** 1.1.1
-- **JDK 17** (OpenJDK)
+- **JDK 17, 21, or 25** (OpenJDK)
 - The Java **keytool** utility
 
 ## Overview

@@ -23,7 +23,7 @@ You work from a companion repository that ships the Docker configurations and a 
 
 - **Cache API familiarity** from [Work with the Cache API](../../quick-start/work-with-cache-api.md)
 - **Eviction and expiry vocabulary** from [Cache Sizing and Expiry](cache-sizing-and-expiry.md)
-- **Java 17** or later
+- **Java 17, 21, or 25**
 - **Maven 3.6** or later
 - **Docker Compose 2.23** or later
 - **JDBC and connection-pool (HikariCP) familiarity.** The tutorial writes a JDBC `SELECT` and wraps it in a HikariCP `DataSource`. If you have never touched JDBC, read the [Oracle JDBC Basics tutorial](https://docs.oracle.com/javase/tutorial/jdbc/basics/) first.

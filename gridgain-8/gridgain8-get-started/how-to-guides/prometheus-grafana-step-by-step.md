@@ -7,7 +7,7 @@ description: >-
 
 ## Prerequisites
 
-- A **GridGain 8** project you can launch from Java code, built with **JDK 17** or later and **Maven**
+- A **GridGain 8** project you can launch from Java code, built with **JDK 17, 21, or 25** and **Maven**
 - A GridGain Enterprise or Ultimate license file for the nodes
 - A [**Prometheus**](https://prometheus.io/download/) server
 - [**Grafana**](https://grafana.com/grafana/download)
