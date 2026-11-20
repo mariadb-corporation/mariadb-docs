@@ -92,9 +92,20 @@ The `{{ ... }}` values are placeholders for your own paths and addresses. Java 1
 Snapshot operations require a significant amount of resources and may cause slowdown is service. You can configure extra snapshot options to offset possible issues by reducing (or increasing) parallelism, or by introducing throttling:
 
 - Set the level of parallelism for snapshot operations with `SnapshotConfiguration.snapshotOperationParallelism` (the default is 2).
+- Set the level of parallelism for snapshot check and restore operations with `SnapshotConfiguration.restoreOperationParallelism` (the default is 4).
 - Configure the snapshot progress throttling interval in milliseconds with `SnapshotConfiguration.snapshotProgressThrottlingInterval` (the default is 1000).
 
-Set both properties on the `SnapshotConfiguration` of the `GridGainConfiguration` plugin configuration.
+Set these properties on the `SnapshotConfiguration` of the `GridGainConfiguration` plugin configuration.
+
+#### Snapshot Check and Restore Performance
+
+The parallelism level of a check or restore operation is the number of threads that each server node uses to read its part of the snapshot. To change it for a single operation, use the `-parallelism` argument of the [snapshot utility](../../gridgain8-management/snapshots/snapshots-management-tool.md) `check` and `restore` commands.
+
+When you tune these operations, consider the following:
+
+- Raise the parallelism level while you watch the throughput of the disk or network storage that holds the snapshot. When the storage is saturated, more threads don't make the operation faster.
+- An operation finishes when the slowest node finishes. Nodes that hold more data than others, for example because of affinity colocation, determine the total time.
+- The `restore` command checks the snapshot before it restores it, so it reads the data twice. If the snapshot was already checked and hasn't changed since, add `-nocheck` to skip the check.
 
 ### Write Ahead Log Options
 

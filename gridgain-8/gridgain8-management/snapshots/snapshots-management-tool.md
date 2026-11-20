@@ -357,7 +357,7 @@ This command supports [connection parameters and output parameters](#parameters)
 | -force | If you add new caches to the cache group after a snapshot was created, the tool will return an error when restoring that group. Specify this option to replace the entire group, deleting the new caches from the cluster. |
 | -comment=TEXT | Add a custom message to the history record of this operation. |
 | -progress=DELAY | Delay (sec) for progress bar update, default is 5 sec. |
-| -parallelism=N | Determines parallel execution (threads) of snapshot operation, 1 to N. |
+| -parallelism=N | Number of threads each server node uses for the operation, from 1 to 127. If not specified, the `restoreOperationParallelism` property of the snapshot configuration is used (the default is 4). |
 | -excluded_caches=[cache1,…,cacheN] | The list of caches or cache groups to not restore during the operation. Overrides `-caches`. |
 
 ### Error Codes
@@ -411,7 +411,7 @@ This command supports [connection parameters and output parameters](#parameters)
 | -caches=[cache1,…,cacheN,group1,…,groupK] | A list of caches and cache groups to be checked. |
 | -force | For each cache specified in the `-caches` argument, the command will check the entire cache group to which that cache belongs. |
 | -progress=DELAY | Delay in seconds for progress bar update, default is 5 sec. |
-| -parallelism=N | Determines parallel execution (threads) of snapshot operation, 1 to N. |
+| -parallelism=N | Number of threads each server node uses for the operation, from 1 to 127. If not specified, the `restoreOperationParallelism` property of the snapshot configuration is used (the default is 4). |
 | -excluded_caches=[cache1,...,cacheN] | The list of caches or cache groups to not check. |
 
 ### Error Codes
