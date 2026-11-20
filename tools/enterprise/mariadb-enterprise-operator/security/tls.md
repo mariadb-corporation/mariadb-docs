@@ -134,7 +134,27 @@ The server certificate contains the following Subject Alternative Names (SANs):
 * `<mariadb-name>-secondary.<namespace>.svc`
 * `<mariadb-name>-secondary.<namespace>`
 * `<mariadb-name>-secondary`
+* When the arbitrator is enabled (see [Two node clusters](../topologies/replication.md#two-node-clusters)), the same four variants of `*.<mariadb-name>-arbitrator-internal`
+* Every name listed in `spec.tls.serverCertAdditionalNames`
 * `localhost`
+
+Use `serverCertAdditionalNames` to add the host names that clients outside the cluster use to reach the server, such as the DNS name of a `LoadBalancer` `Service` or an ingress. A client that connects with `VERIFY_IDENTITY` (or `--ssl-verify-server-cert`) checks the host name it connects to against these SANs:
+
+```yaml
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: mariadb-galera
+spec:
+  # [...]
+  tls:
+    enabled: true
+    serverCertAdditionalNames:
+      - mariadb.example.com
+  # [...]
+```
+
+The additional names apply to server certificates that the operator issues, either itself or through cert-manager. If you [provide your own certificates](tls.md#provide-your-own-certificates), include these names in them yourself.
 
 Whereas the client certificate is only valid for the `<mariadb-name>-client` SAN.
 

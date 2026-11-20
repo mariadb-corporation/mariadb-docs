@@ -66,7 +66,7 @@ spec:
   metrics:
     enabled: true
     exporter:
-      image: mariadb/mariadb-prometheus-exporter-ubi:v0.0.2
+      image: mariadb/mariadb-prometheus-exporter-ubi:1.2.1
       resources:
         requests:
           cpu: 50m
@@ -102,7 +102,7 @@ spec:
   metrics:
     enabled: true
     exporter:
-      image: mariadb/maxscale-prometheus-exporter-ubi:v0.0.2
+      image: mariadb/maxscale-prometheus-exporter-ubi:1.2.1
       resources:
         requests:
           cpu: 50m
@@ -118,6 +118,8 @@ spec:
       scrapeTimeout: 10s
   # [...]
 ```
+
+The `exporter.image` field is optional. If you leave it out, the operator uses the exporter image of its own release. See [Docker images](docker-images.md) for the available exporter versions.
 
 ## Grafana dashboards
 

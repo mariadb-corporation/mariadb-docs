@@ -121,6 +121,12 @@ helm install mariadb-enterprise-operator \
   mariadb-enterprise-operator/mariadb-enterprise-operator
 ```
 
+{% hint style="warning" %}
+In single-namespace mode, the chart doesn't install the `webhook` and `cert-controller` components, whatever their Helm values are. Kubernetes still checks resources against the CRD schemas, but the additional checks of the validating webhook don't run, such as rejecting changes to immutable fields. A resource with an invalid spec is accepted, and the error shows up only when the operator reconciles the resource, if at all.
+
+Single-namespace mode also changes the default [agent authentication method](../topologies/data-plane.md#agent-auth-methods) to basic authentication.
+{% endhint %}
+
 ## FIPS mode
 
 To run the operator in [FIPS 140-3 mode](../security/fips.md), set `fips.enabled`. The chart injects `GODEBUG=fips140=on` into the operator:
