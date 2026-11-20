@@ -10,12 +10,20 @@ description: >-
 ## Syntax
 
 ```bnf
-SET [GLOBAL | SESSION] TRANSACTION
-    transaction_property [, transaction_property] ...
+SET [GLOBAL | SESSION | LOCAL] TRANSACTION
+    transaction_characteristics
 
-transaction_property:
+transaction_characteristics:
+    isolation_level
+  | access_mode
+  | isolation_level, access_mode
+  | access_mode, isolation_level
+
+isolation_level:
     ISOLATION LEVEL level
-  | READ WRITE
+
+access_mode:
+    READ WRITE
   | READ ONLY
 
 level:
@@ -29,15 +37,24 @@ level:
 
 This statement sets the transaction isolation level or the transaction access mode globally, for the current session, or for the next transaction:
 
-* With the `GLOBAL` keyword, the statement sets the default transaction level globally for all subsequent sessions. Existing sessions are unaffected.
-* With the `SESSION` keyword, the statement sets the default transaction level for all subsequent transactions performed within the current session.
-* Without any `SESSION` or `GLOBAL` keyword, the statement sets the isolation level for only the next (not started) transaction performed within the current session. After that it reverts to using the session value.
+* With the `GLOBAL` keyword, the statement sets the global default for all subsequent sessions. Existing sessions are unaffected.
+* With the `SESSION` keyword, or its synonym `LOCAL`, the statement sets the default for all subsequent transactions performed within the current session.
+* Without any `SESSION`, `LOCAL`, or `GLOBAL` keyword, the statement sets the isolation level or access mode for only the next (not started) transaction performed within the current session. After that transaction ends, the session value applies again.
 
-A change to the global default isolation level requires the [SUPER](../account-management-sql-statements/grant.md#super) privilege. Any session is free to change its session isolation level (even in the middle of a transaction), or the isolation level for its next transaction.
+The statement can set at most one isolation level and at most one access mode, in either order. Specifying `ISOLATION LEVEL` twice, or both `READ WRITE` and `READ ONLY`, is a syntax error.
+
+`SET TRANSACTION` is a shorthand for assigning the [transaction\_isolation](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#transaction_isolation) and [transaction\_read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#transaction_read_only) system variables. An assignment to one of those variables without a scope, such as `SET @@transaction_isolation = 'READ-COMMITTED'`, behaves the same as `SET TRANSACTION` without a keyword: it affects only the next transaction.
+
+A change to the global default requires the [SUPER](../account-management-sql-statements/grant.md#super) privilege. Any session can change its own session default or the settings for its next transaction.
+
+Inside an active transaction:
+
+* `SET TRANSACTION` without a keyword fails with error 1568 (`ER_CANT_SET_IN_TRANSACTION`). See the [example](#examples) below.
+* `SET SESSION TRANSACTION` succeeds, but it does not change the transaction in progress. The new session value takes effect when the next transaction starts, even though the session variable shows the new value at once.
 
 ## Isolation Level
 
-To set the global default isolation level at server startup, use the [--transaction-isolation=level](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_isolation) option on the command line or in an option file. Values of level for this option use dashes rather than spaces, so the allowable values are [READ\_UNCOMMITTED](set-transaction.md#read-uncommitted),[READ-COMMITTED](set-transaction.md#read-committed), [REPEATABLE-READ](set-transaction.md#repeatable-read), or [SERIALIZABLE](set-transaction.md#serializable). For example, to set the default isolation level to `REPEATABLE READ`, use these lines in the `[mariadb]` section of an option file:
+To set the global default isolation level at server startup, use the [--transaction-isolation=level](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#transaction_isolation) option on the command line or in an option file. Values of level for this option use dashes rather than spaces, so the allowable values are [READ-UNCOMMITTED](#read-uncommitted), [READ-COMMITTED](#read-committed), [REPEATABLE-READ](#repeatable-read), or [SERIALIZABLE](#serializable). For example, to set the default isolation level to `REPEATABLE READ`, use these lines in the `[mariadb]` section of an option file:
 
 ```ini
 [mariadb]
@@ -50,7 +67,11 @@ transaction-isolation = REPEATABLE-READ
 From MariaDB 11.1:
 {% endhint %}
 
-To determine the global and session transaction isolation levels at runtime, check the value of the [transaction\_isolation](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#transaction_isolation) variable.
+To determine the global and session transaction isolation levels at runtime, check the value of the [transaction\_isolation](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#transaction_isolation) system variable. The older name, `tx_isolation`, still works, but it is deprecated.
+
+```sql
+SELECT @@GLOBAL.transaction_isolation, @@SESSION.transaction_isolation;
+```
 {% endtab %}
 
 {% tab title="< 11.1" %}
@@ -59,14 +80,16 @@ Before MariaDB 11.1:
 {% endhint %}
 
 To determine the global and session transaction isolation levels at runtime, check the value of the [tx\_isolation](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_isolation) system variable.
+
+```sql
+SELECT @@GLOBAL.tx_isolation, @@SESSION.tx_isolation;
+```
 {% endtab %}
 {% endtabs %}
 
-```sql
-SELECT @@GLOBAL.transaction_isolation, @@tx_isolation;
-```
+Neither variable shows a level set for only the next transaction with `SET TRANSACTION` and no keyword.
 
-InnoDB supports each of the translation isolation levels described here using different locking strategies. The default level is`REPEATABLE READ`. For additional information about InnoDB record-level locks and how it uses them to execute various types of statements, see [InnoDB Lock Modes](../../../server-usage/storage-engines/innodb/innodb-lock-modes.md), and [innodb-locks-set.html](https://dev.mysql.com/doc/refman/en/innodb-locks-set.html).
+InnoDB supports each of the transaction isolation levels described here using different locking strategies. The default level is `REPEATABLE READ`. For additional information about InnoDB record-level locks and how it uses them to execute various types of statements, see [InnoDB Lock Modes](../../../server-usage/storage-engines/innodb/innodb-lock-modes.md), and [innodb-locks-set.html](https://dev.mysql.com/doc/refman/en/innodb-locks-set.html).
 
 ## Isolation Levels
 
@@ -76,9 +99,7 @@ The following sections describe how MariaDB supports the different transaction l
 
 ### READ UNCOMMITTED
 
-`SELECT` statements are performed in a non-locking fashion, but a possible earlier version of a row might be used. Thus, using this isolation level, such reads are not consistent. This is also called a "dirty read". Otherwise, this isolation level works like`READ COMMITTED`.
-
-{% include "../../../.gitbook/includes/with-both-read-uncommitted-....md" %}
+`SELECT` statements are performed in a non-locking fashion, and InnoDB reads the latest version of each row instead of a snapshot. That version can contain changes that another transaction has not committed yet, and might later roll back. Reading such changes is called a "dirty read". Otherwise, this isolation level works like `READ COMMITTED`.
 
 ### READ COMMITTED
 
@@ -187,7 +208,9 @@ Prefer `ON`, because it is what makes `REPEATABLE READ` behave as its name claim
 From MariaDB 10.11:
 {% endhint %}
 
-The access mode specifies whether the transaction is allowed to write data or not. By default, transactions are in `READ WRITE` mode (see the [tx\_read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_read_only) system variable). `READ ONLY` mode allows the storage engine to apply optimizations that cannot be used for transactions which write data. Note that, unlike the global [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) mode, the [READ\_ONLY ADMIN](../account-management-sql-statements/grant.md#read_only-admin) privilege doesn't allow writes, and DDL statements on temporary tables are not allowed either.
+The access mode specifies whether the transaction is allowed to write data or not. By default, transactions are in `READ WRITE` mode (see the [transaction\_read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#transaction_read_only) system variable, which replaces the `tx_read_only` variable from MariaDB 11.1). `READ ONLY` mode allows the storage engine to apply optimizations that cannot be used for transactions which write data. Note that, unlike the global [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) mode, the [READ\_ONLY ADMIN](../account-management-sql-statements/grant.md#read_only-admin) privilege doesn't allow writes. Inserting into, updating, or deleting from a temporary table is allowed, but DDL statements on temporary tables, such as `CREATE TEMPORARY TABLE` and `DROP TEMPORARY TABLE`, are not.
+
+To make `READ ONLY` the global default at server startup, use the `--transaction-read-only` option.
 {% endtab %}
 
 {% tab title="< 10.11" %}
@@ -195,11 +218,9 @@ The access mode specifies whether the transaction is allowed to write data or no
 Before MariaDB 10.11:
 {% endhint %}
 
-The access mode specifies whether the transaction is allowed to write data or not. By default, transactions are in `READ WRITE` mode (see the [tx\_read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_read_only) system variable). `READ ONLY` mode allows the storage engine to apply optimizations that cannot be used for transactions which write data. Note that, unlike the global [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) mode, the [SUPER](../account-management-sql-statements/grant.md#super) privilege doesn't allow writes, and DDL statements on temporary tables are not allowed either.
+The access mode specifies whether the transaction is allowed to write data or not. By default, transactions are in `READ WRITE` mode (see the [tx\_read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_read_only) system variable). `READ ONLY` mode allows the storage engine to apply optimizations that cannot be used for transactions which write data. Note that, unlike the global [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) mode, the [SUPER](../account-management-sql-statements/grant.md#super) privilege doesn't allow writes. Inserting into, updating, or deleting from a temporary table is allowed, but DDL statements on temporary tables are not.
 {% endtab %}
 {% endtabs %}
-
-It is not permitted to specify both `READ WRITE` and `READ ONLY` in the same statement.
 
 `READ WRITE` and `READ ONLY` can also be specified in the [START TRANSACTION](start-transaction.md) statement, in which case the specified mode is only valid for one transaction.
 
@@ -228,18 +249,35 @@ What you give up in exchange:
 
 ## Examples
 
+Set the global default isolation level for new sessions:
+
 ```sql
 SET GLOBAL TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 ```
 
-Attempting to set the isolation level within an existing transaction without specifying `GLOBAL` or `SESSION`.
+Set the isolation level and the access mode for the next transaction only. The session value is unchanged:
+
+```sql
+SET TRANSACTION READ ONLY, ISOLATION LEVEL READ COMMITTED;
+
+SELECT @@transaction_isolation, @@transaction_read_only;
++-------------------------+-------------------------+
+| @@transaction_isolation | @@transaction_read_only |
++-------------------------+-------------------------+
+| REPEATABLE-READ         |                       0 |
++-------------------------+-------------------------+
+```
+
+Attempting to set the isolation level within an existing transaction without specifying `GLOBAL` or `SESSION`:
 
 ```sql
 START TRANSACTION;
 
 SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
-ERROR 1568 (25001): Transaction characteristics can't be changed while a transaction is in progress
+ERROR 1568 (25001): TRANSACTION ISOLATION can't be set while a transaction is in progress
 ```
+
+Before MariaDB 12.0, the message is `Transaction characteristics can't be changed while a transaction is in progress`.
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
