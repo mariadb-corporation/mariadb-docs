@@ -152,6 +152,13 @@ on the file set, from the repo root:
   `DOC_LINT_ALLOW_ORPHAN='<path>'` remains a local one-off. For triage,
   `.claude/hooks/navcheck.py check [path ...]` lists every current orphan, not just the new ones,
   and `navcheck.py stale` audits the register. Added in DOCS-6567.
+- It also fails a page **newly published at a URL that doesn't match its file path**
+  (`urlcheck.py`, DOCS-7069): GitBook builds the URL from `SUMMARY.md` nesting, group headings,
+  and the lowercased file name, not from the folder. The message gives the path that would match;
+  moving the file there changes nothing for readers, so recommend that over changing
+  `SUMMARY.md`, which changes the URL. History-aware like the orphan check, gated in CI by
+  `urlcheck-pr.yml`. GridGain paths are not checked for now. A page synced from another repo is
+  acknowledged with a `url-path:` entry in `.claude/hooks/doc-lint-allow.yml`.
 - It also flags a **gutted page** — any file that lost more than 40% of its lines *net*
   (deletions minus additions; min 20 lines lost, pre-image ≥ 30 lines) against `DOC_LINT_BASE`
   (default `HEAD`). Gated in CI by `shrinkcheck-pr.yml` since DOCS-6586; needs python3, and

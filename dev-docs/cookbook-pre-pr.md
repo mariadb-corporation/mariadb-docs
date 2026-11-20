@@ -16,11 +16,12 @@ skill, which runs them for you; this page documents what it does and how to run 
 | Page descriptions (length, Markdown, title repeat) | `desccheck.py --stdin0` | `desccheck-pr.yml` |
 | Railroad-diagram dark-mode card | `railroadcheck.py --stdin0` | `railroadcheck-pr.yml` |
 | Nav coverage (orphaned pages) | `navcheck.py new` | `navcheck-pr.yml` |
+| Published URL matches file path | `urlcheck.py new` | `urlcheck-pr.yml` |
 | Gutted pages (net line loss) | `shrinkcheck.py` | `shrinkcheck-pr.yml` |
 | Alias expansion | sed (auto-commit) | `expand-gitbook-aliases.yml` |
 | Help-tables regen | Python | `generate-help-tables.yml` |
 
-Only the first nine can fail your PR; aliases and help-tables are regenerated automatically.
+Only the first ten can fail your PR; aliases and help-tables are regenerated automatically.
 
 The heading-anchor gate arrived in DOCS-6524 and the other three in DOCS-6586: **every check in
 the table above has a CI counterpart**, so a finding on your machine is a finding CI will repeat.
@@ -199,6 +200,20 @@ to. The base side is read out of the object store, so in a nested tree git answe
 *outer* repo, which has never heard of these files — every long-unlisted page would then be
 reported as newly orphaned. `check` is unaffected; it reads only the working tree.
 
+It also fails a page **newly published at a URL that doesn't match its file path** (DOCS-7069).
+GitBook builds the URL from `SUMMARY.md` alone: the entry's nesting, any `## Group` heading above
+it, and the lowercased file name, where a README.md takes its folder's name. So a page filed in
+one folder and nested under another, a new group heading, or a capitalized file name all publish
+fine, at a URL the repo doesn't show. A page nested under a space's home page publishes under
+`readme/`. The message gives the path that would match. Moving the file there changes nothing
+for readers, while changing the `SUMMARY.md` entry instead changes the URL and needs a redirect.
+`.claude/hooks/urlcheck.py` has the derivation rules, proved against the GitBook API for every
+synced page. Like the orphan gate it is history-aware (take the count of pre-existing mismatches
+fresh with `urlcheck.py check`), needs no worktree, and is gated in CI by `urlcheck-pr.yml`. The
+GridGain docs are not checked for now: their spaces, their release notes and clients, and
+Control Center, until the GridGain docs team decides how to file them. A page synced from another repo that can only be fixed there
+gets a `url-path:` entry in the register; `DOC_LINT_ALLOW_URL_PATH` is the local one-off.
+
 Finally, it flags a **gutted page**: any file in the set that lost more than **40%** of its lines
 *net* (deletions minus additions, minimum 20 lines lost, pre-image at least 30 lines) against
 `DOC_LINT_BASE` (default `HEAD`). Gated in CI by `shrinkcheck-pr.yml` since DOCS-6586 — and that
@@ -264,6 +279,9 @@ shrink:
     reason: "3 of 5 child pages retired — DOCS-5976"
 ```
 
+The `url-path:` section (DOCS-7069) works the same way, for a page whose published URL can't
+match its file path because it's synced from another repo and has to be fixed there.
+
 Four rules worth knowing before you add an entry:
 
 - **It is strict YAML-subset, not YAML.** `.claude/hooks/allowlist.py` is the only parser, it is
@@ -274,7 +292,8 @@ Four rules worth knowing before you add an entry:
 - **`all` is refused here.** The `DOC_LINT_ALLOW_*` variables take it for a one-off local run; in
   a checked-in file it would be a permanent repo-wide disable that reads like an acknowledgment.
 - **A stale entry fails.** An `orphan:` entry whose page has since been listed in `SUMMARY.md`,
-  or deleted, or which never named a page in any space, and a `shrink:` entry whose page is gone:
+  or deleted, or which never named a page in any space, a `url-path:` entry whose page is gone,
+  unlisted, or now matches its URL, and a `shrink:` entry whose page is gone:
   all of them turn the gate red, naming the line to delete. The register prunes itself at the
   point someone forgets rather than piling up entries nobody dares remove. There is no
   "un-shrink" signal, so a `shrink:` entry whose page has since regrown still needs a manual pass.
@@ -282,7 +301,8 @@ Four rules worth knowing before you add an entry:
   that *had* acknowledged its finding correctly.
 
 Check it on its own with `python3 .claude/hooks/allowlist.py validate`, and audit the orphan half
-with `python3 .claude/hooks/navcheck.py stale`.
+with `python3 .claude/hooks/navcheck.py stale` and the URL half with
+`python3 .claude/hooks/urlcheck.py stale`.
 
 ## 2. Structural sanity checks (heuristic)
 
