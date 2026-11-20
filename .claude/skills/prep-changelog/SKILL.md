@@ -24,7 +24,8 @@ Proposal and rationale: `dev-docs/skill-proposals/0002-prep-changelog.md` (DOCS-
   differently. See *Repo-setup scripts*.
 - **Doesn't:** write the release notes page, the Post Download page, `all-releases.md`, or the
   `latest-*` / `most-recent-*` includes. Those belong to the same round, so list them as remaining
-  work at the end, but leave them alone.
+  work at the end, but leave them alone. The Post Download page is a separate, later PR, merged
+  once the release notes are live (see Step 5).
 - **Never runs** `mariadb.org-tools/release/prep-changelog`, or a connector developer's
   `git pull && git checkout` recipe, in anyone's working clone. The script does `git checkout
   <branch>` then `git reset --hard <rev>` with no error handling: an unfetched branch makes the
@@ -331,9 +332,14 @@ Run `docs-check` (or `.claude/hooks/doc-lint.sh <files>`) on every changed file,
   TODO ticket, `merge-base`)
 - the `--verify` result on the template, and every warning with what you did about it
 - the files changed
-- what the round still needs that this skill does not do: release notes page, Post Download page,
-  `all-releases.md`, `latest-*` and `most-recent-*` includes, and release-day updates if
-  unreleased
+- what the round still needs that this skill does not do: release notes page, `all-releases.md`,
+  `latest-*` and `most-recent-*` includes, and release-day updates if unreleased. Then, as a
+  **second PR** once the release notes are live (hidden or published), the Post Download page and
+  its `platform/SUMMARY.md` entry. They never go in the same merge as the notes, because GitBook
+  resolves their cross-space links when they sync. The release notes PR carries a
+  `pending-postdownload:` entry in `.claude/hooks/doc-lint-allow.yml` for each new release notes
+  page, and the Post Download PR deletes those entries (DOCS-6962, `dev-docs/cookbook-pre-pr.md`
+  § 1a)
 
 Put the range and the verify result in the PR body too. It is the only record of how the list was
 made.

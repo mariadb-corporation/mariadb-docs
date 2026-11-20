@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""postdownload.py — the Post Download page map, and the no-standalone register.
+"""postdownload.py — the Post Download page map, and the no-standalone and
+pending-postdownload registers.
 
 WHY THIS EXISTS
     A connector or Server release round touches three places, and until
@@ -22,16 +23,20 @@ WHY THIS EXISTS
     and a second copy of that table is the drift it exists to prevent.
 
 WHAT IT GATES TODAY
-    The `no-standalone:` section of the acknowledgment register, in both
-    directions, so an exemption cannot outlive the fact it records:
+    The `no-standalone:` and `pending-postdownload:` sections of the
+    acknowledgment register, in both directions, so an exemption cannot outlive
+    the fact it records:
 
       * an entry naming a page that no longer exists is stale
       * an entry whose release HAS a Post Download page is stale -- the whole
-        claim of the entry is that there is no download to land on, and once
-        the page exists that claim is simply false
+        claim of a no-standalone entry is that there is no download to land
+        on, and of a pending one that its page is not written yet; once the
+        page exists either claim is simply false
       * an entry naming something that is not a release-notes page under a
         product this map knows is rejected, rather than silently exempting
         nothing
+      * a page in both sections is rejected: "never has a page" and "gets its
+        page in the next PR" cannot both be true
 
     The other direction -- that a newly added release notes page HAS its Post
     Download page -- is `new <rev>` (DOCS-6408). It cannot be run tree-wide:
@@ -44,12 +49,28 @@ WHAT IT GATES TODAY
       * the Post Download page exists
       * platform/SUMMARY.md links to it
       * or the release is acknowledged in the `no-standalone:` register
+      * or it is acknowledged in the `pending-postdownload:` register
 
     A page counts as new by PATH, so a pure move of released notes looks new
     and needs a register entry if it never had a download page. `hidden: true`
     notes are held to the same rule: a held-back round still ships its
     platform page (DOCS-6405). The `most-recent-<x>` include is not checked
     here; versioncheck.py owns it.
+
+THE TWO-STEP ORDER (DOCS-6962)
+    A round's Post Download pages must land AFTER its release notes are on the
+    site, hidden or published, never in the same merge. GitBook resolves a
+    cross-space link once, when the file holding it syncs; if the release notes
+    target does not exist yet, the link is saved as a raw app.gitbook.com URL
+    and stays broken until that file changes again. Two rounds shipped that
+    way (DOCS-6951, DOCS-6961).
+
+    So the release notes PR adds a `pending-postdownload:` entry per new page,
+    and `new` reads it as exempt, like `no-standalone:`. The follow-up PR adds
+    the platform pages and removes the entries -- and `audit` fails until it
+    does, because a pending entry whose Post Download page exists is stale. A
+    step 2 that never happens is the remaining gap: `pending` lists entries
+    older than PENDING_DAYS, for nightly-postdownload.yml to report.
 
 WHY THE EXEMPTION IS A REGISTER ENTRY AND NOT PAGE FRONTMATTER
     Decided on DOCS-6734 after checking both. GitBook's frontmatter set is
@@ -71,7 +92,8 @@ WHY THE EXEMPTION IS A REGISTER ENTRY AND NOT PAGE FRONTMATTER
     they are worded differently from each other.
 
 USAGE
-    postdownload.py audit          check the no-standalone register (default)
+    postdownload.py audit          check the no-standalone and
+                                   pending-postdownload registers (default)
     postdownload.py new <rev> [--advisory] [file ...]
                                    release-notes pages added since <rev> that
                                    lack a Post Download page (the DOCS-6408
@@ -83,6 +105,11 @@ USAGE
                                    same, and the caller decides what it means
     postdownload.py path <file>    print the Post Download page a release-notes
                                    page maps to, or why it maps to none
+    postdownload.py pending [--older-than DAYS]
+                                   list pending-postdownload entries, and fail
+                                   on any that landed more than DAYS ago
+                                   (default PENDING_DAYS); an entry not yet
+                                   committed counts as new
 
 Exit: 0 = clean (or SKIPPED), 1 = a finding, 2 = a usage error.
 """
@@ -92,6 +119,7 @@ import pathlib
 import re
 import subprocess
 import sys
+import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 try:
@@ -103,8 +131,15 @@ except ImportError:  # pragma: no cover - a broken checkout, not a missing tool
           'acknowledgments must not report success.', file=sys.stderr)
     sys.exit(2)
 
-SECTION = 'no-standalone'
+NO_STANDALONE = 'no-standalone'
+PENDING = 'pending-postdownload'
 POST_DOWNLOAD = 'platform/post-download'
+
+# How long a pending-postdownload entry may sit on main before `pending` calls it
+# overdue. Step 2 normally follows within a day of the release notes going live;
+# five days clears a weekend and a slow review without hiding a step 2 that was
+# forgotten. The one copy of the number: nightly-postdownload.yml passes none.
+PENDING_DAYS = 5
 
 # release-notes directory -> Post Download page stem, or None for a product that
 # has no Post Download pages at all. Proven against the tree on DOCS-6408 (the
@@ -203,9 +238,12 @@ def post_download_for(rel_path):
 
 
 def audit(root):
-    """Check every no-standalone entry still records something true."""
+    """Check every no-standalone and pending entry still records something true.
+
+    Returns (findings, no-standalone count, pending count), or None for a SKIP.
+    """
     try:
-        entries = allowlist.load(root)[SECTION]
+        register = allowlist.load(root)
     except allowlist.AllowlistError as exc:
         print(f'postdownload: {allowlist.allowlist_path(root)} is malformed — '
               f'{exc}', file=sys.stderr)
@@ -225,7 +263,19 @@ def audit(root):
         return None
 
     findings = 0
-    for e in entries:
+    standalone = {e['path'] for e in register[NO_STANDALONE]}
+    for e in register[PENDING]:
+        if e['path'] in standalone:
+            findings += 1
+            print(f'postdownload: listed twice — {e["path"]}', file=sys.stderr)
+            print(f'              line {e["line"]} of {allowlist.REL_PATH} says '
+                  f'its Post Download page\n              follows in a later '
+                  f'PR, and a no-standalone entry says it never has\n'
+                  f'              one. Keep the one that is true and delete '
+                  f'the other.', file=sys.stderr)
+
+    for section, e in ([(NO_STANDALONE, e) for e in register[NO_STANDALONE]] +
+                       [(PENDING, e) for e in register[PENDING]]):
         page = pathlib.Path(root) / e['path']
         if not page.is_file():
             findings += 1
@@ -246,15 +296,23 @@ def audit(root):
                   f'              with none — so exempting it exempts nothing. '
                   f'Name the version page.', file=sys.stderr)
             continue
-        if (pathlib.Path(root) / expected).is_file():
-            findings += 1
-            print(f'postdownload: stale entry — {e["path"]}', file=sys.stderr)
+        if not (pathlib.Path(root) / expected).is_file():
+            continue
+        findings += 1
+        print(f'postdownload: stale entry — {e["path"]}', file=sys.stderr)
+        if section == PENDING:
+            print(f'              line {e["line"]} of {allowlist.REL_PATH} says '
+                  f'this release\'s Post Download\n              page is still '
+                  f'to come, but {expected}\n              exists. The PR that '
+                  f'adds the page removes the entry — delete it\n'
+                  f'              in this PR.', file=sys.stderr)
+        else:
             print(f'              line {e["line"]} of {allowlist.REL_PATH} says '
                   f'this release has no standalone\n              package, but '
                   f'{expected}\n              exists. Whatever was true when the '
                   f'entry was written, there is a\n              download page '
                   f'now — delete the entry in this PR.', file=sys.stderr)
-    return findings, len(entries)
+    return findings, len(register[NO_STANDALONE]), len(register[PENDING])
 
 
 LINK_RE = re.compile(r'\]\(\s*<?([^)>\s]+)')
@@ -308,10 +366,12 @@ def new_pages(root, rev, scope):
 def check_new(root, rev, files, advisory=False):
     """Gate: every new release page has its Post Download page.
 
-    Returns (findings, checked) or None for a SKIP.
+    Returns (findings, checked, pending) or None for a SKIP.
     """
     try:
-        exempt = {e['path'] for e in allowlist.load(root)[SECTION]}
+        register = allowlist.load(root)
+        exempt = {e['path'] for e in register[NO_STANDALONE]}
+        pending = {e['path'] for e in register[PENDING]}
     except allowlist.AllowlistError as exc:
         print(f'postdownload: {allowlist.allowlist_path(root)} is malformed — '
               f'{exc}', file=sys.stderr)
@@ -342,13 +402,22 @@ def check_new(root, rev, files, advisory=False):
         return None
 
     refs = summary_refs(root)
-    findings = checked = 0
+    findings = checked = waiting = 0
     for page in pages:
         expected = post_download_for(page)
         if expected is None:
             continue
         checked += 1
         if page in exempt:
+            continue
+        if page in pending:
+            # Not a finding: step 1 of the two-step order. Said anyway, so the
+            # job log shows which pages a follow-up PR still owes.
+            waiting += 1
+            print(f'postdownload: pending — {page}\n              {expected} '
+                  f'follows in a separate PR once these notes are\n'
+                  f'              live; that PR removes the pending-postdownload '
+                  f'entry.', file=sys.stderr)
             continue
         if not (pathlib.Path(root) / expected).is_file():
             findings += 1
@@ -357,20 +426,27 @@ def check_new(root, rev, files, advisory=False):
                       file=sys.stderr)
                 print(f'              expected {expected}\n              A '
                       f'docs-team member adds this page and its '
-                      f'platform/SUMMARY.md entry; the\n              '
-                      f'contributor does not need to. If this version shipped '
-                      f'only inside a\n              Server release, add a '
-                      f'`no-standalone:` entry with a reason to\n              '
+                      f'platform/SUMMARY.md entry in a\n              separate '
+                      f'PR once these notes are live; the contributor does '
+                      f'not\n              need to. If this version shipped '
+                      f'only inside a Server release, add a\n              '
+                      f'`no-standalone:` entry with a reason to '
                       f'{allowlist.REL_PATH}.', file=sys.stderr)
             else:
                 print(f'postdownload: missing Post Download page — {page}',
                       file=sys.stderr)
-                print(f'              expected {expected}\n              Add it '
-                      f'(and its platform/SUMMARY.md entry) in this PR. If '
-                      f'this\n              version shipped only inside a '
-                      f'Server release and has no standalone\n              '
-                      f'package, add a `no-standalone:` entry with a reason to '
-                      f'{allowlist.REL_PATH}.', file=sys.stderr)
+                print(f'              expected {expected}\n              The page '
+                      f'goes in a separate PR, after these notes are live: '
+                      f'GitBook\n              resolves its cross-space links '
+                      f'when it syncs, and a link to notes\n              that '
+                      f'are not on the site yet stays broken. Add a '
+                      f'`pending-postdownload:`\n              entry with a '
+                      f'reason to {allowlist.REL_PATH} in this PR, and the\n'
+                      f'              page, its platform/SUMMARY.md entry, and '
+                      f'the entry\'s removal in\n              the next one. If '
+                      f'this version shipped only inside a Server release and '
+                      f'has\n              no standalone package, add a '
+                      f'`no-standalone:` entry instead.', file=sys.stderr)
         elif expected not in refs:
             findings += 1
             who = ('A docs-team member adds the entry.' if advisory
@@ -380,7 +456,64 @@ def check_new(root, rev, files, advisory=False):
             print(f'              {page} has its page, but platform/SUMMARY.md '
                   f'does not link it, so it\n              would publish '
                   f'nowhere. {who}', file=sys.stderr)
-    return findings, checked
+    return findings, checked, waiting
+
+
+def entry_landed(root, path):
+    """Unix time of the commit that put `path` into the pending section, or None.
+
+    The newest commit that changed how often `path: <path>` occurs in the
+    register -- while the entry exists, that is the commit that added it. The
+    COMMITTER date, because main is rebase-merged: the author date can be weeks
+    older than the day the entry reached main. None when the entry is only in
+    the working tree, which is a PR still being written, not an overdue one.
+    """
+    ok, out = git(root, 'log', '-1', '--format=%ct', '-S', f'path: {path}',
+                  '--', allowlist.REL_PATH.replace(os.sep, '/'))
+    out = out.strip()
+    return int(out) if ok and out.isdigit() else None
+
+
+def check_pending(root, days, now=None):
+    """List the pending entries; findings are those older than `days`.
+
+    Returns (overdue, total) or None for a SKIP.
+    """
+    try:
+        entries = allowlist.load(root)[PENDING]
+    except allowlist.AllowlistError as exc:
+        print(f'postdownload: {allowlist.allowlist_path(root)} is malformed — '
+              f'{exc}', file=sys.stderr)
+        return None
+    ok, _ = git(root, 'rev-parse', '--verify', '-q', 'HEAD^{commit}')
+    if not ok:
+        print('postdownload: no git history here — SKIPPED (the age of an entry '
+              'is the date of\n              the commit that added it)',
+              file=sys.stderr)
+        return None
+
+    now = time.time() if now is None else now
+    overdue = 0
+    for e in entries:
+        landed = entry_landed(root, e['path'])
+        if landed is None:
+            age = 'not committed yet'
+            late = False
+        else:
+            n = int((now - landed) // 86400)
+            age = (f'on main since {time.strftime("%Y-%m-%d", time.gmtime(landed))}'
+                   f', {n} day{"" if n == 1 else "s"}')
+            late = n > days
+        overdue += late
+        print(f'postdownload: {"OVERDUE" if late else "pending"} — {e["path"]}\n'
+              f'              {age}; {e["reason"]}', file=sys.stderr)
+    if overdue:
+        print(f'              An overdue entry is a step 2 that never happened: '
+              f'add the Post\n              Download page and its '
+              f'platform/SUMMARY.md entry and delete the\n              entry, '
+              f'or, if the round was pulled, delete the entry with the notes.',
+              file=sys.stderr)
+    return overdue, len(entries)
 
 
 def main(argv):
@@ -408,9 +541,18 @@ def main(argv):
             target = args.pop(0)
             advisory = '--advisory' in args
             files, args = [a for a in args if a != '--advisory'], []
+        elif mode == 'pending':
+            days = PENDING_DAYS
+            if args[:1] == ['--older-than']:
+                if len(args) < 2 or not args[1].isdigit():
+                    print('postdownload: --older-than needs a whole number of '
+                          'days', file=sys.stderr)
+                    return 2
+                days = int(args[1])
+                args = args[2:]
         elif mode != 'audit':
-            print(f'postdownload: unknown mode {mode!r} (expected audit, new or '
-                  f'path)', file=sys.stderr)
+            print(f'postdownload: unknown mode {mode!r} (expected audit, new, '
+                  f'path or pending)', file=sys.stderr)
             return 2
     if args:
         print(f'postdownload: unexpected argument {args[0]!r}', file=sys.stderr)
@@ -429,25 +571,38 @@ def main(argv):
         result = check_new(root, target, files, advisory)
         if result is None:
             return 0
-        findings, n = result
+        findings, n, waiting = result
         # Always printed, on stdout, for the same reason the audit line is: zero
         # new pages is legitimate, but "checked none" and "never ran" must not
-        # share an exit code. postdownload-pr.yml asserts this line.
+        # share an exit code. postdownload-pr.yml asserts this line, up to the
+        # first comma.
         print(f'postdownload: {n} new release page{"" if n == 1 else "s"} '
-              f'checked vs {target}, {findings} without a Post Download page')
+              f'checked vs {target}, {findings} without a Post Download page, '
+              f'{waiting} pending')
         return 1 if findings else 0
+
+    if mode == 'pending':
+        result = check_pending(root, days)
+        if result is None:
+            return 0
+        overdue, n = result
+        # nightly-postdownload.yml asserts this line.
+        print(f'postdownload: {n} pending-postdownload entr'
+              f'{"y" if n == 1 else "ies"}, {overdue} older than {days} days')
+        return 1 if overdue else 0
 
     result = audit(root)
     if result is None:
         return 0
-    findings, n = result
+    findings, n, p = result
 
     # The counts, always, and on stdout. "Audited 2 entries, both still true"
     # and "read an empty register" are otherwise the same exit code, so a moved
     # register or a wrong working directory would leave this permanently and
     # silently green. postdownload-pr.yml asserts this line.
-    print(f'postdownload: {n} no-standalone entr'
-          f'{"y" if n == 1 else "ies"} audited, {findings} stale')
+    print(f'postdownload: {n} no-standalone entr{"y" if n == 1 else "ies"} and '
+          f'{p} pending-postdownload entr{"y" if p == 1 else "ies"} audited, '
+          f'{findings} stale')
     return 1 if findings else 0
 
 

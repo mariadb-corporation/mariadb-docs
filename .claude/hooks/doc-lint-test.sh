@@ -1898,7 +1898,7 @@ no-standalone:
 ALLOW
 pd "$SANDBOX/pd" audit
 want_rc 0
-want_out '1 no-standalone entry audited, 0 stale'
+want_out '1 no-standalone entry and 0 pending-postdownload entries audited, 0 stale'
 end
 
 begin 'an entry whose release has since gained a Post Download page is stale'
@@ -1979,6 +1979,7 @@ pd "$SANDBOX/pd" new HEAD
 want_rc 1
 want_err 'missing Post Download page'
 want_err 'mariadb-connector-c-3.4.11.md'
+want_err 'pending-postdownload'
 want_err 'no-standalone'
 want_out '1 new release page checked'
 pd_clean
@@ -2105,6 +2106,132 @@ begin 'a tree with no post-download directory SKIPs the register audit'
 pd "$SANDBOX" audit
 want_rc 0
 want_err 'not a docs checkout'
+end
+
+# ---- the pending-postdownload register (DOCS-6962) -------------------------------------------
+# Step 1 of the two-step order: the release notes PR adds a pending entry, and the gate passes
+# without the Post Download page. Step 2 adds the page and must remove the entry, or the audit
+# fails. A step 2 that never happens is what `pending` reports, dated by the committing commit.
+
+begin 'a pending-postdownload entry satisfies the gate for a new release page'
+pd_new_page
+write_allow "$SANDBOX/pd" <<'ALLOW'
+pending-postdownload:
+  - path: release-notes/connectors/c/3.4/3.4.11.md
+    reason: "Post Download page follows once these notes are live — DOCS-6962 fixture"
+ALLOW
+pd "$SANDBOX/pd" new HEAD
+want_rc 0
+want_out '1 new release page checked'
+want_out '0 without a Post Download page, 1 pending'
+want_err 'pending — release-notes/connectors/c/3.4/3.4.11.md'
+pd_clean
+end
+
+begin 'a pending entry whose release has no Post Download page yet is accepted by the audit'
+write_allow "$SANDBOX/pd" <<'ALLOW'
+pending-postdownload:
+  - path: release-notes/connectors/c/3.4/3.4.10.md
+    reason: "DOCS-6962 fixture"
+ALLOW
+pd "$SANDBOX/pd" audit
+want_rc 0
+want_out '0 no-standalone entries and 1 pending-postdownload entry audited, 0 stale'
+end
+
+begin 'a pending entry whose Post Download page now exists is stale'
+# Step 2 added the page but kept the entry: the audit is what makes it go.
+: > "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.10.md"
+pd "$SANDBOX/pd" audit
+want_rc 1
+want_err 'stale entry'
+want_err 'removes the entry'
+want_out '1 pending-postdownload entry audited, 1 stale'
+rm -f "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.10.md"
+end
+
+begin 'a pending entry whose page is gone is stale'
+mv "$SANDBOX/pd/release-notes/connectors/c/3.4/3.4.10.md" "$SANDBOX/pd/moved.md"
+pd "$SANDBOX/pd" audit
+want_rc 1
+want_err 'acknowledges a page that no'
+mv "$SANDBOX/pd/moved.md" "$SANDBOX/pd/release-notes/connectors/c/3.4/3.4.10.md"
+end
+
+begin 'a page in both no-standalone and pending-postdownload is rejected'
+write_allow "$SANDBOX/pd" <<'ALLOW'
+no-standalone:
+  - path: release-notes/connectors/c/3.4/3.4.10.md
+    reason: "shipped only inside Server — DOCS-6962 fixture"
+
+pending-postdownload:
+  - path: release-notes/connectors/c/3.4/3.4.10.md
+    reason: "DOCS-6962 fixture"
+ALLOW
+pd "$SANDBOX/pd" audit
+want_rc 1
+want_err 'listed twice'
+end
+
+begin 'a stale pending entry fails through doc-lint.sh too'
+write_allow "$SANDBOX/pd" <<'ALLOW'
+pending-postdownload:
+  - path: release-notes/connectors/c/3.4/3.4.10.md
+    reason: "DOCS-6962 fixture"
+ALLOW
+: > "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.10.md"
+lint pd - "$NOFRAG" -- clean.md
+want_rc 1
+want_err 'stale entry'
+rm -f "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.10.md"
+end
+
+begin 'an uncommitted pending entry is not overdue'
+# The register still holds the entry from the case above, in the working tree only: a PR being
+# written, which no age applies to.
+pd "$SANDBOX/pd" pending
+want_rc 0
+want_err 'not committed yet'
+want_out '1 pending-postdownload entry, 0 older than 5 days'
+end
+
+begin 'a pending entry that landed more than PENDING_DAYS ago is overdue'
+# Committed with an old COMMITTER date, which is the one that counts: main is rebase-merged, so
+# that is the day the entry landed. Undone at the end so later cases see the fixture commit.
+( cd "$SANDBOX/pd" && git add .claude/hooks/doc-lint-allow.yml \
+    && GIT_AUTHOR_DATE='2026-01-01T00:00:00Z' GIT_COMMITTER_DATE='2026-01-01T00:00:00Z' \
+       git commit -q -m 'pending fixture' ) >/dev/null
+pd "$SANDBOX/pd" pending
+want_rc 1
+want_err 'OVERDUE — release-notes/connectors/c/3.4/3.4.10.md'
+want_err 'on main since 2026-01-01'
+want_err 'DOCS-6962 fixture'
+want_out '1 older than 5 days'
+pd "$SANDBOX/pd" pending --older-than 100000
+want_rc 0
+want_out '0 older than 100000 days'
+( cd "$SANDBOX/pd" && git reset -q --hard HEAD~1 ) >/dev/null
+end
+
+begin 'an old author date does not make a newly landed pending entry overdue'
+write_allow "$SANDBOX/pd" <<'ALLOW'
+pending-postdownload:
+  - path: release-notes/connectors/c/3.4/3.4.10.md
+    reason: "DOCS-6962 fixture"
+ALLOW
+( cd "$SANDBOX/pd" && git add .claude/hooks/doc-lint-allow.yml \
+    && GIT_AUTHOR_DATE='2026-01-01T00:00:00Z' git commit -q -m 'pending fixture' ) >/dev/null
+pd "$SANDBOX/pd" pending
+want_rc 0
+want_out '0 older than 5 days'
+( cd "$SANDBOX/pd" && git reset -q --hard HEAD~1 ) >/dev/null
+end
+
+begin 'pending rejects a --older-than that is not a number of days'
+pd "$SANDBOX/pd" pending --older-than soon
+want_rc 2
+want_err 'whole number of days'
+rm -f "$SANDBOX/pd/.claude/hooks/doc-lint-allow.yml"
 end
 
 # ---- SKIP branches: a missing tool is a notice, never a failure ------------------------------

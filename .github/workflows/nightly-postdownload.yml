@@ -12,8 +12,15 @@ name: Nightly Post Download sweep
 #   covers the tree, the same split as fragcheck-pr.yml and nightly-fragcheck.yml.
 #
 # ONE CODE PATH: this runs `postdownload.py new <base> --advisory`, the PR gate's own invocation,
-# so it inherits the naming map, the `no-standalone:` register, and every exemption without a
-# second copy. --advisory only rewords the findings for the docs team; the exit code is the same.
+# so it inherits the naming map, the `no-standalone:` and `pending-postdownload:` registers, and
+# every exemption without a second copy. --advisory only rewords the findings for the docs team;
+# the exit code is the same.
+#
+# OVERDUE PENDING ENTRIES (DOCS-6962): a `pending-postdownload:` entry exempts its page from that
+# scan while the follow-up PR that adds the page is on its way. If the follow-up never comes, the
+# exemption would hide the gap for good, so `postdownload.py pending` dates each entry by the
+# commit that landed it and reports any older than its PENDING_DAYS. Same contract as the scan:
+# reported every weekday until cleared, never written.
 #
 # WHY A FIXED BASELINE AND NOT A ROLLING ONE
 #   The other nightly digests diff against a rolling 24-hour base, so each finding is reported on
@@ -171,13 +178,46 @@ jobs:
             exit 1
           fi
 
+      # A pending-postdownload entry exempts its page from the scan above, so a step 2 that never
+      # happens would otherwise be hidden for good. This lists the entries and flags any that has
+      # been on main longer than postdownload.py's PENDING_DAYS -- the one copy of that number.
+      - name: List overdue pending-postdownload entries
+        id: pending
+        run: |
+          set -uo pipefail
+          set +e
+          python3 .claude/hooks/postdownload.py pending > pending.log 2>&1
+          rc=$?
+          set -e
+          cat pending.log
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          # Same contract as the scan: an overdue entry (rc 1) is a finding, not a failure.
+          case "$rc" in
+            0|1) ;;
+            2) echo "::error::postdownload.py rejected its arguments, or could not read the acknowledgment register."; exit 1 ;;
+            *) echo "::error::postdownload.py exited $rc (crash). The digest did not run."; exit 1 ;;
+          esac
+
+          # It SKIPs and exits zero with no history to date the entries by, which fetch-depth: 0
+          # rules out here -- so a SKIP must not read as "nothing overdue".
+          if grep -q 'SKIPPED' pending.log; then
+            echo "::error::The pending-entry check SKIPPED: it dates each entry from git history. Check that fetch-depth: 0 is still set on the checkout step."
+            exit 1
+          fi
+          if ! grep -qE '^postdownload: [0-9]+ pending-postdownload entr(y|ies), [0-9]+ older than ' pending.log; then
+            echo "::error::Could not read the pending-entry count out of postdownload's output. Either the summary line changed shape (update this assertion with it) or the script never got to print it."
+            exit 1
+          fi
+
       # The scan names pages, not how they arrived. The commit that added each one is what tells
       # a person whether it was a fork PR, a GitBook-UI edit, or a direct push -- and who to ask.
+      # Pending pages are listed in the log too, but they are not owed yet, so they are left out.
       - name: Name the commit that added each page
         if: steps.scan.outputs.rc == '1'
         run: |
           set -euo pipefail
-          grep -oE 'release-notes/[^ ]+\.md' postdownload.log | sort -u | while read -r page; do
+          grep -v '^postdownload: pending — ' postdownload.log | grep -oE 'release-notes/[^ ]+\.md' | sort -u | while read -r page; do
             echo "$page"
             echo "    added by $(git log -1 --diff-filter=A --format='%h %s' -- "$page")"
           done > added-by.log
@@ -188,6 +228,7 @@ jobs:
         env:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           RC: ${{ steps.scan.outputs.rc }}
+          PENDING_RC: ${{ steps.pending.outputs.rc }}
           BASE_SHORT: ${{ steps.base.outputs.short }}
           BASE_DATE: ${{ steps.base.outputs.date }}
           # 'true' only on the Monday cron. github.event.schedule holds the cron string exactly as
@@ -206,39 +247,51 @@ jobs:
           # reasoning, and the same deliberate decision not to escape `*`, `_` or backticks, as
           # nightly-fragcheck.yml and nightly-unlabeled-prs.yml.
           #
-          # The body is truncated at 2,800 characters: Slack rejects an incoming-webhook payload
-          # over 4,000 with msg_too_long, and at `errors: true` that is a red run. The step
-          # summary carries the full log. The cut comes after `esc`, because escaping can grow
+          # The body is truncated at 2,800 characters, or 2,000 plus 800 for the pending list when
+          # both have findings: Slack rejects an incoming-webhook payload over 4,000 with
+          # msg_too_long, and at `errors: true` that is a red run. The step summary carries the
+          # full log. The cut comes after `esc`, because escaping can grow
           # the text fivefold and only the escaped length is bounded; a cut that lands inside
           # an entity (`&am`) drops the fragment rather than leaving it at the end.
           jq -n \
             --rawfile log postdownload.log \
             --rawfile added added-by.log \
+            --rawfile pending pending.log \
             --arg repo "$GITHUB_REPOSITORY" \
             --arg run "$RUN_URL" \
             --arg base "$BASE_SHORT" \
             --arg basedate "$BASE_DATE" \
             --argjson rc "${RC:-0}" \
+            --argjson prc "${PENDING_RC:-0}" \
             --argjson heartbeat "${HEARTBEAT:-false}" '
             def esc: gsub("&"; "&amp;") | gsub("<"; "&lt;") | gsub(">"; "&gt;");
+            def cut($n): if length > $n
+              then (.[0:$n] | sub("&[a-z]{0,3}$"; "")) + "\n… truncated; full output in the run summary."
+              else . end;
 
-            (($log + (if $added == "" then "" else "\n" + $added end)) | esc) as $body
-            | (if ($body | length) > 2800
-               then (($body[0:2800] | sub("&[a-z]{0,3}$"; ""))
-                     + "\n… truncated; full output in the run summary.")
-               else $body end) as $body
+            (($log + (if $added == "" then "" else "\n" + $added end)) | esc
+              | cut(if $prc == 0 then 2800 else 2000 end)) as $body
+            | ($pending | esc | cut(800)) as $pbody
             | { text: (
-                  if $rc == 0 and $heartbeat then
+                  if $rc == 0 and $prc == 0 and $heartbeat then
                     ":coffee: *Weekly check-in* — every Community Server and connector release notes page added to \($repo) since \($base) (\($basedate)) has its Post Download page."
                     + "\n\n<\($run)|workflow run>"
-                  elif $rc == 0 then
+                  elif $rc == 0 and $prc == 0 then
                     ":white_check_mark: Every Community Server and connector release notes page added to \($repo) since \($base) has its Post Download page."
                     + "\n\n<\($run)|workflow run>"
                   else
-                    ":package: *Post Download pages owed in \($repo)*\n"
-                    + "```\n\($body)\n```"
-                    + "\n\nA reader who finishes a download from these releases lands on no page. Add each page and its `platform/SUMMARY.md` entry, or a `no-standalone:` entry in `.claude/hooks/doc-lint-allow.yml` if the version shipped only inside a Server release. Repeats every weekday until cleared."
-                    + "\n<\($run)|workflow run>"
+                    (if $rc != 0 then
+                      ":package: *Post Download pages owed in \($repo)*\n"
+                      + "```\n\($body)\n```"
+                      + "\n\nA reader who finishes a download from these releases lands on no page. Add each page and its `platform/SUMMARY.md` entry, or a `no-standalone:` entry in `.claude/hooks/doc-lint-allow.yml` if the version shipped only inside a Server release. Repeats every weekday until cleared.\n"
+                     else "" end)
+                    + (if $prc != 0 then
+                      (if $rc != 0 then "\n" else "" end)
+                      + ":hourglass: *Pending Post Download pages overdue in \($repo)*\n"
+                      + "```\n\($pbody)\n```"
+                      + "\n\nThese release notes went live with a `pending-postdownload:` entry, and no follow-up PR has added the page. Add it and its `platform/SUMMARY.md` entry and delete the entry, or delete the entry with the notes if the round was pulled. Repeats every weekday until cleared.\n"
+                     else "" end)
+                    + "<\($run)|workflow run>"
                   end
                 ) }' > payload.json
 
@@ -249,6 +302,7 @@ jobs:
         if: always()
         env:
           RC: ${{ steps.scan.outputs.rc }}
+          PENDING_RC: ${{ steps.pending.outputs.rc }}
           BASE_SHORT: ${{ steps.base.outputs.short }}
           BASE_DATE: ${{ steps.base.outputs.date }}
         run: |
@@ -284,6 +338,29 @@ jobs:
               echo "python3 .claude/hooks/postdownload.py new ${BASE_SHORT:-$BASELINE}"
               echo '````'
             fi
+            echo
+            echo "## Pending Post Download pages"
+            echo
+            if [[ ! -s pending.log ]]; then
+              echo "No output was produced -- an earlier step failed before the check ran."
+            else
+              case "${PENDING_RC:-}" in
+                0) echo "No \`pending-postdownload:\` entry is overdue." ;;
+                1) echo "A \`pending-postdownload:\` entry has been on main for longer than its follow-up PR should take. Nothing was filed -- the fix stays a human decision." ;;
+                *) echo "The check did not complete (exit ${PENDING_RC:-unknown})." ;;
+              esac
+              echo
+              # Fenced for the same reason as the log above: it embeds register reasons.
+              echo '````text'
+              cat pending.log
+              echo '````'
+              echo
+              echo "Run the same check locally with:"
+              echo
+              echo '````bash'
+              echo "python3 .claude/hooks/postdownload.py pending"
+              echo '````'
+            fi
           } >> "$GITHUB_STEP_SUMMARY"
 
       # Both Slack steps post to NOTIFICATIONS_WEBHOOK_URL -- one channel for the digest and for
@@ -297,7 +374,7 @@ jobs:
       # The Monday clause is what makes the heartbeat reach Slack at all -- rc is 0 on a clean
       # Monday, so the first clause is false and without the second nothing would be sent.
       - name: Post the digest to Slack
-        if: steps.scan.outputs.rc != '0' || github.event.schedule == '40 6 * * 1' || inputs.always_post
+        if: steps.scan.outputs.rc != '0' || steps.pending.outputs.rc != '0' || github.event.schedule == '40 6 * * 1' || inputs.always_post
         uses: slackapi/slack-github-action@v3.0.5
         with:
           webhook: ${{ secrets.NOTIFICATIONS_WEBHOOK_URL }}
