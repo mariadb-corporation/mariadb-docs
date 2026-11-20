@@ -21,7 +21,7 @@ All the Docker images used by this operator are based on [Red Hat UBI](https://c
 
 MariaDB Enterprise Kubernetes Operator is compatible with the following Docker images:
 
-In the **Supported Tags** column, `x` stands for any patch version. For more information on how to find the exact tags available in the registry, see [Finding a specific tag](../docker-images.md#finding-a-specific-tag).
+In the **Supported Tags** column, `x` stands for any patch version. For more information on how to find the exact tags available in the registry, see [Finding a specific tag](#finding-a-specific-tag).
 
 | Component | Image | Supported Tags | CPU Architecture |
 |-----------|-------|----------------|------------------|

@@ -21,6 +21,8 @@ spec:
 Each supported plugin will have a section on how to install it.
 {% endhint %}
 
+In the **Supported Tags** column, `x` stands for any patch version. For more information on how to find the exact tags available in the registry, see [Finding a specific tag](../docker-images.md#finding-a-specific-tag).
+
 | Component | Image | Supported Tags | CPU Architecture |
 |-----------|-------|----------------|------------------|
 | MariaDB Enterprise Server | docker.mariadb.com/enterprise-server |  11.8.x <br>  11.4.x <br>  10.6.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
