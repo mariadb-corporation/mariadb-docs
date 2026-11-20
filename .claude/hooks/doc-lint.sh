@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 #
 # doc-lint.sh — the SINGLE SOURCE OF TRUTH for the codespell + lychee invocations that mirror
-# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus eight checks it delegates to
-# their own scripts: a GitBook include resolver (includecheck.sh), a Mermaid edge-label
+# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus nine checks it delegates to
+# their own scripts: a GitBook include resolver (includecheck.sh), a cross-space relative link
+# check (crossspacecheck.py, DOCS-7156), a Mermaid edge-label
 # contrast check (mermaidcheck.py), a page-description check (desccheck.py, DOCS-6763, gated
 # by desccheck-pr.yml), a heading-anchor gate (fragcheck.py), an orphaned-page/
 # nav-coverage gate (navcheck.py), a net line-loss guard (shrinkcheck.py), a paired
 # version-include guard (versioncheck.py) and the Post Download checks (postdownload.py: the
 # no-standalone register audit, and the DOCS-6408 gate that a newly added release notes page
-# has its platform/post-download/ page). All eight are gated in CI — by includecheck-pr.yml, mermaidcheck-pr.yml
+# has its platform/post-download/ page). All nine are gated in CI — by includecheck-pr.yml,
+# crossspacecheck-pr.yml, mermaidcheck-pr.yml
 # (DOCS-6630), fragcheck-pr.yml, navcheck-pr.yml, shrinkcheck-pr.yml, versioncheck-pr.yml and
 # postdownload-pr.yml (both DOCS-6734) respectively — so a finding here is a finding CI will
 # repeat, and none of them is "local only" any more.
@@ -239,6 +241,25 @@ if [ ! -f "$INCLUDECHECK" ]; then
   rc=1
 else
   bash "$INCLUDECHECK" "${files[@]}" >/dev/null || rc=1
+fi
+
+# --- relative links that leave their space — HAS a CI counterpart (crossspacecheck-pr.yml) ---
+# The include resolver above fails a relative {% include %} into another space; this is the same
+# rule for links (DOCS-7156). A relative path into another space resolves on disk, so lychee
+# passes it, but it addresses the target by file path and breaks when that file moves. Diffed
+# against $LINT_BASE because main still carries the MaxScale ones, which also need fixing in the
+# MaxScale source. No acknowledgment path: such a link is never right. Needs python3 and git.
+if [ ! -f .claude/hooks/crossspacecheck.py ]; then
+  echo "doc-lint: .claude/hooks/crossspacecheck.py not found — cross-space link check SKIPPED" >&2
+elif ! command -v python3 >/dev/null 2>&1; then
+  echo "doc-lint: python3 not installed — cross-space link check SKIPPED (crossspacecheck-pr.yml" >&2
+  echo "          still gates this in CI). Install: brew install python3" >&2
+elif ! command -v git >/dev/null 2>&1 || ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "doc-lint: not a git work tree — cross-space link check SKIPPED (needs a base revision)" >&2
+elif ! git rev-parse --verify -q "$LINT_BASE" >/dev/null 2>&1; then
+  echo "doc-lint: base revision '$LINT_BASE' not found — cross-space link check SKIPPED" >&2
+else
+  python3 .claude/hooks/crossspacecheck.py new "$LINT_BASE" "${files[@]}" >/dev/null || rc=1
 fi
 
 # --- Mermaid edge-label contrast — HAS a CI counterpart since DOCS-6630 ----------------------

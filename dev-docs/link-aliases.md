@@ -57,7 +57,9 @@ Markdown files your own PR changes, so that follow-up commit never edits a file 
   same space. **One exception:** the Community Tools pages synced from product repos
   (`tools/community/mariadb-ai-plugins/`, `tools/community/mariadb-shell/`) use absolute
   `https://mariadb.com/docs/…` URLs, because they must match their source. See
-  [the sync cookbook](cookbook-community-tools-sync.md).
+  [the sync cookbook](cookbook-community-tools-sync.md). A relative path into another space,
+  such as `../../../../server/...`, fails `crossspacecheck.py` (DOCS-7156): it addresses the
+  target by file path and breaks when that file moves.
 - **Never expand an alias by hand**, and never rewrite an already-expanded
   `app.gitbook.com` URL back into the source. The Action owns that transform.
 - **Aliases don't resolve in a local editor, the GitHub UI, or the GitHub app** — that's

@@ -396,6 +396,7 @@ build_navbox() {
   : > "$NAVBOX/.codespellignore"
   cp "$SCRIPT_DIR/navcheck.py"     "$NAVBOX/.claude/hooks/navcheck.py"
   cp "$SCRIPT_DIR/includecheck.sh" "$NAVBOX/.claude/hooks/includecheck.sh"
+  cp "$SCRIPT_DIR/crossspacecheck.py" "$NAVBOX/.claude/hooks/crossspacecheck.py"
   # navcheck.py imports allowlist.py for the acknowledgment register (DOCS-6586) and treats its
   # absence as a broken checkout rather than a missing tool, so the copy is not optional -- and
   # one case below deletes it on purpose to assert exactly that.
@@ -421,7 +422,9 @@ build_navbox() {
 
   # beta: a second space, to prove one space's orphan is not reported for another's paths.
   printf '# Beta\n\n* [Listed](listed.md)\n' > "$NAVBOX/beta/SUMMARY.md"
-  printf '# Beta Listed\n\nListed in nav.\n' > "$NAVBOX/beta/listed.md"
+  # Its committed link into alpha is the cross-space backlog in miniature (DOCS-7156): it must
+  # stay quiet under `crossspacecheck.py new`.
+  printf '# Beta Listed\n\nListed in nav. See [Alpha](../alpha/listed.md).\n' > "$NAVBOX/beta/listed.md"
 
   # Not a space: no SUMMARY.md. This is what keeps dev-docs/, .claude/ and help-tables/ out
   # without navcheck.py having to name them, so it must never be reported.
@@ -523,6 +526,17 @@ nul_list() {
   : > "$out"
   local n
   for n in "$@"; do printf '%s\0' "$n" >> "$out"; done
+}
+
+# xsc <crossspacecheck args...>
+# crossspacecheck.py driven directly in the orphan sandbox, which has two spaces (alpha, beta).
+xsc() {
+  set +e
+  ( cd "$NAVBOX" && env -i "PATH=$MIN_PATH" "HOME=$NAVBOX" \
+      python3 "$NAVBOX/.claude/hooks/crossspacecheck.py" "$@" ) > "$OUT" 2> "$ERR"
+  RC=$?
+  set -e
+  if [ "$VERBOSE" = "1" ]; then sed 's/^/      | /' < "$ERR"; fi
 }
 
 # nav <env-assignments...> -- <navcheck args...>
@@ -821,6 +835,72 @@ set -e
 want_rc 1
 want_err 'cannot resolve GitBook includes'
 want_err 'broken checkout'
+end
+
+# ---- relative links that leave their space (DOCS-7156; gated by crossspacecheck-pr.yml) ------
+# Runs in the orphan sandbox, whose beta/listed.md carries a committed link into alpha.
+
+begin 'crossspacecheck: a new relative link into another space fails'
+printf '\nSee [Beta](../beta/listed.md#top).\n' >> "$NAVBOX/alpha/listed.md"
+xsc new HEAD alpha/listed.md
+want_rc 1
+want_err 'alpha/listed.md:5: ../beta/listed.md#top'
+want_err 'points into beta/'
+want_err 'DOCS-7156'
+navreset
+end
+
+begin 'crossspacecheck: a committed one is pre-existing, and check still lists it'
+xsc new HEAD
+want_rc 0
+want_out 'no new relative links leave their space vs HEAD (1 pre-existing, unchanged'
+want_out 'page(s) scanned'    # crossspacecheck-pr.yml asserts on this count
+xsc check
+want_rc 1
+want_err 'beta/listed.md:3: ../alpha/listed.md'
+navreset
+end
+
+begin 'crossspacecheck: href, src, content-ref url, and reference definitions are caught'
+cat >> "$NAVBOX/alpha/listed.md" <<'EOF'
+
+<a href="../beta/listed.md">Beta</a> <img src="../beta/pic.png">
+
+{% content-ref url="../beta/listed.md" %}
+[listed.md](../beta/listed.md)
+{% endcontent-ref %}
+
+[ref]: ../beta/listed.md
+EOF
+xsc new HEAD alpha/listed.md
+want_rc 1
+want_err 'crossspacecheck: 5 relative link(s) added'
+navreset
+end
+
+begin 'crossspacecheck: code, aliases, same-space links, and URLs pass'
+cat >> "$NAVBOX/alpha/listed.md" <<'EOF'
+
+```markdown
+[Beta](../beta/listed.md)
+```
+
+Inline `[Beta](../beta/listed.md)` is an example. [Server]({server}/x), [Nested](sub/nested-listed.md),
+[Anchor](#top), and [Site](https://example.com/../beta/listed.md).
+EOF
+xsc new HEAD alpha/listed.md
+want_rc 0
+navreset
+end
+
+begin 'doc-lint.sh fails when crossspacecheck.py reports a new cross-space link'
+printf '\nSee [Beta](../beta/listed.md).\n' >> "$NAVBOX/alpha/listed.md"
+LINT_ROOT="$NAVBOX" lint . - "$NOFRAG" DOC_LINT_BASE=HEAD -- alpha/listed.md
+LINT_ROOT=''
+want_rc 1
+want_err 'points into beta/'
+want_empty_stdout       # the clean line is swallowed; findings go to stderr
+navreset
 end
 
 # ---- Mermaid edge-label contrast (DOCS-6630; gated in CI by mermaidcheck-pr.yml) -------------
