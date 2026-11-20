@@ -27,6 +27,7 @@ MariaDB Enterprise Kubernetes Operator is compatible with the following Docker i
 | MariaDB Enterprise Server | docker.mariadb.com/enterprise-server |  11.8.x <br>  11.4.x <br>  10.6.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 | MariaDB Enterprise Server (tiered) | docker.mariadb.com/enterprise-server |  12.3.x (also 12.3.x-minimal, 12.3.x-standard) <br>  11.8.x (also 11.8.x-minimal, 11.8.x-standard) <br>  11.4.x (also 11.4.x-minimal, 11.4.x-standard) <br>  10.6.x (also 10.6.x-minimal, 10.6.x-standard) <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 | MaxScale Enterprise | docker.mariadb.com/maxscale |  26.10.x <br>  25.10.x <br>  25.01.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MaxScale | mariadb/maxscale |  23.08.x <br>  24.02.x <br>  |  amd64 <br>  arm64 <br>  |
 | MariaDB Prometheus Exporter | mariadb/mariadb-prometheus-exporter-ubi |  1.2.x <br>  1.1.x <br>  0.0.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 | MaxScale Prometheus Exporter | mariadb/maxscale-prometheus-exporter-ubi |  1.2.x <br>  1.1.x <br>  0.0.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 | MariaDB Enterprise nslcd sidecar | docker.mariadb.com/nslcd |  0.9.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
