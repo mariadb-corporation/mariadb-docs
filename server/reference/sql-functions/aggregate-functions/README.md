@@ -23,6 +23,20 @@ Stored Aggregate Functions allow users to create custom aggregate functions that
 
 {% columns %}
 {% column %}
+{% content-ref url="any_value.md" %}
+[any_value.md](any_value.md)
+{% endcontent-ref %}
+
+
+{% endcolumn %}
+
+{% column %}
+Return a value from any row of a group. Use it to select a column that isn't in the `GROUP BY` clause when `ONLY_FULL_GROUP_BY` is set. From MariaDB 13.2.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="avg.md" %}
 [avg.md](avg.md)
 {% endcontent-ref %}
