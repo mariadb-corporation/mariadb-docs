@@ -24,7 +24,7 @@ Each supported plugin will have a section on how to install it.
 | Component | Image | Supported Tags | CPU Architecture |
 |-----------|-------|----------------|------------------|
 | MariaDB Enterprise Server | docker.mariadb.com/enterprise-server |  11.8.x <br>  11.4.x <br>  10.6.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MariaDB Enterprise Server (tiered) | docker.mariadb.com/enterprise-server |  12.3.x (also -minimal, -standard) <br>  11.8.x (also -minimal, -standard) <br>  11.4.x (also -minimal, -standard) <br>  10.6.x (also -minimal, -standard) <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise Server (tiered) | docker.mariadb.com/enterprise-server |  12.3.x (also 12.3.x-minimal, 12.3.x-standard) <br>  11.8.x (also 11.8.x-minimal, 11.8.x-standard) <br>  11.4.x (also 11.4.x-minimal, 11.4.x-standard) <br>  10.6.x (also 10.6.x-minimal, 10.6.x-standard) <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

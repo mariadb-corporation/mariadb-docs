@@ -25,7 +25,7 @@ MariaDB Enterprise Kubernetes Operator is compatible with the following Docker i
 |-----------|-------|----------------|------------------|
 | MariaDB Enterprise Kubernetes Operator | docker.mariadb.com/mariadb-enterprise-operator |  26.10.x <br>  26.6.x <br>  26.3.x <br>  25.10.x <br>  25.8.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 | MariaDB Enterprise Server | docker.mariadb.com/enterprise-server |  11.8.x <br>  11.4.x <br>  10.6.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MariaDB Enterprise Server (tiered) | docker.mariadb.com/enterprise-server |  12.3.x (also -minimal, -standard) <br>  11.8.x (also -minimal, -standard) <br>  11.4.x (also -minimal, -standard) <br>  10.6.x (also -minimal, -standard) <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise Server (tiered) | docker.mariadb.com/enterprise-server |  12.3.x (also 12.3.x-minimal, 12.3.x-standard) <br>  11.8.x (also 11.8.x-minimal, 11.8.x-standard) <br>  11.4.x (also 11.4.x-minimal, 11.4.x-standard) <br>  10.6.x (also 10.6.x-minimal, 10.6.x-standard) <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 | MaxScale Enterprise | docker.mariadb.com/maxscale |  26.10.x <br>  25.10.x <br>  25.01.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 | MariaDB Prometheus Exporter | mariadb/mariadb-prometheus-exporter-ubi |  1.2.x <br>  1.1.x <br>  0.0.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 | MaxScale Prometheus Exporter | mariadb/maxscale-prometheus-exporter-ubi |  1.2.x <br>  1.1.x <br>  0.0.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
@@ -33,9 +33,9 @@ MariaDB Enterprise Kubernetes Operator is compatible with the following Docker i
 
 Refer to the registry documentation to [access docker.mariadb.com with your customer credentials](customer-access-to-docker-mariadb-com.md).
 
-## Finding the latest tag
+## Finding a specific tag
 
-The tags in the table are version ranges, where `x` stands for any patch version. To find the latest patch release, either let a tool track it or list the tags yourself.
+The tags in the table are version ranges, where `x` stands for any patch version.
 
 ### Listing tags manually
 
@@ -50,7 +50,7 @@ skopeo list-tags docker://docker.mariadb.com/enterprise-server
 Or query the registry API directly and sort the result by version:
 
 ```bash
-curl -s -u "$USER:$PASS" https://docker.mariadb.com/v2/enterprise-server/tags/list | jq -r '.tags[]' | grep -v 'community' | grep -E '^11\.8\.' | sort -V
+curl -s -u "$USER:$CUSTOMER_TOKEN" https://docker.mariadb.com/v2/enterprise-server/tags/list | jq -r '.tags[]' | grep -v 'community' | grep -E '^11\.8\.' | sort -V
 ```
 
 Replace `enterprise-server` with `maxscale`, `mariadb-enterprise-operator` or `nslcd` to list the tags of the other images.
