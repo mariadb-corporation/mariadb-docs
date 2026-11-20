@@ -21,10 +21,12 @@ spec:
 Each supported plugin will have a section on how to install it.
 {% endhint %}
 
+In the **Supported Tags** column, `x` stands for any patch version. For more information on how to find the exact tags available in the registry, see [Finding a specific tag](../docker-images.md#finding-a-specific-tag).
+
 | Component | Image | Supported Tags | CPU Architecture |
 |-----------|-------|----------------|------------------|
-| MariaDB Enterprise Server | docker.mariadb.com/enterprise-server |  11.8.6-3 <br>  11.8.5-2 <br>  11.8.3-1 <br>  11.4.10-7 <br>  11.4.9-6 <br>  11.4.8-5 <br>  11.4.7-4.3 <br>  11.4.7-4.2 <br>  11.4.7-4.1 <br>  10.6.25-21 <br>  10.6.24-20 <br>  10.6.23-19 <br>  10.6.22-18.1 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MariaDB Enterprise Server (tiered) | docker.mariadb.com/enterprise-server |  12.3.3-1-standard <br>  12.3-standard <br>  11.8.8-5-standard <br>  11.8-standard <br>  11.8.6-4-standard <br>  11.8.6-3.2-standard <br>  11.8.6-3.1-standard <br>  11.4.12-9-standard <br>  11.4-standard <br>  11.4.10-8-standard <br>  11.4.10-7.2-standard <br>  11.4.10-7.1-standard <br>  10.6.27-23-standard <br>  10.6-standard <br>  10.6.25-22-standard <br>  10.6.25-21.5-standard <br>  10.6.25-21.1-standard <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise Server | docker.mariadb.com/enterprise-server |  11.8.x <br>  11.4.x <br>  10.6.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise Server (tiered) | docker.mariadb.com/enterprise-server |  12.3.x (also 12.3.x-minimal, 12.3.x-standard) <br>  11.8.x (also 11.8.x-minimal, 11.8.x-standard) <br>  11.4.x (also 11.4.x-minimal, 11.4.x-standard) <br>  10.6.x (also 10.6.x-minimal, 10.6.x-standard) <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
