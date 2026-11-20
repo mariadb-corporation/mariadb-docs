@@ -21,6 +21,8 @@ All the Docker images used by this operator are based on [Red Hat UBI](https://c
 
 MariaDB Enterprise Kubernetes Operator is compatible with the following Docker images:
 
+In the **Supported Tags** column, `x` stands for any patch version. For more information on how to find the exact tags available in the registry, see [Finding a specific tag](../docker-images.md#finding-a-specific-tag).
+
 | Component | Image | Supported Tags | CPU Architecture |
 |-----------|-------|----------------|------------------|
 | MariaDB Enterprise Kubernetes Operator | docker.mariadb.com/mariadb-enterprise-operator |  26.10.x <br>  26.6.x <br>  26.3.x <br>  25.10.x <br>  25.8.x <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
