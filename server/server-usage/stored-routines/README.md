@@ -33,6 +33,18 @@ Utilize stored functions in MariaDB Server. This section details creating, using
 
 {% columns %}
 {% column %}
+{% content-ref url="stored-packages.md" %}
+[stored-packages.md](stored-packages.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Group related stored procedures and functions into a stored package, with package variables, private routines, and an initialization section.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="binary-logging-of-stored-routines.md" %}
 [binary-logging-of-stored-routines.md](binary-logging-of-stored-routines.md)
 {% endcontent-ref %}
