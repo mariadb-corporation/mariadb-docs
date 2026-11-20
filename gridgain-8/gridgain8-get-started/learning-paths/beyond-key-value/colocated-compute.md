@@ -15,7 +15,7 @@ This tutorial extends the [`sql-on-cache/`](from-keyvalue-to-sql.md) project. Th
 
 - **Completion of [From Key-Value to SQL: The JOIN Problem](from-keyvalue-to-sql.md).** You have the `sql-on-cache/` Maven project on disk with `Customer`, `Invoice`, and `InvoiceKey` model classes and the `ConfigureCaches` and `SeedFromChinook` programs.
 - **A running three-node cluster** using `cache-cluster/docker-compose-3nodes.yml` from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md). The per-node configs in that compose pin discovery and communication ports and register a `BasicAddressResolver` so a host JVM thick client can reach each container through the loopback address. Peer class loading is enabled on every server.
-- **Java 17 or later** for the client runtime. The Maven project compiles to Java 17 bytecode, the same version the GridGain 8 server JVM runs.
+- **Java 17, 21, or 25** for the client runtime. The Maven project compiles to Java 17 bytecode, the same version the GridGain 8 server JVM runs.
 - **Maven 3.6** or later.
 - **Docker Compose 2.23** or later.
 

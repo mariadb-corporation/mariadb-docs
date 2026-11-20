@@ -17,7 +17,7 @@ Every technique relies on peer class loading. The closure classes live in your c
 
 - **Completion of [Verify Colocation Is Working](verify-colocation.md).** You have colocated Customer and Invoice caches with `@AffinityKeyMapped` on `customerId` and know how to prove the contract holds.
 - **A running 3-node cluster** using `docker-compose-3nodes.yml` from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md). Every server must have `peerClassLoadingEnabled=true`.
-- **Java 17 or later** for the client runtime. The Maven project compiles to Java 17 bytecode, the same version the server JVM runs.
+- **Java 17, 21, or 25** for the client runtime. The Maven project compiles to Java 17 bytecode, the same version the server JVM runs.
 - **Maven 3.6** or later.
 - **Docker Compose 2.23** or later.
 

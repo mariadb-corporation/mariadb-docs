@@ -9,7 +9,7 @@ GridGain 8.10 requires Java 17, removes several modules, upgrades key dependenci
 
 ## Java 17 or Later
 
-GridGain 8.10 requires Java 17 or later and supports Java 17, 21, and 25. GridGain 8.9.x supported Java 8, 11, 17, and (starting with 8.9.10) 21. The requirement applies to servers, thick clients, applications that embed a node, the Java thin client, and the JDBC thin driver.
+GridGain 8.10 requires Java 17 or later and supports Java 17, 21, and 25. GridGain 8.9.x supported Java 8, 11, 17, 21 (starting with 8.9.10), and 25 (starting with 8.9.40). The requirement applies to servers, thick clients, applications that embed a node, the Java thin client, and the JDBC thin driver.
 
 - `ignite.sh`, `ignite.bat`, `control.sh`, and `control.bat` refuse to start on a JVM older than 17.
 - The .NET client in thick mode starts a JVM and fails if `JAVA_HOME` points at an older JDK. The .NET thin client, the C++ client, and the ODBC driver do not use a JVM.

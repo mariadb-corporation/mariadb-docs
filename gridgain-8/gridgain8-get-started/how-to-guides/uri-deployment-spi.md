@@ -9,7 +9,7 @@ description: >-
 
 - A running **GridGain 8** cluster
 - A network folder accessible by all cluster nodes
-- **JDK 17** and **Maven** to build the deployment JAR
+- **JDK 17, 21, or 25** and **Maven** to build the deployment JAR
 
 ## Overview
 

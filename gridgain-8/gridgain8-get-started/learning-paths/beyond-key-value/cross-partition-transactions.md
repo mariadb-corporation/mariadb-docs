@@ -13,7 +13,7 @@ In a sharded cache, multi-key writes are only atomic when the keys live on the s
 
 - **A running three-node cluster** using `cache-cluster/docker-compose-3nodes.yml` from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md). The per-node configs in `cache-cluster/docker-compose-3nodes.yml` pin discovery and communication ports and register a `BasicAddressResolver` so a host JVM thick client can reach each container through the loopback address. Peer class loading is enabled on every server.
 - **Transaction API familiarity** from [Use Transactions with the Cache API](../cache-centric-foundations/cache-transactions.md)
-- **Java 17 or later** for the client runtime
+- **Java 17, 21, or 25** for the client runtime
 - **Maven 3.6** or later
 - **Docker Compose 2.23** or later
 

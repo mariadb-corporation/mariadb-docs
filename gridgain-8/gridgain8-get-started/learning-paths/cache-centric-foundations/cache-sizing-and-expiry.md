@@ -22,7 +22,7 @@ This tutorial labels itself "beginner" for GridGain. The surrounding Java stack 
 ## Prerequisites
 
 - **A running single-node cluster** from [Start a Local Cache Development Cluster](../../quick-start/start-local-cache-cluster.md)
-- **Java 17** or later
+- **Java 17, 21, or 25**
 - **Maven 3.6** or later
 - **JCache `ExpiryPolicy` terminology** will be introduced; no prior knowledge assumed.
 

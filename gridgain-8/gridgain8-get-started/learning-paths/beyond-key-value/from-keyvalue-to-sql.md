@@ -15,7 +15,7 @@ Cache API lookups need keys you already have. The Cache API can push a single-ca
 
 - **A running single-node cluster** from [Start a Local Cache Development Cluster](../../quick-start/start-local-cache-cluster.md)
 - **Cache API familiarity** from [Work with the Cache API](../../quick-start/work-with-cache-api.md)
-- **Java 17 or later** for the client runtime
+- **Java 17, 21, or 25** for the client runtime
 - **Maven 3.6** or later
 - **Docker Compose 2.23** or later
 

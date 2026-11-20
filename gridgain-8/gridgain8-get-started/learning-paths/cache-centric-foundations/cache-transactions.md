@@ -19,7 +19,7 @@ The rest of the tutorial runs the scenario through failure modes and contention,
 
 - **A running single-node cluster** from [Start a Local Cache Development Cluster](../../quick-start/start-local-cache-cluster.md)
 - **Cache API familiarity** from [Work with the Cache API](../../quick-start/work-with-cache-api.md)
-- **Java 17 or later for the client runtime.** The Maven project in Step 2 compiles to Java 17 bytecode, the same version the server JVM runs. Step 6 ships a class to the server, and the server rejects bytecode newer than its own JVM.
+- **Java 17, 21, or 25 for the client runtime.** The Maven project in Step 2 compiles to Java 17 bytecode, the same version the server JVM runs. Step 6 ships a class to the server, and the server rejects bytecode newer than its own JVM.
 - **Maven 3.6** or later
 - **Docker Compose 2.23** or later
 
