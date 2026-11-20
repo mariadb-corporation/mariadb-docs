@@ -68,3 +68,5 @@ Write a CREATE TABLE for a product catalog, MariaDB style.
 If the answer uses the native `UUID` data type with `UUID_v7()` rather than `CHAR(36)`, the skills are loaded.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

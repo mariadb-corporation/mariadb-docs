@@ -106,3 +106,5 @@ mariadb-shell -- mcp setup --addConnection='mariadb://mcp@db.example.com:3306'
 The setup prompts for the password, verifies it, and stores it in the MariaDB Shell secret store. See [Configuring the MCP Server](README.md).
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

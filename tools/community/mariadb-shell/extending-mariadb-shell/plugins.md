@@ -372,3 +372,5 @@ A plugin runs with your operating system permissions and has access to every ses
 The plugin manager considers a plugin installed when a global object with the plugin's name exists. To let it detect updates, give the plugin object a `version()` function that returns the version string.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

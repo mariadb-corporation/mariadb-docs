@@ -96,3 +96,5 @@ The launcher scripts of the SQL language server, `mariadb-lsp-launcher.sh` and `
 The connections and allowed paths are set with `mariadb-shell -- mcp setup` and stored in the MariaDB Shell configuration directory. See [Configuring the MCP Server](configuring-the-mcp-server/README.md) and the [MCP server documentation](https://github.com/mariadb-corporation/mariadb-shell-plugins/blob/main/mcp_plugin/README.md#configuration-mcpsetup).
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

@@ -29,3 +29,5 @@ MariaDB Shell includes software developed by third parties, such as MariaDB Conn
 The full license text and all third-party notices are in the [`LICENSE`](https://github.com/mariadb-corporation/mariadb-shell/blob/main/LICENSE) file of the source repository.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

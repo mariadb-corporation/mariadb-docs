@@ -152,3 +152,5 @@ The script has no uninstall mode. To remove MariaDB Shell:
 | `LOCALAPPDATA is not set` | The default installation directory cannot be determined. Set `MARIADB_SHELL_PREFIX` or pass `-Prefix`. |
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

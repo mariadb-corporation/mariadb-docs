@@ -40,3 +40,5 @@ To check that the plugin is installed, click **Customize** and look for the plug
 Removing the plugin from Cursor doesn't remove MariaDB Shell or its configuration in `~/.mariadb-shell`.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

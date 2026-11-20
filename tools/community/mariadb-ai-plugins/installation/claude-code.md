@@ -63,3 +63,5 @@ To check that the `mariadb` MCP server is connected, run:
 Use `/plugin` to update or uninstall the plugin. Removing the plugin doesn't remove MariaDB Shell or its configuration in `~/.mariadb-shell`.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

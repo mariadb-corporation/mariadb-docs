@@ -74,3 +74,5 @@ MariaDB db1.example.com:3306 ssl  SQL > SHOW SESSION STATUS LIKE 'Compression';
 MariaDB Connector/C compresses with zlib at its default level, and has no setting to choose another algorithm or level. MariaDB Shell therefore has no `compression-algorithms` or `compression-level` connection option, which MySQL Shell uses to select zstd and its level against MySQL 8.0 and later servers.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

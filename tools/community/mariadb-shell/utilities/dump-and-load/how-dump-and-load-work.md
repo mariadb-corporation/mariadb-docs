@@ -122,3 +122,5 @@ A chunk whose transaction is rolled back by a deadlock is retried from its start
 `util.copy_instance()`, `util.copy_schemas()`, and `util.copy_tables()` run a dump on the source and a load on the target at the same time, connected in memory. No files are written, and the target begins loading as soon as the source begins dumping. In the output, `SRC:` lines come from the dump and `TGT:` lines from the load. Because the data is a live stream, a copy cannot retry a chunk after a deadlock or resume after an interruption; run it again with `dropExistingObjects` or `ignoreExistingObjects`. See [Copy Utilities](copy-utilities.md).
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

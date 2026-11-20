@@ -23,3 +23,5 @@ These skills cover topics that span several statements, such as the migration fr
 | `mariadb-vector` | `dev`, `sql` | Best practices for using vectors and AI with MariaDB. |
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

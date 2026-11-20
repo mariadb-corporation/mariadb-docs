@@ -117,3 +117,5 @@ mariadb-shell -- mcp setup --show --json
 The options on this page configure what the MCP server may access. How the server itself is started, for example with which transport, is defined by the launcher script of each plugin and doesn't need to be configured. See [Architecture](../architecture.md).
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

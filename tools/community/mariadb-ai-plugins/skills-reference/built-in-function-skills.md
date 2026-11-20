@@ -28,3 +28,5 @@ Each of these skills covers a group of built-in functions, such as the string, d
 | `mariadb-encryption-functions` | `dev`, `sql` | MariaDB encryption, hashing, and compression functions — AES_ENCRYPT/AES_DECRYPT keyed off block_encryption_mode (default aes-128-ecb) with optional IV/mode since 11.2; SHA2/SHA1/MD5 checksums; KDF and RANDOM_BYTES for key derivation; COMPRESS/UNCOMPRESS/UNCOMPRESSED_LENGTH; PASSWORD/OLD_PASSWORD/ENCRYPT for auth hashing; ENCODE/DECODE (weak, not removed) vs DES_ENCRYPT/DES_DECRYPT (removed in 13.0). |
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

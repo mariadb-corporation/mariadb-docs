@@ -229,3 +229,5 @@ To restrict the databases themselves, use accounts with different privileges, as
 | The `stdio` server stops immediately after it starts. | The client closed the server's standard input, or the command has wrong arguments. | Run the command in a terminal to see its error output, and check the client's MCP log. |
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

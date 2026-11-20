@@ -49,3 +49,5 @@ Each of these skills covers one SQL statement, with the MariaDB-specific syntax 
 | `mariadb-prepare` | `dev`, `sql` | MariaDB-specific behavior of server-side prepared statements — PREPARE / EXECUTE / DEALLOCATE PREPARE and EXECUTE IMMEDIATE — covers the broad preparable-statement allow-list, EXECUTE..USING accepting arbitrary expressions (not just user variables), the stored-function/trigger ban on dynamic SQL, session-local statement lifetime, and EXECUTE IMMEDIATE's DEFAULT/IGNORE bind parameters. |
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

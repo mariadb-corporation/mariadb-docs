@@ -91,3 +91,5 @@ The Python module that plugins and scripts import from is still named `mysqlsh` 
 Every file that MariaDB Shell installs uses a MariaDB-specific name or path, and its configuration lives in its own directory. You can install MariaDB Shell and MySQL Shell on the same system and use them side by side.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}
