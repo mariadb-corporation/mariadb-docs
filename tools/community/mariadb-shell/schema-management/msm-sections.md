@@ -176,3 +176,5 @@ SELECT * FROM `shop`.`msm_schema_version`;
 Sections 130 and 230 define stored procedures and functions that are needed only while the schema is created or upgraded, for example to move data between tables. Their names must start with `msm_`. Drop them again in sections 190 and 290 with `DROP … IF EXISTS`. The deployment script uses the `msm_` prefix as well: when it checks whether a schema is empty, it ignores routines whose names start with `msm_`.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

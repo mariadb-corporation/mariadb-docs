@@ -22,3 +22,5 @@ Each of these skills covers one MariaDB command-line program, with the options a
 | `mariadb-binlog` | `dev` | MariaDB-specific behavior of the `mariadb-binlog` utility — that decoded row events (`-v`/`-vv`) are commented pseudo-SQL riding alongside the still-executable base64 `BINLOG` blob (not a replacement for it), that `ANNOTATE_ROWS` original-SQL comments are a MariaDB-only event printed by default, that `--flashback` generates MariaDB-specific reverse/undo SQL for DML only, `--disable-log-bin` to avoid re-logging on replay, and that replay means piping into the `mariadb` client, never running the tool itself. |
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

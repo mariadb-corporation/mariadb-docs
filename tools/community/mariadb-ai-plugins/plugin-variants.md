@@ -49,3 +49,5 @@ The [Skills Reference](skills-reference/) lists every skill and the variants tha
 In the repository, each variant lives in `<harness>/<variant>-plugin/`, for example `claude/dev-plugin/` or `codex/sql-plugin/`. Pi's plugin lives in `pi/dev-plugin/`, with the repository-root `package.json` as its manifest. Cursor installs the Claude Code plugins from `claude/`. In Hermes Agent, the plugin names are `mariadb-dev`, `mariadb-sql`, and `mariadb-contributor`.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

@@ -157,3 +157,5 @@ finally:
 `run_sql()` returns a `ClassicResult` object. Use `fetch_one()` and `fetch_all()` to read rows, `get_column_names()` and `get_columns()` for metadata, `get_affected_items_count()` and `get_auto_increment_value()` after data changes, `get_warnings()` for warnings, and `next_result()` to move to the next result set of a multi-result statement. For the complete list, run `\? ClassicResult`. For more about processing results in Python, see [SQL and Python Modes](../using-mariadb-shell/sql-and-python-modes.md).
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}
