@@ -108,7 +108,7 @@ These changes affect application and client code.
 | Build coordinates and dependencies | Always | Mechanical | [Build Coordinates](artifacts-and-modules.md#build-coordinates) |
 | Rebuild and update all clients | Always | Mechanical and Code | [Clients](apis-and-clients.md#clients) |
 | Java 17 and Spring 7 baseline | Always | Mechanical to Code | [Java](apis-and-clients.md#clients) |
-| Calcite SQL engine → H2 | You set `queryEngine=calcite` | Code and re-test queries | [SQL Changes](apis-and-clients.md#sql-changes) |
+| Calcite SQL engine → H2 | You set `queryEngine=calcite` | Code and re-test queries | [Migrating SQL From the Calcite Engine](sql-engine-calcite-to-h2.md) |
 | CDC → Data Center Replication or Kafka Connect | You run Change Data Capture | Redesign | [Features to Replace](features-to-replace.md) |
 | Snapshots → GridGain 8 snapshots | You script or automate Ignite 2 snapshots | Code | [Features to Replace](features-to-replace.md) |
 | Security plugins → GridGain 8 security | You use a custom `GridSecurityProcessor` or built-in authentication | Redesign | [Features to Replace](features-to-replace.md) |
