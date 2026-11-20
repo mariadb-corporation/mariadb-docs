@@ -1,4 +1,5 @@
-"""Tests for the Plugin API sync's link fixers and nav builder (DOCS-6988).
+"""Tests for the Plugin API sync's link fixers, nav builder, and page layout
+(DOCS-6988, DOCS-7069).
 
 The fixtures are cut-down copies of real moxygen output for MariaDB/server#5617
 (MDBF-1224). Run with:
@@ -270,7 +271,9 @@ class SummaryNav(TempDir):
                   '[`Plugin Types`](plugin_types.md)\n')
 
     def block(self):
-        return summary.nav_lines(*summary.build_tree(self.dir))
+        titles, children, roots = summary.build_tree(self.dir)
+        paths = summary.layout(children, roots)
+        return summary.nav_lines(titles, children, roots, paths)
 
     def test_nests_by_breadcrumb_and_orders_roots(self):
         d = 'reference/plugins/api-plugin'
@@ -279,10 +282,11 @@ class SummaryNav(TempDir):
             f'      * [Plugin API Concepts]({d}/page-concepts.md)',
             f'      * [Plugin Verification]({d}/page-verification.md)',
             f'      * [Client Plugin API]({d}/plugin_client_api.md)',
-            f'      * [Plugin API]({d}/plugin_api.md)',
-            f'        * [Plugin Types]({d}/plugin_types.md)',
-            f'          * [Audit Plugin]({d}/audit.md)',
-            f'          * [Daemon Plugin]({d}/daemon.md)',
+            f'      * [Plugin API]({d}/plugin_api/README.md)',
+            f'        * [Plugin Types]({d}/plugin_api/plugin_types/README.md)',
+            f'          * [Audit Plugin]({d}/plugin_api/plugin_types/audit.md)',
+            f'          * [Daemon Plugin]'
+            f'({d}/plugin_api/plugin_types/daemon.md)',
         ])
 
     def test_replaces_the_whole_old_section_and_is_idempotent(self):
@@ -296,6 +300,72 @@ class SummaryNav(TempDir):
     def test_missing_anchor_entry_fails(self):
         with self.assertRaises(SystemExit):
             summary.rewrite_summary('# Table of contents\n', self.block())
+
+
+class PageLayout(TempDir):
+    """Files move to match their nav URLs (DOCS-7069)."""
+
+    def setUp(self):
+        super().setUp()
+        self.page('README.md', '# Plugin API Documentation\n\n'
+                  '* [Concepts](page-concepts.md#y)\n'
+                  '* [PSI](Instrumentation_interface.md)\n')
+        self.page('page-concepts.md', FRONTMATTER + '# Plugin API Concepts\n\n'
+                  'See [`Group_PSI_v1`](Group_PSI_v1.md#psi_v1) and '
+                  '[here](#local).\n')
+        self.page('Instrumentation_interface.md',
+                  FRONTMATTER + '# Instrumentation Interface\n\n'
+                  '[v1](Group_PSI_v1.md) [top](README.md) '
+                  '[x](https://example.com/Group_PSI_v1.md)\n')
+        self.page('Group_PSI_v1.md', FRONTMATTER + '# PSI v1\n\n'
+                  '> [`PSI`](Instrumentation_interface.md#psi)\n\n'
+                  '[concepts](page-concepts.md#plugin)\n')
+
+    def tree(self):
+        return summary.build_tree(self.dir)
+
+    def test_group_becomes_readme_and_names_are_lowercased(self):
+        _, children, roots = self.tree()
+        self.assertEqual(summary.layout(children, roots), {
+            'README.md': 'README.md',
+            'page-concepts.md': 'page-concepts.md',
+            'Instrumentation_interface.md':
+                'instrumentation_interface/README.md',
+            'Group_PSI_v1.md': 'instrumentation_interface/group_psi_v1.md',
+        })
+
+    def test_links_follow_the_files_and_keep_fragments(self):
+        _, children, roots = self.tree()
+        summary.move_pages(self.dir, summary.layout(children, roots))
+        self.assertEqual(
+            sorted(str(p.relative_to(self.dir)) for p in self.dir.rglob('*.md')),
+            ['README.md', 'instrumentation_interface/README.md',
+             'instrumentation_interface/group_psi_v1.md', 'page-concepts.md'])
+        self.assertIn('[PSI](instrumentation_interface/README.md)',
+                      (self.dir / 'README.md').read_text())
+        self.assertIn('[`Group_PSI_v1`](instrumentation_interface/'
+                      'group_psi_v1.md#psi_v1) and [here](#local)',
+                      (self.dir / 'page-concepts.md').read_text())
+        self.assertIn('[v1](group_psi_v1.md) [top](../README.md) '
+                      '[x](https://example.com/Group_PSI_v1.md)',
+                      (self.dir / 'instrumentation_interface' /
+                       'README.md').read_text())
+        leaf = (self.dir / 'instrumentation_interface' /
+                'group_psi_v1.md').read_text()
+        self.assertIn('> [`PSI`](README.md#psi)', leaf)
+        self.assertIn('[concepts](../page-concepts.md#plugin)', leaf)
+
+    def test_nested_input_is_refused(self):
+        _, children, roots = self.tree()
+        paths = summary.layout(children, roots)
+        summary.move_pages(self.dir, paths)
+        with self.assertRaises(SystemExit):
+            summary.move_pages(self.dir, paths)
+
+    def test_names_that_differ_only_in_case_fail(self):
+        children = {'A.md': [], 'a.md': []}
+        with self.assertRaises(SystemExit):
+            summary.layout(children, ['A.md', 'a.md'])
 
 
 

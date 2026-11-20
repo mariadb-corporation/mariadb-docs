@@ -171,7 +171,7 @@ jobs:
           set -euo pipefail
           python3 .github/scripts/add_footer_to_server_plugin_api.py
 
-      - name: Update Plugin API Documentation section in SUMMARY.md
+      - name: Nest the generated pages and update their SUMMARY.md section
         run: |
           set -euo pipefail
           python3 .github/scripts/add_server_plugin_api_to_summary.py

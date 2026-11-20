@@ -74,6 +74,8 @@ class Repo:
         self.git('init', '-q')
         self.git('config', 'user.email', 't@example.com')
         self.git('config', 'user.name', 't')
+        # A global commit.gpgsign would make every commit here ask for a key.
+        self.git('config', 'commit.gpgsign', 'false')
         self.write('README.md', 'root\n')
         self.commit()
 
