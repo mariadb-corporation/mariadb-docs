@@ -11,7 +11,13 @@ description: >-
 
 When using `mariadb-backup`, you have the option of performing a full or incremental backup. Full backups create a complete copy in an empty directory while incremental backups update a previous backup with new data. This page documents incremental backups.
 
-InnoDB pages contain log sequence numbers, or LSN's. Whenever you modify a row on any InnoDB table on the database, the storage engine increments this number. When performing an incremental backup, `mariadb-backup` checks the most recent LSN for the backup against the LSN's contained in the database. It then updates any of the backup files that have fallen behind.
+InnoDB pages contain log sequence numbers, or LSNs. Whenever you modify a row on any InnoDB table on the database, the storage engine increments this number. When performing an incremental backup, `mariadb-backup` checks the most recent LSN for the backup against the LSNs contained in the database. It then updates any of the backup files that have fallen behind.
+
+{% hint style="warning" %}
+Incremental backups are incremental only for InnoDB. Tables that use other storage engines, such as MyISAM, Aria, CSV, or ARCHIVE, have no page LSNs to compare, so every incremental backup copies their files in full, even if they haven't changed since the previous backup. MyRocks data is also copied in full. When you prepare the backup, these copies replace the ones in the full backup.
+
+As a result, an incremental backup of a server that stores most of its data in non-InnoDB tables is about as large as a full backup. To benefit from incremental backups, store large or frequently backed-up tables in InnoDB.
+{% endhint %}
 
 {% include "../../../.gitbook/includes/for-a-complete-list-of-mari....md" %}
 
