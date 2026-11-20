@@ -34,15 +34,11 @@ MariaDB Enterprise Kubernetes Operator is compatible with the following Docker i
 
 Refer to the registry documentation to [access docker.mariadb.com with your customer credentials](customer-access-to-docker-mariadb-com.md).
 
-## Finding a specific tag
-
-The tags in the table are version ranges, where `x` stands for any patch version.
-
 ### Listing tags manually
 
-[Authenticate](customer-access-to-docker-mariadb-com.md) against the registry first, then list the tags. For example, for `enterprise-server`:
+[Authenticate](customer-access-to-docker-mariadb-com.md) against the registry first, then list the tags. The following examples list the tags of the `enterprise-server` image.
 
-If you use [skopeo](https://github.com/podman-container-tools/skopeo) already, you can run:
+When using [skopeo](https://github.com/podman-container-tools/skopeo), you can run:
 ```bash
 skopeo login docker.mariadb.com
 skopeo list-tags docker://docker.mariadb.com/enterprise-server
@@ -56,7 +52,7 @@ curl -s -u "$USER:$CUSTOMER_TOKEN" https://docker.mariadb.com/v2/enterprise-serv
 
 Replace `enterprise-server` with `maxscale`, `mariadb-enterprise-operator` or `nslcd` to list the tags of the other images.
 
-### MariaDB Enterprise Server Tiered Images.
+### MariaDB Enterprise Server Tiered Images
 
 To accommodate diverse operational requirements, the MariaDB Server container images utilize a multi-tiered strategy offering three distinct flavors: `minimal` and `standard`. The `minimal` tier serves as the highly secure default, providing a heavily reduced footprint tailored for automated, operator-driven environments. For broader enterprise workloads requiring additional storage engines, plugins, and in-container debugging utilities, the `standard` tier balances comprehensive capabilities with strict security hardening.
 
