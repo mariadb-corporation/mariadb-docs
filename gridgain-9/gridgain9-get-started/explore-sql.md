@@ -33,7 +33,7 @@ Unpack the archive into a new folder, and place it and the docker compose file i
 Without these files, you will be unable to load the sample data needed for the exercises.
 {% endhint %}
 
-The docker compose file starts GridGain 9.2.0 by default. To run the guide on a different version, set the `GRIDGAIN9_VERSION` environment variable before starting the cluster, for example `GRIDGAIN9_VERSION=9.1.28 docker compose up -d`, and use the same version in the CLI image name below. The 9.1 tabs in this guide show the output of 9.1.
+The docker compose file starts GridGain 9.2.0 by default. To run the guide on a different version, set the `GRIDGAIN9_VERSION` environment variable before starting the cluster and use the same version in the CLI image name below.
 
 ## Setting Up a GridGain 9 Cluster
 
@@ -958,7 +958,7 @@ GROUP BY
 
 {% tab title="9.1" %}
 {% hint style="info" %}
-In 9.1, the plan is the same as in 9.2, except for the name of the aggregate operator. 9.1 prints `ColocatedHashAggregate` where 9.2 prints `HashAggregate` without a `phase` line.
+In 9.1, the plan is the same as in 9.2, except for the name of the aggregate operator. For a colocated aggregate, 9.1 prints `ColocatedHashAggregate` where 9.2 prints `HashAggregate` without a `phase` line.
 {% endhint %}
 
 *ColocatedHashAggregate Operation*: The plan uses a single `ColocatedHashAggregate`, which runs the aggregation in one step. Here the aggregation runs once, after the join results have been gathered on one node. A two-phase aggregation shows `MapHashAggregate` and `ReduceHashAggregate` operators instead.
