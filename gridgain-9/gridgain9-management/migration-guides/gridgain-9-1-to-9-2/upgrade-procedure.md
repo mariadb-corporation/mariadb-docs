@@ -23,13 +23,13 @@ Confirm all of the following before you start:
 - You chose an [upgrade path](before-you-upgrade.md#choose-your-upgrade-path) and scheduled the downtime or the SQL pause that it needs.
 - Storage for the backup is available: a [snapshot](../../snapshots/data-snapshots.md) on Ultimate Edition, or a copy of the `work` directory of every node on Enterprise Edition. See [Back Up the Data](#back-up-the-data).
 - The 9.2 distribution, package, or Docker image is available. Keep the 9.1 distribution until the upgrade is validated, because recovery needs it.
-- Every node has free disk space for the Raft log migration that runs when it first starts on 9.2. See [Raft Log Storage Changes](configuration-and-storage.md#raft-log-storage-changes).
+- Every node has free disk space for both the old and the new Raft logs. See [Raft Log Storage Changes](configuration-and-storage.md#raft-log-storage-changes).
 
 ## Prepare for the Upgrade
 
 Do all of the following before you stop or upgrade any node. Only the backup on Enterprise Edition needs downtime.
 
-1. *Re-create the RocksDB tables.* If any zone or table uses a RocksDB storage profile, move it to another profile, wait for the dropped tables to be cleaned up, and remove the profile from every node. Do this on 9.1.29, because 9.2 cannot clean up a dropped RocksDB table. See [RocksDB Storage Engine Removed](configuration-and-storage.md#rocksdb-storage-engine-removed). For the storage engines that remain, see [Storage Engines and Profiles](../../../architecture/storage/engines/README.md).
+1. *Re-create the RocksDB tables.* If any zone or table uses a RocksDB storage profile, move it to another profile, wait for the dropped tables to be cleaned up, and remove the profile from every node. Do this on 9.1.29, before the upgrade. See [RocksDB Storage Engine Removed](configuration-and-storage.md#rocksdb-storage-engine-removed). For the storage engines that remain, see [Storage Engines and Profiles](../../../architecture/storage/engines/README.md).
 2. *Update the node configuration files.* Rename or delete every key from the tables in [Removed and Renamed Configuration Keys](configuration-and-storage.md#removed-and-renamed-configuration-keys), and remove the `replacementMode` property. A node does not start on 9.2 if its file contains an old key. 9.1.29 already accepts the new key names, so you can update the files now. Test the final files on a 9.2 node in a staging cluster. If you deploy with the `gridgain/gridgain9` Helm chart, also check the chart version. See [Helm Chart Versions](configuration-and-storage.md#helm-chart-versions).
 3. *Check the cluster configuration.* Run `cluster config show` and compare it with the same tables. If an old key is still there, fix it before you run `upgrade start`, because cluster configuration changes are blocked during a rolling upgrade.
 4. *Check `vars.env` and the CLI environment.* Check that `JVM_GC` in `vars.env` has a supported value. In the scripts that start the CLI, review `JAVA_OPTS`, and on Windows `GRIDGAIN9_EXIT_CONSOLE`. See [Platform and Packaging Changes](platform-and-packaging.md).
@@ -87,7 +87,9 @@ On every node:
 2. Put the node configuration file that you prepared in place.
 3. Set `JAVA_HOME` to Java 21 or later. For Docker, use the 9.2 image tag.
 
-Do not start any node yet.
+For DEB and RPM, do steps 2 and 3 before you run `apt` or `dnf`, because the package upgrade starts the node at once. The package upgrade is then also the start of that node, so the node starts before you reach [Step 3](#step-3-start-the-cluster).
+
+On the other platforms, do not start any node yet.
 
 ### Step 3: Start the Cluster
 
@@ -114,9 +116,10 @@ For each node:
 
 1. Stop the node.
 2. Replace the binaries with the 9.2 ones, as described in [Rolling Upgrade](../../upgrade/rolling-upgrade.md). Keep the `work` directory, the `etc` directory, and the configuration files.
-3. Put the node configuration file that you prepared in place, and set `JAVA_HOME` to Java 21 or later. For Docker, use the 9.2 image tag.
+3. Put the node configuration file that you prepared in place, and set `JAVA_HOME` to Java 21 or later. For Docker, use the 9.2 image tag. For DEB and RPM, do this before you run `apt` or `dnf`, because the package upgrade restarts the node at once.
 4. Start the node.
-5. Run `upgrade state`, and check that the node is in `nextVersionNodes` before you go to the next node. The node can take about a minute to show up, so run the command again if the list is empty.
+5. Run `upgrade state`, and check that the node is in `nextVersionNodes`. The node can take about a minute to show up, so run the command again if the list is empty.
+6. Run `recovery partition states --global`, and check that every partition is `Available` before you stop the next node. If you stop a node while another node still catches up, a partition can lose its majority.
 
 ### Step 3: Commit the Upgrade
 

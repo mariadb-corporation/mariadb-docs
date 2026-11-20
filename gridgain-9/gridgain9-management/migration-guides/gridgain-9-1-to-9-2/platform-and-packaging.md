@@ -45,6 +45,8 @@ See [Installing Using Docker](../../installation/installing-using-docker.md).
 
 [DEB and RPM packages](../../installation/installing-deb-rpm.md) do not declare a Java package dependency. The package manager installs 9.2 on a host with an older Java, and the start script refuses to start the node.
 
+A package upgrade restarts the node service at once. Before you run `apt` or `dnf`, install Java 21 or later, set `JAVA_HOME`, and put the 9.2 node configuration file in place. Otherwise, the node restarts on 9.2 with the old configuration or the old Java and stops.
+
 ## Windows Installer
 
 Set the machine-wide `JAVA_HOME` to Java 21 or later before you install. The Windows MSI installer refuses to install when it points at an older Java. Point it at Java 21 or later and run the installer again.

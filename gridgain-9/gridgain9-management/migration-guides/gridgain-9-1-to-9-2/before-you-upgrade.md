@@ -46,6 +46,7 @@ The right path depends on your 9.1 cluster and its applications:
 - *A removed configuration key stops the node.* A node refuses to start when its node configuration file contains a key that 9.2 does not know. See [Removed and Renamed Configuration Keys](configuration-and-storage.md#removed-and-renamed-configuration-keys).
 - *Tables on the RocksDB engine have no migration path.* Re-create them on another storage profile before you upgrade. See [RocksDB Storage Engine Removed](configuration-and-storage.md#rocksdb-storage-engine-removed).
 - *User names are case-sensitive as soon as a 9.2 node joins,* even before a rolling upgrade is committed. A login whose case differs from the stored name fails. See [User and Role Names Are Case-Sensitive](security-changes.md#user-and-role-names-are-case-sensitive).
+- *Data in `aimem` tables can be lost.* Both upgrade paths can lose the data of `aimem` tables, and snapshots do not cover them. Before you start the upgrade, make sure that you can reload the data from another source.
 - *A rolling upgrade and a point-in-time recovery (PITR) cannot run at the same time.* Wait until one finishes before you start the other.
 
 ## Which Pages Apply to You
