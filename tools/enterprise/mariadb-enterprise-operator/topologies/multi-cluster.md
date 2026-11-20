@@ -741,6 +741,10 @@ Ensure that `slaveIORunning` and `slaveSQLRunning` are `true` and `secondsBehind
 
 ### Step 3: Trigger the cluster switchover
 
+{% hint style="warning" %}
+Make sure that both `MariaDB` resources are ready before you change `spec.multiCluster.primary`. The operator defers the change, without an error, while the `MariaDB` is initializing, scaling out, restoring a backup, resizing its storage, being updated, switching its primary, or waiting to replay binary logs, or while its Galera cluster isn't ready, or while a referenced `MaxScale` is performing a switchover. It applies the change once that operation has finished. Check `status.currentMultiClusterPrimary` afterwards, as shown below, to confirm that the switchover has happened.
+{% endhint %}
+
 Update the `spec.multiCluster.primary` field on the replica cluster to its own name:
 
 ```bash
