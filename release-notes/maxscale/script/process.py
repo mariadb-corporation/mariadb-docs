@@ -82,22 +82,108 @@ def find_cves(issues):
 
     return cves
 
-def print_cves(header, cves):
-    print(header)
-    print()
+def has_label(issue, label):
+    return label in issue.get('Labels', '').split(',')
 
-    for cve in cves:
-        id = cve['Id']
-        i = cve['Issue']
-        print("* [" + id + "](" + cve['Url'] + ") Fixed by [" + i['Issue key'] + "](https://jira.mariadb.org/browse/" + i['Issue key'] + ") " + advisory_text(i))
+def issue_number(issue):
+    return int(issue['Issue key'].split('-')[1])
 
-    print()
+# The text of a bullet is the 'Release Note Summary' of the issue.
+# If it is missing, the Jira summary is used and the issue is reported.
+def bullet_text(issue):
+    text = ' '.join(issue.get('Custom field (Release Note Summary)', '').split())
+
+    if not text:
+        text = issue['Summary']
+        without_release_note.append(issue['Issue key'])
+
+    return md_escape(text)
+
+def print_issues(header, issues):
+    if len(issues) > 0:
+        print(header)
+        print()
+
+        for i in issues:
+            key = i['Issue key']
+            print("* " + bullet_text(i) + " ([" + key + "](https://jira.mariadb.org/browse/" + key + "))")
+
+        print()
+
+UNCATEGORIZED = 'Uncategorized'
+
+def bug_category(bug):
+    return bug.get('Custom field (Bug Category)') or UNCATEGORIZED
+
+# The anchor GitBook generates for a heading.
+def heading_anchor(heading):
+    return "#" + heading.lower().replace(' ', '-')
+
+# A CVE of MaxScale is fixed by a bug, which is described under the fixed
+# issues. Hence only the ids are listed, with a link to the category heading
+# the bug is listed under.
+def maxscale_cve_bullet(cve):
+    id = cve['Id']
+    key = cve['Issue']['Issue key']
+    category = bug_category(cve['Issue'])
+    return "* [" + id + "](" + cve['Url'] + ") ([" + key + "](https://jira.mariadb.org/browse/" + key + "), see [" + category + "](" + heading_anchor(category) + "))"
+
+# An external vulnerability is fixed by a task, which is not listed anywhere
+# else. Hence the bullet also tells what the vulnerability was in.
+def external_vulnerability_bullet(cve):
+    id = cve['Id']
+    i = cve['Issue']
+    return "* [" + id + "](" + cve['Url'] + ") Fixed by [" + i['Issue key'] + "](https://jira.mariadb.org/browse/" + i['Issue key'] + ") " + advisory_text(i)
+
+def print_cves(header, cves, bullet_of):
+    if len(cves) > 0:
+        print(header)
+        print()
+
+        for cve in cves:
+            print(bullet_of(cve))
+
+        print()
+
+# Bugs with these categories are intentionally left out of the release notes.
+NOT_FOR_RELEASE_NOTES = ['Not for Release Notes', 'Not for ES Release Notes']
+
+# Returns the bugs that belong in the release notes, the others are reported.
+def bugs_for_release_notes(bugs):
+    included = []
+
+    for b in bugs:
+        category = b.get('Custom field (Bug Category)')
+
+        if category in NOT_FOR_RELEASE_NOTES:
+            not_for_release_notes.append((b['Issue key'], category))
+        else:
+            included.append(b)
+
+    return included
+
+# Returns a dict from bug category to the bugs of that category.
+def bugs_by_category(bugs):
+    categories = {}
+
+    for b in bugs:
+        category = bug_category(b)
+
+        if category == UNCATEGORIZED:
+            without_category.append(b['Issue key'])
+
+        categories.setdefault(category, []).append(b)
+
+    return categories
 
 
 bugs = []
 new_features = []
 tasks = []
 skipped = []
+without_release_note = []
+not_for_release_notes = []
+without_category = []
 
 reader = csv.reader(sys.stdin.readlines())
 field_names = next(reader)
@@ -123,36 +209,34 @@ for row in reader:
     elif row['Issue Type'] == 'Task':
         tasks.append(row)
 
+bugs.sort(key=issue_number)
+new_features.sort(key=issue_number)
+tasks.sort(key=issue_number)
+
+bugs = bugs_for_release_notes(bugs)
+
 # Check if some bug-fix fixes a CVE. These are assumed to be CVEs of MaxScale.
-cves = find_cves(bugs)
+print_cves("## CVEs resolved", find_cves(bugs), maxscale_cve_bullet)
 
-if len(cves) > 0:
-    print_cves("## CVEs resolved.", cves)
+# Check if some task fixes a vulnerability, which is assumed to be a
+# non-MaxScale one; e.g. a CVE or GHSA of an external library.
+print_cves("## External vulnerabilities resolved", find_cves(tasks), external_vulnerability_bullet)
 
-# If there are tasks, check if any of them fixes a vulnerability, which is
-# assumed to be a non-MaxScale one; e.g. a CVE or GHSA of an external library.
-if len(tasks) > 0:
-    cves = find_cves(tasks)
+deprecated_features = [t for t in tasks if has_label(t, 'maxscale-deprecate')]
+dropped_features = [t for t in tasks if has_label(t, 'maxscale-drop')]
 
-    if len(cves) > 0:
-        print_cves("## External vulnerabilities resolved.", cves)
+print_issues("## New Features", new_features)
+print_issues("## Deprecated Features", deprecated_features)
+print_issues("## Dropped Features", dropped_features)
 
-if len(new_features) > 0:
-    print("## New Features")
-    print()
-
-    for f in new_features:
-        print("* [" + f['Issue key'] + "](https://jira.mariadb.org/browse/" + f['Issue key'] + ") " + md_escape(f['Summary']))
-    print()
-
-
-print("## Bug fixes")
+print("## Issues Fixed")
 print()
 
-for b in bugs:
-    print("* [" + b['Issue key'] + "](https://jira.mariadb.org/browse/" + b['Issue key'] + ") " + md_escape(b['Summary']))
+categories = bugs_by_category(bugs)
 
-print()
+# Alphabetical order, but bugs without a category last.
+for category in sorted(categories, key=lambda c: (c == UNCATEGORIZED, c)):
+    print_issues("### " + category, categories[category])
 
 # Diagnostics go to stderr; generate_release_notes.sh captures stdout only, so
 # this is visible to whoever runs it without ending up on the page.
@@ -160,3 +244,18 @@ if skipped:
     print("Not listed, closed with a resolution other than 'Fixed':", file=sys.stderr)
     for key, resolution in skipped:
         print("  %s [%s]" % (key, resolution), file=sys.stderr)
+
+if not_for_release_notes:
+    print("Not listed, bug category excludes it from the release notes:", file=sys.stderr)
+    for key, category in not_for_release_notes:
+        print("  %s [%s]" % (key, category), file=sys.stderr)
+
+if without_category:
+    print("No 'Bug Category', listed under '%s':" % UNCATEGORIZED, file=sys.stderr)
+    for key in without_category:
+        print("  %s" % key, file=sys.stderr)
+
+if without_release_note:
+    print("No 'Release Note Summary', Jira summary used instead:", file=sys.stderr)
+    for key in without_release_note:
+        print("  %s" % key, file=sys.stderr)
