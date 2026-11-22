@@ -68,9 +68,9 @@ Two limits to keep in mind:
 
 ## The routine
 
-**Who reviews.** Stefan Hinz reviews every entry, including his own GitBook edits, which are
-rare. If the volume grows, he asks other writers to share the work. Anyone else may still review
-an entry, by marking it as described below.
+**Who reviews.** The person on docs duty reviews every entry, their own GitBook edits included
+([runbook-docs-duty.md](runbook-docs-duty.md)). Anyone else may still review an entry, by marking
+it as described below.
 
 **How to mark an entry as reviewed.** Reply in the post's thread naming the commit (for example
 `9f0b0f243 looks good`), or react ✅ to the post when you have looked at all of its entries. An
