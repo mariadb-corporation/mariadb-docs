@@ -42,6 +42,14 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 output=$major.$minor/$VERSION.md
 
+issues=$(${SCRIPT_DIR}/list_fixed.sh ${VERSION})
+
+if [ $? -ne 0 ]
+then
+    echo "error: Could not generate the list of issues, $output not written."
+    exit 1
+fi
+
 echo Creating/overwriting $output.
 echo
 
@@ -70,7 +78,7 @@ If you are upgrading from an older major version of MaxScale, please read the [u
 
 For any problems you encounter, please consider submitting a bug report on [our Jira](https://jira.mariadb.org/projects/MXS).
 
-`${SCRIPT_DIR}/list_fixed.sh ${VERSION}`
+${issues}
 
 ## Known Issues and Limitations
 
