@@ -21,9 +21,9 @@ Confirm all of the following before you start:
 - Java 21 or later is installed on every server host and on every host that runs the CLI. See [Java 21 or Later](platform-and-packaging.md#java-21-or-later).
 - A valid license is installed.
 - You chose an [upgrade path](before-you-upgrade.md#choose-your-upgrade-path) and scheduled the downtime or the SQL pause that it needs.
-- Storage for the backup is available: a [snapshot](../../snapshots/data-snapshots.md) on Ultimate Edition, or a copy of the `work` directory of every node on Enterprise Edition. See [Back Up the Data](#back-up-the-data).
+- Storage for the backup is available: a [snapshot](../../snapshots/data-snapshots.md) on Ultimate Edition, or a copy of the data directories of every node on Enterprise Edition. See [Back Up the Data](#back-up-the-data).
 - The 9.2 distribution, package, or Docker image is available. Keep the 9.1 distribution until the upgrade is validated, because recovery needs it.
-- Every node has free disk space for both the old and the new Raft logs. See [Raft Log Storage Changes](configuration-and-storage.md#raft-log-storage-changes).
+- Every node has free disk space for both the old and the new Raft logs, on the disks of the Raft log directories. See [Raft Log Storage Changes](configuration-and-storage.md#raft-log-storage-changes).
 
 ## Prepare for the Upgrade
 
@@ -60,7 +60,17 @@ The snapshot is created in the background. If `cluster snapshot list` fails or d
 
 A snapshot contains the table data, the schemas, indexes, zones, and row-level security policies. It does not contain users, roles, privileges, or the cluster configuration. Save the output of `cluster config show` and the list of your users and roles, so that you can re-create them after a restore. Use the stored user names, not the `SHOW USERS` output of 9.1, which prints uppercase.
 
-On Enterprise Edition there are no snapshots. Stop the cluster and copy the `work` directory of every node. Take the copies at the same time. For a rolling upgrade, this means a short stop of the whole cluster for the backup.
+On Enterprise Edition there are no snapshots. Stop the cluster and copy the data directories of every node. Take the copies at the same time. For a rolling upgrade, this means a short stop of the whole cluster for the backup.
+
+The data directories are the `work` directory and every directory that your node configuration moves out of it. By default, all of them are inside `work`:
+
+- `work/partitions`, or the path in `ignite.system.partitionsBasePath`. It holds the table data.
+- `log` inside the partitions directory, or the path in `ignite.system.partitionsLogPath`. It holds the Raft logs of the tables.
+- `work/metastorage`, or the path in `ignite.system.metastoragePath`.
+- `work/cmg`, or the path in `ignite.system.cmgPath`.
+- `work/vault`. This path cannot be changed.
+
+If you moved none of these paths, copy the `work` directory.
 
 {% hint style="warning" %}
 Do not start the upgrade without a backup. The only way back to 9.1 is to restore it, and everything written after the backup is lost. See [Recovery Path](#recovery-path).
@@ -211,7 +221,7 @@ The backup that you can restore depends on your edition:
 | Edition | Backup you take before the upgrade | Recovery |
 | --- | --- | --- |
 | Ultimate | A full snapshot, plus the saved cluster configuration and the list of users and roles | Restore the snapshot into a 9.1 cluster: [Recover From a Snapshot](#recover-from-a-snapshot). |
-| Enterprise | A copy of the `work` directory of every node | Put the copies back and start 9.1: [Recover From a Copy of the Work Directories](#recover-from-a-copy-of-the-work-directories). |
+| Enterprise | A copy of the data directories of every node | Put the copies back and start 9.1: [Recover From a Copy of the Data Directories](#recover-from-a-copy-of-the-data-directories). |
 
 ### Before the Commit
 
@@ -225,12 +235,12 @@ After the commit, a 9.1 node cannot join the cluster any more. This section also
 
 Ultimate Edition only. Restore the full snapshot that you took before the upgrade into a 9.1 cluster, as described in [Restoring Snapshots](../../snapshots/data-snapshots.md#restoring-snapshots). A snapshot does not contain users, roles, privileges, or the cluster configuration, so re-create them from the output that you saved before the upgrade.
 
-#### Recover From a Copy of the Work Directories
+#### Recover From a Copy of the Data Directories
 
 Enterprise Edition only. Use the copies that you took before the upgrade, as described in [Back Up the Data](#back-up-the-data):
 
 1. Stop all nodes.
-2. On every node, move the current `work` directory aside. Remove it instead if you do not need the 9.2 data. Copy the backup of that same node back to the same path.
+2. On every node, move the current data directories aside: the `work` directory and the directories set by the four `ignite.system` path properties, if you use them. Remove them instead if you do not need the 9.2 data. Copy the backup of that same node back to the same paths.
 3. Replace the 9.2 binaries with the 9.1 distribution, and put back the node configuration files that you used on 9.1.
 4. Start all nodes in any order. The cluster forms again with the data of the backup, and you do not run `cluster init`.
 5. Run `cluster status` and check that the status is `active` and the node count is the number of your nodes. Compare the row count of one of your tables with the value before the upgrade.

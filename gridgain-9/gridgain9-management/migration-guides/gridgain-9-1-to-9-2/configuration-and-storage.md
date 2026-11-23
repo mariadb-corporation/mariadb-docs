@@ -193,7 +193,7 @@ For the list of metrics, see [Metrics List](../../../reference/monitoring/metric
 GridGain 9.2 stores the Raft logs in the segment-based log storage (SegStore) by default, replacing the RocksDB-based log storage that 9.1 used and that is deprecated in 9.2.
 
 - *Migration.* The logs migrate automatically. A node starts writing to the new storage once the cluster version is 9.2, at the commit of a rolling upgrade or when all cluster management nodes have joined on 9.2 in a full-cluster upgrade.
-- *Disk space.* Make sure that every node has free disk space for both the old and the new logs.
+- *Disk space.* The new logs are stored in a `segstore` directory inside the Raft log directories, so they follow the paths in `ignite.system.partitionsLogPath`, `ignite.system.metastoragePath`, and `ignite.system.cmgPath`. The [data directories](upgrade-procedure.md#back-up-the-data) list shows the default locations. Make sure that the disks of these directories have free space for both the old and the new logs.
 - *Metrics.* 9.2 adds a `raft.segstore.<name>` metric source for each log, for example `raft.segstore.meta-storage-log`. See [Metrics List](../../../reference/monitoring/metrics-list.md).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
