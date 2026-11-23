@@ -21,7 +21,7 @@ spec:
 Each supported plugin will have a section on how to install it.
 {% endhint %}
 
-In the **Supported Tags** column, `x` stands for any patch version. For more information on how to find the exact tags available in the registry, see [Finding a specific tag](../docker-images.md#finding-a-specific-tag).
+In the **Supported Tags** column, `x` stands for any patch version. For more information on how to find the exact tags available in the registry, see [Listing tags manually](../docker-images.md#listing-tags-manually).
 
 | Component | Image | Supported Tags | CPU Architecture |
 |-----------|-------|----------------|------------------|
