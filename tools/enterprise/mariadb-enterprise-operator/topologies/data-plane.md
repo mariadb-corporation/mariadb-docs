@@ -62,7 +62,7 @@ Unlike the [`ServiceAccount` based authentication](#serviceaccount-based-authent
 Basic authentication is the default when the operator watches only its own namespace (the [single namespace](../installation/helm.md#single-namespace) deployment mode, `currentNamespaceOnly=true`).
 
 {% hint style="info" %}
-Enable only one authentication method. The validating webhook rejects a `MariaDB` resource that enables both `kubernetesAuth` and `basicAuth`. In single-namespace mode, there's no webhook, so this isn't checked.
+Enable only one authentication method. The validating webhook rejects a `MariaDB` resource that enables both `kubernetesAuth` and `basicAuth`.
 {% endhint %}
 
 

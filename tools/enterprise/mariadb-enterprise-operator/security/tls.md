@@ -134,7 +134,6 @@ The server certificate contains the following Subject Alternative Names (SANs):
 * `<mariadb-name>-secondary.<namespace>.svc`
 * `<mariadb-name>-secondary.<namespace>`
 * `<mariadb-name>-secondary`
-* When the arbitrator is enabled (see [Two node clusters](../topologies/replication.md#two-node-clusters)), the same four variants of `*.<mariadb-name>-arbitrator-internal`
 * Every name listed in `spec.tls.serverCertAdditionalNames`
 * `localhost`
 
