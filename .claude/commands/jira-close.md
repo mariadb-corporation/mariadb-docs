@@ -12,6 +12,10 @@ Run the **CLOSE** procedure in `.claude/skills/jira/SKILL.md` for `$ARGUMENTS`.
 - Resolve the key (arg or current-branch prefix); stop if already Closed.
 - **Confirm the PR is merged** before closing — don't close unmerged work; ask if unsure.
 - Transition to **`Closed`** (match by name); optionally comment with the merge commit.
-- Confirm with `Ticket / Status: Closed`.
+- If the ticket was filed from a GitHub issue (`Issue created automatically from Github Issue:`
+  in the description) and that issue is still open, draft a closing comment, show it, and close
+  the issue on confirmation (skill CLOSE step 5). This also applies when the ticket is already
+  Closed.
+- Confirm with `Ticket / Status: Closed / GitHub issue: #<n> closed | already closed | none`.
 
 Ticket: $ARGUMENTS
