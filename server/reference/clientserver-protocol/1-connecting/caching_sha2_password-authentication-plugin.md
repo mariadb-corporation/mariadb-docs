@@ -29,7 +29,7 @@ Caching SHA256 authentication possible exchanges:
 
 ### SHA-2 Encrypted Password
 
-Encryption is `XOR`(`SHA256`(password), `SHA256`(seed, `SHA256`(`SHA256`(password)))).
+Encryption is `XOR`(`SHA256`(password), `SHA256`(`SHA256`(`SHA256`(password)), seed)).
 
 * [byte<32>](../protocol-data-types.md#fixed-length-bytes) encrypted password.
 
