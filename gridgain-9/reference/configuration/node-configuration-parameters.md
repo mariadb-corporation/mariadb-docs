@@ -656,7 +656,7 @@ Both differ from the hard limits in several important ways:
 
 ### Storage Configuration
 
-GridGain Persistence is designed to provide a quick and responsive persistent storage. When using the persistent storage, GridGain stores all the data on disk, and loads as much data as it can into RAM for processing. When persistence is enabled, GrigGain stores each partition in a separate file on disk. In addition to data partitions, GridGain stores indexes and metadata.
+GridGain Persistence is designed to provide a quick and responsive persistent storage. When using the persistent storage, GridGain stores all the data on disk, and loads as much data as it can into RAM for processing. When persistence is enabled, GridGain stores each partition in a separate file on disk. In addition to data partitions, GridGain stores indexes and metadata.
 
 Each GridGain storage engine can have several storage _profiles_.
 
