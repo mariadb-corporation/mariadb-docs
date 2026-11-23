@@ -6,7 +6,7 @@ description: >-
 
 # Getting Started with SQL
 
-This guide walks you through using GridGain 9 SQL capabilities via the command-line interface. You'll set up a distributed Apache GridGain cluster, create and manipulate the Chinook database (a sample database representing a digital media store), and learn to leverage GridGain's powerful SQL features.
+This guide walks you through using GridGain 9 SQL capabilities via the command-line interface. You'll set up a distributed GridGain cluster, create and manipulate the Chinook database (a sample database representing a digital media store), and learn to use GridGain's SQL features.
 
 {% hint style="info" %}
 GridGain 9 SQL is a distributed, ANSI-based SQL dialect and differs from MariaDB Server SQL in both syntax and supported features. For the full list of supported statements, functions, and data types, see the [SQL Reference](../reference/sql/README.md).
@@ -18,7 +18,7 @@ GridGain 9 SQL is a distributed, ANSI-based SQL dialect and differs from MariaDB
 * Basic familiarity with SQL;
 * Command-line terminal access;
 * 8GB+ of available RAM for running the containers;
-* SQL directory with Chinook Database files downloaded.
+* The `sql` directory with the Chinook database files downloaded.
 
 ## Before Starting
 
@@ -27,11 +27,13 @@ This tutorial uses prepared files to streamline deployment. Make sure you have d
 - [docker-compose.yml](../.gitbook/assets/gg9-get-started-docker-compose.yml)
 - [sql archive](../.gitbook/assets/gg9-get-started-sql.zip)
 
-Unpack the archive into a new folder, and place it and the docker compose file in the same directory where you will be running the Docker CLI commands. The tutorial expects these SQL files to be available and mounted to the container.
+Unpack the archive into a new folder, and place that folder and the Docker Compose file in the same directory where you will run the Docker commands. The tutorial expects these SQL files to be available and mounted in the container.
 
 {% hint style="warning" %}
 Without these files, you will be unable to load the sample data needed for the exercises.
 {% endhint %}
+
+The Docker Compose file starts GridGain 9.2.0 by default. To run the guide on a different version, set the `GRIDGAIN9_VERSION` environment variable before starting the cluster and use the same version in the CLI image name below.
 
 ## Setting Up a GridGain 9 Cluster
 
@@ -39,7 +41,7 @@ Before we can start using SQL, we need to set up a GridGain cluster. We will use
 
 ### Starting the Cluster
 
-Open a terminal in the directory containing the docker compose file `docker-compose.yml` file and start the cluster with Docker:
+Open a terminal in the directory containing the Docker Compose file, `docker-compose.yml`, and start the cluster with Docker:
 
 ```bash
 docker compose up -d
@@ -69,19 +71,19 @@ You should see all three nodes with a "running" status.
 Verify that all three nodes are "running" before continuing.
 {% endhint %}
 
-## Connecting to the Cluster Using GridGain CLI
+## Connecting to the Cluster Using the GridGain CLI
 
-Now we will connect to our running cluster using GridGain command-line interface (CLI).
+Now we will connect to our running cluster using the GridGain command-line interface (CLI).
 
 ### Starting the CLI
 
 In your terminal, run:
 
 ```bash
-docker run --rm -it --network=gridgain9_default -v ./sql/:/opt/gridgain/downloads -v /opt/etc/license.json:/opt/gridgain/etc/license.json gridgain/gridgain9:latest cli
+docker run --rm -it --network=gridgain9_default -v ./sql/:/opt/gridgain/downloads -v /opt/etc/license.json:/opt/gridgain/etc/license.json gridgain/gridgain9:9.2.0 cli
 ```
 
-This starts an interactive CLI container connected to the same Docker network as our cluster and mounts a volume containing the sql files for the Chinook Database. When prompted, refuse the connection to the default node and connect to node1 by entering:
+This starts an interactive CLI container connected to the same Docker network as our cluster and mounts a volume containing the SQL files for the Chinook database. When prompted, decline the connection to the default node and connect to node1 by entering:
 
 ```bash
 connect http://node1:10300
@@ -111,7 +113,7 @@ If the license is not available, make sure the license file was mounted correctl
   _  / __  __  ___/__  / _  __  / _  / __  _  __ `/__  / __  __ \
   / /_/ /  _  /    _  /  / /_/ /  / /_/ /  / /_/ / _  /  _  / / /
   \____/   /_/     /_/   \_,__/   \____/   \__,_/  /_/   /_/ /_/
-                      GridGain CLI version 9.1.0
+                      GridGain CLI version 9.2.0
 
 
 You appear to have not connected to any node yet. Do you want to connect to the default node http://localhost:10300? [Y/n] n
@@ -119,7 +121,7 @@ You appear to have not connected to any node yet. Do you want to connect to the 
 Connected to http://node1:10300
 The cluster is not initialized. Run cluster init command to initialize it.
 [node1]> cluster init --name=GridGain --license=/opt/gridgain/etc/license.json
-Cluster was initialized successfully
+Cluster was initialized successfully.
 [node1]> 
 ```
 
@@ -135,7 +137,7 @@ To start working with SQL, enter SQL mode in the CLI:
 sql
 ```
 
-Your prompt should change to `sql-cli>` indicating you're now in SQL mode.
+Your prompt should change to `sql-cli>`, indicating that you're now in SQL mode.
 
 ```
 [node1]> sql
@@ -153,10 +155,10 @@ CREATE ZONE IF NOT EXISTS ChinookReplicated (REPLICAS 3, PARTITIONS 25) STORAGE 
 
 These commands create two zones:
 
-* `Chinook` - Standard zone with 2 replicas for most tables;
-* `ChinookReplicated` - Zone with 3 replicas for frequently accessed reference data.
+* `Chinook` - A standard zone with 2 replicas for most tables;
+* `ChinookReplicated` - A zone with 3 replicas for frequently accessed reference data.
 
-### Database Entity Relationship
+### Database Entity Relationship Diagram
 
 Here's the entity relationship diagram for our Chinook database:
 
@@ -167,7 +169,7 @@ Here's the entity relationship diagram for our Chinook database:
 Now let's create the main tables for the Chinook database. We will start with the Artist and Album tables.
 
 {% hint style="info" %}
-Copy and paste the following SQL blocks at the `sql-cli>` prompt then hit enter.
+Copy and paste the following SQL blocks at the `sql-cli>` prompt, and then press Enter.
 {% endhint %}
 
 ```sql
@@ -186,7 +188,7 @@ CREATE TABLE Album (
 ) COLOCATE BY (ArtistId) ZONE Chinook;
 ```
 
-The `COLOCATE BY` clause in the *Album* table ensures that albums by the same artist are stored on the same nodes. This optimizes joins between Artist and Album tables by eliminating the need for network transfers during queries.
+The `COLOCATE BY` clause in the *Album* table ensures that albums by the same artist are stored on the same nodes. This optimizes joins between the Artist and Album tables by eliminating the need for network transfers during queries.
 
 Next, let's create the Genre and MediaType reference tables:
 
@@ -223,7 +225,7 @@ CREATE TABLE Track (
 ) COLOCATE BY (AlbumId) ZONE Chinook;
 ```
 
-Tracks are colocated by AlbumId, not by TrackId, because most queries join tracks with their albums. This colocation optimizes these common join patterns.
+Tracks are colocated by AlbumId, not by TrackId, so all the tracks of an album are stored together. Note that Album itself is colocated by ArtistId, so a join of Track and Album on AlbumId still needs to move data between nodes. You will see this in the execution plans later in this guide.
 
 Let's also create tables to manage customers, employees, and sales:
 
@@ -287,7 +289,9 @@ CREATE TABLE InvoiceLine (
 ) COLOCATE BY (TrackId) ZONE Chinook;
 ```
 
-Invoices are colocated by CustomerId and InvoiceLines are colocated by InvoiceId. This creates an efficient chain of locality: Customer → Invoice → InvoiceLine, optimizing queries that analyze customer purchase history.
+Invoices are colocated by CustomerId, so each customer's invoices are stored together with the customer. This optimizes joins between Customer and Invoice.
+
+InvoiceLines are colocated by TrackId. Colocation does not chain: a table is placed only by its own colocation columns, so InvoiceLine rows are not stored together with the Invoice rows they belong to. Later in this guide, you will see how this affects a query that joins several tables.
 
 Finally, let's create the playlist-related tables:
 
@@ -312,38 +316,41 @@ Note that PlaylistTrack is not colocated with Track. This is a design decision t
 Let's confirm that all our tables were created successfully:
 
 ```sql
-SELECT * FROM system.tables WHERE schema = 'PUBLIC';
+SELECT table_name, zone_name, table_colocation_columns
+FROM system.tables
+WHERE schema_name = 'PUBLIC'
+ORDER BY table_name;
 ```
 
-This query checks the system tables to verify that our tables exist. You should see a list of all the tables we've created.
+This query checks the system tables to verify that our tables exist. It also shows the zone and the colocation columns of each table. You should see a list of all the tables that we created.
 
 ```
-sql-cli> SELECT * FROM system.tables WHERE schema = 'PUBLIC';
-╔═════════════╤═══════════════╤══════════╤═══════════════════╤═══════════════════╤═════════════════╤══════════════════════════╤═══════════╤═════════╤════════╤═══════════════╤════╤═════════════╤══════════════════════╤═══════════════════╗
-║ SCHEMA_NAME │ TABLE_NAME    │ TABLE_ID │ TABLE_PK_INDEX_ID │ ZONE_NAME         │ STORAGE_PROFILE │ TABLE_COLOCATION_COLUMNS │ SCHEMA_ID │ ZONE_ID │ SCHEMA │ NAME          │ ID │ PK_INDEX_ID │ COLOCATION_KEY_INDEX │ ZONE              ║
-╠═════════════╪═══════════════╪══════════╪═══════════════════╪═══════════════════╪═════════════════╪══════════════════════════╪═══════════╪═════════╪════════╪═══════════════╪════╪═════════════╪══════════════════════╪═══════════════════╣
-║ PUBLIC      │ ARTIST        │ 22       │ 23                │ CHINOOK           │ default         │ ARTISTID                 │ 1         │ 20      │ PUBLIC │ ARTIST        │ 22 │ 23          │ ARTISTID             │ CHINOOK           ║
-╟─────────────┼───────────────┼──────────┼───────────────────┼───────────────────┼─────────────────┼──────────────────────────┼───────────┼─────────┼────────┼───────────────┼────┼─────────────┼──────────────────────┼───────────────────╢
-║ PUBLIC      │ PLAYLIST      │ 40       │ 41                │ CHINOOK           │ default         │ PLAYLISTID               │ 1         │ 20      │ PUBLIC │ PLAYLIST      │ 40 │ 41          │ PLAYLISTID           │ CHINOOK           ║
-╟─────────────┼───────────────┼──────────┼───────────────────┼───────────────────┼─────────────────┼──────────────────────────┼───────────┼─────────┼────────┼───────────────┼────┼─────────────┼──────────────────────┼───────────────────╢
-║ PUBLIC      │ PLAYLISTTRACK │ 42       │ 43                │ CHINOOK           │ default         │ PLAYLISTID, TRACKID      │ 1         │ 20      │ PUBLIC │ PLAYLISTTRACK │ 42 │ 43          │ PLAYLISTID, TRACKID  │ CHINOOK           ║
-╟─────────────┼───────────────┼──────────┼───────────────────┼───────────────────┼─────────────────┼──────────────────────────┼───────────┼─────────┼────────┼───────────────┼────┼─────────────┼──────────────────────┼───────────────────╢
-║ PUBLIC      │ GENRE         │ 26       │ 27                │ CHINOOKREPLICATED │ default         │ GENREID                  │ 1         │ 21      │ PUBLIC │ GENRE         │ 26 │ 27          │ GENREID              │ CHINOOKREPLICATED ║
-╟─────────────┼───────────────┼──────────┼───────────────────┼───────────────────┼─────────────────┼──────────────────────────┼───────────┼─────────┼────────┼───────────────┼────┼─────────────┼──────────────────────┼───────────────────╢
-║ PUBLIC      │ INVOICE       │ 36       │ 37                │ CHINOOK           │ default         │ CUSTOMERID               │ 1         │ 20      │ PUBLIC │ INVOICE       │ 36 │ 37          │ CUSTOMERID           │ CHINOOK           ║
-╟─────────────┼───────────────┼──────────┼───────────────────┼───────────────────┼─────────────────┼──────────────────────────┼───────────┼─────────┼────────┼───────────────┼────┼─────────────┼──────────────────────┼───────────────────╢
-║ PUBLIC      │ INVOICELINE   │ 38       │ 39                │ CHINOOK           │ default         │ TRACKID                  │ 1         │ 20      │ PUBLIC │ INVOICELINE   │ 38 │ 39          │ TRACKID              │ CHINOOK           ║
-╟─────────────┼───────────────┼──────────┼───────────────────┼───────────────────┼─────────────────┼──────────────────────────┼───────────┼─────────┼────────┼───────────────┼────┼─────────────┼──────────────────────┼───────────────────╢
-║ PUBLIC      │ ALBUM         │ 24       │ 25                │ CHINOOK           │ default         │ ARTISTID                 │ 1         │ 20      │ PUBLIC │ ALBUM         │ 24 │ 25          │ ARTISTID             │ CHINOOK           ║
-╟─────────────┼───────────────┼──────────┼───────────────────┼───────────────────┼─────────────────┼──────────────────────────┼───────────┼─────────┼────────┼───────────────┼────┼─────────────┼──────────────────────┼───────────────────╢
-║ PUBLIC      │ CUSTOMER      │ 34       │ 35                │ CHINOOK           │ default         │ CUSTOMERID               │ 1         │ 20      │ PUBLIC │ CUSTOMER      │ 34 │ 35          │ CUSTOMERID           │ CHINOOK           ║
-╟─────────────┼───────────────┼──────────┼───────────────────┼───────────────────┼─────────────────┼──────────────────────────┼───────────┼─────────┼────────┼───────────────┼────┼─────────────┼──────────────────────┼───────────────────╢
-║ PUBLIC      │ MEDIATYPE     │ 28       │ 29                │ CHINOOKREPLICATED │ default         │ MEDIATYPEID              │ 1         │ 21      │ PUBLIC │ MEDIATYPE     │ 28 │ 29          │ MEDIATYPEID          │ CHINOOKREPLICATED ║
-╟─────────────┼───────────────┼──────────┼───────────────────┼───────────────────┼─────────────────┼──────────────────────────┼───────────┼─────────┼────────┼───────────────┼────┼─────────────┼──────────────────────┼───────────────────╢
-║ PUBLIC      │ TRACK         │ 30       │ 31                │ CHINOOK           │ default         │ ALBUMID                  │ 1         │ 20      │ PUBLIC │ TRACK         │ 30 │ 31          │ ALBUMID              │ CHINOOK           ║
-╟─────────────┼───────────────┼──────────┼───────────────────┼───────────────────┼─────────────────┼──────────────────────────┼───────────┼─────────┼────────┼───────────────┼────┼─────────────┼──────────────────────┼───────────────────╢
-║ PUBLIC      │ EMPLOYEE      │ 32       │ 33                │ CHINOOK           │ default         │ EMPLOYEEID               │ 1         │ 20      │ PUBLIC │ EMPLOYEE      │ 32 │ 33          │ EMPLOYEEID           │ CHINOOK           ║
-╚═════════════╧═══════════════╧══════════╧═══════════════════╧═══════════════════╧═════════════════╧══════════════════════════╧═══════════╧═════════╧════════╧═══════════════╧════╧═════════════╧══════════════════════╧═══════════════════╝
+sql-cli> SELECT table_name, zone_name, table_colocation_columns FROM system.tables WHERE schema_name = 'PUBLIC' ORDER BY table_name;
+╔═══════════════╤═══════════════════╤══════════════════════════╗
+║ TABLE_NAME    │ ZONE_NAME         │ TABLE_COLOCATION_COLUMNS ║
+╠═══════════════╪═══════════════════╪══════════════════════════╣
+║ ALBUM         │ CHINOOK           │ ARTISTID                 ║
+╟───────────────┼───────────────────┼──────────────────────────╢
+║ ARTIST        │ CHINOOK           │ ARTISTID                 ║
+╟───────────────┼───────────────────┼──────────────────────────╢
+║ CUSTOMER      │ CHINOOK           │ CUSTOMERID               ║
+╟───────────────┼───────────────────┼──────────────────────────╢
+║ EMPLOYEE      │ CHINOOK           │ EMPLOYEEID               ║
+╟───────────────┼───────────────────┼──────────────────────────╢
+║ GENRE         │ CHINOOKREPLICATED │ GENREID                  ║
+╟───────────────┼───────────────────┼──────────────────────────╢
+║ INVOICE       │ CHINOOK           │ CUSTOMERID               ║
+╟───────────────┼───────────────────┼──────────────────────────╢
+║ INVOICELINE   │ CHINOOK           │ TRACKID                  ║
+╟───────────────┼───────────────────┼──────────────────────────╢
+║ MEDIATYPE     │ CHINOOKREPLICATED │ MEDIATYPEID              ║
+╟───────────────┼───────────────────┼──────────────────────────╢
+║ PLAYLIST      │ CHINOOK           │ PLAYLISTID               ║
+╟───────────────┼───────────────────┼──────────────────────────╢
+║ PLAYLISTTRACK │ CHINOOK           │ PLAYLISTID, TRACKID      ║
+╟───────────────┼───────────────────┼──────────────────────────╢
+║ TRACK         │ CHINOOK           │ ALBUMID                  ║
+╚═══════════════╧═══════════════════╧══════════════════════════╝
 ```
 
 {% hint style="info" %}
@@ -358,8 +365,8 @@ Now that we have our tables set up, let's populate them with sample data.
 
 Let's start by adding some artists.
 
-- Exit the interactive sql mode by typing `exit;`.
-- Then, load the current store catalog from the sql data file.
+- Exit the interactive SQL mode by typing `exit;`.
+- Then, load the current store catalog from the SQL data file.
 
 ```bash
 sql --file=/opt/gridgain/downloads/current_catalog.sql;
@@ -452,7 +459,7 @@ Now that we have data in our tables, let's run some SQL queries to explore the C
 
 ### Basic Queries
 
-Let's return to the `sql-cli>` and start with some simple SELECT queries:
+Let's return to the `sql-cli>` prompt and start with some simple `SELECT` queries:
 
 ```bash
 sql
@@ -486,7 +493,7 @@ FROM
 LIMIT 10;
 ```
 
-This complex query uses multiple CTEs to achieve what would typically be done with the RANK() window function. We first count tracks per album, then determine the maximum track count per artist, and finally join these results to identify albums with the most tracks for each artist.
+This query joins three tables to list each track with its album and artist, and returns the first 10 rows.
 
 ## Data Manipulation in GridGain SQL
 
@@ -722,12 +729,69 @@ ORDER BY
 
 One of the key advantages of GridGain is its ability to optimize joins through data colocation. Let's explore this with our existing colocated tables.
 
-### Colocated Queries
+Colocation helps a join only when both tables are in the same zone and are colocated by the columns used in the join. In an execution plan, you can see the result by looking at the `Exchange` operators, which show where rows are moved between nodes. We will compare three cases: a join that matches the colocation columns, a join that does not, and a change of the colocation column that does not fix the mismatch.
 
-Let's start by looking at a query where there is a mismatch in the colocation strategy.
+{% hint style="info" %}
+Row estimates in an execution plan come from table statistics, which are updated some time after the data changes. If you run `EXPLAIN` right after loading data, the estimates and the join types in your plan can differ from the ones shown here. Compare the `Exchange` operators rather than the estimates.
+{% endhint %}
+
+### Joining Tables Colocated by the Join Column
+
+Let's start with a join where the colocation columns match the join columns. `Album` is colocated by `ArtistId`, which is also the column that joins it to `Artist`:
 
 ```sql
---This is an example of poorly created table.
+EXPLAIN PLAN FOR
+SELECT
+    ar.Name AS ArtistName,
+    a.Title AS AlbumTitle
+FROM
+    Artist ar
+    JOIN Album a ON a.ArtistId = ar.ArtistId;
+```
+
+```
+╔═════════════════════════════════════════════════════════╗
+║ PLAN                                                    ║
+╠═════════════════════════════════════════════════════════╣
+║ Exchange                                                ║
+║     distribution: single                                ║
+║     est: (rows=347)                                     ║
+║   Project                                               ║
+║       fieldNames: [ARTISTNAME, ALBUMTITLE]              ║
+║       projection: [NAME, TITLE]                         ║
+║       est: (rows=347)                                   ║
+║     HashJoin                                            ║
+║         predicate: =(ARTISTID, ARTISTID$0)              ║
+║         fieldNames: [TITLE, ARTISTID, ARTISTID$0, NAME] ║
+║         type: inner                                     ║
+║         est: (rows=347)                                 ║
+║       TableScan                                         ║
+║           table: PUBLIC.ALBUM                           ║
+║           fieldNames: [TITLE, ARTISTID]                 ║
+║           est: (rows=347)                               ║
+║       TableScan                                         ║
+║           table: PUBLIC.ARTIST                          ║
+║           fieldNames: [ARTISTID, NAME]                  ║
+║           est: (rows=275)                               ║
+╚═════════════════════════════════════════════════════════╝
+```
+
+{% hint style="info" %}
+The plan above is the same in 9.1 and 9.2.
+{% endhint %}
+
+There is no `Exchange` between the two scans and the join. Each node joins the artists and albums it stores, and the only `Exchange`, at the top of the plan, gathers the results for the client. The join of `Customer` and `Invoice`, which are colocated by `CustomerId`, has the same plan shape.
+
+Next, let's see what the plan looks like when the colocation columns do not match the join.
+
+### Joining Tables Colocated by Different Columns
+
+Now let's look at a query that joins three tables on columns that do not match how the tables are colocated.
+
+First, consider `InvoiceLine` colocated by `InvoiceId`. You do not need to run this statement, because the table already exists from an earlier step. It is shown for comparison.
+
+```sql
+--An alternative layout: InvoiceLine colocated by InvoiceId.
 CREATE TABLE InvoiceLine (
     InvoiceLineId INT NOT NULL,
     InvoiceId INT NOT NULL,
@@ -738,13 +802,13 @@ CREATE TABLE InvoiceLine (
 ) COLOCATE BY (InvoiceId) ZONE Chinook;
 ```
 
-If we create the `InvoiceLine` table to be colocated by InvoiceId, we end up with a mismatch for our query.
+With this layout, the colocation columns do not match the join columns of our query:
 
-* Album is colocated by ArtistId
-* Track is colocated by AlbumId
-* InvoiceLine is colocated by InvoiceId
+* Album is colocated by ArtistId, but the query joins it on AlbumId.
+* Track is colocated by AlbumId, but the query joins it with InvoiceLine on TrackId.
+* InvoiceLine is colocated by InvoiceId, but the query joins it with Track on TrackId.
 
-This means that when you run a query joining InvoiceLine, Track, and Album, the data might be spread across different nodes because they're colocated on different keys. Our query is looking for invoice ID 1, then joining with Track and Album, but these tables are colocated on different keys.
+This means that when you run a query joining InvoiceLine, Track, and Album, the rows to join might be on different nodes, so the data has to be gathered first.
 
 ```sql
 EXPLAIN PLAN FOR
@@ -821,69 +885,60 @@ GROUP BY
 
 {% tab title="9.1" %}
 ```
-╔═════════════════════════════════════════════════════════════════════════════╗
-║ PLAN                                                                        ║
-╠═════════════════════════════════════════════════════════════════════════════╣
-║ Project                                                                     ║
-║     fields: [INVOICEID, LINEITEMCOUNT, INVOICETOTAL, TRACKNAME, ALBUMTITLE] ║
-║     exprs: [INVOICEID, LINEITEMCOUNT, INVOICETOTAL, TRACKNAME, ALBUMTITLE]  ║
-║     est. row count: 9955526                                                 ║
-║   ColocatedHashAggregate                                                    ║
-║       group: [INVOICEID, TRACKNAME, ALBUMTITLE]                             ║
-║       aggs: [COUNT(), SUM($f4)]                                             ║
-║       est. row count: 9955526                                               ║
-║     Project                                                                 ║
-║         fields: [INVOICEID, TRACKNAME, ALBUMTITLE, $f4]                     ║
-║         exprs: [INVOICEID, NAME, TITLE, *(UNITPRICE, QUANTITY)]             ║
-║         est. row count: 20400668                                            ║
-║       MergeJoin                                                             ║
-║           condition: =(TRACKID0, TRACKID)                                   ║
-║           joinType: inner                                                   ║
-║           leftCollation: [TRACKID ASC]                                      ║
-║           rightCollation: [NAME ASC]                                        ║
-║           est. row count: 20400668                                          ║
-║         HashJoin                                                            ║
-║             condition: =(ALBUMID, ALBUMID0)                                 ║
-║             joinType: inner                                                 ║
-║             est. row count: 182331                                          ║
-║           Exchange                                                          ║
-║               distribution: single                                          ║
-║               est. row count: 3503                                          ║
-║             Sort                                                            ║
-║                 collation: [TRACKID ASC]                                    ║
-║                 est. row count: 3503                                        ║
-║               TableScan                                                     ║
-║                   table: [PUBLIC, TRACK]                                    ║
-║                   fields: [TRACKID, NAME, ALBUMID]                          ║
-║                   est. row count: 3503                                      ║
-║           Exchange                                                          ║
-║               distribution: single                                          ║
-║               est. row count: 347                                           ║
-║             TableScan                                                       ║
-║                 table: [PUBLIC, ALBUM]                                      ║
-║                 fields: [ALBUMID, TITLE]                                    ║
-║                 est. row count: 347                                         ║
-║         Exchange                                                            ║
-║             distribution: single                                            ║
-║             est. row count: 746                                             ║
-║           Sort                                                              ║
-║               collation: [TRACKID ASC]                                      ║
-║               est. row count: 746                                           ║
-║             IndexScan                                                       ║
-║                 table: [PUBLIC, INVOICELINE]                                ║
-║                 index: IDX_INVOICELINE_INVOICE_TRACK                        ║
-║                 type: SORTED                                                ║
-║                 searchBounds: [ExactBounds [bound=1], null]                 ║
-║                 filters: =(INVOICEID, 1)                                    ║
-║                 fields: [INVOICEID, TRACKID, UNITPRICE, QUANTITY]           ║
-║                 collation: [INVOICEID ASC, TRACKID ASC]                     ║
-║                 est. row count: 746                                         ║
-╚═════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ PLAN                                                                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ Project                                                                                                     ║
+║     fieldNames: [INVOICEID, LINEITEMCOUNT, INVOICETOTAL, TRACKNAME, ALBUMTITLE]                             ║
+║     projection: [INVOICEID, LINEITEMCOUNT, INVOICETOTAL, TRACKNAME, ALBUMTITLE]                             ║
+║     est: (rows=13347)                                                                                       ║
+║   ColocatedHashAggregate                                                                                    ║
+║       fieldNames: [INVOICEID, TRACKNAME, ALBUMTITLE, LINEITEMCOUNT, INVOICETOTAL]                           ║
+║       group: [INVOICEID, TRACKNAME, ALBUMTITLE]                                                             ║
+║       aggregation: [COUNT(), SUM($f4)]                                                                      ║
+║       est: (rows=13347)                                                                                     ║
+║     Project                                                                                                 ║
+║         fieldNames: [INVOICEID, TRACKNAME, ALBUMTITLE, $f4]                                                 ║
+║         projection: [INVOICEID, NAME, TITLE, *(UNITPRICE, QUANTITY)]                                        ║
+║         est: (rows=27350)                                                                                   ║
+║       HashJoin                                                                                              ║
+║           predicate: =(ALBUMID, ALBUMID$0)                                                                  ║
+║           fieldNames: [TRACKID, NAME, ALBUMID, INVOICEID, TRACKID$0, UNITPRICE, QUANTITY, ALBUMID$0, TITLE] ║
+║           type: inner                                                                                       ║
+║           est: (rows=27350)                                                                                 ║
+║         HashJoin                                                                                            ║
+║             predicate: =(TRACKID$0, TRACKID)                                                                ║
+║             fieldNames: [TRACKID, NAME, ALBUMID, INVOICEID, TRACKID$0, UNITPRICE, QUANTITY]                 ║
+║             type: inner                                                                                     ║
+║             est: (rows=525)                                                                                 ║
+║           Exchange                                                                                          ║
+║               distribution: single                                                                          ║
+║               est: (rows=3503)                                                                              ║
+║             TableScan                                                                                       ║
+║                 table: PUBLIC.TRACK                                                                         ║
+║                 fieldNames: [TRACKID, NAME, ALBUMID]                                                        ║
+║                 est: (rows=3503)                                                                            ║
+║           Exchange                                                                                          ║
+║               distribution: single                                                                          ║
+║               est: (rows=1)                                                                                 ║
+║             TableScan                                                                                       ║
+║                 table: PUBLIC.INVOICELINE                                                                   ║
+║                 predicate: =(INVOICEID, 1)                                                                  ║
+║                 fieldNames: [INVOICEID, TRACKID, UNITPRICE, QUANTITY]                                       ║
+║                 est: (rows=1)                                                                               ║
+║         Exchange                                                                                            ║
+║             distribution: single                                                                            ║
+║             est: (rows=347)                                                                                 ║
+║           TableScan                                                                                         ║
+║               table: PUBLIC.ALBUM                                                                           ║
+║               fieldNames: [ALBUMID, TITLE]                                                                  ║
+║               est: (rows=347)                                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 ```
 {% endtab %}
 {% endtabs %}
 
-#### Key Observations in the Execution Plan
+#### Key Observations for Mismatched Colocation
 
 {% tabs %}
 {% tab title="9.2" %}
@@ -902,31 +957,28 @@ GROUP BY
 {% endtab %}
 
 {% tab title="9.1" %}
-*ColocatedHashAggregate Operation*: The plan uses a `ColocatedHashAggregate` operation, which indicates GridGain recognizes that portions of the aggregation can happen on colocated data before results are combined. This reduces network transfer during the `GROUP BY` operation.
+{% hint style="info" %}
+In 9.1, the plan is the same as in 9.2, except for the name of the aggregate operator. For a colocated aggregate, 9.1 prints `ColocatedHashAggregate` where 9.2 prints `HashAggregate` without a `phase` line.
+{% endhint %}
 
-*Exchange Operations*: Several `Exchange(distribution=[single])` operations appear in the plan, indicating data movement between nodes is still necessary. These operations are applied to the Album table, Track table, and InvoiceLine filtered results.
+*ColocatedHashAggregate Operation*: The plan uses a single `ColocatedHashAggregate`, which runs the aggregation in one step. Here the aggregation runs once, after the join results have been gathered on one node. A two-phase aggregation shows `MapHashAggregate` and `ReduceHashAggregate` operators instead.
 
-*Join Implementation*: The plan shows a combination of `HashJoin` and `MergeJoin` operations rather than nested loop joins. The optimizer has determined these join types are more efficient for the data volumes involved:
+*Exchange Operations*: Three `Exchange` operators with `distribution: single` appear in the plan, one each for the Track, InvoiceLine (filtered by `InvoiceId = 1`), and Album inputs. Each one gathers the rows of a table on a single node because the join keys do not match how the tables are colocated.
 
-* HashJoin for joining Track with Album
-* MergeJoin for joining the above result with InvoiceLine
+*Join Implementation*: Both joins are `HashJoin` operations:
 
-*Efficient Data Access*: The query uses an `IndexScan` with the `IDX_INVOICELINE_INVOICE_TRACK` index rather than a full table scan on InvoiceLine. This provides:
+* The first joins Track with the filtered InvoiceLine rows on `TRACKID`.
+* The second joins that result with Album on `ALBUMID`.
 
-* Efficient filtering with `searchBounds: [ExactBounds [bound=1], null]` for InvoiceId = 1
-* Pre-sorted results with `collation: [INVOICEID ASC, TRACKID ASC]`
+*Full Table Scans*: All three inputs use a `TableScan`. The filter `InvoiceId = 1` is applied as a predicate during the InvoiceLine scan.
 
-*Row Count Estimation*: There appears to be a significant increase in estimated row counts after joins:
-
-* Initial InvoiceLine filtered rows: 746
-* After HashJoin with Album: 182,331
-* After MergeJoin with Track: 20,400,668
+*Row Count Estimation*: The estimates grow after the joins: 1 row from the filtered InvoiceLine scan, 525 after the join with Track, and 27,350 after the join with Album. The estimates come from table statistics and are approximate.
 {% endtab %}
 {% endtabs %}
 
-### Improved Cololocation Strategy
+### Colocating by a Different Column
 
-However, if we create the `InvoiceLine` table to be colocated by `TrackId`, we dramaticly optimize our query.
+Would a different colocation column fix the mismatch? Let's look at the layout that this guide created earlier, with the `InvoiceLine` table colocated by `TrackId`, and run the same query. You do not need to run the statement below, because this is the table that you already created.
 
 ```sql
 --This table was already created on an earlier step.
@@ -942,11 +994,11 @@ CREATE TABLE InvoiceLine (
 
 {% tabs %}
 {% tab title="9.2" %}
-And run `EXPLAIN PLAN FOR` again. The plan is:
+Run `EXPLAIN PLAN FOR` again. The plan is:
 {% endtab %}
 
 {% tab title="9.1" %}
-And run `EXPLAIN PLAN FOR` again...
+Run `EXPLAIN PLAN FOR` again. The plan is:
 {% endtab %}
 {% endtabs %}
 
@@ -1025,105 +1077,116 @@ GROUP BY
 
 {% tab title="9.1" %}
 ```
-╔═════════════════════════════════════════════════════════════════════════════╗
-║ PLAN                                                                        ║
-╠═════════════════════════════════════════════════════════════════════════════╣
-║ Project                                                                     ║
-║     fields: [INVOICEID, LINEITEMCOUNT, INVOICETOTAL, TRACKNAME, ALBUMTITLE] ║
-║     exprs: [INVOICEID, LINEITEMCOUNT, INVOICETOTAL, TRACKNAME, ALBUMTITLE]  ║
-║     est. row count: 1                                                       ║
-║   ColocatedHashAggregate                                                    ║
-║       group: [INVOICEID, TRACKNAME, ALBUMTITLE]                             ║
-║       aggs: [COUNT(), SUM($f4)]                                             ║
-║       est. row count: 1                                                     ║
-║     Project                                                                 ║
-║         fields: [INVOICEID, TRACKNAME, ALBUMTITLE, $f4]                     ║
-║         exprs: [INVOICEID, NAME, TITLE, *(UNITPRICE, QUANTITY)]             ║
-║         est. row count: 1                                                   ║
-║       MergeJoin                                                             ║
-║           condition: =(ALBUMID0, ALBUMID)                                   ║
-║           joinType: inner                                                   ║
-║           leftCollation: [ALBUMID ASC]                                      ║
-║           rightCollation: [TRACKID ASC]                                     ║
-║           est. row count: 1                                                 ║
-║         Exchange                                                            ║
-║             distribution: single                                            ║
-║             est. row count: 1                                               ║
-║           Sort                                                              ║
-║               collation: [ALBUMID ASC]                                      ║
-║               est. row count: 1                                             ║
-║             TableScan                                                       ║
-║                 table: [PUBLIC, ALBUM]                                      ║
-║                 fields: [ALBUMID, TITLE]                                    ║
-║                 est. row count: 1                                           ║
-║         HashJoin                                                            ║
-║             condition: =(TRACKID, TRACKID0)                                 ║
-║             joinType: inner                                                 ║
-║             est. row count: 1                                               ║
-║           Exchange                                                          ║
-║               distribution: single                                          ║
-║               est. row count: 1                                             ║
-║             IndexScan                                                       ║
-║                 table: [PUBLIC, TRACK]                                      ║
-║                 index: IDX_TRACK_ALBUMID_NAME                               ║
-║                 type: SORTED                                                ║
-║                 fields: [TRACKID, NAME, ALBUMID]                            ║
-║                 collation: [ALBUMID ASC, NAME ASC]                          ║
-║                 est. row count: 1                                           ║
-║           Exchange                                                          ║
-║               distribution: single                                          ║
-║               est. row count: 1                                             ║
-║             TableScan                                                       ║
-║                 table: [PUBLIC, INVOICELINE]                                ║
-║                 filters: =(INVOICEID, 1)                                    ║
-║                 fields: [INVOICEID, TRACKID, UNITPRICE, QUANTITY]           ║
-║                 est. row count: 1                                           ║
-╚═════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ PLAN                                                                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ Project                                                                                                     ║
+║     fieldNames: [INVOICEID, LINEITEMCOUNT, INVOICETOTAL, TRACKNAME, ALBUMTITLE]                             ║
+║     projection: [INVOICEID, LINEITEMCOUNT, INVOICETOTAL, TRACKNAME, ALBUMTITLE]                             ║
+║     est: (rows=13347)                                                                                       ║
+║   ColocatedHashAggregate                                                                                    ║
+║       fieldNames: [INVOICEID, TRACKNAME, ALBUMTITLE, LINEITEMCOUNT, INVOICETOTAL]                           ║
+║       group: [INVOICEID, TRACKNAME, ALBUMTITLE]                                                             ║
+║       aggregation: [COUNT(), SUM($f4)]                                                                      ║
+║       est: (rows=13347)                                                                                     ║
+║     Project                                                                                                 ║
+║         fieldNames: [INVOICEID, TRACKNAME, ALBUMTITLE, $f4]                                                 ║
+║         projection: [INVOICEID, NAME, TITLE, *(UNITPRICE, QUANTITY)]                                        ║
+║         est: (rows=27350)                                                                                   ║
+║       HashJoin                                                                                              ║
+║           predicate: =(ALBUMID, ALBUMID$0)                                                                  ║
+║           fieldNames: [TRACKID, NAME, ALBUMID, INVOICEID, TRACKID$0, UNITPRICE, QUANTITY, ALBUMID$0, TITLE] ║
+║           type: inner                                                                                       ║
+║           est: (rows=27350)                                                                                 ║
+║         HashJoin                                                                                            ║
+║             predicate: =(TRACKID, TRACKID$0)                                                                ║
+║             fieldNames: [TRACKID, NAME, ALBUMID, INVOICEID, TRACKID$0, UNITPRICE, QUANTITY]                 ║
+║             type: inner                                                                                     ║
+║             est: (rows=525)                                                                                 ║
+║           Exchange                                                                                          ║
+║               distribution: single                                                                          ║
+║               est: (rows=3503)                                                                              ║
+║             TableScan                                                                                       ║
+║                 table: PUBLIC.TRACK                                                                         ║
+║                 fieldNames: [TRACKID, NAME, ALBUMID]                                                        ║
+║                 est: (rows=3503)                                                                            ║
+║           Exchange                                                                                          ║
+║               distribution: single                                                                          ║
+║               est: (rows=1)                                                                                 ║
+║             TableScan                                                                                       ║
+║                 table: PUBLIC.INVOICELINE                                                                   ║
+║                 predicate: =(INVOICEID, 1)                                                                  ║
+║                 fieldNames: [INVOICEID, TRACKID, UNITPRICE, QUANTITY]                                       ║
+║                 est: (rows=1)                                                                               ║
+║         Exchange                                                                                            ║
+║             distribution: single                                                                            ║
+║             est: (rows=347)                                                                                 ║
+║           TableScan                                                                                         ║
+║               table: PUBLIC.ALBUM                                                                           ║
+║               fieldNames: [ALBUMID, TITLE]                                                                  ║
+║               est: (rows=347)                                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 ```
 {% endtab %}
 {% endtabs %}
 
-#### Key Observations in the Execution Plan
+#### Key Observations After the Change
 
 {% tabs %}
 {% tab title="9.2" %}
 The plan has the same shape as the one for the `InvoiceId` layout: a single `HashAggregate` over two `HashJoin` operators, with an `Exchange` with `distribution: single` above each of the Track, InvoiceLine, and Album scans. The only difference is the order of the operands in the first join predicate, `=(TRACKID, TRACKID$0)` instead of `=(TRACKID$0, TRACKID)`.
+
+Colocating `InvoiceLine` by `TrackId` does not help this query, because `Track` is colocated by `AlbumId`, not `TrackId`. An `InvoiceLine` row is therefore still not stored together with its `Track` row, and the join has to gather the rows of both tables.
+
+The estimates and the join types are not a measure of this. They follow the table statistics. For example, the same `TrackId` layout produces a plan with `MergeJoin` and an `IndexScan` on `InvoiceLine`, and much larger estimates once the statistics are updated. Even then, the plan has an `Exchange` above each of the three scans.
 {% endtab %}
 
 {% tab title="9.1" %}
-*ColocatedHashAggregate Operation*: The plan uses a `ColocatedHashAggregate` operation, which indicates GridGain recognizes that portions of the aggregation can happen on colocated data before results are combined. This reduces network transfer during the `GROUP BY` operation.
+The plan has the same shape as the one for the `InvoiceId` layout: a single `ColocatedHashAggregate` over two `HashJoin` operators, with an `Exchange` with `distribution: single` above each of the Track, InvoiceLine, and Album scans. The only difference is the order of the operands in the first join predicate, `=(TRACKID, TRACKID$0)` instead of `=(TRACKID$0, TRACKID)`.
 
-*Improved Row Count Estimates*: Notice the dramatic improvement in row count estimates, which now show just 1 row at each step. This indicates the optimizer has much better statistics and understanding of the actual data distribution compared to the original plan that estimated millions of rows.
+Colocating `InvoiceLine` by `TrackId` does not help this query, because `Track` is colocated by `AlbumId`, not `TrackId`. An `InvoiceLine` row is therefore still not stored together with its `Track` row, and the join has to gather the rows of both tables.
 
-*Join Implementation*: The plan shows a combination of `HashJoin` and `MergeJoin` operations:
-
-* HashJoin for joining Track with InvoiceLine
-* MergeJoin for joining the above result with Album
-
-*Efficient Index Usage*: The query now uses the composite index `IDX_TRACK_ALBUMID_NAME` on the Track table, providing:
-
-* Efficient sorted access by AlbumId and Name
-* Direct access to the fields needed for the join and select operations
-
-*Exchange Operations*: While Exchange operations still appear in the plan, the estimated row counts are now minimal (just 1 row per exchange). This suggests much less data movement between nodes compared to the original plan where millions of rows were estimated to be transferred.
+The estimates and the join types are not a measure of this. They follow the table statistics. For example, the same `TrackId` layout produces a plan with `MergeJoin` and an `IndexScan` on `InvoiceLine`, and much larger estimates once the statistics are updated. Even then, the plan has an `Exchange` above each of the three scans.
 {% endtab %}
 {% endtabs %}
 
-#### Colocation Impact
+### How Colocation Affects Joins
 
-The substantial improvement in this execution plan demonstrates the power of proper data colocation in GridGain. By:
+The three plans show how colocation works in GridGain:
 
-1. Structuring the query to join the tables in the optimal order (Track → Album → InvoiceLine)
-2. Creating appropriate supporting indexes
-3. Ensuring proper colocation between related tables
+* Colocation places rows of two tables together only when both tables are in the same zone and are colocated by the join columns. `Artist` and `Album`, and `Customer` and `Invoice`, are such pairs.
+* Colocation does not chain. `Invoice` is stored with `Customer`, but that does not place `InvoiceLine` with `Customer` or with `Invoice`. Each table is placed only by its own colocation columns, so every join that you want to keep local needs both tables colocated by the join columns.
+* Estimated row counts and join types depend on table statistics. They are not evidence of how much data moves. To check for data movement, count the `Exchange` operators in the plan.
 
-We've achieved a dramatic reduction in estimated row counts and data movement. The execution plan now shows streamlined operations with minimal row estimates at each step, indicating an efficient execution path that takes advantage of data locality.
+In this schema, `Track` is colocated by `AlbumId` and `InvoiceLine` by `TrackId`, so the query that joins `InvoiceLine`, `Track`, and `Album` gathers the data regardless of which column `InvoiceLine` is colocated by. If this query is common in your workload, choose the colocation columns for these tables together, so that they match the join columns, and compare the plans before and after.
 
-This optimization approach highlights three key principles for optimal performance in distributed SQL databases:
+## Best Practices for GridGain SQL
 
-* Proper colocation of related data
-* Supporting indexes aligned with join patterns
-* Query structure that follows the colocation model
+To get the most out of GridGain SQL, follow these best practices:
+
+### Schema Design
+
+* Colocate frequently joined tables in the same zone, by the columns used in the join;
+* Choose primary keys that distribute data evenly across the cluster;
+* Design with query patterns in mind, especially for large-scale deployments.
+
+### Query Optimization
+
+* Create indexes for columns used in `WHERE`, `JOIN`, and `ORDER BY` clauses;
+* Use the `EXPLAIN` statement to analyze and optimize your queries;
+* Avoid Cartesian products and inefficient join conditions.
+
+### Transaction Management
+
+* Keep transactions as short as possible;
+* Do not hold transactions open while waiting for user input;
+* Group related operations into a single transaction for atomicity.
+
+### Resource Management
+
+* Monitor query performance in production;
+* Consider partitioning strategies for very large tables;
+* Use appropriate data types to minimize storage requirements.
 
 ## Cleaning Up
 
@@ -1147,37 +1210,9 @@ docker compose down
 
 This will stop and remove the Docker containers for your GridGain cluster.
 
-## Best Practices for GridGain SQL
-
-To get the most out of GridGain SQL, follow these best practices:
-
-### Schema Design
-
-* Use appropriate colocation for tables that are frequently joined;
-* Choose primary keys that distribute data evenly across the cluster;
-* Design with query patterns in mind, especially for large-scale deployments.
-
-### Query Optimization
-
-* Create indexes for columns used in `WHERE`, `JOIN`, and `ORDER BY` clauses;
-* Use the `EXPLAIN` statement to analyze and optimize your queries;
-* Avoid cartesian products and inefficient join conditions.
-
-### Transaction Management
-
-* Keep transactions as short as possible;
-* Do not hold transactions open during user think time;
-* Group related operations into a single transaction for atomicity.
-
-### Resource Management
-
-* Monitor query performance in production;
-* Consider partitioning strategies for very large tables;
-* Use appropriate data types to minimize storage requirements.
-
 ## What's Next
 
-GridGain's SQL capabilities make it a powerful platform for building distributed applications that require high throughput, low latency, and strong consistency. By following the patterns and practices in this guide, you can leverage GridGain SQL to build scalable, resilient systems.
+GridGain's SQL capabilities make it a powerful platform for building distributed applications that require high throughput, low latency, and strong consistency. By following the patterns and practices in this guide, you can use GridGain SQL to build scalable, resilient systems.
 
 Remember that GridGain is not just a SQL database—it's a comprehensive distributed computing platform with capabilities beyond what we've covered here. As you become more comfortable with GridGain SQL, you may want to explore other features such as compute grid, machine learning, and stream processing.
 
