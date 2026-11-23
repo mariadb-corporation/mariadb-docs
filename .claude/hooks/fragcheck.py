@@ -173,7 +173,11 @@ SKIP_PREFIX = ('http://', 'https://', 'mailto:', 'ftp://', '//', '/')
 # /o/<org>/s/<space>/<path> and /s/<space>/<path>.
 GITBOOK_URL = re.compile(r'^https://app\.gitbook\.com/(?:o/[A-Za-z0-9]+/)?'
                          r's/([A-Za-z0-9]+)(/[^?#]*)?(?:\?[^#]*)?#(.*)$')
-ALIAS_URL = re.compile(r'^\{([a-z-]+)\}(/[^?#]*)?(?:\?[^#]*)?#(.*)$')
+# An alias name is what the alias workflow's own "Fail on an unexpanded alias"
+# step accepts. It used to be [a-z-]+, which missed {gridgain8} and {gridgain9}
+# (DOCS-7165): their anchored links were resolved as relative paths.
+ALIAS_NAME = r'[A-Za-z0-9_-]+'
+ALIAS_URL = re.compile(r'^\{(' + ALIAS_NAME + r')\}(/[^?#]*)?(?:\?[^#]*)?#(.*)$')
 # Space id -> the directory holding that space. A link to an id missing here is
 # reported as unresolvable, so a new space surfaces instead of passing silently.
 SPACE_DIRS = {
@@ -199,8 +203,12 @@ SPACE_DIRS = {
 # it, read out of that workflow rather than copied, so the two cannot drift.
 # An alias that carries a path of its own keeps it.
 ALIAS_WORKFLOW = '.github/workflows/expand-gitbook-aliases.yml'
-ALIAS_RULE = re.compile(r'\[\{\]([a-z-]+)\[\}\]#\\1https://app\.gitbook\.com/'
+ALIAS_RULE = re.compile(r'\[\{\](' + ALIAS_NAME + r')\[\}\]#\\1https://app\.gitbook\.com/'
                         r'(?:o/[A-Za-z0-9]+/)?s/([^#]+)#g')
+# Every alias name in the workflow, whatever its rule looks like. aliases()
+# compares the two, so a rule ALIAS_RULE can't parse fails loudly instead of
+# leaving that alias silently unknown, the way {gridgain8} was (DOCS-7165).
+ALIAS_ANY = re.compile(r'\[\{\](' + ALIAS_NAME + r')\[\}\]')
 _ALIASES = {}
 
 
@@ -210,7 +218,13 @@ def aliases(base):
     if key not in _ALIASES:
         wf = base / ALIAS_WORKFLOW
         text = wf.read_text(errors='replace') if wf.is_file() else ''
-        _ALIASES[key] = dict(ALIAS_RULE.findall(text))
+        parsed = dict(ALIAS_RULE.findall(text))
+        missed = sorted(set(ALIAS_ANY.findall(text)) - set(parsed))
+        if missed:
+            sys.exit(f'fragcheck: {ALIAS_WORKFLOW} defines alias(es) '
+                     f'{", ".join("{" + m + "}" for m in missed)} that ALIAS_RULE '
+                     f'cannot parse. Update ALIAS_RULE in fragcheck.py.')
+        _ALIASES[key] = parsed
     return _ALIASES[key]
 
 
