@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-import csv
-import itertools
+import json
 import re
 
 # Markdown metacharacters that occur in practice in MXS summaries and that
@@ -68,22 +67,19 @@ def find_cves(issues):
     cves=[]
 
     for i in issues:
-        labels_field = i.get('Labels')
-        if labels_field:
-            labels=labels_field.split(',')
-            for label in labels:
-                url = advisory_url(label)
-                if url:
-                    cve = {};
-                    cve['Id'] = label
-                    cve['Url'] = url
-                    cve['Issue'] = i
-                    cves.append(cve)
+        for label in i['Labels']:
+            url = advisory_url(label)
+            if url:
+                cve = {};
+                cve['Id'] = label
+                cve['Url'] = url
+                cve['Issue'] = i
+                cves.append(cve)
 
     return cves
 
 def has_label(issue, label):
-    return label in issue.get('Labels', '').split(',')
+    return label in issue['Labels']
 
 def issue_number(issue):
     return int(issue['Issue key'].split('-')[1])
@@ -91,7 +87,7 @@ def issue_number(issue):
 # The text of a bullet is the 'Release Note Summary' of the issue.
 # If it is missing, the Jira summary is used and the issue is reported.
 def bullet_text(issue):
-    text = ' '.join(issue.get('Custom field (Release Note Summary)', '').split())
+    text = ' '.join(issue['Release Note Summary'].split())
 
     if not text:
         text = issue['Summary']
@@ -112,7 +108,7 @@ def print_issues(header, issues):
 
 # Returns the bug category, or an empty string if the bug does not have one.
 def bug_category(bug):
-    return bug.get('Custom field (Bug Category)', '')
+    return bug['Bug Category']
 
 # The anchor GitBook generates for a heading.
 def heading_anchor(heading):
@@ -168,7 +164,7 @@ def bugs_for_release_notes(bugs):
     included = []
 
     for b in bugs:
-        category = b.get('Custom field (Bug Category)')
+        category = bug_category(b)
 
         if category in NOT_FOR_RELEASE_NOTES:
             not_for_release_notes.append(b)
@@ -186,6 +182,29 @@ def bugs_by_category(bugs):
 
     return categories
 
+# The ids in jira.mariadb.org of the custom fields that are used.
+BUG_CATEGORY_FIELD = 'customfield_13205'
+RELEASE_NOTE_SUMMARY_FIELD = 'customfield_13206'
+
+# Returns an issue, as returned by the REST-API of Jira, as a flat dict.
+# A field without a value is an empty string, or an empty list in the
+# case of the labels.
+def flat_issue(issue):
+    fields = issue['fields']
+    resolution = fields.get('resolution')
+    category = fields.get(BUG_CATEGORY_FIELD)
+
+    return {
+        'Issue key': issue['key'],
+        'Issue Type': fields['issuetype']['name'],
+        'Resolution': resolution['name'] if resolution else '',
+        'Summary': fields['summary'],
+        'Description': fields.get('description') or '',
+        'Labels': fields.get('labels') or [],
+        'Bug Category': category['value'] if category else '',
+        'Release Note Summary': fields.get(RELEASE_NOTE_SUMMARY_FIELD) or '',
+    }
+
 
 bugs = []
 new_features = []
@@ -194,14 +213,14 @@ skipped = []
 without_release_note = []
 not_for_release_notes = []
 
-reader = csv.reader(sys.stdin.readlines())
-field_names = next(reader)
+search_result = json.load(sys.stdin)
 
-for row in reader:
-    # In case there are multiple values of a particular field, collect
-    # all values separated by a ','.
-    groups = itertools.groupby(zip(field_names, row), key=lambda x: x[0])
-    row = dict([(k, ','.join([v[1] for v in g])) for k, g in groups])
+if search_result['total'] > len(search_result['issues']):
+    print("error: Jira returned only %d of %d issues." % (len(search_result['issues']), search_result['total']), file=sys.stderr)
+    sys.exit(1)
+
+for issue in search_result['issues']:
+    row = flat_issue(issue)
 
     # Only issues actually resolved as 'Fixed' belong in the release notes. An
     # issue can be Closed with some other resolution - 'Not a Bug' is common for
