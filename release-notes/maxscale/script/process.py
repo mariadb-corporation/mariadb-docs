@@ -110,10 +110,9 @@ def print_issues(header, issues):
 
         print()
 
-UNCATEGORIZED = 'Uncategorized'
-
+# Returns the bug category, or an empty string if the bug does not have one.
 def bug_category(bug):
-    return bug.get('Custom field (Bug Category)') or UNCATEGORIZED
+    return bug.get('Custom field (Bug Category)', '')
 
 # The anchor GitBook generates for a heading.
 def heading_anchor(heading):
@@ -148,6 +147,22 @@ def print_cves(header, cves, bullet_of):
 # Bugs with these categories are intentionally left out of the release notes.
 NOT_FOR_RELEASE_NOTES = ['Not for Release Notes', 'Not for ES Release Notes']
 
+# Bugs with these categories are listed in a section of their own, before
+# the fixed issues.
+CATEGORIES_WITH_OWN_SECTION = ['Backports', 'Notable changes']
+
+# The categories listed under 'Issues Fixed', in the order they appear.
+FIXED_CATEGORIES = [
+    'Can result in data loss',
+    'Can result in hang or crash',
+    'Can result in unexpected behaviour',
+    'Related to install and upgrade',
+    'Related to performance',
+    'Unexpected results',
+]
+
+KNOWN_CATEGORIES = NOT_FOR_RELEASE_NOTES + CATEGORIES_WITH_OWN_SECTION + FIXED_CATEGORIES
+
 # Returns the bugs that belong in the release notes, the others are reported.
 def bugs_for_release_notes(bugs):
     included = []
@@ -156,7 +171,7 @@ def bugs_for_release_notes(bugs):
         category = b.get('Custom field (Bug Category)')
 
         if category in NOT_FOR_RELEASE_NOTES:
-            not_for_release_notes.append((b['Issue key'], category))
+            not_for_release_notes.append(b)
         else:
             included.append(b)
 
@@ -167,12 +182,7 @@ def bugs_by_category(bugs):
     categories = {}
 
     for b in bugs:
-        category = bug_category(b)
-
-        if category == UNCATEGORIZED:
-            without_category.append(b['Issue key'])
-
-        categories.setdefault(category, []).append(b)
+        categories.setdefault(bug_category(b), []).append(b)
 
     return categories
 
@@ -183,7 +193,6 @@ tasks = []
 skipped = []
 without_release_note = []
 not_for_release_notes = []
-without_category = []
 
 reader = csv.reader(sys.stdin.readlines())
 field_names = next(reader)
@@ -213,6 +222,25 @@ bugs.sort(key=issue_number)
 new_features.sort(key=issue_number)
 tasks.sort(key=issue_number)
 
+without_category = [b['Issue key'] for b in bugs if not bug_category(b)]
+unknown_categories = [(b['Issue key'], bug_category(b)) for b in bugs if bug_category(b) and bug_category(b) not in KNOWN_CATEGORIES]
+
+if without_category:
+    print("error: No 'Bug Category', must be set in Jira:", file=sys.stderr)
+    for key in without_category:
+        print("  %s" % key, file=sys.stderr)
+
+if unknown_categories:
+    print("error: Unknown 'Bug Category', process.py must be updated:", file=sys.stderr)
+    for key, category in unknown_categories:
+        print("  %s [%s]" % (key, category), file=sys.stderr)
+
+if without_category or unknown_categories:
+    sys.exit(1)
+
+# A bug whose category excludes it from the release notes is left out of the
+# CVE section as well. A serious CVE may intentionally not be announced when
+# the release is made, as that would expose those who have not yet upgraded.
 bugs = bugs_for_release_notes(bugs)
 
 # Check if some bug-fix fixes a CVE. These are assumed to be CVEs of MaxScale.
@@ -229,14 +257,16 @@ print_issues("## New Features", new_features)
 print_issues("## Deprecated Features", deprecated_features)
 print_issues("## Dropped Features", dropped_features)
 
+categories = bugs_by_category(bugs)
+
+for category in CATEGORIES_WITH_OWN_SECTION:
+    print_issues("## " + category, categories.get(category, []))
+
 print("## Issues Fixed")
 print()
 
-categories = bugs_by_category(bugs)
-
-# Alphabetical order, but bugs without a category last.
-for category in sorted(categories, key=lambda c: (c == UNCATEGORIZED, c)):
-    print_issues("### " + category, categories[category])
+for category in FIXED_CATEGORIES:
+    print_issues("### " + category, categories.get(category, []))
 
 # Diagnostics go to stderr; generate_release_notes.sh captures stdout only, so
 # this is visible to whoever runs it without ending up on the page.
@@ -247,13 +277,15 @@ if skipped:
 
 if not_for_release_notes:
     print("Not listed, bug category excludes it from the release notes:", file=sys.stderr)
-    for key, category in not_for_release_notes:
-        print("  %s [%s]" % (key, category), file=sys.stderr)
+    for b in not_for_release_notes:
+        print("  %s [%s]" % (b['Issue key'], bug_category(b)), file=sys.stderr)
 
-if without_category:
-    print("No 'Bug Category', listed under '%s':" % UNCATEGORIZED, file=sys.stderr)
-    for key in without_category:
-        print("  %s" % key, file=sys.stderr)
+withheld_cves = find_cves(not_for_release_notes)
+
+if withheld_cves:
+    print("WARNING: CVE report suppressed due to the bug category:", file=sys.stderr)
+    for cve in withheld_cves:
+        print("  %s %s [%s]" % (cve['Id'], cve['Issue']['Issue key'], bug_category(cve['Issue'])), file=sys.stderr)
 
 if without_release_note:
     print("No 'Release Note Summary', Jira summary used instead:", file=sys.stderr)
