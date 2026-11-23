@@ -31,7 +31,7 @@ Whether a user can reach MaxScale at all is decided in the IdP, for example by a
 * MaxScale 25.10 or later, with [MaxGUI enabled](configuring-maxscale-for-maxgui.md).
 * An administrator account for your IdP.
 * The URL that users type to open MaxGUI, such as `https://maxscale.example.com:8989`. MaxScale builds the redirect URIs it sends to the IdP from this URL, so it must be the same URL that you register with the IdP.
-* TLS for the MaxScale REST API (recommended). Without it, MaxGUI is only served over plain HTTP if [admin\_secure\_gui](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_secure_gui) is disabled, and some IdPs accept plain `http://` redirect URIs only for `localhost`.
+* TLS for the MaxScale REST API (recommended). Without it, MaxGUI is only served over plain HTTP if [admin\_secure\_gui](../deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#admin_secure_gui) is disabled, and some IdPs accept plain `http://` redirect URIs only for `localhost`.
 
 ## Step 1: Register MaxScale with the Identity Provider
 
@@ -50,7 +50,7 @@ Register these URIs, replacing `https://maxscale.example.com:8989` with your Max
 | Sign-out redirect URI (also called post-logout redirect URI) | `https://maxscale.example.com:8989/` |
 | Allowed web origin, if the IdP asks for one | `https://maxscale.example.com:8989` |
 
-The scheme is `https` when TLS is enabled for the REST API, and `http` otherwise. The host and port are the ones the browser used to reach MaxScale. If users reach MaxScale through a reverse proxy, or by more than one host name, set [admin\_root\_url](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_root_url) to the public URL. MaxScale then builds both redirect URIs from that value instead.
+The scheme is `https` when TLS is enabled for the REST API, and `http` otherwise. The host and port are the ones the browser used to reach MaxScale. If users reach MaxScale through a reverse proxy, or by more than one host name, set [admin\_root\_url](../deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#admin_root_url) to the public URL. MaxScale then builds both redirect URIs from that value instead.
 
 Then assign the application to the users or groups who should have access to MaxGUI, and note down:
 
@@ -81,18 +81,18 @@ admin_oidc_client_secret=<client secret>
 
 | Parameter | Purpose |
 | --- | --- |
-| [admin\_oidc\_url](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_url) | Issuer URL of the IdP. Setting it turns SSO on. |
-| [admin\_oidc\_client\_id](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_client_id) | Client ID of the application registered in Step 1. |
-| [admin\_oidc\_client\_secret](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_client_secret) | Client secret of that application. |
-| [admin\_oidc\_flow](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_flow) | `auto` (default) uses the code flow if the IdP supports it, and the implicit flow otherwise. |
-| [admin\_oidc\_extra\_options](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_extra_options) | Extra parameters for the authorization request, such as an Auth0 `audience`. |
-| [admin\_oidc\_ssl\_insecure](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_ssl_insecure) | Skips TLS certificate checks against the IdP. Use it only for testing with a self-signed IdP. |
+| [admin\_oidc\_url](../deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#admin_oidc_url) | Issuer URL of the IdP. Setting it turns SSO on. |
+| [admin\_oidc\_client\_id](../deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#admin_oidc_client_id) | Client ID of the application registered in Step 1. |
+| [admin\_oidc\_client\_secret](../deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#admin_oidc_client_secret) | Client secret of that application. |
+| [admin\_oidc\_flow](../deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#admin_oidc_flow) | `auto` (default) uses the code flow if the IdP supports it, and the implicit flow otherwise. |
+| [admin\_oidc\_extra\_options](../deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#admin_oidc_extra_options) | Extra parameters for the authorization request, such as an Auth0 `audience`. |
+| [admin\_oidc\_ssl\_insecure](../deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#admin_oidc_ssl_insecure) | Skips TLS certificate checks against the IdP. Use it only for testing with a self-signed IdP. |
 
 {% hint style="warning" %}
 Treat the client secret like a password. Don't paste it into tickets, chat messages, or slides. If it has been exposed, rotate it in the IdP.
 {% endhint %}
 
-The MaxGUI session lasts as long as [admin\_jwt\_max\_age](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_jwt_max_age), but never more than eight hours.
+The MaxGUI session lasts as long as [admin\_jwt\_max\_age](../deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#admin_jwt_max_age), but never more than eight hours.
 
 ## Step 3: Map Users to Permissions
 
@@ -163,8 +163,8 @@ exports.onExecutePostLogin = async (event, api) => {
 ## Troubleshooting
 
 * **The Sign In with SSO button is missing.** `admin_oidc_url` isn't set. MaxGUI shows the button whenever it is set, whether or not MaxScale can reach the IdP.
-* **Selecting Sign In with SSO doesn't open the IdP's sign-in page.** MaxScale could not read the IdP's discovery document. It tries again each time a user selects the button. Check the MaxScale log, check that `admin_oidc_url` is the issuer URL, and check that MaxScale can reach the IdP over HTTPS. Use [admin\_oidc\_ssl\_insecure](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_ssl_insecure) only when testing against a self-signed IdP.
-* **The IdP reports a redirect URI mismatch.** The redirect URI that MaxScale sent doesn't exactly match a registered one. Compare scheme, host, and port with the URL in the browser's address bar, or set [admin\_root\_url](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_root_url).
+* **Selecting Sign In with SSO doesn't open the IdP's sign-in page.** MaxScale could not read the IdP's discovery document. It tries again each time a user selects the button. Check the MaxScale log, check that `admin_oidc_url` is the issuer URL, and check that MaxScale can reach the IdP over HTTPS. Use [admin\_oidc\_ssl\_insecure](../deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#admin_oidc_ssl_insecure) only when testing against a self-signed IdP.
+* **The IdP reports a redirect URI mismatch.** The redirect URI that MaxScale sent doesn't exactly match a registered one. Compare scheme, host, and port with the URL in the browser's address bar, or set [admin\_root\_url](../deployment/installation-and-configuration/maxscale-configuration-guide/global-settings.md#admin_root_url).
 * **Sign-in at the IdP succeeds, but MaxGUI rejects the user.** The tokens carry neither a usable `permissions` nor `account` claim, and no MaxScale user matches the `sub` claim. Check which claims the IdP sends, and see [Step 3: Map Users to Permissions](#step-3-map-users-to-permissions).
 * **MaxGUI returns to the sign-in page with an error such as `bad_oidc_server_response` or `userinfo_request_failed`.** The token or userinfo request to the IdP failed. Check that the client secret is correct, and that the application uses `client_secret_basic` authentication. The MaxScale log contains the IdP's response.
 * To see which MaxGUI settings are in effect, run:
