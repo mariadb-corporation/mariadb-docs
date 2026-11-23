@@ -17,7 +17,7 @@ You perform _disaster recovery_ operations on _system RAFT groups_ to recover pe
 Disaster recovery for [data partitions](data-recovery.md) is described in a separate page.
 {% endhint %}
 
-You see that the majority has been lost in cluster logs in the console or in the [rotated log files](https://en.wikipedia.org/wiki/Log_rotation). When a RAFT group becomes unavailable, the logs would show something like
+You can also check the state of the groups with the [`cluster system-groups`](#checking-system-group-state) command. You see that the majority has been lost in cluster logs in the console or in the [rotated log files](https://en.wikipedia.org/wiki/Log_rotation). When a RAFT group becomes unavailable, the logs would show something like
 `Send with retry timed out [retryCount = 11, groupId = cmg_group].`
 or
 `Send with retry timed out [retryCount = 11, groupId = metastorage_group].`.
@@ -33,6 +33,104 @@ Exercise caution when applying disaster recovery commands to system node groups.
 {% hint style="info" %}
 When authorization is enabled, `recovery cluster reset` requires the `RESET_CLUSTER` privilege, and `recovery cluster migrate` requires the `MIGRATE_CLUSTER` privilege on the old cluster, the one that `--old-cluster-url` points to. Without the privilege, the request fails with HTTP status `403`. See [User Permissions and Roles](../../security/user-permissions-and-roles.md#cluster-management).
 {% endhint %}
+
+## Checking System Group State
+
+Before you apply any recovery command, check which nodes hold the leader of each system group and whether the group still has a quorum. You can use this information to restart only the leader of a stuck group instead of the whole cluster, and to confirm that a majority is actually lost before you run `recovery cluster reset`.
+
+The state of the system groups is available from the CLI and from the REST API. Both work when a group has no leader or no quorum, and on a node that has not joined the cluster yet.
+
+| Task | CLI command | REST endpoint |
+|---|---|---|
+| State of the CMG and MG RAFT nodes on every node, with a summary per group | [`cluster system-groups`](../../reference/cli-tool.md#cluster-system-groups) | `GET /management/v1/cluster/system-groups` |
+| State of the CMG and MG RAFT nodes on one node, as that node sees it | [`node system-groups`](../../reference/cli-tool.md#node-system-groups) | `GET /management/v1/node/system-groups` |
+
+For example:
+
+```bash
+cluster system-groups --url http://localhost:10301
+```
+
+The `cluster system-groups` request is sent to one node, which asks every node of the physical topology for the state of its CMG and MG RAFT nodes. A node that does not answer is reported with an error and does not stop the others from being listed.
+
+### Node Rows
+
+The table has one row for each system group on each node.
+
+| Column | Description |
+|---|---|
+| `node` | Node name. |
+| `group` | `CMG` or `METASTORAGE`. |
+| `role` | Role of the RAFT node on this node, for example `LEADER`, `FOLLOWER`, `CANDIDATE`, or `LEARNER`. |
+| `term` | Current RAFT term of the node. |
+| `leader` | Name of the leader this node knows of. Empty if the node knows none. |
+| `leaderless for` | How long this node has not known a leader. Empty if it knows one. |
+| `last log index` | Index of the last entry in the local RAFT log. |
+| `peers` | Voting members in the latest group configuration this node has seen. |
+
+A node that is not a member of a group has no row for it. A node that answered but is a member of no system group is shown as one row with `no system group replicas`.
+
+A row that starts with `ERROR:` means the state could not be read. The text shows the reason, then a message for a human reader. Match on the reason, not on the message, because the message can change between versions.
+
+| Reason | Meaning |
+|---|---|
+| `LOCK_HELD` | The RAFT node of the group held its lock for too long, so it is stuck even though its node answers. The role is shown on a best-effort basis; a learner is shown as `FOLLOWER`. Other groups on the same node are still read. |
+| `NO_ANSWER` | The node did not return its states in time. |
+| `UNREACHABLE` | The request could not be delivered to the node. |
+| `VERSION_UNKNOWN` | There is no connection to the node, so it is unknown whether its version supports the request. |
+| `UNSUPPORTED_VERSION` | The version of the node does not support the request. |
+| `NODE_STOPPING` | The node is stopping. |
+| `INTERNAL_ERROR` | Any other failure. Treat a reason that is not in this list as `INTERNAL_ERROR`. |
+
+### Group Summary
+
+Below the table, `cluster system-groups` prints one line for each group.
+
+| Summary | Meaning |
+|---|---|
+| `leader <node>, term <n>, quorum confirmed (k of n voters reported following the leader)` | The leader of the highest reported term has been read, claims leadership, and a majority of the voters report following it. |
+| `... QUORUM NOT CONFIRMED ...` | The answers do not confirm that a majority follows the leader. This does not mean the group has no quorum: voters that did not answer may still follow the leader. |
+| `... leader's own state not read ...` | The voters are taken from the member with the highest term and the longest log, because the leader did not answer. The counts then depend on that member's view of the configuration. |
+| `CONFLICTING LEADERS in term <n>: ...` | More than one node claims leadership in the same term. RAFT allows one leader per term, so the answers contradict each other. Treat the group as unconfirmed. |
+| `NO LEADER, highest term <n>, leaderless for up to <duration>` | No node reporting the highest term knows a leader. |
+| `missing voters: <node> <reason>` | Voters whose state is unknown. The reason is `NOT_IN_TOPOLOGY` (the node is not in the physical topology), `NO_RAFT_NODE` (the node answered but runs no RAFT node of the group), or `NOT_READ` (the state could not be read; the error reason follows in parentheses). |
+| `VOTERS UNKNOWN, unread nodes: ...` | The state of the group could not be read on any node, so the voters are unknown. The unread nodes are listed with their error reasons. |
+| `NO REPLICA FOUND: no queried node runs a <group> Raft node` | Nodes answered, but none of them runs a RAFT node of this group. |
+
+Learners are not counted as voters. The summary counts voters of the latest configuration only, so during a membership change it does not account for the voters of the old configuration.
+
+{% hint style="info" %}
+The CLI waits up to 60 seconds for the cluster-wide answer. A node waits for each node it asks for 1 second per system group plus 5 seconds, which is 7 seconds with the two system groups, before it reports that node as `NO_ANSWER`. To change this wait, set the `GG_RAFT_STATUS_RESPONSE_TIMEOUT_MILLIS` system property on the node that handles the request. If you set it higher than the CLI wait, the CLI reports a timeout instead of the node that did not answer.
+{% endhint %}
+
+### Example: Majority Lost
+
+In a three-node cluster where `n2` and `n3` are both down, the remaining node `n1` has no leader for either group. Nodes that already left the physical topology are not listed in the table and show up as `NOT_IN_TOPOLOGY` in the summary:
+
+```
+╔══════╤═════════════╤══════════╤══════╤════════╤════════════════╤════════════════╤════════════╗
+║ node │ group       │ role     │ term │ leader │ leaderless for │ last log index │ peers      ║
+╠══════╪═════════════╪══════════╪══════╪════════╪════════════════╪════════════════╪════════════╣
+║ n1   │ CMG         │ FOLLOWER │ 1    │        │ 26s            │ 11             │ n2, n3, n1 ║
+╟──────┼─────────────┼──────────┼──────┼────────┼────────────────┼────────────────┼────────────╢
+║ n1   │ METASTORAGE │ FOLLOWER │ 1    │        │ 25s            │ 248            │ n2, n1, n3 ║
+╚══════╧═════════════╧══════════╧══════╧════════╧════════════════╧════════════════╧════════════╝
+
+CMG: NO LEADER, highest term 1, leaderless for up to 26s; voters as reported by the member with the highest term and log; missing voters: n2 NOT_IN_TOPOLOGY, n3 NOT_IN_TOPOLOGY
+METASTORAGE: NO LEADER, highest term 1, leaderless for up to 25s; voters as reported by the member with the highest term and log; missing voters: n2 NOT_IN_TOPOLOGY, n3 NOT_IN_TOPOLOGY
+```
+
+A node that is down but still in the physical topology is shown as a row with `ERROR: VERSION_UNKNOWN`, because the node the command is sent to has no connection to it. In that case the summary reports it as `missing voters: <node> NOT_READ (VERSION_UNKNOWN)`. The group keeps its confirmed quorum as long as a majority of the voters reports following the leader.
+
+### Using the REST API
+
+Both endpoints return JSON. The cluster endpoint returns a `nodes` list, ordered by node name, with the same data as the table rows, and a `groups` list with one summary for each system group. The summary has the fields `group`, `leader`, `conflictingLeaders`, `term`, `voters`, `votersKnown`, `votersFromLeader`, `votersFollowingLeader`, `missingVoters`, `unreadNodes`, `quorumConfirmed`, and `longestLeaderlessDurationMs`. The node endpoint returns a single entry of the `nodes` list for the node it is sent to. Durations are in milliseconds.
+
+```bash
+curl http://localhost:10300/management/v1/cluster/system-groups
+```
+
+The full schemas are in the OpenAPI specification of the management API.
 
 ## Cluster Management Group
 
