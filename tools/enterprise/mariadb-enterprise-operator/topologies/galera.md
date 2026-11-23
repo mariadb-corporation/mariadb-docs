@@ -68,8 +68,6 @@ The operator's validating webhook rejects a `MariaDB` that breaks one of these r
 * With `spec.tls.clientAuth`, `spec.tls.galeraSSTEnabled` must be `true`, and the `mysqldump` SST isn't supported. See [TLS client certificate authentication](../security/tls-client-authentication.md#galera).
 * `galera.gtidDomainId` and `galera.serverId`, used by the [multi-cluster](multi-cluster.md) topology, can't be changed after the `MariaDB` has been created.
 
-In [single namespace](../installation/helm.md#single-namespace) mode, there's no validating webhook, so these rules aren't checked when you apply a change.
-
 ## Storage
 
 By default, the operator provisions two PVCs for running Galera:

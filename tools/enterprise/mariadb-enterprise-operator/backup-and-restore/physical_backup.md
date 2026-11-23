@@ -95,16 +95,6 @@ spec:
 
 It is very important to note that, by default, backups are only scheduled if the referred `MariaDB` resource is in ready state. Setting `mariaDbRef.waitForIt=false` skips this readiness check, so backups can be scheduled even if the `MariaDB` resource is not ready.
 
-`waitForIt=false` only skips the readiness check. Whatever its value, the operator doesn't schedule a backup while the `MariaDB`:
-
-- is suspended
-- is restoring a backup or initializing
-- is switching over its primary
-- is being updated, or has an update pending
-- is resizing its storage
-- has a Galera cluster that isn't ready
-- is replaying binary logs, or has a binary log replay pending
-
 ## Compression
 
 When using physical backups based on `mariadb-backup`, you are able to choose the compression algorithm used to compress the backup files. The available options are:
@@ -235,16 +225,6 @@ When taking a backup in a replica, `mariadb-backup` stops the replica SQL thread
 ## Restoration
 
 Physical backups can only be restored in brand new `MariaDB` instances without any existing data. This means that you cannot restore a physical backup into an existing `MariaDB` instance that already has data.
-
-This also applies to storage left behind by a deleted `MariaDB`. If the storage PVCs of an earlier `MariaDB` with the same name still exist, the restoration doesn't start. The `MariaDB` reports an init error, and the operator emits a `MariaDBInitError` event and keeps retrying:
-
-```bash
-kubectl get events --field-selector involvedObject.name=mariadb-galera
-LAST SEEN   TYPE      REASON             OBJECT                   MESSAGE
-10s         Warning   MariaDBInitError   mariadb/mariadb-galera   Unable to init MariaDB: storage PVCs already exist
-```
-
-Delete the old storage PVCs, then the restoration proceeds. To have the PVCs deleted together with a `MariaDB`, see [PVC retention policy](../storage.md#pvc-retention-policy).
 
 To perform a restoration, you can specify a `PhysicalBackup` as restoration source under the `spec.bootstrapFrom` field in the `MariaDB` resource:
 
@@ -765,6 +745,18 @@ Refer to [MDEV-36159](https://jira.mariadb.org/browse/MDEV-36237) for further de
 Without explicitly enabled [shared option](https://github.com/openebs/lvm-localpv/blob/develop/design%2Flvm%2Fstorageclass-parameters%2Fshared.md) the `ReadWriteOnce` access mode is treated as `ReadWriteOncePod`.
 
 Refer to [openebs/lvm-localpv#281](https://github.com/openebs/lvm-localpv/issues/281) for further details on this issue.
+
+#### Restoration doesn't start: `storage PVCs already exist`
+
+Physical backups can only be restored in a `MariaDB` without existing data, and that includes storage left behind by a deleted `MariaDB`. If the storage PVCs of an earlier `MariaDB` with the same name still exist, the restoration doesn't start. The `MariaDB` reports an init error, and the operator emits a `MariaDBInitError` event and keeps retrying:
+
+```bash
+kubectl get events --field-selector involvedObject.name=mariadb-galera
+LAST SEEN   TYPE      REASON             OBJECT                   MESSAGE
+10s         Warning   MariaDBInitError   mariadb/mariadb-galera   Unable to init MariaDB: storage PVCs already exist
+```
+
+Delete the old storage PVCs, then the restoration proceeds. To have the PVCs deleted together with a `MariaDB`, see [PVC retention policy](../storage.md#pvc-retention-policy).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

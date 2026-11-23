@@ -86,8 +86,6 @@ The operator's validating webhook enforces these rules:
 * `storageClassName` can't be changed after the `MariaDB` has been created.
 * Ephemeral storage only works for standalone `MariaDBs`, without replication or Galera. It can't be combined with `size` or `volumeClaimTemplate`, and it can't be turned on or off after the `MariaDB` has been created.
 
-When the operator is installed in [single namespace](./installation/helm.md#single-namespace) mode, there's no validating webhook, so these rules aren't checked when you apply a change.
-
 ## PVC retention policy
 
 By default, the PVCs of a `MariaDB` are kept when the `MariaDB` is deleted or scaled down, and you have to delete them yourself. Use `pvcRetentionPolicy` to change that, for example to delete the PVCs together with the `MariaDB`:
