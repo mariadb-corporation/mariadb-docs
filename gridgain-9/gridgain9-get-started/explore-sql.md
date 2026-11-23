@@ -6,7 +6,7 @@ description: >-
 
 # Getting Started with SQL
 
-This guide walks you through using GridGain 9 SQL capabilities via the command-line interface. You'll set up a distributed Apache GridGain cluster, create and manipulate the Chinook database (a sample database representing a digital media store), and learn to leverage GridGain's powerful SQL features.
+This guide walks you through using GridGain 9 SQL capabilities via the command-line interface. You'll set up a distributed GridGain cluster, create and manipulate the Chinook database (a sample database representing a digital media store), and learn to use GridGain's SQL features.
 
 {% hint style="info" %}
 GridGain 9 SQL is a distributed, ANSI-based SQL dialect and differs from MariaDB Server SQL in both syntax and supported features. For the full list of supported statements, functions, and data types, see the [SQL Reference](../reference/sql/README.md).
@@ -18,7 +18,7 @@ GridGain 9 SQL is a distributed, ANSI-based SQL dialect and differs from MariaDB
 * Basic familiarity with SQL;
 * Command-line terminal access;
 * 8GB+ of available RAM for running the containers;
-* SQL directory with Chinook Database files downloaded.
+* The `sql` directory with the Chinook database files downloaded.
 
 ## Before Starting
 
@@ -27,13 +27,13 @@ This tutorial uses prepared files to streamline deployment. Make sure you have d
 - [docker-compose.yml](../.gitbook/assets/gg9-get-started-docker-compose.yml)
 - [sql archive](../.gitbook/assets/gg9-get-started-sql.zip)
 
-Unpack the archive into a new folder, and place it and the docker compose file in the same directory where you will be running the Docker CLI commands. The tutorial expects these SQL files to be available and mounted to the container.
+Unpack the archive into a new folder, and place that folder and the Docker Compose file in the same directory where you will run the Docker commands. The tutorial expects these SQL files to be available and mounted in the container.
 
 {% hint style="warning" %}
 Without these files, you will be unable to load the sample data needed for the exercises.
 {% endhint %}
 
-The docker compose file starts GridGain 9.2.0 by default. To run the guide on a different version, set the `GRIDGAIN9_VERSION` environment variable before starting the cluster and use the same version in the CLI image name below.
+The Docker Compose file starts GridGain 9.2.0 by default. To run the guide on a different version, set the `GRIDGAIN9_VERSION` environment variable before starting the cluster and use the same version in the CLI image name below.
 
 ## Setting Up a GridGain 9 Cluster
 
@@ -41,7 +41,7 @@ Before we can start using SQL, we need to set up a GridGain cluster. We will use
 
 ### Starting the Cluster
 
-Open a terminal in the directory containing the docker compose file `docker-compose.yml` file and start the cluster with Docker:
+Open a terminal in the directory containing the Docker Compose file, `docker-compose.yml`, and start the cluster with Docker:
 
 ```bash
 docker compose up -d
@@ -71,9 +71,9 @@ You should see all three nodes with a "running" status.
 Verify that all three nodes are "running" before continuing.
 {% endhint %}
 
-## Connecting to the Cluster Using GridGain CLI
+## Connecting to the Cluster Using the GridGain CLI
 
-Now we will connect to our running cluster using GridGain command-line interface (CLI).
+Now we will connect to our running cluster using the GridGain command-line interface (CLI).
 
 ### Starting the CLI
 
@@ -83,7 +83,7 @@ In your terminal, run:
 docker run --rm -it --network=gridgain9_default -v ./sql/:/opt/gridgain/downloads -v /opt/etc/license.json:/opt/gridgain/etc/license.json gridgain/gridgain9:9.2.0 cli
 ```
 
-This starts an interactive CLI container connected to the same Docker network as our cluster and mounts a volume containing the sql files for the Chinook Database. When prompted, refuse the connection to the default node and connect to node1 by entering:
+This starts an interactive CLI container connected to the same Docker network as our cluster and mounts a volume containing the SQL files for the Chinook database. When prompted, decline the connection to the default node and connect to node1 by entering:
 
 ```bash
 connect http://node1:10300
@@ -137,7 +137,7 @@ To start working with SQL, enter SQL mode in the CLI:
 sql
 ```
 
-Your prompt should change to `sql-cli>` indicating you're now in SQL mode.
+Your prompt should change to `sql-cli>`, indicating that you're now in SQL mode.
 
 ```
 [node1]> sql
@@ -155,10 +155,10 @@ CREATE ZONE IF NOT EXISTS ChinookReplicated (REPLICAS 3, PARTITIONS 25) STORAGE 
 
 These commands create two zones:
 
-* `Chinook` - Standard zone with 2 replicas for most tables;
-* `ChinookReplicated` - Zone with 3 replicas for frequently accessed reference data.
+* `Chinook` - A standard zone with 2 replicas for most tables;
+* `ChinookReplicated` - A zone with 3 replicas for frequently accessed reference data.
 
-### Database Entity Relationship
+### Database Entity Relationship Diagram
 
 Here's the entity relationship diagram for our Chinook database:
 
@@ -169,7 +169,7 @@ Here's the entity relationship diagram for our Chinook database:
 Now let's create the main tables for the Chinook database. We will start with the Artist and Album tables.
 
 {% hint style="info" %}
-Copy and paste the following SQL blocks at the `sql-cli>` prompt then hit enter.
+Copy and paste the following SQL blocks at the `sql-cli>` prompt, and then press Enter.
 {% endhint %}
 
 ```sql
@@ -188,7 +188,7 @@ CREATE TABLE Album (
 ) COLOCATE BY (ArtistId) ZONE Chinook;
 ```
 
-The `COLOCATE BY` clause in the *Album* table ensures that albums by the same artist are stored on the same nodes. This optimizes joins between Artist and Album tables by eliminating the need for network transfers during queries.
+The `COLOCATE BY` clause in the *Album* table ensures that albums by the same artist are stored on the same nodes. This optimizes joins between the Artist and Album tables by eliminating the need for network transfers during queries.
 
 Next, let's create the Genre and MediaType reference tables:
 
@@ -322,7 +322,7 @@ WHERE schema_name = 'PUBLIC'
 ORDER BY table_name;
 ```
 
-This query checks the system tables to verify that our tables exist, and shows the zone and the colocation columns of each table. You should see a list of all the tables we've created.
+This query checks the system tables to verify that our tables exist. It also shows the zone and the colocation columns of each table. You should see a list of all the tables that we created.
 
 ```
 sql-cli> SELECT table_name, zone_name, table_colocation_columns FROM system.tables WHERE schema_name = 'PUBLIC' ORDER BY table_name;
@@ -365,8 +365,8 @@ Now that we have our tables set up, let's populate them with sample data.
 
 Let's start by adding some artists.
 
-- Exit the interactive sql mode by typing `exit;`.
-- Then, load the current store catalog from the sql data file.
+- Exit the interactive SQL mode by typing `exit;`.
+- Then, load the current store catalog from the SQL data file.
 
 ```bash
 sql --file=/opt/gridgain/downloads/current_catalog.sql;
@@ -459,7 +459,7 @@ Now that we have data in our tables, let's run some SQL queries to explore the C
 
 ### Basic Queries
 
-Let's return to the `sql-cli>` and start with some simple SELECT queries:
+Let's return to the `sql-cli>` prompt and start with some simple `SELECT` queries:
 
 ```bash
 sql
@@ -804,9 +804,9 @@ CREATE TABLE InvoiceLine (
 
 With this layout, the colocation columns do not match the join columns of our query:
 
-* Album is colocated by ArtistId, but the query joins it on AlbumId
-* Track is colocated by AlbumId, but the query joins it with InvoiceLine on TrackId
-* InvoiceLine is colocated by InvoiceId, but the query joins it with Track on TrackId
+* Album is colocated by ArtistId, but the query joins it on AlbumId.
+* Track is colocated by AlbumId, but the query joins it with InvoiceLine on TrackId.
+* InvoiceLine is colocated by InvoiceId, but the query joins it with Track on TrackId.
 
 This means that when you run a query joining InvoiceLine, Track, and Album, the rows to join might be on different nodes, so the data has to be gathered first.
 
@@ -1138,7 +1138,7 @@ The plan has the same shape as the one for the `InvoiceId` layout: a single `Has
 
 Colocating `InvoiceLine` by `TrackId` does not help this query, because `Track` is colocated by `AlbumId`, not `TrackId`. An `InvoiceLine` row is therefore still not stored together with its `Track` row, and the join has to gather the rows of both tables.
 
-The estimates and the join types are not a measure of this. They follow the table statistics. For example, the same `TrackId` layout produces a plan with `MergeJoin` and an `IndexScan` on `InvoiceLine`, and much larger estimates, once the statistics are updated. Even then, the plan has an `Exchange` above each of the three scans.
+The estimates and the join types are not a measure of this. They follow the table statistics. For example, the same `TrackId` layout produces a plan with `MergeJoin` and an `IndexScan` on `InvoiceLine`, and much larger estimates once the statistics are updated. Even then, the plan has an `Exchange` above each of the three scans.
 {% endtab %}
 
 {% tab title="9.1" %}
@@ -1146,7 +1146,7 @@ The plan has the same shape as the one for the `InvoiceId` layout: a single `Col
 
 Colocating `InvoiceLine` by `TrackId` does not help this query, because `Track` is colocated by `AlbumId`, not `TrackId`. An `InvoiceLine` row is therefore still not stored together with its `Track` row, and the join has to gather the rows of both tables.
 
-The estimates and the join types are not a measure of this. They follow the table statistics. For example, the same `TrackId` layout produces a plan with `MergeJoin` and an `IndexScan` on `InvoiceLine`, and much larger estimates, once the statistics are updated. Even then, the plan has an `Exchange` above each of the three scans.
+The estimates and the join types are not a measure of this. They follow the table statistics. For example, the same `TrackId` layout produces a plan with `MergeJoin` and an `IndexScan` on `InvoiceLine`, and much larger estimates once the statistics are updated. Even then, the plan has an `Exchange` above each of the three scans.
 {% endtab %}
 {% endtabs %}
 
@@ -1158,7 +1158,7 @@ The three plans show how colocation works in GridGain:
 * Colocation does not chain. `Invoice` is stored with `Customer`, but that does not place `InvoiceLine` with `Customer` or with `Invoice`. Each table is placed only by its own colocation columns, so every join that you want to keep local needs both tables colocated by the join columns.
 * Estimated row counts and join types depend on table statistics. They are not evidence of how much data moves. To check for data movement, count the `Exchange` operators in the plan.
 
-In this schema, `Track` is colocated by `AlbumId` and `InvoiceLine` by `TrackId`, so the query that joins `InvoiceLine`, `Track`, and `Album` gathers the data whichever column `InvoiceLine` is colocated by. If this query is common in your workload, choose the colocation columns for these tables together, so that the columns that you join on match, and compare the plans before and after.
+In this schema, `Track` is colocated by `AlbumId` and `InvoiceLine` by `TrackId`, so the query that joins `InvoiceLine`, `Track`, and `Album` gathers the data regardless of which column `InvoiceLine` is colocated by. If this query is common in your workload, choose the colocation columns for these tables together, so that they match the join columns, and compare the plans before and after.
 
 ## Best Practices for GridGain SQL
 
@@ -1174,12 +1174,12 @@ To get the most out of GridGain SQL, follow these best practices:
 
 * Create indexes for columns used in `WHERE`, `JOIN`, and `ORDER BY` clauses;
 * Use the `EXPLAIN` statement to analyze and optimize your queries;
-* Avoid cartesian products and inefficient join conditions.
+* Avoid Cartesian products and inefficient join conditions.
 
 ### Transaction Management
 
 * Keep transactions as short as possible;
-* Do not hold transactions open during user think time;
+* Do not hold transactions open while waiting for user input;
 * Group related operations into a single transaction for atomicity.
 
 ### Resource Management
@@ -1212,7 +1212,7 @@ This will stop and remove the Docker containers for your GridGain cluster.
 
 ## What's Next
 
-GridGain's SQL capabilities make it a powerful platform for building distributed applications that require high throughput, low latency, and strong consistency. By following the patterns and practices in this guide, you can leverage GridGain SQL to build scalable, resilient systems.
+GridGain's SQL capabilities make it a powerful platform for building distributed applications that require high throughput, low latency, and strong consistency. By following the patterns and practices in this guide, you can use GridGain SQL to build scalable, resilient systems.
 
 Remember that GridGain is not just a SQL database—it's a comprehensive distributed computing platform with capabilities beyond what we've covered here. As you become more comfortable with GridGain SQL, you may want to explore other features such as compute grid, machine learning, and stream processing.
 
