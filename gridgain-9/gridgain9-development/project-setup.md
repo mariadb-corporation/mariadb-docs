@@ -56,18 +56,18 @@ The thin client provides the Table, Key-Value, SQL, Compute, Transactions, Catal
 
 {% tab title="Gradle" %}
 ```groovy
-implementation 'org.gridgain:ignite-client:9.1'
+implementation 'org.gridgain:ignite-client:9.1.28'
 ```
 {% endtab %}
 {% endtabs %}
 
-All GridGain modules share the `org.gridgain` group ID and the `9.1` version. Always declare the version that matches your cluster.
+All GridGain modules share the `org.gridgain` group ID and the same version number. Always declare the version that matches your cluster.
 
 ## Managing Versions With the GridGain BOM
 
-Each GridGain 9 release publishes a bill of materials (BOM), `org.gridgain:gridgain9-bom`. The BOM sets every GridGain 9 module to the version of that release. Import the BOM once, then declare GridGain dependencies without a version. All GridGain modules in your build, including the ones added as transitive dependencies, stay on the same version.
+Starting with GridGain 9.1.30, each release publishes a bill of materials (BOM), `org.gridgain:gridgain9-bom`. The BOM sets every GridGain 9 module to the version of that release. Import the BOM once, then declare GridGain dependencies without a version. All GridGain modules in your build, including the ones added as transitive dependencies, stay on the same version.
 
-The BOM does not set versions of third-party libraries, so it does not interfere with your own dependency management. It does not cover the examples, the annotation processors, or the Migration Tools modules.
+The BOM does not set versions of third-party libraries, so it does not interfere with your own dependency management. It does not cover the examples, the annotation processors, or the Migration Tools modules. Declare Migration Tools dependencies with an explicit version.
 
 {% tabs %}
 {% tab title="Maven" %}
@@ -77,7 +77,7 @@ The BOM does not set versions of third-party libraries, so it does not interfere
         <dependency>
             <groupId>org.gridgain</groupId>
             <artifactId>gridgain9-bom</artifactId>
-            <version>VERSION</version>
+            <version>9.1.30</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -93,10 +93,10 @@ The BOM does not set versions of third-party libraries, so it does not interfere
 ```
 {% endtab %}
 
-{% tab title="Gradle (Groovy)" %}
+{% tab title="Gradle" %}
 ```groovy
 dependencies {
-    implementation platform('org.gridgain:gridgain9-bom:VERSION')
+    implementation platform('org.gridgain:gridgain9-bom:9.1.30')
     implementation 'org.gridgain:ignite-client'
 }
 ```
@@ -105,7 +105,7 @@ dependencies {
 {% tab title="Gradle (Kotlin)" %}
 ```kotlin
 dependencies {
-    implementation(platform("org.gridgain:gridgain9-bom:VERSION"))
+    implementation(platform("org.gridgain:gridgain9-bom:9.1.30"))
     implementation("org.gridgain:ignite-client")
 }
 ```
@@ -113,7 +113,7 @@ dependencies {
 {% endtabs %}
 
 {% hint style="warning" %}
-Use the BOM only in GridGain 9 projects. Some GridGain 8 artifacts, such as `ignite-core`, have the same group ID and artifact ID as GridGain 9 modules, and the BOM sets them to the GridGain 9 version.
+Do not import the BOM into a build that also depends on GridGain 8 artifacts. Some of them, such as `ignite-core`, share the group ID and artifact ID with GridGain 9 modules, and the BOM would set them to the GridGain 9 version.
 {% endhint %}
 
 ## Required Modules
