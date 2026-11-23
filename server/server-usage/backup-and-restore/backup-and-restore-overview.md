@@ -70,7 +70,7 @@ When MariaDB Backup performs a backup operation, it connects to the running Mari
 ```sql
 CREATE USER 'mariabackup'@'localhost' IDENTIFIED BY 'mbu_passwd';
 GRANT RELOAD, PROCESS, LOCK TABLES, BINLOG MONITOR
-      ON * TO 'mariabackup'@'localhost';
+      ON *.* TO 'mariabackup'@'localhost';
 ```
 
 {% hint style="info" %}
