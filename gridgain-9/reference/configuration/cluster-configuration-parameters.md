@@ -408,7 +408,7 @@ For more information on configuring authentication, including an LDAP provider e
 |planner.maxPlanningTimeMillis|15000|Query planning timeout in milliseconds. Plan optimization process stops when the timeout is reached. `0` means no timeout. Replaces `maxPlanningTime` (deprecated in 9.1.0, removed in 9.2).|0 - Long.MAX_VALUE|
 |planner.planCacheExpiresAfterSeconds|1800|The number of seconds after which a query plan in removed from the query plan cache if it is not used. `0` means query plans are never removed.|0 - Long.MAX_VALUE|
 |statementMemoryQuota|100%|The amount of memory that can be used by a single SQL statement. A number with a dimension identifier:<br>- % - percentage of the node's heap memory<br>- k - Kb<br>- m - Mb<br>- g - Gb<br>`0` with any of the dimension identifiers turns the memory tracking off.|0 - 100%<br>0 - 9223372036854775807k/m/g|
-|statistics.autoRefresh.staleRowsCheckIntervalSeconds|60|Time period between checks for stale rows in seconds. Only applies if there is at least one statistics object with `autorefresh` set to `true`.|1 - Long.MAX_VALUE|
+|statistics.autoRefresh.staleRowsCheckIntervalSeconds|60|Time period, in seconds, between updates of the table sizes that the SQL optimizer uses. This property does not start the collection of column statistics. To collect column statistics, use the [`REFRESH STATISTICS`](../sql/operational-commands.md#refresh-statistics) statement.|1 - Integer.MAX_VALUE|
 
 ### System Configuration
 

@@ -88,6 +88,33 @@ Successfully cleared SQL query plan cache.
 
 ---
 
+### sql statistics reload
+
+Loads the collected [SQL statistics](../tuning-and-troubleshooting/performance-tuning/sql-tuning/sql-statistics.md) from the storage into the memory of the node again. The command does not collect statistics, and it does not affect other nodes. To collect statistics, use the [`REFRESH STATISTICS`](sql/operational-commands.md#refresh-statistics) SQL statement.
+
+**Syntax**
+
+```
+sql statistics reload [--table=<table>] [--url=<nodeUrl>] [--profile=<profileName>] [--verbose]
+```
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `‑‑table` | Option | No | Table whose statistics to reload. The name can include the schema. A name without the schema refers to the `PUBLIC` schema. If not set, the statistics of all tables are reloaded. |
+| `‑‑url` | Option | No | URL of the node endpoint. If not set, the default URL from the profile settings will be used. |
+| `‑‑profile` | Option | No | Local CLI profile name. |
+| `‑‑verbose` | Flag | No | Show additional information: logs, REST calls. |
+
+**Example**
+
+```bash
+sql statistics reload --table=PUBLIC.PERSON
+```
+
+---
+
 ## CLI Configuration Commands
 
 These commands help you configure GridGain CLI tool profiles and settings.

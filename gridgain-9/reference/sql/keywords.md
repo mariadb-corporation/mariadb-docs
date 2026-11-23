@@ -529,6 +529,7 @@ The following list shows the keywords in GridGain 9.
 | REF |  | Reserved |
 | REFERENCES |  | Reserved |
 | REFERENCING |  | Reserved |
+| REFRESH |  |  |
 | REGR_AVGX |  | Reserved |
 | REGR_AVGY |  | Reserved |
 | REGR_COUNT | Reserved | Reserved |
@@ -675,6 +676,7 @@ The following list shows the keywords in GridGain 9.
 | STATE |  |  |
 | STATEMENT |  |  |
 | STATIC |  | Reserved |
+| STATISTICS |  |  |
 | STDDEV_POP | Reserved | Reserved |
 | STDDEV_SAMP | Reserved | Reserved |
 | STORAGE |  |  |
