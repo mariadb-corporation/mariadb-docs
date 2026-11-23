@@ -3,15 +3,17 @@ name: Community Tools guard
 # The pages under tools/community/<product>/ for each product in .github/community-tools.json
 # are copied from the product's own repo by sync-community-tools-docs.yml (DOCS-6926). An edit
 # made here is overwritten by the next sync, so this check fails any PR that changes them,
-# except the sync's own PR, and comments with a link to each page's source file. The fix goes
-# into the product repo; the next sync brings it here.
+# except the sync's own PR, and links each page's source file. The fix goes into the product
+# repo; the next sync brings it here.
 #
-# pull_request_target, so the comment can be posted on PRs from forks too. That is safe here
-# because the job never checks out or runs anything from the PR: it reads the PR's file list
-# through the API and the product list from the base branch.
+# Plain pull_request, not pull_request_target, which GitHub blocks by default in public repos
+# from 2026-12-02 (DOCS-7162). The job never checks out or runs anything from the PR: it reads
+# the PR's file list through the API and the product list from the base branch. A fork PR gets
+# a read-only token, so for forks the message goes only to the job summary and the error
+# annotation; same-repo PRs also get it as a PR comment.
 
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, synchronize, reopened]
     paths:
       - 'tools/community/**'
@@ -77,7 +79,10 @@ jobs:
             echo "into this repo. See \`dev-docs/cookbook-community-tools-sync.md\`."
           } > "$RUNNER_TEMP/comment.md"
 
-          if gh api --paginate "repos/$REPO/issues/$PR/comments" --jq '.[].body' | grep -qF "$marker"; then
+          cat "$RUNNER_TEMP/comment.md" >> "$GITHUB_STEP_SUMMARY"
+          if [ "$HEAD_REPO" != "$REPO" ]; then
+            echo "Fork PR: read-only token, so no PR comment. The message is in the job summary."
+          elif gh api --paginate "repos/$REPO/issues/$PR/comments" --jq '.[].body' | grep -qF "$marker"; then
             echo "Guard comment already posted."
           else
             gh pr comment "$PR" --repo "$REPO" --body-file "$RUNNER_TEMP/comment.md"

@@ -28,7 +28,9 @@ Make the change in the product repo instead:
 Two checks enforce this:
 
 - **`community-tools-guard.yml`** fails any PR here that changes a synced page, except the sync's
-  own PR. It comments with a link to each page's source file.
+  own PR, and links each page's source file. On a PR from a branch in this repo, the links come
+  as a PR comment. On a fork PR, they're in the failed job's summary, because a fork PR's token
+  can't post comments.
 - **The GitBook-edit digest** ([cookbook](cookbook-gitbook-edit-review.md)) lists every GitBook-UI
   commit, so a UI edit to a synced page shows up there. Redo it upstream, and let the next sync
   revert it here.
