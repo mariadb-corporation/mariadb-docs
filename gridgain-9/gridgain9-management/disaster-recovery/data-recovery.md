@@ -37,7 +37,7 @@ Once a minority offline status has been discovered:
 2. Run the `recovery partition states` command on the relevant zones/nodes/partitions to verify [Partition States](#partition-states).
 3. If the state is `Healthy` or `Available partition`, consider the recovery completed.
 4. If the state is `Broken`:
-   1. Restart your GrigGain node or the relevant partitions using the `recovery partitions restart` command.
+   1. Restart your GridGain node or the relevant partitions using the `recovery partitions restart` command.
    2. Rerun the `recovery partition states` command.
    3. If the partition state remains `Broken`, reset the partitions with deletion by using the `recovery partitions restart --with-cleanup` command. Local partition data will be deleted and restored from the cluster.
 5. If the partition state is `Read-only partition`, `Degraded partition`, or `Unavailable partition`, reset the relevant partitions using the `recovery reset partitions` command.
@@ -66,7 +66,7 @@ Once a majority offline status has been discovered:
 2. Run the `recovery partition states` command on the relevant zones/nodes/partitions to verify [Partition States](#partition-states).
 3. If the state is `Healthy` or `Available partition`, consider the recovery completed.
 4. If the state is `Broken`:
-   1. Restart your GrigGain nodes or the relevant partitions using the `recovery partitions restart` command.
+   1. Restart your GridGain nodes or the relevant partitions using the `recovery partitions restart` command.
    2. Rerun the `recovery partition states` command.
    3. If the partition state remains `Broken`, reset the partitions with deletion by using the `recovery partitions restart --with-cleanup` command. Local partition data will be deleted and restored from the cluster.
 5. If the partition state is `Read-only partition`, `Degraded partition`, or `Unavailable partition`, reset the relevant partitions using the `recovery partitions reset` CLI command.
