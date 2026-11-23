@@ -8,9 +8,9 @@ local edits would be lost. File content bugs against the upstream repository.
 | Field | Value |
 | --- | --- |
 | Upstream repository | https://github.com/MariaDB/skills |
-| Pinned ref (commit) | `7b01484d7a7475824bea86f3e628e29273d1817b` |
+| Pinned ref (commit) | `5895ef8da1908d5b438d8ccb48653bcecedc090a` |
 | Upstream license | **MIT** — Copyright (c) 2026 Robert Silén; see `LICENSE` in this directory |
-| Last synced | 2026-10-13 |
+| Last synced | 2026-11-23 |
 | Synced by | `.github/workflows/sync-topical-skills.yml` (weekly + manual); initial vendor was manual |
 
 ## What is vendored
