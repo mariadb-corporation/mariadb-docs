@@ -78,6 +78,43 @@ maria_declare_plugin_end;
 
 A complete worked example, covering both a function taking no arguments and functions taking arguments, is in the source tree at `plugin/func_test/plugin.cc`. It is built only as a test component, so it is not present in a normal server installation.
 
+### Aggregate Function Plugins
+
+{% hint style="info" %}
+Aggregate function plugins are available from MariaDB 13.2.1.
+{% endhint %}
+
+A function plugin can also implement an aggregate function. The builder reports this by overriding `Create_func::is_aggregate()` to return `true`. The default is `false`, so existing scalar function plugins need no change. The parser checks `is_aggregate()` before parsing the function's arguments, so the arguments are parsed in an aggregate context. An aggregate builder must create an `Item_sum_plugin` descendant (declared in `sql/item_sum.h`). The plugin is declared in the same way as a scalar function plugin, with `MariaDB_FUNCTION_PLUGIN` and a `Plugin_function` descriptor.
+
+Legacy aggregate [UDFs](../../../server-usage/user-defined-functions/) continue to work. A UDF is looked up only when no built-in function or function plugin has the name, so an aggregate function plugin is used in preference to a legacy aggregate UDF of the same name.
+
+#### Implementing an Aggregate
+
+An aggregate implementation provides:
+
+* `clear()`, which resets the aggregate state for a new group. The result for an empty group is whatever the cleared state produces. For example, the `test_plugin_count` example returns `0` and `test_plugin_first` returns `NULL`.
+* `add_row()`, which adds one row to the state. It must read its arguments with `aggregation_arg()` rather than directly from `args[]`, so that `DISTINCT` processing can substitute the values it replays.
+* The result accessors (`val_int()`, `val_str()` and so on), `type_handler()`, `fix_length_and_dec()`, `cleanup()`, and the copy methods such as `copy_or_same()`.
+
+To reject an unsupported argument type, report an error from `fix_length_and_dec()` and return `true`.
+
+#### DISTINCT, FILTER and Window Functions
+
+* `DISTINCT` is supported by default. The replay order is unspecified, so an order-sensitive aggregate must override `supports_distinct()` to return `false`. The server then rejects `DISTINCT` for that function with an error that it is not yet supported.
+* The server applies `FILTER (WHERE ...)`. `add_row()` and `remove_row()` are called only for rows that pass the filter.
+* To work efficiently with moving window frames, override `supports_removal()` and `remove_row()`. Without them the server still runs the aggregate as a window function, but recomputes it by scanning the whole frame.
+* A plugin aggregate with `DISTINCT` cannot be used as a window function. The server returns an error that this is not yet supported.
+
+Plugin aggregates follow the same placement rules as built-in aggregate functions. For example, they cannot be used in a `CHECK` constraint, a `DEFAULT` expression or a generated column, and they cannot be nested inside other aggregates.
+
+#### Pluggable Data Types
+
+An aggregate can accept arguments of a type supplied by a data type plugin and return the same type. If the aggregate sets its result type from its argument's type handler, the result keeps that type through `CREATE TABLE ... AS`, temporary tables, views, `UNION`, `CASE` and derived tables. To return native values, override `val_native()`. The `test_plugin_first` example does this and works on `UUID` columns.
+
+#### Examples
+
+The aggregates `test_plugin_count` and `test_plugin_first` in `plugin/func_test/plugin.cc` are working examples. `test_plugin_count` supports window frame removal. `test_plugin_first` keeps the argument's type and does not support `DISTINCT`.
+
 ### Viewing Function Plugins
 
 Function plugins appear in [SHOW PLUGINS](../../sql-statements/administrative-sql-statements/show/show-plugins.md) with a `Type` of `FUNCTION`, and the functions they provide are listed in the [Information Schema SQL\_FUNCTIONS table](../../system-tables/information-schema/information-schema-tables/information-schema-sql_functions-table.md) alongside built-in functions.
