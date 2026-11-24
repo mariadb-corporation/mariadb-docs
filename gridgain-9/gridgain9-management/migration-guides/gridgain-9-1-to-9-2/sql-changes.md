@@ -110,7 +110,7 @@ SELECT name FROM system.tables WHERE schema = 'PUBLIC' AND zone = 'MY_ZONE';
 SELECT table_name FROM system.tables WHERE schema_name = 'PUBLIC' AND zone_name = 'MY_ZONE';
 ```
 
-A query that uses a removed column fails with `IGN-SQL-4: Failed to validate query ... Column 'NAME' not found in any table`. Check monitoring queries, dashboards, and scripts first. For all columns, see [System Views](../../../reference/monitoring/system-views.md).
+A query that uses a removed column fails with `IGN-SQL-4: Failed to validate query ... Column '<name>' not found in any table`. Check monitoring queries, dashboards, and scripts first. For all columns, see [System Views](../../../reference/monitoring/system-views.md).
 
 ## The __part Alias Is Removed
 

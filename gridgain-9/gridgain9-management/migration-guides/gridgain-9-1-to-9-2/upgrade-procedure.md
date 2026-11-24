@@ -129,7 +129,7 @@ For each node:
 3. Put the node configuration file that you prepared in place, and set `JAVA_HOME` to Java 21 or later. For Docker, use the 9.2 image tag. For DEB and RPM, do this before you run `apt` or `dnf`, because the package upgrade restarts the node at once.
 4. Start the node.
 5. Run `upgrade state`, and check that the node is in `nextVersionNodes`. The node can take about a minute to show up, so run the command again if the list is empty.
-6. Run `recovery partition states --global`, and check that every partition is `Available` before you stop the next node. If you stop a node while another node still catches up, a partition can lose its majority.
+6. Run `recovery partitions states --global`, and check that every partition is `AVAILABLE` before you stop the next node. If you stop a node while another node still catches up, a partition can lose its majority.
 
 ### Step 3: Commit the Upgrade
 
