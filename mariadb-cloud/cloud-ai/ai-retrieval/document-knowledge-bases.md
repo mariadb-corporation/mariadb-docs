@@ -92,10 +92,12 @@ A data source connects a bucket to the knowledge base. AI Retrieval reads the do
     | Access Key ID and Access Key | The credentials of an AWS identity that can read the bucket.                                                                                   |
     | Region                       | The region of the bucket.                                                                                                                      |
 3. Select **Test Connection** to check the values.
-4. Select **Next**, and then choose the parsing and chunking strategies for the data source.
+4. Select **Next**, choose the parsing and chunking strategies for the data source, and select **Add**.
 5. On the **Sync** step, select **Sync** to ingest the documents now, or **Later**.
 
 <figure><img src="../../.gitbook/assets/ai-retrieval-add-datasource.png" alt="The Add Datasource dialog on the Connect step with AWS selected and empty fields."><figcaption><p>The Connect step of the Add Datasource dialog</p></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/ai-retrieval-add-datasource-processing.png" alt="The Add Datasource dialog on the Processing step with the Layout-aware parsing strategy and the Structure-Aware chunking strategy selected."><figcaption><p>The Processing step of the Add Datasource dialog</p></figcaption></figure>
 
 The credentials need these permissions on the bucket:
 
