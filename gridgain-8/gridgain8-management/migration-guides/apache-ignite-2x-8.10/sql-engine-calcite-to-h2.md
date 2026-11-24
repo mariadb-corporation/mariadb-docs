@@ -11,9 +11,28 @@ This page is reference material for the [Migration Procedure](migration-procedur
 
 Apache Ignite 2 can run SQL on two engines: the default H2 engine, or the optional Calcite engine from the `ignite-calcite` module. GridGain 8 runs only the H2 engine. This page describes what changes for queries that ran on Calcite in Ignite 2.18 and how to rewrite them for GridGain 8.10.
 
-It covers the queries that return different results without an error, the queries that fail, the changed defaults, query hints and plan inspection, and the constructs that need no change.
-
 *Skip this page if your Ignite 2 deployment did not use Calcite: `ignite-calcite` is not in `libs/` or your build dependencies, no node configuration contains `CalciteQueryEngineConfiguration`, and no connection string or query contains `queryEngine=calcite` or `QUERY_ENGINE('calcite')`.*
+
+*On this page:*
+
+* [Planning the Migration](#planning-the-migration): how to find the queries that need a change and estimate the work
+* [Remove the Calcite Configuration](#remove-the-calcite-configuration): the module, configuration, and connection settings to remove before you start GridGain 8
+* [Queries That Return Different Results](#queries-that-return-different-results): queries that run without an error and return different data
+* [Queries That Fail](#queries-that-fail): constructs that GridGain 8 rejects, and what to use instead
+* [Changed Defaults](#changed-defaults): the SQL memory quota and transactional SQL
+* [Query Hints and Plan Inspection](#query-hints-and-plan-inspection): hints that GridGain 8 ignores, `EXPLAIN` output, and metadata
+* [What Does Not Need to Change](#what-does-not-need-to-change): constructs that work the same on both engines
+
+## Planning the Migration
+
+To estimate the work before you start:
+
+1. *Search the code.* Search your queries, DDL, and connection strings for the constructs on this page, such as `/*+`, `FILTER (WHERE`, `ROLLUP`, `INTERSECT ALL`, `GROUP BY` followed by a number, `MERGE ... USING`, `CHAR(n)`, and the function names in [Scalar Functions](#scalar-functions). Then list every join and subquery between `PARTITIONED` tables that does not use the affinity key. To fix the items on that list, you need to know which tables are colocated.
+2. *Find failing queries.* Start one GridGain 8 node, apply your DDL, and run every query prefixed with `EXPLAIN`. `EXPLAIN` plans the query without reading data. Each query that fails is a construct from [Queries That Fail](#queries-that-fail). Error code `1001` means a parsing error, and `1002` means an unsupported operation.
+3. *Compare results.* Run every query on the Ignite 2 cluster and on a GridGain 8 cluster with the same data and the same number of nodes as production. Compare the number of rows and a checksum of each result. The [queries that return different results](#queries-that-return-different-results) do not fail, so a comparison is needed to find them. A query that is correct on two nodes can be incorrect on more.
+4. *Test memory use.* After you rewrite the queries, run them at production load and set the [SQL memory quota](#sql-memory-quota).
+
+This page describes the Calcite engine in Apache Ignite 2.18. The functions that Calcite supports differ between Ignite 2 releases; Ignite 2.17, for example, lacks `TO_DATE`, `TO_TIMESTAMP`, `TO_CHAR`, and `GROUP BY` by column position. If you run an earlier release, check against that release.
 
 ## Remove the Calcite Configuration
 
@@ -72,10 +91,10 @@ Non-colocated joins do not fix every query:
 
 | Query | Without `distributedJoins` | With `distributedJoins=true` |
 |---|---|---|
-| `JOIN`, `IN (SELECT ...)`, or `EXISTS` between tables | Incorrect | Correct |
-| Correlated subquery on the same table, for example `(SELECT COUNT(*) FROM emp e2 WHERE e2.dept_id = e.dept_id)` | Incorrect | Still incorrect. Indexes do not help. |
-| Self-join with `GROUP BY` | Incorrect | Correct, if the join column is indexed. Without an index, the query fails with `Failed to prepare distributed join query: join condition does not use index`. |
-| `JOIN` with a subquery that has its own `GROUP BY` (a derived table) | Correct | Correct |
+| `JOIN`, `IN (SELECT ...)`, or `EXISTS` between tables | Rows are missing | Complete result |
+| Correlated subquery on the same table, for example `(SELECT COUNT(*) FROM emp e2 WHERE e2.dept_id = e.dept_id)` | The subquery is computed only from the rows on the same node | Same as without `distributedJoins`. Indexes do not help. |
+| Self-join with `GROUP BY` | Aggregates are computed only from the rows joined on each node | Complete result, if the join column is indexed. Without an index, the query fails with `Failed to prepare distributed join query: join condition does not use index`. |
+| `JOIN` with a subquery that has its own `GROUP BY` (a derived table) | Complete result | Complete result |
 
 A correlated subquery on partitioned data cannot be fixed with `distributedJoins`. Colocate the data, or rewrite the subquery as a join with a derived table:
 
@@ -163,7 +182,7 @@ HAVING COUNT(*) <= 3;
 
 These rewrites handle ties differently from `ROW_NUMBER`. Add tie-breaking columns to the join condition if the order of tied rows matters.
 
-### Collocated Queries
+### Colocated Queries
 
 By default, GridGain 8 runs a query with aggregates in two steps. First, each node computes partial results from the rows that it stores. Then the node that started the query combines the partial results into one result for each group.
 
@@ -416,17 +435,6 @@ The following work the same on both engines:
 - A query that contains more than one statement is rejected by both engines.
 
 GridGain 8 also offers SQL features that Calcite does not, including `ILIKE`, `LOCATE`, `DATEADD`, `DATEDIFF`, `PARSEDATETIME`, `FORMATDATETIME`, adding an integer to a `DATE`, `COPY` for bulk loading, `SET STREAMING` for JDBC and ODBC, and full-text search through `TextQuery`.
-
-## Planning the Migration
-
-To estimate the work before you start:
-
-1. *Search the code.* Search your queries, DDL, and connection strings for the constructs on this page, such as `/*+`, `FILTER (WHERE`, `ROLLUP`, `INTERSECT ALL`, `GROUP BY` followed by a number, `MERGE ... USING`, `CHAR(n)`, and the function names in [Scalar Functions](#scalar-functions). Then list every join and subquery between `PARTITIONED` tables that does not use the affinity key. To fix the items on that list, you need to know which tables are colocated.
-2. *Find failing queries.* Start one GridGain 8 node, apply your DDL, and run every query prefixed with `EXPLAIN`. `EXPLAIN` plans the query without reading data. Each query that fails is a construct from [Queries That Fail](#queries-that-fail). Error code `1001` means a parsing error, and `1002` means an unsupported operation.
-3. *Compare results.* Run every query on the Ignite 2 cluster and on a GridGain 8 cluster with the same data and the same number of nodes as production. Compare the number of rows and a checksum of each result. The [queries that return different results](#queries-that-return-different-results) do not fail, so a comparison is needed to find them. A query that is correct on two nodes can be incorrect on more.
-4. *Test memory use.* After you rewrite the queries, run them at production load and set the [SQL memory quota](#sql-memory-quota).
-
-This page describes the Calcite engine in Apache Ignite 2.18. The functions that Calcite supports differ between Ignite 2 releases; Ignite 2.17, for example, lacks `TO_DATE`, `TO_TIMESTAMP`, `TO_CHAR`, and `GROUP BY` by column position. If you run an earlier release, check against that release.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
