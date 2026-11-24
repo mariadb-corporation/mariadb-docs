@@ -1,6 +1,6 @@
 ---
 description: >-
-  GridGain 8.9.40 merges binary metadata by field ID, adds bulk cache removal to the .NET thin client and a DR sender metric, and fixes security and DR issues.
+  GridGain 8.9.40 adds Java 25 support, bulk cache removal in the .NET thin client, and a DR sender metric, merges binary metadata by field ID, and fixes security and DR issues.
   Released on 2026-11-19.
 ---
 
@@ -10,9 +10,13 @@ description: >-
 
 ## Overview
 
-GridGain 8.9.40 adds a method that destroys several caches in one request to the .NET thin client and a data center replication metric for unacknowledged batches.
+GridGain 8.9.40 adds support for Java 25, a method that destroys several caches in one request to the .NET thin client, and a data center replication metric for unacknowledged batches.
 
 ## New Features
+
+### Java 25 Support
+
+You can now use Java 25 to run GridGain. No additional actions are required to switch from Java 17 or Java 21 to Java 25.
 
 ### Destroying Several Caches From the .NET Thin Client
 

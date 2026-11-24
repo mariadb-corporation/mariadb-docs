@@ -20,7 +20,7 @@ If you are getting started with Ignite or GridGain, we recommend attending [an u
 
 {% include "../../.gitbook/includes/gg8-prereqs.md" %}
 
-GridGain requires Java 17 or later. See [Running GridGain with Java 17 or Later](#running-gridgain-with-java-17-or-later) for the JVM parameters it needs.
+GridGain requires Java 17 or later and supports Java 17, 21, and 25. See [Running GridGain with Java 17 or Later](#running-gridgain-with-java-17-or-later) for the JVM parameters it needs.
 
 ### (Optional) Open Ports
 

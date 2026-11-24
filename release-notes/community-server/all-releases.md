@@ -8,16 +8,20 @@ description: A list of all MariaDB Community Server releases
 
 | Name                     | Release date | Release status |
 | ------------------------ | ------------ | -------------- |
+| [13.2.1](13.2/13.2.1.md) | 2026-11-23   | RC             |
 | 13.2.0                   | 2026-09-23   | Preview        |
 
 ## MariaDB Community Server 13.1
 
 | Name                     | Release date | Release status |
 | ------------------------ | ------------ | -------------- |
+| [13.1.2](13.1/13.1.2.md) | 2026-11-23   | Stable (GA)    |
 | [13.1.1](13.1/13.1.1.md) | 2026-09-15   | RC             |
 | 13.1.0                   | 2026-06-19   | Preview        |
 
 ## MariaDB Community Server 13.0
+
+[Maintained until](https://mariadb.org/about/#maintenance-policy) 23 November 2026.
 
 | Name                     | Release date | Release status |
 | ------------------------ | ------------ | -------------- |

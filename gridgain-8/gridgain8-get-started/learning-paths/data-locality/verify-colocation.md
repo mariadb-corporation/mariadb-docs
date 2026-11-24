@@ -19,7 +19,7 @@ You build one Maven project with two reader-facing classes. `VerifyColocation` r
 
 - **Completion of [Design Keys for Colocation](design-keys-for-colocation.md).** You have read that tutorial and `Affinity.mapKeyToNode` is familiar. This tutorial builds its own `customers-verify` and `invoices-verify` caches, so the caches from the prior tutorial are not needed (each of the three mechanism programs destroyed its own caches at the end).
 - **A running 3-node cluster** using `docker-compose-3nodes.yml` from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md).
-- **Java 17 or later** for the client runtime. The Maven project compiles to Java 17 bytecode, the same version the server JVM runs.
+- **Java 17, 21, or 25** for the client runtime. The Maven project compiles to Java 17 bytecode, the same version the server JVM runs.
 - **Maven 3.6** or later
 - **Docker Compose 2.23** or later
 

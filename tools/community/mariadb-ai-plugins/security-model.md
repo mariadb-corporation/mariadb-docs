@@ -54,3 +54,5 @@ mariadb-shell -- mcp setup --addPaths=/home/dev/projects
 Passwords are stored in the MariaDB Shell secret store, which uses the secret storage of the operating system. They are kept separately from your other MariaDB Shell connections and are never written to a file that the agent can read. The `migrator.set_config` tool refuses passwords for the same reason.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

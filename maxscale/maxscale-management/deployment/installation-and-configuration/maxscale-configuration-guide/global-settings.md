@@ -149,7 +149,7 @@ The encryption key is only read on startup. This means that the tokens will be s
 
 * Type: [duration](README.md#durations)
 * Mandatory: No
-* Dynamic: No
+* Dynamic: Yes
 * Default: `24h`
 * Description: Specifies the maximum duration of JWTs issued by the REST API.
 
@@ -195,7 +195,7 @@ The client secret that's used when doing OpenID Connect requests. When using ano
 
 * Type: string
 * Mandatory: No
-* Dynamic: No
+* Dynamic: Yes
 * Default: `""`
 * Description: Defines additional parameters that should be included in authorization requests for OIDC. 
 

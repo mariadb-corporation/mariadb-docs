@@ -71,3 +71,5 @@ Skills for using MariaDB in Laravel applications. These skills are included in t
 | `mariadb-laravel-vector` | `dev` | MariaDB Vector in a Laravel (PHP) application: vector columns, VECTOR INDEX, the AsVector Eloquent cast and similarity search with the query builder. |
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

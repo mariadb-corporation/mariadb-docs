@@ -196,3 +196,5 @@ For a `stdio` server, the MCP client captures standard error. Check the MCP log 
 | *Give both --sslCertfile and --sslKeyfile to serve HTTPS, or neither.* | Only one of `--sslCertfile` and `--sslKeyfile` was given. | Pass both. |
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

@@ -44,3 +44,5 @@ The plugin starts the language server with a launcher script, `mariadb-lsp-launc
 On the first start, when MariaDB Shell isn't installed yet, the MCP server's launcher downloads it. The language server's launcher waits for that installation, for up to 180 seconds by default, so the package is downloaded only once. The variables that control the launcher are listed in the [Configuration Reference](../configuration-reference.md#lsp-launcher-environment-variables).
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

@@ -120,3 +120,5 @@ Sandbox instances on Windows don't enable named pipes, so you connect to them ov
 MariaDB Shell doesn't support shared-memory connections on Windows. It never requests the shared-memory transport from Connector/C, so a local connection without a pipe uses TCP, even if the server has `shared_memory` enabled.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

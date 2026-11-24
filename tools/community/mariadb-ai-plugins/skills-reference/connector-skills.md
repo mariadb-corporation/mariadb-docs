@@ -32,3 +32,5 @@ There are two skills for each MariaDB connector. One covers installation and con
 | `mariadb-connector-c-usage` | `dev` | MariaDB-specific behavior of MariaDB Connector/C (the `libmariadb` client library implementing the MariaDB client-server protocol in C) for application code — that the public API is still `mysql_`-prefixed (`mysql_init`, `mysql_real_connect`, `mysql_query`, ...) with only a few `mariadb_`-prefixed extensions; that `mysql_init()` must precede `mysql_real_connect()`, with `mysql_optionsv()` options set in between; the buffered-vs-unbuffered split between `mysql_store_result()` and `mysql_use_result()` plus the mandatory `mysql_free_result()`; that literals need `mysql_real_escape_string()` when not using prepared statements; the `?`-placeholder prepared-statement API (`MYSQL_BIND` arrays, `mysql_stmt_bind_param`/`execute`/`fetch`); and that autocommit is ON by default so transactions need `mysql_autocommit(conn,0)`. |
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

@@ -6,7 +6,7 @@ description: >-
 
 # Community Server Release Notes
 
-This section contains release notes for MariaDB Server releases divided into the major MariaDB series. The latest long-term stable series is [MariaDB 12.3](12.3/mariadb-12.3-changes-and-improvements.md) (maintained for three years), the current rolling release is [MariaDB 13.0](13.0/mariadb-13.0-changes-and-improvements.md), and the current development release is MariaDB 13.2.
+This section contains release notes for MariaDB Server releases divided into the major MariaDB series. The latest long-term stable series is [MariaDB 12.3](12.3/mariadb-12.3-changes-and-improvements.md) (maintained for three years), the current rolling release is [MariaDB 13.1](13.1/mariadb-13.1-changes-and-improvements.md), and the current development release is MariaDB 13.2.
 
 ## About
 

@@ -393,3 +393,5 @@ The MCP server reads the realm's keys from `KEYCLOAK_URL`, so the container must
 | The server's log lines show the same address for every client. | `MCP_TRUSTED_PROXIES` doesn't contain the address that the proxy's requests arrive from. | Compare it with the address in the access log. See [Reverse Proxy](#reverse-proxy). |
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

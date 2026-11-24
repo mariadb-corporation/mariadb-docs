@@ -65,3 +65,5 @@ OpenCode gives a language server 45 seconds to start, and skips a server that do
 Before the agent can use the MCP server, you must configure the connections and directories it may access. See [Configuring the MCP Server](../configuring-the-mcp-server/README.md).
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

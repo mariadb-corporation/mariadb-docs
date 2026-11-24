@@ -138,3 +138,5 @@ The `mariadb-shell --help` command lists the command-line options. On Linux and 
 To exit, use `\quit`, its shortcut `\q`, or `\exit`. On Linux and macOS, you can also press Ctrl+D on an empty line. The shell closes its sessions and prints `Bye!`.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

@@ -421,6 +421,23 @@ sudo apt install \
   mariadb-client-core=${ver}
 ```
 
+{% hint style="info" %}
+**MariaDB Community Server 12.3.2 and later:** if you run Galera Cluster, also pin `mariadb-server-galera` to the same version as the other packages. It depends on the exact `mariadb-server` version, so if you leave it unpinned, `apt` selects the newest version and the installation fails with an error such as `mariadb-server-galera : Depends: mariadb-server (= 1:12.3.3+maria~deb13) but 1:12.3.2+maria~deb13 is to be installed`.
+
+```bash
+ver="1:12.3.2+maria~deb13"
+sudo apt install \
+  mariadb-server=${ver} \
+  mariadb-server-galera=${ver} \
+  mariadb-client=${ver} \
+  mariadb-server-core=${ver} \
+  mariadb-client-core=${ver} \
+  galera-4
+```
+
+`galera-4` has its own version number, so don't pin it to the server version.
+{% endhint %}
+
 For MariaDB Enterprise, version numbers are similar, but have an extra point. For example, MariaDB Enterprise Server 11.8.5-2 for Ubuntu 24.04 Noble has the version number: `1:11.8.5.2+maria~ubu2404` .
 
 The rest of the install and setup process is as normal.

@@ -107,3 +107,5 @@ REPORT_NEW_PASSWORD='...' mariadb-shell admin@db1.example.com --py -f rotate_rep
 If you store passwords in the [credential store](../connecting/credential-store.md), update the stored password after the change, because the shell doesn't do it automatically.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

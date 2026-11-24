@@ -21,6 +21,18 @@ Official Kubernetes Operators for MariaDB: Enterprise Operator for MariaDB Serve
 
 {% columns %}
 {% column %}
+{% content-ref url="helmforge-community-helm-chart.md" %}
+[helmforge-community-helm-chart.md](helmforge-community-helm-chart.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Install MariaDB on Kubernetes with the independent, Apache-2.0-licensed HelmForge community Helm chart and the official MariaDB container image.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="kubernetes-overview-for-mariadb-users.md" %}
 [kubernetes-overview-for-mariadb-users.md](kubernetes-overview-for-mariadb-users.md)
 {% endcontent-ref %}

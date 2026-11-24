@@ -18,7 +18,7 @@ This tutorial labels itself "beginner" for GridGain 8. The surrounding Java stac
 ## Prerequisites
 
 - **A running single-node cluster** from [Start a Local Cache Development Cluster](start-local-cache-cluster.md)
-- **Java 17** or later
+- **Java 17, 21, or 25**
 - **Maven 3.6** or later
 - **Comfort reading Spring bean XML.** The `ignite-config.xml` is Spring-formatted but you only edit a handful of properties.
 

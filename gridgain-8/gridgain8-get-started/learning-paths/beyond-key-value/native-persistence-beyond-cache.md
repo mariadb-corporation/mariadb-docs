@@ -21,7 +21,7 @@ This is the only tutorial in the path that changes the cluster image. Persistenc
 
 - **Completion of [Cache-Aside Under Load](../cache-centric-foundations/cache-aside-under-load.md).** That tutorial established the cache-as-accelerator architecture this tutorial inverts.
 - **Docker Compose 2.23** or later.
-- **Java 17** or later for the client runtime.
+- **Java 17, 21, or 25** for the client runtime.
 - **Maven 3.6** or later.
 - **No other GridGain 8 cluster running on ports 47500, 47100, or 10800.** This tutorial uses the same port assignment as the rest of the path. Stop any cluster on those ports before starting the one this tutorial creates.
 

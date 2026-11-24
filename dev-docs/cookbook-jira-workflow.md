@@ -76,7 +76,7 @@ It must list `mariadbcorp.atlassian.net` (cloudId `164b0d33-…`) with Jira writ
 /doc-ticket DOCS-XXXX      # verify against MariaDB source, draft the .md edit
 <review & commit, open PR> # your call — the skills never push/commit/PR for you
 /jira-resolve DOCS-XXXX    # comment PR link, ticket → Review (editorial review)
-/jira-close DOCS-XXXX      # after merge, ticket → Closed
+/jira-close DOCS-XXXX      # after merge, ticket → Closed; closes the GitHub issue it came from
 ```
 
 `/impact` is optional triage (the "explain" step) — run it first to decide *whether* and *what*

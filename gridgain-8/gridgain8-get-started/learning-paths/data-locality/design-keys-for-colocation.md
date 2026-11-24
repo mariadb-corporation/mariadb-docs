@@ -21,7 +21,7 @@ You build three small programs in this tutorial, one per mechanism, against a Cu
 
 - **A running 3-node cluster** from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md). Use the `docker-compose-3nodes.yml` file from that tutorial.
 - **Familiarity with the Affinity API.** This tutorial uses `ignite.affinity(cacheName).mapKeyToNode(key)` as the confirmation tool without reintroducing it.
-- **Java 17 or later** for the client runtime. The Maven project compiles to Java 17 bytecode, the same version the server JVM runs.
+- **Java 17, 21, or 25** for the client runtime. The Maven project compiles to Java 17 bytecode, the same version the server JVM runs.
 - **Maven 3.6** or later
 - **Docker Compose 2.23** or later
 
