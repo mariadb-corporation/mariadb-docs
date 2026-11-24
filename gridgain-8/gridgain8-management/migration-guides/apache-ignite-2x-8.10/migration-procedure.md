@@ -398,7 +398,7 @@ Queries error out or behave differently after the cutover.
 
 **Cause:** GridGain 8 enables SQL memory quotas by default, and dropping Calcite moves you onto the H2 engine, which optimizes and coerces types differently.
 
-**Fix:** Tune `sqlGlobalMemoryQuota` (or set it to `0`), and re-test queries on H2 in staging before the cutover. See [SQL Changes](apis-and-clients.md#sql-changes).
+**Fix:** Tune `sqlGlobalMemoryQuota` (or set it to `0`), and re-test queries on H2 in staging before the cutover. See [SQL Changes](apis-and-clients.md#sql-changes) and, if you used Calcite, [Migrating SQL From the Calcite Engine](sql-engine-calcite-to-h2.md).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

@@ -211,6 +211,7 @@
       * [Migrating from Apache Ignite 2](gridgain8-management/migration-guides/apache-ignite-2x-8.10/migration-procedure.md)
       * [What to Know Before Migrating](gridgain8-management/migration-guides/apache-ignite-2x-8.10/before-you-migrate.md)
       * [Features to Replace](gridgain8-management/migration-guides/apache-ignite-2x-8.10/features-to-replace.md)
+      * [Migrating SQL From the Calcite Engine](gridgain8-management/migration-guides/apache-ignite-2x-8.10/sql-engine-calcite-to-h2.md)
       * [Configuration and Validation Changes](gridgain8-management/migration-guides/apache-ignite-2x-8.10/configuration.md)
       * [APIs, Clients, and Extensions](gridgain8-management/migration-guides/apache-ignite-2x-8.10/apis-and-clients.md)
       * [Artifacts and Deployment](gridgain8-management/migration-guides/apache-ignite-2x-8.10/artifacts-and-modules.md)
