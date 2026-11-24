@@ -73,19 +73,28 @@ thread reply is the marker).
 ### ✏️ "N GitBook-UI edits to review" (nightly-gitbook-edits.yml)
 
 Every edit merged in the GitBook app lands on `main` without a PR. This digest lists each one.
-**Review every entry.** The full routine, including what the gate results mean, is in
+**Review every entry.** The recommended way is Claude Code: in your mariadb-docs clone, run
+`/gitbook-review`, or ask it to "review the GitBook edits in today's digest". It sorts GitBook's
+reformatting from real changes, checks the content and proposes fixes, and asks before it opens a
+PR, merges or posts in the thread. The full routine, by hand included, is in
 [cookbook-gitbook-edit-review.md](cookbook-gitbook-edit-review.md). In short:
 
-1. Open each diff. Check it against the [style guide](style-guide.md), Title Case headings,
-   version facts and [alias](link-aliases.md) links. ⚠️ findings are the minimum to fix, not the
-   whole review.
-2. 🚨 **"Generated page edited by hand"** means the next sync overwrites the edit. Revert it in a
-   normal PR, and make the change in the page's source instead (the warning names it). Tell the
-   author in the thread, so they don't do it again.
-3. Mark it done: react ✅ to the post when you have looked at all its entries, or reply in the
-   thread naming the commit (`9f0b0f243 looks good`).
-4. Fixes go in a normal PR whose description names the commit (`Fixes 9f0b0f243 (GITBOOK-2399)`).
-   Reply in the thread with the PR link. Never fix an edit with another GitBook edit.
+1. Find each commit by the SHA in its `diff <sha>` link, never by `GITBOOK-<n>`, which repeats
+   across spaces.
+2. Most of the diff is GitBook re-saving the page in its own Markdown (link forms, list markers,
+   the H1, dropped HTML comments). Accept that. Review only the content changes, against the
+   [style guide](style-guide.md), Title Case headings and version facts. ⚠️ findings are the
+   minimum to fix, not the whole review.
+3. A small mistake: **fix it forward** in a normal PR whose description names the commit
+   (`Fixes 9f0b0f243 (GITBOOK-2399)`). Never fix an edit with another GitBook edit.
+4. Wrong in substance: revert **that page**, never the whole commit, or correct it in a PR. Tell
+   the author in the thread.
+5. 🚨 **"Generated page edited by hand"**: for the MaxScale settings reference and the Plugin API
+   pages, revert that file and make the change in the source the warning names. For a synced
+   Community Tools page, **don't revert**: the next weekday sync restores it. A change meant
+   seriously goes upstream. Tell the author either way.
+6. Mark it done: react ✅ to the post when you have looked at all its entries, or reply in the
+   thread naming the commit (`9f0b0f243 reviewed: …`), with the PR link if there is one.
 
 ### 🔗 "Heading anchors broke" (nightly-fragcheck.yml)
 
@@ -150,7 +159,7 @@ colleagues from engineering, and outside contributors.
 
 **Before you merge any PR:**
 
-- Merge with `--rebase`. Squash merges are disabled on this repo:
+- Merge with `--rebase` by default (squash is allowed too):
   `gh pr merge <n> -R mariadb-corporation/mariadb-docs --rebase --delete-branch`.
 - Confirm it really merged: `gh pr view <n> --json state,mergedAt`.
 - If the PR is tied to a DOCS ticket, check the ticket's **"blocks" / "is blocked by"** links,
