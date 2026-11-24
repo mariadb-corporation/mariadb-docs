@@ -26,11 +26,9 @@ Your MariaDB Cloud role decides what you can do with knowledge bases:
 
 ## API Keys and Authentication
 
-Applications call a knowledge base through a REST API and authenticate with an API key. Send the key as a bearer token in the `Authorization` header, or in the `X-API-Key` header. An API key belongs to your user account, not to a single knowledge base.
+Applications call a knowledge base through a REST API and authenticate with an API key. Send the key as a bearer token in the `Authorization` header, or in the `X-API-Key` header. An API key belongs to your user account, not to a single knowledge base. You can create a key only for your own account.
 
 To create, revoke, or delete a key, see [Connect Your Application](document-knowledge-bases.md#connect-your-application).
-
-<!-- TODO: confirm the scope of a key and the roles that can create one. Egor, 2026-10-20: keys authenticate the same way as any MariaDB Cloud endpoint. -->
 
 ## Document Knowledge Bases
 

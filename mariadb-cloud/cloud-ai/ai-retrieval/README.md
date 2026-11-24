@@ -27,7 +27,7 @@ For the details, see [Document Knowledge Bases](document-knowledge-bases.md) and
 
 ## How It Works
 
-<figure><img src="../../.gitbook/assets/image (8).png" alt=""><figcaption><p>A knowledge base is backed by a MariaDB database. A document knowledge base holds the chunks of your documents and their embeddings. A database knowledge base holds a semantic map of the source database, which AI Retrieval uses to generate SQL.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8).png" alt="Clients such as an AI application, an MCP server, and an AI agent call MariaDB Cloud AI Retrieval. They retrieve chunks from a document knowledge base, whose data sources are files such as PDF, DOC, and PPT, or retrieve rows from a database knowledge base, whose data source is a MariaDB database, or they retrieve and generate an answer. Both knowledge bases connect to a MariaDB Cloud database: the document knowledge base through vector and text search, and the database knowledge base through text-to-SQL."><figcaption><p>A knowledge base is backed by a MariaDB database. A document knowledge base holds the chunks of your documents and their embeddings. A database knowledge base holds a semantic map of the source database, which AI Retrieval uses to generate SQL.</p></figcaption></figure>
 
 ### Document Knowledge Bases
 

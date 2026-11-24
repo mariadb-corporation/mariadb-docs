@@ -10,7 +10,7 @@ icon: file-lines
 
 A document knowledge base indexes files so that applications can retrieve passages or generated answers from them. This page shows how to create one, add documents, test it, and call it from an application.
 
-<figure><img src="../../.gitbook/assets/image (10).png" alt=""><figcaption><p>How a document knowledge base ingests documents and answers requests.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10).png" alt="Clients such as an AI application, an MCP server, and an AI agent retrieve chunks or retrieve and generate answers through the Retrieval component of MariaDB Cloud AI Retrieval, which runs hybrid search of vector, text, and reciprocal rank fusion against your MariaDB Cloud database. Data sources, object storage and direct upload through the API, feed the Document processing component, which parses, chunks, and embeds documents in the region and writes the chunks and embeddings to the database. Both components call models: Amazon Bedrock or Gemini for generation and embedding, and MariaDB-hosted models for parsing and reranking."><figcaption><p>How a document knowledge base ingests documents and answers requests.</p></figcaption></figure>
 
 ## Create a Knowledge Base
 
@@ -58,16 +58,17 @@ You can add documents in two ways. Upload files from your computer, or connect a
 
 <figure><img src="../../.gitbook/assets/ai-retrieval-upload-processing.png" alt="The Processing step of the Upload Files dialog with the Layout-aware parsing strategy and the Structure-aware chunking strategy selected."><figcaption><p>The Processing step of the Upload Files dialog</p></figcaption></figure>
 
-The files appear in the **Documents** table. The **Status** column shows the stage that each document has reached. A document starts as **Queued**, then moves through download, parsing, chunking, embedding, and storage. It ends as **Ingested**.
+The files appear in the **Documents** table. The **Status** column shows where each document is in the pipeline. A document starts as **Queued**, shows **Download** while AI Retrieval processes it, and ends as **Ingested**, or as **Failed** if processing does not succeed.
 
-| Status   | Meaning                                                                                                               |
-| -------- | --------------------------------------------------------------------------------------------------------------------- |
-| Queued   | The document is waiting to be processed.                                                                              |
-| Download | AI Retrieval is fetching the file.                                                                                    |
-| Ingested | The document is indexed. The **Chunks** column shows how many chunks it produced.                                     |
-| Retrying | Processing met an error, and AI Retrieval retries the document automatically. A warning icon shows the error message. |
+| Status   | Meaning                                                                                                                                           |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Queued   | The document is waiting to be processed.                                                                                                          |
+| Download | AI Retrieval is processing the file. The status can stay on **Download** while the document is parsed, chunked, and embedded.                     |
+| Ingested | The document is indexed. The **Chunks** column shows how many chunks it produced.                                                                 |
+| Failed   | Processing did not succeed. A warning icon next to the status shows the error message.                                                            |
+| Retrying | Processing met an error, and AI Retrieval retries the document automatically. A warning icon shows the error message.                             |
 
-The status can lag behind the actual state of a document. See [Troubleshooting](document-knowledge-bases.md#troubleshooting).
+The status can lag behind the actual state of a document, and a document can show a different status until you reload the page. See [Troubleshooting](document-knowledge-bases.md#troubleshooting).
 
 ### Monitor Ingestion
 
@@ -101,7 +102,11 @@ The credentials need these permissions on the bucket:
 * `s3:ListBucket` on the bucket, which **Test Connection** also uses.
 * `s3:GetObject` on the objects that you want to ingest.
 
-For Google Cloud Storage, the dialog asks for a service account key in JSON format instead of access keys.
+For Google Cloud Storage, the dialog asks for a service account key in JSON format instead of access keys. The service account needs these permissions on the bucket:
+
+* `storage.buckets.get`, which **Test Connection** uses.
+* `storage.objects.list` on the bucket.
+* `storage.objects.get` on the objects that you want to ingest.
 
 <figure><img src="../../.gitbook/assets/ai-retrieval-add-datasource-gcs.png" alt="The Add Datasource dialog on the Connect step with Google Cloud selected, showing the Storage Path, Prefix, and Service Account Key (JSON) fields."><figcaption><p>The Connect step with Google Cloud selected</p></figcaption></figure>
 
@@ -161,10 +166,10 @@ An API key belongs to your user account, not to a single knowledge base. To stop
 
 ### Send a Request
 
-Select **Connect** on the knowledge base to see its endpoint and examples in cURL, Python, and JavaScript. The endpoint has this form:
+Select **Connect** on the knowledge base to see its endpoint and examples in cURL, Python, and JavaScript. The host depends on the region of the knowledge base, so copy the endpoint from the dialog. In the examples on this page, `ENDPOINT` stands for that host, and `KB_ID` for the ID of the knowledge base. The endpoint has this form:
 
 ```
-https://ENDPOINT/retrieval/v1/knowledgebases/KB_ID/retrieve-chunks
+https://ENDPOINT/ai/v1/knowledge-bases/KB_ID/retrieve-chunks
 ```
 
 | Endpoint                                | Result                                      |
@@ -176,7 +181,7 @@ https://ENDPOINT/retrieval/v1/knowledgebases/KB_ID/retrieve-chunks
 The following request retrieves chunks:
 
 ```bash
-curl -X POST "https://ENDPOINT/retrieval/v1/knowledgebases/KB_ID/retrieve-chunks" \
+curl -X POST "https://ENDPOINT/ai/v1/knowledge-bases/KB_ID/retrieve-chunks" \
   -H "Authorization: Bearer API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -215,16 +220,16 @@ See [Service Quotas](service-quotas.md) for the limits.
 
 ## Manage Documents
 
-Select the actions menu (⋮) in a document row to view its chunks or delete it. Select **Delete All Documents** to remove every document from the knowledge base. Use **Search by file name** to find a document. The search covers only the documents on the current page.
+Select the actions menu (⋮) in a document row to view its chunks, delete it, or, for a document that shows an error, retry it. Select **Delete All Documents** to remove every document from the knowledge base. Use **Search by file name** to find a document. The search covers only the documents on the current page.
 
 ## Troubleshooting
 
 ### A Document Stays Queued or Retrying
 
-A document can stay in **Queued** or **Retrying** for a long time. The warning icon next to **Retrying** shows the error message, which can read **Internal processing error**. AI Retrieval retries a failed document automatically, up to three times.
+A document can stay in **Queued** or **Retrying** for a long time. The warning icon next to **Retrying** shows the error message, which can read **Internal processing error**. AI Retrieval retries a document that stops making progress automatically, up to three times, but only after a timeout of several hours. It does not retry a document that shows **Failed**.
 
 * Check whether the content is already searchable. Run a query in the **Test** drawer. The status can lag behind the actual state.
-* If the document does not reach **Ingested**, delete it and upload it again.
+* For a document that shows **Failed** or **Retrying** with a warning icon, select **Retry** in its actions menu (⋮). If the document still does not reach **Ingested**, delete it and upload it again.
 * If you ingest many large documents from a bucket, give the sync time. A file that times out is retried once at the end of the sync, and you can run the sync again.
 * A vector store on a small Serverless instance can slow ingestion down.
 * Contact MariaDB Support if the problem continues.
