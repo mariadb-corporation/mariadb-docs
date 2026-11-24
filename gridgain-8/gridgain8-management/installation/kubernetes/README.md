@@ -82,6 +82,7 @@ A generic, step-by-step guide to deploying and managing GridGain server nodes on
 
 ## See Also
 
+- [MariaDB GridGain 8 Kubernetes Operator](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/gridgain8-operator/)
 - [How to Encrypt Cluster Traffic With Istio mTLS on Kubernetes](../../../gridgain8-get-started/how-to-guides/encrypt-traffic-istio.md)
 - [How to Encrypt Inter-Node Cluster Traffic With Linkerd on Kubernetes](../../../gridgain8-get-started/how-to-guides/encrypt-traffic-linkerd.md)
 
