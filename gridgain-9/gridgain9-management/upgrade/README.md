@@ -34,6 +34,18 @@ Move a GridGain 9 cluster between versions without downtime by rolling nodes one
 
 {% columns %}
 {% column %}
+{% content-ref url="role-and-user-names.md" %}
+[Role and User Names After an Upgrade](role-and-user-names.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How GridGain converts user and role names to the case-sensitive form used in 9.2, and what to check after the upgrade.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="client-upgrade.md" %}
 [Client Upgrade](client-upgrade.md)
 {% endcontent-ref %}

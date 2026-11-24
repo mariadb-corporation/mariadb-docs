@@ -214,7 +214,7 @@ With these policies in place:
 - The same rules apply to `UPDATE`, `DELETE`, and `INSERT`; for example, `SARAH` cannot insert or update a row whose `username` is not `SARAH`.
 
 {% hint style="warning" %}
-Policies are not changed when you upgrade from 9.1, and policy roles are matched exactly. After the upgrade, review policies that use an unquoted `TO SYSTEM`. For details, see [Role and User Names When Upgrading from 9.1](../gridgain9-management/upgrade/rolling-upgrade.md#role-and-user-names-when-upgrading-from-9.1).
+Policies are not changed when you upgrade from 9.1 or earlier, and policy roles are matched exactly. After the upgrade, review policies that use an unquoted `TO SYSTEM`. For details, see [Role and User Names After an Upgrade](../gridgain9-management/upgrade/role-and-user-names.md).
 {% endhint %}
 {% endtab %}
 

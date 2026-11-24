@@ -101,6 +101,7 @@
     * [Upgrading GridGain 9](gridgain9-management/upgrade/README.md)
       * [Full-Cluster Upgrade](gridgain9-management/upgrade/full-cluster-upgrade.md)
       * [Rolling Upgrade](gridgain9-management/upgrade/rolling-upgrade.md)
+      * [Role and User Names After an Upgrade](gridgain9-management/upgrade/role-and-user-names.md)
       * [Client Upgrade](gridgain9-management/upgrade/client-upgrade.md)
   * [Cluster Configuration](gridgain9-management/cluster-configuration.md)
   * [Using the CLI Tool](gridgain9-management/using-the-cli-tool.md)

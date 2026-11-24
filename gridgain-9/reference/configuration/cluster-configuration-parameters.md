@@ -285,7 +285,7 @@ If a cluster license expires, the nodes will stop and fail to restart with a `Li
 |providers.name|default|The name of the authentication provider.|A valid string|
 |providers.type|basic|The authentication provider type.|basic, ldap|
 |providers.users||The list of users registered with the specific provider.||
-|providers.users.displayName|ignite|The user name as entered when the user was created. Used for display only: the user is identified by `username` parameter.|A valid username|
+|providers.users.displayName|ignite|A display label for the user. It is not the login name: the user is identified by the `username` parameter and logs in with it. For example, a user created on 9.1 with `CREATE USER Alice` has `displayName` set to `ALICE` and `username` set to `alice`.|A valid username|
 |providers.users.password|********|User password.|A valid password|
 |providers.users.passwordEncoding|PLAIN|User password's encoding.|PLAIN, BCRYPT|
 |providers.users.roles|system|The list of roles assigned to the user.|A valid role|
@@ -303,7 +303,7 @@ If a cluster license expires, the nodes will stop and fail to restart with a `Li
 |providers.roleMapping.groupName||The name of the LDAP group mapped to GridGain roles.|A valid group name|
 |providers.roleMapping.roles||The list of GridGain roles assigned to users in the LDAP group.|A list of valid roles|
 |Authorization parameters||||
-|roles.displayName|system|The role name as entered when the role was created. Used for display only: the role is identified by `roles.name` parameter.|A valid role name|
+|roles.displayName|system|A display label for the role. It is not the role name: the role is identified by the `roles.name` parameter. A role created on 9.1 can have a `displayName` that differs in case from `roles.name`.|A valid role name|
 |roles.name|system|The role name that identifies the role. Case-sensitive. In 9.1, case-insensitive.|A valid role name|
 |roles.privileges||A list of [privileges](../../security/user-permissions-and-roles.md) available to users with the role.||
 |roles.privileges.action|""|The action the privilege relates to.|A valid action|

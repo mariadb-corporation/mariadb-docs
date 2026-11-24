@@ -28,9 +28,22 @@ PITR cannot be in progress while the cluster is being restarted. PITR state surv
 
 ## The Full-Cluster Upgrade Procedure
 
-### Phase 1 — Take a Snapshot
+### Phase 1 — Take a Snapshot and Check User Names
+
+#### Take a Snapshot
 
 Take a [snapshot](../snapshots/data-snapshots.md) of your data before stopping the cluster. The snapshot is your only supported recovery path if a binary upgrade leaves persistent data unreadable on the new version. Verify that the snapshot completed successfully before proceeding.
+
+#### Check User Names
+
+GridGain 9.2 matches user names exactly, starting as soon as a node runs 9.2, so a login that used a different spelling on 9.1 can fail during the upgrade. Before you upgrade from 9.1 or earlier, list the stored user names and check that clients, scripts, and applications use the same spelling:
+
+- Run `cluster config show ignite.security.authentication` and read the `username` field of each user. If authentication is enabled, first set the CLI credentials with `cli config set ignite.auth.basic.username=<user> ignite.auth.basic.password=<password>`.
+- Or call `GET /management/v1/configuration/cluster/ignite.security.authentication` and read the same fields.
+
+Do not use `SHOW USERS` for this check: on 9.1 it prints names in upper case, not in the stored spelling. The `displayName` field is not the login name either.
+
+For details, see [Role and User Names After an Upgrade](role-and-user-names.md).
 
 ### Phase 2 — Stop the Cluster
 
@@ -81,7 +94,7 @@ Run a sample of read operations against pre-existing tables to confirm that the 
 
 #### Verify User and Role Names
 
-If you upgraded from 9.1, run `SHOW USERS` and confirm that users can log in with the names it shows. User names keep their 9.1 lower-case spelling, and role names are now upper case. Quote user names in SQL, for example `DROP USER "alice"`. For details, see [Role and User Names When Upgrading from 9.1](rolling-upgrade.md#role-and-user-names-when-upgrading-from-9.1).
+If you upgraded from 9.1 or earlier, confirm that users can still log in with the names you listed before the upgrade. User names keep their old spelling, usually lower case, and role names are now upper case. Quote user names in SQL, for example `DROP USER "alice"`. For details, see [Role and User Names After an Upgrade](role-and-user-names.md).
 
 #### Verify Cluster Health Metrics
 
@@ -95,10 +108,12 @@ When you start a cluster on new binaries against existing persistent state, the 
 - Replays the cluster metadata log, re-applying schemas, indexes, and distribution zones.
 - Reopens the persistent storage files. There is no on-disk format check; the cluster relies on the new binaries being able to read state written by the previous version.
 - Re-forms the cluster topology over the standard inter-node connections.
-- When upgrading from 9.1, converts existing role names to the case-sensitive form used in 9.2. The conversion runs once, when the cluster configuration is first loaded on the new version, and does not depend on the recorded cluster version. User names are not changed. See [Role and User Names When Upgrading from 9.1](rolling-upgrade.md#role-and-user-names-when-upgrading-from-9.1).
+- When upgrading from 9.1 or earlier, converts existing role names to the case-sensitive form used in 9.2. The conversion runs once, when the cluster configuration is first loaded on the new version, and does not depend on the recorded cluster version. User names are not changed. See [Role and User Names After an Upgrade](role-and-user-names.md).
 
 {% hint style="warning" %}
 If the role-name conversion fails, the node does not start and the error names the roles that caused it. This happens, for example, when two stored role names differ only in letter case, which GridGain 9.1 itself cannot run with, or when a role name conflicts with a built-in role. In a rolling upgrade, the same problem makes `upgrade commit` fail, the cluster stays on the source version, and the upgrade remains in progress.
+
+The conversion is not saved when it fails. To recover, start the nodes on the old binaries, fix the roles, and run the upgrade again.
 {% endhint %}
 
 ### Note on the Recorded Cluster Version
