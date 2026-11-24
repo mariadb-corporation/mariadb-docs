@@ -128,7 +128,8 @@ code, link targets, tables, pages added, moved or deleted. Review it like a PR:
   sources in `.claude/doc-sources.local.json`); private-repo sources are fact-check only, never
   quoted in a PR;
 - links resolve (relative `.md` links in the same space; cross-space links point at the right
-  page); a link to a GitBook change request (`/~/changes/`) or editor-only URL is broken for readers;
+  page); a link to an unmerged GitBook change request is broken for readers (the link-check
+  gate blocks those in PRs, but not in GitBook edits);
 - deleted pages: look for inbound links (`git grep -n '<file-name>' origin/main`);
 - new images that no page references (`git grep -n '<image-file>' <sha>`);
 - the digest's ⚠️ gate findings, if any, are the minimum.
