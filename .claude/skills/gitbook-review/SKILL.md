@@ -30,11 +30,13 @@ changed lines. The review sorts changes; it doesn't revert commits.
    editor save writes back, and any good content in the same commit. GITBOOK-198 was reverted
    whole in #1625; real content had to be restored in #1627, and GITBOOK-199 put the
    reformatting back. Revert single pages only, and only when §4 says so.
-3. **Never revert or edit a synced Community Tools page** (`tools/community/mariadb-ai-plugins/`,
-   `tools/community/mariadb-shell/`). `sync-community-tools-docs.yml` copies them byte for byte
-   every weekday and opens a PR that restores them. A change meant seriously goes upstream under
-   `docs-ref/content/` in that product's repo (`dev-docs/cookbook-community-tools-sync.md`). The
-   digest's 🚨 text says "Revert this edit" for these pages; for synced pages, don't.
+3. **Never revert or edit a page a scheduled sync rewrites.** The Community Tools pages
+   (`tools/community/mariadb-ai-plugins/`, `tools/community/mariadb-shell/`) are copied byte for
+   byte every weekday by `sync-community-tools-docs.yml`; the Plugin API pages
+   (`server/reference/plugins/api-plugin/`) are regenerated daily by
+   `sync-server-api-plugin-docs.yml`. The next sync PR restores a hand edit. A change meant
+   seriously goes upstream: under `docs-ref/content/` in the product's repo
+   (`dev-docs/cookbook-community-tools-sync.md`), or in the server source.
 4. **Fixes go through a PR, never onto `main` directly.** `main` is not branch-protected, so
    nothing stops a direct push; the PR is what runs `doc-gates`.
 5. **Ask before every outward step:** creating a branch and PR, merging, replying or reacting in
@@ -142,7 +144,8 @@ code, link targets, tables, pages added, moved or deleted. Review it like a PR:
 | A small mistake (typo, wrong version, broken link, missing alt text) | **Fix forward** (§5a). Don't revert. |
 | Wrong in substance | Revert that page (§5b), or correct it in a PR. Tell the author. |
 | 🚨 Synced Community Tools page | **Don't revert** (rule 3). Check `git log -1 -- <file>`: if a sync PR has landed since, it's already restored. Meant seriously → upstream PR under `docs-ref/content/`. Tell the author. |
-| 🚨 Other generated page (MaxScale settings reference, Plugin API under `server/reference/plugins/api-plugin/`) | Revert that file (§5b); the change belongs in the source page or generator (`dev-docs/cookbook-maxscale-settings-reference.md`). Tell the author. |
+| 🚨 Plugin API page (`server/reference/plugins/api-plugin/`) | **Don't revert**: `sync-server-api-plugin-docs.yml` regenerates the pages daily, and merging its PR restores the page. Meant seriously → upstream in the server source. Tell the author. |
+| 🚨 MaxScale settings reference | Revert that file (§5b); the change belongs in the setting's module page, then regenerate (`dev-docs/cookbook-maxscale-settings-reference.md`). Tell the author. |
 | Lost alt text, deleted comment with a TODO, lost anchor | Restore it in a PR, or file a DOCS ticket for the page owner (Cloud pages: the Cloud docs owners; file, don't fix). |
 
 **Present the result before touching anything**, one block per commit:
