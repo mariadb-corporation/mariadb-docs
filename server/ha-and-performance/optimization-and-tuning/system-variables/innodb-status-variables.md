@@ -13,14 +13,14 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_adaptive_hash_hash_searches`
 
-* Description: Hash searches as shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
+* Description: Hash searches as shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output. See also the `ahi_searches` member of `r_ahi_stats` in [ANALYZE FORMAT=JSON](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/analyze-format-json.md#adaptive-hash-index-statistics).
 * Scope: Global
 * Data Type: `numeric`
 * Introduced: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
 
 #### `Innodb_adaptive_hash_non_hash_searches`
 
-* Description: Non-hash searches as shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output. From [MariaDB 10.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.2), not updated if [innodb\_adaptive\_hash\_index](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) is not enabled (the default).
+* Description: Non-hash searches as shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output. From [MariaDB 10.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.2), not updated if [innodb\_adaptive\_hash\_index](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) is not enabled (the default). See also the `ahi_searches_btree` member of `r_ahi_stats` in [ANALYZE FORMAT=JSON](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/analyze-format-json.md#adaptive-hash-index-statistics).
 * Scope: Global
 * Data Type: `numeric`
 * Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
