@@ -1,8 +1,8 @@
 ---
 description: >-
   How GridGain 9 partitions and replicates table data across cluster nodes,
-  including partition functions, RAFT consensus, the Fair distribution
-  algorithm, and primary replica leases.
+  including RAFT consensus, the Fair distribution algorithm, and primary replica
+  leases.
 ---
 
 # Data Partitioning
@@ -15,7 +15,7 @@ When the table is created, it is always assigned to a [distribution zone](distri
 
 GridGain 9 uses the *Fair* partition distribution algorithm. It stores information on partition distribution and uses this information for assigning new partitions. This information is preserved in cluster metastorage, and is recalculated only when necessary.
 
-Once partitions and all replicas are created, they are distributed across the available cluster nodes that are included in the distribution zone following the `DATA_NODES_FILTER` parameter and according to the *partition distribution algorithm*. Thus, each key is mapped to a list of nodes owning the corresponding partition and is stored on those nodes. With the default [partition function](#available-partition-functions), data is distributed almost evenly between partitions, as long as there are many more colocation key values than partitions and each value has a similar amount of data.
+Once partitions and all replicas are created, they are distributed across the available cluster nodes that are included in the distribution zone following the `DATA_NODES_FILTER` parameter and according to the *partition distribution algorithm*. Thus, each key is mapped to a list of nodes owning the corresponding partition and is stored on those nodes. When data is added, it is distributed evenly between partitions.
 
 ![GridGain Partitions](../../.gitbook/assets/gg9-administrators-guide-partitioning.png)
 
@@ -75,99 +75,6 @@ For example, with 5 replicas and quorum size of 2, 3 replicas will be part of co
 It is recommended to always have an odd number of replicas and at least 3 replicas of your data on the cluster. When only 2 data replicas exist, losing one will always lead to losing majority, while having 3 or 5 data replicas will allow the cluster to stay functional in [network segmentation](../cluster-lifecycle.md#network-segmentation-scenario) scenarios.
 
 For maximum read availability, you can create a replicated zone by setting `REPLICAS ALL`, which stores a copy of every partition on every node in the cluster. This provides local data access for read-only queries and eliminates network latency for reads, making it ideal for reference data and lookup tables. However, replicated zones come with storage overhead and write amplification costs. See [Replicated Zones](distribution-zones.md#replicated-zones) for detailed information on when to use this configuration and how to combine it with standard zones.
-
-## Available Partition Functions
-
-The partition function determines which partition a row belongs to, based on the row's [colocation key](../data-colocation.md). Starting with GridGain 9.2, you can choose the partition function when you create a table or cache. To do this, add the `USING FUNCTION` clause after `COLOCATE BY` in [CREATE TABLE](../../reference/sql/ddl.md#create-table) or [CREATE CACHE](../../reference/sql/ddl.md#create-cache) statement, or use the Java [catalog API](../../gridgain9-development/tables-from-java-classes.md#partition-function). 
-
-You cannot change the partition function after the table is created. To use `MODULO` for existing data, see the [Upgrade and Existing Tables](#upgrade-and-existing-tables) section.
-
-GridGain 9 supports the following partition functions:
-
-| Function | How the partition is calculated                                                                                                          | Supported colocation key |
-| --- |------------------------------------------------------------------------------------------------------------------------------------------| --- |
-| `MURMUR3_MODULO`| Default. The colocation key is hashed with MurmurHash3. The partition is the remainder of dividing the hash by the number of partitions. | One or more columns of the primary key. |
-| `MODULO` | The partition is the remainder of dividing the colocation key value by the number of partitions.| Exactly one primary key column of type `TINYINT`, `SMALLINT`, `INT`, or `BIGINT`. |
-
-For example, in a zone with 16 partitions, `MODULO` puts rows with the colocation key values `5` and `21` into partition `5`. Negative key values are also supported: they are mapped to a partition from `0` to the number of partitions minus 1.
-
-### Choosing a Partition Function
-
-Use `MODULO` only if all of the following conditions are true:
-
-- The colocation key is a single integer column.
-- The key values are dense: consecutive integers with few gaps, such as `1` to `N`. You know `N`, or its upper limit, when you create the zone.
-- All tables that are colocated by this key can use `MODULO`.
-
-Typical colocation keys for `MODULO` are warehouse, tenant, region, and shard numbers. To choose the number of partitions, see [Placement of Dense Key Values](#placement-of-dense-key-values).
-
-Keep the default `MURMUR3_MODULO` function if any of the following conditions is true:
-
-- The key values are sparse or random, such as generated identifiers with gaps or hash-based numbers.
-- The colocation key is not a single integer column. Strings, UUIDs, and composite keys require the default function.
-- The table must be colocated with tables that use the default function.
-- Some key values have much more data or load than others, and you want to spread their rows across partitions by adding a column to the colocation key. In this case, the table is no longer colocated with tables that are colocated by the first column only.
-
-### Limitations
-
-- **Key values with much more data or load than others.** All rows with the same colocation key value are stored in one partition. With the default function, you can add a column to the colocation key to spread these rows across partitions. `MODULO` supports only a single column.
-- **The partition does not determine the node.** The partition of a key value never changes, but the node that stores the partition can. The Fair distribution algorithm assigns partitions to nodes, and the assignment can change after a rebalance or a node failure. Do not use the partition ID to locate a node. To find the node that holds the primary replica of a partition, use the `primaryReplica` method of `PartitionDistribution`.
-
-### Placement of Dense Key Values
-
-A hash function does not place a small number of key values evenly: some partitions get several key values, while other partitions stay empty. `MODULO` places consecutive key values into consecutive partitions, so the number of key values in any two partitions differs by one at most.
-
-The table below compares how `MURMUR3_MODULO` and `MODULO` place `INT` key values from `1` to `N`:
-
-| Key values (`N`) | Partitions | Key values per partition, `MURMUR3_MODULO` | Key values per partition, `MODULO` |
-| --- | --- | --- | --- |
-| 16 | 16 | 0 to 3 (6 partitions empty) | 1 |
-| 30 | 40 | 0 to 3 (21 partitions empty) | 0 or 1 (10 partitions empty) |
-| 100 | 25 | 1 to 9 | 4 |
-| 1,000 | 25 | 31 to 57 | 40 |
-| 100,000 | 25 | 3,855 to 4,153 | 4,000 |
-
-With the default `MURMUR3_MODULO` function, the placement becomes more even as the number of key values per partition grows. With `MODULO` function, the placement is fully even when the number of key values is a multiple of the number of partitions.
-
-### How the Function is Used
-
-GridGain uses the table's partition function in all operations that place or read rows. This includes SQL queries, `RecordView` and `KeyValueView` operations, the data streamer, the partition API, and colocated compute jobs. Tables with different partition functions are not colocated, even if they are in the same zone.
-
-### Client Support
-
-Clients with partition awareness send each request directly to the node that holds the partition of the key value. For a `MODULO` table, the client calculates the partition with the table's partition function. 
-
-The table below shows which clients support partition awareness for `MODULO` tables:
-
-| Client | Key-value operations | SQL |
-| --- | --- | --- |
-| Java | Yes | Yes |
-| JDBC | Not applicable | Yes |
-| .NET | Yes | Yes |
-| C++ | Yes | No[^1] |
-| ODBC | Not applicable | No |
-| Python DB API | Not applicable | No |
-| Python native client | No | No |
-
-Clients marked No still work with `MODULO` tables: the server routes their requests to the correct node.
-
-Clients of versions earlier than GridGain 9.2 also work with `MODULO` tables, but without partition awareness. The server routes their requests to the correct node.
-
-{% hint style="warning" %}
-In clients of versions earlier than GridGain 9.2, the partition API can return an incorrect partition ID for a key of a `MODULO` table. To get the partition of a key value, use a client of GridGain 9.2 or later.
-{% endhint %}
-
-### Upgrade and Existing Tables
-
-Tables created before the upgrade to GridGain 9.2 use `MURMUR3_MODULO`, and their data stays in the same partitions after the upgrade. The cluster rejects schema changes during a [rolling upgrade](../../gridgain9-management/upgrade/rolling-upgrade.md#schema-changes-and-ddl-are-blocked), so you can create a `MODULO` table only after the upgrade is complete.
-
-To switch an existing table to `MODULO`:
-
-1. Create a zone with a number of partitions that fits your key values. See [Placement of Dense Key Values](#placement-of-dense-key-values).
-2. In this zone, create a new table with `USING FUNCTION MODULO`.
-3. Copy the rows to the new table, for example with `INSERT INTO new_table SELECT * FROM old_table`.
-
-Repeat these steps for all tables that are colocated by the same key.
 
 ## Understanding RAFT Consensus
 
@@ -312,8 +219,6 @@ GridGain 9.1.4 introduced *Zone-based Replication* and uses it by default. GridG
 *Table-based Replication* is deprecated in 9.1.11 and was removed in GridGain 9.1.15. If your cluster still uses *Table-based Replication*, you must migrate to new replication mode. There is no automatic migration tool, so you must create a new cluster and move your data there.
 
 If the 9.1.15+ node is still using *Table-based Replication* for persistent storage, it will not start with the `UNSUPPORTED_TABLE_BASED_REPLICATION_ERR` error.
-
-[^1]: The C++ client does not support partition awareness for SQL queries on any table, regardless of the partition function.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

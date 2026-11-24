@@ -20,7 +20,7 @@ This can also be done via the [Java API](../../gridgain9-development/tables-from
 ```bnf
 CREATE TABLE [IF NOT EXISTS] qualified_table_name
   ( { column_definition | constraint } [, ...] )
-  [COLOCATE [BY] ( column_list ) [USING FUNCTION function_name]]
+  [COLOCATE [BY] ( column_list )]
   [[PRIMARY] ZONE zone_name]
   [[PRIMARY] STORAGE PROFILE profile_name]
   [SECONDARY ZONE zone_name SECONDARY STORAGE PROFILE profile_name]
@@ -29,34 +29,21 @@ CREATE TABLE [IF NOT EXISTS] qualified_table_name
 ```
 
 <!-- railroad-source:
-Diagram(Terminal('CREATE'),Terminal('TABLE'),Optional(Terminal('IF NOT EXISTS')),NonTerminal('qualified_table_name'),Terminal('('),OneOrMore(Choice(0,NonTerminal('column_definition'),NonTerminal('constraint')),Terminal(',')),Terminal(')'),End({type:'complex'}))
-Diagram(Start({type:'complex'}),Optional(Sequence(Terminal('COLOCATE'),Optional('BY'),Terminal('('),NonTerminal('column_list'),Terminal(')'),Optional(Sequence(Terminal('USING FUNCTION'),NonTerminal('function_name'))))),End({type:'complex'}))
+Diagram(Terminal('CREATE'),Terminal('TABLE'),Optional(Terminal('IF NOT EXISTS')),NonTerminal('qualified_table_name'),Terminal('('),Choice(1,NonTerminal('constraint'),NonTerminal('column_definition'),Terminal(',')),Terminal(')'),Optional(Sequence(Terminal('COLOCATE'),Optional('BY'),Terminal('('),NonTerminal('column_list'),Terminal(')'))),End({type:'complex'}))
 Diagram(Start({type:'complex'}),Optional(Sequence(Optional('PRIMARY'),Terminal('ZONE'),NonTerminal('zone_name'))),Optional(Sequence(Optional('PRIMARY'),Terminal('STORAGE PROFILE'),NonTerminal('profile_name'))),End({type:'complex'}))
-Diagram(Start({type:'complex'}),Optional(Sequence(Terminal('SECONDARY'),Terminal('ZONE'),NonTerminal('zone_name'),Terminal('SECONDARY'),Terminal('STORAGE PROFILE'),NonTerminal('profile_name'))),End({type:'complex'}))
-Diagram(Start({type:'complex'}),Optional(Choice(0,Sequence(Terminal('EXPIRE'),Terminal('AT'),NonTerminal('expiry_column_name')),Sequence(Terminal('ARCHIVE'),Terminal('AT'),NonTerminal('archive_column_name')))),Optional(Sequence(Terminal('WITH'),Terminal('('),OneOrMore(Sequence(NonTerminal('paramName'),NonTerminal('paramValue')),Terminal(',')),Terminal(')'))))
+Diagram(Start({type:'complex'}),Optional(Sequence(Terminal('SECONDARY'),Terminal('ZONE'),NonTerminal('zone_name'),Terminal('SECONDARY'),Terminal('STORAGE PROFILE'),NonTerminal('profile_name'))),Optional(Choice(0,Sequence(Terminal('EXPIRE'),Terminal('AT'),NonTerminal('expiry_column_name')),Sequence(Terminal('ARCHIVE'),Terminal('AT'),NonTerminal('archive_column_name')))),Optional(Sequence(Terminal('WITH'),Terminal('('),OneOrMore(Sequence(NonTerminal('paramName'),NonTerminal('paramValue')),Terminal(',')),Terminal(')'))))
 -->
 
 ![Railroad diagram of CREATE TABLE (part 1)](../../.gitbook/assets/gg9-sql-reference-create_table_bnf1.svg)
 
 ![Railroad diagram of CREATE TABLE (part 2)](../../.gitbook/assets/gg9-sql-reference-create_table_bnf2.svg)
 
-![Railroad diagram of CREATE TABLE (part 3)](../../.gitbook/assets/gg9-sql-reference-create_table_bnf3.svg)
-
-![Railroad diagram of CREATE TABLE (part 4)](../../.gitbook/assets/gg9-sql-reference-create_table_bnf4.svg)
-
-![Railroad diagram of CREATE TABLE (part 5)](../../.gitbook/assets/gg9-sql-reference-create_table_bnf5.svg)
-
 **Keywords and parameters:**
 
 - `IF NOT EXISTS` - create the table only if a table with the same name does not exist.
 - `COLOCATE BY` - colocation key. The key can be composite. Primary key must include colocation key.
-- `USING FUNCTION` - sets the [partition function](../../architecture/storage/data-partitioning.md#available-partition-functions) that maps the colocation key to a partition. Available starting with GridGain 9.2. Possible values:
-  - `MURMUR3_MODULO` - default. The colocation key is hashed with MurmurHash3, and the partition is the remainder of dividing the hash by the number of partitions.
-  - `MODULO` - the partition is the remainder of dividing the colocation key value by the number of partitions. Negative values are also supported. The colocation key must be exactly one column of type `TINYINT`, `SMALLINT`, `INT`, or `BIGINT`.
-
-  Requires an explicit `COLOCATE BY` clause, even if the primary key has only one column. The function name is an identifier, not a string, and is case-insensitive unless quoted. The statement fails if the function is unknown or does not support the colocation key, for example `MODULO` with a `VARCHAR` column or with two columns. You cannot change the partition function of an existing table. For guidance on when to use `MODULO`, see [Choosing a Partition Function](../../architecture/storage/data-partitioning.md#choosing-a-partition-function).
 - `ZONE` - sets the [Distribution Zone](distribution-zones.md). Can be preceded by `PRIMARY` to signify the primary distribution zone, or by `SECONDARY` to signify the secondary distribution zone. Can be specified as a case-sensitive string or case-insensitive identifier. Does not need to exist at the moment of table creation, and can be created before writing data.
-- `STORAGE PROFILE` - sets the [storage profile](../configuration/node-configuration-parameters.md#storage-configuration) that will be used to store the table. Can be preceded by `PRIMARY` to signify the primary storage, or by `SECONDARY` to signify the secondary ([columnar](../../architecture/storage/engines/columnar-storage.md)) storage profile. Must be specified as a case-sensitive string.
+- `STORAGE PROFILE` - sets the [storage profile](../configuration/node-configuration-parameters.md#storage-configuration) that will be used to store the table. Can be preceded by `PRIMARY` to signify the primary storage, or by `SECONDARY` to signify the secondary ([columnar](../../architecture/storage/engines/columnar-storage.md)) storage profile. Must be specified as a case-sensitive string. Can be preceded by `PRIMARY` to signify the primary storage profile.
 - `EXPIRE AT` - defines when a record should be deleted based on the provided point in time. Unlike `ARCHIVE AT`, deletes the data both in primary and secondary storage when the specified time is reached.
 - `ARCHIVE AT` - defines when a record should be removed from primary storage based on the provided point in time. The data will still be available for reading in secondary storage. This condition comes with several limitations:
   - You cannot use this condition without [secondary storage](../../architecture/storage/storage-profiles.md#secondary-storage-profiles). Table must have secondary storage attached.
@@ -199,17 +186,6 @@ Reads the archived data, explicitly using the secondary storage access hint:
 
 ```sql
 SELECT * FROM Person /*+ use_secondary_storage */;
-```
-
-Creates a Warehouse table that uses the `MODULO` partition function in a zone with 16 partitions. With warehouse numbers `1` to `16`, each partition stores one warehouse:
-
-```sql
-CREATE ZONE IF NOT EXISTS warehouseZone (PARTITIONS 16) STORAGE PROFILES ['default'];
-
-CREATE TABLE IF NOT EXISTS Warehouse (
-  w_id int PRIMARY KEY,
-  name varchar
-) COLOCATE BY (w_id) USING FUNCTION MODULO ZONE warehouseZone;
 ```
 
 Creates a Person table with [row-level security](../../security/row-level-security.md) enabled. The property can be combined with other table properties:
@@ -864,32 +840,31 @@ Creates a new [cache](../../gridgain9-development/caches.md).
 ```bnf
 CREATE CACHE [IF NOT EXISTS] cache_name
   ( { column_definition | constraint } [, ...] )
-  [COLOCATE [BY] ( column_list ) [USING FUNCTION function_name]]
+  [COLOCATE [BY] ( column_list )]
   [[PRIMARY] ZONE zone_name]
-  [STORAGE PROFILE profile_name]
+  [[PRIMARY] STORAGE PROFILE profile_name]
   [WRITE MODE { SYNC | ASYNC }]
   [EXPIRE AT expiry_column_name]
 ```
 
 <!-- railroad-source:
-Diagram(Terminal('CREATE'),Terminal('CACHE'),Optional(Terminal('IF NOT EXISTS')),NonTerminal('cache_name'),Terminal('('),Choice(1,NonTerminal('constraint'),NonTerminal('column_definition'),Terminal(',')),Terminal(')'),Optional(Sequence(Terminal('COLOCATE'),Optional('BY'),Terminal('('),NonTerminal('column_list'),Terminal(')'),Optional(Sequence(Terminal('USING FUNCTION'),NonTerminal('function_name'))))),End({type:'complex'}))
-Diagram(Start({type:'complex'}),Optional(Sequence(Optional('PRIMARY'),Terminal('ZONE'),NonTerminal('zone_name'))),Optional(Sequence(Terminal('STORAGE PROFILE'),NonTerminal('profile_name'))),Optional(Sequence(Terminal('WRITE MODE'),Choice(0,NonTerminal('SYNC'),NonTerminal('ASYNC')))),Optional(Sequence(Terminal('EXPIRE'),Terminal('AT'),NonTerminal('expiry_column_name'))))
+Diagram(Terminal('CREATE'),Terminal('CACHE'),Optional(Terminal('IF NOT EXISTS')),NonTerminal('cache_name'),Terminal('('),Choice(1,NonTerminal('constraint'),NonTerminal('column_definition'),Terminal(',')),Terminal(')'),Optional(Sequence(Terminal('COLOCATE'),Optional('BY'),Terminal('('),NonTerminal('column_list'),Terminal(')'))),End({type:'complex'}))
+Diagram(Start({type:'complex'}),Optional(Sequence(Optional('PRIMARY'),Terminal('ZONE'),NonTerminal('zone_name'))),Optional(Sequence(Optional('PRIMARY'),Terminal('STORAGE PROFILE'),NonTerminal('profile_name'))),Optional(Sequence(Terminal('WRITE MODE'),Choice(0,NonTerminal('SYNC'),NonTerminal('ASYNC')))),Optional(Sequence(Terminal('EXPIRE'),Terminal('AT'),NonTerminal('expiry_column_name'))))
 -->
 
 **Keywords and parameters:**
 
 - `IF NOT EXISTS` - create the cache only if a cache with the same name does not exist.
 - `COLOCATE BY` - colocation key. The key can be composite. Primary key must include colocation key. Was `affinity_key` in GridGain 2.x.
-- `USING FUNCTION` - sets the [partition function](../../architecture/storage/data-partitioning.md#available-partition-functions) of the cache. Available starting with GridGain 9.2. The possible values and rules are the same as for [CREATE TABLE](#create-table).
 - `ZONE` - sets the [Distribution Zone](distribution-zones.md). Can be specified as a case-sensitive string or case-insensitive identifier. Can be preceded by `PRIMARY` to signify the primary distribution zone.
-- `STORAGE PROFILE` - sets the [storage profile](../../architecture/storage/storage-profiles.md) that will be used to store the cache. Must be specified as a case-sensitive string.
+- `STORAGE PROFILE` - sets the [storage profile](../../architecture/storage/storage-profiles.md) that will be used to store the table. Must be specified as a case-sensitive string. Can be preceded by `PRIMARY` to signify the primary storage profile.
 - `WRITE MODE` - configures if the data is written to [external store](../../gridgain9-development/caches.md#caches-as-external-storage). Default value: `SYNC`. Possible values:
   - `SYNC` - External Cache store writes are synchronous. KeyValueView operations won't return until external cache store write is complete.
   - `ASYNC` - External Cache store writes are asynchronous and performed in background. KeyValueView operations may return before external cache store write completes.
 - `EXPIRE AT` - allows specifying a column with a point in time when a record should be deleted.
 - `expiry_column_name` - name of the column that contains values on which the record expiry is based.
 
-**Examples:**
+Example:
 
 Creates a cache `Accounts`:
 
@@ -902,15 +877,6 @@ CREATE CACHE Accounts (
     ttl TIMESTAMP WITH LOCAL TIME ZONE DEFAULT CURRENT_TIMESTAMP + INTERVAL '2' HOURS,
     PRIMARY KEY (accountNumber, TTL)
 ) ZONE CACHES EXPIRE AT ttl;
-```
-
-Creates a `TenantSettings` cache that uses the `MODULO` partition function. Each row is stored in the partition equal to the remainder of dividing `tenant_id` by the number of partitions in the `CACHES` zone:
-
-```sql
-CREATE CACHE TenantSettings (
-    tenant_id INT PRIMARY KEY,
-    settings VARCHAR
-) COLOCATE BY (tenant_id) USING FUNCTION MODULO ZONE CACHES;
 ```
 
 ## DROP CACHE
