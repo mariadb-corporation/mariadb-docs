@@ -103,9 +103,9 @@ The parallelism level of a check or restore operation is the number of threads t
 
 When you tune these operations, consider the following:
 
-- Raise the parallelism level while you watch the throughput of the disk or network storage that holds the snapshot. When the storage is saturated, more threads don't make the operation faster.
-- An operation finishes when the slowest node finishes. Nodes that hold more data than others, for example because of affinity colocation, determine the total time.
-- The `restore` command checks the snapshot before it restores it, so it reads the data twice. If the snapshot was already checked and hasn't changed since, add `-nocheck` to skip the check.
+- Raise the parallelism level while monitoring the throughput of the disk or network storage that holds the snapshot. When the storage is at maximum write speed, more threads do not make the operation faster.
+- An operation finishes when the slowest node finishes. Nodes that hold more data than others, for example because of affinity colocation, determine the total time. [Monitor data distribution across nodes](../../reference/monitoring/jmx-metrics.md#monitoring-the-amount-of-data) to be aware of possible outliers.
+- The `restore` command checks the snapshot before it restores it, so it reads the data twice. If the snapshot was already checked and has not changed since, add `-nocheck` to skip the check.
 
 ### Write Ahead Log Options
 
