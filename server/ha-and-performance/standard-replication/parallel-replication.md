@@ -91,7 +91,7 @@ Aggressive mode of in-order parallel replication is very similar to optimistic m
 Aggressive mode of in-order parallel replication can be configured by setting the [slave\_parallel\_mode](replication-and-binary-log-system-variables.md) system variable to `aggressive` on the replica.
 
 {% hint style="warning" %}
-A replica that uses [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) (MariaDB Enterprise Server 12.3, beta) must not run in `aggressive` mode. Conflicts are only routed to a CDR trigger when `slave_parallel_mode` is `optimistic` or a more conservative setting; in `aggressive` mode the applier raises its usual error and stops the SQL thread instead.
+A replica that uses [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) (MariaDB Enterprise Server 12.3) must not run in `aggressive` mode. Conflicts are only routed to a CDR trigger when `slave_parallel_mode` is `optimistic` or a more conservative setting; in `aggressive` mode the applier raises its usual error and stops the SQL thread instead.
 {% endhint %}
 
 #### Conservative Mode of In-Order Parallel Replication

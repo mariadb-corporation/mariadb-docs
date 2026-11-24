@@ -9,7 +9,7 @@ hidden: true
 # Conflict Detection and Resolution (CDR) Triggers
 
 {% hint style="warning" %}
-CDR triggers are available beginning with **MariaDB Enterprise Server 12.3**. Read [Limitations and Beta Caveats](conflict-detection-and-resolution-triggers.md#limitations-and-beta-caveats) before deploying CDR triggers on a production replica. Behavior outside the supported configuration is unspecified and may change.
+CDR triggers are available beginning with **MariaDB Enterprise Server 12.3**. Read [Limitations](conflict-detection-and-resolution-triggers.md#limitations) before deploying CDR triggers on a production replica. Behavior outside the supported configuration is unspecified.
 {% endhint %}
 
 Replica data can diverge from the primary in three ways:
@@ -344,9 +344,9 @@ A mismatch is eligible for trigger routing only when all of these hold:
 * the replica's [slave\_parallel\_mode](replication-and-binary-log-system-variables.md#slave_parallel_mode) is `optimistic` or a more conservative setting (`conservative`, `minimal`, `none`); and
 * the row event is not currently being applied as an optimistic speculative attempt. (This case is transient: the transaction rolls back and retries non-speculatively, and on retry the conflict is delivered to the trigger.)
 
-So even on a table that has CDR triggers, [error 6001](../../reference/error-codes/mariadb-error-codes-6000-to-6099/e6001.md) can still appear when the table lacks a primary key, or when the replica runs a parallel mode more aggressive than `optimistic`. This is why the recommended beta configuration keeps the replica at `optimistic` or below — see [Limitations and Beta Caveats](conflict-detection-and-resolution-triggers.md#limitations-and-beta-caveats).
+So even on a table that has CDR triggers, [error 6001](../../reference/error-codes/mariadb-error-codes-6000-to-6099/e6001.md) can still appear when the table lacks a primary key, or when the replica runs a parallel mode more aggressive than `optimistic`. This is why the recommended configuration keeps the replica at `optimistic` or below — see [Limitations](conflict-detection-and-resolution-triggers.md#limitations).
 
-This check only exists when CDR triggers are present on the table. It is suppressed entirely when [slave\_exec\_mode](replication-and-binary-log-system-variables.md#slave_exec_mode) is `IDEMPOTENT` — but `IDEMPOTENT` mode is itself outside the supported beta configuration.
+This check only exists when CDR triggers are present on the table. It is suppressed entirely when [slave\_exec\_mode](replication-and-binary-log-system-variables.md#slave_exec_mode) is `IDEMPOTENT` — but `IDEMPOTENT` mode is itself outside the supported configuration.
 
 ## Worked Example: a Newest-Wins Policy
 
@@ -452,11 +452,11 @@ CDR is especially useful in multi-primary and [ring](multi-master-ring-replicati
 * **Monitor the SQL thread.** A `51CDR` halt, an unhandled trigger error, or a before-image mismatch (error 6001) stops the SQL thread. Watch `Last_SQL_Errno` and `Last_SQL_Error` in [SHOW REPLICA STATUS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-status.md).
 * **The** [**Executed\_triggers**](../optimization-and-tuning/system-variables/server-status-variables.md#executed_triggers) **status variable** increments for each trigger invocation (CDR triggers included), which is useful for confirming the feature is firing.
 
-## Limitations and Beta Caveats
+## Limitations
 
-CDR triggers are **beta**. The current implementation is validated only within the configuration below. Outside it, behavior is unsupported, unspecified, or known-incomplete:
+CDR triggers are validated only within the configuration below. Outside it, behavior is unsupported, unspecified, or known-incomplete:
 
-| Area                                  | Current state in beta                                                                                                                                           |
+| Area                                  | Current state                                                                                                                                                   |
 | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Row image format                      | Supported **only** with `binlog_row_image = FULL`. Other row-image settings are not supported.                                                                  |
 | System-versioned tables               | **Not supported.** Do not create CDR triggers on tables with [system versioning](../../reference/sql-structure/temporal-tables/system-versioned-tables.md).     |
@@ -474,7 +474,7 @@ MariaDB supports defining a single regular trigger that fires on more than one e
 * A conflict type cannot be mixed with regular events in the same statement — `FOR CONFLICT` combined with `INSERT`, `UPDATE`, or `DELETE` is rejected.
 * The `FOR CONFLICT` clause replaces the `BEFORE`/`AFTER` timing keyword entirely; a regular trigger cannot carry a `FOR CONFLICT` clause.
 
-### Recommended Beta Configuration
+### Recommended Configuration
 
 ```ini
 [mariadbd]
