@@ -89,10 +89,10 @@ PR, merges or posts in the thread. The full routine, by hand included, is in
    (`Fixes 9f0b0f243 (GITBOOK-2399)`). Never fix an edit with another GitBook edit.
 4. Wrong in substance: revert **that page**, never the whole commit, or correct it in a PR. Tell
    the author in the thread.
-5. 🚨 **"Generated page edited by hand"**: for the MaxScale settings reference and the Plugin API
-   pages, revert that file and make the change in the source the warning names. For a synced
-   Community Tools page, **don't revert**: the next weekday sync restores it. A change meant
-   seriously goes upstream. Tell the author either way.
+5. 🚨 **"Generated page edited by hand"**: for the MaxScale settings reference, revert that file
+   and make the change in the setting's module page. For a synced Community Tools page or a
+   Plugin API page, **don't revert**: the next sync PR restores it. A change meant seriously goes
+   upstream. Tell the author either way.
 6. Mark it done: react ✅ to the post when you have looked at all its entries, or reply in the
    thread naming the commit (`9f0b0f243 reviewed: …`), with the PR link if there is one.
 
@@ -175,7 +175,7 @@ commit status, which the generating workflow posts onto the PR.
 | PR (branch) | From | Schedule | What to do |
 |-------------|------|----------|------------|
 | Community Tools sync (`automated/sync-community-tools-docs`) | `sync-community-tools-docs.yml`: AI Plugins and MariaDB Shell docs from their own repos | Weekdays 05:47 UTC | Skim the diff, merge if `doc-gates` is green. **Never edit a synced page in mariadb-docs, not even in this PR:** the next sync overwrites it. A fix goes upstream as a PR to `ai-plugins` or `mariadb-shell` under `docs-ref/content/`, titled `[bypass-ci] docs: …`; the Community Tools owner reviews. Full routine: [cookbook-community-tools-sync.md](cookbook-community-tools-sync.md). |
-| Plugin API sync (`automated/sync-server-api-plugin-docs`) | `sync-server-api-plugin-docs.yml`: generated from the server source with doxygen | Daily 05:17 UTC | Opens only when the server's API docs changed. Merge if `doc-gates` is green. Red: look at which gate failed. A dead anchor in generated pages is usually a generator change, so ask the Plugin API owner (they have no write access here, so we merge their PRs). |
+| Plugin API sync (`automated/sync-server-api-plugin-docs`) | `sync-server-api-plugin-docs.yml`: generated from the server source with doxygen | Daily 05:17 UTC | Opens when the generated pages differ from `main`: after an API change in the server, or to undo a hand edit. Merge if `doc-gates` is green. Red: look at which gate failed. A dead anchor in generated pages is usually a generator change, so ask the Plugin API owner (they have no write access here, so we merge their PRs). |
 | Function skills (`agent-skills/regen-tier2-functions`) | `extract-function-skills.yml` regenerates the Tier 2 agent skills from the function reference | Mondays 04:17 UTC | Only the parts between `BEGIN/END GENERATED` markers change. Merge if `doc-gates` is green. See [agent-skills-maintenance.md](agent-skills-maintenance.md). |
 | Topical skills (`agent-skills/sync-topical`) | `sync-topical-skills.yml`: vendored from MariaDB/skills | Mondays 04:37 UTC | No `doc-gates` on purpose: the content is vendored verbatim, and every gate excludes it. Check that the diff stays inside `agent-skills/topical/` and the manifest, then merge. Content bugs go upstream to MariaDB/skills. |
 
