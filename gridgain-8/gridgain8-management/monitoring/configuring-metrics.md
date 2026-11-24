@@ -174,6 +174,8 @@ Use the `enableStatistics()` and `disableStatistics()` methods exposed by the be
 
 For a complete list of metrics available, refer to the [CacheMetricsMXBean](https://www.gridgain.com/sdk/latest/javadoc/org/apache/ignite/mxbean/CacheMetricsMXBean.html) javadoc.
 
+To change the configuration of other metrics at runtime, or to reset a metric registry, use the [MetricsMxBean](#configuring-metrics-with-metricsmxbean) MBean.
+
 ## Disabling Data Region Metrics
 
 Data region metrics expose information about data regions, including memory and storage size of the region.
@@ -357,11 +359,34 @@ org.apache:group="Persistent Store",name=DataStorageMetrics
 |---|---|
 | EnableMetrics | Enable persistent data storage metrics. |
 
-## Configuring Maximum-Value Metrics
+## Configuring Metrics with MetricsMxBean
+
+Some metric parameters, such as the time interval of a rate metric, can be changed at runtime through the `MetricsMxBean` MBean. Use it from any JMX-compliant tool or API.
+
+**Metrics MBean**
+
+```
+org.apache:group=Metrics,name=MetricsMxBeanImpl
+```
+
+| Operation | Parameters | Description |
+|---|---|---|
+| `configureHitRateMetric` | `name`, `cfg` | Changes the time interval, in milliseconds, of a hit-rate metric. |
+| `configureHistogramMetric` | `name`, `cfg` | Changes the bounds of a histogram metric. |
+| `configureMaxValueMetric` | `name`, `cfg` | Changes the time interval, in milliseconds, of a maximum-value metric. |
+| `resetMetrics` | `registry` | Resets all metrics in the specified metric registry. |
+
+In the `configure*` operations, `name` is the full metric name, and `cfg` is the new value. For `configureHitRateMetric` and `configureMaxValueMetric`, the value is the time interval in milliseconds and must be positive. For `configureHistogramMetric`, the value is a non-empty array of bounds in ascending order.
+
+A `configure*` operation changes the metric on all nodes in the cluster. If a metric with the specified name does not exist, the operation has no effect on it.
+
+For example, `io.dataregion.{data_region_name}.AllocationRate` is a hit-rate metric that uses a 60-second interval by default, and `io.datastorage.CheckpointHistogram` is a histogram metric with the default bounds of 100, 500, 1000, 5000, and 30000 milliseconds. For the metric names, see the [metrics reference](../../reference/monitoring/generic-metrics.md).
+
+### Configuring Maximum-Value Metrics
 
 Some metrics, such as `communication.tcp.maxOutboundMessagesQueueSize` and `io.discovery.MaxMsgQueueSize`, report the maximum value observed over a time interval. The default interval is 60 seconds.
 
-To change the interval, call the `configureMaxValueMetric(name, timeInterval)` operation of the `MetricsMxBean` MBean, where `name` is the full metric name and `timeInterval` is the new interval in milliseconds. The value must be positive. The change applies to all nodes in the cluster.
+To change the interval, call the `configureMaxValueMetric` operation, where `name` is the full metric name and `cfg` is the new interval in milliseconds.
 
 ## Disabling Index Operation Metrics
 
