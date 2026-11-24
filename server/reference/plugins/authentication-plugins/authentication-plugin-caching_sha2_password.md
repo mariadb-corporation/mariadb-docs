@@ -100,6 +100,7 @@ Here, `authentication_string` is taken from the `mysql.user` table for the corre
 * Dynamic: No
 * Data Type: `integer`
 * Default Value: `5000`
+* Range: `5000` to `4095000`
 * Introduced: MariaDB 11.4.9, MariaDB 11.8.4, MariaDB 12.1
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
