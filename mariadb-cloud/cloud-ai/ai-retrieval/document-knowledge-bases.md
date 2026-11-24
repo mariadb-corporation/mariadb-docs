@@ -58,15 +58,16 @@ You can add documents in two ways. Upload files from your computer, or connect a
 
 <figure><img src="../../.gitbook/assets/ai-retrieval-upload-processing.png" alt="The Processing step of the Upload Files dialog with the Layout-aware parsing strategy and the Structure-aware chunking strategy selected."><figcaption><p>The Processing step of the Upload Files dialog</p></figcaption></figure>
 
-The files appear in the **Documents** table. The **Status** column shows where each document is in the pipeline. A document starts as **Queued**, shows **Download** while AI Retrieval processes it, and ends as **Ingested**, or as **Failed** if processing does not succeed.
+The files appear in the **Documents** table. The **Status** column shows where each document is in the pipeline. A document waits to be processed, shows **Download** while AI Retrieval processes it, and ends as **Ingested**, or as **Failed** if processing does not succeed.
 
-| Status   | Meaning                                                                                                                                           |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Queued   | The document is waiting to be processed.                                                                                                          |
-| Download | AI Retrieval is processing the file. The status can stay on **Download** while the document is parsed, chunked, and embedded.                     |
-| Ingested | The document is indexed. The **Chunks** column shows how many chunks it produced.                                                                 |
-| Failed   | Processing did not succeed. A warning icon next to the status shows the error message.                                                            |
-| Retrying | Processing met an error, and AI Retrieval retries the document automatically. A warning icon shows the error message.                             |
+| Status           | Meaning                                                                                                                                                         |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pending, Queued  | The document is waiting to be processed. A document can read **Queued** while you watch the page and **Pending** after you reload it.                           |
+| Download         | AI Retrieval is processing the file. The status can stay on **Download** while the document is parsed, chunked, and embedded.                                   |
+| Processing       | AI Retrieval is processing the file. You see this status after you reload the page.                                                                             |
+| Ingested         | The document is indexed. The **Chunks** column shows how many chunks it produced.                                                                               |
+| Failed           | Processing did not succeed. A warning icon next to the status shows the error message.                                                                          |
+| Retrying         | Processing met an error, and AI Retrieval retries the document after a timeout. You can see this status while you watch the page.                               |
 
 The status can lag behind the actual state of a document, and a document can show a different status until you reload the page. See [Troubleshooting](document-knowledge-bases.md#troubleshooting).
 
@@ -228,10 +229,10 @@ Select the actions menu (⋮) in a document row to view its chunks, delete it, o
 
 ### A Document Stays Queued or Retrying
 
-A document can stay in **Queued** or **Retrying** for a long time. The warning icon next to **Retrying** shows the error message, which can read **Internal processing error**. AI Retrieval retries a document that stops making progress automatically, up to three times, but only after a timeout of several hours. It does not retry a document that shows **Failed**.
+A document can stay in **Queued**, **Pending**, or **Retrying** for a long time. When a document shows **Failed**, point to the warning icon next to it to read the error message, which can read **Internal processing error**. AI Retrieval retries a document that stops making progress automatically, up to three times, but only after a timeout of several hours. It does not retry a document that shows **Failed**.
 
 * Check whether the content is already searchable. Run a query in the **Test** drawer. The status can lag behind the actual state.
-* For a document that shows **Failed** or **Retrying** with a warning icon, select **Retry** in its actions menu (⋮). If the document still does not reach **Ingested**, delete it and upload it again.
+* For a document that shows **Failed**, select **Retry** in its actions menu (⋮). If the document still does not reach **Ingested**, delete it and upload it again.
 * If you ingest many large documents from a bucket, give the sync time. A file that times out is retried once at the end of the sync, and you can run the sync again.
 * A vector store on a small Serverless instance can slow ingestion down.
 * Contact MariaDB Support if the problem continues.
