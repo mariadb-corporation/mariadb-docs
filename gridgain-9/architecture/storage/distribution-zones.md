@@ -22,6 +22,8 @@ Availability zone is a set of infrastructure resources with independent hardware
 
 GridGain cluster often spans across multiple availability zones, and distribution zones also typically span across multiple availability zones. That way, tables can continue to be available even if one of the availability zones goes down.
 
+Starting with GridGain 9.2, when a GridGain cluster uses multiple racks, data centers or availability zones, it is recommended to use the [rack awareness](#rack-awareness) feature of distribution zones to ensure that data copies are split between them.
+
 ## Default Zone
 
 GridGain 9 provides a `default` distribution zone that is preconfigured, but is not created on startup. When a table is created without specifying the distribution zone, the zone is created first, and the table is added to it. Following this, the distribution zone stores data from tables when they are not configured to use a different zone, or if a [different default zone](../../reference/sql/distribution-zones.md#alter-zone-set) is not configured.
@@ -69,7 +71,7 @@ SECONDARY ZONE SecondaryZone SECONDARY STORAGE PROFILE 'columnar_storage';
 
 You can control the number of partitions (how many pieces the data is split into) and replicas (how many copies of data are stored) by using the `PARTITIONS` and `REPLICAS` options.
 
-If not specified, the distribution zone creates `(dataNodesCount * coresOnNode * 2) / replicaFactor` partitions, and does not create copies of data. The `dataNodesCount` is the estimated number of nodes that will be in the distribution zone when it  is created, according to its [filter](#node-filtering) and [storage profiles](README.md). At least 1 partition is always created.
+If not specified, the distribution zone creates `(dataNodesCount * coresOnNode * 2) / replicaFactor` partitions, and does not create copies of data. The `dataNodesCount` is the estimated number of nodes that will be in the distribution zone when it  is created, according to its [filter](#node-filtering), [replica filter attribute](#rack-awareness) and [storage profiles](README.md). At least 1 partition is always created.
 
 In the example below, the tables will be split into 50 partitions, and each partition will have 3 copies of itself stored on the cluster:
 
@@ -176,6 +178,81 @@ If you no longer need to filter the data nodes, set the filter to match all node
 ```sql
 ALTER ZONE exampleZone SET DATA_NODES_FILTER='$..*';
 ```
+
+### Rack Awareness
+
+{% hint style="info" %}
+Rack awareness is available in GridGain 9.2 and later.
+{% endhint %}
+
+By default, GridGain stores the replicas of a partition on different nodes, but does not take into account where these nodes are located. If all nodes that store a partition are in the same rack, data center or availability zone, the failure of this location makes the partition unavailable.
+
+With rack awareness, you specify which nodes are likely to fail together. Such nodes form a *fault domain*, and GridGain spreads the replicas of each partition across the fault domains. If one fault domain goes down, the other fault domains still hold enough replicas to keep the data available.
+
+Fault domains are defined by a [node attribute](../../reference/configuration/node-configuration-parameters.md#node-attributes): all nodes that have the same value of the attribute belong to the same fault domain. To configure rack awareness:
+
+1. Set the attribute on each node that should store the data of the distribution zone, and restart the node to apply the change. The example below adds the node to the `rack1` fault domain:
+
+   ```bash
+   node config update -n defaultNode ignite.userAttributes.rack="rack1"
+   ```
+
+2. Specify the name of the attribute in the `REPLICA FILTER ATTRIBUTE` parameter of the distribution zone. The example below creates a distribution zone that spreads 3 replicas of each partition across the racks:
+
+   ```sql
+   CREATE ZONE IF NOT EXISTS exampleZone (REPLICAS 3, REPLICA FILTER ATTRIBUTE 'rack') STORAGE PROFILES ['default'];
+   ```
+
+A distribution zone can use only one replica filter attribute. The name of the attribute and its values are case-sensitive.
+
+#### How Replicas are Spread Across Fault Domains
+
+GridGain assigns the replicas of each partition to the fault domains in turns: every fault domain receives one replica before any fault domain receives the next one. If the replicas that are left are not enough for one more turn, they are placed in different fault domains in a way that keeps the load on all nodes as even as possible. The replicas of the [consensus group](data-partitioning.md#replica-number) are spread in the same way.
+
+The table below shows how replicas of each partition are placed in a cluster with 3 fault domains that have at least 2 nodes each:
+
+| Replicas | Quorum Size | Replicas in Fault Domains |
+| --- | --- | --- |
+| 3 | 2 | One replica in each fault domain. All replicas are in the consensus group. |
+| 5 | 2 | One consensus group replica in each fault domain. Two learners are in two different fault domains. |
+| 5 | 3 | One replica in each fault domain, and two more replicas in two different fault domains. All replicas are in the consensus group. |
+| 6 | 2 | Two replicas in each fault domain: one consensus group replica and one learner. |
+
+For more information about how replicas are distributed, see [Fault Domain Consideration](data-partitioning.md#fault-domain-consideration).
+
+When planning fault domains, consider the following:
+
+- Use at least 3 fault domains. Then, if the consensus group has 3 or more replicas and the fault domains have enough nodes for them, no fault domain holds the majority of the consensus group, and the partitions stay available when one fault domain fails. With 2 fault domains, one of them always holds at least half of the consensus group, so the partitions lose the majority when this fault domain fails.
+- Use the same number of nodes in all fault domains. Fault domains have a higher priority than even data distribution: each fault domain receives its replicas regardless of its size, so the nodes of a smaller fault domain may store more data than the nodes of a larger one.
+- Rack awareness only applies to data partitions. The nodes of the [cluster management group](../cluster-lifecycle.md#cluster-management-group) and the [metastorage group](../cluster-lifecycle.md#cluster-metastorage-group) are selected when the cluster is initialized, so make sure that you select nodes from different fault domains for them.
+
+If a fault domain holds two or more consensus group replicas of a partition, and this is at least half of the consensus group, GridGain logs the `Fault domain constraint is relaxed or makes the partition distribution unfair` warning. The same message is logged at the `INFO` level when the nodes store different numbers of replicas because the fault domains have different numbers of nodes.
+
+#### Nodes Without the Attribute
+
+Nodes that do not have the replica filter attribute, or have an empty value of it, do not belong to any fault domain and are not used to store the data of the distribution zone. GridGain lists these nodes in the `Nodes without a value of the replica filter attribute are not data nodes of the zone` log message.
+
+A `CREATE ZONE` or `ALTER ZONE` command that sets the attribute fails if the cluster has no node that has the attribute and, at the same time, matches the [node filter](#node-filtering) and has the [storage profiles](#storage-profiles) of the distribution zone.
+
+#### Changing Fault Domains
+
+You can enable rack awareness for an existing distribution zone, or use a different attribute to define the fault domains, by using the `ALTER ZONE` command:
+
+```sql
+ALTER ZONE exampleZone SET (REPLICA FILTER ATTRIBUTE 'rack');
+```
+
+To disable rack awareness, drop the attribute:
+
+```sql
+ALTER ZONE exampleZone DROP REPLICA FILTER ATTRIBUTE;
+```
+
+After these commands, GridGain immediately redistributes the partitions according to the new configuration and starts [partition rebalance](data-partitioning.md#partition-rebalance). Replicas stay on their nodes when the new configuration allows it.
+
+To move a node to a different fault domain, change the value of the attribute in the node configuration and restart the node.
+
+You can find the attribute used by the distribution zone in the `ZONE_REPLICA_FILTER_ATTRIBUTE` column of the `system.zones` [system view](../../reference/monitoring/system-views.md#zones).
 
 ### High Availability
 

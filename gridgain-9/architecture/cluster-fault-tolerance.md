@@ -26,7 +26,7 @@ Losing the metastorage majority makes the cluster unable to process metadata ope
 
 ### Data Partitions
 
-Each table partition forms its own RAFT group consisting of the partition's replicas. GridGain automatically assigns replicas based on the [distribution zone](storage/distribution-zones.md) configuration - the number of replicas, the partition count, and the data node filter. Unlike CMG and metastorage groups, partition membership changes automatically during rebalancing operations when nodes join or leave the cluster.
+Each table partition forms its own RAFT group consisting of the partition's replicas. GridGain automatically assigns replicas based on the [distribution zone](storage/distribution-zones.md) configuration - the number of replicas, the partition count, the data node filter, and, starting with GridGain 9.2, the [fault domains](storage/distribution-zones.md#rack-awareness). Unlike CMG and metastorage groups, partition membership changes automatically during rebalancing operations when nodes join or leave the cluster.
 
 Partition groups behave differently depending on whether the distribution zone uses strong consistency or [high availability mode](high-availability-mode.md). With strong consistency, losing the partition majority makes that partition unavailable until you restore the majority or perform disaster recovery. With high availability mode, the system automatically reconfigures the RAFT group to continue with available replicas, prioritizing availability over strict consistency guarantees.
 
@@ -117,6 +117,14 @@ recovery partitions states --zones ZONE_NAME --global
 ```
 
 You should prioritize restoring failed nodes to return to full fault tolerance. The longer the cluster operates with reduced fault tolerance, the higher the risk that an additional failure will cause majority loss and partition unavailability.
+
+### Fault Domain Failure
+
+When a rack, a data center, or an availability zone fails, all its nodes become unavailable at the same time. By default, GridGain does not take the location of the nodes into account, so some partitions may have the majority of their replicas on these nodes. For these partitions, the failure is a majority failure with the effects described below.
+
+Starting with GridGain 9.2, you can use [rack awareness](storage/distribution-zones.md#rack-awareness) to spread the replicas of each partition across fault domains. If the distribution zone has at least 3 replicas and uses at least 3 fault domains of the same size, no fault domain holds the majority of the voting replicas of a partition. The failure of one fault domain is then a minority failure for every partition of the zone, and the data remains available for reads and writes.
+
+Rack awareness does not apply to the CMG and the metastorage group. To keep these groups available when a fault domain fails, select their nodes from at least 3 different fault domains when you initialize the cluster.
 
 ### Majority Failure with Strong Consistency
 

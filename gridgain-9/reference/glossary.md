@@ -28,6 +28,10 @@ description: >-
 
 **Distribution zone** — Distribution zone controls how data is placed into partitions, and how partitions are distributed on nodes on the cluster. Distribution zones are part of cluster configuration, and can be modified with [SQL commands](sql/distribution-zones.md).
 
+## F
+
+**Fault domain** — A group of cluster nodes that are likely to fail together, for example nodes in the same rack, data center or availability zone. When [rack awareness](../architecture/storage/distribution-zones.md#rack-awareness) is configured, GridGain spreads the replicas of each partition across fault domains. Available in GridGain 9.2 and later.
+
 ## L
 
 **Logical Topology** — A set of nodes connected into a Raft group is called a logical topology. These nodes follow the Raft leader and form a GridGain cluster.

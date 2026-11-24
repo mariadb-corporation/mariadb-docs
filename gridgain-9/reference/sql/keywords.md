@@ -544,6 +544,7 @@ The following list shows the keywords in GridGain 9.
 | RENAME | Reserved |  |
 | REPEATABLE |  |  |
 | REPLACE |  |  |
+| REPLICA |  |  |
 | REPLICAS |  |  |
 | RESET | Reserved |  |
 | RESPECT |  |  |

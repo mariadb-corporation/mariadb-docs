@@ -43,7 +43,7 @@ By default, GridGain automatically calculates the recommended number of partitio
 dataNodesCount * coresOnNode * 2 / replicas
 ```
 
-In this case, the `dataNodesCount` is the estimated number of nodes that will be in the distribution zone when it is created, according to its [filter](distribution-zones.md#node-filtering) and [storage profiles](README.md). At least 1 partition is always created.
+In this case, the `dataNodesCount` is the estimated number of nodes that will be in the distribution zone when it is created, according to its [filter](distribution-zones.md#node-filtering), [replica filter attribute](distribution-zones.md#rack-awareness) and [storage profiles](README.md). At least 1 partition is always created.
 
 Partition maintenance is mostly CPU-bound, so the optimal number of partitions depends on the total number of CPUs available to the zone, not on the amount of data. In most cases, we recommend using 2, 3, or 4 times the number of total available cores, divided by the number of replicas. For example:
 
@@ -153,6 +153,16 @@ This approach minimizes unnecessary data movement during cluster scaling operati
 The Fair distribution algorithm calculates placement separately for voting replicas and learner replicas to ensure fair load distribution across cluster nodes. As described in the [quorum size](distribution-zones.md#quorum-size) configuration, some replicas participate in the consensus group for each partition while others serve as learners. The algorithm ensures that both types of replicas are evenly distributed, preventing scenarios where certain nodes bear a disproportionate burden of consensus operations while others primarily handle learner workload.
 
 This separation is particularly important for performance management, as voting replicas participate in write coordination and leader election while learners passively receive updates. By balancing both types of replicas independently, the algorithm ensures that consensus-related load is spread evenly across the cluster alongside the overall data storage load.
+
+### Fault Domain Consideration
+
+Starting with GridGain 9.2, when [rack awareness](distribution-zones.md#rack-awareness) is configured for the distribution zone, fault domains become an additional constraint for the Fair distribution algorithm, and this constraint takes priority over fairness. For each partition, the algorithm first decides how many replicas each fault domain holds, and then places and balances these replicas only between the nodes of that fault domain.
+
+The replicas of a partition are assigned to fault domains in turns, one replica to each fault domain per turn, while the replicas that are left are enough for a whole turn. A fault domain is skipped when each of its nodes already holds a replica of the partition. The replicas that are left after the last whole turn go to different fault domains. The algorithm uses them to even out the load: across all partitions, they are placed so that the nodes of all fault domains hold a similar number of replicas, which means that a larger fault domain receives more of them. For example, with 5 replicas and 3 fault domains, every fault domain receives one replica of each partition, and the 2 remaining replicas go to 2 different fault domains. Voting replicas are assigned in the same way, so the consensus group of each partition is also spread across fault domains.
+
+If all fault domains have the same number of nodes, the resulting distribution is fair. Otherwise, each fault domain still receives its replicas in every turn, so the nodes of a smaller fault domain can hold more replicas than the nodes of a larger one. The algorithm does not fail in this case and reports the reason for the uneven distribution in the log.
+
+When fault domains or cluster topology change, the algorithm starts from the existing distribution, both when it moves replicas between fault domains and when it balances them within a fault domain. Replicas remain on their nodes whenever the fault domain constraint allows it.
 
 ## Primary Replicas and Leases
 

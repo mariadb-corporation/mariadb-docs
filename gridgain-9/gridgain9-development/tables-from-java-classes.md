@@ -204,6 +204,34 @@ System.out.println(
 );
 ```
 
+### Zone With Rack Awareness
+
+{% hint style="info" %}
+The replica filter attribute is available in GridGain 9.2 and later. Clusters that run earlier versions fail to create a zone with this attribute.
+{% endhint %}
+
+To spread the replicas of the zone across [fault domains](../architecture/storage/distribution-zones.md#rack-awareness), specify the name of the node attribute in the `replicaFilterAttribute` property of the `@Zone` annotation:
+
+```java
+@Table(value = "kv_pojo",
+        zone = @Zone(value = "zone_test", replicas = 3, replicaFilterAttribute = "rack", storageProfiles = "default"))
+public static class PojoValue {
+    // Table columns.
+}
+```
+
+When using builders, set the attribute in the zone definition:
+
+```java
+catalog.createZone(
+        ZoneDefinition.builder("zone_test")
+                .replicas(3)
+                .replicaFilterAttribute("rack")
+                .storageProfiles("default")
+                .build()
+);
+```
+
 ## Next Steps
 
 Once you have created a table using the Java API, you can manipulate it using the [SQL commands](../reference/sql/ddl.md).
