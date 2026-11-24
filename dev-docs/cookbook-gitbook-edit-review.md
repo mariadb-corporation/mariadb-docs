@@ -135,7 +135,7 @@ Sort each change into **reformatting** (the list above: accept it) or **content*
 changed text, images, code, link targets). Review content like a PR: the
 [style guide](style-guide.md), Title Case headings, version facts against the source, and links
 that resolve. A cross-space link GitBook wrote as `https://app.gitbook.com/s/…` is fine; a link to
-a GitBook change request (`/~/changes/`) isn't. A ⚠️ entry's findings are the minimum to fix,
+an unmerged GitBook change request isn't. A ⚠️ entry's findings are the minimum to fix,
 not the whole review. For a deleted page, look for inbound links
 (`git grep -n '<file-name>' origin/main`).
 
