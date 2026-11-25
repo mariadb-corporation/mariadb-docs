@@ -106,7 +106,7 @@ Grant the IAM user that owns the access keys the following permissions:
 | `s3:ListBucket` | The bucket | Checking the bucket before each backup, finding the backup inventory, and listing backups for restore. |
 | `s3:PutObject` | Objects in the bucket | Writing backup files, the backup inventory, and a small `.backup_manager` test object at the bucket path. |
 | `s3:GetObject` | Objects in the bucket | Reading the backup inventory and backup files for the backup list and for restores. |
-| `s3:AbortMultipartUpload` | Objects in the bucket | Cleaning up the incomplete parts of an upload that fails. Backup files are uploaded in multiple parts. |
+| `s3:AbortMultipartUpload` | Objects in the bucket | Cleaning up the incomplete parts of an upload that fails. Backup files are uploaded in multiple parts. Without this permission, a failed upload leaves its parts in your bucket. |
 
 The following IAM policy grants these permissions. Replace `YOUR_BUCKET_NAME` with the name of your bucket:
 
@@ -131,7 +131,7 @@ The following IAM policy grants these permissions. Replace `YOUR_BUCKET_NAME` wi
 ```
 
 {% hint style="warning" %}
-Removing any of these permissions, or adding a bucket policy that denies them, can cause scheduled external backups to fail or stop appearing in the backup list. Without `s3:GetObject`, MariaDB Cloud cannot read the backup inventory, so existing backups might not appear in the backup list even though the files are still in your bucket.
+If you remove `s3:ListBucket` or `s3:PutObject`, or deny them in a bucket policy, scheduled external backups fail the bucket check that runs before each backup. Without `s3:GetObject`, MariaDB Cloud cannot read the backup inventory or restore from the bucket, so existing backups might not appear in the backup list even though the files are still in your bucket.
 {% endhint %}
 
 {% hint style="info" %}
