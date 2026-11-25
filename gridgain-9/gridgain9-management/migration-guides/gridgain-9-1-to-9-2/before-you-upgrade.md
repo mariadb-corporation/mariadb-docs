@@ -103,7 +103,7 @@ The tables list each change, when it applies to you, and the effort it needs. If
 | System view columns removed | Dashboards, scripts, or monitoring queries read system views | Code | [System View Columns Removed](sql-changes.md#system-view-columns-removed) |
 | User names are case-sensitive | Your scripts or tooling create users, run `GRANT`, or log in | Code | [User and Role Names Are Case-Sensitive](security-changes.md#user-and-role-names-are-case-sensitive) |
 | Role names are migrated to uppercase | You use roles. Two role names that differ only in case make the migration fail | Planning | [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase) |
-| LDAP role mappings | You map LDAP groups to roles | Config-only | [LDAP Role Mappings](security-changes.md#ldap-role-mappings) |
+| LDAP role mappings | You map LDAP groups to roles. Users lose their roles until you update the mappings | Planning | [LDAP Role Mappings](security-changes.md#ldap-role-mappings) |
 | Index privileges | You grant `CREATE_INDEX` or `DROP_INDEX` | Config-only | [Index Privileges Are Checked on the Table](security-changes.md#index-privileges-are-checked-on-the-table) |
 | Stopping a table that is already stopped returns an error | Your automation stops specific tables of a replication | Code | [Data Center Replication REST API](clients-and-apis.md#data-center-replication-rest-api) |
 

@@ -40,9 +40,9 @@ Do all of the following before you stop or upgrade any node. Only the backup on 
    - Replace the hidden column `__part` with `__partition_id`. See [The __part Alias Is Removed](sql-changes.md#the-__part-alias-is-removed).
    - Write identifiers named `add` as `"ADD"`, in uppercase and double quotes. See [ADD Is a Reserved Word](sql-changes.md#add-is-a-reserved-word).
 6. *Prepare roles and users.* 9.1 matches user names without regard to case, and 9.2 compares them exactly.
-   - Find the stored name of each user. See [How to Find the Stored Name](security-changes.md#how-to-find-the-stored-name).
+   - Find the stored name of each user with `cluster config show ignite.security.authentication`, not with `SHOW USERS`. See [How to Find the Stored Name](security-changes.md#how-to-find-the-stored-name).
    - Make sure that applications, scripts, and connection settings use exactly that name. It works on both versions, and a 9.2 node rejects other spellings as soon as it joins.
-   - Change the role names in LDAP `roleMapping` settings to uppercase, which 9.1.29 also accepts. See [LDAP Role Mappings](security-changes.md#ldap-role-mappings).
+   - Check that every LDAP `roleMapping` spells its roles exactly as stored, and prepare the uppercase values to apply right after the conversion. You cannot change the mappings during a rolling upgrade. See [LDAP Role Mappings](security-changes.md#ldap-role-mappings).
    - Check the role names for case-only duplicates, such as `Reader` and `READER`. The role migration that runs on first start fails if two role names differ only in case. See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase).
 7. *Update the applications.* Move them to Java 21 or later, replace `PartitionManager` and `RecordSupportInternal`, and test them against the 9.2 client libraries. See [Client and API Changes](clients-and-apis.md), [Project Setup](../../../gridgain9-development/project-setup.md), and [Client Upgrade](../../upgrade/client-upgrade.md).
 8. *Back up the data.* See [Back Up the Data](#back-up-the-data).
@@ -103,7 +103,7 @@ On the other platforms, do not start any node yet.
 
 ### Step 3: Start the Cluster
 
-Start all nodes in any order. The cluster forms again with its data, and you do not run `cluster init`. On the first start, GridGain converts the stored role names to uppercase. See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase).
+Start all nodes in any order. The cluster forms again with its data, and you do not run `cluster init`. On the first start, GridGain converts the stored role names to uppercase. If the conversion fails, the node does not start, and the error names the roles that caused it. See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase).
 
 Continue with [Verify and Stabilize](#verify-and-stabilize).
 
@@ -133,7 +133,7 @@ For each node:
 
 ### Step 3: Commit the Upgrade
 
-1. Run `upgrade commit`. The commit converts the stored role names to uppercase. See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase).
+1. Run `upgrade commit`. The commit converts the stored role names to uppercase. If the conversion fails, the commit fails and the upgrade stays in progress. See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase).
 2. Restart one node, so that the system views get their 9.2 definitions for the whole cluster. The other nodes need no restart. See [Restart a Node After a Rolling Upgrade](sql-changes.md#restart-a-node-after-a-rolling-upgrade).
 3. Resume the SQL workload.
 
@@ -182,7 +182,7 @@ The tables list common errors during the upgrade, grouped by when you see them. 
 | `IGN-SQL-8: The query was mapped onto node '<node>' which runs version <version> and does not support latest query execution protocol ...` | A 9.2 node coordinated a SQL query that needs a 9.1 node during the rolling upgrade. | Stop the SQL workload until the upgrade is committed. |
 | `Schema modification command was aborted because a cluster upgrade is currently in progress` or `Cannot change configuration while rolling upgrade is in progress` | A rolling upgrade is in progress. | Wait for the commit, and then run the statement or the update again. |
 | `Cannot commit rolling upgrade. Nodes not on target version <version>: {<node>=<version>, ...}` | `upgrade commit` ran while some nodes still run 9.1. | Upgrade the listed nodes, check `upgrade state`, and run `upgrade commit` again. |
-| `upgrade commit` fails with `Legacy role names collide after uppercasing` or `Legacy role name conflicts with a built-in role` | Two role names in the cluster configuration differ only in case, or a role name becomes a built-in role name. | Contact MariaDB [support](https://mariadb.com/support/). See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase). |
+| `upgrade commit` fails with `Legacy role names collide after uppercasing` or `Legacy role name conflicts with a built-in role` | Two role names in the cluster configuration differ only in case, or a role name becomes a built-in role name. | The cluster stays on 9.1 and the upgrade stays in progress, and configuration changes are blocked, so you cannot fix the roles in place. Restore the backup that you took before the upgrade. See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase) and [Before the Commit](#before-the-commit). |
 | `SELECT * FROM system.zones` or another system view fails with `class java.lang.Integer cannot be cast to class java.lang.String` (rolling upgrade) | No node has restarted since the commit. | Restart one node. See [Restart a Node After a Rolling Upgrade](sql-changes.md#restart-a-node-after-a-rolling-upgrade). |
 
 ### SQL
@@ -201,7 +201,7 @@ The tables list common errors during the upgrade, grouped by when you see them. 
 | --- | --- | --- |
 | `Authentication failed` for a user that worked on 9.1, or ``GG-RBAC-2: User `<NAME>` is not found`` | The name differs in case from the stored name. Unquoted SQL names are converted to uppercase. | Use the exact stored name, in double quotes in SQL. See [How to Find the Stored Name](security-changes.md#how-to-find-the-stored-name). |
 | ``GG-RBAC-7: Role `SYSTEM` is not found``, or `GG-RBAC-9: Cannot assign the built-in role: system` | A script grants the super role with SQL. The built-in super role is `system` in lowercase, and SQL cannot assign it. | Remove the statement. Put `system` in the `roles` list of the user in the authentication provider configuration. See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase). |
-| An LDAP user gets no privileges | An LDAP `roleMapping` names a role in a different case. | Change the mapping to the uppercase role name. See [LDAP Role Mappings](security-changes.md#ldap-role-mappings) and [User Authentication](../../../security/authentication.md#ldap-authentication). |
+| An LDAP user gets no privileges, or a user has no roles after the upgrade | An LDAP `roleMapping` names a role in a different case, or the user's token was issued before the role names were converted. | Change the mapping to the uppercase role name, and ask the user to log in again. See [LDAP Role Mappings](security-changes.md#ldap-role-mappings) and [User Authentication](../../../security/authentication.md#ldap-authentication). |
 
 ## Recovery Path
 
@@ -226,6 +226,8 @@ The backup that you can restore depends on your edition:
 ### Before the Commit
 
 You can roll a node back by stopping it and starting it again from the 9.1 distribution and configuration files, and it rejoins the cluster. This does not end the upgrade. Only a commit does, and a commit needs every node on 9.2. Until then, DDL and cluster configuration changes stay blocked. Finish the upgrade or restore the backup.
+
+If `upgrade commit` fails because the role-name conversion fails, the upgrade stays in progress and configuration changes stay blocked, so you cannot fix the roles in place. Restore the backup that you took before the upgrade. See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase).
 
 ### After the Commit
 

@@ -32,7 +32,17 @@ CREATE ROLE "reader";    -- 9.2 creates a different role, reader
 GRANT READER TO alice;   -- grants READER to the user ALICE, if that user exists
 ```
 
-A name in lower or mixed case needs double quotes.
+A name in lower or mixed case needs double quotes. This applies to the user names of 9.1 as well, which are usually stored in lowercase:
+
+```sql
+DROP USER "alice";
+ALTER USER "alice" SET PASSWORD '...';
+GRANT ADMIN TO "alice";
+```
+
+Role names do not need quotes, because the migrated role names are in uppercase.
+
+`CURRENT_USER` returns the stored name, as in 9.1: usually lowercase for a user that was created on 9.1. Row-level security policies and other expressions that compare it to data keep working. For a user that you create on 9.2 with an unquoted name, the stored name is uppercase, so use the same spelling in the data.
 
 9.1 printed every user name in uppercase, so a user that 9.1 printed as `ALICE` is listed on 9.2 under the name that is actually stored, for example `alice` or `Alice`. Before you upgrade, review the scripts and applications that manage users and roles, and the user names in your connection settings.
 
@@ -49,7 +59,12 @@ The stored name depends on how the user was created in 9.1:
 - A user that you created with the SQL, CLI, or REST user management commands is stored in lowercase.
 - A user that you wrote directly into the `users` list of the authentication provider in the cluster configuration is stored as written. A user with `username=Alice` stays `Alice`.
 
-`SHOW USERS` on 9.1 prints all names in uppercase, so it does not show the stored name. Run `cluster config show` on 9.1.29 and read the `username` of each user under `ignite.security.authentication.providers`. On a 9.2 node, `SHOW USERS` prints the stored names.
+`SHOW USERS` on 9.1 prints all names in uppercase, so it does not show the stored name. On 9.1.29, use one of the following, and read the `username` field of each user:
+
+- Run `cluster config show ignite.security.authentication`. If authentication is enabled, first set the CLI credentials with `cli config set ignite.auth.basic.username=<user> ignite.auth.basic.password=<password>`.
+- Call `GET /management/v1/configuration/cluster/ignite.security.authentication`.
+
+The `displayName` field is only a label and is not the login name. For example, a user that was created on 9.1 with `CREATE USER Alice` has the `displayName` `ALICE` and logs in as `alice`. On a 9.2 node, `SHOW USERS` prints the stored names.
 
 ## Role Names Are Migrated to Uppercase
 
@@ -58,6 +73,7 @@ When the cluster first runs on 9.2, a one-time migration rewrites the stored rol
 - Every role is renamed to its uppercase form, for example `reader` to `READER`. The privileges of the role move with it.
 - The built-in super role stays `system`, in lowercase. See [The system Role](#the-system-role).
 - The role lists of the users are rewritten to the new names.
+- Roles that are defined in the cluster configuration, for example with `cluster init --config-files`, are converted in the same way.
 
 *Users are not renamed.* A user keeps its stored name and must log in with exactly that name. See [How to Find the Stored Name](#how-to-find-the-stored-name). An unquoted statement such as `GRANT READER TO alice` is parsed as `ALICE`, so it fails with ``GG-RBAC-2: User `ALICE` is not found``. Quote the name:
 
@@ -67,12 +83,19 @@ GRANT READER TO "alice";
 
 A new `CREATE USER alice` after the upgrade creates a second user, `ALICE`, which shares nothing with the existing `alice`.
 
-The migration runs:
+The migration runs once, when the cluster configuration is first loaded on 9.2, and does not depend on the recorded cluster version:
 
-- At commit, for a rolling upgrade. It runs before the cluster version changes. If it fails, the commit fails with an error.
+- At commit, for a rolling upgrade. It runs before the cluster version changes. Until the commit, the cluster keeps matching role names without regard to case, except for roles that LDAP mappings grant. See [LDAP Role Mappings](#ldap-role-mappings).
 - At the first start of the cluster, for a full-cluster upgrade.
 
-The migration fails with an error if two role names differ only in case (`Legacy role names collide after uppercasing`) or if a role name becomes the name of a built-in role (`Legacy role name conflicts with a built-in role`). If the migration fails, contact MariaDB [support](https://mariadb.com/support/). To avoid a failed commit, check the role names for case-only duplicates before you run `upgrade start`.
+The migration state is stored in the cluster configuration parameter [`roleNamesMigrationVersion`](../../../reference/configuration/cluster-configuration-parameters.md). Do not change it manually. After the migration, you cannot return to a 9.1 binary without a recovery plan, because the role names and this value have changed. See [Recovery Path](upgrade-procedure.md#recovery-path).
+
+The migration fails with an error if two role names differ only in case (`Legacy role names collide after uppercasing`) or if a role name becomes the name of a built-in role (`Legacy role name conflicts with a built-in role`). GridGain 9.1 cannot run with case-only duplicates itself, so this is rare. The error names the roles that caused it. The migration is not saved when it fails:
+
+- *Full-cluster upgrade.* The node does not start. To recover, start the nodes on the 9.1 binaries, fix the roles, and run the upgrade again. The 9.2 node has already started the cluster management group and the metastorage when the migration fails, and may have written state there. If the 9.1 binaries cannot start on this state, restore the backup that you took before the upgrade. See [Recovery Path](upgrade-procedure.md#recovery-path).
+- *Rolling upgrade.* `upgrade commit` fails, the cluster stays on 9.1, and the upgrade remains in progress. Cluster configuration changes such as `DROP ROLE`, `GRANT`, and `REVOKE` are rejected while the upgrade is in progress, so you cannot fix the roles in place and commit again. See [Before the Commit](upgrade-procedure.md#before-the-commit).
+
+To avoid a failed migration, check the role names for case-only duplicates before you start the upgrade.
 
 ### The system Role
 
@@ -88,13 +111,16 @@ Remove such statements from your scripts. To assign the role, put `system` in lo
 
 ### JWT Tokens
 
-Tokens issued before the upgrade are still accepted and keep the role names they were issued with. If a token spells the super role other than `system`, for example `SYSTEM`, 9.2 accepts the token but does not grant the super role. The user must log in again to get a new token. See [JWT Authorization](../../../security/jwt-authentication.md) and [REST Authentication](../../../reference/rest-api/rest-authentication.md).
+Tokens issued before the upgrade are still accepted, are not rewritten, and expire normally. A token carries the role names as they were spelled at login. Any role whose spelling differs from the migrated name grants nothing until the user logs in again. This affects, for example, an `admin` role that was assigned through REST or the CLI on 9.1, the super role spelled `SYSTEM`, and roles that came from LDAP mappings. Existing sessions may also need to reconnect. See [JWT Authorization](../../../security/jwt-authentication.md) and [REST Authentication](../../../reference/rest-api/rest-authentication.md).
 
 ## LDAP Role Mappings
 
 This section applies if you use the LDAP authentication provider with a `roleMapping`. For the provider settings, see [LDAP Authentication](../../../security/authentication.md#ldap-authentication).
 
-The migration does not change the role names in LDAP `roleMapping` settings. 9.1 matched a mapped role without regard to case. 9.2 matches it exactly, so after the upgrade a mapping to `admin` does not match the role `ADMIN`.
+The migration does not change the role names in LDAP `roleMapping` settings. 9.1 matched a mapped role without regard to case. A 9.2 node matches it exactly against the stored role name, and this applies from the moment the node joins:
+
+- *Before the commit (rolling upgrade).* The stored role names still have their 9.1 spelling, usually lowercase. A mapping that spells a role exactly as stored keeps working. A mapping that differs in case, such as `Admin` for the role `admin`, worked on 9.1 but grants nothing on 9.2 nodes. A mapping in uppercase, such as `ADMIN`, grants nothing either, because the role is not yet converted.
+- *After the migration.* The stored role names are uppercase, so a lowercase mapping, such as `admin` for the role `ADMIN`, grants nothing.
 
 An LDAP user whose only roles come from such a mapping can still log in, but has no roles. Every operation that needs a privilege fails with `GG-RBAC-15: Roles [] do not have privilege(s) [...]`. The node logs two warnings:
 
@@ -103,11 +129,17 @@ LDAP group "Admins" is mapped to role "admin", which is not in the authorization
 LDAP user "carol" authenticated with no role, so every authorized operation will be denied.
 ```
 
-Change the role names in your `roleMapping` settings to the uppercase names that the migration produces. 9.1.29 matches mapped roles without regard to case, so they work on both versions. Make this change before you run `upgrade start`, because cluster configuration changes are blocked during a rolling upgrade:
+You cannot prepare the new spelling in advance: cluster configuration changes are rejected during a rolling upgrade, and a new mapping to a role that does not exist is rejected, so you cannot write the uppercase value on 9.1 for a role that is still stored in lowercase. To limit the impact:
 
-```bash
-cluster config update 'ignite.security.authentication.providers.ldap.roleMapping=[{groupName=ADMINS,roles=[ADMIN]}]'
-```
+1. Before you start the upgrade, list the stored role names and the `roleMapping` values. Make sure that every mapping spells its roles exactly as stored, and fix any difference in case while the cluster is still on 9.1.
+2. Schedule the commit, or the first start on 9.2 for a full-cluster upgrade, for a time when LDAP users can tolerate losing their roles.
+3. Prepare the corrected `roleMapping` values with uppercase role names, and apply them right after the migration runs:
+
+   ```bash
+   cluster config update 'ignite.security.authentication.providers.ldap.roleMapping=[{groupName=ADMINS,roles=[ADMIN]}]'
+   ```
+
+4. Ask LDAP users to log in again after you update the mappings, because tokens that were issued in the meantime carry no roles.
 
 Other `roleMapping` rules in 9.2:
 
@@ -119,7 +151,7 @@ Other `roleMapping` rules in 9.2:
 
 ## Row-Level Security Policies
 
-The migration does not change the role names in row-level security policies. Policies that name roles without quotes, such as `TO READER`, keep working, because the migrated role names are in uppercase. A policy written `TO SYSTEM` applied on 9.1 to users whose `roles` list spelled the super role `SYSTEM`. After the migration, those users hold `system`, so the policy no longer applies to them, and they can see fewer rows. Recreate the policy with `TO "system"`. See [Row-Level Security](../../../security/row-level-security.md).
+The migration does not change the role names in row-level security policies. Policies that name roles without quotes, such as `TO READER`, keep working, because the migrated role names are in uppercase. A policy written `TO SYSTEM` applied on 9.1 to users whose `roles` list spelled the super role `SYSTEM`. After the migration, those users hold `system`, so the policy no longer applies to them, and they can see fewer rows. Recreate the policy with `TO "system"`. Depending on your other policies, users can see more or fewer rows than before, so check each policy. See [Row-Level Security](../../../security/row-level-security.md).
 
 ## Index Privileges Are Checked on the Table
 
