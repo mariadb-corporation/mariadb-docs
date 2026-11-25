@@ -37,9 +37,9 @@ description: >-
 
 ### RSA Encrypted Password
 
-* [byte<256>](../protocol-data-types.md#fixed-length-bytes) RSA encrypted password.
+* [byte\<n>](../protocol-data-types.md#fixed-length-bytes) RSA encrypted password, where _n_ is the RSA key size in bytes (256 for a 2048-bit key).
 
-RSA encrypted value of `XOR`(password, seed) using server public key (`RSA_PKCS1_OAEP_PADDING`).
+RSA encrypted value of the password XORed with the seed, using the server public key (`RSA_PKCS1_OAEP_PADDING`). The password includes its terminating `NUL` byte. The seed is the raw 20-byte scramble sent by the server, repeated as needed: byte _i_ of the password is XORed with byte _i_ mod 20 of the seed. The seed is not hashed.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
