@@ -51,9 +51,13 @@ To use MariaDB Galera Cluster, there are two primary packages that you need to i
 1. A MariaDB Server version that supports Galera Cluster.
 2. The Galera wsrep provider library.
 
-As mentioned in the previous section, Galera Cluster support is actually included in the standard MariaDB Server packages. That means that installing MariaDB Galera Cluster package is the same as installing standard MariaDB Server package in those versions. However, you will also have to install an additional package to obtain the Galera wsrep provider library.
+How you get Galera support depends on the version:
 
-Some [SST](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md) methods may also require additional packages to be installed. The [mariadb-backup](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/mariadb-backup-sst-method.md) SST method is generally the best option for large clusters that expect a lot of loads.
+* **Community Server up to 12.2:** Galera support is included in the standard MariaDB Server packages, and the server package depends on the Galera wsrep provider package (`galera-4`), so a normal server install also installs the provider.
+* **Community Server 12.3 and later:** Galera support is in a separate package, `mariadb-server-galera` (`MariaDB-server-galera` on RPM-based systems). Install it explicitly together with the server package. It depends on `galera-4`, so the provider is installed with it.
+* **Enterprise Server:** Galera support is included in the standard MariaDB Server packages, and the server package depends on the Galera provider package (`galera-enterprise-4`).
+
+Some [SST](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md) methods may also require additional packages to be installed. For example, the `mariadb-backup` method needs [socat](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/mariadb-backup-sst-method.md#socat-dependency) on every node, and the `rsync` method needs `rsync`. The [mariadb-backup](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/mariadb-backup-sst-method.md) SST method is generally the best option for large clusters that expect a lot of loads.
 
 ### Installing MariaDB Galera Cluster with a Package Manager
 

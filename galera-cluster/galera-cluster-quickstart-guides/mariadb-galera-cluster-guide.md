@@ -20,6 +20,7 @@ Before starting, ensure you have:
 * **`rsync`:** Install `rsync` on all nodes, as it's commonly used for State Snapshot Transfers (SST).
   * `sudo apt install rsync` (Debian/Ubuntu)
   * `sudo yum install rsync` (RHEL/CentOS)
+* **`socat`:** Only needed if you use the `mariadb-backup` SST method. Package installs normally pull it in. If it is missing, install it on all nodes. See [Socat Dependency](../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/mariadb-backup-sst-method.md#socat-dependency).
 
 #### 2. Installation (on Each Node)
 
@@ -40,10 +41,32 @@ sudo apt update
 
 **b. Install MariaDB Server and Galera:**
 
+{% tabs %}
+{% tab title="Current" %}
+{% hint style="info" %}
+From Community Server (CS) 12.3:
+{% endhint %}
+
+Galera support is in a separate package, `mariadb-server-galera`, which you must install explicitly. It depends on `galera-4`, the Galera provider, so the provider is installed with it.
+
+```bash
+sudo apt install mariadb-server mariadb-server-galera mariadb-client -y
+```
+{% endtab %}
+
+{% tab title="< CS 12.3" %}
+{% hint style="info" %}
+Before Community Server (CS) 12.3:
+{% endhint %}
+
 ```bash
 sudo apt install mariadb-server mariadb-client galera-4 -y # galera-4 is the Galera provider.
                                                            # For older versions (e.g., 10.3), use galera-3.
 ```
+{% endtab %}
+{% endtabs %}
+
+In MariaDB Enterprise Server, the Galera provider package is `galera-enterprise-4`, and the server package depends on it, so installing the server package installs it.
 
 **c. Secure MariaDB Installation:**
 

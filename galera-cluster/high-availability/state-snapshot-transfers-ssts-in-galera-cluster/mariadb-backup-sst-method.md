@@ -111,19 +111,19 @@ compress-threads=4
 
 To use the `mariadb-backup` SST method, the utility must be able to authenticate locally on the donor node to create a backup stream. There are two ways to manage this authentication:
 
-### Automatic User Account Management (ES 11.4+)
+### Automatic User Account Management (Community Server 11.6+ and Enterprise Server 11.4+)
 
-Starting with MariaDB Enterprise Server 11.4, the cluster can automatically manage the SST user account. This method is more secure and requires less configuration because it avoids storing plain-text passwords in configuration files.
+Starting with MariaDB Community Server 11.6 and MariaDB Enterprise Server 11.4, the cluster can automatically manage the SST user account. This method is more secure and requires less configuration because it avoids storing plain-text passwords in configuration files.
 
 When this feature is used:
 
-1. The donor node automatically creates a temporary internal user (e.g., `'wsrep.sst. <timestamp>_<node_id>'@localhost`) with a generated password when the SST process begins.
-2. The necessary privileges (`RELOAD`, `PROCESS`, `LOCK TABLES`, etc.) are automatically granted to this temporary user.
+1. When the SST process begins, the donor node automatically creates a temporary user named `wsrep.sst.<timestamp>_<node_name>`@`localhost` with a generated password. `<timestamp>` is the UTC time in `yymmdd_HHMMSS` format, and `<node_name>` is the value of [wsrep\_node\_name](../../reference/galera-cluster-system-variables.md#wsrep_node_name).
+2. The donor grants the temporary user `ALL PRIVILEGES ON *.*` with `GRANT OPTION`.
 3. Once the SST process completes, the donor node automatically drops the user.
 
 To enable automatic user management:
 
-Ensure that the [wsrep\_sst\_auth](../../reference/wsrep-variable-details/wsrep_sst_method.md) system variable is not set (or is left blank) in your configuration file.
+Ensure that the [wsrep\_sst\_auth](../../reference/galera-cluster-system-variables.md#wsrep_sst_auth) system variable is not set (or is left blank) in your configuration file.
 
 ```ini
 [mariadb]
@@ -138,7 +138,7 @@ If you explicitly define `wsrep_sst_auth` in your configuration, the server will
 
 ### Manual User Configuration
 
-For versions prior to 11.4, or if you prefer to manage the user manually, you must create a user and provide the credentials to the server.
+On Community Server versions before 11.6 and Enterprise Server versions before 11.4, or if you prefer to manage the user manually, you must create a user and provide the credentials to the server.
 
 You can tell the donor node what username and password to use by setting the [wsrep\_sst\_auth](../../reference/wsrep-variable-details/wsrep_sst_method.md) system variable. It can be changed dynamically with `SET GLOBAL` on the node that you intend to be an SST donor:
 
@@ -247,9 +247,20 @@ WSREP_SST: [ERROR] socat not found in path: /usr/sbin:/sbin:/usr//bin:/usr/local
 ```
 {% endcode %}
 
-#### Installing Socat on RHEL/CentOS <a href="#installing-socat-on-rhelcentos" id="installing-socat-on-rhelcentos"></a>
+#### Installing Socat <a href="#installing-socat-on-rhelcentos" id="installing-socat-on-rhelcentos"></a>
 
-On RHEL/CentOS, `socat` can be installed from the [Extra Packages for Enterprise Linux (EPEL)](https://docs.fedoraproject.org/en-US/epel/) repository.
+Package installs usually pull in `socat` for you:
+
+* On Debian and Ubuntu, the server package depends on `socat`, so it is always installed. In MariaDB Community Server 12.3 and later, the dependency is on the `mariadb-server-galera` package.
+* On RPM-based systems, `socat` is a recommended package of the server package (`MariaDB-server-galera` in MariaDB Community Server 12.3 and later). `dnf` installs it by default, but not if you disable weak dependencies (`install_weak_deps=False`).
+
+If `socat` is missing, install it from your distribution's standard repositories. For example, on RHEL-family systems:
+
+```bash
+sudo dnf install socat
+```
+
+The [Extra Packages for Enterprise Linux (EPEL)](https://docs.fedoraproject.org/en-US/epel/) repository is not required.
 
 ## TLS <a href="#tls" id="tls"></a>
 

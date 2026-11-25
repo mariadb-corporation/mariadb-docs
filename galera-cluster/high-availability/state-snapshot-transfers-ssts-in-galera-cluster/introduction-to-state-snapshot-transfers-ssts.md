@@ -100,7 +100,7 @@ You also need to run the certificate directory through [openssl rehash](mariadb-
 
 ### mysqldump
 
-This SST method runs mysqldump on the donor node and pipes the output to the [mariadb](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client) client connected to the joiner node. The `mysqldump` SST method needs a username/password pair set in the [wsrep\_sst\_auth](../../reference/galera-cluster-system-variables.md#wsrep_sst_auth) variable in order to get the dump. The donor node is blocked with a read lock during the SST. This is the slowest SST method.
+This SST method runs mysqldump on the donor node and pipes the output to the [mariadb](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client) client connected to the joiner node. The `mysqldump` SST method needs a username/password pair set in the [wsrep\_sst\_auth](../../reference/galera-cluster-system-variables.md#wsrep_sst_auth) variable, with the same value on the donor and the joiner, in order to get the dump. The automatic SST user is not available for this method (see [Authentication](#authentication)). The donor node is blocked with a read lock during the SST. This is the slowest SST method.
 
 * This SST method supports [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid).
 * This SST method supports [Data at Rest Encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/data-at-rest-encryption-tde-fundamentals).
@@ -111,7 +111,23 @@ The `xtrabackup` and `xtrabackup-v2` SST methods, which used the third-party Per
 
 ## Authentication
 
-All SST methods except `rsync` require authentication via username and password. You can tell the client what username and password to use by setting the [wsrep\_sst\_auth](../../reference/galera-cluster-system-variables.md#wsrep_sst_auth) system variable. It can be changed dynamically with [SET GLOBAL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set#global-session) on the node that you intend to be a SST donor. For example:
+All SST methods except `rsync` need a user account on the donor node. The [wsrep\_sst\_auth](../../reference/galera-cluster-system-variables.md#wsrep_sst_auth) system variable tells the SST which username and password to use. Whether you must set it depends on the SST method and the server version:
+
+| SST method | MariaDB Community Server 11.6+ and MariaDB Enterprise Server 11.4+ | Earlier versions |
+| --- | --- | --- |
+| `rsync` | Not needed. | Not needed. |
+| `mariadb-backup` and custom SST scripts | Optional. If `wsrep_sst_auth` is empty, the donor creates a temporary user automatically. | Required. |
+| `mysqldump` | Required, with the same value on the donor and the joiner. | Required. |
+
+#### Automatic SST user
+
+If `wsrep_sst_auth` is empty, the donor node creates a temporary user when the SST starts and drops it when the SST ends. The user is named `wsrep.sst.<timestamp>_<node_name>`, where `<timestamp>` is the UTC time in `yymmdd_HHMMSS` format and `<node_name>` is the value of [wsrep\_node\_name](../../reference/galera-cluster-system-variables.md#wsrep_node_name). The account is `@localhost` and has a generated password. It is granted `ALL PRIVILEGES ON *.*` with `GRANT OPTION`, because the server cannot know which privileges a given SST script needs.
+
+The `mysqldump` SST method cannot use the automatic user. The joiner node must accept the credentials that the donor uses, and it does not have the donor's temporary user. Set `wsrep_sst_auth` to the same value on both nodes.
+
+#### Setting the SST user manually
+
+To use an account that you manage yourself, set `wsrep_sst_auth`. It can be changed dynamically with [SET GLOBAL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set#global-session) on the node that you intend to be a SST donor. For example:
 
 ```
 SET GLOBAL wsrep_sst_auth = 'mariadb-backup:password';

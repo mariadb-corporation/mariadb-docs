@@ -45,7 +45,7 @@ MariaDB Galera Cluster is powered by:
 * MariaDB Server.
 * The [Galera wsrep provider library](https://github.com/codership/galera/).
 
-The functionality of MariaDB Galera Cluster can be obtained by installing the standard MariaDB Server packages and the [Galera wsrep provider library](https://github.com/codership/galera/) package. MariaDB Galera Cluster uses [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) 4. This means that the wsrep API version is 26 and the [Galera wsrep provider library](https://github.com/codership/galera/) is version 4.X.
+The functionality of MariaDB Galera Cluster can be obtained by installing the standard MariaDB Server packages and the [Galera wsrep provider library](https://github.com/codership/galera/) package. On MariaDB Community Server 12.3 and later, you must also install the `mariadb-server-galera` package, which depends on the provider package. See [Installing MariaDB Galera Cluster](galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster.md#installing-mariadb-galera-cluster). MariaDB Galera Cluster uses [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) 4. This means that the wsrep API version is 26 and the [Galera wsrep provider library](https://github.com/codership/galera/) is version 4.X.
 
 See [Versioning Information](https://web.archive.org/web/20190722120303/https://galeracluster.com/library/documentation/versioning-information.html) for more information about how to interpret these version numbers.
 
