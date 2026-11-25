@@ -107,6 +107,20 @@ Complete `COUNT()` function reference: `COUNT(*`) and `COUNT(expr)` syntax, `COU
 
 {% columns %}
 {% column %}
+{% content-ref url="filter.md" %}
+[filter.md](filter.md)
+{% endcontent-ref %}
+
+
+{% endcolumn %}
+
+{% column %}
+Limit the rows an aggregate function processes with `FILTER (WHERE ...)`, so one query can compute several differently filtered aggregates.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="group_concat.md" %}
 [group\_concat.md](group_concat.md)
 {% endcontent-ref %}

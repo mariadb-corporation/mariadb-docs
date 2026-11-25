@@ -1832,6 +1832,7 @@
       * [BIT\_XOR](reference/sql-functions/aggregate-functions/bit_xor.md)
       * [COUNT DISTINCT](reference/sql-functions/aggregate-functions/count-distinct.md)
       * [COUNT](reference/sql-functions/aggregate-functions/count.md)
+      * [FILTER Clause](reference/sql-functions/aggregate-functions/filter.md)
       * [GROUP\_CONCAT](reference/sql-functions/aggregate-functions/group_concat.md)
       * [JSON\_ARRAYAGG](reference/sql-functions/special-functions/json-functions/json_arrayagg.md)
       * [JSON\_OBJECTAGG](reference/sql-functions/special-functions/json-functions/json_objectagg.md)
