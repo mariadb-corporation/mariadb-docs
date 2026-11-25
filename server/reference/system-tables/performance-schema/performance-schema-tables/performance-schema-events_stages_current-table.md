@@ -20,6 +20,8 @@ The table contains the following columns:
 | TIMER\_START         | Value in picoseconds when the event timing started or NULL if timing is not collected. Relative to the server start, not to the epoch, so cannot directly be converted to a timestamp.                           |
 | TIMER\_END           | Value in picoseconds when the event timing ended, or NULL if the event has not ended or timing is not collected. Relative to the server start, not to the epoch, so cannot directly be converted to a timestamp. |
 | TIMER\_WAIT          | Value in picoseconds of the event's duration or NULL if the event has not ended or timing is not collected.                                                                                                      |
+| WORK\_COMPLETED      | Number of work units completed for the stage. NULL if the stage does not report progress.                                                                                                                        |
+| WORK\_ESTIMATED      | Number of work units expected for the stage. NULL if the stage does not report progress.                                                                                                                         |
 | NESTING\_EVENT\_ID   | EVENT\_ID of event within which this event nests.                                                                                                                                                                |
 | NESTING\_EVENT\_TYPE | Nesting event type. One of transaction, statement, stage or wait.                                                                                                                                                |
 

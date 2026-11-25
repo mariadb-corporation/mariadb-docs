@@ -47,7 +47,21 @@ Some Aria storage engine operations also support progress messages:
 
 ### Limitations
 
-Although the above commands support progress reporting, there are some limitations to what progress is reported. To be specific, when executing one of these commands against an InnoDB table with [ALGORITHM=INPLACE](../../../../server-usage/storage-engines/innodb/innodb-online-ddl/innodb-online-ddl-operations-with-the-inplace-alter-algorithm.md) (which is the default), progress is only reported during the merge sort phase while reconstructing indexes.
+Although the above commands support progress reporting, there are some limitations to what progress is reported.
+
+Client progress messages are sent while a table is being copied, as in `ALTER TABLE` with `ALGORITHM=COPY`. An InnoDB operation that uses [ALGORITHM=INPLACE](../../../../server-usage/storage-engines/innodb/innodb-online-ddl/innodb-online-ddl-operations-with-the-inplace-alter-algorithm.md) (the default where InnoDB supports it) does not send them. In that case, the `mariadb` client shows no `Stage:` line, and `SHOW PROCESSLIST` reports no progress.
+
+{% hint style="info" %}
+Before MDEV-29913, InnoDB reported client progress for one step of an in-place operation, the merge sort phase while it built indexes. That report was removed in 10.4.33, 10.5.24, 10.6.17, 10.11.7, 11.0.5, 11.1.4, and 11.2.3, so it is also absent from 11.4 and later.
+{% endhint %}
+
+InnoDB reports the progress of an in-place operation through the [Performance Schema](../../../system-tables/performance-schema/performance-schema-overview.md) instead. Each phase is a stage event, such as `stage/innodb/alter table (read PK and internal sort)` and `stage/innodb/alter table (merge sort)`. To follow one, make sure the stage instruments and the `events_stages_current` consumer are enabled, then query [events\_stages\_current](../../../system-tables/performance-schema/performance-schema-tables/performance-schema-events_stages_current-table.md) from another connection. Compare `WORK_COMPLETED` with `WORK_ESTIMATED` to see how far the current stage has got:
+
+```sql
+SELECT EVENT_NAME, WORK_COMPLETED, WORK_ESTIMATED
+  FROM performance_schema.events_stages_current
+ WHERE EVENT_NAME LIKE 'stage/innodb/alter table%';
+```
 
 ## Enabling and Disabling Progress Reporting
 
