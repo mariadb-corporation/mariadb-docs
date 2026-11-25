@@ -20,7 +20,9 @@ option = {FOR UPGRADE | QUICK | FAST | MEDIUM | EXTENDED | CHANGED}
 
 ## Description
 
-`CHECK TABLE` checks a table or tables for errors. `CHECK TABLE` works for [Archive](../../../server-usage/storage-engines/archive.md), [Aria](../../../server-usage/storage-engines/aria/), [CSV](../../../server-usage/storage-engines/csv/), [InnoDB](../../../server-usage/storage-engines/innodb/), and [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) tables. For Aria and MyISAM tables, the key statistics are updated as well. For CSV, see also [Checking and Repairing CSV Tables](../../../server-usage/storage-engines/csv/checking-and-repairing-csv-tables.md).
+`CHECK TABLE` checks a table or tables for errors. `CHECK TABLE` works for [Archive](../../../server-usage/storage-engines/archive.md), [Aria](../../../server-usage/storage-engines/aria/), [CSV](../../../server-usage/storage-engines/csv/), [InnoDB](../../../server-usage/storage-engines/innodb/), [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md), and [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) tables. For Aria and MyISAM tables, the key statistics are updated as well. For CSV, see also [Checking and Repairing CSV Tables](../../../server-usage/storage-engines/csv/checking-and-repairing-csv-tables.md).
+
+From MariaDB 13.2, `CHECK TABLE` also works for MEMORY tables. See [Checking Tables](../../../server-usage/storage-engines/memory-storage-engine.md#checking-tables).
 
 From [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0), `CHECK TABLE` also works on [sequences](../../sql-structure/sequences/). The sequence's underlying storage engine is checked first, then the sequence itself is validated.
 

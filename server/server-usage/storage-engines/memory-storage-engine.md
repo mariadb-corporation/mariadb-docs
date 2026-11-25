@@ -67,6 +67,12 @@ From MariaDB 13.2, if the table has `BLOB` or `TEXT` columns, the chunks that ho
 
 Memory allocated to a MEMORY table is freed by running [DROP TABLE](../../reference/sql-statements/data-definition/drop/drop-table.md) or [TRUNCATE TABLE](../../reference/sql-statements/table-statements/truncate-table.md), or rebuilding with [ALTER TABLE tbl\_name ENGINE = MEMORY](../../reference/sql-statements/data-definition/alter/alter-table/). When rows are deleted, space is not automatically freed.
 
+## Checking Tables
+
+From MariaDB 13.2, [CHECK TABLE](../../reference/sql-statements/table-statements/check-table.md) works on MEMORY tables. It verifies the consistency of the table's indexes and row storage, and reports only whether the table is OK or corrupt, with no further detail. The check options, such as `QUICK` or `EXTENDED`, make no difference.
+
+Before MariaDB 13.2, `CHECK TABLE` on a MEMORY table returns a note that the storage engine doesn't support check.
+
 ## Replication
 
 The data in MEMORY tables are lost when a server restarts.
