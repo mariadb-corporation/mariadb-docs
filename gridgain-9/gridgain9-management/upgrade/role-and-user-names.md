@@ -9,12 +9,12 @@ description: >-
 GridGain 9.1 and earlier treat user and role names as case-insensitive and usually store them in lower case. GridGain 9.2 treats them as case-sensitive and uses them exactly as written. When you upgrade from 9.1 or earlier, GridGain converts the stored names so that existing users keep their access. The conversion runs at `upgrade commit` in a rolling upgrade, and at the first start on the new version in a full-cluster upgrade.
 
 - **Role names** are converted to upper case: the role `admin` becomes `ADMIN`. The roles assigned to users are updated to match. The built-in `system` role keeps its name, and an assignment of `system` spelled in any other case becomes `system`.
-- **User names** are not changed. Users created with SQL, REST, or the CLI on 9.1 keep the lower-case name they were stored under, even if they were created with `CREATE USER Alice`. Users and roles defined directly in the cluster configuration, for example with `cluster init --config-files`, keep the spelling they were defined with. Check the actual names before you upgrade.
+- **User names** are not changed. Users created with SQL, REST, or the CLI on 9.1 keep the lower-case name they were stored under, even if they were created with `CREATE USER Alice`. Users defined directly in the cluster configuration, for example with `cluster init --config-files`, keep the spelling they were defined with. Check the actual names before you upgrade. Roles defined in the cluster configuration are converted to upper case like all other roles.
 - **`displayName` is not the login name.** The `displayName` field of a user or role is for display only. A user created on 9.1 with `CREATE USER Alice` has the `displayName` `ALICE` and logs in as `alice`. REST and the CLI show both fields, so read `username`.
 
 In a rolling upgrade, the cluster keeps matching role names without regard to case until you commit, except for roles mapped from LDAP groups (see [LDAP Role Mappings](#ldap-role-mappings)). User names are different: a node matches them exactly as soon as it runs 9.2, so a login with a different spelling can fail on upgraded nodes while you are still rolling.
 
-Before you start the upgrade, [check the user names](rolling-upgrade.md#check-user-names-before-you-start). After the conversion runs, check the following:
+Before you start the upgrade, [check the user names](#check-user-names-before-you-upgrade). After the conversion runs, check the following:
 
 - **Log in with the stored name.** A user stored as `alice` must log in as `alice`. Logging in as `ALICE` or `Alice` worked before the upgrade and now fails with an invalid-credentials error. Update client connection settings, scripts, and applications that use a different spelling.
 - **Quote user names in SQL.** SQL converts an unquoted name to upper case, so `DROP USER alice` looks for the user `ALICE`, which does not exist. Write `DROP USER "alice"`, `ALTER USER "alice" SET PASSWORD '...'`, and `GRANT ADMIN TO "alice"`. Role names do not need quotes, because the converted names are upper case.
@@ -30,6 +30,15 @@ To switch a user to a different spelling, for example upper case, create a new u
 The conversion state is stored in the [`roleNamesMigrationVersion`](../../reference/configuration/cluster-configuration-parameters.md) cluster configuration parameter. Do not change it manually.
 
 After the conversion runs, you cannot return to a 9.1 or earlier binary without a recovery plan, because the stored role names and the `roleNamesMigrationVersion` value have changed.
+
+## Check User Names Before You Upgrade
+
+GridGain 9.2 matches user names exactly, starting as soon as a node runs 9.2, so a login that used a different spelling on 9.1 can fail during the upgrade. Before you upgrade from 9.1 or earlier, list the stored user names and check that clients, scripts, and applications use the same spelling:
+
+- Run `cluster config show ignite.security.authentication` and read the `username` field of each user. If authentication is enabled, first set the CLI credentials with `cli config set ignite.auth.basic.username=<user> ignite.auth.basic.password=<password>`.
+- Or call `GET /management/v1/configuration/cluster/ignite.security.authentication` and read the same fields.
+
+Do not use `SHOW USERS` for this check: on 9.1 it prints names in upper case, not in the stored spelling. The `displayName` field is not the login name either.
 
 ## LDAP Role Mappings
 

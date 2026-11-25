@@ -36,14 +36,7 @@ Take a [snapshot](../snapshots/data-snapshots.md) of your data before stopping t
 
 #### Check User Names
 
-GridGain 9.2 matches user names exactly, starting as soon as a node runs 9.2, so a login that used a different spelling on 9.1 can fail during the upgrade. Before you upgrade from 9.1 or earlier, list the stored user names and check that clients, scripts, and applications use the same spelling:
-
-- Run `cluster config show ignite.security.authentication` and read the `username` field of each user. If authentication is enabled, first set the CLI credentials with `cli config set ignite.auth.basic.username=<user> ignite.auth.basic.password=<password>`.
-- Or call `GET /management/v1/configuration/cluster/ignite.security.authentication` and read the same fields.
-
-Do not use `SHOW USERS` for this check: on 9.1 it prints names in upper case, not in the stored spelling. The `displayName` field is not the login name either.
-
-For details, see [Role and User Names After an Upgrade](role-and-user-names.md).
+Before you upgrade from 9.1 or earlier, list the stored user names and check that clients, scripts, and applications use the same spelling. A login that used a different spelling on 9.1 can fail once a node runs 9.2. For the steps, see [Check User Names Before You Upgrade](role-and-user-names.md#check-user-names-before-you-upgrade).
 
 ### Phase 2 — Stop the Cluster
 
@@ -113,7 +106,7 @@ When you start a cluster on new binaries against existing persistent state, the 
 {% hint style="warning" %}
 If the role-name conversion fails, the node does not start and the error names the roles that caused it. This happens, for example, when two stored role names differ only in letter case, which GridGain 9.1 itself cannot run with, or when a role name conflicts with a built-in role. In a rolling upgrade, the same problem makes `upgrade commit` fail, the cluster stays on the source version, and the upgrade remains in progress.
 
-The conversion is not saved when it fails. To recover, start the nodes on the old binaries, fix the roles, and run the upgrade again.
+The conversion is not saved when it fails. To recover, start the nodes on the old binaries, fix the roles, and run the upgrade again. However, the 9.2 node has already started the cluster management group and the metastorage by the time the conversion fails, and may have written state there. If the old binaries cannot start on this state, restore from the snapshot taken in Phase 1.
 {% endhint %}
 
 ### Note on the Recorded Cluster Version

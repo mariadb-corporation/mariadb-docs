@@ -36,14 +36,7 @@ A rolling upgrade and a point-in-time recovery (PITR) cannot run concurrently. O
 
 #### Check User Names Before You Start
 
-GridGain 9.2 matches user names exactly, starting as soon as a node runs 9.2, so a login that used a different spelling on 9.1 can fail during the upgrade. Before you upgrade from 9.1 or earlier, list the stored user names and check that clients, scripts, and applications use the same spelling:
-
-- Run `cluster config show ignite.security.authentication` and read the `username` field of each user. If authentication is enabled, first set the CLI credentials with `cli config set ignite.auth.basic.username=<user> ignite.auth.basic.password=<password>`.
-- Or call `GET /management/v1/configuration/cluster/ignite.security.authentication` and read the same fields.
-
-Do not use `SHOW USERS` for this check: on 9.1 it prints names in upper case, not in the stored spelling. The `displayName` field is not the login name either.
-
-For details, see [Role and User Names After an Upgrade](role-and-user-names.md).
+Before you upgrade from 9.1 or earlier, list the stored user names and check that clients, scripts, and applications use the same spelling. A login that used a different spelling on 9.1 can fail once a node runs 9.2. For the steps, see [Check User Names Before You Upgrade](role-and-user-names.md#check-user-names-before-you-upgrade).
 
 #### Run `upgrade start`
 
