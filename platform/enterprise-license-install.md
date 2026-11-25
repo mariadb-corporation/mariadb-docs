@@ -133,10 +133,17 @@ There are two of them, and they are separate things:
 
 To install one, see:
 
-<!-- TODO (DOCS-6634): link the GridGain cluster license installation page here, the same way the
-     Control Center pages are linked below. Stanislav Lukianov asked for it on 2026-10-05, and Igor
-     Gusev is to name the page as GridGain docs move to mariadb.com. Do not link the gridgain.com
-     installation-guide/licenses page, because most of it does not apply to 8.10. -->
+<!-- DOCS-6634: Igor Gusev (2026-11-25) chose the GridGain 8 Licensing page and, for GridGain 9,
+     Start a GridGain 9 Cluster until he adds a dedicated license page. Swap the GridGain 9 link
+     when that page exists. -->
+
+{% content-ref url="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53/gridgain8-management/licensing-and-support/licensing" %}
+GridGain 8 Licensing
+{% endcontent-ref %}
+
+{% content-ref url="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-get-started/start-cluster" %}
+Start a GridGain 9 Cluster
+{% endcontent-ref %}
 
 {% content-ref url="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center/getting-started/adding-license" %}
 Install Control Center and Add License
