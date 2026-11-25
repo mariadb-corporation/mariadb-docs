@@ -142,8 +142,13 @@ If you enter a path in the bucket URL, for example `s3://YOUR_BUCKET_NAME/backup
 MariaDB Cloud doesn't delete or expire backup files in your bucket. Configure an S3 lifecycle rule to manage storage in your bucket, including a rule that aborts incomplete multipart uploads.
 {% endhint %}
 
+{% hint style="info" %}
+When you create an external backup schedule in the MariaDB Cloud console, **Test Connection** checks that the credentials can list the bucket (`s3:ListBucket`). It doesn't test `s3:PutObject` or `s3:GetObject`, so a successful test doesn't confirm that backups can be uploaded or restored.
+{% endhint %}
+
 ### Limitations
 
+* **Service tier:** External backup storage isn't available for Foundation tier services created on or after November 3, 2025. For the storage options of each tier, see [Service tiers](../../service-tiers.md).
 * **Server-side encryption headers:** MariaDB Cloud doesn't send the `x-amz-server-side-encryption` header when it uploads to your bucket. A bucket policy that denies `s3:PutObject` unless this header is present, for example one that requires `AES256`, causes backup uploads to fail. S3 already encrypts all new objects with SSE-S3 by default, with no request header required, so you don't need a policy that enforces the header.
 * **AWS KMS encryption:** If your bucket's default encryption uses an AWS KMS key (SSE-KMS), the IAM user also needs the `kms:GenerateDataKey` and `kms:Decrypt` permissions on that key. Without them, uploads and restores fail even when the S3 permissions are correct.
 * **IAM roles:** External S3 backups use IAM user access keys. Role-based access, such as cross-account role assumption, isn't supported.
