@@ -70,7 +70,7 @@ The table has one row for each system group on each node.
 
 A node that is not a member of a group has no row for it. A node that answered but is a member of no system group is shown as one row with `no system group replicas`.
 
-A row that starts with `ERROR:` means the state could not be read. The text shows the reason, then a message for a human reader. Match on the reason, not on the message, because the message can change between versions.
+A row whose `role` column starts with `ERROR: <reason>` means the state could not be read. The reason is followed by a message for a human reader. Match on the reason, not on the message, because the message can change between versions.
 
 | Reason | Meaning |
 |---|---|
@@ -92,7 +92,7 @@ Below the table, `cluster system-groups` prints one line for each group.
 | `... QUORUM NOT CONFIRMED ...` | The answers do not confirm that a majority follows the leader. This does not mean the group has no quorum: voters that did not answer may still follow the leader. |
 | `... leader's own state not read ...` | The voters are taken from the member with the highest term and the longest log, because the leader did not answer. The counts then depend on that member's view of the configuration. |
 | `CONFLICTING LEADERS in term <n>: ...` | More than one node claims leadership in the same term. RAFT allows one leader per term, so the answers contradict each other. Treat the group as unconfirmed. |
-| `NO LEADER, highest term <n>, leaderless for up to <duration>` | No node reporting the highest term knows a leader. |
+| `NO LEADER, highest term <n>, leaderless for up to <duration>` | No node reporting the highest term knows a leader, or the node they name does not claim leadership. In the second case the rows can show a leader that the summary does not confirm. |
 | `missing voters: <node> <reason>` | Voters whose state is unknown. The reason is `NOT_IN_TOPOLOGY` (the node is not in the physical topology), `NO_RAFT_NODE` (the node answered but runs no RAFT node of the group), or `NOT_READ` (the state could not be read; the error reason follows in parentheses). |
 | `VOTERS UNKNOWN, unread nodes: ...` | The state of the group could not be read on any node, so the voters are unknown. The unread nodes are listed with their error reasons. |
 | `NO REPLICA FOUND: no queried node runs a <group> Raft node` | Nodes answered, but none of them runs a RAFT node of this group. |
@@ -124,11 +124,35 @@ A node that is down but still in the physical topology is shown as a row with `E
 
 ### Using the REST API
 
-Both endpoints return JSON. The cluster endpoint returns a `nodes` list, ordered by node name, with the same data as the table rows, and a `groups` list with one summary for each system group. The summary has the fields `group`, `leader`, `conflictingLeaders`, `term`, `voters`, `votersKnown`, `votersFromLeader`, `votersFollowingLeader`, `missingVoters`, `unreadNodes`, `quorumConfirmed`, and `longestLeaderlessDurationMs`. The node endpoint returns a single entry of the `nodes` list for the node it is sent to. Durations are in milliseconds.
+Both endpoints return JSON. The cluster endpoint returns a `nodes` list, ordered by node name, with the data of the table rows, and a `groups` list with one summary for each system group.
 
 ```bash
 curl http://localhost:10300/management/v1/cluster/system-groups
 ```
+
+Each summary has these fields:
+
+| Field | Description |
+|---|---|
+| `group` | The system group, `CMG` or `METASTORAGE`. |
+| `leader` | Name of the leader of the highest term reported. Absent if the voters are unknown, if no member reporting that term knows a leader, or if the node they name does not claim leadership. |
+| `conflictingLeaders` | Names of the nodes that claim leadership in the highest term, if more than one does. Empty unless the answers contradict each other. |
+| `term` | Highest term reported by any member. `0` if `votersKnown` is `false`. |
+| `voters` | Names of the voting members of the group, from the leader or, if its own state was not read, from the member with the highest term and the longest log. Only the latest configuration counts. Empty if `votersKnown` is `false`. |
+| `votersKnown` | `false` if no member's state of the group could be read. Then `voters` and `missingVoters` are empty. |
+| `votersFromLeader` | `true` if the voters are the peers that the leader itself reported. `false` if there is no leader or its own state was not read. |
+| `votersFollowingLeader` | Number of voters, the leader included, that reported following the leader in its term. `0` if there is no leader. |
+| `missingVoters` | Voters whose state is unknown, each with a `nodeName`, a `reason` (`NOT_IN_TOPOLOGY`, `NO_RAFT_NODE`, or `NOT_READ`), and, for `NOT_READ`, the `error`. Empty if `votersKnown` is `false`. |
+| `unreadNodes` | Empty unless `votersKnown` is `false`. Then it lists the queried nodes whose state could not be read, each with a `nodeName` and an `error`. It can include nodes that are not voters. |
+| `quorumConfirmed` | `true` if the answers confirm that a majority of the voters follows the leader. `false` means the quorum is not confirmed, not that the group has none. |
+| `longestLeaderlessDurationMs` | Longest time, in milliseconds, that any voter whose state was read has not known a leader. |
+
+The node endpoint returns a single entry of the `nodes` list for the node it is sent to. Durations are in milliseconds.
+
+The REST response has some data that the CLI table does not show:
+
+* Each group state in the `nodes` list has a `learners` list, the learners in the latest group configuration the node has seen.
+* Each error object has a `reason` and a `message`. For `LOCK_HELD` only, it also has the `role` of the RAFT node.
 
 The full schemas are in the OpenAPI specification of the management API.
 
