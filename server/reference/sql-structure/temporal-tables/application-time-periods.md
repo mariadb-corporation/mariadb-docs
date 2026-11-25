@@ -278,6 +278,38 @@ ALTER TABLE t2 ADD PERIOD FOR p(d1,d2);
 ERROR 1265 (01000): Data truncated for column 'd1' at row 1
 ```
 
+The same constraint also requires that, in every row, the first column is less than the second. The constraint is named after the period, so an error names the period, and not a constraint you created. It does not appear in `SHOW CREATE TABLE`.
+
+Adding a period fails with `ERROR 4025` if an existing row has a start value that is not less than its end value. Here, the row's start and end are equal:
+
+```sql
+CREATE OR REPLACE TABLE bookings (
+  id INT,
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL
+);
+
+INSERT INTO bookings VALUES (1, '2026-01-10', '2026-01-10');
+
+ALTER TABLE bookings ADD PERIOD FOR booking_period(start_date, end_date);
+ERROR 4025 (23000): CONSTRAINT `booking_period` failed for `test`.`bookings`
+```
+
+This happens, for example, when you add two new date columns to a populated table, and both get the same default value in every row. To fix it, update the data so that the start is less than the end in every row, and then add the period again:
+
+```sql
+UPDATE bookings SET end_date = start_date + INTERVAL 1 DAY;
+
+ALTER TABLE bookings ADD PERIOD FOR booking_period(start_date, end_date);
+```
+
+After the period exists, an `INSERT` or `UPDATE` that breaks the rule fails with the same error:
+
+```sql
+INSERT INTO bookings VALUES (2, '2026-02-10', '2026-02-01');
+ERROR 4025 (23000): CONSTRAINT `booking_period` failed for `test`.`bookings`
+```
+
 ### See Also
 
 * [System-versioned Tables](system-versioned-tables.md)
