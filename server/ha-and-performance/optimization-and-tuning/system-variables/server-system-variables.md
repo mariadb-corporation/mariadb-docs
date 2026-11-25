@@ -1701,7 +1701,7 @@ This raises the cap from systemd's default of 15% of the system's task limit to 
 
 #### `named_pipe`
 
-* Description: On Windows systems, determines whether connections over named pipes are permitted.
+* Description: On Windows systems, determines whether connections over named pipes are permitted. This is separate from the [named\_pipe authentication plugin](../../../reference/plugins/authentication-plugins/authentication-plugin-named-pipe.md), whose startup option is `--plugin-named-pipe`.
 * Command line: `--named-pipe`
 * Scope: Global
 * Dynamic: No

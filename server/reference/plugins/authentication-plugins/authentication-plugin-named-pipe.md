@@ -100,8 +100,8 @@ In this example, a user `wlad` is already logged into the system. Because he has
     * `FORCE` - Enables the plugin. If the plugin cannot be initialized, then the server will fail to start with an error.
     * `FORCE_PLUS_PERMANENT` - Enables the plugin. If the plugin cannot be initialized, then the server will fail to start with an error. In addition, the plugin cannot be uninstalled with [UNINSTALL SONAME](../../sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-soname.md) or [UNINSTALL PLUGIN](../../sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-plugin.md) while the server is running.
   * See [Plugin Overview: Configuring Plugin Activation at Server Startup](../plugin-overview.md#configuring-plugin-activation-at-server-startup) for more information.
-  * There may be ambiguity between this option and the [named\_pipe](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#authentication-plugin-named_pipe) system variable. See [MDEV-19625](https://jira.mariadb.org/browse/MDEV-19625) about that.
-* Command line: `--named-pipe=value`
+  * The plain `--named-pipe` option name is already used by the [named\_pipe](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#named_pipe) system variable, which enables connections over named pipes. The server parses its built-in options first, so `--named-pipe` always means the system variable. To control the plugin, use the `plugin-` prefixed form, `--plugin-named-pipe=value`.
+* Command line: `--plugin-named-pipe=value`
 * Data Type: `enumerated`
 * Default Value: `ON`
 * Valid Values: `OFF`, `ON`, `FORCE`, `FORCE_PLUS_PERMANENT`
