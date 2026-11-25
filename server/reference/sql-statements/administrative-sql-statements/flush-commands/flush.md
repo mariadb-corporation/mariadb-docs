@@ -38,7 +38,22 @@ If a listed table is a view, an error like the following will be produced:
 ERROR 1347 (HY000): 'test.v' is not BASE TABLE
 ```
 
-By default, `FLUSH` statements are written to the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) and will be [replicated](../../../../ha-and-performance/standard-replication/). The `NO_WRITE_TO_BINLOG` keyword (`LOCAL` is an alias) ensures that the statement is not written to the binary log. The different flush options are:
+By default, `FLUSH` statements are written to the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) and will be [replicated](../../../../ha-and-performance/standard-replication/). The `NO_WRITE_TO_BINLOG` keyword (`LOCAL` is an alias) ensures that the statement is not written to the binary log.
+
+The following statements are never written to the binary log, whether or not `NO_WRITE_TO_BINLOG` is used:
+
+* `FLUSH LOGS` without a log type, because it includes the binary log.
+* `FLUSH BINARY LOGS`, including `FLUSH BINARY LOGS DELETE_DOMAIN_ID`.
+* `FLUSH RELAY LOGS`.
+* `FLUSH TABLES WITH READ LOCK`, with or without a table list.
+* [`FLUSH TABLES ... FOR EXPORT`](flush-tables-for-export.md).
+* The deprecated `FLUSH MASTER` and `FLUSH SLAVE`.
+
+{% hint style="info" %}
+The server decides whether to write a `FLUSH` statement to the binary log for the statement as a whole. If a statement combines several options and one of them is in the list above, no part of the statement is written to the binary log. For example, `FLUSH BINARY LOGS, HOSTS` doesn't replicate the `HOSTS` part. To replicate an option, run it in a `FLUSH` statement of its own.
+{% endhint %}
+
+The different flush options are:
 
 | Option                                              | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
