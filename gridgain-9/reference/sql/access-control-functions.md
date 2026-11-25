@@ -32,6 +32,18 @@ Parameters:
 - `auth_type` - type of authentication for the user. Only `plain_password` is available.
 - `pass` - user password.
 
+{% tabs %}
+{% tab title="9.2" %}
+User names are case-sensitive. An unquoted name is converted to upper case, so `CREATE USER user1` creates the user `USER1`. To keep the exact spelling, quote the name: `"user1"`. Use the same spelling to log in, alter, and drop the user.
+
+Users created on 9.1 keep their names after you upgrade to 9.2, usually in lower case, so quote them in SQL: `DROP USER "user1"`. For details, see [Role and User Names After an Upgrade](../../gridgain9-management/upgrade/role-and-user-names.md).
+{% endtab %}
+
+{% tab title="9.1" %}
+User names are case-insensitive: `user1` and `USER1` refer to the same user.
+{% endtab %}
+{% endtabs %}
+
 Examples:
 
 ```sql
@@ -149,6 +161,18 @@ NonTerminal('role_name')
 Parameters:
 
 - `role_name` - the name of the role.
+
+{% tabs %}
+{% tab title="9.2" %}
+Role names are case-sensitive. An unquoted name is converted to upper case, so `CREATE ROLE manager` creates the role `MANAGER`. To refer to the built-in `system` role, quote it: `"system"`.
+
+When you upgrade from 9.1 or earlier, GridGain converts existing role names to upper case, so you can refer to them without quotes. For details, see [Role and User Names After an Upgrade](../../gridgain9-management/upgrade/role-and-user-names.md).
+{% endtab %}
+
+{% tab title="9.1" %}
+Role names are case-insensitive: `manager` and `MANAGER` refer to the same role.
+{% endtab %}
+{% endtabs %}
 
 Examples:
 
