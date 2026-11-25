@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../cluster-hardening.md" %}
-[Cluster Hardening](../cluster-hardening.md)
+{% content-ref url="cluster-hardening.md" %}
+[Cluster Hardening](cluster-hardening.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ Harden a GridGain 8 cluster by preventing SQL injection with parameterized queri
 
 {% columns %}
 {% column %}
-{% content-ref url="../auditing-events.md" %}
-[Auditing](../auditing-events.md)
+{% content-ref url="auditing-events.md" %}
+[Auditing](auditing-events.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -31,8 +31,8 @@ Use GridGain's event-based auditing to track user actions and export event infor
 
 {% columns %}
 {% column %}
-{% content-ref url="../cve.md" %}
-[Security Vulnerabilities (CVE)](../cve.md)
+{% content-ref url="cve.md" %}
+[Security Vulnerabilities (CVE)](cve.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

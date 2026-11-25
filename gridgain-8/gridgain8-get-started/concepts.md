@@ -13,13 +13,13 @@ these can help ease you through coming up to speed with the product.
 ## In-memory Computing
 
 With in-memory computing, processing happens in RAM instead of on disk, utilizing the faster performance inherent in memory architecture.
-For (much) more about GridGain's memory architecture, see [Memory Architecture](../architecture/memory-architecture.md).
+For (much) more about GridGain's memory architecture, see [Memory Architecture](../architecture/storage/memory-architecture.md).
 
 ## Clustering, Servers and Clients
 
 {% include "../.gitbook/includes/gg8-nodes-and-clustering.md" %}
 
-For more information about clustering, see [Clustering](../architecture/clustering.md).
+For more information about clustering, see [Clustering](../architecture/cluster/clustering.md).
 
 ## Thick vs. Thin Clients
 
@@ -34,7 +34,7 @@ GridGain. And both terms are valid because the concepts of a SQL table and a key
 representations of the same (internal) data structure. You can model your applications and, consequently,
 access the data using either the key-value APIs or SQL statements, or both.
 
-Check this [documentation section](../architecture/data-modeling/introduction.md#key-value-cache-vs.-sql-table)
+Check this [documentation section](../architecture/data-distribution/introduction.md#key-value-cache-vs.-sql-table)
 for a thorough explanation, but here let us share more insights on why two terms were coined in GridGain instead of
 one. It was driven solely by product evolution. Originally (a long time before Apache Ignite and Apache Spark), GridGain
 was used as a computation platform that supported map-reduce paradigm at scale and in memory (known as
@@ -45,7 +45,7 @@ cache that supported both the key-value and previously existing Compute Grid API
 ASF under the new project known as Apache Ignite, GridGain supported the first SQL commands that extended existing
 capabilities of key-value caches. Later, Apache Ignite community extended SQL support introducing classical DDL and
 DML commands pulling in the concept of relational **tables**. This led to co-existence of two terms and two different
-[data modeling](../architecture/data-modeling/introduction.md) approaches in GridGain and Ignite.
+[data modeling](../architecture/data-distribution/introduction.md) approaches in GridGain and Ignite.
 
 Will this situation last forever? Certainly not.  As part of the product evolution,
 both Apache Ignite community and GridGain are working on a next version of the APIs that will amalgamate the concepts of
@@ -80,7 +80,7 @@ instance, the replicated mode is advantageous for dictionary-like tables that ar
 frequently but used in many operations like SQL queries with JOINs.
 
 For more information about partitioning and replication, see
-[Data Partitioning](../architecture/data-modeling/data-partitioning.md) page.
+[Data Partitioning](../architecture/data-distribution/data-partitioning.md) page.
 
 ## Affinity Colocation and Colocated Computations
 
@@ -96,8 +96,8 @@ foreign key ensures joins can happen on each node with minimal network traffic.
 Once the data is colocated, not only complex SQL queries with JOINs will perform much better but advanced tasks and
 compute logic you want to perform over a specific data set will be sent to the nodes where the required data is located  and only the results of the computations are sent back.
 
-Refer to [Affinity Colocation](../architecture/data-modeling/affinity-colocation.md)
-and [Colocating Computations with Data](../gridgain8-development/colocating-computations.md) articles for more details.
+Refer to [Affinity Colocation](../architecture/data-distribution/affinity-colocation.md)
+and [Colocating Computations with Data](../gridgain8-development/distributed-computing-and-services/colocating-computations.md) articles for more details.
 
 ## GridGain as an In-Memory Data Grid
 

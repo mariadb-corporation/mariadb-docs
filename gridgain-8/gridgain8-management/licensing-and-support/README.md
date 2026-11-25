@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../licensing.md" %}
-[Licensing](../licensing.md)
+{% content-ref url="licensing.md" %}
+[Licensing](licensing.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ How to specify, switch, update, and manage GridGain Enterprise and Ultimate Edit
 
 {% columns %}
 {% column %}
-{% content-ref url="../versioning-and-support-lifecycle.md" %}
-[Versioning and Support Lifecycle](../versioning-and-support-lifecycle.md)
+{% content-ref url="versioning-and-support-lifecycle.md" %}
+[Versioning and Support Lifecycle](versioning-and-support-lifecycle.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -31,8 +31,8 @@ GridGain's Major.Minor.Maintenance versioning convention, the standard support l
 
 {% columns %}
 {% column %}
-{% content-ref url="../software-identification.md" %}
-[Software Identification (SWID)](../software-identification.md)
+{% content-ref url="software-identification.md" %}
+[Software Identification (SWID)](software-identification.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

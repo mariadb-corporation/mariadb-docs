@@ -25,12 +25,12 @@ GridGain 8 and GridGain 9 share the same architecture at the level of ideas. Wha
 
 | Concept | GridGain 8 | Read more |
 | --- | --- | --- |
-| Cluster membership and lifecycle | Nodes find each other through node discovery. A cluster must be activated before it runs workloads, and the baseline topology defines the nodes that store persistent data. | [Clustering](clustering.md), [Baseline Topology](baseline-topology.md) |
-| Memory and persistence | A multi-tiered, page-based memory architecture organized into data regions, with Native Persistence (checkpointing and write-ahead log) for durability. | [Memory Architecture](memory-architecture.md), [Native Persistence](storage/native-persistence.md) |
-| Partitioning | The affinity function maps keys to partitions using rendezvous hashing. Caches run in partitioned or replicated mode. | [Data Partitioning](data-modeling/data-partitioning.md) |
-| Copies and consistency | Backup partitions hold copies of each partition. Partition map exchange (PME) and rebalancing redistribute partitions when the topology changes. | [Backup Partitions](data-modeling/data-partitioning.md#backup-partitions), [Data Rebalancing](rebalancing/data-rebalancing.md) |
-| Colocation | The affinity key. | [Affinity Colocation](data-modeling/affinity-colocation.md) |
-| SQL engine | H2 parses and optimizes queries and generates execution plans. | [Introduction to SQL](../gridgain8-development/sql/sql-introduction.md) |
+| Cluster membership and lifecycle | Nodes find each other through node discovery. A cluster must be activated before it runs workloads, and the baseline topology defines the nodes that store persistent data. | [Clustering](cluster/clustering.md), [Baseline Topology](cluster/baseline-topology.md) |
+| Memory and persistence | A multi-tiered, page-based memory architecture organized into data regions, with Native Persistence (checkpointing and write-ahead log) for durability. | [Memory Architecture](storage/memory-architecture.md), [Native Persistence](storage/native-persistence.md) |
+| Partitioning | The affinity function maps keys to partitions using rendezvous hashing. Caches run in partitioned or replicated mode. | [Data Partitioning](data-distribution/data-partitioning.md) |
+| Copies and consistency | Backup partitions hold copies of each partition. Partition map exchange (PME) and rebalancing redistribute partitions when the topology changes. | [Backup Partitions](data-distribution/data-partitioning.md#backup-partitions), [Data Rebalancing](replication-and-consistency/data-rebalancing.md) |
+| Colocation | The affinity key. | [Affinity Colocation](data-distribution/affinity-colocation.md) |
+| SQL engine | H2 parses and optimizes queries and generates execution plans. | [Introduction to SQL](../gridgain8-development/accessing-data/sql/sql-introduction.md) |
 
 ## Architecture Topics
 

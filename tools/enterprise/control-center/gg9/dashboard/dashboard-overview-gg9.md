@@ -131,7 +131,7 @@ To interactively zoom into the details of a chart:
 You can use dashboard parameters to filter the data shown in widgets. Three types of filters are available:
 
 * **Nodes** – Filters the display to selected node(s). Widgets still collect metrics according to their configuration (e.g., all nodes), but only show data for the selected ones.
-* **Tables** – Filters all replications containing the selected table(s) and display the associated nodes if [Data Center Replication](../dcr/dcr.md) is configured and at least one replication is running.
+* **Tables** – Filters all replications containing the selected table(s) and display the associated nodes if [Data Center Replication](../dcr.md) is configured and at least one replication is running.
 * **Replications** – Filters by replication name to displays metrics for the topology nodes linked to this replication.
 
 Each widget collects metrics according to its configuration. This does not change when you apply node filtering. What does change is what the widget shows in the UI. For example, if a widget is configured to collect a metric for all nodes in the cluster, and the selected parameter filters the widget to node A, the widget will keep collecting that metric for all nodes, but it will display the data only for node A.

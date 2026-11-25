@@ -12,8 +12,8 @@ This section is dedicated to managing your Control Center installation, includin
 [architecture-overview.md](architecture-overview.md)
 {% endcontent-ref %}
 
-{% content-ref url="../installation/" %}
-[installation](../installation/)
+{% content-ref url="installation/" %}
+[installation](installation/)
 {% endcontent-ref %}
 
 {% content-ref url="configuration.md" %}

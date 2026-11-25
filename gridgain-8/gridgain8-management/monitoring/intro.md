@@ -20,7 +20,7 @@ The basic monitoring task in GridGain involves metrics. There are several approa
 {% hint style="info" %}
 **Monitoring vs Auditing**
 
-While getting Auditing/Event information is not covered in this chapter, it is often used in conjunction with metrics and monitoring. For more information on Auditing, see [Security and Auditing](../../security/auditing-events.md).
+While getting Auditing/Event information is not covered in this chapter, it is often used in conjunction with metrics and monitoring. For more information on Auditing, see [Security and Auditing](../../security/hardening-and-compliance/auditing-events.md).
 {% endhint %}
 
 ## What to Monitor

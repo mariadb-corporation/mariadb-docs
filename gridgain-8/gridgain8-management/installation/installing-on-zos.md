@@ -53,7 +53,7 @@ This section explains system requirements for running GridGain, how to install G
    ```
 8. (Optional) Enable any of the [modules](../../gridgain8-development/project-setup.md#enabling-modules) you might want to use.
 9. Enable the z/OS Enhanced ASCII support that allows tools to recognize the `chtag` commands by specifying `_BPXK_AUTOCVT=ON`. For more details, click [here](https://www.ibm.com/docs/en/zos/2.4.0?topic=ascii-setting-up-enhanced).
-10. (Optional) You can upload your own license file using the [instructions](../licensing.md) or the following command:
+10. (Optional) You can upload your own license file using the [instructions](../licensing-and-support/licensing.md) or the following command:
 
     ```shell
     cp <YOUR_LICENSE_FILE> $IGNITE_HOME/gridgain-license.xml
@@ -61,7 +61,7 @@ This section explains system requirements for running GridGain, how to install G
 
 ## Configuring GridGain
 
-- Please refer to [configuration pages](../cluster-configuration/understanding-configuration.md) to configure your GridGain nodes. The configuration file provided with GridGain distribution will start an in-memory node with large data region, which should form a single-node cluster after start-up. You may need to tune the size of [default data region](../../gridgain8-development/memory-configuration/data-regions.md#configuring-default-data-region) to adjust resource usage.
+- Please refer to [configuration pages](../cluster-configuration/understanding-configuration.md) to configure your GridGain nodes. The configuration file provided with GridGain distribution will start an in-memory node with large data region, which should form a single-node cluster after start-up. You may need to tune the size of [default data region](../../gridgain8-development/caches-and-memory/memory-configuration/data-regions.md#configuring-default-data-region) to adjust resource usage.
 - Most text files are provided in native `EBCDIC 1047` code page. However, some files are required to be in `ASCII`-derived encoding, notably, configuration XML files. If you need to view or edit any of those, consider tagging them using `chtag` command, using the following command as reference:
 
   ```shell
@@ -72,10 +72,10 @@ This section explains system requirements for running GridGain, how to install G
 
 ## Running GridGain
 
-- Set the `MEMLIMIT` parameter. The parameter defines the limit on memory for a single process. Set it to a value that is larger than the RAM memory required for your GridGain nodes, including Heap and Off-Heap [data regions](../../gridgain8-development/memory-configuration/data-regions.md).
+- Set the `MEMLIMIT` parameter. The parameter defines the limit on memory for a single process. Set it to a value that is larger than the RAM memory required for your GridGain nodes, including Heap and Off-Heap [data regions](../../gridgain8-development/caches-and-memory/memory-configuration/data-regions.md).
 - We recommend to always specify `-Dfile.encoding=UTF-8` JVM argument. You do not need to specify it if you start GridGain by running `ignite.sh`. However, if you start nodes from custom code, add it to the startup parameters of your application.
 - If you are going to use the [native persistence](../../architecture/storage/native-persistence.md) feature, set the `IGNITE_WAL_MMAP` system property (or environment variable) to `false`, for example, by adding `-DIGNITE_WAL_MMAP=false` JVM argument. You do not need to specify it if you start GridGain by running `ignite.sh`.
-- Configure [static discovery](../clustering/tcp-ip-discovery.md#static-ip-finder) instead of the default multicast option. Specify the `TcpDiscoverySpi.localAddress` property and the `IgniteConfiguration.localHost` property with the preferred IP address for the current host. You do not need to specify it if you start GridGain by using provided `config/default-config.xml`.
+- Configure [static discovery](../cluster-configuration/clustering/tcp-ip-discovery.md#static-ip-finder) instead of the default multicast option. Specify the `TcpDiscoverySpi.localAddress` property and the `IgniteConfiguration.localHost` property with the preferred IP address for the current host. You do not need to specify it if you start GridGain by using provided `config/default-config.xml`.
 - If you are going to use [log4j](../cluster-configuration/logging.md#using-log4j) for logging, you will need to specify charset/encoding of file appenders as `IBM-1047` in Log2J/Log4J2 configuration. Please use provided `config/ignite-log4j.xml` and `config/ignite-log4j2.xml` as reference.
 
 {% hint style="info" %}

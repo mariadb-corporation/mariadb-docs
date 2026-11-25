@@ -17,8 +17,8 @@ GridGain 8 provides a range of clients and drivers so your applications can conn
 [.NET-Specific Capabilities](net-specific/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="cpp-specific/cpp-platform-interoperability.md" %}
-[C++-Specific Interoperability](cpp-specific/cpp-platform-interoperability.md)
+{% content-ref url="cpp-platform-interoperability.md" %}
+[C++-Specific Interoperability](cpp-platform-interoperability.md)
 {% endcontent-ref %}
 
 {% content-ref url="sql/jdbc/README.md" %}

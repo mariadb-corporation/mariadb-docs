@@ -17,7 +17,7 @@ This guide will show you how to configure and use secondary storage for analytic
 Before you begin, ensure you have:
 
 - A license with secondary storage add-on;
-- Basic understanding of [distribution zones](../architecture/storage/distribution-zones.md);
+- Basic understanding of [distribution zones](../architecture/data-distribution/distribution-zones.md);
 - Basic understanding of [storage profiles](../architecture/storage/storage-profiles.md).
 
 ## Configuring Secondary Storage

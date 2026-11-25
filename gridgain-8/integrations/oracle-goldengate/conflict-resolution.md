@@ -5,7 +5,7 @@ description: >-
 
 # GoldenGate Conflicts Resolution
 
-When the cache is updated via the GoldenGate and GridGain cache API, you can choose to proceed with the update, retain the old value, or generate some other value by merging old and new values. To achieve this, GridGain offers [Conflicts Resolution](../../gridgain8-management/conflict-resolution.md).
+When the cache is updated via the GoldenGate and GridGain cache API, you can choose to proceed with the update, retain the old value, or generate some other value by merging old and new values. To achieve this, GridGain offers [Conflicts Resolution](../../gridgain8-management/backup-and-replication/conflict-resolution.md).
 
 For using conflicts resolution for cache operations and `Data Streamer`, you need to use the `GridGain.cache(String cacheName, byte dataCenterId)` and `GridGain.dataStreamer(String cacheName, byte dataCenterId)` methods. It is expected that the data center ID will be unique for all topologies participating in data center replication, and same for all nodes that belong to the given topology.
 

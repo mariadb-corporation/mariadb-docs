@@ -14,7 +14,7 @@ This section walks you through all data definition language (DDL) commands suppo
 Creates a new table.
 
 {% hint style="info" %}
-This can also be done via the [Java API](../../gridgain9-development/tables-from-java-classes.md).
+This can also be done via the [Java API](../../gridgain9-development/accessing-data/tables-from-java-classes.md).
 {% endhint %}
 
 ```bnf
@@ -52,7 +52,7 @@ Diagram(Start({type:'complex'}),Optional(Sequence(Terminal('SECONDARY'),Terminal
 - `WITH` - defines the list of additional table parameters. The following parameters are supported:
   - `min stale rows` - number of updates since the last query plan update required to automatically recreate query execution plan. Overrides `ignite.sql.createTable.minStaleRowsCount`. Default value is `500`.
   - `stale rows fraction` - fraction of the table that must change for query execution plan to be recreated automatically. Overrides `ignite.sql.createTable.staleRowsFraction`. Default value is `0.2`.
-  - `row level security` - enables (`ON`) or disables (`OFF`) [row-level security](../../security/row-level-security.md) on the table. If omitted, row-level security is disabled. This is equivalent to creating the table and then running `ALTER TABLE ... SET ROW LEVEL SECURITY ON`. Available only in GridGain 9 Enterprise and Ultimate editions; setting it requires the `MANAGE_RLS` privilege on the table.
+  - `row level security` - enables (`ON`) or disables (`OFF`) [row-level security](../../security/authentication-and-authorization/row-level-security.md) on the table. If omitted, row-level security is disabled. This is equivalent to creating the table and then running `ALTER TABLE ... SET ROW LEVEL SECURITY ON`. Available only in GridGain 9 Enterprise and Ultimate editions; setting it requires the `MANAGE_RLS` privilege on the table.
 
 {% hint style="info" %}
 Secondary storage profiles and distribution zones are only available as part of the HTAP add-on license.
@@ -188,7 +188,7 @@ Reads the archived data, explicitly using the secondary storage access hint:
 SELECT * FROM Person /*+ use_secondary_storage */;
 ```
 
-Creates a Person table with [row-level security](../../security/row-level-security.md) enabled. The property can be combined with other table properties:
+Creates a Person table with [row-level security](../../security/authentication-and-authorization/row-level-security.md) enabled. The property can be combined with other table properties:
 
 ```sql
 CREATE TABLE IF NOT EXISTS Person (
@@ -510,7 +510,7 @@ ALTER TABLE Person SET min stale rows 1000;
 
 ### ALTER TABLE IF EXISTS table SET ROW LEVEL SECURITY
 
-Enables or disables row-level security on an existing table. When enabled, only rows permitted by the applicable policies are visible to a user. If no policy applies, the user sees no rows. For a conceptual overview, see [Row-Level Security](../../security/row-level-security.md).
+Enables or disables row-level security on an existing table. When enabled, only rows permitted by the applicable policies are visible to a user. If no policy applies, the user sees no rows. For a conceptual overview, see [Row-Level Security](../../security/authentication-and-authorization/row-level-security.md).
 
 {% hint style="info" %}
 Row-level security is available only in GridGain 9 Enterprise and Ultimate editions. Enabling or disabling it requires the `MANAGE_RLS` privilege on the target table.
@@ -539,10 +539,10 @@ ALTER TABLE employees SET ROW LEVEL SECURITY OFF;
 
 ## DROP TABLE
 
-The `DROP TABLE` command drops an existing table. The table will be marked for deletion and will be removed by garbage collection after the [low watermark](../../architecture/storage/data-partitioning.md#version-storage) point is reached. Until the data is removed, it will be available to [read-only transactions](../../gridgain9-development/transactions.md#read-only-transactions) that check the time before the table was marked for deletion.
+The `DROP TABLE` command drops an existing table. The table will be marked for deletion and will be removed by garbage collection after the [low watermark](../../architecture/data-distribution/data-partitioning.md#version-storage) point is reached. Until the data is removed, it will be available to [read-only transactions](../../gridgain9-development/accessing-data/transactions.md#read-only-transactions) that check the time before the table was marked for deletion.
 
 {% hint style="info" %}
-This can also be done via the [Java API](../../gridgain9-development/tables-from-java-classes.md).
+This can also be done via the [Java API](../../gridgain9-development/accessing-data/tables-from-java-classes.md).
 {% endhint %}
 
 ```bnf
@@ -574,7 +574,7 @@ DROP TABLE IF EXISTS "Person";
 Creates a new index.
 
 {% hint style="info" %}
-This can also be done via the [Java API](../../gridgain9-development/tables-from-java-classes.md).
+This can also be done via the [Java API](../../gridgain9-development/accessing-data/tables-from-java-classes.md).
 {% endhint %}
 
 When you create a new index, it will start building only after all transactions started before the index creation had been completed. Index build will not start if there are any “hung“ transactions in the logical topology of the cluster.
@@ -628,7 +628,7 @@ CREATE INDEX department_city_idx ON Person USING SORTED (age ASC, city_id DESC);
 Drops an index.
 
 {% hint style="info" %}
-This can also be done via the [Java API](../../gridgain9-development/tables-from-java-classes.md).
+This can also be done via the [Java API](../../gridgain9-development/accessing-data/tables-from-java-classes.md).
 {% endhint %}
 
 When you drop an index, it stays in the STOPPING status until all transactions started before the DROP INDEX command had been completed (even those that do not affect any of the tables for which the index is being dropped).
@@ -702,7 +702,7 @@ Diagram(Terminal('DROP SCHEMA'),Optional(Terminal('IF EXISTS')),NonTerminal('nam
 Caches must use the storage profile or distribution zone with `aimem` storage engine.
 {% endhint %}
 
-Creates a new [cache](../../gridgain9-development/caches.md).
+Creates a new [cache](../../gridgain9-development/caches-and-memory/caches.md).
 
 ```bnf
 CREATE CACHE [IF NOT EXISTS] cache_name
@@ -725,7 +725,7 @@ Diagram(Start({type:'complex'}),Optional(Sequence(Optional('PRIMARY'),Terminal('
 - `COLOCATE BY` - colocation key. The key can be composite. Primary key must include colocation key. Was `affinity_key` in GridGain 2.x.
 - `ZONE` - sets the [Distribution Zone](distribution-zones.md). Can be specified as a case-sensitive string or case-insensitive identifier. Can be preceded by `PRIMARY` to signify the primary distribution zone.
 - `STORAGE PROFILE` - sets the [storage profile](../../architecture/storage/storage-profiles.md) that will be used to store the table. Must be specified as a case-sensitive string. Can be preceded by `PRIMARY` to signify the primary storage profile.
-- `WRITE MODE` - configures if the data is written to [external store](../../gridgain9-development/caches.md#caches-as-external-storage). Default value: `SYNC`. Possible values:
+- `WRITE MODE` - configures if the data is written to [external store](../../gridgain9-development/caches-and-memory/caches.md#caches-as-external-storage). Default value: `SYNC`. Possible values:
   - `SYNC` - External Cache store writes are synchronous. KeyValueView operations won't return until external cache store write is complete.
   - `ASYNC` - External Cache store writes are asynchronous and performed in background. KeyValueView operations may return before external cache store write completes.
 - `EXPIRE AT` - allows specifying a column with a point in time when a record should be deleted.
@@ -748,7 +748,7 @@ CREATE CACHE Accounts (
 
 ## DROP CACHE
 
-Drops an existing cache. The cache will be marked for deletion and will be removed by garbage collection after the [low watermark](../../architecture/storage/data-partitioning.md#version-storage) point is reached.
+Drops an existing cache. The cache will be marked for deletion and will be removed by garbage collection after the [low watermark](../../architecture/data-distribution/data-partitioning.md#version-storage) point is reached.
 
 ```bnf
 DROP CACHE [IF EXISTS] cache_name

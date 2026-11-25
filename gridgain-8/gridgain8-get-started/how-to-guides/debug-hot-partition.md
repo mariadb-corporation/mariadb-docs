@@ -303,7 +303,7 @@ CacheConfiguration<?, ?> cfg = new CacheConfiguration<>("genres")
 
 ### Fix 6: Near Cache
 
-For a read-heavy hot key, a client-side near cache absorbs the repeated reads. See [Near Caches](../../gridgain8-development/near-caches.md) for configuration.
+For a read-heavy hot key, a client-side near cache absorbs the repeated reads. See [Near Caches](../../gridgain8-development/caches-and-memory/near-caches.md) for configuration.
 
 ## Cause-to-fix Mapping
 

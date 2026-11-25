@@ -40,7 +40,7 @@ spec:
       }
 ```
 
-For further details on GridGain authentication providers and role definitions, see [Authentication](../../security/authentication.md).
+For further details on GridGain authentication providers and role definitions, see [Authentication](../../security/authentication-and-authorization/authentication.md).
 
 ## SSL/TLS
 
@@ -152,7 +152,7 @@ spec:
       }
 ```
 
-For more details on GridGain SSL/TLS configuration, see [SSL/TLS documentation](../../security/ssl-tls.md).
+For more details on GridGain SSL/TLS configuration, see [SSL/TLS documentation](../../security/encryption-and-transport/ssl-tls.md).
 
 ## Pod Security Context
 

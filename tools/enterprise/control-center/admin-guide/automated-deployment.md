@@ -287,7 +287,7 @@ Supported notification types:
 - `IN_APP` - Send alerts as in-app notifications to Control Center users
 
 {% hint style="info" %}
-You can manage `IN_APP` channels only through the REST API. For details, see how to configure in-app notifications in [GridGain 8](../gg8/alerting/alerting.md#configure-in-app-notifications) and [GridGain 9](../gg9/alerting/alerting.md#configure-in-app-notifications).
+You can manage `IN_APP` channels only through the REST API. For details, see how to configure in-app notifications in [GridGain 8](../gg8/alerting.md#configure-in-app-notifications) and [GridGain 9](../gg9/alerting.md#configure-in-app-notifications).
 {% endhint %}
 
 ### Alert Configurations

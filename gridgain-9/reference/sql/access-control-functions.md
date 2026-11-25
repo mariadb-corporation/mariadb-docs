@@ -255,7 +255,7 @@ GRANT PRIVILEGES ALL TO role2;
 ```
 
 {% hint style="info" %}
-The `ON` clause is optional. Without it, the privilege applies to all objects in the cluster: `GRANT PRIVILEGES CREATE_TABLE TO role1` allows `role1` to create tables in every schema. In the `ON` clause, a single name (for example, `PUBLIC`) targets a schema, and the privilege covers all current and future objects in that schema. A schema-qualified name (for example, `PUBLIC.MY_TABLE`) targets a single object. Unquoted names are folded to upper case; quote individual parts to preserve case, for example `"public"."MyTable"`. This does not work for a schema on its own: privileges granted on a schema whose name requires quoting are not applied correctly. See [Schema-level Grants](../../security/user-permissions-and-roles.md#schema-level-grants).
+The `ON` clause is optional. Without it, the privilege applies to all objects in the cluster: `GRANT PRIVILEGES CREATE_TABLE TO role1` allows `role1` to create tables in every schema. In the `ON` clause, a single name (for example, `PUBLIC`) targets a schema, and the privilege covers all current and future objects in that schema. A schema-qualified name (for example, `PUBLIC.MY_TABLE`) targets a single object. Unquoted names are folded to upper case; quote individual parts to preserve case, for example `"public"."MyTable"`. This does not work for a schema on its own: privileges granted on a schema whose name requires quoting are not applied correctly. See [Schema-level Grants](../../security/authentication-and-authorization/user-permissions-and-roles.md#schema-level-grants).
 {% endhint %}
 
 ### GRANT TO user
@@ -374,7 +374,7 @@ SHOW GRANTS FOR role1;
 Creates a row-level security policy on a table. The policy grants the listed roles visibility
 of the rows for which the `USING` expression evaluates to `TRUE`. The policy is created in
 the schema of the target table, and its name must be unique within that schema.
-For a conceptual overview, see [Row-Level Security](../../security/row-level-security.md).
+For a conceptual overview, see [Row-Level Security](../../security/authentication-and-authorization/row-level-security.md).
 
 ```bnf
 CREATE POLICY [IF NOT EXISTS] policy_name ON table_name

@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../table-api.md" %}
-[Table API](../table-api.md)
+{% content-ref url="table-api.md" %}
+[Table API](table-api.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ Execute table operations in GridGain 9 with RecordView and KeyValueView, map use
 
 {% columns %}
 {% column %}
-{% content-ref url="../tables-from-java-classes.md" %}
-[Tables from Java Classes](../tables-from-java-classes.md)
+{% content-ref url="tables-from-java-classes.md" %}
+[Tables from Java Classes](tables-from-java-classes.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -31,8 +31,8 @@ Create tables, zones, and indexes directly from Java POJOs using the GridGain 9 
 
 {% columns %}
 {% column %}
-{% content-ref url="../sql/" %}
-[Working with SQL](../sql/)
+{% content-ref url="sql/" %}
+[Working with SQL](sql/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -43,8 +43,8 @@ Work with SQL in GridGain 9 through the Apache Calcite-based SQL engine, the Jav
 
 {% columns %}
 {% column %}
-{% content-ref url="../transactions.md" %}
-[Transactions](../transactions.md)
+{% content-ref url="transactions.md" %}
+[Transactions](transactions.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -55,8 +55,8 @@ Perform explicit and implicit transactions in GridGain 9 — lifecycle, isolatio
 
 {% columns %}
 {% column %}
-{% content-ref url="../continuous-queries.md" %}
-[Continuous Queries](../continuous-queries.md)
+{% content-ref url="continuous-queries.md" %}
+[Continuous Queries](continuous-queries.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -67,8 +67,8 @@ Monitor data modifications in a GridGain 9 table with continuous queries — sub
 
 {% columns %}
 {% column %}
-{% content-ref url="../data-streaming.md" %}
-[Data Streaming](../data-streaming.md)
+{% content-ref url="data-streaming.md" %}
+[Data Streaming](data-streaming.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -79,8 +79,8 @@ Load large volumes of data into a GridGain 9 cluster with the Data Streamer API,
 
 {% columns %}
 {% column %}
-{% content-ref url="../data-archiving.md" %}
-[Data Archiving](../data-archiving.md)
+{% content-ref url="data-archiving.md" %}
+[Data Archiving](data-archiving.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -91,8 +91,8 @@ How data archiving in GridGain 9 removes aged data from primary storage after mo
 
 {% columns %}
 {% column %}
-{% content-ref url="../rest-api.md" %}
-[Using the REST API](../rest-api.md)
+{% content-ref url="rest-api.md" %}
+[Using the REST API](rest-api.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

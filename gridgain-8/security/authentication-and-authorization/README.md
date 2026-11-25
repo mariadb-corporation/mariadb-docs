@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../authentication.md" %}
-[Authentication](../authentication.md)
+{% content-ref url="authentication.md" %}
+[Authentication](authentication.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ Configure authentication for a GridGain cluster: Ignite passcode, GridGain passc
 
 {% columns %}
 {% column %}
-{% content-ref url="../authorization-permissions.md" %}
-[Authorization and Permissions](../authorization-permissions.md)
+{% content-ref url="authorization-permissions.md" %}
+[Authorization and Permissions](authorization-permissions.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -31,8 +31,8 @@ GridGain authorization: the permission string format, the defaultAllow property,
 
 {% columns %}
 {% column %}
-{% content-ref url="../custom-authenticators.md" %}
-[Implementing Custom Authenticator](../custom-authenticators.md)
+{% content-ref url="custom-authenticators.md" %}
+[Implementing Custom Authenticator](custom-authenticators.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -43,8 +43,8 @@ Implement a custom GridGain authenticator, illustrated with a file-based ACL pro
 
 {% columns %}
 {% column %}
-{% content-ref url="../multi-tenancy.md" %}
-[Multi-Tenancy](../multi-tenancy.md)
+{% content-ref url="multi-tenancy.md" %}
+[Multi-Tenancy](multi-tenancy.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

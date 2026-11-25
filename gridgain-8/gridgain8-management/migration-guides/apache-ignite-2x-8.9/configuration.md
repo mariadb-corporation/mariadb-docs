@@ -193,7 +193,7 @@ Remove the following properties from your startup configuration when migrating:
 | Property | Reason it is unsupported | GridGain alternative |
 |---|---|---|
 | `IGNITE_CALCITE_EXEC_IN_BUFFER_SIZE`<br>`IGNITE_CALCITE_EXEC_IO_BATCH_CNT`<br>`IGNITE_CALCITE_EXEC_IO_BATCH_SIZE`<br>`IGNITE_CALCITE_EXEC_MODIFY_BATCH_SIZE`<br>`IGNITE_CALCITE_REL_JSON_PRETTY_PRINT` | The GridGain SQL engine is H2-based; Calcite is not available. | See [SQL Changes](apis-and-clients.md#sql-changes). |
-| `IGNITE_SNAPSHOT_SEQUENTIAL_WRITE` | The GridGain snapshot subsystem differs from Apache Ignite. | Use [GridGain snapshots](../../snapshots/snapshots-and-recovery.md). |
+| `IGNITE_SNAPSHOT_SEQUENTIAL_WRITE` | The GridGain snapshot subsystem differs from Apache Ignite. | Use [GridGain snapshots](../../backup-and-replication/snapshots/snapshots-and-recovery.md). |
 | `IGNITE_PERF_STAT_BUFFER_SIZE`<br>`IGNITE_PERF_STAT_CACHED_STRINGS_THRESHOLD`<br>`IGNITE_PERF_STAT_FILE_MAX_SIZE`<br>`IGNITE_PERF_STAT_FLUSH_SIZE` | The Performance Statistics subsystem is not implemented in GridGain. | Use [GridGain metrics and monitoring](../../monitoring/intro.md). |
 | `IGNITE_ALLOW_MIXED_CACHE_GROUPS` | Mixed cache groups are not available in GridGain. |  |
 | `IGNITE_ENABLE_OBJECT_INPUT_FILTER_AUTOCONFIGURATION` | Object input filter auto-configuration is not available in GridGain. |  |
@@ -226,7 +226,7 @@ After the first GridGain node starts, run two checks:
 * *Look at the logs.* A topology-validation or handshake error mentioning `IGNITE_BINARY_SORT_OBJECT_FIELDS` means a server or client is running with a different value.
 * *Smoke-test a known key.* Run a key-based `get` against a row you know exists. If it returns nothing while `SELECT` over the same row succeeds, GridGain is using a different value than what is on disk.
 
-For background, see [Working with Binary Objects](../../../gridgain8-development/key-value-api/binary-objects.md).
+For background, see [Working with Binary Objects](../../../gridgain8-development/accessing-data/key-value-api/binary-objects.md).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

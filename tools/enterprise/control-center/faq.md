@@ -142,7 +142,7 @@ Control Center monitors Tracing and Compute activity of your cluster; it imposes
 - Soft limit: When the number or Tracing or Compute messages in the corresponding queue exceeds the "soft" threshold (by default, 200), Control Center attempts to automatically reduce message submission rate for your cluster.
 - Hard limit: When the number or Tracing or Compute messages in the corresponding queue exceeds the "hard" threshold (by default, 1000), your cluster enters the "limited" state wherein no new Tracing or Compute messages are added to the queues. In all other respects, your cluster remains active and functional. By default, the limited state (a.k.a., "ban") lasts 3 minutes. After that, Control Center checks the status of the Tracing and Compute queues. If it finds that the number of messages diminished below the threshold, the cluster resumes its normal operation. If the number of messages is still above the threshold, the cluster remains in the limited state for another 3 minutes.
 
-To preclude your cluster from entering the limited state, [reduce the Tracing percentage](gg8/tracing/tracing.md) for one or more scopes. If this does not help, contact our support.
+To preclude your cluster from entering the limited state, [reduce the Tracing percentage](gg8/tracing.md) for one or more scopes. If this does not help, contact our support.
 
 You can override the default cluster activity thresholds:
 

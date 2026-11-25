@@ -183,7 +183,7 @@ Disable data region metrics for every region you do not need the metrics for.
 
 Data region metrics can be disabled in two ways:
 
-* in the [configuration of the region](../../gridgain8-development/memory-configuration/data-regions.md)
+* in the [configuration of the region](../../gridgain8-development/caches-and-memory/memory-configuration/data-regions.md)
 * via JMX Beans
 
 The following example illustrates how to enable metrics for the default data region and one custom data region.

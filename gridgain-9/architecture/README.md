@@ -9,7 +9,7 @@ icon: house-blank
 
 This section explains how GridGain 9 works internally — the concepts you need to reason about performance, availability, and data placement. It is background reading rather than task instructions; for operational procedures, see [Cluster Management](../gridgain9-management/README.md).
 
-Start with [Cluster Architecture](cluster-architecture.md) for an end-to-end overview of the node components and how a request flows through the system, then explore the individual topics below.
+Start with [Cluster Architecture](cluster/cluster-architecture.md) for an end-to-end overview of the node components and how a request flows through the system, then explore the individual topics below.
 
 ## The Big Picture
 
@@ -27,12 +27,12 @@ GridGain 8 and GridGain 9 share the same architecture at the level of ideas. Wha
 
 | Concept | GridGain 9 | Read more |
 | --- | --- | --- |
-| Cluster membership and lifecycle | A new cluster is initialized once with `cluster init`. The cluster management group (CMG) and the metastorage are RAFT groups that manage topology and cluster metadata. | [Cluster Lifecycle](cluster-lifecycle.md), [Cluster Fault Tolerance](cluster-fault-tolerance.md) |
+| Cluster membership and lifecycle | A new cluster is initialized once with `cluster init`. The cluster management group (CMG) and the metastorage are RAFT groups that manage topology and cluster metadata. | [Cluster Lifecycle](cluster/cluster-lifecycle.md), [Cluster Fault Tolerance](cluster/cluster-fault-tolerance.md) |
 | Memory and persistence | Storage engines, selected through storage profiles: aimem (in-memory page memory), aipersist (persistent page memory), RocksDB, and columnar storage. | [Storage Engines](storage/engines/README.md), [Storage Profiles](storage/storage-profiles.md) |
-| Partitioning | Each table belongs to a distribution zone that sets its number of partitions. A hash of the colocation key selects the partition, and the Fair distribution algorithm assigns partitions to nodes. | [Data Partitioning](storage/data-partitioning.md), [Distribution Zones](storage/distribution-zones.md) |
-| Copies and consistency | Each partition is replicated `REPLICAS` times through RAFT consensus, and a primary replica holds a lease to serve operations. | [Data Consistency and Replication](data-consistency-and-replication.md), [RAFT Consensus](raft-consensus.md) |
-| Colocation | The colocation key, set with `COLOCATE BY`. | [Data Colocation](data-colocation.md) |
-| SQL engine | Apache Calcite. | [SQL Overview](../gridgain9-development/sql/overview.md) |
+| Partitioning | Each table belongs to a distribution zone that sets its number of partitions. A hash of the colocation key selects the partition, and the Fair distribution algorithm assigns partitions to nodes. | [Data Partitioning](data-distribution/data-partitioning.md), [Distribution Zones](data-distribution/distribution-zones.md) |
+| Copies and consistency | Each partition is replicated `REPLICAS` times through RAFT consensus, and a primary replica holds a lease to serve operations. | [Data Consistency and Replication](replication-and-consistency/data-consistency-and-replication.md), [RAFT Consensus](cluster/raft-consensus.md) |
+| Colocation | The colocation key, set with `COLOCATE BY`. | [Data Colocation](data-distribution/data-colocation.md) |
+| SQL engine | Apache Calcite. | [SQL Overview](../gridgain9-development/accessing-data/sql/overview.md) |
 
 ## Architecture Topics
 

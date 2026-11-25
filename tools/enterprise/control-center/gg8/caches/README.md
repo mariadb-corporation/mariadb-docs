@@ -9,7 +9,7 @@ description: >-
 Use the **Caches** screen to monitor and manage the active caches.
 
 {% hint style="info" %}
-Depending on configuration, [secured clusters](../auth/authorization-permissions.md) might require a cluster-level authentication for some (or all) of the actions.
+Depending on configuration, [secured clusters](../authorization-permissions.md) might require a cluster-level authentication for some (or all) of the actions.
 {% endhint %}
 
 {% content-ref url="caches.md" %}

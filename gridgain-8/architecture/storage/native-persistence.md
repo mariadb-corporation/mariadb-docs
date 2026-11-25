@@ -9,7 +9,7 @@ description: >-
 ## Overview
 
 _Ignite Persistence_, or _Native Persistence_, is a set of features designed to provide persistent storage.
-When native persistence is enabled, Ignite  stores all the data on disk and loads [as much data as it can](../../gridgain8-development/memory-configuration/data-regions.md) to RAM for processing.
+When native persistence is enabled, Ignite  stores all the data on disk and loads [as much data as it can](../../gridgain8-development/caches-and-memory/memory-configuration/data-regions.md) to RAM for processing.
 For example, if there are 100 entries and RAM has the capacity to store only 20, then all 100 are stored on disk and only 20 are cached in RAM for better performance.
 
 {% hint style="info" %}
@@ -34,7 +34,7 @@ In addition to data partitions, GridGain stores indexes and metadata. It stores 
 
 ## Enabling Persistent Storage
 
-Native persistence is configured per [data region](../../gridgain8-development/memory-configuration/data-regions.md).
+Native persistence is configured per [data region](../../gridgain8-development/caches-and-memory/memory-configuration/data-regions.md).
 To enable persistent storage, set the `persistenceEnabled` property to `true` in the data region configuration.
 You can have in-memory data regions and data regions with persistence at the same time.
 
@@ -332,7 +332,7 @@ While you can also set the `walMode` property to `NONE` to disable WAL across th
 
 ### WAL Archive
 
-The WAL archive is used to store WAL segments that may be needed to recover a node after crash, as well as for [PITR (point-in-time recovery)](../../gridgain8-management/snapshots/point-in-time-recovery.md). The number of segments kept in the archive is such that the total size of all segments does not exceed the specified size of the WAL archive.
+The WAL archive is used to store WAL segments that may be needed to recover a node after crash, as well as for [PITR (point-in-time recovery)](../../gridgain8-management/backup-and-replication/snapshots/point-in-time-recovery.md). The number of segments kept in the archive is such that the total size of all segments does not exceed the specified size of the WAL archive.
 
 By default, the maximum size of the WAL archive (total space it occupies on disk) is defined as 1 Gb. You can change this value using `maxWalArchiveSize` - see [Configuration Properties](#configuration-properties).
 
@@ -423,7 +423,7 @@ If a node crashes while WAL is disabled, you may need to do some cleanup to rest
 You may try to recover files manually before cleanup although this option is not recommended.
 {% endhint %}
 
-Back up the corrupted data files (optional), then clean up persistence ase described in the [troubleshooting section](../../gridgain8-management/maintenance-mode.md).
+Back up the corrupted data files (optional), then clean up persistence ase described in the [troubleshooting section](../../gridgain8-management/cluster-maintenance/maintenance-mode.md).
 
 ### WAL Archive Compaction
 
@@ -461,7 +461,7 @@ Consolidation has three important trade-offs:
 
 - **No isolation between active and archive storage.** By default, you can place `walPath` and `walArchivePath` on separate disks — a small fast one for active WAL, a larger one for the archive. This isolates their I/O patterns and failure domains. Once consolidated, both share one directory, one filesystem, and one I/O budget.
 - **Shorter PITR window for the same `maxWalArchiveSize`.** By default, the active WAL ring (`walSegments` × `walSegmentSize` — for example, 10 × 64 MB = 640 MB) is sized independently of `maxWalArchiveSize`. After consolidation, active and archived segments share the same `maxWalArchiveSize` budget, so less history is retained. To preserve the previous point-in-time recovery range, increase `maxWalArchiveSize` by at least `walSegments` × `walSegmentSize`.
-- **Higher risk of losing recoverable history.** With both paths in one directory, a single disk failure, filesystem corruption, or accidental deletion removes both the live tail and the archive at once. [Point-in-time recovery](../../gridgain8-management/snapshots/point-in-time-recovery.md) requires a snapshot plus the WAL chain that follows it. If the WAL chain is lost, you can only restore to the snapshot itself — not to any later moment.
+- **Higher risk of losing recoverable history.** With both paths in one directory, a single disk failure, filesystem corruption, or accidental deletion removes both the live tail and the archive at once. [Point-in-time recovery](../../gridgain8-management/backup-and-replication/snapshots/point-in-time-recovery.md) requires a snapshot plus the WAL chain that follows it. If the WAL chain is lost, you can only restore to the snapshot itself — not to any later moment.
 
 ## Configuration Properties
 

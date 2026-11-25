@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../distributed-computing/" %}
-[Distributed Computing](../distributed-computing/)
+{% content-ref url="distributed-computing/" %}
+[Distributed Computing](distributed-computing/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ GridGain distributes computations across cluster nodes in a balanced and fault-t
 
 {% columns %}
 {% column %}
-{% content-ref url="../colocating-computations.md" %}
-[Colocating Computations with Data](../colocating-computations.md)
+{% content-ref url="colocating-computations.md" %}
+[Colocating Computations with Data](colocating-computations.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -31,8 +31,8 @@ How to colocate computations with data in GridGain using affinityCall and affini
 
 {% columns %}
 {% column %}
-{% content-ref url="../services/services.md" %}
-[Services](../services/services.md)
+{% content-ref url="services.md" %}
+[Services](services.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -43,8 +43,8 @@ How to implement, deploy, access, and re-deploy GridGain services, including dep
 
 {% columns %}
 {% column %}
-{% content-ref url="../code-deployment/" %}
-[Code Deployment](../code-deployment/)
+{% content-ref url="code-deployment/" %}
+[Code Deployment](code-deployment/)
 {% endcontent-ref %}
 {% endcolumn %}
 

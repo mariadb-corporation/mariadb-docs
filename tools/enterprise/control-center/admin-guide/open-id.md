@@ -96,7 +96,7 @@ To control access to cluster actions, both the OpenID provider configuration and
 The cluster resolves this attribute through the UserInfo endpoint only. The ID token fallback described in [Role Attribute Sources](#role-attribute-sources) applies to the Control Center role attribute and not to cluster permissions, so the cluster role attribute must be present in the UserInfo response of your OpenID provider.
 {% endhint %}
 
-To do so, you need to configure the `permissionsJson` scope, which defines the role name and its corresponding [permissions](../gg8/auth/authorization-permissions.md) for the user, and the `claimName` attribute in the GridGain 8 cluster configuration file.
+To do so, you need to configure the `permissionsJson` scope, which defines the role name and its corresponding [permissions](../gg8/authorization-permissions.md) for the user, and the `claimName` attribute in the GridGain 8 cluster configuration file.
 
 You can configure the `claimName` attribute in two ways:
 
@@ -222,8 +222,8 @@ Possible reasons for the above failure are:
 
 ## See Also
 
-- [How to Integrate Control Center With Okta](okta-authentication.md)
-- [How to Integrate Control Center With PingOne](pingone-authentication.md)
+- [How to Integrate Control Center With Okta](open-id/okta-authentication.md)
+- [How to Integrate Control Center With PingOne](open-id/pingone-authentication.md)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

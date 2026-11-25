@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../migration-from-gridgain-8/" %}
-[Migrating from GridGain 8](../migration-from-gridgain-8/)
+{% content-ref url="migration-from-gridgain-8/" %}
+[Migrating from GridGain 8](migration-from-gridgain-8/)
 {% endcontent-ref %}
 {% endcolumn %}
 

@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../snapshots/" %}
-[Snapshots](../snapshots/)
+{% content-ref url="snapshots/" %}
+[Snapshots](snapshots/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ Create snapshots of cluster data for backup and recovery, and restore a GridGain
 
 {% columns %}
 {% column %}
-{% content-ref url="../disaster-recovery/" %}
-[Disaster Recovery](../disaster-recovery/)
+{% content-ref url="disaster-recovery/" %}
+[Disaster Recovery](disaster-recovery/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -31,8 +31,8 @@ Recovering a GridGain 9 cluster after data loss or failure of system groups.
 
 {% columns %}
 {% column %}
-{% content-ref url="../change-data-capture.md" %}
-[Change Data Capture](../change-data-capture.md)
+{% content-ref url="change-data-capture.md" %}
+[Change Data Capture](change-data-capture.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -43,8 +43,8 @@ Use GridGain 9 Change Data Capture (CDC) to replicate table changes to external 
 
 {% columns %}
 {% column %}
-{% content-ref url="../data-center-replication/" %}
-[Data Center Replication](../data-center-replication/)
+{% content-ref url="data-center-replication/" %}
+[Data Center Replication](data-center-replication/)
 {% endcontent-ref %}
 {% endcolumn %}
 

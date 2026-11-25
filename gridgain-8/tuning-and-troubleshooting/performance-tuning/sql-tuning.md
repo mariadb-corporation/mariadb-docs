@@ -18,7 +18,7 @@ best practices to consider before you benchmark GridGain against an RDBMS or do 
 - Ignite/GridGain is optimized for _multi-nodes_ deployments with RAM as a primary storage. Don't
 try to compare a single-node GridGain cluster to a relational database. You should deploy a multi-node GridGain cluster with the whole copy of data in RAM.
 - Be ready to adjust your data model and existing SQL queries.
-Use the [affinity colocation](../../architecture/data-modeling/affinity-colocation.md) concept during the data
+Use the [affinity colocation](../../architecture/data-distribution/affinity-colocation.md) concept during the data
 modeling phase for proper data distribution. Remember, it's not enough just to put data in RAM. If your data is properly colocated, you can run SQL queries with JOINs at massive scale and expect significant performance benefits.
 - Define secondary indexes and use other standard, and GridGain-specific, tuning techniques described below.
 - Keep in mind that relational databases leverage local caching techniques and, depending on the total data size, an RDBMS can complete _some queries_ even faster than GridGain even in a multi-node configuration.
@@ -27,7 +27,7 @@ If your data set is around 10-100GB and an RDBMS has enough RAM for caching data
 ## Using the EXPLAIN Statement
 
 GridGain supports the `EXPLAIN` statement which could be used to read the execution plan of a query.
-Use this command to analyze your queries for possible optimization. Note that the plan will contain multiple rows: the last one will contain a query for the reducing side (usually your application), others are for map nodes (usually server nodes). Read the [Distributed Queries](../../gridgain8-development/sql/sql-introduction.md#distributed-queries) section to learn how queries are executed in GridGain.
+Use this command to analyze your queries for possible optimization. Note that the plan will contain multiple rows: the last one will contain a query for the reducing side (usually your application), others are for map nodes (usually server nodes). Read the [Distributed Queries](../../gridgain8-development/accessing-data/sql/sql-introduction.md#distributed-queries) section to learn how queries are executed in GridGain.
 
 ```sql
 EXPLAIN SELECT name FROM Person WHERE age = 26;
@@ -134,7 +134,7 @@ The force join order hint can be specified as follows:
 
 - [JDBC driver connection parameter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/jdbc/jdbc-driver#parameters)
 - [ODBC driver connection attribute](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/odbc/connection-string-dsn#supported-arguments)
-- If you use [SqlFieldsQuery](../../gridgain8-development/sql/sql-api.md) to execute SQL queries, you can set the enforce join order hint by calling the `SqlFieldsQuery.setEnforceJoinOrder(true)` method.
+- If you use [SqlFieldsQuery](../../gridgain8-development/accessing-data/sql/sql-api.md) to execute SQL queries, you can set the enforce join order hint by calling the `SqlFieldsQuery.setEnforceJoinOrder(true)` method.
 
 ## Increasing Index Inline Size
 
@@ -215,7 +215,7 @@ The following table summarizes the inline index sizes for the indexes defined in
 
 Note that you will only have to set the inline size for the index on `stringField`. For other indexes, GridGain will calculate the inline size automatically.
 
-Refer to the [Configuring Index Inline Size](../../gridgain8-development/sql/indexes.md#configuring-index-inline-size) section for the information on how to change the inline size.
+Refer to the [Configuring Index Inline Size](../../gridgain8-development/accessing-data/sql/indexes.md#configuring-index-inline-size) section for the information on how to change the inline size.
 
 You can check the inline size of an existing index in the [INDEXES](../../reference/monitoring/system-views.md) system view.
 
@@ -241,7 +241,7 @@ SELECT SUM(salary) FROM Person;
 
 The number of threads created on a single node for query execution is configured per cache and by default equals 1.
 You can change the value by setting the `CacheConfiguration.queryParallelism` parameter.
-If you create SQL tables using the CREATE TABLE command, you can use a [cache template](../../gridgain8-development/configuring-caches/configuration-overview.md#cache-templates) to set this parameter.
+If you create SQL tables using the CREATE TABLE command, you can use a [cache template](../../gridgain8-development/caches-and-memory/configuring-caches/configuration-overview.md#cache-templates) to set this parameter.
 
 If a query contains `JOINs`, then all the participating caches must have the same degree of parallelism.
 
@@ -289,7 +289,7 @@ SELECT * FROM employee WHERE department_id=10;
 ```
 
 {% hint style="info" %}
-Refer to [affinity colocation](../../architecture/data-modeling/affinity-colocation.md) page for more details
+Refer to [affinity colocation](../../architecture/data-distribution/affinity-colocation.md) page for more details
 on how data gets colocated and how it helps boost performance in distributed storages like GridGain.
 {% endhint %}
 
@@ -330,7 +330,7 @@ invalidated when one of the following happens:
 - The master entry stored in the off-heap region is updated or removed.
 - The data page that stores the master entry is evicted from RAM.
 
-The on-heap row cache can be enabled for a specific cache/table (if you use CREATE TABLE to create SQL tables and caches, then the parameter can be passed via a [cache template](../../gridgain8-development/configuring-caches/configuration-overview.md#cache-templates)):
+The on-heap row cache can be enabled for a specific cache/table (if you use CREATE TABLE to create SQL tables and caches, then the parameter can be passed via a [cache template](../../gridgain8-development/caches-and-memory/configuring-caches/configuration-overview.md#cache-templates)):
 
 ```xml
 <bean class="org.apache.ignite.configuration.IgniteConfiguration">

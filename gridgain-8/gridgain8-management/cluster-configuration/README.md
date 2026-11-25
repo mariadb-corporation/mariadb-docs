@@ -43,8 +43,8 @@ How to start server and client nodes in GridGain, shut them down gracefully, set
 
 {% columns %}
 {% column %}
-{% content-ref url="../clustering/" %}
-[Clustering](../clustering/)
+{% content-ref url="clustering/" %}
+[Clustering](clustering/)
 {% endcontent-ref %}
 {% endcolumn %}
 

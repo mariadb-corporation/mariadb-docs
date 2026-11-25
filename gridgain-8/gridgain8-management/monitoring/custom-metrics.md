@@ -55,7 +55,7 @@ unsupported
 
 ## Security
 
-When [authorization](../../security/authorization-permissions.md) is enabled, every call to `IgniteMetrics.getOrCreate()` (even for an existing registry), `IgniteMetrics.remove()`, `MetricRegistry.register()` and `MetricRegistry.remove()` requires the `CUSTOM_METRICS_MANAGE` system permission. The permission is checked on every call.
+When [authorization](../../security/authentication-and-authorization/authorization-permissions.md) is enabled, every call to `IgniteMetrics.getOrCreate()` (even for an existing registry), `IgniteMetrics.remove()`, `MetricRegistry.register()` and `MetricRegistry.remove()` requires the `CUSTOM_METRICS_MANAGE` system permission. The permission is checked on every call.
 
 Reading custom metrics does not require a permission.
 

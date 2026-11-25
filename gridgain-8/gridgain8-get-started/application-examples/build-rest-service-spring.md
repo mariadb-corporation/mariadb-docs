@@ -246,7 +246,7 @@ Do a final configuration change, by requesting Spring to start an embedded Tomca
 
 ## Define Data Model POJOs
 
-GridGain stores application records and entries in a cross-platform, language-neutral [binary format](../../architecture/data-modeling/introduction.md#binary-object-format). With this format, applications can query individual object fields. The applications can use SQL as well as use key-value APIs to read a full object entry that can be automatically deserialized to an associated POJO class instance.
+GridGain stores application records and entries in a cross-platform, language-neutral [binary format](../../architecture/data-distribution/introduction.md#binary-object-format). With this format, applications can query individual object fields. The applications can use SQL as well as use key-value APIs to read a full object entry that can be automatically deserialized to an associated POJO class instance.
 
 In this tutorial, you define two types of POJOs. The first type, which represents the business objects of the RESTful service, is used internally throughout the application logic. The second type, which is called "data transfer objects (DTO)", is used by Spring Boot controllers to exchange the data via the external RESTful APIs.
 
@@ -407,7 +407,7 @@ public class Country {
 Observations about the POJO class:
 
 - The names of the POJO fields and the names of the columns of the `Country` table need to correspond so that GridGain can transform the internal object representation to an instance of the POJO class.
-- The POJO includes all the fields of the `Country` table, except the primary key. The `Code` field is a primary key of the `Country` table, thus, it's not added to this POJO class. On the physical level, Ignite [stores application records as key-value pairs](../../architecture/data-modeling/introduction.md#overview), and your `Country` POJO should hold only the fields that belong to the value of a key-value pair. To retrieve a full key-value entry via a Spring Data repository, you can always use the `Cache.Entry<KeyType,ValueType>` notation, as shown later in the tutorial.
+- The POJO includes all the fields of the `Country` table, except the primary key. The `Code` field is a primary key of the `Country` table, thus, it's not added to this POJO class. On the physical level, Ignite [stores application records as key-value pairs](../../architecture/data-distribution/introduction.md#overview), and your `Country` POJO should hold only the fields that belong to the value of a key-value pair. To retrieve a full key-value entry via a Spring Data repository, you can always use the `Cache.Entry<KeyType,ValueType>` notation, as shown later in the tutorial.
 
 Define the business object classes by creating a POJO that is associated with the `City` table - `org.gridgain.demo.springdata.model.City`:
 
@@ -493,7 +493,7 @@ public class CityKey implements Serializable {
 
 Some observations about the POJO:
 
-- `COUNTRYCODE` field is annotated with `@AffinityKeyMapped`. This field is defined as the [affinity key](../../architecture/data-modeling/affinity-colocation.md) in the `City` table, and it must be annotated accordingly in the POJO class.
+- `COUNTRYCODE` field is annotated with `@AffinityKeyMapped`. This field is defined as the [affinity key](../../architecture/data-distribution/affinity-colocation.md) in the `City` table, and it must be annotated accordingly in the POJO class.
 - The names of the key fields are capitalized (`COUNTRYCODE` and `ID`). That is a workaround [for a limitation](https://issues.apache.org/jira/browse/IGNITE-6785) that existed when this tutorial was written.
 
 ### Data Transfer Objects
@@ -628,7 +628,7 @@ public interface CountryRepository extends IgniteRepository<Country, String> {
 }
 ```
 
-- This repository is associated with the `Country` table via the `@RepositoryConfig (cacheName = "Country")` annotation. The cache name is predefined in the `{ignite}/examples/sql/world.sql` script via the `CACHE_NAME=Country` parameter of the `CREATE TABLE Country` statement. Check [this documentation page](../../architecture/data-modeling/introduction.md#key-value-cache-vs.-sql-table) to discover why the `cache` and `table` terms co-exist in Ignite.
+- This repository is associated with the `Country` table via the `@RepositoryConfig (cacheName = "Country")` annotation. The cache name is predefined in the `{ignite}/examples/sql/world.sql` script via the `CACHE_NAME=Country` parameter of the `CREATE TABLE Country` statement. Check [this documentation page](../../architecture/data-distribution/introduction.md#key-value-cache-vs.-sql-table) to discover why the `cache` and `table` terms co-exist in Ignite.
 - The repository implements a method that returns all countries that have a population equal to or greater than the requested value. The `Cache.Entry<String,Country>` object is used to retrieve a full key-value pair from Ignite. Here, `String` is the type of key (`Code` column, in the case of the `Country` table), and `Country` is the custom business objects that hold the fields of the value.
 
 Create a repository that is named `org.gridgain.demo.springdata.dao.CityRepository` and that is associated with the `City` table:

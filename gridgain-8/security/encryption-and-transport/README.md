@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../ssl-tls.md" %}
-[SSL/TLS](../ssl-tls.md)
+{% content-ref url="ssl-tls.md" %}
+[SSL/TLS](ssl-tls.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ Configure SSL/TLS encryption for GridGain cluster nodes and clients, enable clie
 
 {% columns %}
 {% column %}
-{% content-ref url="../tde.md" %}
-[Transparent Data Encryption](../tde.md)
+{% content-ref url="tde.md" %}
+[Transparent Data Encryption](tde.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -31,8 +31,8 @@ Transparent Data Encryption in GridGain: encrypt data at rest per cache, generat
 
 {% columns %}
 {% column %}
-{% content-ref url="../securing-data-deserial.md" %}
-[Securing Data Deserialization](../securing-data-deserial.md)
+{% content-ref url="securing-data-deserial.md" %}
+[Securing Data Deserialization](securing-data-deserial.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -43,8 +43,8 @@ Restrict deserialization in GridGain with the IGNITE_MARSHALLER_WHITELIST and IG
 
 {% columns %}
 {% column %}
-{% content-ref url="../securing-jmx.md" %}
-[Securing JMX](../securing-jmx.md)
+{% content-ref url="securing-jmx.md" %}
+[Securing JMX](securing-jmx.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

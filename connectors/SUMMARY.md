@@ -310,7 +310,7 @@
     * [Serialization](gridgain-8/net-specific/net-serialization.md)
     * [Standalone Nodes](gridgain-8/net-specific/net-standalone-nodes.md)
     * [Troubleshooting](gridgain-8/net-specific/net-troubleshooting.md)
-  * [C++-Specific Interoperability](gridgain-8/cpp-specific/cpp-platform-interoperability.md)
+  * [C++-Specific Interoperability](gridgain-8/cpp-platform-interoperability.md)
   * [SQL Drivers](gridgain-8/sql/README.md)
     * [JDBC Driver](gridgain-8/sql/jdbc/README.md)
       * [JDBC Thin Driver](gridgain-8/sql/jdbc/jdbc-driver.md)

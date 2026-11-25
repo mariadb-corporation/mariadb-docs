@@ -210,20 +210,20 @@ The following modules are available:
 |control-center-agent| Connects the cluster to [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center) for monitoring and management. Must be enabled on all server nodes. Requires Java 17 or later.|
 |gridgain-bulkload|Support for SQL `COPY FROM INTO` statement that can be used to import or export data in csv, parquet, and iceberg formats. See [COPY INTO](../reference/sql/operational-commands.md#copy-into) for details.|
 |gridgain-sql| Support for JSON functions.  See [JSON Functions](../reference/sql/functions/json-functions.md) for details.|
-|gridgain-vector-query| Support for vector storage and indexing. See [Vector Storage](vector-search/README.md) for details.|
+|gridgain-vector-query| Support for vector storage and indexing. See [Vector Storage](accessing-data/vector-search/README.md) for details.|
 |ignite-cassandra-serializers | The GridGain Cassandra Serializers module provides additional serializers to store objects as BLOBs in Cassandra. The module could be used as in conjunction with the GridGain Cassandra Store module.|
 |ignite-cassandra-store | GridGain Cassandra Store provides a CacheStore implementation backed by the Cassandra database. See [Cassandra Cache Store](../integrations/cassandra-store.md) for details.|
 |ignite-direct-io | GridGain Direct IO is a plugin that provides a page store with the ability to write and read cache partitions in O_DIRECT mode.|
 |ignite-gce | GridGain GCE provides Google Cloud Storage based implementations of IP finder for TCP discovery.|
 |ignite-hibernate-7.4 | GridGain Hibernate 7.4 module provides a Hibernate L2 (second-level) cache implementation based on the GridGain In-Memory Data Grid for Hibernate ORM 7.4. Supports `READ_ONLY`, `READ_WRITE`, and `NONSTRICT_READ_WRITE` concurrency strategies. Add this module to your application as a Maven dependency. See [Hibernate Second-Level Cache](../integrations/hibernate-l2-cache.md) for details.|
-|ignite-indexing | [SQL querying and indexing](sql/indexes.md)|
+|ignite-indexing | [SQL querying and indexing](accessing-data/sql/indexes.md)|
 |ignite-jcl |Support for the Jakarta Common Logging (JCL) framework.|
 |ignite-jta |Integration of GridGain transactions with JTA.|
 |ignite-kafka | GridGain Kafka Streamer provides capability to stream data from Kafka to GridGain caches.|
 |ignite-kubernetes | GridGain Kubernetes module provides a TCP Discovery IP Finder that uses a dedicated Kubernetes service for IP addresses lookup of GridGain pods containerized by Kubernetes.|
 |ignite-log4j2 |Support for Log4j2|
 |ignite-lucene-9 |Lucene 9 library. Provides full text and vector search on Java 17 and later. Enabled by default: the binary distribution ships it in the `libs` directory.|
-|ignite-lucene-10 |Lucene 10 library. Provides full text and vector search on Java 21 and later. Disabled by default: the binary distribution ships it in the `libs/optional` directory. It replaces `ignite-lucene-9` on a node. On Java 22 and later, you can use `ignite-lucene-10-java22` instead. See [Choosing a Lucene Line](vector-search/README.md#choosing-a-lucene-line).|
+|ignite-lucene-10 |Lucene 10 library. Provides full text and vector search on Java 21 and later. Disabled by default: the binary distribution ships it in the `libs/optional` directory. It replaces `ignite-lucene-9` on a node. On Java 22 and later, you can use `ignite-lucene-10-java22` instead. See [Choosing a Lucene Line](accessing-data/vector-search/README.md#choosing-a-lucene-line).|
 |ignite-opencensus | Support for [OpenCensus tracing](../gridgain8-management/monitoring/tracing.md) and the [OpenCensus metrics exporter](../reference/monitoring/generic-metrics.md#opencensus). Disabled by default. A node configured with `OpenCensusTracingSpi` or `OpenCensusMetricExporterSpi` fails at startup with `ClassNotFoundException` unless the module is enabled.|
 |ignite-opentelemetry | Support for exporting metrics to an [OpenTelemetry Protocol (OTLP)](https://opentelemetry.io/docs/specs/otlp/) compatible backend. See [OpenTelemetry](../reference/monitoring/generic-metrics.md#opentelemetry) for information on configuring the exporter..|
 |ignite-osgi | This module provides bridging components to make GridGain run seamlessly inside an OSGi container such as Apache Karaf.|

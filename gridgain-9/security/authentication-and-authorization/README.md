@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../authentication.md" %}
-[Authentication](../authentication.md)
+{% content-ref url="authentication.md" %}
+[Authentication](authentication.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ Enable and configure user authentication on a GridGain 9 cluster, using either b
 
 {% columns %}
 {% column %}
-{% content-ref url="../role-based-authorization.md" %}
-[Role-Based Authorization](../role-based-authorization.md)
+{% content-ref url="role-based-authorization.md" %}
+[Role-Based Authorization](role-based-authorization.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -31,8 +31,8 @@ GridGain 9 uses a flat role-based access control (RBAC) model that grants privil
 
 {% columns %}
 {% column %}
-{% content-ref url="../user-permissions-and-roles.md" %}
-[User Permissions and Roles](../user-permissions-and-roles.md)
+{% content-ref url="user-permissions-and-roles.md" %}
+[User Permissions and Roles](user-permissions-and-roles.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -43,8 +43,8 @@ Reference for GridGain 9 user privileges, listing every action and object, the p
 
 {% columns %}
 {% column %}
-{% content-ref url="../jwt-authentication.md" %}
-[JWT Authentication](../jwt-authentication.md)
+{% content-ref url="jwt-authentication.md" %}
+[JWT Authentication](jwt-authentication.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -55,8 +55,8 @@ GridGain 9 supports JWT authentication for REST users, letting them obtain, use,
 
 {% columns %}
 {% column %}
-{% content-ref url="../row-level-security.md" %}
-[Row-Level Security](../row-level-security.md)
+{% content-ref url="row-level-security.md" %}
+[Row-Level Security](row-level-security.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

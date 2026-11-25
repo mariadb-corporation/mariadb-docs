@@ -122,7 +122,7 @@ If you use Native persistence, in addition to RAM, you should monitor the size o
 The size of the data loaded into a node is available at different levels of aggregation. You can monitor for:
 
 - The total size of the data the node keeps on disk or in RAM. This amount is the sum of the size of each configured data region (in the simplest case, only the default data region) plus the sizes of the system data regions.
-- The size of a specific [data region](../../gridgain8-development/memory-configuration/data-regions.md) on that node. The data region size is the sum of the sizes of all cache groups.
+- The size of a specific [data region](../../gridgain8-development/caches-and-memory/memory-configuration/data-regions.md) on that node. The data region size is the sum of the sizes of all cache groups.
 - The size of a specific cache/cache group on that node, including the backup partitions.
 
 These metrics can be enabled/disabled for each level separately and are exposed via different JMX beans listed below.
@@ -139,7 +139,7 @@ It is reused when new entries need to be added to the storage on subsequent writ
 The allocated size is available at the level of data storage, data region, and cache group metrics.
 The metric is called `TotalAllocatedSize`.
 
-You can also get an estimate of the actual size of data by multiplying the number of [data pages](../../architecture/memory-architecture.md#data-pages) in use by the fill factor. The fill factor is the ratio of the size of data in a page to the page size, averaged over all pages. The number of pages in use and the fill factor are available at the level of data [region metrics](#data-region-size).
+You can also get an estimate of the actual size of data by multiplying the number of [data pages](../../architecture/storage/memory-architecture.md#data-pages) in use by the fill factor. The fill factor is the ratio of the size of data in a page to the page size, averaged over all pages. The number of pages in use and the fill factor are available at the level of data [region metrics](#data-region-size).
 
 Add up the estimated size of all data regions to get the estimated total amount of data on the node.
 
@@ -218,7 +218,7 @@ group=DataRegionMetrics,name=<Data Region name>
 
 #### Cache Group Size
 
-If you don't use [cache groups](../../gridgain8-development/configuring-caches/cache-groups.md), each cache will be its own group.
+If you don't use [cache groups](../../gridgain8-development/caches-and-memory/configuring-caches/cache-groups.md), each cache will be its own group.
 There is a separate JMX bean for each cache group.
 The name of the bean corresponds to the name of the group.
 
@@ -254,7 +254,7 @@ group="Persistent Store",name=DataStorageMetrics
 
 ## Monitoring Rebalancing
 
-[Rebalancing](../../architecture/rebalancing/data-rebalancing.md) is the process of moving partitions between the cluster nodes so that the data is always distributed in a balanced manner. Rebalancing is triggered when a new node joins, or an existing node leaves the cluster.
+[Rebalancing](../../architecture/replication-and-consistency/data-rebalancing.md) is the process of moving partitions between the cluster nodes so that the data is always distributed in a balanced manner. Rebalancing is triggered when a new node joins, or an existing node leaves the cluster.
 
 If you have multiple caches, they are rebalanced sequentially.
 There are several metrics that you can use to monitor the progress of the rebalancing process for a specific cache.
@@ -285,7 +285,7 @@ group=Kernal,name=ClusterMetricsMXBeanImpl
 |---|---|---|---|
 |TotalServerNodes|long|The number of server nodes in the cluster.|Global|
 |TotalClientNodes|long|The number of client nodes in the cluster.|Global|
-|TotalBaselineNodes|long|The number of nodes that are registered in the [baseline topology](../../architecture/baseline-topology.md). When a node goes down, it remains registered in the baseline topology and you need to remote it manually.|Global|
+|TotalBaselineNodes|long|The number of nodes that are registered in the [baseline topology](../../architecture/cluster/baseline-topology.md). When a node goes down, it remains registered in the baseline topology and you need to remote it manually.|Global|
 |ActiveBaselineNodes|long|The number of nodes that are currently active in the baseline topology.|Global|
 
 **Mbean's Object Name:**

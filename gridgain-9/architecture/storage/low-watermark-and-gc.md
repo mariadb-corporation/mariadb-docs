@@ -22,7 +22,7 @@ Low watermark serves two purposes:
 
 ### How Garbage Collection Uses Low Watermark
 
-Every time a row is updated, GridGain does not overwrite the existing value. Instead, it adds a new version with a timestamp, forming a *version chain* within the partition. Read-only transactions use these versions to read a consistent snapshot of the data as it existed at their read timestamp. For details on how version chains are stored, see the [Version Storage](data-partitioning.md#version-storage) section.
+Every time a row is updated, GridGain does not overwrite the existing value. Instead, it adds a new version with a timestamp, forming a *version chain* within the partition. Read-only transactions use these versions to read a consistent snapshot of the data as it existed at their read timestamp. For details on how version chains are stored, see the [Version Storage](../data-distribution/data-partitioning.md#version-storage) section.
 
 As the low watermark advances, GridGain identifies row versions, deleted rows, and dropped tables that became obsolete at or before the new low watermark and queues them for removal. The garbage collector then deletes this data in batches in the background. Cleanup is not instantaneous: data eligible for collection may remain on disk until the next collection cycle processes it.
 
@@ -41,9 +41,9 @@ The low watermark is the single retention boundary for all historical and obsole
 The low watermark also defines the consistency boundary for operations that read or reconstruct historical data. None of the following can read or recover data older than the low watermark:
 
 * [Read-only transactions](../transactions.md#read-only-transactions) and time-travel queries.
-* [Continuous queries](../../gridgain9-development/continuous-queries.md) that scan historical data.
-* [Point-in-time recovery](../../gridgain9-management/snapshots/point-in-time-recovery.md).
-* [Data center replication](../../gridgain9-management/data-center-replication/configuring-replication.md).
+* [Continuous queries](../../gridgain9-development/accessing-data/continuous-queries.md) that scan historical data.
+* [Point-in-time recovery](../../gridgain9-management/backup-and-replication/snapshots/point-in-time-recovery.md).
+* [Data center replication](../../gridgain9-management/backup-and-replication/data-center-replication/configuring-replication.md).
 
 ## Configuration
 
@@ -66,7 +66,7 @@ cluster config update ignite.gc.lowWatermark.dataAvailabilityTimeMillis=1800000
 
 ## Tuning Low Watermark
 
-Low watermark configuration trades storage usage against how far into the past reads and recovery can reach. A larger `dataAvailabilityTimeMillis` keeps obsolete versions, deleted rows, and dropped tables on disk longer. As a result, read-only and time-travel queries, continuous queries, and [point-in-time recovery](../../gridgain9-management/snapshots/point-in-time-recovery.md) can all reach further back, but the cluster requires more storage. A smaller value reclaims storage sooner at the cost of a shorter read horizon.
+Low watermark configuration trades storage usage against how far into the past reads and recovery can reach. A larger `dataAvailabilityTimeMillis` keeps obsolete versions, deleted rows, and dropped tables on disk longer. As a result, read-only and time-travel queries, continuous queries, and [point-in-time recovery](../../gridgain9-management/backup-and-replication/snapshots/point-in-time-recovery.md) can all reach further back, but the cluster requires more storage. A smaller value reclaims storage sooner at the cost of a shorter read horizon.
 
 {% hint style="warning" %}
 Keep `dataAvailabilityTimeMillis` at least as large as the read-only transaction timeout (`ignite.transaction.readOnlyTimeoutMillis`), or a long-running read-only transaction can outlive the data it depends on and fail. See the [Read-Only Transactions](../transactions.md#read-only-transactions) section.

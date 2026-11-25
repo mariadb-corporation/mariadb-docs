@@ -28,12 +28,12 @@ react accordingly.
 Quotas are configured for each node individually.
 You can have different limits on different nodes, depending on the amount of RAM available to the nodes.
 It is important to remember that queries are
-[distributed to multiple nodes in a map-reduce manner](../../gridgain8-development/sql/sql-introduction.md#distributed-queries),
+[distributed to multiple nodes in a map-reduce manner](../../gridgain8-development/accessing-data/sql/sql-introduction.md#distributed-queries),
 and any part of the query can exceed the quota on the node where it's executed.
 
 {% hint style="warning" %}
 If your GridGain cluster is protected by authorization, only users with the
-`SET_QUERY_MEMORY_QUOTA` [security permission](../../security/authorization-permissions.md#supported-permissions) can change memory quotas.
+`SET_QUERY_MEMORY_QUOTA` [security permission](../../security/authentication-and-authorization/authorization-permissions.md#supported-permissions) can change memory quotas.
 {% endhint %}
 
 When the limit is reached, GridGain prints an error message to the log similar to the one below:
@@ -75,7 +75,7 @@ org.apache.ignite.cache.query.exceptions.SqlMemoryQuotaExceededException: SQL qu
     at com.gridgain.test.MemoryQuotasTest.main(MemoryQuotasTest.java:45)
 ```
 
-Refer to the [documentation on using SQL queries](../../gridgain8-development/sql/sql-api.md#preventing-outofmemory-exceptions)
+Refer to the [documentation on using SQL queries](../../gridgain8-development/accessing-data/sql/sql-api.md#preventing-outofmemory-exceptions)
 for more information on how to catch this exception.
 
 ## Global Memory Quota

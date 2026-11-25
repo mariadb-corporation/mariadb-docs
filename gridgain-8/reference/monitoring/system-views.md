@@ -12,7 +12,7 @@ The system views are an experimental feature and can be changed in future releas
 
 GridGain provides a number of built-in SQL views that contain information about cluster nodes and node metrics.
 These views are available in the SYS schema.
-See the [Understanding Schemas](../../gridgain8-development/sql/schemas.md) page for the information on how to access a non-default schema.
+See the [Understanding Schemas](../../gridgain8-development/accessing-data/sql/schemas.md) page for the information on how to access a non-default schema.
 
 {% hint style="warning" %}
 **Limitations**
@@ -687,7 +687,7 @@ This view exposes information about SQL views columns.
 
 ## CACHE_GROUPS
 
-The CACHE_GROUPS view contains information about the [cache groups](../../gridgain8-development/configuring-caches/cache-groups.md).
+The CACHE_GROUPS view contains information about the [cache groups](../../gridgain8-development/caches-and-memory/configuring-caches/cache-groups.md).
 
 |Column|Data Type|Description|
 |---|---|---|
@@ -696,17 +696,17 @@ The CACHE_GROUPS view contains information about the [cache groups](../../gridga
 |IS_SHARED|BOOLEAN|If this group contains more than one cache.|
 |CACHE_COUNT|INT|The number of caches in the cache group.|
 |CACHE_MODE|VARCHAR|The cache mode.|
-|ATOMICITY_MODE|VARCHAR|The [atomicity mode](../../gridgain8-development/configuring-caches/atomicity-modes.md) of the cache group.|
+|ATOMICITY_MODE|VARCHAR|The [atomicity mode](../../gridgain8-development/caches-and-memory/configuring-caches/atomicity-modes.md) of the cache group.|
 |AFFINITY|VARCHAR|The string representation of the affinity function defined for the cache group.|
 |PARTITIONS_COUNT|INT|The number of partitions.|
 |NODE_FILTER|VARCHAR|The string representation of the node filter defined for the cache group.|
-|DATA_REGION_NAME|VARCHAR|The name of the [data region](../../gridgain8-development/memory-configuration/data-regions.md).|
+|DATA_REGION_NAME|VARCHAR|The name of the [data region](../../gridgain8-development/caches-and-memory/memory-configuration/data-regions.md).|
 |TOPOLOGY_VALIDATOR|VARCHAR|The string representation of the topology validator defined for the cache group.|
-|PARTITION_LOSS_POLICY|VARCHAR|[Partition loss policy](../../architecture/rebalancing/partition-loss-policy.md).|
-|REBALANCE_MODE|VARCHAR|[Rebalancing mode](../../architecture/rebalancing/data-rebalancing.md#configuring-rebalancing-mode).|
-|REBALANCE_DELAY|LONG|[Rebalancing delay](../../architecture/rebalancing/data-rebalancing.md#other-properties).|
-|REBALANCE_ORDER|INT|[Rebalancing order](../../architecture/rebalancing/data-rebalancing.md#other-properties).|
-|BACKUPS|INT|The number of [backup partitions](../../gridgain8-development/configuring-caches/configuring-backups.md) configured for the cache group.|
+|PARTITION_LOSS_POLICY|VARCHAR|[Partition loss policy](../../architecture/replication-and-consistency/partition-loss-policy.md).|
+|REBALANCE_MODE|VARCHAR|[Rebalancing mode](../../architecture/replication-and-consistency/data-rebalancing.md#configuring-rebalancing-mode).|
+|REBALANCE_DELAY|LONG|[Rebalancing delay](../../architecture/replication-and-consistency/data-rebalancing.md#other-properties).|
+|REBALANCE_ORDER|INT|[Rebalancing order](../../architecture/replication-and-consistency/data-rebalancing.md#other-properties).|
+|BACKUPS|INT|The number of [backup partitions](../../gridgain8-development/caches-and-memory/configuring-caches/configuring-backups.md) configured for the cache group.|
 
 ## CACHE_GROUP_PAGE_LISTS
 
@@ -905,7 +905,7 @@ The STATISTICS_PARTITION_DATA view contains information about [SQL statistics](.
 The SNAPSHOT view is available only with GridGain Ultimate Edition.
 {% endhint %}
 
-The SNAPSHOT view exposes the [snapshots](../../gridgain8-management/snapshots/snapshots-and-recovery.md) stored locally on the node.
+The SNAPSHOT view exposes the [snapshots](../../gridgain8-management/backup-and-replication/snapshots/snapshots-and-recovery.md) stored locally on the node.
 The view is node-specific: each node reports only the snapshots it holds, and the view is empty on client nodes and while the cluster is inactive.
 To get a cluster-wide picture, query the view on every baseline node.
 
@@ -943,7 +943,7 @@ This view exposes information about configured and loaded plugins.
 
 ## Examples
 
-To query the system views using the [SQLLine](../../gridgain8-development/tools/sqlline.md) tool, connect to the SYS schema as follows:
+To query the system views using the [SQLLine](../../gridgain8-development/accessing-data/tools/sqlline.md) tool, connect to the SYS schema as follows:
 
 ```shell
 ./sqlline.sh -u jdbc:ignite:thin://127.0.0.1/SYS

@@ -36,7 +36,7 @@ When you are ready to execute the migration, follow the step-by-step [Migration 
 
 Have the following in place before you plan the migration:
 
-- *A GridGain 8 license.* GridGain 8.10 Ultimate Edition does not ship with a license, and a node without one does not start. Obtain a license file or a MariaDB-issued JSON Web Token (JWT) license before the first start. See [Artifacts and Deployment](artifacts-and-modules.md#distribution) for how GridGain 8 finds the license, and [Licensing](../../licensing.md) for how to get and install it.
+- *A GridGain 8 license.* GridGain 8.10 Ultimate Edition does not ship with a license, and a node without one does not start. Obtain a license file or a MariaDB-issued JSON Web Token (JWT) license before the first start. See [Artifacts and Deployment](artifacts-and-modules.md#distribution) for how GridGain 8 finds the license, and [Licensing](../../licensing-and-support/licensing.md) for how to get and install it.
 - *Scheduled downtime.* The cutover stops the whole cluster, converts it, and restarts it on GridGain. Ignite 2 and GridGain 8 nodes cannot run together, so there is no rolling upgrade (see [Migration Constraints](#migration-constraints)).
 - *Backup storage.* Reserve space for a full backup of the persistence directory, taken before the first GridGain 8 start. It is your only rollback path once GridGain 8 writes.
 - *Java 17 or later.* Upgrade the JVM on every host first if needed. See [Distribution](artifacts-and-modules.md#distribution) for the supported versions.

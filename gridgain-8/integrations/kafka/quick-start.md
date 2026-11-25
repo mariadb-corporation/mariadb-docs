@@ -82,7 +82,7 @@ If Kafka Connect runs on JDK 17 or later, the following JVM properties must be a
 
 The GridGain connector is agnostic of the underlying communication channels. To have a secure communication between the GridGain connector and other components, implement SSL using one of the following options:
 
-- SSL between the GridGain cluster and GridGain connector - follow the [SSL/TLS guide](../../security/ssl-tls.md)
+- SSL between the GridGain cluster and GridGain connector - follow the [SSL/TLS guide](../../security/encryption-and-transport/ssl-tls.md)
 - SSL between Kafka and GridGain connector - use the [TLS authentication](https://docs.confluent.io/platform/current/security/authentication/mutual-tls/overview.html#kconnect-long)
 
 ### Source Properties

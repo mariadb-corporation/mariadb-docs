@@ -87,7 +87,7 @@ The region factory gets its caches from a GridGain node in the same JVM. You can
 * **Attach to a running node.** Start the node in your application before you build the Hibernate `SessionFactory`, and set `hibernate.cache.ignite.instance_name` to the node's instance name. If you set neither `instance_name` nor `configuration`, the region factory attaches to the node started without an instance name. The node keeps running when the `SessionFactory` is closed.
 * **Start a node.** Set `hibernate.cache.ignite.configuration` to the path or URL of a GridGain Spring XML configuration file. The region factory starts a node from that file and stops it when the `SessionFactory` is closed. This option requires the `ignite-spring` module on the application classpath. If both properties are set, `configuration` is used.
 
-The node is usually a [client node](../gridgain8-management/clustering/README.md) that joins your GridGain cluster. The cached data is then stored on the cluster's server nodes and shared by every application that connects to the cluster.
+The node is usually a [client node](../gridgain8-management/cluster-configuration/clustering/README.md) that joins your GridGain cluster. The cached data is then stored on the cluster's server nodes and shared by every application that connects to the cluster.
 
 ## Configuration Properties
 
@@ -196,7 +196,7 @@ unsupported
 {% endtab %}
 {% endtabs %}
 
-For more information about cache settings, see [Cache Configuration](../gridgain8-development/configuring-caches/configuration-overview.md).
+For more information about cache settings, see [Cache Configuration](../gridgain8-development/caches-and-memory/configuring-caches/configuration-overview.md).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

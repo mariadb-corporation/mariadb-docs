@@ -12,7 +12,7 @@ This is an experimental API. The API may change in subsequent releases without m
 
 In GridGain 9, you can create distributed maps to store key-value pairs, where each key maps to a specific value or object. These maps enable efficient access to values by their unique keys. You can interact with these distributed maps by using either the synchronous or asynchronous API. Below is an example of how to create and use them:
 
-By default, maps are created and stored in the default [distribution zone](../../architecture/storage/distribution-zones.md) and use the default [storage engine](../../architecture/storage/storage-profiles.md) for your cluster.
+By default, maps are created and stored in the default [distribution zone](../../architecture/data-distribution/distribution-zones.md) and use the default [storage engine](../../architecture/storage/storage-profiles.md) for your cluster.
 
 {% hint style="info" %}
 The examples on this page require the `gridgain-map-structure` module (the `org.gridgain.structure` API) in addition to the `ignite-client` module. For repository and dependency configuration, see [Project Setup and Required Modules](../project-setup.md).
@@ -49,7 +49,7 @@ When maps are created, they use the default storage profile and distribution zon
 
 | Configuration name | Description |
 | --- | --- |
-| distributionZone | The name of the [distribution zone](../../architecture/storage/distribution-zones.md) to use. |
+| distributionZone | The name of the [distribution zone](../../architecture/data-distribution/distribution-zones.md) to use. |
 | storageProfile | The name of the [storage profile](../../architecture/storage/storage-profiles.md) to use. The storage profile must be declared in the distribution zone. |
 
 The example below demonstrates how you can set configuration via Java code:

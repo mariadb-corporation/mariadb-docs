@@ -8,10 +8,10 @@ description: >-
 
 GridGain provides an HTTP REST client that gives you the ability to communicate with the grid over HTTP and HTTPS protocols using the REST approach. REST APIs can be used to perform different operations like read/write from/to cache, execute tasks, get various metrics, and more.
 
-Internally, GridGain uses Jetty to provide HTTP server features. See [Configuration](../../gridgain8-development/rest-api.md#configuration) for details on how to configure jetty.
+Internally, GridGain uses Jetty to provide HTTP server features. See [Configuration](../../gridgain8-development/accessing-data/rest-api.md#configuration) for details on how to configure jetty.
 
 {% hint style="info" %}
-To enable and configure the REST API, see [Using the REST API](../../gridgain8-development/rest-api.md).
+To enable and configure the REST API, see [Using the REST API](../../gridgain8-development/accessing-data/rest-api.md).
 {% endhint %}
 
 ## Data Types
@@ -490,7 +490,7 @@ http://host:port/ignite?cmd=rep&key=repKey&val=newValue&cacheName={cacheName}&de
 |`key`|string||Key to store in cache.|name|
 |`val`|string||Value associated with the given key.|Jack|
 |`destId`|string|Yes|Node ID for which the metrics are to be returned.|8daab5ea-af83-4d91-99b6-77ed2ca06647|
-|`exp`|long|Yes|Expiration time in milliseconds for the entry. When the parameter is set, the operation is executed with [ModifiedExpiryPolicy](../../gridgain8-development/configuring-caches/expiry-policies.md).|60000|
+|`exp`|long|Yes|Expiration time in milliseconds for the entry. When the parameter is set, the operation is executed with [ModifiedExpiryPolicy](../../gridgain8-development/caches-and-memory/configuring-caches/expiry-policies.md).|60000|
 
 **Response:**
 
@@ -831,7 +831,7 @@ http://host:port/ignite?cmd=add&key=newKey&val=newValue&cacheName={cacheName}&de
 |`key`|string||Key to be associated with the value.|name|
 |`val`|string||Value to be associated with the key.|Jack|
 |`destId`|string|Yes|Node ID for which the metrics are to be returned.|8daab5ea-af83-4d91-99b6-77ed2ca06647|
-|`exp`|long|Yes|Expiration time in milliseconds for the entry. When the parameter is set, the operation is executed with [ModifiedExpiryPolicy](../../gridgain8-development/configuring-caches/expiry-policies.md).|60000|
+|`exp`|long|Yes|Expiration time in milliseconds for the entry. When the parameter is set, the operation is executed with [ModifiedExpiryPolicy](../../gridgain8-development/caches-and-memory/configuring-caches/expiry-policies.md).|60000|
 
 **Response:**
 
@@ -864,7 +864,7 @@ http://host:port/ignite?cmd=put&key=newKey&val=newValue&cacheName={cacheName}&de
 |`key`|string||Key to be associated with values.|name|
 |`val`|string||Value to be associated with keys.|Jack|
 |`destId`|string|Yes|Node ID for which the metrics are to be returned.|8daab5ea-af83-4d91-99b6-77ed2ca06647|
-|`exp`|long|Yes|Expiration time in milliseconds for the entry. When the parameter is set, the operation is executed with [ModifiedExpiryPolicy](../../gridgain8-development/configuring-caches/expiry-policies.md).|60000|
+|`exp`|long|Yes|Expiration time in milliseconds for the entry. When the parameter is set, the operation is executed with [ModifiedExpiryPolicy](../../gridgain8-development/caches-and-memory/configuring-caches/expiry-policies.md).|60000|
 
 **Response:**
 
@@ -929,7 +929,7 @@ http://host:port/ignite?cmd=putifabs&key={getKey}&val={newVal}&cacheName={cacheN
 |`key`|string||Key to be associated with value.|name|
 |`val`|string||Value to be associated with key.|Jack|
 |`destId`|string|Yes|Node ID for which the metrics are to be returned.|8daab5ea-af83-4d91-99b6-77ed2ca06647|
-|`exp`|long|Yes|Expiration time in milliseconds for the entry. When the parameter is set, the operation is executed with [ModifiedExpiryPolicy](../../gridgain8-development/configuring-caches/expiry-policies.md).|60000|
+|`exp`|long|Yes|Expiration time in milliseconds for the entry. When the parameter is set, the operation is executed with [ModifiedExpiryPolicy](../../gridgain8-development/caches-and-memory/configuring-caches/expiry-policies.md).|60000|
 
 **Response:**
 
@@ -1021,7 +1021,7 @@ http://host:port/ignite?cmd=getorcreate&cacheName={cacheName}
 |`cacheName`|String|Yes|Cache name.|
 |`backups`|int|Yes|Number of backups for cache data. Default is 0.|
 |`dataRegion`|String|Yes|Name of the data region the cache should belong to.|
-|`templateName`|String|Yes|Name of the cache template registered in Ignite to use as a configuration for the distributed cache. See the [Cache Template](../../gridgain8-development/configuring-caches/configuration-overview.md#cache-templates) section for more information.|
+|`templateName`|String|Yes|Name of the cache template registered in Ignite to use as a configuration for the distributed cache. See the [Cache Template](../../gridgain8-development/caches-and-memory/configuring-caches/configuration-overview.md#cache-templates) section for more information.|
 |`cacheGroup`|String|Yes|Name of the group the cache should belong to.|
 |`writeSynchronizationMode`|String|Yes|Sets the write synchronization mode for the given cache: `FULL_SYNC`, `FULL_ASYNC`, `PRIMARY_SYNC`|
 

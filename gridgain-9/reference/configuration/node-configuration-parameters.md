@@ -259,10 +259,10 @@ GridGain 9 uses several network ports for inter-node communication, client acces
 The following ports are used by GridGain 9 by default.
 
 - `3344`: Cluster communication port
-- `10300`: [HTTP REST](../../gridgain9-development/rest-api.md) endpoint
-- `10400`: [HTTPS REST](../../security/ssl-tls.md) endpoint (**when HTTPS is enabled**)
+- `10300`: [HTTP REST](../../gridgain9-development/accessing-data/rest-api.md) endpoint
+- `10400`: [HTTPS REST](../../security/encryption-and-transport/ssl-tls.md) endpoint (**when HTTPS is enabled**)
 - `10800`: Client connector ([JDBC](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/jdbc-driver), [ODBC](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/odbc/odbc-driver), [clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/overview), [CLI](../cli-tool.md))
-- `49000`: [Data Replication](../../gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8.md) (DR) connector inbound port
+- `49000`: [Data Replication](../../gridgain9-management/migration-guides/migration-from-gridgain-8/dcr-from-gridgain-8.md) (DR) connector inbound port
 
 {% hint style="info" %}
 To enable the [JMX remote](https://docs.oracle.com/en/java/javase/17/management/monitoring-and-management-using-jmx-technology.html#GUID-2C1922AD-4BA0-4397-A3FE-7823F42A94A3__READY-TO-USEMONITORINGANDMANAGEMENT-0CCB777F) agent which creates a remote JMX connector to listen through the specified port, use `com.sun.management.jmxremote.port` to [set](../../gridgain9-management/cluster-configuration.md#configuration-files) the port explicitly.
@@ -464,7 +464,7 @@ The `ignite.nodeAttributes.nodeAttributes` section is deprecated and should not 
 
 |Property|Default|Description|Acceptable Values|
 |---|---|---|---|
-|threadPoolSize|20|The number of threads dedicated to [point-in-time recovery](../../gridgain9-management/snapshots/point-in-time-recovery.md) during data restoration.|0 - inf|
+|threadPoolSize|20|The number of threads dedicated to [point-in-time recovery](../../gridgain9-management/backup-and-replication/snapshots/point-in-time-recovery.md) during data restoration.|0 - inf|
 
 ### RAFT Configuration
 
@@ -508,7 +508,7 @@ The `hardPartitionsDataDriveUsageLimitBytes` and `hardPartitionsLogDriveUsageLim
 - **Only client writes are blocked.** When a limit is exceeded, the node rejects writes from clients, but internal system writes continue so that the cluster remains operational.
 - **Reserve headroom for free space reclaim.** The mechanisms that reclaim free disk space (for example, log storage compaction) themselves consume storage while running. Set the limit far enough below total drive capacity that reclaim has room to operate once the limit is hit; otherwise the node may be unable to free space.
 - **Enforcement is not instantaneous.** Each node checks its own disk usage once per second, so a few client writes can slip through after the limit is reached but before the next check. Pick a value slightly below your target so these extra writes do not eat into your reclaim headroom.
-- **Writes are blocked per partition.** A client write to a partition is rejected when either the node that hosts the partition's primary replica has hit its limit, or so many of the partition's replicas have hit their limits that the remaining ones cannot form the [quorum](../../architecture/storage/distribution-zones.md#quorum-size): in either case the write cannot be committed. A single over-limit node does not, on its own, block writes to a partition.
+- **Writes are blocked per partition.** A client write to a partition is rejected when either the node that hosts the partition's primary replica has hit its limit, or so many of the partition's replicas have hit their limits that the remaining ones cannot form the [quorum](../../architecture/data-distribution/distribution-zones.md#quorum-size): in either case the write cannot be committed. A single over-limit node does not, on its own, block writes to a partition.
 
 #### Soft Disk Usage Limits
 
@@ -537,7 +537,7 @@ Both differ from the hard limits in several important ways:
 |logStorage.softPartitionsLogSpilloutSizeLimitBytes|21474836470|Soft limit, in bytes, on the total size of all volatile partitions' RAFT log spillout files. Once exceeded, log storage compaction is triggered to reclaim disk space.|1 - Long.MAX_VALUE|
 |logYieldStrategy|false|If true, the non-blocking strategy is used in the Disruptor of log manager.|true, false|
 |maxInflightOverflowRate|1.3|Maximum percent of inflights overflow rate. Used for partitions throttling. Default value 1.3 allows 30% overflow.|1.0 - 2.0|
-|outgoingSnapshotsThreadPoolSize|Number of available CPU cores|The number of threads in the executor that serves outgoing [RAFT snapshot](../../architecture/storage/data-partitioning.md#log-replication-and-snapshots) requests across all concurrent outgoing snapshot sessions on the node. Increasing it improves rebalance throughput when many partitions are snapshotted simultaneously, at the cost of more concurrent storage reads.|1 - Integer.MAX_VALUE|
+|outgoingSnapshotsThreadPoolSize|Number of available CPU cores|The number of threads in the executor that serves outgoing [RAFT snapshot](../../architecture/data-distribution/data-partitioning.md#log-replication-and-snapshots) requests across all concurrent outgoing snapshot sessions on the node. Increasing it improves rebalance throughput when many partitions are snapshotted simultaneously, at the cost of more concurrent storage reads.|1 - Integer.MAX_VALUE|
 |responseTimeoutMillis|3000|Period for which the RAFT client will try to receive a response from a remote peer.|0 - inf|
 |retryDelayMillis|200|Delay between re-sends of a failed request by the RAFT client.|0 - inf|
 |retryTimeoutMillis|10000|Period for which the RAFT client will try to receive a successful response from a remote peer.|0 - inf|
@@ -584,7 +584,7 @@ Both differ from the hard limits in several important ways:
 |dualProtocol|false|Defines if both HTTP and HTTPS protocols are used by the endpoint.|true, false|
 |httpToHttpsRedirection|false|Defines if requests to HTTP endpoint will be redirected to HTTPS.|true, false|
 |port|10300|The port of the node's REST endpoint.|A valid port|
-|sql.cursorIdleTimeoutMillis|300000|How long a paged [SQL result](../../gridgain9-development/rest-api.md#running-sql) may go untouched, in milliseconds, before the node releases its cursor. Keep this below `ignite.transaction.readOnlyTimeoutMillis` so that a client sees the cursor released rather than its transaction expiring.|1000 - Long.MAX_VALUE|
+|sql.cursorIdleTimeoutMillis|300000|How long a paged [SQL result](../../gridgain9-development/accessing-data/rest-api.md#running-sql) may go untouched, in milliseconds, before the node releases its cursor. Keep this below `ignite.transaction.readOnlyTimeoutMillis` so that a client sees the cursor released rather than its transaction expiring.|1000 - Long.MAX_VALUE|
 |sql.defaultPageSize|1000|Number of rows in a page when a SQL request over REST does not ask for a specific page size. Must not exceed `sql.maxPageSize`.|1 - Integer.MAX_VALUE|
 |sql.maxOpenCursors|100|How many paged SQL results one node may hold at once. A request that needs another cursor while the node is at this limit fails with `429`.|1 - Integer.MAX_VALUE|
 |sql.maxPageSize|10000|Largest page a SQL request over REST may ask for. A request for a larger page fails with `400`.|1 - Integer.MAX_VALUE|

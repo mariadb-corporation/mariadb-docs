@@ -39,7 +39,7 @@ persistence is disabled), then you should not allocate more than 90% of RAM capa
 On the other hand, if native persistence is used, then the OS requires extra RAM for its page cache in order to optimally sync up data to disk.
 If the page cache is not disabled, then you should not give more than 70% of the server's RAM to GridGain.
 
-Refer to [memory configuration](../../gridgain8-development/memory-configuration/data-regions.md) for configuration examples.
+Refer to [memory configuration](../../gridgain8-development/caches-and-memory/memory-configuration/data-regions.md) for configuration examples.
 
 In addition to that, because using native persistence might cause high page cache utilization, the `kswapd` daemon might not keep up with page reclamation, which is used by the page cache in the background.
 As a result, this can cause high latencies due to direct page reclamation and lead to long GC pauses.

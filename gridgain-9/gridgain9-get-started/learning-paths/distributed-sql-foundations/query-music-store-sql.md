@@ -953,7 +953,7 @@ Data locality is the thread running through every plan you read in this tutorial
 - **Map-reduce aggregation** computes partial results locally, then combines them across the Exchange.
 - **Primary key operations** route directly to the node that owns the key.
 
-The same principle extends beyond SQL: the Compute API pushes application code to the node that owns the data, eliminating the network round-trip. See [About Distributed Computing](../../../gridgain9-development/distributed-computing/about-distributed-computing.md) for that pattern.
+The same principle extends beyond SQL: the Compute API pushes application code to the node that owns the data, eliminating the network round-trip. See [About Distributed Computing](../../../gridgain9-development/distributed-computing-and-services/distributed-computing/about-distributed-computing.md) for that pattern.
 
 The cluster and dataset are ready for the next step: writing a Java application that connects to the cluster and works with the same data through the thin client API.
 

@@ -996,7 +996,7 @@ TransactionOptions opts = new TransactionOptions()
 Transaction tx = client.transactions().begin(opts);
 ```
 
-See [Performing Transactions](../../../gridgain9-development/transactions.md) for the full `TransactionOptions` reference.
+See [Performing Transactions](../../../gridgain9-development/accessing-data/transactions.md) for the full `TransactionOptions` reference.
 {% endhint %}
 
 ## Summary
@@ -1017,7 +1017,7 @@ You have written the same multi-table invoice workflow at three levels of sophis
 | `runInTransaction` | Standard production workflows, most multi-table operations |
 | `runInTransactionAsync` | High-concurrency services, event-driven architectures, reactive pipelines |
 
-Continue to [Design a Schema for Distributed SQL](../schema-design-for-distributed-sql/schema-distributed-sql.md) to learn how colocation and distribution zones shape performance. To run Java logic directly on the nodes where data lives, see [About Distributed Computing](../../../gridgain9-development/distributed-computing/about-distributed-computing.md).
+Continue to [Design a Schema for Distributed SQL](../schema-design-for-distributed-sql/schema-distributed-sql.md) to learn how colocation and distribution zones shape performance. To run Java logic directly on the nodes where data lives, see [About Distributed Computing](../../../gridgain9-development/distributed-computing-and-services/distributed-computing/about-distributed-computing.md).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

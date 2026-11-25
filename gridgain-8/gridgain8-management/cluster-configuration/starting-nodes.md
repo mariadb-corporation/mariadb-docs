@@ -142,7 +142,7 @@ The proper procedure to perform a graceful shutdown is as follows:
 1. Stop the node using one of the following methods:
    - programmatically call `Ignite.close()`
    - send a user interrupt signal. GridGain uses a JVM shutdown hook to execute custom logic before the JVM stops. If you start the node by running `ignite.sh` and don't detach it from the terminal, you can stop the node by hitting `Ctrl+C`.
-2. Remove the node from the [baseline topology](../../architecture/baseline-topology.md). This step may not be necessary if [baseline auto-adjustment](../../architecture/baseline-topology.md#baseline-topology-autoadjustment) is enabled.
+2. Remove the node from the [baseline topology](../../architecture/cluster/baseline-topology.md). This step may not be necessary if [baseline auto-adjustment](../../architecture/cluster/baseline-topology.md#baseline-topology-autoadjustment) is enabled.
 
 If you use these commands on a node that _is_ in the baseline topology,
 the node shuts down without waiting for the completion of the rebalancing process.

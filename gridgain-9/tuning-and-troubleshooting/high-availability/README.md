@@ -12,10 +12,10 @@ The concepts live in the Architecture section; this section focuses on applying 
 
 ## Key Topics
 
-- [High Availability Mode](../../architecture/high-availability-mode.md) — the availability guarantees GridGain 9 offers and their trade-offs.
-- [Cluster Fault Tolerance](../../architecture/cluster-fault-tolerance.md) — how the cluster tolerates node failures.
-- [Data Consistency and Replication](../../architecture/data-consistency-and-replication.md) — how replication underpins availability.
-- [Distribution Zones](../../architecture/storage/distribution-zones.md) — controlling replica counts and data placement.
+- [High Availability Mode](../../architecture/replication-and-consistency/high-availability-mode.md) — the availability guarantees GridGain 9 offers and their trade-offs.
+- [Cluster Fault Tolerance](../../architecture/cluster/cluster-fault-tolerance.md) — how the cluster tolerates node failures.
+- [Data Consistency and Replication](../../architecture/replication-and-consistency/data-consistency-and-replication.md) — how replication underpins availability.
+- [Distribution Zones](../../architecture/data-distribution/distribution-zones.md) — controlling replica counts and data placement.
 - [Performance Tuning](../performance-tuning/README.md) — keeping a highly available cluster performant under load.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

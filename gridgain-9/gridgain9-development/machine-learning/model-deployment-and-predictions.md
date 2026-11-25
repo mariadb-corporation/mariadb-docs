@@ -55,7 +55,7 @@ cluster unit deploy sentiment-model \
     --nodes ALL
 ```
 
-For more information refer to [code deployment](../code-deployment.md) documentation.
+For more information refer to [code deployment](../distributed-computing-and-services/code-deployment.md) documentation.
 
 ### Automated Deployment
 

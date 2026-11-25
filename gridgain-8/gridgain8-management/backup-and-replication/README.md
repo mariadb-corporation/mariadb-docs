@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../snapshots/" %}
-[Snapshots and Recovery](../snapshots/)
+{% content-ref url="snapshots/" %}
+[Snapshots and Recovery](snapshots/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ Overview of GridGain snapshots and recovery: full and incremental snapshots, poi
 
 {% columns %}
 {% column %}
-{% content-ref url="../data-center-replication/" %}
-[Data Center Replication](../data-center-replication/)
+{% content-ref url="data-center-replication/" %}
+[Data Center Replication](data-center-replication/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -31,8 +31,8 @@ GridGain data center replication lets you replicate data caches between multiple
 
 {% columns %}
 {% column %}
-{% content-ref url="../conflict-resolution.md" %}
-[Conflict Resolution](../conflict-resolution.md)
+{% content-ref url="conflict-resolution.md" %}
+[Conflict Resolution](conflict-resolution.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

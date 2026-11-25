@@ -46,7 +46,7 @@ Everything migrates together in one cutover, because Ignite and GridGain server 
 You arranged these during planning (see [Before You Begin](before-you-migrate.md#before-you-begin)); confirm all of them before you start:
 
 - You understand the [migration constraints](before-you-migrate.md#migration-constraints), most importantly that for a persistent cluster this is a one-way upgrade with no in-place rollback once GridGain writes to the data directory.
-- A valid GridGain 8 Ultimate [license](../../licensing.md) is installed.
+- A valid GridGain 8 Ultimate [license](../../licensing-and-support/licensing.md) is installed.
 - The downtime window for the full cluster cutover is scheduled.
 - _Persistent only:_ storage for a complete backup of the persistence directory is reserved.
 - The GridGain distribution is in place, and your current Apache Ignite distribution is archived for rollback.

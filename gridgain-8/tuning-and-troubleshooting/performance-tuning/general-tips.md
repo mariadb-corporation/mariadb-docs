@@ -22,11 +22,11 @@ pin a GridGain node to a single host. This provides two benefits:
 [Configure and tune](memory-and-jvm-tuning.md) memory appropriately.
 - It might seem counter to the bullet point above but it's not enough just to put data in RAM and expect an
 order of magnitude performance improvements. Be ready to adjust your data model and existing applications if any.
-Use the [affinity colocation](../../architecture/data-modeling/affinity-colocation.md) concept during the data
+Use the [affinity colocation](../../architecture/data-distribution/affinity-colocation.md) concept during the data
 modeling phase for proper data distribution. For instance, if your data is properly colocated, you can run SQL queries with JOINs at massive scale and expect significant performance benefits.
 - If Native persistence is used, then follow these [persistence optimization techniques](persistence-tuning.md).
 - If you are going to run SQL with GridGain, then get to know [SQL-related optimizations](sql-tuning.md).
-- Adjust [data rebalancing settings](../../architecture/rebalancing/data-rebalancing.md) to ensure that rebalancing completes faster when your cluster topology changes.
+- Adjust [data rebalancing settings](../../architecture/replication-and-consistency/data-rebalancing.md) to ensure that rebalancing completes faster when your cluster topology changes.
 
 ## Recommended High Performance Settings
 
@@ -50,7 +50,7 @@ By default, GridGain uses the generic `TLS` protocol, which on Java 17 enables T
 
 ### Enabling One Way SSL
 
-By default, all connections are secured by a two-way SSL. You can switch to one-way SSL to speed up connections by having the server not verify the client certificate. To do so, set the `needClientAuth` property of the `SslContextFactory` on the server nodes to `false` (see [SSL/TLS](../../security/ssl-tls.md)).
+By default, all connections are secured by a two-way SSL. You can switch to one-way SSL to speed up connections by having the server not verify the client certificate. To do so, set the `needClientAuth` property of the `SslContextFactory` on the server nodes to `false` (see [SSL/TLS](../../security/encryption-and-transport/ssl-tls.md)).
 
 ### Limiting Number of Active Compute Tasks
 
@@ -127,8 +127,8 @@ If your environment is more complex, consider optimization of the ulimit file va
 
 files_ulimit =
 
-[partitions_in_partitioned_caches * (backups + 1) * partitioned_caches](../../gridgain8-development/configuring-caches/configuring-backups.md) / nodes +
-[partitions_in_replicated_caches * replicated_caches](../../gridgain8-development/configuring-caches/configuration-overview.md) +
+[partitions_in_partitioned_caches * (backups + 1) * partitioned_caches](../../gridgain8-development/caches-and-memory/configuring-caches/configuring-backups.md) / nodes +
+[partitions_in_replicated_caches * replicated_caches](../../gridgain8-development/caches-and-memory/configuring-caches/configuration-overview.md) +
 [num_of_clients](../../gridgain8-get-started/concepts.md#clustering-servers-and-clients) +
 [num_of_servers](../../gridgain8-get-started/concepts.md#clustering-servers-and-clients)
 

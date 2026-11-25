@@ -178,7 +178,7 @@ Cluster was initialized successfully
 {% endtabs %}
 
 - The `--license` parameter specifies the path to the license file.
-- The `--name` parameter sets the cluster name. It can be changed later with the [`cluster rename`](../reference/cli-tool.md#cluster-rename) CLI command or the [`cluster/rename`](../gridgain9-development/rest-api.md#using-http-tools) REST endpoint.
+- The `--name` parameter sets the cluster name. It can be changed later with the [`cluster rename`](../reference/cli-tool.md#cluster-rename) CLI command or the [`cluster/rename`](../gridgain9-development/accessing-data/rest-api.md#using-http-tools) REST endpoint.
 
 ## Run SQL Statements Against the Cluster
 
@@ -444,7 +444,7 @@ Start each node as described in [Start GridGain Node](#start-gridgain-node).
 
 #### Initialize Your Cluster
 
-Before initializing the cluster, it is important to check that all nodes found each other and can connect into a cluster. Nodes visible to each other, but not necessarily connected into a cluster form [physical topology](../architecture/cluster-lifecycle.md). You can check it by connecting to any node using the CLI tool and executing the following command:
+Before initializing the cluster, it is important to check that all nodes found each other and can connect into a cluster. Nodes visible to each other, but not necessarily connected into a cluster form [physical topology](../architecture/cluster/cluster-lifecycle.md). You can check it by connecting to any node using the CLI tool and executing the following command:
 
 {% tabs %}
 {% tab title="Command" %}

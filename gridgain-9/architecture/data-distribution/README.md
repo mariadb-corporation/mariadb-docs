@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../storage/distribution-zones.md" %}
-[Distribution Zones](../storage/distribution-zones.md)
+{% content-ref url="distribution-zones.md" %}
+[Distribution Zones](distribution-zones.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ Create and configure GridGain 9 distribution zones to control how tables are par
 
 {% columns %}
 {% column %}
-{% content-ref url="../storage/data-partitioning.md" %}
-[Data Partitioning](../storage/data-partitioning.md)
+{% content-ref url="data-partitioning.md" %}
+[Data Partitioning](data-partitioning.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -31,8 +31,8 @@ How GridGain 9 partitions and replicates table data across cluster nodes, includ
 
 {% columns %}
 {% column %}
-{% content-ref url="../data-colocation.md" %}
-[Data Colocation](../data-colocation.md)
+{% content-ref url="data-colocation.md" %}
+[Data Colocation](data-colocation.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

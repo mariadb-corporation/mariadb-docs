@@ -6,7 +6,7 @@ description: >-
 
 # Disk Space Optimization
 
-To prevent running out of disk space, you can optimize disk space utilization. I.e., you can accumulate less data, or keep the data for a shorter period, without missing what is important for your cluster operation. Data collection and accumulation parameters should be defined in the optimal way at the beginning - right after the [Control Center installation](../installation/README.md).
+To prevent running out of disk space, you can optimize disk space utilization. I.e., you can accumulate less data, or keep the data for a shorter period, without missing what is important for your cluster operation. Data collection and accumulation parameters should be defined in the optimal way at the beginning - right after the [Control Center installation](installation/README.md).
 
 If you do run out of disk space in the course of Control Center operation, this might mean that your data collection and accumulation parameters need further optimization. Proceed as follows.
 
@@ -25,7 +25,7 @@ Combine the following approaches:
 
 Throttle down data collection for:
 
-- [Traces](../gg8/tracing/tracing.md#configuring-tracing)
+- [Traces](../gg8/tracing.md#configuring-tracing)
 - [Queries](../gg8/queries/querying.md#selecting-queries-to-track)
 - [Metrics](configuration.md#common-properties) - see `control.metric-collector.pull-interval`
 
@@ -51,9 +51,9 @@ The number of records in a table does not precisely correlate to the volume that
 If the relevant tables in your environment are not yet of representative size, you can use our estimates for a 3-node cluster with an average load:
 
 - [Query](../gg8/queries/querying.md#queries-log): 1 GB - approximately 200,000 records
-- [Task](../gg8/compute/compute-grid.md): 1 GB - approximately 250,000 records
-- [Trace](../gg8/tracing/tracing.md#configuring-tracing): 1 GB - approximately 800,000 records
-- [Span](../gg8/tracing/tracing.md#viewing-spans): 1 GB - approximately 500,000 records
+- [Task](../gg8/compute-grid.md): 1 GB - approximately 250,000 records
+- [Trace](../gg8/tracing.md#configuring-tracing): 1 GB - approximately 800,000 records
+- [Span](../gg8/tracing.md#viewing-spans): 1 GB - approximately 500,000 records
 
 ### Delete Oversized Tables
 

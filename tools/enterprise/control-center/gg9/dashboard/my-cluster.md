@@ -11,7 +11,7 @@ description: >-
 ![](../../../../.gitbook/assets/cc-gg9-my-cluster-gg9.png)
 
 {% hint style="info" %}
-Depending on configuration, [secured clusters](../auth/authorization-permissions.md) might require a cluster-level authentication for some (or all) of the actions.
+Depending on configuration, [secured clusters](../authorization-permissions.md) might require a cluster-level authentication for some (or all) of the actions.
 {% endhint %}
 
 ## Viewing Cluster Information
@@ -130,8 +130,8 @@ To update the monitoring configuration:
    | Option | Description |
    |---|---|
    | Metrics | Enables the metric exporter. Available for attached clusters only. |
-   | Queries log | Enables [query logging](../queries/querying-gg9.md#queries-log). Click **Configure** to set the minimum duration of the queries to monitor. |
-   | Events | Enables [event](../events/events.md) monitoring. Click **Configure** to select the events to collect. |
+   | Queries log | Enables [query logging](../querying-gg9.md#queries-log). Click **Configure** to set the minimum duration of the queries to monitor. |
+   | Events | Enables [event](../events.md) monitoring. Click **Configure** to select the events to collect. |
 3. Click **Save**.
 
 The dialog closes once the configuration is saved. While the save is in progress, the form is read-only. To discard your changes, click **Cancel**.
@@ -207,7 +207,7 @@ In the entry field across the top of the **Share cluster** dialog, start typing 
 The users and teams you have entered appear in the corresponding sections of the **Share cluster** dialog. The system notifies the users and team members that a cluster had been shared with them. To close the **Share cluster** dialog, click **Close**.
 
 {% hint style="info" %}
-Depending on configuration, [secured clusters](../auth/authorization-permissions.md) might require a cluster-level authentication for some (or all) of the actions even from those users with whom the cluster had been shared.
+Depending on configuration, [secured clusters](../authorization-permissions.md) might require a cluster-level authentication for some (or all) of the actions even from those users with whom the cluster had been shared.
 {% endhint %}
 
 ### Stopping a Cluster Share
@@ -247,7 +247,7 @@ License can be updated either by uploading the file or by pasting it as a text.
 ## Next Steps
 
 - [Monitoring](dashboard-overview-gg9.md)
-- [Querying](../queries/querying-gg9.md)
+- [Querying](../querying-gg9.md)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

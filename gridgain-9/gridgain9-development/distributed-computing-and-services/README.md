@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../distributed-computing/" %}
-[Distributed Computing](../distributed-computing/)
+{% content-ref url="distributed-computing/" %}
+[Distributed Computing](distributed-computing/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ Run your own code across a GridGain 9 cluster as distributed, balanced, and faul
 
 {% columns %}
 {% column %}
-{% content-ref url="../code-deployment.md" %}
-[Code Deployment](../code-deployment.md)
+{% content-ref url="code-deployment.md" %}
+[Code Deployment](code-deployment.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

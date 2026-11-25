@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../cluster-architecture.md" %}
-[Cluster Architecture](../cluster-architecture.md)
+{% content-ref url="cluster-architecture.md" %}
+[Cluster Architecture](cluster-architecture.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ A deeper look at the GridGain 9 system architecture: node components, cluster co
 
 {% columns %}
 {% column %}
-{% content-ref url="../raft-consensus.md" %}
-[RAFT Consensus](../raft-consensus.md)
+{% content-ref url="raft-consensus.md" %}
+[RAFT Consensus](raft-consensus.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -31,8 +31,8 @@ How GridGain 9 uses the RAFT consensus algorithm to maintain data consistency an
 
 {% columns %}
 {% column %}
-{% content-ref url="../cluster-lifecycle.md" %}
-[Cluster Lifecycle](../cluster-lifecycle.md)
+{% content-ref url="cluster-lifecycle.md" %}
+[Cluster Lifecycle](cluster-lifecycle.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -43,8 +43,8 @@ How a GridGain 9 cluster is initialized and how its lifecycle works, including t
 
 {% columns %}
 {% column %}
-{% content-ref url="../cluster-fault-tolerance.md" %}
-[Cluster Fault Tolerance](../cluster-fault-tolerance.md)
+{% content-ref url="cluster-fault-tolerance.md" %}
+[Cluster Fault Tolerance](cluster-fault-tolerance.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

@@ -179,7 +179,7 @@ For details, see [Audit Log](operations.md#audit-log).
 ## TLS
 
 The TLS settings encrypt the connection between the server and the cluster.
-The cluster must accept TLS connections from thin clients. See [SSL/TLS](../../../security/ssl-tls.md).
+The cluster must accept TLS connections from thin clients. See [SSL/TLS](../../../security/encryption-and-transport/ssl-tls.md).
 
 | Environment variable | Flag | Default | Description |
 | -------------------- | ---- | ------- | ----------- |

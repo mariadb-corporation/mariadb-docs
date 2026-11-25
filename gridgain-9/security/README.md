@@ -11,7 +11,7 @@ This section describes how to secure a GridGain 9 cluster. It covers encrypting 
 
 ## User Security
 
-By default, all users can perform any updates on the cluster, or [upload arbitrary code to the cluster](../gridgain9-development/code-deployment.md) and perform remote code execution with [distributed computing](../gridgain9-development/distributed-computing/about-distributed-computing.md). To improve security, we recommend configuring [user roles](user-permissions-and-roles.md) and [enabling authorization](authentication.md#basic-authentication) on the cluster.
+By default, all users can perform any updates on the cluster, or [upload arbitrary code to the cluster](../gridgain9-development/distributed-computing-and-services/code-deployment.md) and perform remote code execution with [distributed computing](../gridgain9-development/distributed-computing-and-services/distributed-computing/about-distributed-computing.md). To improve security, we recommend configuring [user roles](authentication-and-authorization/user-permissions-and-roles.md) and [enabling authorization](authentication-and-authorization/authentication.md#basic-authentication) on the cluster.
 
 ## Communication
 
@@ -29,7 +29,7 @@ Communication between nodes usually happens within the same data center. We reco
 Communication to clients is exposed to the internet. Only the client port (10800 by default) is exposed. To secure interaction with your clients:
 
 - Enable SSL for client communication with the `ignite.clientConnector.ssl` [node configuration](../reference/configuration/node-configuration-parameters.md#client-connector-configuration).
-- Enable [authentication](authentication.md) on the cluster.
+- Enable [authentication](authentication-and-authorization/authentication.md) on the cluster.
 
 ## In This Section
 

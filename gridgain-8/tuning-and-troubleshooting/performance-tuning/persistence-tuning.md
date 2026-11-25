@@ -78,7 +78,7 @@ unsupported
 
 ## Keep WALs Separately
 
-Consider using separate drives for data files and [Write-Ahead-Logging (WAL)](../../architecture/storage/native-persistence.md#write-ahead-log-wal). GridGain actively writes to both the data and WAL files. Also, other features (such as [Point-in-Time-Recovery](../../gridgain8-management/snapshots/point-in-time-recovery.md)) may also write to the WAL files, requiring even more resources. Thus, by having separate physical disk devices for each, you can double the overall write throughput.
+Consider using separate drives for data files and [Write-Ahead-Logging (WAL)](../../architecture/storage/native-persistence.md#write-ahead-log-wal). GridGain actively writes to both the data and WAL files. Also, other features (such as [Point-in-Time-Recovery](../../gridgain8-management/backup-and-replication/snapshots/point-in-time-recovery.md)) may also write to the WAL files, requiring even more resources. Thus, by having separate physical disk devices for each, you can double the overall write throughput.
 
 The example below shows how to configure separate paths for the data storage, WAL, and WAL archive:
 
@@ -341,7 +341,7 @@ When throttling is enabled, the ratio is configurable and also applies to the th
 
 The size of the checkpointing buffer, explained in the previous section, is one of the checkpointing process triggers.
 
-The default buffer size is calculated as a function of the [data region](../../gridgain8-development/memory-configuration/data-regions.md) size:
+The default buffer size is calculated as a function of the [data region](../../gridgain8-development/caches-and-memory/memory-configuration/data-regions.md) size:
 
 | Data Region Size | Default Checkpointing Buffer Size |
 |---|---|

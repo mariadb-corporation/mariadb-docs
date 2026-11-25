@@ -125,11 +125,11 @@ Now we are ready to configure the cluster nodes.
 Cluster nodes launched in different EC2 instances must be able to connect to each other.
 This is achieved by configuring the discovery mechanisms on each node. There are two ways you can do that:
 
-- Manually provide the IP addresses of all instances in the [Static IP Finder configuration](../../clustering/tcp-ip-discovery.md) of each node.
-- Use one of the [IP Finders designed for AWS](../../clustering/discovery-in-the-cloud.md).
+- Manually provide the IP addresses of all instances in the [Static IP Finder configuration](../../cluster-configuration/clustering/tcp-ip-discovery.md) of each node.
+- Use one of the [IP Finders designed for AWS](../../cluster-configuration/clustering/discovery-in-the-cloud.md).
 
 {% hint style="info" %}
-We recommend using one of the [Amazon IP Finders](../../clustering/discovery-in-the-cloud.md).
+We recommend using one of the [Amazon IP Finders](../../cluster-configuration/clustering/discovery-in-the-cloud.md).
 They allow you to add more instances to the cluster without updating the discovery configuration of the running nodes.
 {% endhint %}
 
@@ -188,7 +188,7 @@ After starting the second node, you should see the following message in the cons
 
 ### Automatic Discovery Using Amazon S3
 
-You can use the [Amazon S3 IP Finder](../../clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder) to configure automatic discovery of nodes.
+You can use the [Amazon S3 IP Finder](../../cluster-configuration/clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder) to configure automatic discovery of nodes.
 
 {% tabs %}
 {% tab title="Current" %}
@@ -210,7 +210,7 @@ Enable the 'ignite-aws' module by copying it from `libs/optional` to `libs`:
 $ cp -r gridgain-enterprise-<version>/libs/optional/ignite-aws/ gridgain-enterprise-<version>/libs/
 ```
 
-Starting with GridGain 8.9.39, the module is deprecated. For the replacement, see [Amazon S3 IP Finder](../../clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder).
+Starting with GridGain 8.9.39, the module is deprecated. For the replacement, see [Amazon S3 IP Finder](../../cluster-configuration/clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder).
 {% endtab %}
 {% endtabs %}
 

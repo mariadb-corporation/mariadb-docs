@@ -20,7 +20,7 @@ You can add widgets of the following types:
 - **Heat map** — the selected metric as a heat map.
 - **SQL query** - the results of an SQL query, updated at a specified frequency (`SELECT` only)
 - **System view** - the selected system view table, updated at a specified frequency
-- **DCR Topology** – shows a visual representation of a [data replication](../dcr/dcr.md) topology
+- **DCR Topology** – shows a visual representation of a [data replication](../dcr.md) topology
 
 ## Widget Types
 
@@ -256,7 +256,7 @@ To terminate a transaction, click the **More** (⋮) button at the end of the tr
 
 ### DCR Topology Widget
 
-The DCR Topology widget displays the [data replication](../dcr/dcr.md) topology of the current cluster.
+The DCR Topology widget displays the [data replication](../dcr.md) topology of the current cluster.
 
 ![DCR Topology](../../../../.gitbook/assets/cc-gg9-dcr_gg9_topology.png)
 

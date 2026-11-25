@@ -145,7 +145,7 @@ Now that the cluster running and reachable, your next step is to load it with sa
 
 Check `ignite_world_db.sql` for the following key settings:
 
-- Records of `City` table are co-located with `Country` table by setting the `affinityKey=CountryCode` parameter in the `CREATE TABLE City` statement. With [affinity co-location](../../architecture/data-modeling/affinity-colocation.md) in place, your Azure Function will be able to run high-performance SQL with JOINs and schedule compute tasks that iterate through related data of a particular cluster node.
+- Records of `City` table are co-located with `Country` table by setting the `affinityKey=CountryCode` parameter in the `CREATE TABLE City` statement. With [affinity co-location](../../architecture/data-distribution/affinity-colocation.md) in place, your Azure Function will be able to run high-performance SQL with JOINs and schedule compute tasks that iterate through related data of a particular cluster node.
 - `CREATE TABLE` statements of all the tables set `CACHE_NAME` and `value_type` parameters to specific values. You need this to access the records with Ignite cache and key-value APIs.
 
 Follow the steps below to load sample data using the Apache Ignite JDBC driver:
@@ -156,7 +156,7 @@ Follow the steps below to load sample data using the Apache Ignite JDBC driver:
    cd {ignite-binary-release}/bin/
    ```
 
-1. Open a JDBC connection to your cluster by using the [SQLLine tool](../../gridgain8-development/tools/sqlline.md) shipped with Ignite (use `sqlline.bat` for Windows):
+1. Open a JDBC connection to your cluster by using the [SQLLine tool](../../gridgain8-development/accessing-data/tools/sqlline.md) shipped with Ignite (use `sqlline.bat` for Windows):
 
    ```bash
    ./sqlline.sh -u jdbc:ignite:thin://YOUR-EXTERNAL-IP/
@@ -185,7 +185,7 @@ With this step finished, you are ready to develop an Azure Function that will se
 
 ## Develop Azure Function
 
-Now you will develop an Azure Function that serves two types of HTTP requests. The function will send Ignite SQL queries via a [thin client](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/thin-clients/java-thin-client) connection to process the first request. With the second request, you will learn how to use [Ignite REST APIs](../../gridgain8-development/rest-api.md) to trigger the execution of compute tasks.
+Now you will develop an Azure Function that serves two types of HTTP requests. The function will send Ignite SQL queries via a [thin client](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/thin-clients/java-thin-client) connection to process the first request. With the second request, you will learn how to use [Ignite REST APIs](../../gridgain8-development/accessing-data/rest-api.md) to trigger the execution of compute tasks.
 
 Open the sample project in your favorite IDE, such as IntelliJ IDEA or Eclipse, and locate the `org.gridgain.demo.azurefunction.functions.AzurePopulationFunction` class, which is a source code template with a single method annotated with `@FunctionName("population")`. Once you finish this section, the method will embody the Azure Function's logic that processes HTTP requests.
 
@@ -302,7 +302,7 @@ private HttpResponseMessage getAvgPopulationInCountry(String countryCode, HttpRe
 }
 ```
 
-The method triggers the execution of `org.gridgain.demo.azurefunction.compute.AvgCalculationTask` compute task with the help of Ignite's [execute command](../../gridgain8-development/rest-api.md) supported by its REST API. [Ignite Compute APIs](../../gridgain8-development/distributed-computing/distributed-computing.md) are the right fit for such types of requests as long as they allow to run data-intensive or compute-intensive Java logic on specific cluster nodes with no or minimal data movement between the cluster and applications.
+The method triggers the execution of `org.gridgain.demo.azurefunction.compute.AvgCalculationTask` compute task with the help of Ignite's [execute command](../../gridgain8-development/accessing-data/rest-api.md) supported by its REST API. [Ignite Compute APIs](../../gridgain8-development/distributed-computing-and-services/distributed-computing/distributed-computing.md) are the right fit for such types of requests as long as they allow to run data-intensive or compute-intensive Java logic on specific cluster nodes with no or minimal data movement between the cluster and applications.
 
 If you check the implementation of `AvgCalculationTask` located in the sample project, you will see that once triggered, the task will determine a cluster node that stores all the cities of the given country and will request only that node to traverse through the local data calculating the population average. This technique is known as [co-located data processing](https://ignite.apache.org/features/collocated-processing.html).
 

@@ -208,7 +208,7 @@ recovery partitions states --global
 Each table also exposes its partition health as metrics, under the `partition.states.zone.<zoneId>.table.<tableId>` metric source. Use these metrics to alert on partition health from your metrics backend instead of polling the system view.
 {% endhint %}
 
-For the full list of partition states and recovery actions, see [Disaster Recovery](../disaster-recovery/data-recovery.md).
+For the full list of partition states and recovery actions, see [Disaster Recovery](../backup-and-replication/disaster-recovery/data-recovery.md).
 
 ### Finding Long-Running Transactions
 
@@ -267,7 +267,7 @@ On Kubernetes, the operator wires the liveness and readiness endpoints as pod pr
 
 Events record what happened in the cluster and who caused it. They are the basis for audit and security alerting. You route events to a log file or to a webhook by configuring a channel and a sink.
 
-For the full setup, see [Working with Events](../../gridgain9-development/events/working-with-events.md). For the event catalog, see [Available Events](../../gridgain9-development/events/available-events.md).
+For the full setup, see [Working with Events](../../gridgain9-development/messaging-and-events/events/working-with-events.md). For the event catalog, see [Available Events](../../gridgain9-development/messaging-and-events/events/available-events.md).
 
 ### Alert-Worthy Events
 

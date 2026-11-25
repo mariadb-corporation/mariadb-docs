@@ -8,7 +8,7 @@ description: >-
 This section describes the Queries screen. Its layout and functionality change between the GridGain 8 and GridGain 9 clusters.
 
 {% hint style="info" %}
-Depending on configuration, [secured clusters](../auth/authorization-permissions.md) might require a cluster-level authentication for some (or all) of the actions.
+Depending on configuration, [secured clusters](../authorization-permissions.md) might require a cluster-level authentication for some (or all) of the actions.
 {% endhint %}
 
 {% content-ref url="querying.md" %}

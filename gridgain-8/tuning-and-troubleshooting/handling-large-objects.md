@@ -14,7 +14,7 @@ If the object is large enough to occupy multiple pages in the database, it cause
 
 Objects that take multiple pages may also lead to wasted space and fragmentation - for example, if your objects are 5KB, but page is only 4KB, 3KB will be allocated to other data or wasted. Use the `pageFillFactor` metric to see how well pages in your database are filled.
 
-When you use in-memory clusters to store large objects and have [eviction policies](../gridgain8-development/memory-configuration/eviction-policies.md) configured, make sure that there is always enough memory to store new objects. When memory is almost full, eviction mechanism kicks in and removes old objects according to eviction policy.
+When you use in-memory clusters to store large objects and have [eviction policies](../gridgain8-development/caches-and-memory/memory-configuration/eviction-policies.md) configured, make sure that there is always enough memory to store new objects. When memory is almost full, eviction mechanism kicks in and removes old objects according to eviction policy.
 
 To give Ignite an idea of how much memory has to be freed use the `setEmptyPagesPoolSize` setting. It should reflect how much memory is occupied by the biggest object expected to appear.
 

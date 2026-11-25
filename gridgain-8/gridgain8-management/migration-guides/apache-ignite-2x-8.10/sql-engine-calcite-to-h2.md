@@ -49,7 +49,7 @@ Every query in this section runs on GridGain 8 without an error and returns diff
 
 ### Non-Colocated Joins and Subqueries
 
-Calcite moves data between nodes automatically, so a join between non-colocated partitioned tables returns the full result. The GridGain 8 engine joins only the data stored on each node unless you enable [non-colocated joins](../../../gridgain8-development/sql/distributed-joins.md#non-collocated-joins). Without them, the result is incomplete, and the number of missing rows grows with the number of nodes.
+Calcite moves data between nodes automatically, so a join between non-colocated partitioned tables returns the full result. The GridGain 8 engine joins only the data stored on each node unless you enable [non-colocated joins](../../../gridgain8-development/accessing-data/sql/distributed-joins.md#non-collocated-joins). Without them, the result is incomplete, and the number of missing rows grows with the number of nodes.
 
 For example, a join between two `PARTITIONED` tables on a column that is not the affinity key, where the correct result is 6 rows:
 
@@ -62,7 +62,7 @@ The same applies to `IN (SELECT ...)`, `EXISTS`, `NOT IN`, and correlated subque
 
 For each join or subquery between `PARTITIONED` tables that does not use the affinity key, do one of the following:
 
-- Colocate the tables on the join column. Colocated joins need no extra settings and run faster than non-colocated joins. See [Affinity Colocation](../../../architecture/data-modeling/affinity-colocation.md).
+- Colocate the tables on the join column. Colocated joins need no extra settings and run faster than non-colocated joins. See [Affinity Colocation](../../../architecture/data-distribution/affinity-colocation.md).
 
   ```sql
   CREATE TABLE emp (
@@ -200,7 +200,7 @@ SELECT GROUP_CONCAT(name ORDER BY name SEPARATOR ',') FROM emp;
 
 Calcite ignores the `collocated` flag, so a query that sets it returns correct results on Ignite 2 even when the rows of a group are spread across nodes. On GridGain 8, the same query returns incorrect results.
 
-Set `collocated=true` only when the `GROUP BY` columns include the affinity key, so that all rows of each group are stored on one node. See [Affinity Colocation](../../../architecture/data-modeling/affinity-colocation.md).
+Set `collocated=true` only when the `GROUP BY` columns include the affinity key, so that all rows of each group are stored on one node. See [Affinity Colocation](../../../architecture/data-distribution/affinity-colocation.md).
 
 ### Expressions With Different Results
 

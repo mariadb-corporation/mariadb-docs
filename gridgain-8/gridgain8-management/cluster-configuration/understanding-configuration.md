@@ -30,7 +30,7 @@ To create a configuration in a Spring XML format, you need to define the
 `IgniteConfiguration` bean and set the parameters that you want to be different from the default. For detailed information on how to use XML Schema-based configuration, see the
 [official Spring documentation](https://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html).
 
-In the example below, we create an `IgniteConfiguration` bean, set the `workDirectory` property, and configure a [partitioned cache](../../architecture/data-modeling/data-partitioning.md#partitioned).
+In the example below, we create an `IgniteConfiguration` bean, set the `workDirectory` property, and configure a [partitioned cache](../../architecture/data-distribution/data-partitioning.md#partitioned).
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

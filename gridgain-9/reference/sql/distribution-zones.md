@@ -13,7 +13,7 @@ This section describes GridGain 9 distribution zones. In GridGain 9, you can fin
 Creates a new distribution zone.
 
 {% hint style="info" %}
-This can also be done via the [Java API](../../gridgain9-development/tables-from-java-classes.md).
+This can also be done via the [Java API](../../gridgain9-development/accessing-data/tables-from-java-classes.md).
 {% endhint %}
 
 ```bnf
@@ -114,7 +114,7 @@ It's also possible to combine multiple attribute-related expressions in one filt
   ```
 
   {% hint style="info" %}
-  The example above assumes that there are nodes that have the attribute set in [node filtering](../../architecture/storage/distribution-zones.md#node-filtering) example.
+  The example above assumes that there are nodes that have the attribute set in [node filtering](../../architecture/data-distribution/distribution-zones.md#node-filtering) example.
   {% endhint %}
 
 - Creates an `exampleZone` distribution zone with consistency mode set to `HIGH_AVAILABILITY`:
@@ -251,7 +251,7 @@ Terminal('DEFAULT')
 Drops an existing distribution zone.
 
 {% hint style="info" %}
-This can also be done via the [Java API](../../gridgain9-development/tables-from-java-classes.md).
+This can also be done via the [Java API](../../gridgain9-development/accessing-data/tables-from-java-classes.md).
 {% endhint %}
 
 ```bnf

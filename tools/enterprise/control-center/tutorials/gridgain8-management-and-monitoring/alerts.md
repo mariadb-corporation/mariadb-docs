@@ -7,7 +7,7 @@ description: >-
 
 An alert notifies you when a cluster metric or condition crosses a configured threshold. By configuring alerts, you automate routine monitoring and can respond when important signals require attention. For example, you can be notified when off-heap memory usage grows too high, disk usage approaches a limit, or the number of server nodes drops below the expected count.
 
-GridGain Control Center provides [built-in alerting capabilities](../../gg8/alerting/alerting.md) for GridGain metrics. In this part of the tutorial, you configure two alerts: one for off-heap memory usage and one for server node count. By the end, your alerting screen should look like the following:
+GridGain Control Center provides [built-in alerting capabilities](../../gg8/alerting.md) for GridGain metrics. In this part of the tutorial, you configure two alerts: one for off-heap memory usage and one for server node count. By the end, your alerting screen should look like the following:
 
 ![GridGain Alerting](../../../../.gitbook/assets/tutorials/gridgain8-management-monitoring/final-alerts-screen.png)
 
@@ -19,7 +19,7 @@ To receive notifications when an alert fires, set up at least one notification c
 Email notifications require a configured mail server. Until one is set up, Control Center flags the `Email` option with a warning icon (as in the screenshot above) and cannot deliver email. Set the `spring.mail.*` properties described in the [Control Center mail server settings](../../admin-guide/configuration.md#mail-server) and restart Control Center.
 {% endhint %}
 
-Open the [Alerting screen](../../gg8/alerting/alerting.md), select the `Notification channels` tab, and click `Add notification channel`. Fill in the dialog:
+Open the [Alerting screen](../../gg8/alerting.md), select the `Notification channels` tab, and click `Add notification channel`. Fill in the dialog:
 
 ![GridGain Add Notification Channel dialog](../../../../.gitbook/assets/tutorials/gridgain8-management-monitoring/notification-channel.png)
 

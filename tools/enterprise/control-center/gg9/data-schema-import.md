@@ -11,7 +11,7 @@ The **Data and Schema Import** feature lets you migrate database schemas and dat
 You can open **Import Schema**/**Import Data** from:
 
 * The **Import schemas** menu [option](data-schema-import.md#managing-imported-schemas), accessible via the user profile menu.
-* The **Queries** [screen](queries/querying-gg9.md) — via the **Import Schema**/**Import Data** action button.
+* The **Queries** [screen](querying-gg9.md) — via the **Import Schema**/**Import Data** action button.
 
 The import process consists of up to six steps:
 
@@ -204,9 +204,9 @@ From this step you can:
 
 * **Copy** the script to the clipboard.
 * **Download** the script as an `.sql` file for use in future deployments or manual execution.
-* Open the script in **SQL Notebook**: Control Center redirects you to the **Queries** [screen](queries/querying-gg9.md), where this script will be available for editing. After you execute the script, the corresponding tables will be created or updated.
+* Open the script in **SQL Notebook**: Control Center redirects you to the **Queries** [screen](querying-gg9.md), where this script will be available for editing. After you execute the script, the corresponding tables will be created or updated.
 
-You can track execution progress and results in the **Queries log** [tab](queries/querying-gg9.md#queries-log). If an error occurs, it will also appear there with detailed logs.
+You can track execution progress and results in the **Queries log** [tab](querying-gg9.md#queries-log). If an error occurs, it will also appear there with detailed logs.
 
 ## Managing Imported Schemas
 
@@ -222,7 +222,7 @@ For each configuration, the row-level context menu provides the following action
 
 * **Edit** — reopen the configuration to modify it.
 * **Rename** — rename the configuration.
-* **Open in SQL Notebook** — open the generated script in the [Queries](queries/querying-gg9.md) screen for review or manual execution.
+* **Open in SQL Notebook** — open the generated script in the [Queries](querying-gg9.md) screen for review or manual execution.
 * **Remove** — delete the configuration.
 
 To view the generated script and connection details for a configuration, click on a schema name to open the side panel on the right.

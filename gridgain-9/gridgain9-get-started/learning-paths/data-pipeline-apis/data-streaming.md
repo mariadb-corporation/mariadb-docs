@@ -1566,7 +1566,7 @@ The patterns from this tutorial apply wherever individual writes are too slow:
 
 The `commerce-data-generator.jar` used in the schema design tutorial applies the same pattern at 50,000 customers, producing over 2.5 million rows.
 
-**What's next.** To process data where it lives instead of moving it to the client, see [About Distributed Computing](../../../gridgain9-development/distributed-computing/about-distributed-computing.md).
+**What's next.** To process data where it lives instead of moving it to the client, see [About Distributed Computing](../../../gridgain9-development/distributed-computing-and-services/distributed-computing/about-distributed-computing.md).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

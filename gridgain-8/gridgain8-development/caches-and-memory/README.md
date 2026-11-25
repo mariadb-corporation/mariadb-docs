@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../configuring-caches/" %}
-[Configuring Caches](../configuring-caches/)
+{% content-ref url="configuring-caches/" %}
+[Configuring Caches](configuring-caches/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ Configuring GridGain caches, including atomicity modes, cache groups, backups, d
 
 {% columns %}
 {% column %}
-{% content-ref url="../memory-configuration/" %}
-[Configuring Memory](../memory-configuration/)
+{% content-ref url="memory-configuration/" %}
+[Configuring Memory](memory-configuration/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -31,8 +31,8 @@ Configuring GridGain memory usage, including data regions, eviction policies, an
 
 {% columns %}
 {% column %}
-{% content-ref url="../persistence/" %}
-[Persistence](../persistence/)
+{% content-ref url="persistence/" %}
+[Persistence](persistence/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -43,8 +43,8 @@ Configure how GridGain persists cache data to external stores — third-party da
 
 {% columns %}
 {% column %}
-{% content-ref url="../near-caches.md" %}
-[Near Caches](../near-caches.md)
+{% content-ref url="near-caches.md" %}
+[Near Caches](near-caches.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

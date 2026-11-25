@@ -29,7 +29,7 @@ If your cluster runs a release that is not listed, contact MariaDB [support](htt
 
 ## Choose Your Upgrade Path
 
-- *Rolling upgrade.* You upgrade the nodes one at a time while the cluster stays available. It uses [Rolling Upgrades](../../upgrade/rolling-upgrades.md), an Enterprise and Ultimate feature, and requires `rollingUpdatesEnabled=true` on every 8.9 node.
+- *Rolling upgrade.* You upgrade the nodes one at a time while the cluster stays available. It uses [Rolling Upgrades](../../installation/upgrade/rolling-upgrades.md), an Enterprise and Ultimate feature, and requires `rollingUpdatesEnabled=true` on every 8.9 node.
 - *Offline upgrade.* You stop the cluster and start every node from the 8.10 distribution. It does not need `rollingUpdatesEnabled`.
 
 The right path depends on your 8.9 cluster:

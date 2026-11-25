@@ -84,7 +84,7 @@ Because the node starts after other beans are initialized, do not reference `Ign
 
 ### IgniteSpring
 
-The `IgniteSpring.start(...)` methods start a node and pass it a Spring application context. GridGain uses this context to inject Spring beans and the application context into tasks, jobs, and other GridGain components through the `@SpringResource` and `@SpringApplicationContextResource` annotations. For details, see [Resource Injection](../gridgain8-development/key-value-api/basic-cache-operations.md#resource-injection).
+The `IgniteSpring.start(...)` methods start a node and pass it a Spring application context. GridGain uses this context to inject Spring beans and the application context into tasks, jobs, and other GridGain components through the `@SpringResource` and `@SpringApplicationContextResource` annotations. For details, see [Resource Injection](../gridgain8-development/accessing-data/key-value-api/basic-cache-operations.md#resource-injection).
 
 ```java
 ApplicationContext springCtx = new ClassPathXmlApplicationContext("app-context.xml");
@@ -147,14 +147,14 @@ public void updateSalary(Employee e) {
 | `configuration` | `IgniteConfiguration` bean. The cache manager starts a node with this configuration. Cannot be used together with `configurationPath`. | |
 | `igniteInstanceName` | Name of a running node to use. Used if neither `configurationPath` nor `configuration` is set. If no node with this name is running, an exception is thrown. | The default (unnamed) node |
 | `dynamicCacheConfiguration` | `CacheConfiguration` template for caches the cache manager creates on first access. The cache name is set from the name used in the annotation. | Default cache configuration |
-| `dynamicNearCacheConfiguration` | `NearCacheConfiguration` template for caches the cache manager creates on first access. If set, the caches are created with a [near cache](../gridgain8-development/near-caches.md). | |
+| `dynamicNearCacheConfiguration` | `NearCacheConfiguration` template for caches the cache manager creates on first access. If set, the caches are created with a [near cache](../gridgain8-development/caches-and-memory/near-caches.md). | |
 | `locksCount` | Number of distributed locks used to synchronize value loading for `@Cacheable(sync = true)`. Keys are distributed among the locks by hash. | `512` |
 
 If both `configurationPath` and `configuration` are set, the cache manager throws an `IllegalArgumentException`.
 
 ## Managing Transactions with Spring
 
-`SpringTransactionManager` implements Spring's `PlatformTransactionManager`, so you can manage GridGain [transactions](../gridgain8-development/transactions.md) with `@Transactional` and other Spring transaction mechanisms. Cache operations in a method annotated with `@Transactional` run in a single GridGain transaction.
+`SpringTransactionManager` implements Spring's `PlatformTransactionManager`, so you can manage GridGain [transactions](../gridgain8-development/accessing-data/transactions.md) with `@Transactional` and other Spring transaction mechanisms. Cache operations in a method annotated with `@Transactional` run in a single GridGain transaction.
 
 Like `SpringCacheManager`, the transaction manager uses a node in the same JVM, which it can start itself (`configurationPath` or `configuration`) or find by name (`igniteInstanceName`):
 
@@ -175,7 +175,7 @@ Like `SpringCacheManager`, the transaction manager uses a node in the same JVM, 
 </beans>
 ```
 
-The `transactionConcurrency` property sets the [concurrency mode](../gridgain8-development/transactions.md#concurrency-modes-and-isolation-levels) of all transactions the manager starts. If it is not set, the default concurrency from the node's `TransactionConfiguration` is used. To use both modes in one application, define two transaction managers and select one with a qualifier:
+The `transactionConcurrency` property sets the [concurrency mode](../gridgain8-development/accessing-data/transactions.md#concurrency-modes-and-isolation-levels) of all transactions the manager starts. If it is not set, the default concurrency from the node's `TransactionConfiguration` is used. To use both modes in one application, define two transaction managers and select one with a qualifier:
 
 ```xml
 <bean id="optimisticTransactionManager" class="org.apache.ignite.transactions.spring.SpringTransactionManager">

@@ -81,9 +81,9 @@ See [Performance and Tuning](performance-tuning/general-tips.md) for the practic
 
 When you have [Native Persistence](../architecture/storage/native-persistence.md) enabled, you need to provide enough disk space for each node to accommodate the data required for proper operation. The data includes your application data converted to Ignite's internal format plus auxiliary data such as indexes, WAL files, etc.
 
-The total amount of the required space can be estimated as follows (for [partitioned caches](../architecture/data-modeling/data-partitioning.md)):
+The total amount of the required space can be estimated as follows (for [partitioned caches](../architecture/data-distribution/data-partitioning.md)):
 
-- The size of your data when loaded into Ignite (the total amount, it will be distributed among the nodes depending on your cache configuration). Refer to the [Empirical Estimation of Disk Capacity Usage page](disk-capacity-estimation.md) for information on how to get an estimate of the data size. If [backups](../architecture/data-modeling/data-partitioning.md#backup-partitions) are enabled, the backup partitions will take as much space as the total amount of data, so multiply this value by `number of backups + 1`. Divide the resulting number by the number of nodes to get an approximate per node value.
+- The size of your data when loaded into Ignite (the total amount, it will be distributed among the nodes depending on your cache configuration). Refer to the [Empirical Estimation of Disk Capacity Usage page](disk-capacity-estimation.md) for information on how to get an estimate of the data size. If [backups](../architecture/data-distribution/data-partitioning.md#backup-partitions) are enabled, the backup partitions will take as much space as the total amount of data, so multiply this value by `number of backups + 1`. Divide the resulting number by the number of nodes to get an approximate per node value.
 - WAL size per node (10 segments * segment size; defaults to 640 MB).
 - [WAL Archive](../architecture/storage/native-persistence.md#write-ahead-log-wal) size per node (either the configured value or 4 times the checkpointing buffer size). See the [Write-Ahead Log page](../architecture/storage/native-persistence.md) for details.
 

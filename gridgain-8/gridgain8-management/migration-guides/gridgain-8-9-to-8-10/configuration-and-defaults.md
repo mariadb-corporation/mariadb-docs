@@ -11,7 +11,7 @@ GridGain 8.10 changes the SFTP host key default and adds vector search limits. I
 
 `SftpConfiguration.strictHostKeyChecking` now defaults to `true`. In 8.9.x it defaulted to `false`. Before the first snapshot transfer to an SFTP destination, add the server to the OpenSSH-format known hosts file, or set `strictHostKeyChecking` to `false`. Otherwise transfers fail. The file is the one that `knownHostsPath` points at. If `knownHostsPath` is not set, the file is `~/.ssh/known_hosts` of the account that runs the node.
 
-For more information, see [Configuring SFTP Location](../../snapshots/network-backups.md#configuring-sftp-location).
+For more information, see [Configuring SFTP Location](../../backup-and-replication/snapshots/network-backups.md#configuring-sftp-location).
 
 ## Vector Search Limits
 
@@ -22,7 +22,7 @@ Vector search now enforces limits and rejects queries above them:
 
 Neither limit exists in 8.9.x. A vector index that you built on 8.9 needs no migration. The index is kept in memory and rebuilt from the cache data each time a node starts, so a node that you upgrade opens the existing data and returns the same results.
 
-For more information, see [Vector Search](../../../gridgain8-development/vector-search/README.md).
+For more information, see [Vector Search](../../../gridgain8-development/accessing-data/vector-search/README.md).
 
 ## Startup Messages for Stale Properties
 
@@ -58,7 +58,7 @@ The following system properties are new or removed in 8.10:
 | --- | --- |
 | `IGNITE_REST_SCAN_QUERY_FILTER_CLASSES` | New. See [REST Scan Queries With a Filter Class](security-and-licensing.md#rest-scan-queries-with-a-filter-class). |
 | `GRIDGAIN_VECTOR_MAX_DIMENSIONS`, `GRIDGAIN_VECTOR_MAX_K` | New. See [Vector Search Limits](#vector-search-limits). |
-| `GRIDGAIN_VECTOR_BINARY_QUANTIZATION`, `GRIDGAIN_VECTOR_INDEX_DELETES_PCT`, `GRIDGAIN_VECTOR_INDEX_MAX_SEGMENTS`, `GRIDGAIN_VECTOR_INDEX_RAM_BUFFER_MB`, `GRIDGAIN_VECTOR_NOCOPY_SCORER`, `GRIDGAIN_VECTOR_QUERY_CACHE_MIN_SEGMENT_DOCS`, `GRIDGAIN_VECTOR_QUERY_CACHE_MIN_SEGMENT_SIZE_RATIO`, `GRIDGAIN_VECTOR_QUERY_THREADS` | New. Vector index and query tuning. No action is needed. `GRIDGAIN_VECTOR_BINARY_QUANTIZATION` is `false` by default. See [Vector Search](../../../gridgain8-development/vector-search/README.md). |
+| `GRIDGAIN_VECTOR_BINARY_QUANTIZATION`, `GRIDGAIN_VECTOR_INDEX_DELETES_PCT`, `GRIDGAIN_VECTOR_INDEX_MAX_SEGMENTS`, `GRIDGAIN_VECTOR_INDEX_RAM_BUFFER_MB`, `GRIDGAIN_VECTOR_NOCOPY_SCORER`, `GRIDGAIN_VECTOR_QUERY_CACHE_MIN_SEGMENT_DOCS`, `GRIDGAIN_VECTOR_QUERY_CACHE_MIN_SEGMENT_SIZE_RATIO`, `GRIDGAIN_VECTOR_QUERY_THREADS` | New. Vector index and query tuning. No action is needed. `GRIDGAIN_VECTOR_BINARY_QUANTIZATION` is `false` by default. See [Vector Search](../../../gridgain8-development/accessing-data/vector-search/README.md). |
 | `IGNITE_CUSTOM_METRICS_MAX_NAME_LENGTH` | New. Limits the length of custom metric registry and metric names. The default is 256. |
 | `IGNITE_TCP_COMM_MSG_QUEUE_WARN_SIZE` | New. When set to a positive number, logs a warning when the outgoing message queue of the TCP communication SPI exceeds it. The default is 0, which prints no warning. |
 | `IGNITE_BPLUS_TREE_DISABLE_METRICS` | New. Disables the metrics of the secondary index B+Trees. The default is `false`. |

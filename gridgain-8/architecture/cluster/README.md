@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../clustering.md" %}
-[Clustering](../clustering.md)
+{% content-ref url="clustering.md" %}
+[Clustering](clustering.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ How GridGain nodes discover each other to form a cluster, the difference between
 
 {% columns %}
 {% column %}
-{% content-ref url="../baseline-topology.md" %}
-[Baseline Topology](../baseline-topology.md)
+{% content-ref url="baseline-topology.md" %}
+[Baseline Topology](baseline-topology.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -31,8 +31,8 @@ The baseline topology is the set of server nodes that hold data and controls whe
 
 {% columns %}
 {% column %}
-{% content-ref url="../split-brain-protection.md" %}
-[Split-Brain Protection](../split-brain-protection.md)
+{% content-ref url="split-brain-protection.md" %}
+[Split-Brain Protection](split-brain-protection.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

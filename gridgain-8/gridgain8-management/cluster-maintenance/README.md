@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../resource-control.md" %}
-[GridGain Resource Control](../resource-control.md)
+{% content-ref url="resource-control.md" %}
+[GridGain Resource Control](resource-control.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ How to limit the CPU and memory a GridGain node uses on Linux with systemd, Dock
 
 {% columns %}
 {% column %}
-{% content-ref url="../persistence-defragmentation.md" %}
-[Persistence Defragmentation](../persistence-defragmentation.md)
+{% content-ref url="persistence-defragmentation.md" %}
+[Persistence Defragmentation](persistence-defragmentation.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -31,8 +31,8 @@ How to reclaim disk space from GridGain persistent storage by scheduling and run
 
 {% columns %}
 {% column %}
-{% content-ref url="../maintenance-mode.md" %}
-[Maintenance Mode](../maintenance-mode.md)
+{% content-ref url="maintenance-mode.md" %}
+[Maintenance Mode](maintenance-mode.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

@@ -45,7 +45,7 @@ Everything migrates together in one cutover, because Ignite 2 and GridGain 8 ser
 You arranged these during planning (see [Before You Begin](before-you-migrate.md#before-you-begin)); confirm all of them before you start:
 
 - You understand the [migration constraints](before-you-migrate.md#migration-constraints), most importantly that for a persistent cluster this is a one-way cutover with no in-place rollback once GridGain 8 writes to the data directory.
-- A valid GridGain 8.10 Ultimate Edition [license](../../licensing.md) is available. The 8.10 distribution does not include one: without a license the node does not start (see [GridGain Refuses to Start Because of the License](#gridgain-refuses-to-start-because-of-the-license)).
+- A valid GridGain 8.10 Ultimate Edition [license](../../licensing-and-support/licensing.md) is available. The 8.10 distribution does not include one: without a license the node does not start (see [GridGain Refuses to Start Because of the License](#gridgain-refuses-to-start-because-of-the-license)).
 - Java 17 or later is installed on every host that will run GridGain 8 (see [Distribution](artifacts-and-modules.md#distribution)).
 - The downtime window for the full cluster cutover is scheduled.
 - *Persistent only:* storage for a complete backup of the persistence directory is reserved.
@@ -299,7 +299,7 @@ With the cluster live on GridGain 8, confirm it is healthy before you consider t
 2. *Run the real workload.* Run your regression suite or production workload end to end and confirm it passes.
 3. *Watch performance over the first days.* Look for SQL memory-quota failures on large queries, since GridGain 8 enables SQL memory quotas by default. If a query that worked in Ignite 2 now fails, tune `sqlGlobalMemoryQuota` or set it to `0`. See [SQL Changes](apis-and-clients.md#sql-changes).
 4. *Reconnect monitoring.* Update log parsing for the new file-name pattern and quiet-mode default, and move any removed metrics, system-view, or event usages to JMX or the `SYS` schema. Confirm your dashboards and alerts show data again.
-5. *Re-establish backups.* Recreate your backup regime with GridGain 8 snapshots, because Ignite 2 snapshots are not compatible. Take a first snapshot and confirm it completes. `control.sh --snapshot create <name>` works on the migrated cluster with no extra configuration. `snapshot-utility.sh` fails with `GridGain snapshots are not configured` until you configure the GridGain 8 snapshot system (see [Snapshots and Recovery](../../snapshots/snapshots-and-recovery.md)).
+5. *Re-establish backups.* Recreate your backup regime with GridGain 8 snapshots, because Ignite 2 snapshots are not compatible. Take a first snapshot and confirm it completes. `control.sh --snapshot create <name>` works on the migrated cluster with no extra configuration. `snapshot-utility.sh` fails with `GridGain snapshots are not configured` until you configure the GridGain 8 snapshot system (see [Snapshots and Recovery](../../backup-and-replication/snapshots/snapshots-and-recovery.md)).
 
 {% hint style="warning" %}
 The migration is complete when data integrity, application functionality, performance, and monitoring all check out under the production workload. On a persistent cluster, keep the pre-cutover backup and the archived Ignite 2 distribution until then. They are your only path back.

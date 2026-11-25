@@ -208,7 +208,7 @@ While streaming mode allows you to load data much faster than other data loading
 
 ### Example
 
-Use the world.sql file that is shipped with the latest GridGain distribution. It can be found in the `{gridgain_dir}/examples/sql/` directory. You can use the `run` command from [SQLLine](../../gridgain8-development/tools/sqlline.md), as shown below:
+Use the world.sql file that is shipped with the latest GridGain distribution. It can be found in the `{gridgain_dir}/examples/sql/` directory. You can use the `run` command from [SQLLine](../../gridgain8-development/accessing-data/tools/sqlline.md), as shown below:
 
 ```bash
 !run /apache_ignite_version/examples/sql/world.sql

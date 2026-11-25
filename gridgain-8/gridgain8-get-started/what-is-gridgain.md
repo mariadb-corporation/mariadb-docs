@@ -72,11 +72,11 @@ To migrate, stop your server and replace Apache Ignite binaries with GridGain bi
 
 ### Snapshots
 
-GridGain snapshots were developed separately from Apache Ignite. The implementations are not compatible. If you used Apache Ignite snapshots in your project, you will need to implement [GridGain snapshots](../gridgain8-management/snapshots/full-incremental-snapshots.md) instead.
+GridGain snapshots were developed separately from Apache Ignite. The implementations are not compatible. If you used Apache Ignite snapshots in your project, you will need to implement [GridGain snapshots](../gridgain8-management/backup-and-replication/snapshots/full-incremental-snapshots.md) instead.
 
 ### Ignite CDC
 
-Ignite CDC (Change Data Capture) is an experimental feature in Apache Ignite, and as such it does not have exact counterpart in GridGain. Instead, GridGain Enterprise and Ultimate editions offer [Data Center Replication](../gridgain8-management/data-center-replication/introduction.md) to replicate cache data.
+Ignite CDC (Change Data Capture) is an experimental feature in Apache Ignite, and as such it does not have exact counterpart in GridGain. Instead, GridGain Enterprise and Ultimate editions offer [Data Center Replication](../gridgain8-management/backup-and-replication/data-center-replication/introduction.md) to replicate cache data.
 
 If you used Apache Ignite CDC, you will need to implement Data Center Replication or use an alternative solution.
 
@@ -90,7 +90,7 @@ Cellular affinity is an experimental mode in Apache Ignite. As such, it is not i
 
 ### Service Interceptors
 
-GridGain supports service interceptors starting with version 8.10.0. See [Service Call Interceptors](../gridgain8-development/services/services.md#service-call-interceptors).
+GridGain supports service interceptors starting with version 8.10.0. See [Service Call Interceptors](../gridgain8-development/distributed-computing-and-services/services.md#service-call-interceptors).
 
 ### Service Call Context
 

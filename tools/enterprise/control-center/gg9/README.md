@@ -15,40 +15,40 @@ This section covers the Control Center features available for GridGain 9 cluster
 [cloud-connector](cloud-connector/)
 {% endcontent-ref %}
 
-{% content-ref url="alerting/alerting.md" %}
-[alerting/alerting.md](alerting/alerting.md)
+{% content-ref url="alerting.md" %}
+[alerting/alerting.md](alerting.md)
 {% endcontent-ref %}
 
-{% content-ref url="queries/querying-gg9.md" %}
-[queries/querying-gg9.md](queries/querying-gg9.md)
+{% content-ref url="querying-gg9.md" %}
+[queries/querying-gg9.md](querying-gg9.md)
 {% endcontent-ref %}
 
 {% content-ref url="deployment/" %}
 [deployment](deployment/)
 {% endcontent-ref %}
 
-{% content-ref url="events/events.md" %}
-[events/events.md](events/events.md)
+{% content-ref url="events.md" %}
+[events/events.md](events.md)
 {% endcontent-ref %}
 
 {% content-ref url="data-schema-import.md" %}
 [data-schema-import.md](data-schema-import.md)
 {% endcontent-ref %}
 
-{% content-ref url="tables/tables.md" %}
-[tables/tables.md](tables/tables.md)
+{% content-ref url="tables.md" %}
+[tables/tables.md](tables.md)
 {% endcontent-ref %}
 
-{% content-ref url="dcr/dcr.md" %}
-[dcr/dcr.md](dcr/dcr.md)
+{% content-ref url="dcr.md" %}
+[dcr/dcr.md](dcr.md)
 {% endcontent-ref %}
 
 {% content-ref url="snapshots/" %}
 [snapshots](snapshots/)
 {% endcontent-ref %}
 
-{% content-ref url="auth/authorization-permissions.md" %}
-[auth/authorization-permissions.md](auth/authorization-permissions.md)
+{% content-ref url="authorization-permissions.md" %}
+[auth/authorization-permissions.md](authorization-permissions.md)
 {% endcontent-ref %}
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

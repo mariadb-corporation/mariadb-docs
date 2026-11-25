@@ -71,7 +71,7 @@ The following table lists the GridGain modules an application developer adds as 
 | --- | --- | --- |
 | `ignite-client` | Table API, Key-Value API, SQL API, Compute, Transactions, Catalog, Data Streamer, Continuous Queries — any thin-client application. | [Java Client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/java) |
 | `ignite-jdbc` | The JDBC driver to connect over SQL. | [JDBC Driver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/jdbc-driver) |
-| `gridgain-jdbc-cache-store` | An external JDBC cache store. | [Cache](caches.md) |
+| `gridgain-jdbc-cache-store` | An external JDBC cache store. | [Cache](caches-and-memory/caches.md) |
 | `gridgain-map-structure` | Distributed map data structures (the `org.gridgain.structure` API), in addition to `ignite-client`. | [Distributed Map](data-structures/distributed-maps.md) |
 | `gridgain-hibernate` | Hibernate ORM integration. | [Hibernate](../integrations/hibernate.md) |
 | `spring-data-ignite` | Spring Data integration. | [Spring Data](../integrations/spring-data.md) |
@@ -85,7 +85,7 @@ The `gridgain-hibernate`, `spring-data-ignite`, and `spring-boot-starter-ignite-
 
 - [Use Java API](../gridgain9-get-started/java-api.md) — an end-to-end example using the modules above.
 - [Java Client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/java) — full client configuration reference.
-- [Table API](table-api.md) — work with data once the client is connected.
+- [Table API](accessing-data/table-api.md) — work with data once the client is connected.
 
 ## See Also
 

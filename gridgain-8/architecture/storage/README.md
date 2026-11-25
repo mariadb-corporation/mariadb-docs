@@ -10,8 +10,8 @@ This section covers how GridGain stores data beyond RAM. It describes [Native Pe
 
 {% columns %}
 {% column %}
-{% content-ref url="../memory-architecture.md" %}
-[Memory Architecture](../memory-architecture.md)
+{% content-ref url="memory-architecture.md" %}
+[Memory Architecture](memory-architecture.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

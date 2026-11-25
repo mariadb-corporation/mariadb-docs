@@ -78,7 +78,7 @@ If you have a staging cluster, rehearse the whole procedure there first.
 
 ## Upgrade With Rolling Upgrades
 
-Use this path to upgrade the nodes one at a time, without stopping the cluster for the upgrade itself. It needs [Rolling Upgrades](../../upgrade/rolling-upgrades.md). The steps are the same for both editions, except for the backup. Ultimate Edition takes a snapshot. Enterprise Edition copies the persistence folders, which needs a short stop of the whole cluster. If you cannot use Rolling Upgrades, or you prefer to stop the cluster, see [Upgrade Without Rolling Upgrades](#upgrade-without-rolling-upgrades).
+Use this path to upgrade the nodes one at a time, without stopping the cluster for the upgrade itself. It needs [Rolling Upgrades](../../installation/upgrade/rolling-upgrades.md). The steps are the same for both editions, except for the backup. Ultimate Edition takes a snapshot. Enterprise Edition copies the persistence folders, which needs a short stop of the whole cluster. If you cannot use Rolling Upgrades, or you prefer to stop the cluster, see [Upgrade Without Rolling Upgrades](#upgrade-without-rolling-upgrades).
 
 The procedure has three parts:
 
@@ -99,7 +99,7 @@ Every 8.9 node, on both editions, must have `rollingUpdatesEnabled=true` in its 
 </bean>
 ```
 
-`GridGainConfiguration` is an element of `IgniteConfiguration.pluginConfigurations`. Enabling Rolling Upgrades adds a small amount of data to every network message. See [Performance Considerations](../../upgrade/rolling-upgrades.md#performance-considerations).
+`GridGainConfiguration` is an element of `IgniteConfiguration.pluginConfigurations`. Enabling Rolling Upgrades adds a small amount of data to every network message. See [Performance Considerations](../../installation/upgrade/rolling-upgrades.md#performance-considerations).
 
 #### Ultimate Edition: Add a Snapshot Configuration
 
@@ -239,7 +239,7 @@ The new node writes a warning to its log that the build versions differ, but tha
 {% endhint %}
 
 {% hint style="warning" %}
-Do not leave the cluster with mixed versions for long. See [Rolling Upgrades](../../upgrade/rolling-upgrades.md) for the performance considerations.
+Do not leave the cluster with mixed versions for long. See [Rolling Upgrades](../../installation/upgrade/rolling-upgrades.md) for the performance considerations.
 {% endhint %}
 
 ### Step 6: Finish the Rolling Upgrade
@@ -336,7 +336,7 @@ The backup that you can restore depends on your edition:
 
 ### Before Finish
 
-While the rolling upgrade is still in progress, you can revert it (see [Reverting Rolling Upgrades](../../upgrade/rolling-upgrades.md#reverting-rolling-upgrades)). Revert each node that you already upgraded. Stop the node and start it again from the 8.9 distribution with the same configuration, work directory, consistent ID, and Java version. The node rebalances from the 8.10 nodes, and tables, columns, and indexes that you created through 8.10 nodes stay visible.
+While the rolling upgrade is still in progress, you can revert it (see [Reverting Rolling Upgrades](../../installation/upgrade/rolling-upgrades.md#reverting-rolling-upgrades)). Revert each node that you already upgraded. Stop the node and start it again from the 8.9 distribution with the same configuration, work directory, consistent ID, and Java version. The node rebalances from the 8.10 nodes, and tables, columns, and indexes that you created through 8.10 nodes stay visible.
 
 After all nodes are back on 8.9, the status still shows the target version 8.10 and lists all nodes as not updated. Run `control.sh --rolling-upgrade finish --yes` to leave the rolling upgrade mode. The initial version stays 8.9.x.
 

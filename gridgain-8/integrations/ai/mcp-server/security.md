@@ -44,7 +44,7 @@ With this account, the cluster refuses `INSERT`, `UPDATE`, `DELETE`, `MERGE`, `C
 
 {% hint style="info" %}
 Permissions apply only when authentication is enabled on the cluster.
-See [Authentication](../../../security/authentication.md) and [Authorization and Permissions](../../../security/authorization-permissions.md).
+See [Authentication](../../../security/authentication-and-authorization/authentication.md) and [Authorization and Permissions](../../../security/authentication-and-authorization/authorization-permissions.md).
 On a cluster without authorization, the account cannot limit the server, and only the statement check protects your data.
 {% endhint %}
 
@@ -82,7 +82,7 @@ Other clients of the cluster can still read the view. To protect the properties 
 ## TLS and Mutual TLS
 
 TLS encrypts the connection between the server and the cluster.
-The cluster must accept TLS connections from thin clients. See [SSL/TLS](../../../security/ssl-tls.md).
+The cluster must accept TLS connections from thin clients. See [SSL/TLS](../../../security/encryption-and-transport/ssl-tls.md).
 
 To encrypt the connection, set the following variables:
 

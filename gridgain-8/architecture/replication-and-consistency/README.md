@@ -10,8 +10,8 @@ When nodes join or leave the cluster, GridGain moves partitions between nodes to
 
 {% columns %}
 {% column %}
-{% content-ref url="../rebalancing/data-rebalancing.md" %}
-[Data Rebalancing](../rebalancing/data-rebalancing.md)
+{% content-ref url="data-rebalancing.md" %}
+[Data Rebalancing](data-rebalancing.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -22,8 +22,8 @@ How GridGain redistributes partitions across nodes to keep data balanced, includ
 
 {% columns %}
 {% column %}
-{% content-ref url="../rebalancing/historical-rebalancing.md" %}
-[Historical Rebalancing](../rebalancing/historical-rebalancing.md)
+{% content-ref url="historical-rebalancing.md" %}
+[Historical Rebalancing](historical-rebalancing.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -34,8 +34,8 @@ How historical rebalancing transfers only the WAL delta accumulated while a pers
 
 {% columns %}
 {% column %}
-{% content-ref url="../rebalancing/partition-loss-policy.md" %}
-[Partition Loss Policy](../rebalancing/partition-loss-policy.md)
+{% content-ref url="partition-loss-policy.md" %}
+[Partition Loss Policy](partition-loss-policy.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

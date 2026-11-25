@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../events/" %}
-[Events](../events/)
+{% content-ref url="events/" %}
+[Events](events/)
 {% endcontent-ref %}
 {% endcolumn %}
 

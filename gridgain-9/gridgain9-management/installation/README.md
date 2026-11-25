@@ -82,8 +82,8 @@ Understand the Software Identification (SWID) tags that GridGain 9 distributions
 
 {% columns %}
 {% column %}
-{% content-ref url="../upgrade/" %}
-[Upgrading GridGain 9](../upgrade/)
+{% content-ref url="upgrade/" %}
+[Upgrading GridGain 9](upgrade/)
 {% endcontent-ref %}
 {% endcolumn %}
 

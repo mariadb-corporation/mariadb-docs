@@ -174,7 +174,7 @@ To resolve this issue, you can try the following:
 
 ## Activation, Deactivation, and Topology Management
 
-You can use the control script to activate or deactivate your cluster, and manage the [Baseline Topology](../../architecture/baseline-topology.md).
+You can use the control script to activate or deactivate your cluster, and manage the [Baseline Topology](../../architecture/cluster/baseline-topology.md).
 
 {% include "../../.gitbook/includes/gg8-note-on-deactivation.md" %}
 
@@ -223,7 +223,7 @@ control.bat --state
 
 ### baseline
 
-To get a list of nodes registered in the [baseline topology](../../architecture/baseline-topology.md), run the following command:
+To get a list of nodes registered in the [baseline topology](../../architecture/cluster/baseline-topology.md), run the following command:
 
 {% tabs %}
 {% tab title="Linux/Unix" %}
@@ -266,10 +266,10 @@ Execution time: 333 ms
 
 ### baseline add
 
-To add a node (or multiple nodes) to the [baseline topology](../../architecture/baseline-topology.md), run the following command.
+To add a node (or multiple nodes) to the [baseline topology](../../architecture/cluster/baseline-topology.md), run the following command.
 
 {% hint style="info" %}
-Addition of a node starts the [rebalancing process](../../architecture/rebalancing/data-rebalancing.md).
+Addition of a node starts the [rebalancing process](../../architecture/replication-and-consistency/data-rebalancing.md).
 {% endhint %}
 
 {% tabs %}
@@ -295,11 +295,11 @@ The command arguments are as follows.
 
 ### baseline remove
 
-To remove a node from the [baseline topology](../../architecture/baseline-topology.md), use the following command.
+To remove a node from the [baseline topology](../../architecture/cluster/baseline-topology.md), use the following command.
 
 {% hint style="info" %}
 Only offline nodes can be removed from the baseline topology. Shut down the node first and then use the `remove` command.
-This operation starts the [rebalancing process](../../architecture/rebalancing/data-rebalancing.md), which will re-distribute the data across the nodes that remain in the baseline topology.
+This operation starts the [rebalancing process](../../architecture/replication-and-consistency/data-rebalancing.md), which will re-distribute the data across the nodes that remain in the baseline topology.
 {% endhint %}
 
 {% tabs %}
@@ -325,7 +325,7 @@ The command arguments are as follows.
 
 ### baseline set
 
-You can set [baseline topology](../../architecture/baseline-topology.md) by providing a list of nodes (consistent IDs).
+You can set [baseline topology](../../architecture/cluster/baseline-topology.md) by providing a list of nodes (consistent IDs).
 
 The command syntax is as follows:
 
@@ -352,7 +352,7 @@ The command arguments are as follows.
 
 ### baseline version
 
-To restore a specific version of the [baseline topology](../../architecture/baseline-topology.md), use the following command:
+To restore a specific version of the [baseline topology](../../architecture/cluster/baseline-topology.md), use the following command:
 
 {% tabs %}
 {% tab title="Linux/Unix" %}
@@ -381,7 +381,7 @@ The command arguments are as follows.
 The `auto_adjust` command is deprecated and will be removed in a future release. Use [baseline scale_up_auto_adjust](#baseline-scale_up_auto_adjust) and [baseline scale_down_auto_adjust](#baseline-scale_down_auto_adjust) to control autoadjust instead.
 {% endhint %}
 
-[Baseline topology autoadjustment](../../architecture/baseline-topology.md#baseline-topology-autoadjustment) is an automatic update of baseline topology after the topology has been stable for a specific amount of time.
+[Baseline topology autoadjustment](../../architecture/cluster/baseline-topology.md#baseline-topology-autoadjustment) is an automatic update of baseline topology after the topology has been stable for a specific amount of time.
 
 For in-memory clusters, autoadjustment is enabled by default with the timeout set to 0. It means that baseline topology changes immediately after server nodes join or leave the cluster.
 
@@ -415,7 +415,7 @@ The command arguments are as follows.
 The `auto_adjust` command is deprecated and will be removed in a future release. Disabling it turns off both scale-up and scale-down autoadjustment. Use [baseline scale_up_auto_adjust](#baseline-scale_up_auto_adjust) and [baseline scale_down_auto_adjust](#baseline-scale_down_auto_adjust) to control autoadjust instead.
 {% endhint %}
 
-[Baseline topology autoadjustment](../../architecture/baseline-topology.md#baseline-topology-autoadjustment) is an automatic update of baseline topology after the topology has been stable for a specific amount of time.
+[Baseline topology autoadjustment](../../architecture/cluster/baseline-topology.md#baseline-topology-autoadjustment) is an automatic update of baseline topology after the topology has been stable for a specific amount of time.
 
 For clusters with persistence, the automatic baseline adjustment is disabled by default.
 
@@ -439,7 +439,7 @@ control.bat --baseline auto_adjust disable
 
 ### baseline scale_up_auto_adjust
 
-You can configure [baseline autoadjustment](../../architecture/baseline-topology.md#baseline-topology-autoadjustment) separately for scale-up events — when server nodes join the cluster and are added to the baseline topology. This lets you use a different timeout for adding nodes than for removing them.
+You can configure [baseline autoadjustment](../../architecture/cluster/baseline-topology.md#baseline-topology-autoadjustment) separately for scale-up events — when server nodes join the cluster and are added to the baseline topology. This lets you use a different timeout for adding nodes than for removing them.
 
 For in-memory clusters, scale-up autoadjustment is enabled by default with the timeout set to 0. For clusters with persistence, it is disabled by default; when enabled, the default timeout is 5 minutes.
 
@@ -483,7 +483,7 @@ The command arguments are as follows.
 
 ### baseline scale_down_auto_adjust
 
-You can configure [baseline autoadjustment](../../architecture/baseline-topology.md#baseline-topology-autoadjustment) separately for scale-down events — when server nodes leave the cluster and are removed from the baseline topology.
+You can configure [baseline autoadjustment](../../architecture/cluster/baseline-topology.md#baseline-topology-autoadjustment) separately for scale-down events — when server nodes leave the cluster and are removed from the baseline topology.
 
 For in-memory clusters, scale-down autoadjustment is enabled by default with the timeout set to 0. For clusters with persistence, it is disabled by default. Note that on persistent clusters the default scale-down timeout is effectively infinite: even after you enable scale-down autoadjustment, departed nodes are not removed from the baseline automatically until you set a finite timeout. This prevents unintended data loss from removing persistent nodes.
 
@@ -720,7 +720,7 @@ The command arguments are as follows.
 ### cache reset_lost_partitions
 
 This command resets lost partitions in the specified caches.
-Refer to [Partition Loss Policy](../../architecture/rebalancing/partition-loss-policy.md) for details.
+Refer to [Partition Loss Policy](../../architecture/replication-and-consistency/partition-loss-policy.md) for details.
 
 Use the following command syntax:
 
@@ -1292,7 +1292,7 @@ Available properties:
 |longOperationsDumpTimeout|60000|Long operations dump timeout in milliseconds. Transactions exceeding this timeout will be logged. 0 means no timeout. The `IGNITE_LONG_OPERATIONS_DUMP_TIMEOUT` system property overrides this property on the node.|
 |longTransactionTimeDumpSamplesPerSecondLimit|5|The limit of samples of completed transactions that will be dumped in log per second, if `transactionTimeDumpSamplesCoefficient` is above 0.0. Must be integer value greater than 0. The `IGNITE_TRANSACTION_TIME_DUMP_SAMPLES_PER_SECOND_LIMIT` system property overrides this property on the node.|
 |longTransactionTimeDumpThreshold|0|Threshold timeout for long transactions in milliseconds. 0 means no transactions are dumped. The `IGNITE_LONG_TRANSACTION_TIME_DUMP_THRESHOLD` system property overrides this property on the node.|
-|pointInTimeRecoveryEnabled|`null`|Cluster-wide switch for the [point-in-time recovery](../../gridgain8-management/snapshots/point-in-time-recovery.md) (PITR) feature. If `true`, PITR is enabled at runtime; if `false`, it is disabled. Default value is `null`, in which case each node falls back to its `DataStorageConfiguration.pointInTimeRecoveryEnabled` setting from the local configuration.|
+|pointInTimeRecoveryEnabled|`null`|Cluster-wide switch for the [point-in-time recovery](../../gridgain8-management/backup-and-replication/snapshots/point-in-time-recovery.md) (PITR) feature. If `true`, PITR is enabled at runtime; if `false`, it is disabled. Default value is `null`, in which case each node falls back to its `DataStorageConfiguration.pointInTimeRecoveryEnabled` setting from the local configuration.|
 |shutdown.policy|null|Case-insensitive configuration for cluster shutdown policy. Possible values:<br>- `IMMEDIATE` - stops the node as soon as all components are ready;<br>- `GRACEFUL` - node will stop only if it does not store any unique partitions that do not have other copies in the cluster.<br><br>By default, local configuration on each node is used (`IMMEDIATE` if not specified).|
 |snapshotSecurityLevel|`null`|Snapshot file-registry security level. Available only when the snapshot security feature is enabled in the Ultimate Edition. Possible values:<br>- `DISABLED` - the snapshot file registry is not created and is not validated if present (default behavior).<br>- `IGNORE_EXISTING` - new snapshots include a file registry; existing file registries are not verified.<br>- `IGNORE_MISSING` - new snapshots include a file registry; existing file registries are verified when present and tolerated when missing.<br>- `REQUIRE` - new snapshots include a file registry; presence and validity of file registries in all snapshots is required.<br><br>When `null`, the value from the local node configuration is used.|
 |sql.defaultQueryTimeout|0|Default query timeout in milliseconds. 0 means no timeout.|
@@ -1484,7 +1484,7 @@ ea0b75f5-8c31-4934-b076-edb911800001  gridCommandHandlerTest1  SERVER           
 
 ## Cluster Encryption
 
-You can use the `control.sh|bat` script to manage cluster encryption parameters. For more information about encryption key, see the [Transparent Data Encryption](../../security/tde.md) page.
+You can use the `control.sh|bat` script to manage cluster encryption parameters. For more information about encryption key, see the [Transparent Data Encryption](../../security/encryption-and-transport/tde.md) page.
 
 ### encryption get_master_key_name
 
@@ -1687,7 +1687,7 @@ The command arguments are as follows.
 
 ### kill continuous
 
-This command stops the specific [continuous query](../../gridgain8-development/continuous-queries.md).
+This command stops the specific [continuous query](../../gridgain8-development/accessing-data/continuous-queries.md).
 
 {% tabs %}
 {% tab title="Linux/Unix" %}
@@ -1708,7 +1708,7 @@ Use the CONTINUOUS_QUERIES [system view](../monitoring/system-views.md#continuou
 
 ### kill scan
 
-This command stops the specific [scan query](../../gridgain8-development/key-value-api/using-scan-queries.md).
+This command stops the specific [scan query](../../gridgain8-development/accessing-data/key-value-api/using-scan-queries.md).
 
 {% tabs %}
 {% tab title="Linux/Unix" %}
@@ -1735,7 +1735,7 @@ The command arguments are as follows.
 
 ### kill compute
 
-This command stops the specific [compute task](../../gridgain8-development/distributed-computing/distributed-computing.md).
+This command stops the specific [compute task](../../gridgain8-development/distributed-computing-and-services/distributed-computing/distributed-computing.md).
 
 {% tabs %}
 {% tab title="Linux/Unix" %}
@@ -1759,7 +1759,7 @@ The command arguments are as follows.
 
 ### kill service
 
-This command stops the specific [service](../../gridgain8-development/services/services.md).
+This command stops the specific [service](../../gridgain8-development/distributed-computing-and-services/services.md).
 
 {% tabs %}
 {% tab title="Linux/Unix" %}
@@ -1783,7 +1783,7 @@ The command arguments are as follows.
 
 ### kill transaction
 
-This command stops the specific [transaction](../../gridgain8-development/transactions.md).
+This command stops the specific [transaction](../../gridgain8-development/accessing-data/transactions.md).
 
 {% tabs %}
 {% tab title="Linux/Unix" %}
@@ -2027,7 +2027,7 @@ The command arguments are as follows.
 
 ### dr pause
 
-Use this command to [pause data center replication](../../gridgain8-management/data-center-replication/managing-and-monitoring.md#pausing-and-resuming-replication) on all sender nodes, or on a specific sender node.
+Use this command to [pause data center replication](../../gridgain8-management/backup-and-replication/data-center-replication/managing-and-monitoring.md#pausing-and-resuming-replication) on all sender nodes, or on a specific sender node.
 
 {% tabs %}
 {% tab title="Linux/Unix" %}
@@ -2053,7 +2053,7 @@ The command arguments are as follows.
 
 ### dr resume
 
-Use this command to [resume data center replication](../../gridgain8-management/data-center-replication/managing-and-monitoring.md#pausing-and-resuming-replication) on all sender nodes, or on a specific sender node.
+Use this command to [resume data center replication](../../gridgain8-management/backup-and-replication/data-center-replication/managing-and-monitoring.md#pausing-and-resuming-replication) on all sender nodes, or on a specific sender node.
 
 {% tabs %}
 {% tab title="Linux/Unix" %}
@@ -2185,7 +2185,7 @@ The command argument is as follows.
 Use this command to schedule and run a maintenance task to clean up DR trees:
 
 {% hint style="info" %}
-The operation this command initiates can be performed only in the [maintenance mode](../../gridgain8-management/maintenance-mode.md).
+The operation this command initiates can be performed only in the [maintenance mode](../../gridgain8-management/cluster-maintenance/maintenance-mode.md).
 {% endhint %}
 
 {% tabs %}
@@ -2408,7 +2408,7 @@ You can use the `control.sh|bat` script to define the way the data files and cac
 
 ### persistence
 
-This command works only for nodes in [maintenance](../../gridgain8-management/maintenance-mode.md) mode.
+This command works only for nodes in [maintenance](../../gridgain8-management/cluster-maintenance/maintenance-mode.md) mode.
 
 To get information about the potentially corrupted caches on a local node, use either:
 
@@ -2487,7 +2487,7 @@ The command arguments are as follows.
 
 The `--snapshot` command is an Apache Ignite 2 compatibility layer over GridGain snapshots. Use it to run existing Apache Ignite 2 snapshot scripts against a GridGain cluster without rewriting them.
 
-To manage GridGain snapshots directly, use the [`snapshot-utility.sh`](../../gridgain8-management/snapshots/snapshots-management-tool.md) tool instead, which exposes the full GridGain feature set.
+To manage GridGain snapshots directly, use the [`snapshot-utility.sh`](../../gridgain8-management/backup-and-replication/snapshots/snapshots-management-tool.md) tool instead, which exposes the full GridGain feature set.
 
 The command requires the Ultimate Edition.
 

@@ -41,7 +41,7 @@ Verify all performance recommendations from this paper in a test environment bef
 
 ## Enabling One-Way SSL
 
-By default, all connections are secured with two-way SSL. You can switch to one-way SSL to improve connection speed by configuring the server not to verify client certificates. Set the `clientAuth=optional` property in [SSL settings](../../security/ssl-tls.md).
+By default, all connections are secured with two-way SSL. You can switch to one-way SSL to improve connection speed by configuring the server not to verify client certificates. Set the `clientAuth=optional` property in [SSL settings](../../security/encryption-and-transport/ssl-tls.md).
 
 ## Limiting Number of Active Compute Tasks
 
@@ -94,9 +94,9 @@ Each distribution zone adds additional overhead in maintaining its topology. Do 
 
 ## Efficient Data Access
 
-- Employ transaction [parallelism](../../gridgain9-development/transactions.md#transaction-isolation-and-concurrency) whenever possible.
+- Employ transaction [parallelism](../../gridgain9-development/accessing-data/transactions.md#transaction-isolation-and-concurrency) whenever possible.
   - For example, for a money transfer between two accounts, both reads and writes for each account can be done concurrently.
-- Use [read-only](../../gridgain9-development/transactions.md#read-only-transactions), lockless transactions when possible.
+- Use [read-only](../../gridgain9-development/accessing-data/transactions.md#read-only-transactions), lockless transactions when possible.
 - Prefer a single batch operation over many single-key operations.
 - It is a good idea to mix a read-only transaction to prefetch a consistent snapshot, perform calculations, and use standard transactions to update modified rows.
 - Use atomic table operations when possible.

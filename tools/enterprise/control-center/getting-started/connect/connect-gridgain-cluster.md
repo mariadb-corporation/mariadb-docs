@@ -21,7 +21,7 @@ Cluster must have open egress on `TCP:8080`. Control Center must have open ingre
 {% endhint %}
 
 {% hint style="info" %}
-Depending on configuration, [secured clusters](../../gg8/auth/authorization-permissions.md) might require a cluster-level authentication for some (or all) of the actions.
+Depending on configuration, [secured clusters](../../gg8/authorization-permissions.md) might require a cluster-level authentication for some (or all) of the actions.
 {% endhint %}
 
 ## Enabling the Control Center Module
@@ -85,7 +85,7 @@ You can enable metrics in two ways:
 
 You can enable tracing capabilities and view traces in Control Center in two ways:
 
-1. The best way to configure tracing is to use the [Tracing](../../gg8/tracing/tracing.md#the-tracing-screen) screen of the Control Center.
+1. The best way to configure tracing is to use the [Tracing](../../gg8/tracing.md#the-tracing-screen) screen of the Control Center.
 2. To configure tracing programmatically, see the Tracing page for more detail.
 
 ### Control Center URI

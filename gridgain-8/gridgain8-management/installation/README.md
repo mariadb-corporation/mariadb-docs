@@ -176,8 +176,8 @@ The MariaDB GridGain 8 Kubernetes Operator provisions GridGain 8 clusters from a
 
 {% columns %}
 {% column %}
-{% content-ref url="../upgrade/" %}
-[Upgrade](../upgrade/)
+{% content-ref url="upgrade/" %}
+[Upgrade](upgrade/)
 {% endcontent-ref %}
 {% endcolumn %}
 

@@ -194,7 +194,7 @@ cluster unit deploy sentiment-model \
 cluster unit list
 ```
 
-For more information about code deployment, see the [Code Deployment](../code-deployment.md) article.
+For more information about code deployment, see the [Code Deployment](../distributed-computing-and-services/code-deployment.md) article.
 
 ## Step 3: Run Your First Prediction
 

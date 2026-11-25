@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../data-consistency-and-replication.md" %}
-[Data Consistency and Replication](../data-consistency-and-replication.md)
+{% content-ref url="data-consistency-and-replication.md" %}
+[Data Consistency and Replication](data-consistency-and-replication.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ How GridGain 9 maintains data consistency through RAFT replication and consensus
 
 {% columns %}
 {% column %}
-{% content-ref url="../high-availability-mode.md" %}
-[High Availability Mode](../high-availability-mode.md)
+{% content-ref url="high-availability-mode.md" %}
+[High Availability Mode](high-availability-mode.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../caches.md" %}
-[Caches](../caches.md)
+{% content-ref url="caches.md" %}
+[Caches](caches.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ Use GridGain 9 caches as temporary storage, create them from SQL, Java classes, 
 
 {% columns %}
 {% column %}
-{% content-ref url="../near-caches.md" %}
-[Near Caches](../near-caches.md)
+{% content-ref url="near-caches.md" %}
+[Near Caches](near-caches.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -31,8 +31,8 @@ Configure a near cache in GridGain 9 to store frequently accessed data locally, 
 
 {% columns %}
 {% column %}
-{% content-ref url="../expiry-policies.md" %}
-[Expiry Policies](../expiry-policies.md)
+{% content-ref url="expiry-policies.md" %}
+[Expiry Policies](expiry-policies.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

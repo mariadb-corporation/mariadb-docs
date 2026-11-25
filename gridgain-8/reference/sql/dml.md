@@ -55,7 +55,7 @@ JOIN tableExpression
 
 ### Description
 
-`SELECT` queries can be executed against both [replicated](../../architecture/data-modeling/data-partitioning.md#replicated) and [partitioned](../../architecture/data-modeling/data-partitioning.md#partitioned) data.
+`SELECT` queries can be executed against both [replicated](../../architecture/data-distribution/data-partitioning.md#replicated) and [partitioned](../../architecture/data-distribution/data-partitioning.md#partitioned) data.
 
 When queries are executed against fully replicated data, GridGain will send a query to a single cluster node and run it over the local data there.
 

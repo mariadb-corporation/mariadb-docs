@@ -6,7 +6,7 @@ description: >-
 
 # Data Streaming Performance Tuning
 
-When loading large amounts of data using the [Data Streamer](../../gridgain9-development/data-streaming.md), default settings may cause timeout failures or suboptimal throughput under heavy load. This page describes tuning options to improve stability and performance.
+When loading large amounts of data using the [Data Streamer](../../gridgain9-development/accessing-data/data-streaming.md), default settings may cause timeout failures or suboptimal throughput under heavy load. This page describes tuning options to improve stability and performance.
 
 ## Batch Records
 
@@ -67,8 +67,8 @@ The following DataStreamer options can be tuned to improve throughput and reduce
 
 | Option | Default | Description |
 |---|---|---|
-| [perPartitionParallelOperations](../../gridgain9-development/data-streaming.md#configuring-data-streamer) | 1 | Number of parallel streaming operations per partition. Increasing this value can reduce latency and improve throughput on clusters with available CPU and network capacity. |
-| [pageSize](../../gridgain9-development/data-streaming.md#configuring-data-streamer) | 1000 | Number of records per streaming page. Larger values reduce the number of round trips, which can improve latency, but increase memory usage per operation. |
+| [perPartitionParallelOperations](../../gridgain9-development/accessing-data/data-streaming.md#configuring-data-streamer) | 1 | Number of parallel streaming operations per partition. Increasing this value can reduce latency and improve throughput on clusters with available CPU and network capacity. |
+| [pageSize](../../gridgain9-development/accessing-data/data-streaming.md#configuring-data-streamer) | 1000 | Number of records per streaming page. Larger values reduce the number of round trips, which can improve latency, but increase memory usage per operation. |
 
 Start with moderate increases and benchmark each change, as optimal values depend on record size, cluster topology, and available resources.
 

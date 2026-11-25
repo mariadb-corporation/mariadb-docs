@@ -51,7 +51,7 @@ The metrics provided by the client handler and related to active clients.
 ## `dcr`
 
 {% hint style="info" %}
-These metrics become available when at least one [replication](../../gridgain9-management/data-center-replication/configuring-replication.md) exists.
+These metrics become available when at least one [replication](../../gridgain9-management/backup-and-replication/data-center-replication/configuring-replication.md) exists.
 {% endhint %}
 
 | Metric name | Description |

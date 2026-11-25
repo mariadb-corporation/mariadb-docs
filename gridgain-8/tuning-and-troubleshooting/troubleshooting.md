@@ -91,7 +91,7 @@ As a temporary workaround, you can set the `IGNITE_BINARY_METADATA_MERGE_BY_FIEL
 
 ## Saving WAL Data to Disk on Corruption
 
-The normal way to deal with data corruption is to use [maintenance mode](../gridgain8-management/maintenance-mode.md) to resolve the corruption issue and return to normal operation. Sometimes it may lead to data  being lost, for example when the index file is restored to a state not accounting for WAL. You can enable the  `IGNITE_DUMP_PERSISTENCE_FILES_ON_DATA_CORRUPTION` system property to save all stored data to the `db/dump/<consistentId>` folder in the node work directory when corruption is detected.
+The normal way to deal with data corruption is to use [maintenance mode](../gridgain8-management/cluster-maintenance/maintenance-mode.md) to resolve the corruption issue and return to normal operation. Sometimes it may lead to data  being lost, for example when the index file is restored to a state not accounting for WAL. You can enable the  `IGNITE_DUMP_PERSISTENCE_FILES_ON_DATA_CORRUPTION` system property to save all stored data to the `db/dump/<consistentId>` folder in the node work directory when corruption is detected.
 
 {% hint style="warning" %}
 This property will create a copy of all wal files written since the last [checkpoint](../architecture/storage/native-persistence.md#checkpointing) plus related partition files. Make sure you have sufficient space on the drive to create a data dump before enabling the property.
@@ -197,7 +197,7 @@ if (atomicLong != null && atomicLong.get() == 1) {
 
 ### Uneven Data Distribution
 
-The default GridGain [affinity function](../architecture/data-modeling/data-partitioning.md#affinity-function) does not guarantee even data distribution. As a result, sometimes large clusters may encounter uneven data distribution across the nodes. For example, when a node leaves a 20-node cluster, some nodes may receive 10% of total cluster data, while others will not receive any additional data. This may cause performance issues with nodes that suddenly handle more data than expected.
+The default GridGain [affinity function](../architecture/data-distribution/data-partitioning.md#affinity-function) does not guarantee even data distribution. As a result, sometimes large clusters may encounter uneven data distribution across the nodes. For example, when a node leaves a 20-node cluster, some nodes may receive 10% of total cluster data, while others will not receive any additional data. This may cause performance issues with nodes that suddenly handle more data than expected.
 
 In most cases, this can be remedied by increasing the number of partitions in your cluster. GridGain aims to reduce overhead caused by rebalancing data, so having smaller partitions means that data can be spread more evenly even in these scenarios.
 

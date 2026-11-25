@@ -495,7 +495,7 @@ Cluster was initialized successfully.
 Renames an already-initialized cluster. The cluster keeps its identity (cluster ID, metastorage state, data); only the human-readable name is updated.
 
 {% hint style="info" %}
-This command requires the `RENAME_CLUSTER` privilege. See [User Permissions and Roles](../security/user-permissions-and-roles.md).
+This command requires the `RENAME_CLUSTER` privilege. See [User Permissions and Roles](../security/authentication-and-authorization/user-permissions-and-roles.md).
 {% endhint %}
 
 **Syntax**
@@ -1610,7 +1610,7 @@ recovery partitions states --local --zones=default
 
 ### recovery cluster reset
 
-Initiates recovery of the CMG and/or Metastorage group. This command can be used to recover from a permanent loss of the majority of the corresponding group(s). See the [disaster recovery](../gridgain9-management/disaster-recovery/system-groups-recovery.md) documentation for details.
+Initiates recovery of the CMG and/or Metastorage group. This command can be used to recover from a permanent loss of the majority of the corresponding group(s). See the [disaster recovery](../gridgain9-management/backup-and-replication/disaster-recovery/system-groups-recovery.md) documentation for details.
 
 **Syntax**
 
@@ -2643,7 +2643,7 @@ These commands help you manage the license on a running cluster.
 
 Updates license.
 
-When security is enabled, the user needs the `MANAGE_LICENSE` privilege. For details, see [User Permissions and Roles](../security/user-permissions-and-roles.md#cluster-management).
+When security is enabled, the user needs the `MANAGE_LICENSE` privilege. For details, see [User Permissions and Roles](../security/authentication-and-authorization/user-permissions-and-roles.md#cluster-management).
 
 **Syntax**
 

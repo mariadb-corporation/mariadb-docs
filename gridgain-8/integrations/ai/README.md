@@ -14,7 +14,7 @@ GridGain 8 integrates with popular AI and large language model (LLM) frameworks,
 - [MCP Server](mcp-server/README.md): Let AI assistants such as Claude Code, Cursor, and Visual Studio Code inspect a cluster and run read-only SQL queries.
 
 {% hint style="info" %}
-GridGain 8's native vector search capability is documented separately. See [Vector Search](../../gridgain8-development/vector-search/README.md).
+GridGain 8's native vector search capability is documented separately. See [Vector Search](../../gridgain8-development/accessing-data/vector-search/README.md).
 {% endhint %}
 
 ## See Also

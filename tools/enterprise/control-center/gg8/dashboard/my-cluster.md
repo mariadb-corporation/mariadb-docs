@@ -106,7 +106,7 @@ You can modify cluster-wide settings by clicking the ⋮ in the top-right corner
 For the full reference of available cluster properties, see the Cluster Properties section in the GridGain 8 documentation.
 
 {% hint style="success" %}
-You can also set cluster properties, and run other control script commands, from the [Cluster terminal](../terminal/cluster-terminal.md).
+You can also set cluster properties, and run other control script commands, from the [Cluster terminal](../cluster-terminal.md).
 {% endhint %}
 
 ## Viewing Graphic Dashboards
@@ -189,7 +189,7 @@ In the entry field across the top of the **Share Cluster** dialog, start typing 
 The users and teams you have entered appear in the corresponding sections of the **Share Cluster** dialog. The system notifies the users and team members that a cluster has been shared with them. To close the **Share Cluster** dialog, click **Close**.
 
 {% hint style="info" %}
-If you have shared a [secured cluster](../auth/authorization-permissions.md), users might perform cluster-level authentication for some (or all) of the actions with that cluster.
+If you have shared a [secured cluster](../authorization-permissions.md), users might perform cluster-level authentication for some (or all) of the actions with that cluster.
 {% endhint %}
 
 ### Stopping a Cluster Share
@@ -216,7 +216,7 @@ To attach a cluster, click **+** on the top toolbar, then follow the procedure t
 ## Next Steps
 
 - [Querying](../queries/querying.md)
-- [Tracing](../tracing/tracing.md)
+- [Tracing](../tracing.md)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

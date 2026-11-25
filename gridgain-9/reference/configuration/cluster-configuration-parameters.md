@@ -102,7 +102,7 @@ bin/gridgain9 cluster config show > cluster-config.conf
 
 |Property|Default|Description|Acceptable Values|
 |---|---|---|---|
-|sourceClusterAddressAllowList|[]|Source cluster addresses that data center replications can connect to. If empty, any address is allowed except IP addresses in the link-local, any-local, and multicast ranges and the IP addresses of known cloud instance metadata services. Host names are not resolved. If not empty, only the listed addresses are allowed. For details, see [Restricting Source Cluster Addresses](../../gridgain9-management/data-center-replication/configuring-replication.md#restricting-source-cluster-addresses).|An array of `host` or `host:port` strings. An entry without a port matches any port|
+|sourceClusterAddressAllowList|[]|Source cluster addresses that data center replications can connect to. If empty, any address is allowed except IP addresses in the link-local, any-local, and multicast ranges and the IP addresses of known cloud instance metadata services. Host names are not resolved. If not empty, only the listed addresses are allowed. For details, see [Restricting Source Cluster Addresses](../../gridgain9-management/backup-and-replication/data-center-replication/configuring-replication.md#restricting-source-cluster-addresses).|An array of `host` or `host:port` strings. An entry without a port matches any port|
 
 ### Encryption Configuration
 
@@ -184,7 +184,7 @@ bin/gridgain9 cluster config show > cluster-config.conf
 |content|""|License content; a JSON string.|A JSON string with valid constraints|
 |signature|""|Signature for the license content.|A valid HEX string|
 
-When security is enabled, changing the `ignite.license` part of the cluster configuration requires the `MANAGE_LICENSE` privilege in addition to `WRITE_CLUSTER_CONFIG`. For details, see [User Permissions and Roles](../../security/user-permissions-and-roles.md#cluster-management).
+When security is enabled, changing the `ignite.license` part of the cluster configuration requires the `MANAGE_LICENSE` privilege in addition to `WRITE_CLUSTER_CONFIG`. For details, see [User Permissions and Roles](../../security/authentication-and-authorization/user-permissions-and-roles.md#cluster-management).
 
 {% hint style="info" %}
 If a cluster license expires, the nodes will stop and fail to restart with a `License is expired` validation error. To recover the cluster, set the `GG_LICENSE_OVERRIDE` environment variable on every node to the path of a valid license file, then start the nodes. Each node applies the override license and persists it to the cluster configuration. Unset the variable after a successful start.
@@ -323,7 +323,7 @@ If a cluster license expires, the nodes will stop and fail to restart with a `Li
 |Authorization parameters||||
 |roles.displayName|system|Case-sensitive role name.|A valid role name|
 |roles.name|system|Case-insensitive role name.|A valid role name|
-|roles.privileges||A list of [privileges](../../security/user-permissions-and-roles.md) available to users with the role.||
+|roles.privileges||A list of [privileges](../../security/authentication-and-authorization/user-permissions-and-roles.md) available to users with the role.||
 |roles.privileges.action|""|The action the privilege relates to.|A valid action|
 |roles.privileges.name|""|A privilege name on privilege list .|A valid name|
 |roles.privileges.on|""|The name of the object the privilege applies to.|A valid object name or empty|
@@ -333,7 +333,7 @@ If a cluster license expires, the nodes will stop and fail to restart with a `Li
 |jwt.keyTtl|1209600000|TTL for JWT security tokens.|A valid LONG value|
 |jwt.ttl|28800000|The frequency of private key updates used to issue JWT tokens.|A valid LONG value|
 
-For more information on configuring authentication, including an LDAP provider example, see [User Authentication](../../security/authentication.md).
+For more information on configuring authentication, including an LDAP provider example, see [User Authentication](../../security/authentication-and-authorization/authentication.md).
 
 ### Snapshots Configuration
 

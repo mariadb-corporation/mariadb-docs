@@ -35,7 +35,7 @@ When you are ready to execute the migration, follow the step-by-step [Migration 
 
 Have the following in place before you plan the migration:
 
-- *A GridGain 8 license.* GridGain 8 Ultimate Edition requires a license file. The enterprise features that migrations most often depend on, such as Data Center Replication, enterprise snapshots, and enterprise security, will not start without a valid one. Obtain the license and install it as described in [Licensing](../../licensing.md).
+- *A GridGain 8 license.* GridGain 8 Ultimate Edition requires a license file. The enterprise features that migrations most often depend on, such as Data Center Replication, enterprise snapshots, and enterprise security, will not start without a valid one. Obtain the license and install it as described in [Licensing](../../licensing-and-support/licensing.md).
 - *Scheduled downtime.* The cutover stops the whole cluster, converts it, and restarts it on GridGain. Ignite and GridGain nodes cannot run together, so there is no rolling upgrade (see [Migration Constraints](#migration-constraints)).
 - *Backup storage.* Reserve space for a full backup of the persistence directory, taken before the first GridGain start. It is your only rollback path once GridGain writes.
 - *Distributions.* The GridGain 8 distribution for your platform, plus your existing Apache Ignite distribution kept archived until the migration is confirmed stable.

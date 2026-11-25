@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../ssl-tls.md" %}
-[SSL/TLS](../ssl-tls.md)
+{% content-ref url="ssl-tls.md" %}
+[SSL/TLS](ssl-tls.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ Configure SSL/TLS encryption between GridGain 9 cluster nodes and the clients th
 
 {% columns %}
 {% column %}
-{% content-ref url="../transparent-data-encryption.md" %}
-[Transparent Data Encryption](../transparent-data-encryption.md)
+{% content-ref url="transparent-data-encryption.md" %}
+[Transparent Data Encryption](transparent-data-encryption.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

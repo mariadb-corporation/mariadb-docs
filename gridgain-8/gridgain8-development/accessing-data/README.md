@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../key-value-api/" %}
-[Using Key-Value Cache API](../key-value-api/)
+{% content-ref url="key-value-api/" %}
+[Using Key-Value Cache API](key-value-api/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ Use the GridGain key-value cache API to perform basic cache operations, work wit
 
 {% columns %}
 {% column %}
-{% content-ref url="../sql/" %}
-[Working with SQL](../sql/)
+{% content-ref url="sql/" %}
+[Working with SQL](sql/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -31,8 +31,8 @@ Work with GridGain's distributed SQL database, including the SQL API, schemas, i
 
 {% columns %}
 {% column %}
-{% content-ref url="../vector-search/" %}
-[Vector Search](../vector-search/)
+{% content-ref url="vector-search/" %}
+[Vector Search](vector-search/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -43,8 +43,8 @@ Index and search vectors stored in cache fields in GridGain — vector fields, v
 
 {% columns %}
 {% column %}
-{% content-ref url="../transactions.md" %}
-[Performing Transactions](../transactions.md)
+{% content-ref url="transactions.md" %}
+[Performing Transactions](transactions.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -55,8 +55,8 @@ How to perform transactions in GridGain, including concurrency modes and isolati
 
 {% columns %}
 {% column %}
-{% content-ref url="../continuous-queries.md" %}
-[Using Continuous Queries](../continuous-queries.md)
+{% content-ref url="continuous-queries.md" %}
+[Using Continuous Queries](continuous-queries.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -67,8 +67,8 @@ How to use continuous queries in GridGain to monitor cache modifications, includ
 
 {% columns %}
 {% column %}
-{% content-ref url="../data-streaming.md" %}
-[Data Streaming](../data-streaming.md)
+{% content-ref url="data-streaming.md" %}
+[Data Streaming](data-streaming.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -79,8 +79,8 @@ How to use the GridGain Data Streaming API to inject large volumes of data into 
 
 {% columns %}
 {% column %}
-{% content-ref url="../rest-api.md" %}
-[Using the REST API](../rest-api.md)
+{% content-ref url="rest-api.md" %}
+[Using the REST API](rest-api.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -91,8 +91,8 @@ Enable and configure the GridGain 8 REST API — the ignite-rest-http module, Je
 
 {% columns %}
 {% column %}
-{% content-ref url="../tools/" %}
-[Tools and Analytics](../tools/)
+{% content-ref url="tools/" %}
+[Tools and Analytics](tools/)
 {% endcontent-ref %}
 {% endcolumn %}
 

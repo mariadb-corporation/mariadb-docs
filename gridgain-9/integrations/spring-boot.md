@@ -128,7 +128,7 @@ When metrics are enabled, the client will expose metrics that can be monitored u
 
 ### Basic Authentication
 
-If [authentication](../security/authentication.md) is enabled on your GridGain cluster, you need to configure credentials. GridGain supports basic authentication with username and password.
+If [authentication](../security/authentication-and-authorization/authentication.md) is enabled on your GridGain cluster, you need to configure credentials. GridGain supports basic authentication with username and password.
 
 #### Configuration File Approach
 
@@ -194,7 +194,7 @@ ignite.client.sslConfiguration.trustStorePassword=truststorePassword
 ```
 {% endcode %}
 
-For detailed information on setting up SSL/TLS on the cluster side, see [SSL/TLS documentation](../security/ssl-tls.md).
+For detailed information on setting up SSL/TLS on the cluster side, see [SSL/TLS documentation](../security/encryption-and-transport/ssl-tls.md).
 
 ## Setting Up Client
 

@@ -6,7 +6,7 @@ description: >-
 
 # Monitoring Rebalance Progress
 
-[Data rebalancing](../architecture/rebalancing/data-rebalancing.md) is a process of redistributing partition data across nodes after a topology change. Depending on data volume and network throughput, the rebalance process can take anywhere from seconds to hours. This page lists common methods of tracking the rebalance process and its status.
+[Data rebalancing](../architecture/replication-and-consistency/data-rebalancing.md) is a process of redistributing partition data across nodes after a topology change. Depending on data volume and network throughput, the rebalance process can take anywhere from seconds to hours. This page lists common methods of tracking the rebalance process and its status.
 
 ## Checking Whether the Cluster Is Fully Rebalanced
 
@@ -142,7 +142,7 @@ The following methods provide supplementary information but are not the primary 
 ### Event Listeners
 
 `EventType.EVTS_CACHE_REBALANCE` delivers lifecycle events (partition loaded, partition supplied,
-rebalance started/stopped). For more information about using events, see the [Events documentation](../gridgain8-development/events/events.md#cache-rebalancing-events).
+rebalance started/stopped). For more information about using events, see the [Events documentation](../gridgain8-development/messaging-and-events/events/events.md#cache-rebalancing-events).
 
 ### Cluster and Partition State
 

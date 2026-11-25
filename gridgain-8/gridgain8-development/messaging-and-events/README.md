@@ -7,8 +7,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="../messaging.md" %}
-[Messaging](../messaging.md)
+{% content-ref url="messaging.md" %}
+[Messaging](messaging.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -19,8 +19,8 @@ Topic-based, cluster-wide messaging in GridGain using the IgniteMessaging interf
 
 {% columns %}
 {% column %}
-{% content-ref url="../events/" %}
-[Working with Events](../events/)
+{% content-ref url="events/" %}
+[Working with Events](events/)
 {% endcontent-ref %}
 {% endcolumn %}
 

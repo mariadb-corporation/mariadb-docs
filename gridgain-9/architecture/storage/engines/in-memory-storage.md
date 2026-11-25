@@ -60,7 +60,7 @@ You can then use the profile (in this case, `aimemory`) in your distribution zon
 
 ## Log Storage Budget
 
-Volatile table partitions use [Raft](../../raft-consensus.md) for consensus. Each partition maintains a Raft log. You can configure the number of log entries kept in memory by allocating a _log storage budget_.
+Volatile table partitions use [Raft](../../cluster/raft-consensus.md) for consensus. Each partition maintains a Raft log. You can configure the number of log entries kept in memory by allocating a _log storage budget_.
 
 Budget types and their parameters are configured using the following properties:
 

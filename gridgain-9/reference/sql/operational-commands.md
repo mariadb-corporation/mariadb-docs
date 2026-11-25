@@ -149,7 +149,7 @@ To run these statements:
 buckets, endpoints, or catalog URIs in the `ignite.importExport`
 [node configuration](../configuration/node-configuration-parameters.md).
 - Grant `COPY_FROM_FILE` to read a location, or `COPY_TO_FILE` to write one. See
-[User Permissions and Roles](../../security/user-permissions-and-roles.md).
+[User Permissions and Roles](../../security/authentication-and-authorization/user-permissions-and-roles.md).
 
 A statement that copies between tables needs neither.
 

@@ -8,7 +8,7 @@ description: >-
 
 This page explains how to migrate authorization when moving a secured Apache Ignite 2.18 cluster to GridGain 8.10. It covers the authorization differences that affect users, roles, and administrative operations. It applies to Ignite 2 and GridGain 8.10. Earlier 2.x releases may not have some of these permissions.
 
-To move a custom `GridSecurityProcessor` or Ignite 2 built-in authentication to GridGain enterprise security, see the *Custom security plugins* entry in [Features to Replace](features-to-replace.md). For the full list of permission names and how to configure them, see [Authorization and Permissions](../../../security/authorization-permissions.md).
+To move a custom `GridSecurityProcessor` or Ignite 2 built-in authentication to GridGain enterprise security, see the *Custom security plugins* entry in [Features to Replace](features-to-replace.md). For the full list of permission names and how to configure them, see [Authorization and Permissions](../../../security/authentication-and-authorization/authorization-permissions.md).
 
 ## Overview
 
@@ -40,7 +40,7 @@ GridGain 8.10 reads seven of the nine retired names from JSON-based security con
 | `ADMIN_USER_ACCESS` | Create / alter / drop users | Remove it. User management is not a permission (see [User Management](#user-management)). |
 | `SQL_VIEW_CREATE` / `SQL_VIEW_DROP` | Create / drop user-defined SQL views | Remove them. GridGain 8 has no user-defined SQL views. |
 
-All other permission names keep the same behavior, including cache, task, service, event, and the remaining administrative permissions. GridGain 8.10 also adds permissions that Ignite 2 does not have: `COPY_FROM_FILE` and `COPY_TO_FILE` (required for server-side SQL `COPY`), and `CUSTOM_METRICS_MANAGE` (custom metrics API). If your roles run these operations, grant the new permissions. `SERVICE_INVOKE` is now also checked for thin-client calls to remote Java services. For the complete list, see [Authorization and Permissions](../../../security/authorization-permissions.md).
+All other permission names keep the same behavior, including cache, task, service, event, and the remaining administrative permissions. GridGain 8.10 also adds permissions that Ignite 2 does not have: `COPY_FROM_FILE` and `COPY_TO_FILE` (required for server-side SQL `COPY`), and `CUSTOM_METRICS_MANAGE` (custom metrics API). If your roles run these operations, grant the new permissions. `SERVICE_INVOKE` is now also checked for thin-client calls to remote Java services. For the complete list, see [Authorization and Permissions](../../../security/authentication-and-authorization/authorization-permissions.md).
 
 ## Coarser Admin Permissions
 
@@ -68,7 +68,7 @@ GridGain 8 uses the H2 SQL engine and does not support user-defined SQL views. R
 
 ## If You Maintain a Custom Security Implementation
 
-Most deployments configure security through files and never touch code. If you are the exception and built a custom security provider in Java that references the removed permission names directly, that code will not compile against GridGain 8, because GridGain 8's `SecurityPermission` enum does not define the corresponding constants. Replace those references according to [Permissions That Changed](#permissions-that-changed): use `ADMIN_OPS`, use `KILL_QUERY`, or remove the permission entirely. Only the permissions listed in [Authorization and Permissions](../../../security/authorization-permissions.md) are valid.
+Most deployments configure security through files and never touch code. If you are the exception and built a custom security provider in Java that references the removed permission names directly, that code will not compile against GridGain 8, because GridGain 8's `SecurityPermission` enum does not define the corresponding constants. Replace those references according to [Permissions That Changed](#permissions-that-changed): use `ADMIN_OPS`, use `KILL_QUERY`, or remove the permission entirely. Only the permissions listed in [Authorization and Permissions](../../../security/authentication-and-authorization/authorization-permissions.md) are valid.
 
 ## Migration Checklist
 

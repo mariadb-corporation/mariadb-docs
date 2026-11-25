@@ -13,7 +13,7 @@ Exceptions supported by the Ignite API and actions you can take related to these
 
 | Exception | Description | Action | Runtime exception |
 | --- | --- | --- | --- |
-| `CacheInvalidStateException` | Thrown when you try to perform an operation on a cache in which some partitions have been lost. Depending on the partition loss policy configured for the cache, this exception is thrown either on read and/or write operations. See [Partition Loss Policy](../../architecture/rebalancing/partition-loss-policy.md) for details. | Reset lost partitions. You may want to restore the data by returning the nodes that caused the partition loss to the cluster. | Yes |
+| `CacheInvalidStateException` | Thrown when you try to perform an operation on a cache in which some partitions have been lost. Depending on the partition loss policy configured for the cache, this exception is thrown either on read and/or write operations. See [Partition Loss Policy](../../architecture/replication-and-consistency/partition-loss-policy.md) for details. | Reset lost partitions. You may want to restore the data by returning the nodes that caused the partition loss to the cluster. | Yes |
 | `IgniteException` | Indicates an error condition in the cluster. | Operation failed. Exit from the method. | Yes |
 | `IgniteClientDisconnectedException` | Thrown by the Ignite API when a client node gets disconnected from cluster. Thrown from Cache operations, compute API, and data structures. | Wait and use retry logic. | Yes |
 | `IgniteAuthenticationException` | Thrown when there is either a node authentication failure or security authentication failure. | Operation failed. Exit from the method. | No |

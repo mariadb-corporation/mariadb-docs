@@ -134,7 +134,7 @@ Now you have a working cluster with some simulated load. Feel free to explore an
 To explore more Control Center features you can:
 
 - [Connect your personal GridGain cluster](connect/connect-gridgain-cluster.md)
-- [Install Control Center on-premise](../installation/install-binary.md)
+- [Install Control Center on-premise](../admin-guide/installation/install-binary.md)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

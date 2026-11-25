@@ -9,7 +9,7 @@ description: >-
 
 This page explains how to migrate authorization when moving a secured Apache Ignite 2.x cluster to GridGain 8. It covers the authorization differences that affect users, roles, and administrative operations. This guide is verified against Apache Ignite 2.18; on earlier 2.x releases some of these permissions may not exist yet.
 
-To move a custom `GridSecurityProcessor` or Ignite built-in authentication to GridGain enterprise security, see the _Custom security plugins_ entry in [Features to Replace](features-to-replace.md). For the full list of permission names and how to configure them, see [Authorization and Permissions](../../../security/authorization-permissions.md).
+To move a custom `GridSecurityProcessor` or Ignite built-in authentication to GridGain enterprise security, see the _Custom security plugins_ entry in [Features to Replace](features-to-replace.md). For the full list of permission names and how to configure them, see [Authorization and Permissions](../../../security/authentication-and-authorization/authorization-permissions.md).
 
 ## Overview
 
@@ -37,7 +37,7 @@ GridGain 8 accepts only its own predefined permission names. If a permission set
 | `ADMIN_USER_ACCESS` | Create / alter / drop users | Remove it. User management is not a permission (see [User management](#user-management)) |
 | `SQL_VIEW_CREATE` / `SQL_VIEW_DROP` | Create / drop user-defined SQL views | Remove them. GridGain 8 has no user-defined SQL views |
 
-All other permission names keep the same behavior, including cache, task, service, event, and the remaining administrative permissions. For the complete list, see [Authorization and Permissions](../../../security/authorization-permissions.md).
+All other permission names keep the same behavior, including cache, task, service, event, and the remaining administrative permissions. For the complete list, see [Authorization and Permissions](../../../security/authentication-and-authorization/authorization-permissions.md).
 
 ## Coarser Admin Permissions
 
@@ -65,7 +65,7 @@ GridGain 8 uses the H2 SQL engine and does not support user-defined SQL views. R
 
 ## If You Maintain a Custom Security Implementation
 
-Most deployments configure security through files and never touch code. If you are the exception and built a custom security provider in Java that references the removed permission names directly, that code will not compile against GridGain 8, because GridGain's `SecurityPermission` enum does not define the corresponding constants. Replace those references according to [Permissions that changed](#permissions-that-changed): use `ADMIN_OPS`, use `KILL_QUERY`, or remove the permission entirely. Only the permissions listed in [Authorization and Permissions](../../../security/authorization-permissions.md) are valid.
+Most deployments configure security through files and never touch code. If you are the exception and built a custom security provider in Java that references the removed permission names directly, that code will not compile against GridGain 8, because GridGain's `SecurityPermission` enum does not define the corresponding constants. Replace those references according to [Permissions that changed](#permissions-that-changed): use `ADMIN_OPS`, use `KILL_QUERY`, or remove the permission entirely. Only the permissions listed in [Authorization and Permissions](../../../security/authentication-and-authorization/authorization-permissions.md) are valid.
 
 ## Migration Checklist
 

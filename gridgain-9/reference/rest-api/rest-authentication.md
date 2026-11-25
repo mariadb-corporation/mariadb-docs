@@ -8,7 +8,7 @@ description: >-
 
 When using GridGain 9’s REST API, you can authenticate your requests using either Basic authentication or a token-based (Bearer flow) authentication. Tokens are issued through an OAuth 2.0–style mechanism.
 
-To use REST authentication, first [enable](../../security/authentication.md) it on in cluster configuration.
+To use REST authentication, first [enable](../../security/authentication-and-authorization/authentication.md) it on in cluster configuration.
 
 ## Authentication Methods
 
@@ -83,7 +83,7 @@ Issued tokens expire according to cluster [security](../configuration/cluster-co
 - Use the `/management/v1/authentication/jwt/{token}` endpoint to revoke a specific JWT token
 
 {% hint style="info" %}
-To revoke tokens issued to another user, the user must have the `REVOKE_TOKEN` [permission](../../security/user-permissions-and-roles.md) on the cluster. Otherwise, the operation will fail. Users can always revoke their own tokens.
+To revoke tokens issued to another user, the user must have the `REVOKE_TOKEN` [permission](../../security/authentication-and-authorization/user-permissions-and-roles.md) on the cluster. Otherwise, the operation will fail. Users can always revoke their own tokens.
 {% endhint %}
 
 Here is how you can revoke all tokens from a specific user:

@@ -18,7 +18,7 @@ of your GridGain installation).
 This example shows just one simple way to load data into GridGain,
 quickly, for the sake of experimenting. For larger, production-scale work,
 you would want to use a more robust method of loading data
-(IgniteDataStreamer, Spark, advanced SQL, etc.). Refer to the [External Storage](../../gridgain8-development/persistence/external-storage.md) page for the information on how to load data from an RDBMS.
+(IgniteDataStreamer, Spark, advanced SQL, etc.). Refer to the [External Storage](../../gridgain8-development/caches-and-memory/persistence/external-storage.md) page for the information on how to load data from an RDBMS.
 {% endhint %}
 
 {% hint style="info" %}
@@ -138,8 +138,8 @@ For larger clusters and more complex datasets, you can [execute SQL queries dire
 
 From here, you may want to:
 
-- Read more about using GridGain and [SQL](../../gridgain8-development/sql/sql-introduction.md)
-- Read more about using [sqlline](../../gridgain8-development/tools/sqlline.md)
+- Read more about using GridGain and [SQL](../../gridgain8-development/accessing-data/sql/sql-introduction.md)
+- Read more about using [sqlline](../../gridgain8-development/accessing-data/tools/sqlline.md)
 - Use [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center) to monitor your cluster
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

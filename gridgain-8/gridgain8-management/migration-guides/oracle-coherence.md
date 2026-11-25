@@ -69,7 +69,7 @@ In addition to basic scan querying capabilities, GridGain also provides the foll
 
 - [SQL queries](../../reference/sql/dml.md#select), including support for distributed JOIN operations
 - SQL Field queries, allowing the retrieval of specific value fields instead of the whole object
-- [MapReduce queries](../../gridgain8-development/distributed-computing/map-reduce.md), allowing for preprocessing of the data on the data node side, instead of the client side, for better performance
+- [MapReduce queries](../../gridgain8-development/distributed-computing-and-services/distributed-computing/map-reduce.md), allowing for preprocessing of the data on the data node side, instead of the client side, for better performance
 
 ### Query Execution
 
@@ -344,7 +344,7 @@ try (Transaction tx = transactions.txStart(OPTIMISTIC, REPEATABLE_READ)) {
 ```
 {% endcode %}
 
-Learn more about GridGain transactions [here](../../gridgain8-development/transactions.md).
+Learn more about GridGain transactions [here](../../gridgain8-development/accessing-data/transactions.md).
 
 ## Affinity Colocation
 
@@ -388,7 +388,7 @@ public class PersonKey {
 ```
 {% endcode %}
 
-To learn more about colocating data in GridGain, see the [Affinity colocation](../../architecture/data-modeling/affinity-colocation.md) documentation.
+To learn more about colocating data in GridGain, see the [Affinity colocation](../../architecture/data-distribution/affinity-colocation.md) documentation.
 
 ## Binary Objects
 
@@ -449,7 +449,7 @@ public class Person {
 
 Coherence requires that portable objects are declared in the configuration file and also requires specifying and maintaining of unique type IDs for every portable object.
 
-GridGain does not require any configuration for binary objects. However, it provides an option to change the default behavior. Read more on Binary Objects [here](../../architecture/data-modeling/introduction.md#binary-object-format).
+GridGain does not require any configuration for binary objects. However, it provides an option to change the default behavior. Read more on Binary Objects [here](../../architecture/data-distribution/introduction.md#binary-object-format).
 
 Click [here](https://github.com/apache/ignite/tree/master/examples/src/main/java/org/apache/ignite/examples/binary/datagrid) for examples on how to use binary objects in GridGain.
 

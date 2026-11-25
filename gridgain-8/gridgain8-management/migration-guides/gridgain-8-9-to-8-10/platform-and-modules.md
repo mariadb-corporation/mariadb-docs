@@ -26,8 +26,8 @@ The following modules are removed in GridGain 8.10. Take the action in the *What
 | `ignite-hibernate-4.2`, `ignite-hibernate-5.1`, `ignite-hibernate-5.3`, `ignite-hibernate-core` | `ignite-hibernate-7.4`. See [Hibernate 7 Required](#hibernate-7-required). |
 | `ignite-spring-6` | `ignite-spring` on Spring 7. See [Spring 7 Required](#spring-7-required). |
 | `ignite-lucene-8` | `ignite-lucene-9`, or the Lucene 10 line in `libs/optional`. See [Lucene](#lucene). |
-| `ignite-aop` and the Gridify API in `ignite-core` | The [compute API](../../../gridgain8-development/distributed-computing/distributed-computing.md). See [Gridify API Removed](#gridify-api-removed). |
-| `ignite-cloud` (`TcpDiscoveryCloudIpFinder`) | Another [IP finder](../../clustering/discovery-in-the-cloud.md). |
+| `ignite-aop` and the Gridify API in `ignite-core` | The [compute API](../../../gridgain8-development/distributed-computing-and-services/distributed-computing/distributed-computing.md). See [Gridify API Removed](#gridify-api-removed). |
+| `ignite-cloud` (`TcpDiscoveryCloudIpFinder`) | Another [IP finder](../../cluster-configuration/clustering/discovery-in-the-cloud.md). |
 | `ignite-ssh` | Contact MariaDB [support](https://mariadb.com/support/) if you use `IgniteCluster.startNodes()`. See [SSH Module Removed](#ssh-module-removed). |
 | `ignite-aws` (S3 checkpoint SPI, S3, ELB, and ALB IP finders, S3 IP finder encryption) | The Apache Ignite `ignite-aws-ext` extension. See [AWS Module Removed](#aws-module-removed). |
 | `ignite-mesos` | None. Mesos deployments stay on 8.9.x. |
@@ -39,7 +39,7 @@ The following modules are not removed in 8.10 and still ship in `libs/optional`:
 
 ### Gridify API Removed
 
-The Gridify API is removed from `ignite-core`, together with the `ignite-aop` module. This covers the `org.apache.ignite.compute.gridify` package, including `@Gridify`, `@GridifySetToSet`, and `@GridifySetToValue`. Replace Gridify usage with the [compute API](../../../gridgain8-development/distributed-computing/distributed-computing.md).
+The Gridify API is removed from `ignite-core`, together with the `ignite-aop` module. This covers the `org.apache.ignite.compute.gridify` package, including `@Gridify`, `@GridifySetToSet`, and `@GridifySetToValue`. Replace Gridify usage with the [compute API](../../../gridgain8-development/distributed-computing-and-services/distributed-computing/distributed-computing.md).
 
 ### SSH Module Removed
 

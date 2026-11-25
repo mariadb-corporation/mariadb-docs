@@ -32,7 +32,7 @@ These `control.sh` commands, subcommands, and arguments changed:
 
 | Category | Command or item | Change and what to do |
 |---|---|---|
-| Removed command | `--cdc` | Not supported. Use [Data Center Replication](../../data-center-replication/introduction.md) instead. |
+| Removed command | `--cdc` | Not supported. Use [Data Center Replication](../../backup-and-replication/data-center-replication/introduction.md) instead. |
 | Removed command | `--consistency` | Use `--cache partition_reconciliation`. |
 | Removed command | `--performance-statistics` | Not supported. Use JMX metrics or an external APM. |
 | `--cache` subcommand | `create` | Removed. Define the cache in node configuration (XML), or create a table with SQL `CREATE TABLE` DDL. |
@@ -41,7 +41,7 @@ These `control.sh` commands, subcommands, and arguments changed:
 | `--cache` subcommand | `schedule_indexes_rebuild` | Removed. |
 | Argument | `--ssl-factory` | Not available. |
 | Argument | `--enable-experimental` | Set the `IGNITE_ENABLE_EXPERIMENTAL_COMMAND` system property instead. |
-| Changed command | `--snapshot` | An Ignite 2 compatibility layer over GridGain 8 snapshots: `create <name> [--incremental --dest --sync]`, `cancel (--id\|--name)`, `restore <name> [--increment --groups --src --sync]`, and `status`. `--snapshot check` is not available. For the native tool, use [`snapshot-utility.sh`](../../snapshots/snapshots-management-tool.md). |
+| Changed command | `--snapshot` | An Ignite 2 compatibility layer over GridGain 8 snapshots: `create <name> [--incremental --dest --sync]`, `cancel (--id\|--name)`, `restore <name> [--increment --groups --src --sync]`, and `status`. `--snapshot check` is not available. For the native tool, use [`snapshot-utility.sh`](../../backup-and-replication/snapshots/snapshots-management-tool.md). |
 | Changed command | `--rolling-upgrade` | Subcommands are `start`, `finish`, and `force`. |
 | Changed command | `--deactivate --force` | Not available. |
 | Changed command | `--kill snapshot`, `--kill consistency` | Not available. |
@@ -61,7 +61,7 @@ Ignite 2 signals a successful restart by writing a file (`RESTART_SUCCESS_FILE`,
 
 ### ignite-cdc.sh
 
-Not available. GridGain 8 has no CDC feature or tooling. For cross-cluster replication, use [Data Center Replication](../../data-center-replication/introduction.md); for other consumers, see the CDC entry in [Features to Replace](features-to-replace.md).
+Not available. GridGain 8 has no CDC feature or tooling. For cross-cluster replication, use [Data Center Replication](../../backup-and-replication/data-center-replication/introduction.md); for other consumers, see the CDC entry in [Features to Replace](features-to-replace.md).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

@@ -13,7 +13,7 @@ Server-side SQL `COPY` against a file or an object store is closed by default. I
 
 1. Set `fileAccessEnabled` to `true` on the `ImportExportConfiguration` block of the GridGain plugin configuration (default `false`).
 2. Fill the allow-lists on that block: `importRoots` for local directories, `allowedS3Buckets` and `allowedS3Endpoints` for S3, and `allowedCatalogUris` for Iceberg catalogs. An empty list forbids the access.
-3. Grant the new `COPY_FROM_FILE` and `COPY_TO_FILE` [permissions](../../../security/authorization-permissions.md) to the roles that run server-side `COPY`. They are system permissions, for example `{system:['COPY_FROM_FILE']}` in the permission string. In 8.9.x the statement needed no permission beyond the cache permissions. In 8.10 a role without `COPY_FROM_FILE` fails with `Authorization failed [perm=COPY_FROM_FILE, name=null, ...]`.
+3. Grant the new `COPY_FROM_FILE` and `COPY_TO_FILE` [permissions](../../../security/authentication-and-authorization/authorization-permissions.md) to the roles that run server-side `COPY`. They are system permissions, for example `{system:['COPY_FROM_FILE']}` in the permission string. In 8.9.x the statement needed no permission beyond the cache permissions. In 8.10 a role without `COPY_FROM_FILE` fails with `Authorization failed [perm=COPY_FROM_FILE, name=null, ...]`.
 
 `ImportExportConfiguration` is node-local, so configure it identically on every node. Do not point `importRoots` at the node work directory. `COPY_TO_FILE` overwrites files in a root, so use dedicated directories. Client-side `COPY` is not affected.
 

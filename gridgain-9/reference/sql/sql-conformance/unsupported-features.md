@@ -52,11 +52,11 @@ GridGain does not support the following ANSI SQL 2016 features.
 | B209 | PTF extended names | B209 |  |  |
 | B211 | Module language Ada: VARCHAR and NUMERIC support | B211 |  |  |
 | B221 | Routine language Ada: VARCHAR and NUMERIC support | B221 |  |  |
-| E081 | Basic Privileges | E081 |  | [RBAC statements](../../../security/authentication.md#basic-authentication) |
-| E081 | Basic Privileges | E081-01 | SELECT privilege | [RBAC statements](../../../security/authentication.md#basic-authentication) |
-| E081 | Basic Privileges | E081-02 | DELETE privilege | [RBAC statements](../../../security/authentication.md#basic-authentication) |
-| E081 | Basic Privileges | E081-03 | INSERT privilege at the table level | [RBAC statements](../../../security/authentication.md#basic-authentication) |
-| E081 | Basic Privileges | E081-04 | UPDATE privilege at the table level | [RBAC statements](../../../security/authentication.md#basic-authentication) |
+| E081 | Basic Privileges | E081 |  | [RBAC statements](../../../security/authentication-and-authorization/authentication.md#basic-authentication) |
+| E081 | Basic Privileges | E081-01 | SELECT privilege | [RBAC statements](../../../security/authentication-and-authorization/authentication.md#basic-authentication) |
+| E081 | Basic Privileges | E081-02 | DELETE privilege | [RBAC statements](../../../security/authentication-and-authorization/authentication.md#basic-authentication) |
+| E081 | Basic Privileges | E081-03 | INSERT privilege at the table level | [RBAC statements](../../../security/authentication-and-authorization/authentication.md#basic-authentication) |
+| E081 | Basic Privileges | E081-04 | UPDATE privilege at the table level | [RBAC statements](../../../security/authentication-and-authorization/authentication.md#basic-authentication) |
 | E081 | Basic Privileges | E081-05 | UPDATE privilege at the column level |  |
 | E081 | Basic Privileges | E081-06 | REFERENCES privilege at the table level |  |
 | E081 | Basic Privileges | E081-07 | REFERENCES privilege at the column level |  |
@@ -90,7 +90,7 @@ GridGain does not support the following ANSI SQL 2016 features.
 | F021 | Basic information schema | F021-05 | REFERENTIAL_CONSTRAINTS view |  |
 | F021 | Basic information schema | F021-06 | CHECK_CONSTRAINTS view |  |
 | F031 | Basic schema manipulation | F031-02 | CREATE VIEW statement |  |
-| F031 | Basic schema manipulation | F031-03 | GRANT statement | [RBAC statements](../../../security/authentication.md#basic-authentication) |
+| F031 | Basic schema manipulation | F031-03 | GRANT statement | [RBAC statements](../../../security/authentication-and-authorization/authentication.md#basic-authentication) |
 | F031 | Basic schema manipulation | F031-13 | DROP TABLE statement: RESTRICT clause |  |
 | F031 | Basic schema manipulation | F031-16 | DROP VIEW statement: RESTRICT clause |  |
 | F031 | Basic schema manipulation | F031-19 | REVOKE statement: RESTRICT clause |  |
