@@ -18,7 +18,7 @@ In an [INSERT ... ON DUPLICATE KEY UPDATE](../../../sql-statements/data-manipula
 
 The `VALUES()` function is meaningful only in `INSERT ... ON DUPLICATE KEY UPDATE` statements and returns `NULL` otherwise.
 
-This function was renamed to `VALUE()`, because it's incompatible with the standard Table Value Constructors syntax.
+This function was renamed to `VALUE()`, because it's incompatible with the standard [Table Value Constructors](../../../sql-structure/sql-language-structure/table-value-constructors.md) syntax.
 
 The `VALUES()` function can still be used but only in `INSERT ... ON DUPLICATE KEY UPDATE` statements; it's a syntax error otherwise.
 
