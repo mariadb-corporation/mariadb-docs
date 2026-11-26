@@ -180,6 +180,12 @@ SELECT a,row_start,row_end FROM t;
 +------+----------------------------+----------------------------+
 ```
 
+{% hint style="warning" %}
+Do not set the timestamp back for an `UPDATE` or `DELETE`. If the timestamp is earlier than the `row_start` of the current row, the statement is accepted without a warning, the current version is not kept, and the new version overlaps older versions.
+{% endhint %}
+
+To load history that already exists, with its original dates, see [Loading Existing History](loading-existing-history.md).
+
 ### Updating Data
 
 When an `UPDATE` statement modifies a row in a system-versioned table, the server writes a new history row capturing the previous state of the row.
@@ -571,6 +577,10 @@ ALTER TABLE t1 PARTITION BY SYSTEM_TIME INTERVAL 1 HOUR AUTO;
 
 If the rest of the partitioning specification is identical to `CREATE TABLE`, no repartitioning will be done (for details see [MDEV-27328](https://jira.mariadb.org/browse/MDEV-27328)).
 
+{% hint style="warning" %}
+`AUTO` creates partitions for the server clock only. Rows inserted with [system\_versioning\_insert\_history](#system_versioning_insert_history) go into the partitions that exist at that moment. Create the partitions for their dates first. See [Loading Existing History](loading-existing-history.md#partitioned-tables).
+{% endhint %}
+
 > Partitioning by SYSTEM\_TIME is not available for tables that use transaction-precise history. If partitioning is required, use the default timestamp-based system versioning instead.
 
 ### Removing Old History
@@ -611,6 +621,10 @@ DELETE HISTORY FROM t BEFORE SYSTEM_TIME '2016-10-09 08:07:06';
 Or to a specific transaction (with `BEFORE SYSTEM_TIME TRANSACTION xxx`).
 
 To protect the integrity of the history, this statement requires a special [DELETE HISTORY](../../sql-statements/account-management-sql-statements/grant.md#table-privileges) privilege.
+
+{% hint style="info" %}
+With InnoDB, `DELETE HISTORY` does not make the table file smaller. The space is freed when the table is rebuilt. On a system-versioned table, [OPTIMIZE TABLE](../../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md) does this only when [system\_versioning\_alter\_history](#system_versioning_alter_history) is set to `KEEP`. Otherwise it reports `Operation failed` in its result rows, while the statement itself succeeds.
+{% endhint %}
 
 The [TRUNCATE TABLE](../../sql-statements/table-statements/truncate-table.md) statement drops all historical records from a system-versioned table.
 
@@ -669,7 +683,7 @@ A number of system variables are related to system-versioned tables:
 
 #### system\_versioning\_insert\_history
 
-* Description: Allows direct inserts into ROW\_START and ROW\_END columns if [secure\_timestamp](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#secure_timestamp) allows changing [timestamp](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#timestamp).
+* Description: Allows direct inserts into ROW\_START and ROW\_END columns if [secure\_timestamp](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#secure_timestamp) allows changing [timestamp](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#timestamp). See [Loading Existing History](loading-existing-history.md).
 * Command line: `--system-versioning-insert-history[={0|1}]`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -687,6 +701,7 @@ A number of system variables are related to system-versioned tables:
 
 * [Application-Time Periods](application-time-periods.md)
 * [Bitemporal Tables](bitemporal-tables.md)
+* [Loading Existing History](loading-existing-history.md)
 * [mysql.transaction\_registry Table](../../system-tables/the-mysql-database-tables/mysql-transaction_registry-table.md)
 * [MariaDB Temporal Tables](https://youtu.be/uBoUlTsU1Tk) (video)
 
