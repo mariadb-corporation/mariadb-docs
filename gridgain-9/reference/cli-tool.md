@@ -586,6 +586,58 @@ cluster status --url http://localhost:10300
 
 ---
 
+### cluster system-groups
+
+Prints the state of the Cluster Management Group (CMG) and Metastorage Group (MG) RAFT nodes on every node of the physical topology, followed by a summary line for each group that says whether the group has a leader backed by a quorum. The command works when a group has no leader or no quorum, and when the node you connect to has not joined the cluster yet, so you can use it to diagnose a lost majority. See [Checking System Group State](../gridgain9-management/disaster-recovery/system-groups-recovery.md#checking-system-group-state) for how to read the output.
+
+The connected node collects the states from the other nodes. A node that does not answer is shown as a row with an error instead of being left out.
+
+**Syntax**
+
+```
+cluster system-groups [--plain] [--url=<clusterUrl>] [--profile=<profileName>] [--verbose]
+```
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `‑‑plain` | Flag | No | Display output with plain formatting. Might be useful if you want to pipe the output to another command. |
+| `‑‑url` | Option | No | URL of cluster endpoint. |
+| `‑‑profile` | Option | No | Local CLI profile name. |
+| `‑‑verbose` | Flag | No | Show additional information: logs, REST calls. |
+
+**Example**
+
+```bash
+cluster system-groups --url http://localhost:10301
+```
+
+{% code title="Output" %}
+```
+╔══════╤═════════════╤══════════╤══════╤════════╤════════════════╤════════════════╤════════════╗
+║ node │ group       │ role     │ term │ leader │ leaderless for │ last log index │ peers      ║
+╠══════╪═════════════╪══════════╪══════╪════════╪════════════════╪════════════════╪════════════╣
+║ n1   │ CMG         │ LEADER   │ 1    │ n1     │                │ 10             │ n2, n3, n1 ║
+╟──────┼─────────────┼──────────┼──────┼────────┼────────────────┼────────────────┼────────────╢
+║ n1   │ METASTORAGE │ FOLLOWER │ 1    │ n2     │                │ 121            │ n2, n1, n3 ║
+╟──────┼─────────────┼──────────┼──────┼────────┼────────────────┼────────────────┼────────────╢
+║ n2   │ CMG         │ FOLLOWER │ 1    │ n1     │                │ 10             │ n2, n3, n1 ║
+╟──────┼─────────────┼──────────┼──────┼────────┼────────────────┼────────────────┼────────────╢
+║ n2   │ METASTORAGE │ LEADER   │ 1    │ n2     │                │ 121            │ n2, n1, n3 ║
+╟──────┼─────────────┼──────────┼──────┼────────┼────────────────┼────────────────┼────────────╢
+║ n3   │ CMG         │ FOLLOWER │ 1    │ n1     │                │ 10             │ n2, n3, n1 ║
+╟──────┼─────────────┼──────────┼──────┼────────┼────────────────┼────────────────┼────────────╢
+║ n3   │ METASTORAGE │ FOLLOWER │ 1    │ n2     │                │ 121            │ n2, n1, n3 ║
+╚══════╧═════════════╧══════════╧══════╧════════╧════════════════╧════════════════╧════════════╝
+
+CMG: leader n1, term 1, quorum confirmed (3 of 3 voters reported following the leader)
+METASTORAGE: leader n2, term 1, quorum confirmed (3 of 3 voters reported following the leader)
+```
+{% endcode %}
+
+---
+
 ### cluster topology physical
 
 Shows physical topology of the specified cluster.
@@ -1221,6 +1273,47 @@ node status
 {% code title="Output" %}
 ```
 [name: node1, state: started]
+```
+{% endcode %}
+
+---
+
+### node system-groups
+
+Prints the state of the CMG and Metastorage RAFT nodes that run on a single node, as that node sees it. The output has the same columns as the table of `cluster system-groups`, with one row for each group the node is a member of, and no summary lines. A node that is not a member of any system group is shown as one row with `no system group replicas`.
+
+Use this command to check a single node when you cannot reach the rest of the cluster. To compare all nodes at once, use [cluster system-groups](#cluster-system-groups).
+
+**Syntax**
+
+```
+node system-groups [--plain] [--url=<nodeUrl>] [--profile=<profileName>] [--verbose]
+```
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `‑‑plain` | Flag | No | Display output with plain formatting. Might be useful if you want to pipe the output to another command. |
+| `‑‑url` | Option | No | URL of a node that will be used as a communication endpoint. |
+| `‑‑profile` | Option | No | Local CLI profile name. |
+| `‑‑verbose` | Flag | No | Show additional information: logs, REST calls. |
+
+**Example**
+
+```bash
+node system-groups --url http://localhost:10303
+```
+
+{% code title="Output" %}
+```
+╔══════╤═════════════╤══════════╤══════╤════════╤════════════════╤════════════════╤════════════╗
+║ node │ group       │ role     │ term │ leader │ leaderless for │ last log index │ peers      ║
+╠══════╪═════════════╪══════════╪══════╪════════╪════════════════╪════════════════╪════════════╣
+║ n3   │ CMG         │ FOLLOWER │ 1    │ n1     │                │ 10             │ n2, n3, n1 ║
+╟──────┼─────────────┼──────────┼──────┼────────┼────────────────┼────────────────┼────────────╢
+║ n3   │ METASTORAGE │ FOLLOWER │ 1    │ n2     │                │ 128            │ n2, n1, n3 ║
+╚══════╧═════════════╧══════════╧══════╧════════╧════════════════╧════════════════╧════════════╝
 ```
 {% endcode %}
 
