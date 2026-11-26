@@ -1,9 +1,21 @@
 ---
 description: >-
-  Guides for migrating to GridGain 9, including from GridGain 8.
+  Guides for upgrading GridGain 9 and for migrating to GridGain 9, including from GridGain 8.
 ---
 
 # Migration Guides
+
+{% columns %}
+{% column %}
+{% content-ref url="gridgain-9-1-to-9-2/README.md" %}
+[Upgrading from GridGain 9.1 to 9.2](gridgain-9-1-to-9-2/README.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Upgrade a GridGain 9.1 cluster and its applications to GridGain 9.2: the procedure, the planning reference, and every breaking change.
+{% endcolumn %}
+{% endcolumns %}
 
 {% columns %}
 {% column %}
