@@ -124,7 +124,7 @@ A node that is down but still in the physical topology is shown as a row with `E
 
 ### Using the REST API
 
-Both endpoints return JSON. The cluster endpoint returns a `nodes` list, ordered by node name, with the data of the table rows, and a `groups` list with one summary for each system group.
+Both the `GET /management/v1/cluster/system-groups` and `GET /management/v1/node/system-groups` endpoints return JSON. The cluster endpoint returns a `nodes` list, ordered by node name, with the data of the table rows, and a `groups` list with one summary for each system group.
 
 ```bash
 curl http://localhost:10300/management/v1/cluster/system-groups
@@ -149,10 +149,7 @@ Each summary has these fields:
 
 The node endpoint returns a single entry of the `nodes` list for the node it is sent to. Durations are in milliseconds.
 
-The REST response has some data that the CLI table does not show:
-
-* Each group state in the `nodes` list has a `learners` list, the learners in the latest group configuration the node has seen.
-* Each error object has a `reason` and a `message`. For `LOCK_HELD` only, it also has the `role` of the RAFT node.
+Each group state in the `nodes` list also has a `learners` list, the learners in the latest group configuration the node has seen. The CLI table does not show it.
 
 The full schemas are in the OpenAPI specification of the management API.
 
