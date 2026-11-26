@@ -17,7 +17,7 @@ A 9.2 node does not start if its node configuration file contains a key that 9.2
 
 In the node configuration file, only the `ignite.storage.engines.rocksdb` section is still ignored. Rename or delete every other key from the tables below before you start a node on 9.2.
 
-In the cluster configuration, 9.2 ignores the removed key `ignite.license.signature`.
+In the cluster configuration, 9.2 ignores the removed key `ignite.license.signature`. Use `ignite.license.content` instead.
 
 {% hint style="warning" %}
 The cluster configuration cannot be changed during a rolling upgrade. 9.1.29 converts old key names when it loads the cluster configuration, so `cluster config show` normally lists only the new names. Before you run `upgrade start`, check it and fix any key from the tables that is still there.
@@ -109,11 +109,10 @@ For the properties, see the [cluster configuration](../../../reference/configura
 
 ### Removed Keys Without a Replacement
 
-Delete these keys. In the cluster configuration, 9.2 still ignores `ignite.license.signature`, but use `ignite.license.content` instead.
+Delete these keys.
 
 | Level | Key |
 | --- | --- |
-| Cluster | `ignite.license.signature` |
 | Node | `ignite.compute.threadPoolStopTimeoutMillis` |
 | Node | `ignite.storage.engines.columnar.mergeTreeConfiguration` and its `mergeTreeFanout` and `mergeTreeFirstLevelSize` |
 | Cluster | `ignite.transaction.implicitTransactionTimeout` |

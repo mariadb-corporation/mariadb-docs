@@ -105,6 +105,8 @@ On the other platforms, do not start any node yet.
 
 Start all nodes in any order. The cluster forms again with its data, and you do not run `cluster init`. On the first start, GridGain converts the stored role names to uppercase. If the conversion fails, the node does not start, and the error names the roles that caused it. See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase).
 
+If you use LDAP role mappings, update them to the uppercase role names as soon as the cluster is up, and ask LDAP users to log in again. Until you do, LDAP users who get their roles from mappings have none. See [LDAP Role Mappings](security-changes.md#ldap-role-mappings).
+
 Continue with [Verify and Stabilize](#verify-and-stabilize).
 
 ## Rolling Upgrade
@@ -135,7 +137,8 @@ For each node:
 
 1. Run `upgrade commit`. The commit converts the stored role names to uppercase. If the conversion fails, the commit fails and the upgrade stays in progress. See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase).
 2. Restart one node, so that the system views get their 9.2 definitions for the whole cluster. The other nodes need no restart. See [Restart a Node After a Rolling Upgrade](sql-changes.md#restart-a-node-after-a-rolling-upgrade).
-3. Resume the SQL workload.
+3. If you use LDAP role mappings, update them to the uppercase role names, and ask LDAP users to log in again. Until you do, LDAP users who get their roles from mappings have none. See [LDAP Role Mappings](security-changes.md#ldap-role-mappings).
+4. Resume the SQL workload.
 
 {% hint style="info" %}
 After the commit, `upgrade state` can fail with ``Expected the field `nextVersion` to be a primitive type in the JSON string but got `null` ``. The CLI cannot parse the response. The upgrade is committed.
@@ -149,7 +152,7 @@ With the cluster running on 9.2, check the following:
 
 1. *Check the cluster.* Run `cluster status`. The status is `active`, and the node count is the number of nodes that you started.
 2. *Check the data.* Compare the row count of one of your tables with the value before the upgrade.
-3. *Check the logs.* Look for configuration errors. If you use LDAP, look for the warning that a role in a `roleMapping` is not present in the authorization configuration.
+3. *Check the logs.* Look for configuration errors. If you use LDAP, look for the warning that a role in a `roleMapping` is not present in the authorization configuration. Update that mapping, and ask the affected users to log in again.
 4. *Check users and roles.* Run `SHOW USERS`, and connect with one of the names it prints. Run `SHOW GRANTS FOR "<user>"` for a user with a custom role, and check that the role name is in uppercase. The built-in `system` role stays in lowercase. See [SHOW USERS](../../../reference/sql/access-control-functions.md#show-users) and [SHOW GRANTS](../../../reference/sql/access-control-functions.md#show-grants).
 5. *Check the system views.* Run `SELECT * FROM system.zones`, and run your monitoring queries. See [System Views](../../../reference/monitoring/system-views.md).
 6. *Run the real workload.* Run your regression suite or production workload end to end, including SQL. Check the queries that compare or filter on fractions of a second. See [Date and Time Values Keep Microseconds](sql-changes.md#date-and-time-values-keep-microseconds).
@@ -182,7 +185,7 @@ The tables list common errors during the upgrade, grouped by when you see them. 
 | `IGN-SQL-8: The query was mapped onto node '<node>' which runs version <version> and does not support latest query execution protocol ...` | A 9.2 node coordinated a SQL query that needs a 9.1 node during the rolling upgrade. | Stop the SQL workload until the upgrade is committed. |
 | `Schema modification command was aborted because a cluster upgrade is currently in progress` or `Cannot change configuration while rolling upgrade is in progress` | A rolling upgrade is in progress. | Wait for the commit, and then run the statement or the update again. |
 | `Cannot commit rolling upgrade. Nodes not on target version <version>: {<node>=<version>, ...}` | `upgrade commit` ran while some nodes still run 9.1. | Upgrade the listed nodes, check `upgrade state`, and run `upgrade commit` again. |
-| `upgrade commit` fails with `Legacy role names collide after uppercasing` or `Legacy role name conflicts with a built-in role` | Two role names in the cluster configuration differ only in case, or a role name becomes a built-in role name. | The cluster stays on 9.1 and the upgrade stays in progress, and configuration changes are blocked, so you cannot fix the roles in place. Restore the backup that you took before the upgrade. See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase) and [Before the Commit](#before-the-commit). |
+| `upgrade commit` fails with `Cannot commit upgrade` and `Failed to change configuration`, or a node stops at the first start on 9.2. The node log has `Legacy role name conflicts with a built-in role` or `Legacy role names collide after uppercasing` | A role name becomes a built-in role name, or two role names differ only in case. | In a rolling upgrade, the cluster stays on 9.1 and the upgrade stays in progress, and configuration changes are blocked, so you cannot fix the roles in place. In a full-cluster upgrade, a 9.1 node cannot rejoin after the failed start. In both cases, restore the backup that you took before the upgrade. See [Role Names Are Migrated to Uppercase](security-changes.md#role-names-are-migrated-to-uppercase) and [Before the Commit](#before-the-commit). |
 | `SELECT * FROM system.zones` or another system view fails with `class java.lang.Integer cannot be cast to class java.lang.String` (rolling upgrade) | No node has restarted since the commit. | Restart one node. See [Restart a Node After a Rolling Upgrade](sql-changes.md#restart-a-node-after-a-rolling-upgrade). |
 
 ### SQL

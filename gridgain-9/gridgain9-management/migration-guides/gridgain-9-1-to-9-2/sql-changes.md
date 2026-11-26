@@ -42,7 +42,7 @@ After the commit, the system views keep their 9.1 definitions until a node resta
 The `WITH` form of `CREATE ZONE` is removed. 9.1 accepted both forms. 9.2 accepts only the form with an option list in parentheses. The `STORAGE PROFILES` clause is required in both versions:
 
 ```sql
--- 9.1 (no longer accepted)
+-- 9.1 only (removed in 9.2)
 CREATE ZONE my_zone WITH PARTITIONS = 25, REPLICAS = 3, STORAGE_PROFILES = 'default';
 
 -- 9.2
@@ -74,7 +74,7 @@ For all options, see [Distribution Zones](../../../reference/sql/distribution-zo
 The zone name in `CREATE ZONE`, `ALTER ZONE`, and `DROP ZONE` must be a simple identifier, because zones do not belong to a schema. A name such as `public.my_zone` fails with `Failed to parse query`. 9.1 accepted it and silently kept only the last part. See [Distribution Zones](../../../reference/sql/distribution-zones.md).
 
 ```sql
--- 9.1 (no longer accepted)
+-- 9.1 only (removed in 9.2)
 DROP ZONE public.my_zone;
 
 -- 9.2
@@ -103,7 +103,7 @@ DROP ZONE my_zone;
 For example, a query that lists the tables of a zone changes as follows:
 
 ```sql
--- 9.1 (no longer accepted)
+-- 9.1 only (removed in 9.2)
 SELECT name FROM system.tables WHERE schema = 'PUBLIC' AND zone = 'MY_ZONE';
 
 -- 9.1 and 9.2
@@ -117,7 +117,7 @@ A query that uses a removed column fails with `IGN-SQL-4: Failed to validate que
 Every table has the hidden `BIGINT` column `__PARTITION_ID`, which is not part of `SELECT *`. In 9.1, the alias `__part` (also written `"__PART"`) returned the same value. 9.2 removes the alias, and a query that uses it fails.
 
 ```sql
--- 9.1 (no longer accepted)
+-- 9.1 only (removed in 9.2)
 SELECT __part, id FROM my_table;
 
 -- 9.1 and 9.2

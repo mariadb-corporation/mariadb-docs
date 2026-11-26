@@ -75,7 +75,7 @@ The `CREATE ZONE` syntax, system view columns, and other syntax and behavior cha
 {% endcolumn %}
 
 {% column %}
-Case-sensitive user and role names, the role migration, and index privileges. Check your existing roles before you upgrade.
+Case-sensitive user and role names, the role migration, LDAP role mappings, and index privileges. Check your user names, roles, and LDAP mappings before you upgrade.
 {% endcolumn %}
 {% endcolumns %}
 

@@ -90,9 +90,9 @@ The migration runs once, when the cluster configuration is first loaded on 9.2, 
 
 The migration state is stored in the cluster configuration parameter [`roleNamesMigrationVersion`](../../../reference/configuration/cluster-configuration-parameters.md). Do not change it manually. After the migration, you cannot return to a 9.1 binary without a recovery plan, because the role names and this value have changed. See [Recovery Path](upgrade-procedure.md#recovery-path).
 
-The migration fails with an error if two role names differ only in case (`Legacy role names collide after uppercasing`) or if a role name becomes the name of a built-in role (`Legacy role name conflicts with a built-in role`). GridGain 9.1 cannot run with case-only duplicates itself, so this is rare. The error names the roles that caused it. The migration is not saved when it fails:
+The migration fails with an error if two role names differ only in case (`Legacy role names collide after uppercasing`) or if a role name becomes the name of a built-in role (`Legacy role name conflicts with a built-in role`). GridGain 9.1 cannot run with case-only duplicates itself, so in practice only a role named `gridgain-system-bypass` in the cluster configuration triggers the failure. The cause, with the role name, is in the node log. The CLI and REST show only `Failed to change configuration`. The migration is not saved when it fails:
 
-- *Full-cluster upgrade.* The node does not start. To recover, start the nodes on the 9.1 binaries, fix the roles, and run the upgrade again. The 9.2 node has already started the cluster management group and the metastorage when the migration fails, and may have written state there. If the 9.1 binaries cannot start on this state, restore the backup that you took before the upgrade. See [Recovery Path](upgrade-procedure.md#recovery-path).
+- *Full-cluster upgrade.* The node does not start. The 9.2 node has already started the cluster management group and the metastorage when the migration fails, and has written state there. A 9.1 node cannot rejoin on this state and retries with `Some node has already been validated with a different version`. Restore the backup that you took before the upgrade, fix the roles, and run the upgrade again. See [Recovery Path](upgrade-procedure.md#recovery-path).
 - *Rolling upgrade.* `upgrade commit` fails, the cluster stays on 9.1, and the upgrade remains in progress. Cluster configuration changes such as `DROP ROLE`, `GRANT`, and `REVOKE` are rejected while the upgrade is in progress, so you cannot fix the roles in place and commit again. See [Before the Commit](upgrade-procedure.md#before-the-commit).
 
 To avoid a failed migration, check the role names for case-only duplicates before you start the upgrade.
@@ -129,7 +129,7 @@ LDAP group "Admins" is mapped to role "admin", which is not in the authorization
 LDAP user "carol" authenticated with no role, so every authorized operation will be denied.
 ```
 
-You cannot prepare the new spelling in advance: cluster configuration changes are rejected during a rolling upgrade, and a new mapping to a role that does not exist is rejected, so you cannot write the uppercase value on 9.1 for a role that is still stored in lowercase. To limit the impact:
+You cannot prepare the new spelling in advance. Cluster configuration changes are rejected during a rolling upgrade. A new mapping to a role that does not exist is also rejected, so you cannot write the uppercase value on 9.1 for a role that is still stored in lowercase. To limit the impact:
 
 1. Before you start the upgrade, list the stored role names and the `roleMapping` values. Make sure that every mapping spells its roles exactly as stored, and fix any difference in case while the cluster is still on 9.1.
 2. Schedule the commit, or the first start on 9.2 for a full-cluster upgrade, for a time when LDAP users can tolerate losing their roles.
