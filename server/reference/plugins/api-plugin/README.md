@@ -10,9 +10,9 @@ MariaDB Server Plugin API is a C-based extensibility framework (largely compatib
 * [Plugin API Concepts](page-concepts.md)
 * [Plugin API Implementation](page-implementation.md)
 * [How to make a plugin](page-make_a_plugin.md)
-* [Plugin Types](plugin_types.md)
-* [Services for Plugins](plugin_api_services_for_plugins.md)
-* [API reference](plugin_api.md)
+* [Plugin Types](plugin_api/plugin_types/README.md)
+* [Services for Plugins](plugin_api/plugin_api_services_for_plugins/README.md)
+* [API reference](plugin_api/README.md)
 
 <sub>_This page is licensed: GPLv2_</sub>
 

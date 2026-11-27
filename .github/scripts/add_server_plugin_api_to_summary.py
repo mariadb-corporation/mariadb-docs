@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild the Plugin API Documentation section of server/SUMMARY.md.
+"""Lay out the generated Plugin API pages and rebuild their SUMMARY.md section.
 
 The generated pages are listed under the "Plugin API Documentation" entry, which
 the workflow inserts right after "Plugin Overview" and points at README.md (the
@@ -22,13 +22,20 @@ Pages without a breadcrumb sit directly under the landing page, in this order:
 The generated api.md is removed before this runs (DOCS-6625).
 
 Siblings are ordered by title, byte-wise, so the order is the same on every
-platform. GitBook builds a page's URL from its nav position, so nesting moves
-the URLs of the pages that used to be flat; their old URLs equal their file
-paths, which GitBook answers with a 307 to the nav URL.
+platform.
+
+GitBook builds a page's URL from its nav position and its lowercased file
+name, so the flat files are then moved to match their URLs (DOCS-7069): a page
+with children becomes <slug>/README.md, any other page <slug>.md, inside its
+parent's folder, where <slug> is the lowercased file name. The links between
+the pages, all `name.md#fragment` in moxygen's output, are rewritten to the
+new relative paths. The other generation steps run before this one, on the
+flat files.
 
 Usage: add_server_plugin_api_to_summary.py [base_dir]
   base_dir defaults to "." (the mariadb-docs repo root).
 """
+import os
 import pathlib
 import re
 import sys
@@ -40,6 +47,7 @@ ANCHOR_ENTRY = '* [Plugin Overview](reference/plugins/plugin-overview.md)'
 PARENT_INDENT = 4
 STEP = 2
 MD_LINK = re.compile(r'\]\(([A-Za-z0-9_.-]+\.md)')
+MD_LINK_TARGET = re.compile(r'\]\(([A-Za-z0-9_.-]+\.md)(?=[#)])')
 
 
 def title_of(path):
@@ -94,12 +102,65 @@ def build_tree(dest_dir):
     return titles, children, doc_pages + groups
 
 
-def nav_lines(titles, children, roots):
+def layout(children, roots):
+    """Maps each generated file name to its path under the directory."""
+    paths = {PARENT_PAGE: PARENT_PAGE}
+
+    def place(name, folder):
+        slug = name[:-len('.md')].lower()
+        if children[name]:
+            paths[name] = f'{folder}{slug}/{PARENT_PAGE}'
+            for kid in children[name]:
+                place(kid, f'{folder}{slug}/')
+        else:
+            paths[name] = f'{folder}{slug}.md'
+
+    for name in roots:
+        place(name, '')
+    taken = {}
+    for name, path in paths.items():
+        if path.lower() in taken:
+            raise SystemExit(f'{name} and {taken[path.lower()]} both map to '
+                             f'{path}')
+        taken[path.lower()] = name
+    return paths
+
+
+def relink(text, here, paths):
+    """Rewrites links to generated pages relative to the page at `here`."""
+    folder = os.path.dirname(here) or '.'
+
+    def fix(m):
+        target = paths.get(m.group(1))
+        if target is None:
+            return m.group(0)
+        return '](' + os.path.relpath(target, folder)
+
+    return MD_LINK_TARGET.sub(fix, text)
+
+
+def move_pages(dest_dir, paths):
+    """Moves the flat files to their paths and rewrites the links in them."""
+    nested = list(dest_dir.glob('*/**/*.md'))
+    if nested:
+        raise SystemExit(f'{dest_dir} is already nested ({nested[0]}); this '
+                         'step needs the flat generated set')
+    texts = {name: relink((dest_dir / name).read_text(), path, paths)
+             for name, path in paths.items()}
+    for name in paths:
+        (dest_dir / name).unlink()
+    for name, path in paths.items():
+        target = dest_dir / path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(texts[name])
+
+
+def nav_lines(titles, children, roots, paths):
     out = []
 
     def emit(name, depth):
         indent = ' ' * (PARENT_INDENT + STEP * depth)
-        out.append(f'{indent}* [{titles[name]}]({SUMMARY_DIR}/{name})')
+        out.append(f'{indent}* [{titles[name]}]({SUMMARY_DIR}/{paths[name]})')
         for kid in children[name]:
             emit(kid, depth + 1)
 
@@ -143,11 +204,14 @@ def main():
     assert summary.is_file(), f'not a file: {summary}'
 
     titles, children, roots = build_tree(dest_dir)
-    block = nav_lines(titles, children, roots)
+    paths = layout(children, roots)
+    block = nav_lines(titles, children, roots, paths)
     assert block, f'no generated pages in {dest_dir}'
+    move_pages(dest_dir, paths)
     summary.write_text(rewrite_summary(summary.read_text(), block))
+    moved = sum(1 for name, path in paths.items() if name != path)
     print(f'Plugin API Documentation: {len(block)} nav entries, '
-          f'{len(roots)} at the top level')
+          f'{len(roots)} at the top level, {moved} files moved')
 
 
 if __name__ == '__main__':

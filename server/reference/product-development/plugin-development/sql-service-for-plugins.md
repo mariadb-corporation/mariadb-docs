@@ -13,7 +13,7 @@ This feature is available from MariaDB 10.7 (and from MariaDB 10.6.17 in the 10.
 
 ## Overview
 
-The SQL service is a [plugin service](../../plugins/api-plugin/plugin_api_service_sql.md) that lets a plugin execute SQL statements on the server that loaded it. The plugin uses the familiar MariaDB C API functions (`mysql_init()`, `mysql_real_query()`, `mysql_store_result()`, and so on). It can open two kinds of connection:
+The SQL service is a [plugin service](../../plugins/api-plugin/plugin_api/plugin_api_services_for_plugins/plugin_api_services/plugin_api_service_sql.md) that lets a plugin execute SQL statements on the server that loaded it. The plugin uses the familiar MariaDB C API functions (`mysql_init()`, `mysql_real_query()`, `mysql_store_result()`, and so on). It can open two kinds of connection:
 
 * A local connection, opened with `mysql_real_connect_local()`. Its statements run inside the server that loaded the plugin, not over a network connection. See [Connecting to the Local Server](#connecting-to-the-local-server).
 * A regular client connection to any server, with `mysql_real_connect()`. See [Connecting to Another Server](#connecting-to-another-server).
