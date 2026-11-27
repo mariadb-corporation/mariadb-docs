@@ -475,10 +475,14 @@ fi
 # silently rewritten by a web-app edit the way a page can (GITBOOK-1636 dropped HTML comments).
 # .claude/hooks/postdownload.py's header carries the full reasoning, and owns the naming map.
 #
-# Two things run here. The register AUDIT: an entry whose page is gone, or whose release has
-# since gained a Post Download page, records something no longer true and fails. And the NEW-PAGE
-# gate (DOCS-6408): a release notes page added since $LINT_BASE MUST have its Post Download page,
-# linked from platform/SUMMARY.md, unless the register acknowledges it. The audit takes no file
+# The `pending-postdownload:` section is the other acknowledgment (DOCS-6962): the page exists
+# but comes in the next PR, because a round's Post Download pages must land after its release
+# notes are live, never in the same merge.
+#
+# Two things run here. The register AUDIT: an entry in either section whose page is gone, or
+# whose release has since gained a Post Download page, records something no longer true and
+# fails. And the NEW-PAGE gate (DOCS-6408): a release notes page added since $LINT_BASE MUST have
+# its Post Download page, linked from platform/SUMMARY.md, unless the register acknowledges it. The audit takes no file
 # list, for the same reason the version-include check above does not; the new-page gate is
 # diffed against $LINT_BASE like the orphan check, since dozens of older releases would fail it.
 POSTDOWNLOAD="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/postdownload.py"

@@ -61,7 +61,10 @@ check greps for the host-and-path pair, which is why this page spells it in two 
   edits or direct pushes, so a page can still land without one. The nightly runs
   `.claude/hooks/postdownload.py new` against a **fixed** baseline, the commit where that gate
   landed, rather than a rolling window. A finding therefore repeats every weekday until someone
-  adds the page or a `no-standalone:` register entry.
+  adds the page or a `no-standalone:` register entry. The same digest runs
+  `postdownload.py pending` and reports any `pending-postdownload:` entry that has been on `main`
+  for more than five days, so a follow-up Post Download PR that never happens doesn't stay
+  hidden behind its exemption (DOCS-6962).
 
 ## 1. Spelling + links + includes + orphans + gutted pages — `doc-lint.sh`
 
@@ -283,6 +286,29 @@ Four rules worth knowing before you add an entry:
 
 Check it on its own with `python3 .claude/hooks/allowlist.py validate`, and audit the orphan half
 with `python3 .claude/hooks/navcheck.py stale`.
+
+Two more sections belong to the Post Download checks (`.claude/hooks/postdownload.py`):
+
+- **`no-standalone:`** — a connector release with no Post Download page, ever, because that
+  version shipped only inside a Server release.
+- **`pending-postdownload:`** — a release whose Post Download page comes in the **next** PR. A
+  release round lands in two steps, never one merge: GitBook resolves a cross-space link when its
+  file syncs, so a Post Download page merged together with the release notes it links to keeps
+  broken links until it is edited again (DOCS-6962). The release notes PR adds one entry per new
+  release notes page, and the new-page gate passes without the platform page. Once those notes
+  are live, hidden or published, the follow-up PR adds the Post Download pages and their
+  `platform/SUMMARY.md` entries and deletes the entries.
+
+```yaml
+pending-postdownload:
+  - path: release-notes/connectors/c/3.4/3.4.11.md
+    reason: "Post Download page follows once these notes are live — DOCS-6962"
+```
+
+Both sections prune themselves: an entry whose release now has its Post Download page, or whose
+page is gone, fails `postdownload.py audit`, and so does a page listed in both. That is what makes
+the follow-up PR remove its entries. `python3 .claude/hooks/postdownload.py pending` lists the
+pending entries with the date each one landed.
 
 ## 2. Structural sanity checks (heuristic)
 

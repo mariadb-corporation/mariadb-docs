@@ -21,10 +21,11 @@ WHY A FILE AND NOT AN ENVIRONMENT VARIABLE
     before stops working.
 
 FORMAT
-    Three sections, one per guard, because the conditions are independent: a
-    page can be legitimately unlisted without being gutted, and a release can
-    legitimately have no Post Download page while being neither. Every entry
-    needs a `reason`, and the ticket it traces to where one exists:
+    Four sections, because the conditions are independent: a page can be
+    legitimately unlisted without being gutted, and a release can legitimately
+    have no Post Download page -- for good (`no-standalone`) or until a
+    follow-up PR adds it (`pending-postdownload`) -- while being neither. Every
+    entry needs a `reason`, and the ticket it traces to where one exists:
 
         orphan:
           - path: release-notes/enterprise-server/12.3/whats-new.md
@@ -37,6 +38,10 @@ FORMAT
         no-standalone:
           - path: release-notes/connectors/c/3.4/3.4.10.md
             reason: "shipped only inside Server; 3.4.11 is the standalone -- DOCS-6732"
+
+        pending-postdownload:
+          - path: release-notes/connectors/c/3.4/3.4.11.md
+            reason: "Post Download page follows once these notes are live -- DOCS-6962"
 
     A section name is written the way YAML reads best, so it may contain `-`.
     The matching environment variable normalizes that to `_`, because
@@ -77,9 +82,10 @@ STALE ENTRIES
     whose page is now listed in SUMMARY.md (dbart's self-pruning requirement)
     or whose page is gone; shrinkcheck.py fails on a shrink entry whose page is
     gone. There is no "un-shrink" signal, so that half cannot self-prune
-    further. postdownload.py fails on a no-standalone entry whose page is gone
-    OR whose release has since gained a Post Download page -- that second signal
-    exists, so that section prunes itself in both directions.
+    further. postdownload.py fails on a no-standalone or pending-postdownload
+    entry whose page is gone OR whose release has since gained a Post Download
+    page -- that second signal exists, so those sections prune themselves in
+    both directions.
 
 MODES
     allowlist.py validate [<file>]   parse and report the counts (exit 2 if bad)
@@ -94,7 +100,7 @@ import pathlib
 import sys
 
 REL_PATH = os.path.join('.claude', 'hooks', 'doc-lint-allow.yml')
-SECTIONS = ('orphan', 'shrink', 'no-standalone')
+SECTIONS = ('orphan', 'shrink', 'no-standalone', 'pending-postdownload')
 
 
 class AllowlistError(Exception):
