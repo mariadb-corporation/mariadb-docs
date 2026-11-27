@@ -207,7 +207,7 @@ A distribution zone can use only one replica filter attribute. The name of the a
 
 #### How Replicas are Spread Across Fault Domains
 
-GridGain assigns the replicas of each partition to the fault domains in turns: every fault domain receives one replica before any fault domain receives the next one. If the replicas that are left are not enough for one more turn, they are placed in different fault domains in a way that keeps the load on all nodes as even as possible. The replicas of the [consensus group](data-partitioning.md#replica-number) are spread in the same way.
+GridGain spreads the replicas of each partition across the fault domains as evenly as possible. The replicas of the [consensus group](data-partitioning.md#replica-number) are spread in the same way.
 
 The table below shows how replicas of each partition are placed in a cluster with 3 fault domains that have at least 2 nodes each:
 
@@ -220,8 +220,6 @@ The table below shows how replicas of each partition are placed in a cluster wit
 | 6 | 2 | Two replicas in each fault domain: one consensus group replica and one learner. |
 
 In a [replicated zone](#replicated-zones), every node stores a replica, so rack awareness only defines where the replicas of the consensus group are placed.
-
-For more information about how replicas are distributed, see [Fault Domain Consideration](data-partitioning.md#fault-domain-consideration).
 
 #### Planning Fault Domains
 

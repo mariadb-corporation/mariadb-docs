@@ -156,11 +156,7 @@ This separation is particularly important for performance management, as voting 
 
 ### Fault Domain Consideration
 
-Starting with GridGain 9.2, when [rack awareness](distribution-zones.md#rack-awareness) is configured for the distribution zone, fault domains become an additional constraint for the Fair distribution algorithm, and this constraint takes priority over fairness. For each partition, the algorithm first decides how many replicas each fault domain holds, and then places and balances these replicas only between the nodes of that fault domain.
-
-The replicas of a partition are assigned to fault domains in turns, one replica to each fault domain per turn, while the replicas that are left are enough for a whole turn. A fault domain is skipped when each of its nodes already holds a replica of the partition. The replicas that are left after the last whole turn go to different fault domains. The algorithm uses them to even out the load: across all partitions, they are placed so that the numbers of replicas on the nodes of all fault domains are as close as possible, so a larger fault domain receives more of them. For example, with 5 replicas and 3 fault domains of at least 2 nodes each, every fault domain receives one replica of each partition, and the 2 remaining replicas go to 2 different fault domains. Voting replicas are assigned in the same way, so the consensus group of each partition is also spread across fault domains.
-
-If all fault domains have the same number of nodes, the resulting distribution is fair. Otherwise, each fault domain still receives its replicas in every turn, so the nodes of a smaller fault domain can hold more replicas than the nodes of a larger one. The algorithm does not fail in this case and reports the reason for the uneven distribution in the log.
+Starting with GridGain 9.2, when [rack awareness](distribution-zones.md#rack-awareness) is configured for the distribution zone, fault domains become an additional constraint for the Fair distribution algorithm, and this constraint takes priority over fairness. The distribution is fair only if all fault domains have the same number of nodes. Otherwise, the nodes of a smaller fault domain can hold more replicas than the nodes of a larger one.
 
 ## Primary Replicas and Leases
 
