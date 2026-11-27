@@ -1,0 +1,137 @@
+name: Check Cross-Space Links in PR
+
+# Gates relative links that leave their own GitBook space (DOCS-7156). Each top-level directory
+# with a SUMMARY.md is a separate space, and a link into another one is written as a space link,
+# `{alias}/path`, which addresses the target by its published path. A relative path such as
+# `../../../../server/...` resolves on disk, so lychee passes it, but it addresses the target by
+# its file path, so it breaks when that file moves. includecheck-pr.yml already fails the same
+# thing for `{% include %}`; crossspacecheck.py's header has the details.
+#
+# WHY `new` AND NOT `check`
+#   main still carries the MaxScale links, which also have to be fixed in the MaxScale source or
+#   the next docs import brings them back. `new <base>` fails only on a link the same file did
+#   not already have at the base, so re-importing the existing ones passes and a new one fails.
+#
+# WHY NO CHANGED-FILES FILTER
+#   A whole-tree run reads the base revision only for pages that have a cross-space link now, so
+#   it costs a few seconds, and it can't miss a page a filter got wrong.
+#
+# There is no acknowledgment path. A cross-space relative link is never the right way to write a
+# link, so like a dead include it has no legitimate exceptions.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+# A second push supersedes the first.
+concurrency:
+  group: crossspacecheck-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  crossspacecheck:
+    runs-on: ubuntu-latest
+    # The scan takes a few seconds; the rest is headroom for the checkout.
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          # REQUIRED. The base side of `new` is read with git show, and without the base commit
+          # crossspacecheck.py prints "base revision not found -- SKIPPED" and exits ZERO.
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Resolve and verify the base revision
+        id: base
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          # On a merge ref, the first parent is the base the PR is measured against.
+          if git rev-parse -q --verify 'HEAD^2' >/dev/null 2>&1; then
+            EFFECTIVE_BASE="$(git rev-parse 'HEAD^1')"
+            echo "HEAD is a merge commit; measuring against its first parent ${EFFECTIVE_BASE}."
+          else
+            EFFECTIVE_BASE="${BASE_SHA:-}"
+            echo "HEAD is not a merge commit; measuring against the PR base ${EFFECTIVE_BASE}."
+          fi
+          if [[ -z "${EFFECTIVE_BASE:-}" ]]; then
+            echo "::error::The PR base SHA is empty, so the cross-space link gate has no baseline to compare against."
+            exit 1
+          fi
+          if ! git cat-file -e "${EFFECTIVE_BASE}^{commit}" 2>/dev/null; then
+            echo "::error::Base commit ${EFFECTIVE_BASE} is not in this clone, so the cross-space link gate would SKIP and report success. Check that fetch-depth: 0 is still set on the checkout step."
+            exit 1
+          fi
+          echo "sha=${EFFECTIVE_BASE}" >> "$GITHUB_OUTPUT"
+
+      - name: Check cross-space links
+        id: crossspacecheck
+        env:
+          BASE_SHA: ${{ steps.base.outputs.sha }}
+        run: |
+          set -uo pipefail
+          set +e
+          python3 .claude/hooks/crossspacecheck.py new "$BASE_SHA" > crossspacecheck.log 2>&1
+          rc=$?
+          set -e
+          cat crossspacecheck.log
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          case "$rc" in
+            0) ;;
+            1) echo "::error::This PR adds a relative link that leaves its own GitBook space. Write it as a space link, {alias}/<published path> (dev-docs/link-aliases.md). Details in the job log and the run summary." ;;
+            2) echo "::error::crossspacecheck.py rejected its arguments -- this workflow is misconfigured, not the PR." ;;
+            *) echo "::error::crossspacecheck.py exited $rc (crash). This is a tooling failure, not a PR finding." ;;
+          esac
+          exit "$rc"
+
+      - name: Assert the check was not vacuous
+        if: steps.crossspacecheck.outputs.rc == '0'
+        run: |
+          set -euo pipefail
+          count="$(sed -n 's/.*[^0-9]\([0-9]\{1,\}\) page(s) scanned.*/\1/p' crossspacecheck.log | head -1)"
+          if [[ -z "$count" || "$count" -lt 1 ]]; then
+            cat crossspacecheck.log
+            echo "::error::Could not read a nonzero page count out of crossspacecheck's output, so this run scanned no pages. Either the summary line changed shape (update this assertion with it) or no space was found to scan."
+            exit 1
+          fi
+          echo "Scanned $count page(s) -- the check ran against real content."
+
+      - name: Record the result in the run summary
+        if: always()
+        env:
+          RC: ${{ steps.crossspacecheck.outputs.rc }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## Cross-space link check"
+            echo
+            if [[ ! -s crossspacecheck.log ]]; then
+              echo "No output was produced -- an earlier step failed before the scan ran."
+            else
+              case "${RC:-}" in
+                0) echo "This PR adds no relative link that leaves its own GitBook space." ;;
+                1) echo "Rewrite each link listed as a space link, \`{alias}/<published path>\`, using the alias shown. The published path can differ from the file path (DOCS-7069), so take it from the live page's URL. See \`dev-docs/link-aliases.md\`." ;;
+                *) echo "The check did not complete (exit ${RC:-unknown}). This is a tooling failure, not a PR finding." ;;
+              esac
+              echo
+              echo '````text'
+              cat crossspacecheck.log
+              echo '````'
+              echo
+              echo "Run the same check locally with:"
+              echo
+              echo '````bash'
+              echo "python3 .claude/hooks/crossspacecheck.py new ${GITHUB_BASE_REF:-main}"
+              echo '````'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
