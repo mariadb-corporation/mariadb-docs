@@ -33,7 +33,7 @@ Ask the agent to create a schema project. It calls `msm.create_project`, which c
 
 ## Develop the Schema
 
-The agent edits the development script one section at a time with `msm.get_sql_content_from_section` and `msm.set_section_sql_content`. See [Script Sections](../mcp-tool-reference/msm-tools.md#script-sections) for what belongs in each section.
+The agent edits the development script one section at a time with `msm.get_section_sql_content` and `msm.set_section_sql_content`. See [Script Sections](../mcp-tool-reference/msm-tools.md#script-sections) for what belongs in each section.
 
 ## Release a Version
 

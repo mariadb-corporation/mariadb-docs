@@ -25,7 +25,7 @@ The `msm.*` tools manage database schemas with MariaDB Schema Management (MSM). 
 | `msm.get_last_released_version` | Returns the most recent release. |
 | `msm.get_last_deployment_version` | Returns the version of the most recent generated deployment script. |
 | `msm.get_deployment_script_versions` | Lists the versions of all generated deployment scripts. |
-| `msm.get_sql_content_from_section` | Reads one section of a script. |
+| `msm.get_section_sql_content` | Reads one section of a script. |
 | `msm.set_section_sql_content` | Writes one section of a script. |
 | `msm.prepare_release` | Takes a snapshot of the development script and creates an empty update script. |
 | `msm.generate_deployment_script` | Creates the deployment script that creates or upgrades the schema. |
@@ -92,7 +92,7 @@ Lists the versions of all generated deployment scripts.
 | --- | --- |
 | `schema_project_path` | The path of the schema project directory. Must be in an allowed path. |
 
-## msm.get_sql_content_from_section
+## msm.get_section_sql_content
 
 Reads one section of a script.
 
@@ -111,7 +111,7 @@ Writes one section of a script.
 | `section_id` | The section number. |
 | `sql_content` | The new section content. |
 
-Always edit sections with `msm.get_sql_content_from_section` and `msm.set_section_sql_content`, so the section banners are never corrupted.
+Always edit sections with `msm.get_section_sql_content` and `msm.set_section_sql_content`, so the section banners are never corrupted.
 
 ## msm.prepare_release
 

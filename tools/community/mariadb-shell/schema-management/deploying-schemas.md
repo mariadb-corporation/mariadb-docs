@@ -146,7 +146,7 @@ msm.deploy_schema(schema_project_path=project, online_alter={"maxRebuildBytes": 
 
 For each table, the most specific value wins, in this order, from the least to the most specific: the project's general values, the deployment's general values, the project's values for the table, and the deployment's values for the table. The names in `tables` are the names of the project's tables, matched exactly; an `ALTER TABLE` of a table in another schema gets the general values. MSM checks both settings before the deployment starts, and refuses a setting with an unknown key or a value out of range.
 
-To read the setting, use `msm.get_online_alter_settings()`, which also returns the defaults and, with the `table` option, the values that a table gets. To change it, pass the whole setting to `msm.set.project_settings()`, as described in [Change Project Settings](schema-projects.md#change-project-settings).
+To read the setting, use `msm.get.online_alter_settings()`, which also returns the defaults and, with the `table` option, the values that a table gets. To change it, pass the whole setting to `msm.set.project_settings()`, as described in [Change Project Settings](schema-projects.md#change-project-settings).
 
 ### When No Step Applies
 
@@ -186,7 +186,7 @@ msm.online_alter_table("shop", "product", "ADD COLUMN `sku` VARCHAR(20)")
 | `options` | The limits, with the keys of `onlineAlter` other than `enabled` and `tables`. The defaults apply to those you leave out. |
 | `session` | The session to use. The default is the global session. |
 
-The function returns `method`, the step that applied the change, or `NEEDS_EXTERNAL` when none did and nothing changed; `applied`; `reason`; `table_size`; `galera`; and `steps`, the outcome of each step that was tried or left out. `msm.get_online_alter_defaults()` returns the default limits.
+The function returns `method`, the step that applied the change, or `NEEDS_EXTERNAL` when none did and nothing changed; `applied`; `reason`; `table_size`; `galera`; and `steps`, the outcome of each step that was tried or left out. `msm.get.online_alter_defaults()` returns the default limits.
 
 ## Backups
 
@@ -227,8 +227,10 @@ Statements in section 180 define MariaDB REST Service endpoints. They aren't SQL
 
 ## Collation of the Schema
 
+New projects create the schema with `DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_uca1400_nopad_ai_ci`. This MariaDB collation, available from MariaDB 10.10, sorts and compares exactly like MySQL's `utf8mb4_0900_ai_ci`. Every deployment script creates the schema with section 110 of the version it deploys, so a change to section 110 applies to every later release.
+
 {% hint style="warning" %}
-The scripts create the schema with `DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci`. Recent MariaDB versions accept this MySQL collation name; older ones, such as MariaDB 10.11, refuse it, and the deployment fails. Changing section 110 of the development script only affects the first release of a project, because the deployment scripts of later releases always use this collation.
+Projects created with an earlier MariaDB Shell have `utf8mb4_0900_ai_ci` in section 110. MariaDB before 11.4.5, such as MariaDB 10.11, refuses this MySQL collation, and the deployment fails. `msm.update_schema_definition()` and `msm.prepare_release()` warn about every MySQL collation that the schema, a table, or a column uses, and name the MariaDB collation to use instead. Change section 110 of the development script, and any tables that name the collation, before the next release.
 {% endhint %}
 
 ## The Deployment Log
