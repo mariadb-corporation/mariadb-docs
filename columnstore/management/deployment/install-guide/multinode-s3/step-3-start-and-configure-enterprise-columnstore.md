@@ -22,10 +22,10 @@ Interactive commands are detailed. Alternatively, the described operations can b
 
 Mandatory system variables and options for Single-Node ColumnStore include:
 
-<table><thead><tr><th width="342">Connector</th><th>MariaDB Connector/R2DBC</th></tr></thead><tbody><tr><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#character_set_server">character_set_server</a></td><td>Set this system variable to <code>utf8</code></td></tr><tr><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#collation_server">collation_server</a></td><td>Set this system variable to <code>utf8_general_ci</code></td></tr><tr><td><a href="../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-insert-select.md#batch-insert-mode">loose-columnstore_use_import_for_batchinsert</a></td><td>Set this system variable to <code>ALWAYS</code> to always use <code>cpimport</code> for <a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md">LOAD DATA INFILE</a> and <a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/insert-select.md">INSERT...SELECT</a> statements.</td></tr></tbody></table>
+<table><thead><tr><th width="342">Connector</th><th>MariaDB Connector/R2DBC</th></tr></thead><tbody><tr><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#character_set_server">character_set_server</a></td><td>Set this system variable to <code>utf8</code></td></tr><tr><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#collation_server">collation_server</a></td><td>Set this system variable to <code>utf8_general_ci</code></td></tr><tr><td><a href="../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-insert-select.md#batch-insert-mode">loose-columnstore_use_import_for_batchinsert</a></td><td>Set this system variable to <code>ALWAYS</code> to always use <code>cpimport</code> for <a href="../../../../reference/data-manipulation-statements/columnstore-load-data-infile.md">LOAD DATA INFILE</a> and <a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/insert-select.md">INSERT...SELECT</a> statements.</td></tr></tbody></table>
 
 {% hint style="warning" %}
-The `loose-` prefix is required for ColumnStore system variables in the configuration file. Without it, MariaDB Server will fail to start if the ColumnStore plugin is not installed or has been removed.
+The `loose-` prefix is required for [ColumnStore system variables](../../../columnstore-system-variables.md) in the configuration file. Without it, MariaDB Server will fail to start if the ColumnStore plugin is not installed or has been removed.
 {% endhint %}
 
 ### Example Configuration
@@ -204,7 +204,7 @@ For information on how to create a profile, see [How to create an AppArmor Profi
 
 ## Next Step
 
-Navigation in the Single-Node ColumnStore topology with Object storage deployment procedure:
+Navigation in the Multi-Node ColumnStore topology with Object storage deployment procedure:
 
 This page was step 3 of 5.
 

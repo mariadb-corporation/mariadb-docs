@@ -28,6 +28,7 @@ On each server to host an ColumnStore node, optimize the kernel:
 
 Create `a /etc/sysctl.d/90-mariadb-enterprise-columnstore.conf file`:
 
+{% code expandable="true" %}
 ```editorconfig
 # minimize swapping
 vm.swappiness = 1
@@ -48,6 +49,7 @@ net.ipv4.tcp_no_metrics_save = 1
 # for 10 GigE, increase this to 30000
 net.core.netdev_max_backlog = 2500
 ```
+{% endcode %}
 
 2. Use the sysctl command to set the kernel parameters at runtime
 
@@ -79,6 +81,7 @@ $ sudo setenforce permissive
 
 For example, the file will usually look like this after the change:
 
+{% code expandable="true" %}
 ```editorconfig
 # This file controls the state of SELinux on the system.
 # SELINUX= can take one of these three values:
@@ -92,6 +95,7 @@ SELINUX=permissive
 #     mls - Multi Level Security protection.
 SELINUXTYPE=targeted
 ```
+{% endcode %}
 
 3. Confirm that SELinux is in permissive mode:
 
@@ -119,6 +123,7 @@ $ sudo systemctl disable apparmor
 $ sudo aa-status
 ```
 
+{% code expandable="true" %}
 ```sql
 apparmor module is loaded.
 0 profiles are loaded.
@@ -129,6 +134,7 @@ apparmor module is loaded.
 0 processes are in complain mode.
 0 processes are unconfined but have a profile defined.
 ```
+{% endcode %}
 
 AppArmor will be configured and re-enabled later in this deployment procedure.
 

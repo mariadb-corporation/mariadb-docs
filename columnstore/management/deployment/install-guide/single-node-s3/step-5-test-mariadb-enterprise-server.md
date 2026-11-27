@@ -85,6 +85,7 @@ This action is performed on each Enterprise ColumnStore node.
 
 Execute the following query:
 
+{% code expandable="true" %}
 ```sql
 SELECT PLUGIN_NAME, PLUGIN_STATUS
 FROM information_schema.PLUGINS
@@ -100,6 +101,7 @@ WHERE PLUGIN_LIBRARY LIKE 'ha_columnstore%';
 | COLUMNSTORE_EXTENTS | ACTIVE        |
 +---------------------+---------------+
 ```
+{% endcode %}
 
 The `PLUGIN_STATUS` column for each ColumnStore-related plugin should contain ACTIVE.
 
@@ -129,6 +131,7 @@ This action is performed with the CMAPI service on the primary server.
 
 Check the ColumnStore status using curl by executing the following:
 
+{% code expandable="true" %}
 ```bash
 $ curl -k -s https://mcs1:8640/cmapi/0.4.0/cluster/status \
    --header 'Content-Type:application/json' \
@@ -236,6 +239,7 @@ $ curl -k -s https://mcs1:8640/cmapi/0.4.0/cluster/status \
   "num_nodes": 3
 }
 ```
+{% endcode %}
 
 ## Test DDL
 
