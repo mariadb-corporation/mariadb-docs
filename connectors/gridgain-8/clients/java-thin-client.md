@@ -295,6 +295,30 @@ try (IgniteClient client = Ignition.startClient(clientCfg)) {
 }
 ```
 
+## Cache Encryption
+
+Starting with GridGain 8.10.2, you can create an encrypted cache from the Java thin client. Call `ClientCacheConfiguration.setEncryptionEnabled(true)`. The cache data on disk and its WAL records are then encrypted. See [Transparent Data Encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53/security/encryption-and-transport/tde).
+
+The following requirements apply:
+
+- Every server node is configured with an encryption SPI, such as `KeystoreEncryptionSpi`. Otherwise, cache creation fails with a `ClientException` that says `You have to configure custom EncryptionSpi implementation`.
+- The cache is persistent. Its data region must have persistence enabled. Use `setDataRegionName()` unless the default data region is persistent.
+- The server nodes run GridGain 8.10.2 or later. Otherwise, the client throws `ClientFeatureNotSupportedByServerException` when it creates the cache.
+
+To add the cache to an existing encrypted cache group, also call `setGroupName()`.
+
+```java
+try (IgniteClient client = Ignition.startClient(clientCfg)) {
+    ClientCacheConfiguration cacheCfg = new ClientCacheConfiguration()
+            .setName("encrypted-cache")
+            .setEncryptionEnabled(true);
+
+    ClientCache<Long, String> cache = client.createCache(cacheCfg);
+}
+```
+
+To check whether a cache is encrypted, call `ClientCache.getConfiguration().isEncryptionEnabled()`. If the server does not support the feature, the method returns `false`.
+
 ## Using Key-Value API
 
 The Java thin client supports most of the key-value operations available in the thick client.

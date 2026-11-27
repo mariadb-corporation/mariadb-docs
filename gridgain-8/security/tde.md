@@ -118,6 +118,16 @@ ignite.createCache(ccfg);
 ```
 {% endtab %}
 
+{% tab title="Java Thin Client" %}
+```java
+ClientCacheConfiguration cacheCfg = new ClientCacheConfiguration()
+        .setName("encrypted-cache")
+        .setEncryptionEnabled(true);
+
+client.createCache(cacheCfg);
+```
+{% endtab %}
+
 {% tab title="SQL" %}
 ```sql
 CREATE TABLE encrypted(
@@ -128,6 +138,8 @@ WITH "ENCRYPTED=true";
 ```
 {% endtab %}
 {% endtabs %}
+
+The Java thin client supports `setEncryptionEnabled()` starting with GridGain 8.10.2. See [Cache Encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/java-thin-client#cache-encryption).
 
 ## Master Key Rotation
 
