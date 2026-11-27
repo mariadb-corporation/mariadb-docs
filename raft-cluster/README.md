@@ -20,6 +20,7 @@ Raft Cluster ships with MariaDB Enterprise Server 12.3. Raft Cluster 1.0.0 is th
 ## In This Section
 
 * [MariaDB Raft Cluster Quickstart Guide](mariadb-raft-cluster-quickstart-guide.md): install, configure TLS and Raft, bootstrap a cluster, and verify replication.
+* [Migrating from Galera Cluster to Raft Cluster](migrating-galera-to-raft-cluster.md): migrate a running three-node Galera Cluster to Raft Cluster, one node at a time, with asynchronous replication and one short write pause.
 * [Raft System Variables](raft-system-variables.md): the system variables for heartbeats, elections, the Raft log, flow control, and TLS.
 * [A CA for One Raft Cluster](raft-cluster-ca.md): set up a private certificate authority for the node certificates, and revoke, replace, and rotate them.
 * [MariaDB Raft Cluster: Team FAQ & Architectural Guide](mariadb-raft-cluster-team-faq-and-architectural-guide.md): how Raft Cluster compares with Galera Cluster and MariaDB Enterprise Cluster, and when to choose it.
