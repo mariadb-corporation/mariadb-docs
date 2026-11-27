@@ -92,6 +92,10 @@ GridGain cannot merge two diverged histories. To recover, decide which group of 
 - **Do not activate the cluster while baseline nodes are missing.** If a missing node has a newer metastorage version than the nodes you activated, it cannot join the active cluster.
 - **Run network isolation tests on an inactive cluster.** Deactivate the cluster before you partition the network. While the network is partitioned, do not activate either segment and do not change distributed properties. Restore connectivity, wait until all nodes are in the topology, and then activate the cluster.
 
+{% hint style="info" %}
+Starting with GridGain 8.10.2, the writes that the `GRACEFUL` shutdown policy makes no longer get a node rejected. If the newest updates in a node's metastorage history are only these writes, the node joins the cluster even when the cluster does not have them, and takes the cluster's metastorage data in place of its own. Divergence in any other metastorage data still gets the node rejected. This does not apply during a forced rolling upgrade, or during a rolling upgrade from a version earlier than 8.10.2.
+{% endhint %}
+
 ## Recovering from Split-Brain
 
 While using topology validator helps you identify split brain issues and act on them quickly, it does not provide 100% guarantee that they will not happen.  If your topology does encounter split-brain issues, you may need to recover some data manually.
