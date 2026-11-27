@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 #
 # doc-lint.sh — the SINGLE SOURCE OF TRUTH for the codespell + lychee invocations that mirror
-# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus eight checks it delegates to
+# CI (.github/workflows/codespell.yml and link-check-pr.yml), plus nine checks it delegates to
 # their own scripts: a GitBook include resolver (includecheck.sh), a Mermaid edge-label
 # contrast check (mermaidcheck.py), a page-description check (desccheck.py, DOCS-6763, gated
 # by desccheck-pr.yml), a heading-anchor gate (fragcheck.py), an orphaned-page/
-# nav-coverage gate (navcheck.py), a net line-loss guard (shrinkcheck.py), a paired
-# version-include guard (versioncheck.py) and the Post Download checks (postdownload.py: the
-# no-standalone register audit, and the DOCS-6408 gate that a newly added release notes page
-# has its platform/post-download/ page). All eight are gated in CI — by includecheck-pr.yml, mermaidcheck-pr.yml
-# (DOCS-6630), fragcheck-pr.yml, navcheck-pr.yml, shrinkcheck-pr.yml, versioncheck-pr.yml and
+# nav-coverage gate (navcheck.py), a published-URL gate (urlcheck.py, DOCS-7069), a net
+# line-loss guard (shrinkcheck.py), a paired version-include guard (versioncheck.py) and the
+# Post Download checks (postdownload.py: the no-standalone register audit, and the DOCS-6408
+# gate that a newly added release notes page has its platform/post-download/ page). All nine
+# are gated in CI — by includecheck-pr.yml, mermaidcheck-pr.yml (DOCS-6630), fragcheck-pr.yml,
+# navcheck-pr.yml, urlcheck-pr.yml, shrinkcheck-pr.yml, versioncheck-pr.yml and
 # postdownload-pr.yml (both DOCS-6734) respectively — so a finding here is a finding CI will
 # repeat, and none of them is "local only" any more.
 #
@@ -377,6 +378,26 @@ elif ! git rev-parse --verify -q "$LINT_BASE" >/dev/null 2>&1; then
   echo "doc-lint: base revision '$LINT_BASE' not found — orphan check SKIPPED" >&2
 else
   python3 .claude/hooks/navcheck.py new "$LINT_BASE" "${files[@]}" >/dev/null || rc=1
+fi
+
+# --- published URL vs file path — HAS a CI counterpart (urlcheck-pr.yml) ---------------------
+# GitBook builds a page's URL from SUMMARY.md, not from the file's folder, so a nav edit or a
+# file filed away from its nav position publishes at a URL that doesn't match the repo
+# (DOCS-7069). Same shape as the orphan gate above: diffed against $LINT_BASE so the pre-existing
+# mismatches stay out of the way, needs no worktree, and is acknowledged in the `url-path:`
+# section of .claude/hooks/doc-lint-allow.yml (or DOC_LINT_ALLOW_URL_PATH locally). It reuses
+# navcheck.py's helpers, so it needs that script too.
+if [ ! -f .claude/hooks/urlcheck.py ] || [ ! -f .claude/hooks/navcheck.py ]; then
+  echo "doc-lint: .claude/hooks/urlcheck.py or navcheck.py not found — URL check SKIPPED" >&2
+elif ! command -v python3 >/dev/null 2>&1; then
+  echo "doc-lint: python3 not installed — URL check SKIPPED (urlcheck-pr.yml still gates" >&2
+  echo "          this in CI). Install: brew install python3" >&2
+elif ! command -v git >/dev/null 2>&1 || ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "doc-lint: not a git work tree — URL check SKIPPED (needs a base revision)" >&2
+elif ! git rev-parse --verify -q "$LINT_BASE" >/dev/null 2>&1; then
+  echo "doc-lint: base revision '$LINT_BASE' not found — URL check SKIPPED" >&2
+else
+  python3 .claude/hooks/urlcheck.py new "$LINT_BASE" "${files[@]}" >/dev/null || rc=1
 fi
 
 # --- net line-loss guard — HAS a CI counterpart since DOCS-6586 ------------------------------
