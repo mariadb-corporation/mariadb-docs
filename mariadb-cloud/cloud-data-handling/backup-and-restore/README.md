@@ -146,6 +146,23 @@ MariaDB Cloud doesn't delete or expire backup files in your bucket. Configure an
 When you create an external backup schedule in the MariaDB Cloud console, **Test Connection** checks that the credentials can list the bucket (`s3:ListBucket`). It doesn't test `s3:PutObject` or `s3:GetObject`, so a successful test doesn't confirm that backups can be uploaded or restored.
 {% endhint %}
 
+### Backup File Format
+
+MariaDB Cloud writes each backup to its own folder in your bucket. The folder name starts with the backup date and time (`YYYYmmdd_HHMMSS`) and also includes the service, the node number, and the backup ID. Inside the folder, the backup is a compressed stream split into numbered files of up to 250 MB each:
+
+| Backup type | File names | Contents |
+| --- | --- | --- |
+| Physical (`mariabackup`) | `skybackup.gz_00000`, `skybackup.gz_00001`, and so on | A `mariabackup` backup in `xbstream` format, compressed with `pigz` (gzip format). |
+| Logical (`mariadb-dump`) | `skydump_<databases>.gz_00000`, `skydump_<databases>.gz_00001`, and so on | The SQL statements from `mariadb-dump`, compressed with `pigz` (gzip format). |
+
+The GTID position of a physical backup is stored in the backup's metadata, in the backup inventory in the `backup_manager/` folder of your bucket. For logical backups, see [GTID Considerations for Logical Dumps](#gtid-considerations-for-logical-dumps).
+
+MariaDB Cloud reads these files back when you restore, so don't rename, merge, or delete them. To extract a physical backup yourself, join the files in order, decompress them, and unpack the stream with `mbstream`:
+
+```bash
+cat skybackup.gz_* | pigz -dc | mbstream -x -C /path/to/restore-directory
+```
+
 ### Limitations
 
 * **Service tier:** External backup storage isn't available for Foundation tier services created on or after November 3, 2025. For the storage options of each tier, see [Service tiers](../../service-tiers.md).

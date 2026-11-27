@@ -15,6 +15,12 @@ Please refer to the [API docs](https://apidocs.skysql.com) for examples and a co
 
 The Backup Service API is included in the [MariaDB Cloud API Reference Guide](mariadb-cloud-api-reference-guide/README.md), under the `/skybackup/v1/` endpoints.
 
+## Blocked User-Agent Strings
+
+Requests to the API pass through Cloudflare, which blocks clients that send certain default bot `User-Agent` strings before the request reaches the API gateway. Requests with a `User-Agent` header that starts with `Python-urllib/` (the Python `urllib` default) or `libwww-perl` (the Perl `LWP` default) return HTTP `403` with error code `1010`.
+
+To avoid the error, set a different `User-Agent` header in your requests, or use an HTTP client that sends its own, such as `curl` or the Python `requests` library.
+
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}
