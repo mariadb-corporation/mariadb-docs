@@ -1576,22 +1576,34 @@ behavior.
 |*(omitted)* or `false`|**Informational read.** Reports the node's supply state and its active client connections. Does not require authentication.|
 |`true`|**Check-and-shutdown gate.** Reports the same information, and stops the node gracefully only if every safety check passes. Requires `ADMIN_OPS` privilege.|
 
-With `shutdown=true` is set, the node is stopped only when all of the following checks pass. They are
+With `shutdown=true`, the node is stopped only when all of the following checks pass. They are
 evaluated in order, and the node keeps running if any of them fails:
 
-1. The node is not the sole owner of any cache group's partitions, under the [`GRACEFUL` shutdown policy](../../gridgain8-management/cluster-configuration/starting-nodes.md). Pass `force=true` to skip this check and accept data loss.
-2. No partition map exchange is in progress.
-3. The node is not pulling partitions from other nodes.
-4. The node is not supplying partitions to other nodes.
-5. No other node is committing a graceful stop at the same moment.
+1. No partition map exchange is in progress.
+2. The node is not pulling partitions from other nodes.
+3. The node is not supplying partitions to other nodes.
+4. Under the [`GRACEFUL` shutdown policy](../../gridgain8-management/cluster-configuration/starting-nodes.md), the node passes one round of the backup check that a graceful stop runs: every partition the node holds has a copy on a node that is not stopping, local rebalance is complete, and the nodes that hold those copies keep enough checkpoint history. Partitioned caches without backups are not checked, and the check is skipped when the cluster is inactive.
+
+When the backup check passes, the node is recorded as stopping, and other nodes no longer count its
+partition copies. If two nodes hold the last copies of a partition, only one of them can pass the check.
+
+Pass `force=true` to skip the backup check. The node is then recorded as stopping without the check.
+Its stop still follows the `GRACEFUL` policy: the node waits until its partitions have copies on
+other nodes before it stops.
 
 When every check passes, the command returns 200 and the node stops after the response has been sent.
-Calling the command again reports the same information without triggering a second stop.
+If the response cannot be delivered or the stop fails, the node tries to remove itself from the
+stopping set, and you can call the command again. After the checks have passed, calling the command
+again returns 200 with the same information and does not trigger a second stop.
 
 {% hint style="info" %}
-Under the `IMMEDIATE` shutdown policy the sole-owner check does not apply, but the remaining
-checks still do.
+Under the `IMMEDIATE` shutdown policy, the backup check does not run and `force` has no effect. The
+first three checks still apply.
 {% endhint %}
+
+The `uniqueDataHeld` and `uniqueDataCacheGroups` fields are informational under both policies. They
+list the cache groups for which this node holds the only copy of some partitions, but the
+`shutdown=true` checks do not use them.
 
 **Request:**
 
@@ -1601,7 +1613,7 @@ http://host:port/ignite?cmd=supply-status&shutdown=true
 
 **Response:**
 
-Returns HTTP status code 200 when the node is not supplying, or, for `shutdown=true`, when the
+The informational read always returns HTTP status code 200. For `shutdown=true`, 200 means the
 node passed every check and is stopping. The `response` field carries the supply state, the cache
 groups involved, and the active client connections by type:
 
@@ -1624,9 +1636,16 @@ groups involved, and the active client connections by type:
 ```
 
 When `shutdown=true` is refused, the command returns HTTP status code 503, the node keeps running,
-and the `error` field names the check that failed: `unique data held on cache groups: [...]`,
-`pme in progress`, `rebalancing: [...]`, `supplying: [...]`, or
-`concurrent graceful shutdown commit - retry`.
+and the `error` field names the check that failed:
+
+|Check|`error` value|
+|---|---|
+|Partition map exchange|`pme in progress`|
+|Inbound rebalance|`rebalancing: [...]`|
+|Outbound supply|`supplying: [...]`|
+|Backup check (`GRACEFUL` only)|`waiting for the exchange to complete`, `waiting for the partition map of group [id=..., name=...]`, `waiting for backups of local partitions for group [id=..., name=...]`, `waiting for completion of rebalance for group [id=..., name=...]`, `waiting for the topology to settle`, `waiting for checkpoint history on the proposed suppliers [...]`, `waiting for a concurrent update of the gracefully stopping node set`, or `unable to evaluate the graceful stop: ...`|
+
+Most of these conditions clear on their own, so retry the command until it returns 200.
 
 ```json
 {
