@@ -121,6 +121,8 @@ helm install mariadb-enterprise-operator \
   mariadb-enterprise-operator/mariadb-enterprise-operator
 ```
 
+In single namespace mode, the chart doesn't install the `webhook` and `cert-controller` components, and the default [agent authentication method](../topologies/data-plane.md#agent-auth-methods) is basic authentication.
+
 ## FIPS mode
 
 To run the operator in [FIPS 140-3 mode](../security/fips.md), set `fips.enabled`. The chart injects `GODEBUG=fips140=on` into the operator:
