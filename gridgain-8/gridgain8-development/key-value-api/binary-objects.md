@@ -318,6 +318,41 @@ unsupported
 {% endtab %}
 {% endtabs %}
 
+### Registering Binary Types Explicitly
+
+`BinaryConfiguration.setClassNames(Collection<String>)` registers a list of classes as binary types when the node starts. It is a shortcut for `setTypeConfigurations()`: GridGain creates one `BinaryTypeConfiguration` with default settings for each class name, so the global name mapper, ID mapper, and serializer apply. Package wildcards such as `com.example.billing.*` are supported (classes in subpackages are not included).
+
+GridGain registers these types from the local configuration only. Their metadata is still shared with the cluster, but the mapping from type ID to class name is not, and GridGain does not write it to the marshaller mapping files in the work directory. As a result:
+
+- Every server node, thick client, and other application that deserializes these types must list the same classes in its `BinaryConfiguration` and have them on its classpath.
+- A node that lacks the configuration or uses a different configuration cannot resolve the type ID to a class name. Server nodes fail with a `Failed to resolve class name` error, and client nodes with a `Requesting mapping from grid failed` error.
+
+We do not recommend using this setting. GridGain registers types automatically the first time they are used.
+
+{% tabs %}
+{% tab title="XML" %}
+```xml
+<property name="binaryConfiguration">
+    <bean class="org.apache.ignite.configuration.BinaryConfiguration">
+        <property name="classNames">
+            <list>
+                <value>com.example.model.Person</value>
+                <value>com.example.billing.*</value>
+            </list>
+        </property>
+    </bean>
+</property>
+```
+{% endtab %}
+{% tab title="Java" %}
+```java
+BinaryConfiguration binaryCfg = new BinaryConfiguration();
+binaryCfg.setClassNames(Arrays.asList("com.example.model.Person", "com.example.billing.*"));
+igniteCfg.setBinaryConfiguration(binaryCfg);
+```
+{% endtab %}
+{% endtabs %}
+
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}
