@@ -265,9 +265,9 @@ The value returned by `partitionFunction` depends on how you got the `TableDefin
 
 Caches work the same way. Use the `partitionFunction` attribute of the `@Cache` annotation, the `partitionFunction` method of `CacheDefinition.Builder`, and the `cacheDefinition` method of `IgniteCatalog`.
 
-## Rack Awareness
+## Fault Domains
 
-To spread the replicas of a zone across [fault domains](../architecture/storage/distribution-zones.md#rack-awareness), set the name of the node attribute that defines the fault domains. Use the `replicaFilterAttribute` attribute of the `@Zone` annotation or the `replicaFilterAttribute` method of `ZoneDefinition.Builder`.
+To spread the replicas of a zone across [fault domains](../architecture/storage/distribution-zones.md#fault-domains), set the name of the node attribute that defines the fault domains. Use the `replicaFilterAttribute` attribute of the `@Zone` annotation or the `replicaFilterAttribute` method of `ZoneDefinition.Builder`.
 
 The example below creates the `rack_pojo` table by using the `@Table` annotation. If the `zone_rack` zone does not exist, it is created with 3 replicas of each partition, spread across the fault domains defined by the `rack` node attribute:
 

@@ -16,7 +16,7 @@ The concepts live in the Architecture section; this section focuses on applying 
 - [Cluster Fault Tolerance](../../architecture/cluster-fault-tolerance.md) — how the cluster tolerates node failures.
 - [Data Consistency and Replication](../../architecture/data-consistency-and-replication.md) — how replication underpins availability.
 - [Distribution Zones](../../architecture/storage/distribution-zones.md) — controlling replica counts and data placement.
-- [Rack Awareness](../../architecture/storage/distribution-zones.md#rack-awareness) — spreading data copies across racks, data centers, or availability zones.
+- [Fault Domains](../../architecture/storage/distribution-zones.md#fault-domains) — spreading partition replicas across groups of nodes that are likely to fail together.
 - [Performance Tuning](../performance-tuning/README.md) — keeping a highly available cluster performant under load.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

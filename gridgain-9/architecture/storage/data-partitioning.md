@@ -43,7 +43,7 @@ By default, GridGain automatically calculates the recommended number of partitio
 dataNodesCount * coresOnNode * 2 / replicas
 ```
 
-In this case, the `dataNodesCount` is the estimated number of nodes that will be in the distribution zone when it is created, according to its [filter](distribution-zones.md#node-filtering), its [storage profiles](README.md), and, starting with GridGain 9.2, its [replica filter attribute](distribution-zones.md#rack-awareness). At least 1 partition is always created.
+In this case, the `dataNodesCount` is the estimated number of nodes that will be in the distribution zone when it is created, according to its [filter](distribution-zones.md#node-filtering), its [storage profiles](README.md), and, starting with GridGain 9.2, its [replica filter attribute](distribution-zones.md#fault-domains). At least 1 partition is always created.
 
 Partition maintenance is mostly CPU-bound, so the optimal number of partitions depends on the total number of CPUs available to the zone, not on the amount of data. In most cases, we recommend using 2, 3, or 4 times the number of total available cores, divided by the number of replicas. For example:
 
@@ -249,7 +249,7 @@ This separation is particularly important for performance management, as voting 
 
 ### Fault Domain Consideration
 
-Starting with GridGain 9.2, when [rack awareness](distribution-zones.md#rack-awareness) is configured for the distribution zone, fault domains become an additional constraint for the Fair distribution algorithm, and this constraint takes priority over fairness. The distribution is fair only if all fault domains have the same number of nodes. Otherwise, the nodes of a smaller fault domain can hold more replicas than the nodes of a larger one.
+Starting with GridGain 9.2, when [fault domains](distribution-zones.md#fault-domains) are configured for the distribution zone, they become an additional constraint for the Fair distribution algorithm, and this constraint takes priority over fairness. If all fault domains have the same number of nodes, the distribution is fair. If the fault domains have different numbers of nodes, the distribution can deviate from fair.
 
 ## Primary Replicas and Leases
 
@@ -306,8 +306,6 @@ You can trigger lease balancing from any node; the request is routed to the node
 ## Partition Rebalance
 
 When the [cluster size changes](distribution-zones.md#cluster-scaling), GridGain 9 waits for the timeout specified in the `AUTO SCALE UP` or `AUTO SCALE DOWN` distribution zone properties, and then redistributes partitions according to the partition distribution algorithm and transfers data to make it up-to-date with the replication group.
-
-Starting with GridGain 9.2, when the [replica filter attribute](distribution-zones.md#changing-fault-domains) of a distribution zone changes, GridGain redistributes partitions immediately, without waiting for these timeouts.
 
 This process is called *data rebalance*.
 

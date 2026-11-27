@@ -159,7 +159,7 @@ Note:
 
 - Only tables and distribution zones can be configured from code. Storage profiles and engines must be configured by updating node configuration and restarting node.
 - Custom affinity functions are replaced by distribution zones.
-- Starting with GridGain 9.2, `ClusterNodeAttributeAffinityBackupFilter` is replaced by [rack awareness](../../architecture/storage/distribution-zones.md#rack-awareness) of distribution zones. Rack awareness uses one node attribute, so if you use several attributes in GridGain 8, combine their values into one attribute. The nodes that do not have this attribute do not store the data of the distribution zone.
+- Starting with GridGain 9.2, `ClusterNodeAttributeAffinityBackupFilter` is replaced by [fault domains](../../architecture/storage/distribution-zones.md#fault-domains) of distribution zones. Fault domains are defined by one node attribute, so if you use several attributes in GridGain 8, combine their values into one attribute. The nodes that do not have this attribute do not store the data of the distribution zone.
 - External storage is supported via cache storage that must be configured by using SQL.
 
 #### Client Configuration
