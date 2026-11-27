@@ -43,7 +43,7 @@ By default, GridGain automatically calculates the recommended number of partitio
 dataNodesCount * coresOnNode * 2 / replicas
 ```
 
-In this case, the `dataNodesCount` is the estimated number of nodes that will be in the distribution zone when it is created, according to its [filter](distribution-zones.md#node-filtering), [replica filter attribute](distribution-zones.md#rack-awareness) and [storage profiles](README.md). At least 1 partition is always created.
+In this case, the `dataNodesCount` is the estimated number of nodes that will be in the distribution zone when it is created, according to its [filter](distribution-zones.md#node-filtering), its [storage profiles](README.md), and, starting with GridGain 9.2, its [replica filter attribute](distribution-zones.md#rack-awareness). At least 1 partition is always created.
 
 Partition maintenance is mostly CPU-bound, so the optimal number of partitions depends on the total number of CPUs available to the zone, not on the amount of data. In most cases, we recommend using 2, 3, or 4 times the number of total available cores, divided by the number of replicas. For example:
 
@@ -158,11 +158,9 @@ This separation is particularly important for performance management, as voting 
 
 Starting with GridGain 9.2, when [rack awareness](distribution-zones.md#rack-awareness) is configured for the distribution zone, fault domains become an additional constraint for the Fair distribution algorithm, and this constraint takes priority over fairness. For each partition, the algorithm first decides how many replicas each fault domain holds, and then places and balances these replicas only between the nodes of that fault domain.
 
-The replicas of a partition are assigned to fault domains in turns, one replica to each fault domain per turn, while the replicas that are left are enough for a whole turn. A fault domain is skipped when each of its nodes already holds a replica of the partition. The replicas that are left after the last whole turn go to different fault domains. The algorithm uses them to even out the load: across all partitions, they are placed so that the nodes of all fault domains hold a similar number of replicas, which means that a larger fault domain receives more of them. For example, with 5 replicas and 3 fault domains, every fault domain receives one replica of each partition, and the 2 remaining replicas go to 2 different fault domains. Voting replicas are assigned in the same way, so the consensus group of each partition is also spread across fault domains.
+The replicas of a partition are assigned to fault domains in turns, one replica to each fault domain per turn, while the replicas that are left are enough for a whole turn. A fault domain is skipped when each of its nodes already holds a replica of the partition. The replicas that are left after the last whole turn go to different fault domains. The algorithm uses them to even out the load: across all partitions, they are placed so that the numbers of replicas on the nodes of all fault domains are as close as possible, so a larger fault domain receives more of them. For example, with 5 replicas and 3 fault domains of at least 2 nodes each, every fault domain receives one replica of each partition, and the 2 remaining replicas go to 2 different fault domains. Voting replicas are assigned in the same way, so the consensus group of each partition is also spread across fault domains.
 
 If all fault domains have the same number of nodes, the resulting distribution is fair. Otherwise, each fault domain still receives its replicas in every turn, so the nodes of a smaller fault domain can hold more replicas than the nodes of a larger one. The algorithm does not fail in this case and reports the reason for the uneven distribution in the log.
-
-When fault domains or cluster topology change, the algorithm starts from the existing distribution, both when it moves replicas between fault domains and when it balances them within a fault domain. Replicas remain on their nodes whenever the fault domain constraint allows it.
 
 ## Primary Replicas and Leases
 
@@ -219,6 +217,8 @@ You can trigger lease balancing from any node; the request is routed to the node
 ## Partition Rebalance
 
 When the [cluster size changes](distribution-zones.md#cluster-scaling), GridGain 9 waits for the timeout specified in the `AUTO SCALE UP` or `AUTO SCALE DOWN` distribution zone properties, and then redistributes partitions according to the partition distribution algorithm and transfers data to make it up-to-date with the replication group.
+
+Starting with GridGain 9.2, when the [replica filter attribute](distribution-zones.md#changing-fault-domains) of a distribution zone changes, GridGain redistributes partitions immediately, without waiting for these timeouts.
 
 This process is called *data rebalance*.
 

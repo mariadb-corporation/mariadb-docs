@@ -122,9 +122,9 @@ You should prioritize restoring failed nodes to return to full fault tolerance. 
 
 When a rack, a data center, or an availability zone fails, all its nodes become unavailable at the same time. By default, GridGain does not take the location of the nodes into account, so some partitions may have the majority of their replicas on these nodes. For these partitions, the failure is a majority failure with the effects described below.
 
-Starting with GridGain 9.2, you can use [rack awareness](storage/distribution-zones.md#rack-awareness) to spread the replicas of each partition across fault domains. If the distribution zone has at least 3 replicas and uses at least 3 fault domains of the same size, no fault domain holds the majority of the voting replicas of a partition. The failure of one fault domain is then a minority failure for every partition of the zone, and the data remains available for reads and writes.
+Starting with GridGain 9.2, you can use [rack awareness](storage/distribution-zones.md#rack-awareness) to spread the replicas of each partition across fault domains. If the distribution zone and its fault domains meet the requirements in [Planning Fault Domains](storage/distribution-zones.md#planning-fault-domains), no fault domain holds the majority of the consensus group of a partition. The failure of one fault domain is then a minority failure for every partition of the zone.
 
-Rack awareness does not apply to the CMG and the metastorage group. To keep these groups available when a fault domain fails, select their nodes from at least 3 different fault domains when you initialize the cluster.
+Rack awareness does not apply to the CMG and the metastorage group. To keep these groups available when a fault domain fails, select their nodes so that no fault domain holds the majority of the nodes of a group when you initialize the cluster.
 
 ### Majority Failure with Strong Consistency
 

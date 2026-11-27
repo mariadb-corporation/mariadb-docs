@@ -213,8 +213,8 @@ The replica filter attribute is available in GridGain 9.2 and later. Clusters th
 To spread the replicas of the zone across [fault domains](../architecture/storage/distribution-zones.md#rack-awareness), specify the name of the node attribute in the `replicaFilterAttribute` property of the `@Zone` annotation:
 
 ```java
-@Table(value = "kv_pojo",
-        zone = @Zone(value = "zone_test", replicas = 3, replicaFilterAttribute = "rack", storageProfiles = "default"))
+@Table(value = "rack_pojo",
+        zone = @Zone(value = "zone_rack", replicas = 3, replicaFilterAttribute = "rack", storageProfiles = "default"))
 public static class PojoValue {
     // Table columns.
 }
@@ -224,7 +224,7 @@ When using builders, set the attribute in the zone definition:
 
 ```java
 catalog.createZone(
-        ZoneDefinition.builder("zone_test")
+        ZoneDefinition.builder("zone_rack")
                 .replicas(3)
                 .replicaFilterAttribute("rack")
                 .storageProfiles("default")
