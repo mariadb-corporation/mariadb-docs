@@ -219,7 +219,7 @@ The replay also requires a user account using which the captured traffic is repl
 
 ```
 CREATE USER 'maxreplay'@'%' IDENTIFIED BY 'replay-pw';
-GRANT ALL ON *.* TO 'maxreplay'@'%';
+GRANT ALL ON *.* TO 'maxreplay'@'%' WITH GRANT OPTION;
 ```
 
 **Restore for read-only Replay**
