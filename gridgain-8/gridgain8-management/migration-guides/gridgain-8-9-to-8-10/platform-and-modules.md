@@ -154,6 +154,17 @@ The `DOCTYPE` declaration needs no change.
 
 For HTTPS and mutual TLS, use `org.eclipse.jetty.util.ssl.SslContextFactory$Server` with `SslConnectionFactory` and `HttpConnectionFactory`. `SecureRequestCustomizer` checks the SNI host name by default. Set `sniHostCheck` to `false` on it if the certificate name does not match the bind address. The client certificate chain is available to the REST handler through the SSL session data, not through the Jetty 9 `X509_ATTRIBUTE`.
 
+### REST Responses Use Jackson 3
+
+This section applies if your code loads Jackson 2 from the `ignite-rest-http` folder, or parses REST error messages.
+
+Starting with GridGain 8.10.2, the `ignite-rest-http` module serializes REST responses with Jackson 3 (3.3.0, package `tools.jackson`). The `libs/optional/ignite-rest-http` folder ships the Jackson 3 `tools.jackson.core:jackson-core` and `jackson-databind` libraries instead of the Jackson 2 `com.fasterxml.jackson.core` ones. `jackson-annotations` stays on Jackson 2. If your code used the Jackson 2 libraries from that folder, add them to your classpath.
+
+The JSON format of REST responses does not change, with these exceptions:
+
+- `java.time` values, such as `Instant`, and `Optional` values are serialized, for example as `"1970-01-01T00:00:00Z"`. Earlier, a response that contained such a value failed.
+- When a response cannot be serialized, the `error` text comes from Jackson 3 and includes an `at [No location information]` line before the reference chain.
+
 ### Cassandra Store Uses the DataStax Driver 4
 
 The Cassandra store moves from DataStax Java driver 3.2 to 4.17 (`com.datastax.oss.driver.*`). Cassandra 2.1 or later is required. Native protocol v1 and v2 are no longer supported, and `DataSource.setProtocolVersion()` accepts versions 3 to 6.
