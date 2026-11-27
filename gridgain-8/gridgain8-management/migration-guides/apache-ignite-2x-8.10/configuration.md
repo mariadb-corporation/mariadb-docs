@@ -26,7 +26,7 @@ GridGain 8.10 changes a number of configuration defaults relative to Apache Igni
 | `TcpCommunicationSpi.messageQueueLimit` | `0` (unlimited) | `4096` |
 | `ClientConnectorConfiguration.socketSendBufferSize` / `socketReceiveBufferSize` | `0` (OS default) | `262144` (256 KB) |
 | `IgniteDataStreamer.allowOverwrite()` | `false` | `true` (via `IGNITE_DATA_STREAMER_ALLOW_OVERWRITE`, defaulting to `true`) |
-| Thin client partition/affinity awareness | `partitionAwarenessEnabled = true` | `affinityAwarenessEnabled = false` (the Ignite-named methods remain as deprecated aliases) |
+| Thin client partition/affinity awareness | `partitionAwarenessEnabled = true` | `affinityAwarenessEnabled = false` in 8.10.0 and 8.10.1, `true` in 8.10.2 and later (the Ignite-named methods remain as deprecated aliases) |
 | Thin client timeouts (`ClientConfiguration`) | `timeout = 0` (infinite) | `handshakeTimeout = 10000` ms, `requestTimeout = 60000` ms (`setTimeout` is deprecated) |
 | `TransactionConfiguration.txTimeoutOnPartitionMapExchange` | `0` (no timeout) | `60000` (ms) |
 | `SqlConfiguration.longQueryWarningTimeout` | `3000` (ms) | `1000` (ms) |
@@ -110,13 +110,13 @@ IGNITE_DATA_STREAMER_ALLOW_OVERWRITE=false
 The remaining defaults are not server-side configuration and must be set where they apply:
 
 - *readFromBackup (per cache).* Set `readFromBackup=true` on each `CacheConfiguration` or cache template. The GridGain 8 default is `false`.
-- *Thin-client affinity awareness (client code).* Call `ClientConfiguration.setAffinityAwarenessEnabled(true)`. The GridGain 8 default is `false`.
+- *Thin-client affinity awareness (client code).* On GridGain 8.10.0 and 8.10.1, call `ClientConfiguration.setAffinityAwarenessEnabled(true)`. The default there is `false`. Starting with 8.10.2, the default is `true`, as in Ignite 2.
 - *Thin-client timeouts (client code).* Ignite 2 waits indefinitely by default. GridGain 8.10 gives up after 10 s on handshake and 60 s per request, so long-running thin-client operations (large scans, bulk loads) can start failing with timeouts. Set `setHandshakeTimeout` and `setRequestTimeout` explicitly (`0` is infinite).
 - *Discovery (environment-specific).* Ignite 2 defaults to multicast discovery. If your cluster relied on it, configure a `TcpDiscoveryMulticastIpFinder` or supply the static address list; GridGain 8 defaults to `TcpDiscoveryVmIpFinder`.
 
 Several of these defaults change behavior in ways that pass functional tests and surface only later: under load, on large data, or during a network event. The ones that most often cause problems:
 
-**Affinity awareness (clients)**: Ignite 2 enables it (as partition awareness) and GridGain 8 disables it, so thin clients no longer route each request to the node that owns the key and every operation takes an extra network hop. This passes functional tests but shows up as a latency and throughput regression under load. Re-enable it unless you have a reason not to. Service awareness in the Java thin client (Ignite 2.16.0 and later, also in GridGain 8.10) works only when partition awareness is enabled. With the GridGain 8 default (disabled), the client sends service calls the standard way: to the node it is connected to, which forwards them to a node that runs the service.
+**Affinity awareness (clients)**: This applies to GridGain 8.10.0 and 8.10.1. Ignite 2 enables it (as partition awareness) and these releases disable it, so thin clients no longer route each request to the node that owns the key and every operation takes an extra network hop. This passes functional tests but shows up as a latency and throughput regression under load. Re-enable it unless you have a reason not to. Service awareness in the Java thin client (Ignite 2.16.0 and later, also in GridGain 8.10) works only when partition awareness is enabled. With partition awareness disabled, the client sends service calls the standard way: to the node it is connected to, which forwards them to a node that runs the service. Starting with GridGain 8.10.2, affinity awareness is enabled by default, as in Ignite 2.
 
 **Discovery IP finder**: Ignite 2 defaults to multicast discovery; GridGain 8 defaults to the static `TcpDiscoveryVmIpFinder`, pre-seeded with `127.0.0.1:47500..47600` only. Nodes on the same host still find each other, but nodes on different hosts no longer do. A multi-host cluster that relied on multicast will not form until you supply the real node addresses or configure the multicast IP finder.
 

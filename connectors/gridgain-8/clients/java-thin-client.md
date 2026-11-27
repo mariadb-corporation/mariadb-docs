@@ -211,6 +211,10 @@ The following rules apply to async sequence operations:
 
 {% include "../.gitbook/includes/gg8-partition-awareness.md" %}
 
+Starting with GridGain 8.10.2, partition awareness is enabled by default. In earlier releases, it is disabled by default, and you enable it with `ClientConfiguration.setAffinityAwarenessEnabled(true)`.
+
+With partition awareness enabled, the client opens a connection to every server node it knows about: the addresses in the client configuration and, with [automatic server node discovery](#automatic-server-node-discovery), the nodes it discovers. If the client can reach only some of the server nodes, for example when only one node is exposed through the network, call `setAffinityAwarenessEnabled(false)`. Otherwise, the client logs a `Failed to initialize channel` warning for each node it cannot reach.
+
 The partition awareness functionality helps avoid an additional network hop in the following scenarios:
 
 - Single-key operations API, like put(), get(), etc.
@@ -221,7 +225,7 @@ The partition awareness functionality helps avoid an additional network hop in t
 
 - Service invocation. Starting with GridGain 8.10, the client routes service calls to a node that runs an instance of the service. See [Service Awareness](#service-awareness).
 
-The following code sample illustrates how to use the partition awareness feature with the java thin client.
+The following code sample sets partition awareness explicitly, which is required in GridGain 8.10.1 and earlier.
 
 ```java
 ClientConfiguration cfg = new ClientConfiguration()
@@ -827,8 +831,7 @@ If the client has no connection to the chosen node, it sends the call the standa
 If the connection to the chosen node fails, the client applies the retry policy from `ClientConfiguration` and, when the policy allows a retry, sends the call the standard way.
 If a request for the list fails, the client logs an error and keeps using the last known list.
 
-Partition awareness is disabled by default.
-To use service awareness, call `ClientConfiguration.setAffinityAwarenessEnabled(true)`. No other configuration is required.
+Starting with GridGain 8.10.2, partition awareness is enabled by default, so service awareness needs no configuration. In GridGain 8.10.0 and 8.10.1, call `ClientConfiguration.setAffinityAwarenessEnabled(true)`. No other configuration is required.
 The server nodes must support the feature. If they do not, the client sends service calls the standard way.
 
 ### Passing a Service Call Context

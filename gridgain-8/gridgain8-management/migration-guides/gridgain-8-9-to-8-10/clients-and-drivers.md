@@ -21,6 +21,14 @@ This section applies if a configured host name resolves to several IP addresses.
 
 The Java thin client resolves its configured addresses through `DnsClientAddressFinder` when no custom address finder is set. When a host name resolves to several IP addresses, the client uses all of them instead of one. This affects host names backed by several A records or round-robin DNS.
 
+## Java Thin Client Partition Awareness Is Enabled by Default
+
+This section applies if you upgrade the Java thin client to 8.10.2 or later and do not call `setAffinityAwarenessEnabled()`.
+
+Starting with 8.10.2, partition awareness (`ClientConfiguration.affinityAwarenessEnabled`) is enabled by default. In 8.9.x and in 8.10.0 and 8.10.1, it was disabled by default. The client now opens a connection to every server node it knows about, instead of one connection to a single node, and sends key-based operations and service calls directly to the node that owns the key or runs the service.
+
+Make sure that the client can reach every server node on its client connector port. If it can reach only some of them, for example when the cluster is exposed through a single address, call `ClientConfiguration.setAffinityAwarenessEnabled(false)` to keep the 8.9.x behavior.
+
 ## Java Thin Client Transactions Start Lazily
 
 Most applications are not expected to notice the change.
@@ -31,7 +39,7 @@ A Java thin client transaction now starts lazily. `txStart()` no longer sends `T
 - *A transaction without cache operations never reaches the server.* `commit()`, `rollback()`, and `close()` on it succeed and send nothing.
 - *`txId()` and `clientChannel()` are not available before the first cache operation.* These two methods are on the internal transaction class, not on the public `ClientTransaction` interface, so only code that casts to it is affected. Both fail with `The transaction was never started`. In 8.9.x they worked right after `txStart()`.
 
-With `affinityAwarenessEnabled` set to `true` (the default is `false`), the start request goes to a node chosen by the first operation. Otherwise it goes to the default connection, as in 8.9.x.
+With `affinityAwarenessEnabled` set to `true` (the default starting with 8.10.2), the start request goes to a node chosen by the first operation. Otherwise it goes to the default connection, as in 8.9.x.
 
 ## .NET and C++ Clients
 

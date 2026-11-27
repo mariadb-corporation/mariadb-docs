@@ -94,7 +94,7 @@ None of the following requires action to upgrade. For details on the new feature
     - A connection that sets `queryEngine` to anything other than `h2` fails with `Query engine not supported: '<engine>'. Only H2 is supported.`
     - The `local=true` connection property is ignored, and the server logs a warning. The query runs on the whole cluster, not only on the node of the connection.
     - The transaction parameters that Apache Ignite 2.17 sends for transaction-aware queries are ignored.
-- *Java thin client.* `DataStreamer`, asynchronous overloads of the cache operations, and service awareness. With service awareness, the client sends a service call to a node that runs the service, instead of to the node it is connected to. It works only when `affinityAwarenessEnabled` is set to `true` in `ClientConfiguration` (the default is `false`) and the server is 8.10 or later.
+- *Java thin client.* `DataStreamer`, asynchronous overloads of the cache operations, and service awareness. With service awareness, the client sends a service call to a node that runs the service, instead of to the node it is connected to. It works only when `affinityAwarenessEnabled` is set to `true` in `ClientConfiguration` (the default starting with 8.10.2) and the server is 8.10 or later.
 - *.NET.* More asynchronous API methods, to match the Java API.
 - *REST API.* The SQL query, SQL fields query, and scan query commands accept the `keepBinary` parameter. The default is `false`, so existing calls behave as before.
 
