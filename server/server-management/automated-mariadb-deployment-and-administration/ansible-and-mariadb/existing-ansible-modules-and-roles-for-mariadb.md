@@ -1,8 +1,8 @@
 ---
 description: >-
-  Lists and describes the standard Ansible modules available for managing
-  MariaDB, such as mysql_db, mysql_user, and mysql_variables, highlighting
-  their idempotent nature.
+  Lists the Ansible modules for managing MariaDB, from the ansible.mariadb
+  collection, such as mariadb_db, mariadb_user, and mariadb_variables, plus
+  other useful modules and roles.
 ---
 
 # Existing Ansible Modules and Roles for MariaDB
@@ -11,24 +11,32 @@ This page contains links to Ansible modules and roles that can be used to automa
 
 ## Modules
 
-At the time of writing, there are no MariaDB-specific modules in Ansible Galaxy. MySQL modules can be used. Trying to use MySQL-specific features may result in errors or unexpected behavior. However, the same applies when trying to use a feature not supported by the MySQL version in use.
+The [MariaDB collection](https://docs.ansible.com/projects/ansible/latest/collections/ansible/mariadb/index.html), `ansible.mariadb`, contains Ansible modules for MariaDB. It's included in the Ansible package and is also available from [Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/ansible/mariadb/). It contains the following modules:
 
-The [MySQL collection](https://galaxy.ansible.com/community/mysql?extIdCarryOver=true\&sc_cid=701f2000001OH7YAAW) in Ansible Galaxy contains at least the following modules:
+* [mariadb\_binlog\_info](https://docs.ansible.com/projects/ansible/latest/collections/ansible/mariadb/mariadb_binlog_info_module.html): gathers binary log information.
+* [mariadb\_db](https://docs.ansible.com/projects/ansible/latest/collections/ansible/mariadb/mariadb_db_module.html): adds or removes databases.
+* [mariadb\_info](https://docs.ansible.com/projects/ansible/latest/collections/ansible/mariadb/mariadb_info_module.html): gathers information about a MariaDB server.
+* [mariadb\_password\_policy](https://docs.ansible.com/projects/ansible/latest/collections/ansible/mariadb/mariadb_password_policy_module.html): manages password policy settings.
+* [mariadb\_perf\_schema](https://docs.ansible.com/projects/ansible/latest/collections/ansible/mariadb/mariadb_perf_schema_module.html): manages the Performance Schema setup tables.
+* [mariadb\_query](https://docs.ansible.com/projects/ansible/latest/collections/ansible/mariadb/mariadb_query_module.html): runs SQL queries.
+* [mariadb\_replication](https://docs.ansible.com/projects/ansible/latest/collections/ansible/mariadb/mariadb_replication_module.html): configures and operates replication.
+* [mariadb\_replication\_filter](https://docs.ansible.com/projects/ansible/latest/collections/ansible/mariadb/mariadb_replication_filter_module.html): manages replication filters.
+* [mariadb\_role](https://docs.ansible.com/projects/ansible/latest/collections/ansible/mariadb/mariadb_role_module.html): adds, removes, or updates roles.
+* [mariadb\_slow\_log](https://docs.ansible.com/projects/ansible/latest/collections/ansible/mariadb/mariadb_slow_log_module.html): manages slow query log settings.
+* [mariadb\_user](https://docs.ansible.com/projects/ansible/latest/collections/ansible/mariadb/mariadb_user_module.html): adds or removes users.
+* [mariadb\_variables](https://docs.ansible.com/projects/ansible/latest/collections/ansible/mariadb/mariadb_variables_module.html): manages server variables.
 
-* [mysql\_db](https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_db_module.html): manages MySQL databases.
-* [mysql\_info](https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_info_module.html): gathers information about a MySQL server.
-* [mysql\_query](https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_query_module.html): runs SQL queries against MySQL.
-* [mysql\_replication](https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_replication_module.html): configures and operates asynchronous replication.
-* [mysql\_user](https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_user_module.html): creates, modifies and deletes MySQL users.
-* [mysql\_variables](https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_variables_module.html): manages MySQL configuration.
-
-Note that some modules only exist as shortcuts, and it is possible to use mysql\_query instead. However, it is important to notice that mysql\_query is not idempotent. Ansible does not understand MySQL queries, therefore it cannot check whether a query needs to be run or not.
+Note that some modules only exist as shortcuts, and it is possible to use mariadb\_query instead. However, it is important to notice that mariadb\_query is not idempotent. Ansible does not understand SQL queries, therefore it cannot check whether a query needs to be run or not.
 
 To install this collection locally:
 
 ```bash
-ansible-galaxy collection install community.mysql
+ansible-galaxy collection install ansible.mariadb
 ```
+
+{% hint style="info" %}
+`ansible.mariadb` is a fork of the MySQL collection, `ansible.mysql`, which was previously named `community.mysql`. The MySQL collection still works with MariaDB, but only receives bug fixes and security fixes for it, and drops MariaDB support in its release 6.0.0. If your playbooks use the MySQL collection's modules with MariaDB, change their names to the MariaDB collection's, for example `community.mysql.mysql_user` to `ansible.mariadb.mariadb_user`. The parameters are the same.
+{% endhint %}
 
 MariaDB Corporation maintains a [ColumnStore playbook](https://github.com/mariadb-corporation/columnstore-ansible) on GitHub.
 
@@ -48,12 +56,12 @@ Among other things, it is possible to use one of these modules to run MariaDB qu
 - name: Make the server read-only
   # become root to log into MariaDB with UNIX_SOCKET plugin
   become: yes
-  shell: $( which mysql ) -e "SET GLOBAL read_only = 1;"
+  shell: $( which mariadb ) -e "SET GLOBAL read_only = 1;"
 ```
 
 The main disadvantage with these modules is that they are not idempotent, because they're meant to run arbitrary system commands that Ansible can't understand. They are still useful in a variety of cases:
 
-* To run queries, because mysql\_query is also not idempotent.
+* To run queries, because mariadb\_query is also not idempotent.
 * In cases when other modules do not allow us to use the exact arguments we need to use, we can achieve our goals by writing shell commands ourselves.
 * To run custom scripts that implement non-trivial logic. Implementing complex logic in Ansible tasks is possible, but it can be tricky and inefficient.
 * To call [command-line tools](../../../clients-and-utilities/). There may be specific roles for some of the most common tools, but most of the times using them is an unnecessary complication.
@@ -79,7 +87,7 @@ A simple template task:
 
 ```yaml
 - name: Compile and copy my.cnf
-  copy:
+  template:
     src: ./templates/my.cnf.j2
     dest: /etc/mysql/my.cnf
 ```
@@ -94,13 +102,10 @@ A simple template example:
 
 [mysqld]
 innodb_buffer_pool_size = {{ innodb_buffer_pool_size }}
-
-<div data-gb-custom-block data-tag="if" data-0='true' data-1='true' data-2='true' data-3='true'>
-
-connect_work_size = {{ connect_work_size }}
-
-</div>
+{{ 'connect_work_size = ' ~ connect_work_size if connect_work_size is defined else '' }}
 ```
+
+The second line writes `connect_work_size` only if the variable is defined.
 
 #### Other Common Modules
 
