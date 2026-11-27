@@ -48,7 +48,7 @@ The options follow the rules of [command line integration](../using-mariadb-shel
 | `--deletePaths=<list>` | Removes directories from the allowed paths. |
 | `--installMigrator` | Downloads the migration tooling, creates its virtual environment, and installs the `mariadb-migrator` command. Linux and macOS only. |
 | `--removeMigrator` | Removes all installed releases of the migration tooling and the `mariadb-migrator` command. |
-| `--toolNameSeparator=<separator>` | The character between a tool's group and its name in the tool names that the server provides: `.` (the default), `_`, or `-`. Use `_` for gateways that refuse dots, such as Arcade. See [Tool Names](starting-the-mcp-server.md#tool-names). |
+| `--toolNameSeparator=<separator>` | The character between a tool's group and its name in the tool names that the server provides: `.` (the default), `_`, or `-`. Use `_` for gateways that refuse dots, such as Arcade. `mcp start-server --toolNameSeparator` overrides it for one server. See [Tool Names](starting-the-mcp-server.md#tool-names). |
 | `--nonInteractive` | Never prompts. A password that isn't provided with a password option is an error, so an automated run fails instead of waiting for input. |
 | `--show` | Prints the current configuration and changes nothing. Can't be combined with options that change the configuration. |
 | `--json` | Prints the output of `--show` as JSON. Only valid together with `--show`. |

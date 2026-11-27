@@ -38,6 +38,7 @@ Configure the connections and directories the server may access before you start
 | `--trustedProxies=<list>` | None | The reverse proxies in front of the server, as a comma-separated list of IP addresses and networks. On requests from them, the server takes the client's address from the `X-Forwarded-For` header. Only used by `streamable-http`. See [Client Addresses Behind a Reverse Proxy](security-and-session-handling.md#client-addresses-behind-a-reverse-proxy). |
 | `--maxConnections=<number>` | `64` | The maximum number of database connections the server holds open for all clients together. See [Connection Limits](security-and-session-handling.md#connection-limits). |
 | `--publicUrl=<url>` | The configured URL | The URL clients reach the MCP endpoint at, which OAuth2 tokens are issued for. Overrides the URL set with `mcp setup-oauth --publicUrl` for this run. See [OAuth Authentication](oauth-authentication.md#the-public-url). |
+| `--toolNameSeparator=<separator>` | The configured separator | The character between a tool's group and its name for this server only: `.`, `_`, or `-`. Overrides the separator set with `mcp setup --toolNameSeparator`. See [Tool Names](#tool-names). |
 | `--gui` | Off | Reserved for the MariaDB extension for Visual Studio Code, which starts the server with it. Don't use it for other clients: in this mode, the server allows access to every local path. Not available in multi-tenant mode. |
 
 To show the built-in help for the options, run:
@@ -144,6 +145,14 @@ mariadb-shell -- mcp setup --toolNameSeparator=_
 
 The server then provides `db_list_connections`, `msm_create_project`, and so on. The tools' descriptions and error messages refer to the other tools by the same names, so an agent is never told to call a tool that doesn't exist. The setting takes effect when the server starts. To return to dots, run `mcp setup --toolNameSeparator=.`.
 
+To use another separator for one server only, for example when one machine serves clients that want different names, pass it to `mcp start-server`:
+
+```bash
+mariadb-shell -- mcp start-server --transport=stdio --toolNameSeparator=_
+```
+
+A server started with `--gui` provides the dotted names unless it's given `--toolNameSeparator`, whatever `mcp setup` saved, because the MariaDB extension for Visual Studio Code calls the tools by those names. `mcp setup --show` reports the saved separator, which such servers don't follow.
+
 ## Multi-Tenant Servers
 
 When [multi-tenant mode](multi-tenant-mode.md) is on, `mcp start-server` serves authenticated users: it refuses `--transport=stdio` and `--gui`, provides only the `db` group, and refuses to start if `--functionGroups` names another group, or if there is no enabled user and no OAuth2 mode that creates users at sign-in. In an [OAuth2](oauth-authentication.md) mode, it also needs a public URL, from `mcp setup-oauth --publicUrl` or from its own `--publicUrl`. Everything else on this page applies unchanged.
@@ -190,7 +199,7 @@ For a `stdio` server, the MCP client captures standard error. Check the MCP log 
 | A client receives HTTP status `421 Misdirected Request`. | The client uses a host name that the server doesn't accept. | Add the name with `--allowedHosts`. See [Host and Origin Validation](security-and-session-handling.md#host-and-origin-validation). |
 | No `migrator` tools | The migration tooling isn't installed, or the server was started before it was installed. | Install it with `mcp setup --installMigrator`, then restart the server. |
 | *This server is configured for multi-tenant mode, which serves authenticated users over HTTP only* | Multi-tenant mode is on, and the server was started with `--transport=stdio`. | Use `--transport=streamable-http`, or turn multi-tenant mode off. See [Multi-Tenant Mode](multi-tenant-mode.md). |
-| A gateway refuses the server's tools with *tool name must only contain ASCII letters, numbers, and the dash and underscore characters*. | The gateway doesn't accept dots in tool names. | Run `mcp setup --toolNameSeparator=_` and restart the server. See [Tool Names](#tool-names). |
+| A gateway refuses the server's tools with *tool name must only contain ASCII letters, numbers, and the dash and underscore characters*. | The gateway doesn't accept dots in tool names. | Run `mcp setup --toolNameSeparator=_` and restart the server, or start this server alone with `--toolNameSeparator=_`. See [Tool Names](#tool-names). |
 | *--trustedProxies takes IP addresses and networks (such as 192.0.2.3 or 192.0.2.0/24); not: …* | An entry of `--trustedProxies` is a host name or misspelled. | Give the proxies' IP addresses or networks. |
 | *--trustedProxies cannot trust every address (…)* | `--trustedProxies` contains `0.0.0.0/0` or `::/0`. | Name the proxies themselves. |
 | *Give both --sslCertfile and --sslKeyfile to serve HTTPS, or neither.* | Only one of `--sslCertfile` and `--sslKeyfile` was given. | Pass both. |

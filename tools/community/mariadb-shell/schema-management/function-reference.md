@@ -76,8 +76,8 @@ These functions use the global session, or the session passed with the `session`
 
 | Python | Command line | Description |
 | --- | --- | --- |
-| `msm.get_online_alter_settings([options])` | `msm get-online-alter-settings` | Returns the defaults, the project's `onlineAlter` setting, and, with the option `table`, whether online `ALTER TABLE` is on for that table and its values. See [Online ALTER TABLE Settings](deploying-schemas.md#online-alter-table-settings). |
-| `msm.get_online_alter_defaults()` | `msm get-online-alter-defaults` | Returns the values that MSM uses where nothing is set. |
+| `msm.get.online_alter_settings([options])` | `msm get online-alter-settings` | Returns the defaults, the project's `onlineAlter` setting, and, with the option `table`, whether online `ALTER TABLE` is on for that table and its values. See [Online ALTER TABLE Settings](deploying-schemas.md#online-alter-table-settings). |
+| `msm.get.online_alter_defaults()` | `msm get online-alter-defaults` | Returns the values that MSM uses where nothing is set. |
 
 To change the setting, use `msm.set.project_settings()`.
 
@@ -88,16 +88,16 @@ Section 160 of the development script holds a snapshot of the schema objects and
 | Python | Command line | Description |
 | --- | --- | --- |
 | `msm.list_schema_diagrams([options])` | `msm list-schema-diagrams` | Lists the diagrams, and says whether the schema snapshot matches the development script. |
-| `msm.get_schema_diagrams([options])` | `msm get-schema-diagrams` | Returns the rows of the `msm_schema_diagrams` view: the schema snapshot `schema_definition` and one row per diagram. Option: `diagram`. |
-| `msm.get_schema_diagram_image(diagram, figure_id[, options])` | `msm get-schema-diagram-image` | Returns the picture of an image figure of a diagram, as a data URL. |
+| `msm.get.schema_diagrams([options])` | `msm get schema-diagrams` | Returns the rows of the `msm_schema_diagrams` view: the schema snapshot `schema_definition` and one row per diagram. Option: `diagram`. |
+| `msm.get.schema_diagram_image(diagram, figure_id[, options])` | `msm get schema-diagram-image` | Returns the picture of an image figure of a diagram, as a data URL. |
 | `msm.update_schema_definition([options])` | `msm update-schema-definition` | Makes the schema snapshot again from the development script. `msm.prepare_release()` does this too. |
 | `msm.create_schema_diagram(name[, options])` | `msm create-schema-diagram` | Adds a diagram of the schema's tables, laid out. |
 | `msm.layout_schema_diagram(name[, options])` | `msm layout-schema-diagram` | Adds objects to a diagram and lays out its figures. |
-| `msm.set_schema_diagram([document][, options])` | `msm set-schema-diagram` | Adds a diagram, or replaces the one of the same name. Option: `document_file`. |
+| `msm.set.schema_diagram([document][, options])` | `msm set schema-diagram` | Adds a diagram, or replaces the one of the same name. Option: `document_file`. |
 | `msm.rename_schema_diagram(name, new_name[, options])` | `msm rename-schema-diagram` | Renames a diagram and keeps its figures, pictures, and place among the diagrams. Refuses an empty name, `schema_definition`, and a name that another diagram has, in any case. Returns the files it wrote, or an empty list for the same name. |
 | `msm.remove_schema_diagram(name[, options])` | `msm remove-schema-diagram` | Removes a diagram. |
 | `msm.edit_schema(edits, base_hash[, options])` | `msm edit-schema` | Changes tables, columns, indexes, keys, views, and routines in the `CREATE` statements of the development script. `base_hash` is the `source_hash` of the schema snapshot that the edits were made against. Option: `edits_file`. |
-| `msm.get_object_templates()` | `msm get-object-templates` | Returns the `CREATE` statements that `msm.add_schema_object()` fills in, for each kind, and the placeholders that each kind takes: `${name}` and `${schema}`, and `${table}` for a trigger. |
+| `msm.get.object_templates()` | `msm get object-templates` | Returns the `CREATE` statements that `msm.add_schema_object()` fills in, for each kind, and the placeholders that each kind takes: `${name}` and `${schema}`, and `${table}` for a trigger. |
 | `msm.add_schema_object(kind, name, base_hash[, options])` | `msm add-schema-object` | Adds a `view`, `procedure`, `function`, `trigger`, `event`, or `sequence` from a template through `msm.edit_schema()`: a sequence to section 140 before the first table, every other kind to section 150. Returns what `msm.edit_schema()` returns, plus the `file` and the `line` where the new statement starts. Options: `template`, `table` (for a trigger), `lsp_path`. |
 
 ## Working Directory
