@@ -30,7 +30,7 @@ description: >-
 
 ## F
 
-**Fault domain** — A group of cluster nodes that are likely to fail together, for example nodes in the same rack, data center, or availability zone. When [rack awareness](../architecture/storage/distribution-zones.md#rack-awareness) is configured, GridGain spreads the replicas of each partition across fault domains. Rack awareness is available in GridGain 9.2 and later.
+**Fault domain** — A group of cluster nodes that are likely to fail together, for example nodes in the same rack, data center, or availability zone. When [rack awareness](../architecture/storage/distribution-zones.md#rack-awareness) is configured, GridGain spreads the replicas of each partition across fault domains.
 
 ## L
 

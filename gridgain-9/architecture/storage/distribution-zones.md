@@ -182,7 +182,11 @@ ALTER ZONE exampleZone SET DATA_NODES_FILTER='$..*';
 ### Rack Awareness
 
 {% hint style="info" %}
-Rack awareness is available in GridGain 9.2 and later, only as part of GridGain 9 Enterprise and Ultimate editions.
+This feature is only available as a part of GridGain 9 Enterprise and Ultimate editions.
+{% endhint %}
+
+{% hint style="info" %}
+Rack awareness is available in GridGain 9.2 and later.
 {% endhint %}
 
 By default, GridGain stores the replicas of a partition on different nodes, but does not take into account where these nodes are located. If all nodes that store a partition are in the same rack, data center, or availability zone, the failure of this location makes the partition unavailable.
