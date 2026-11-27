@@ -11,6 +11,8 @@ To enhance your understanding of MariaDB and MySQL, explore these tutorials. For
 * [MariaDB Tutorial - MariaDB in a practical manner through numerous hands-on examples](https://www.mariadbtutorial.com)
 * [MariaDB Tutorial: An Introductory Guide With Examples](https://blog.devart.com/mariadb-tutorial-an-introductory-guide-with-examples.html)
 
+* [Build Semantic Search with Ollama and MariaDB](https://xlinesoft.com/blog/2026/10/29/build-local-semantic-search-with-ollama-and-mariadb/). Use local embeddings and MariaDB vectors for semantic search and duplicate-ticket detection in a PHPRunner application.
+
 ## MySQL-Focused Tutorials
 
 These tutorials should work for MariaDB, too.
