@@ -32,7 +32,8 @@ However, if _ExasolRouter_ is used standalone, a MariaDB server or a service
 should be specified using `targets`. _ExasolRouter_ will not route to it,
 but it will use it for authenticating clients. Exasol will still be accessed
 on behalf of all clients using the credentials specified in the
-[odbc\_connection\_string](#odbc_connection_string).
+[odbc\_connection\_string](#odbc_connection_string), unless
+[impersonate](#impersonate) is enabled.
 
 _ExasolRouter_ is intended to be used with the value of the Exasol
 setting `SQL_IDENTIFIER_COMPARISON` being `IGNORE CASE`. The value
@@ -52,6 +53,75 @@ password=
 
 The user and password to be used when accessing Exasol must be specified
 using `UID` and `PWD` in the [odbc\_connection\_string](maxscale-exasolrouter.md#odbc_connection_string).
+
+By default that single Exasol account is used on behalf of every client,
+which means that all clients share the same Exasol identity and the same
+Exasol privileges. That can be changed using
+[impersonate](#impersonate), see [Impersonation](#impersonation).
+
+## Impersonation
+
+{% hint style="info" %}
+This functionality is available from MaxScale 26.10.
+{% endhint %}
+
+If [impersonate](#impersonate) is enabled, _ExasolRouter_ executes
+
+```
+IMPERSONATE "<user>"
+```
+
+on the Exasol connection of every session, where `<user>` is the name of
+the MariaDB user the client authenticated as. Thus, each client accesses
+Exasol using its own identity and privileges, instead of those of the
+account in [odbc\_connection\_string](#odbc_connection_string).
+
+The statement is executed when the Exasol connection of the session is
+created, after the `ALTER SESSION SET sql_preprocessor_script` statement
+that the value `external` of [preprocessor](#preprocessor) implies. If the
+statement fails, for instance because the Exasol user does not exist, the
+Exasol connection is closed and the error is reported to the client;
+_ExasolRouter_ never falls back to using the identity of the account in
+`odbc_connection_string`.
+
+### Requirements
+
+* The account in [odbc\_connection\_string](#odbc_connection_string) must
+  be allowed to impersonate the users in question, which is the case if it
+  has been granted `IMPERSONATE ANY USER`. Note that with that grant, a
+  MariaDB user whose name matches that of a privileged Exasol user will
+  obtain the privileges of that Exasol user. Granting the right to
+  impersonate specific users only should be considered.
+* The impersonated users need no privileges for being impersonated and,
+  in particular, they do not need `CREATE SESSION`; the session is opened
+  by the account in `odbc_connection_string`.
+* If the value of [preprocessor](#preprocessor) is `external`, every
+  impersonated user must be allowed to execute the preprocessor script,
+  e.g. `GRANT EXECUTE ON SCRIPT UTIL.maria_preprocessor TO ...`. The
+  session setting survives the impersonation, but the script is executed
+  with the privileges of the impersonated user. If a user is not allowed
+  to execute the script, then _every_ statement of that session will fail.
+
+### Identity
+
+Exasol user names are always in upper case. Consequently the MariaDB
+users `bob` and `BOB` are both mapped to the Exasol user `BOB` and cannot
+be distinguished.
+
+An Exasol user name also has no host part, so the MariaDB users
+`bob@192.168.1.1` and `bob@192.168.1.2` are both mapped to the Exasol
+user `BOB`.
+
+The name that is used is the one MaxScale itself uses when authenticating
+to MariaDB backends. If `user_mapping_file` has been specified for the
+listener, it is thus the mapped name and not the name the client
+provided.
+
+Impersonation should not be combined with anonymous MariaDB accounts.
+With those, the effective user is decided by proxy grants on the MariaDB
+server, but the name used for the impersonation is nevertheless the one
+the client provided. If a client provides no user name at all, no
+`IMPERSONATE` is attempted and the client is reported an error.
 
 ## Preprocessing
 
@@ -244,7 +314,7 @@ This setting is available from MaxScale 26.10.
 * Description: Determines whether the Exasol session of a client assumes the identity of the authenticated MariaDB user by using `IMPERSONATE`.
 
 Whether the Exasol session of a client should assume the identity of the
-client.
+client. Please see [Impersonation](#impersonation) for the details.
 
 By default all clients access Exasol using the account specified in
 [odbc\_connection\_string](#odbc_connection_string). If `impersonate` is
