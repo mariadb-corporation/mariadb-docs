@@ -626,13 +626,13 @@ The suffix can be upper or lower-case.
 
 #### `event_scheduler`
 
-* Description: Status of the [Event](../../../server-usage/triggers-events/event-scheduler/events.md) Scheduler. Can be set to `ON` or `OFF`, while `DISABLED` means it cannot be set at runtime. Setting the variable will cause a load of events if they were not loaded at startup.
+* Description: Status of the [Event](../../../server-usage/triggers-events/event-scheduler/events.md) Scheduler. Can be set to `ON` or `OFF`, while `DISABLED` means it cannot be set at runtime. `ORIGINAL` resets it to the value the server was started with (unlike `DEFAULT`, which sets it to `OFF`). Setting the variable will cause a load of events if they were not loaded at startup.
 * Command line: `--event-scheduler[=value]`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `enumeration`
 * Default Value: `OFF`
-* Valid Values: `ON` (or `1`), `OFF` (or `0`), `DISABLED`
+* Valid Values: `ON` (or `1`), `OFF` (or `0`), `DISABLED`, `ORIGINAL`
 
 #### `expensive_subquery_limit`
 
