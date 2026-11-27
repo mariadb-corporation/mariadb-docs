@@ -204,13 +204,72 @@ System.out.println(
 );
 ```
 
-### Zone With Rack Awareness
+## Partition Function
 
-{% hint style="info" %}
-The replica filter attribute is available in GridGain 9.2 and later. Clusters that run earlier versions fail to create a zone with this attribute.
+To set the [partition function](../architecture/storage/data-partitioning.md#available-partition-functions) of a table, use the `partitionFunction` attribute of the `@Table` annotation or the `partitionFunction` method of `TableDefinition.Builder`. The available functions are defined in the `org.apache.ignite.catalog.PartitionFunction` enum. To use a function other than the default, you must also set the colocation key with `colocateBy`. For guidance on when to use `MODULO`, see [Choosing a Partition Function](../architecture/storage/data-partitioning.md#choosing-a-partition-function).
+
+The example below creates the `Warehouse` table by using the `@Table` annotation. If the `warehouseZone` zone does not exist, it is created with 16 partitions. If the zone already exists, its number of partitions does not change:
+
+```java
+@Table(
+        value = "Warehouse",
+        colocateBy = @ColumnRef("w_id"),
+        partitionFunction = PartitionFunction.MODULO,
+        zone = @Zone(value = "warehouseZone", partitions = 16, storageProfiles = "default")
+)
+public class WarehouseRecord {
+    @Id
+    @Column("w_id")
+    Integer warehouseId;
+
+    @Column
+    String name;
+}
+
+client.catalog().createTable(WarehouseRecord.class);
+```
+
+The example below creates the same table by using the builder. With the builder, the `warehouseZone` zone must already exist:
+
+```java
+client.catalog().createTable(
+        TableDefinition.builder("Warehouse")
+                .columns(
+                        column("w_id", ColumnType.INT32),
+                        column("name", ColumnType.VARCHAR)
+                )
+                .primaryKey("w_id")
+                .colocateBy("w_id")
+                .partitionFunction(PartitionFunction.MODULO)
+                .zone("warehouseZone")
+                .build()
+);
+```
+
+{% hint style="warning" %}
+Servers of versions earlier than GridGain 9.2 support only the default partition function. If you create a table with a different function on such a server, the operation fails with a parse error.
 {% endhint %}
 
-To spread the replicas of the zone across [fault domains](../architecture/storage/distribution-zones.md#rack-awareness), specify the name of the node attribute in the `replicaFilterAttribute` property of the `@Zone` annotation:
+To get the partition function of an existing table, use the `tableDefinition` method of `IgniteCatalog`:
+
+```java
+TableDefinition warehouse = client.catalog().tableDefinition("Warehouse");
+
+PartitionFunction function = warehouse.partitionFunction(); // MODULO
+```
+
+The value returned by `partitionFunction` depends on how you got the `TableDefinition` object:
+
+- If the object was returned by `tableDefinition`, the value is the partition function of the existing table. If the client is connected to a server of a version earlier than GridGain 9.2, the value is `null`, because such servers do not report the partition function.
+- If you created the object with the builder, the value is the function you set, or `null` if you did not set one.
+
+Caches work the same way. Use the `partitionFunction` attribute of the `@Cache` annotation, the `partitionFunction` method of `CacheDefinition.Builder`, and the `cacheDefinition` method of `IgniteCatalog`.
+
+## Rack Awareness
+
+To spread the replicas of a zone across [fault domains](../architecture/storage/distribution-zones.md#rack-awareness), set the name of the node attribute that defines the fault domains. Use the `replicaFilterAttribute` attribute of the `@Zone` annotation or the `replicaFilterAttribute` method of `ZoneDefinition.Builder`.
+
+The example below creates the `rack_pojo` table by using the `@Table` annotation. If the `zone_rack` zone does not exist, it is created with 3 replicas of each partition, spread across the fault domains defined by the `rack` node attribute:
 
 ```java
 @Table(value = "rack_pojo",
@@ -220,10 +279,10 @@ public static class PojoValue {
 }
 ```
 
-When using builders, set the attribute in the zone definition:
+The example below creates the same zone by using the builder:
 
 ```java
-catalog.createZone(
+client.catalog().createZone(
         ZoneDefinition.builder("zone_rack")
                 .replicas(3)
                 .replicaFilterAttribute("rack")
@@ -231,6 +290,20 @@ catalog.createZone(
                 .build()
 );
 ```
+
+{% hint style="warning" %}
+Servers of versions earlier than GridGain 9.2 do not support the replica filter attribute. If you create a zone with this attribute on such a server, the operation fails with a parse error.
+{% endhint %}
+
+To get the replica filter attribute of an existing zone, use the `zoneDefinition` method of `IgniteCatalog`:
+
+```java
+ZoneDefinition zone = client.catalog().zoneDefinition("zone_rack");
+
+String attribute = zone.replicaFilterAttribute(); // rack
+```
+
+If the zone does not use fault domains, or the client is connected to a server of a version earlier than GridGain 9.2, the value is `null`.
 
 ## Next Steps
 

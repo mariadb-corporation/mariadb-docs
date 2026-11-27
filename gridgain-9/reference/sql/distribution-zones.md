@@ -62,7 +62,7 @@ Terminal(";")
 * `IF NOT EXISTS` - create a zone only if a different zone with the same name does not exist.
 * `zone_name` - a name of the distribution zone. Can be specified as a case-insensitive identifier or a case-sensitive quoted identifier. Zones are not schema-scoped, so the name must be a simple identifier: a schema-qualified name such as `a.b.c` is rejected with a parse error. In GridGain 9.1, a schema-qualified name is accepted and only its last part is used. Does not need to exist at the moment of table creation, and can be created before writing data.
 * `STORAGE PROFILES` - Required. Comma-separated list of the profiles of the storage engines to use.
-* `PARTITIONS` - the number of partition the data is divided into. Partitions are then split between nodes for storage.
+* `PARTITIONS` - the number of partitions the data is divided into. Partitions are then split between nodes for storage. For tables that use the `MODULO` partition function, choose a number that fits the colocation key values. See [Placement of Dense Key Values](../../architecture/storage/data-partitioning.md#placement-of-dense-key-values).
 * `REPLICAS` - the number of copies of each partition.
 * `NODES FILTER` - specifies the nodes that can be used to store data in the distribution zone based on node attributes. You can configure node attributes by using the CLI. Filter uses JSONPath rules. Missing attributes are treated as `null`: for example, `$[?(@.storage != 'SSD']` will also include nodes without the `storage` attribute specified.
 It's also possible to combine multiple attribute-related expressions in one filter using:

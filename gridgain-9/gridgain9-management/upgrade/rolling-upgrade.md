@@ -67,6 +67,10 @@ GridGain 9.2 has no mandatory versions.
 
 ### Phase 1 — Start the Upgrade
 
+#### Check User Names Before You Start
+
+Before you upgrade from 9.1 or earlier, list the stored user names and check that clients, scripts, and applications use the same spelling. A login that used a different spelling on 9.1 can fail once a node runs 9.2. For the steps, see [Check User Names Before You Upgrade](role-and-user-names.md#check-user-names-before-you-upgrade).
+
 #### Run `upgrade start`
 
 ```bash
@@ -124,9 +128,10 @@ upgrade commit
 1. The cluster reads the current upgrade state and the list of active nodes.
 2. The cluster validates that every active node is running the target version. If any node is still on the source version, the commit fails with an error listing the offending nodes by name and reported version.
 3. The cluster validates that every node it knows about has rejoined fully. If a node has not rejoined, the commit fails with an error.
-4. The cluster's recorded version is set to the target version, the in-progress flag is cleared, and cluster-wide configuration changes are accepted again.
-5. Cluster-wide features that depend on the new version are activated.
-6. The `upgrade.rolling` metric `State` becomes `NOT_STARTED`.
+4. When upgrading from 9.1 or earlier, the cluster [converts existing role names](role-and-user-names.md) to the case-sensitive form used in 9.2. If the conversion fails, the commit fails with an error, the cluster stays on the source version, and the upgrade remains in progress. Configuration changes such as `DROP ROLE`, `GRANT`, and `REVOKE` are rejected while an upgrade is in progress, so you cannot fix the roles in place and run `upgrade commit` again. Roll the nodes back to the source version, run `upgrade cancel`, fix the roles, and start the upgrade again.
+5. The cluster's recorded version is set to the target version, the in-progress flag is cleared, and cluster-wide configuration changes are accepted again.
+6. Cluster-wide features that depend on the new version are activated.
+7. The `upgrade.rolling` metric `State` becomes `NOT_STARTED`.
 
 ## Monitoring Update Progress
 
