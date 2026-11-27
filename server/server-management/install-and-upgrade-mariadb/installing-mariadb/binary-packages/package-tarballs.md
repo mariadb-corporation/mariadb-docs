@@ -29,14 +29,28 @@ MariaDB database products can be deployed with package tarballs to support use c
 
 The following MariaDB database products can be deployed using package tarballs:
 
+* MariaDB Community Server 13.0
+* MariaDB Community Server 12.3
+* MariaDB Community Server 11.8
+* MariaDB Community Server 11.4
+* MariaDB Community Server 10.11
 * MariaDB Community Server 10.6
-* MariaDB Enterprise Server 10.6
+* MariaDB Enterprise Server 12.3
+* MariaDB Enterprise Server 11.8
 * MariaDB Enterprise Server 11.4
-* MariaDB MaxScale 22.08
+* MariaDB Enterprise Server 10.6
+* MariaDB MaxScale 26.10
+* MariaDB MaxScale 25.10
+* MariaDB MaxScale 25.01
+* MariaDB MaxScale 24.02
+* MariaDB MaxScale 23.08
+* MariaDB MaxScale 23.02
+
+The MariaDB Enterprise Server 12.3 package tarballs include the `mariadb-raft` package.
 
 ## Download a Package Tarball
 
-MariaDB Corporation provides package tarballs (.debs.tar, .rpms.tar) to support customers who leverage in-house package repositories to distribute software to their servers. Secure any such repository to prevent outside access.
+MariaDB Corporation provides package tarballs to support customers who leverage in-house package repositories to distribute software to their servers. Secure any such repository to prevent outside access.
 
 MariaDB Corporation provides multiple interfaces to download package tarballs.
 
