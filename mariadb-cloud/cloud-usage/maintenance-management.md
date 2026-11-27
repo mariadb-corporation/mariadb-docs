@@ -27,6 +27,8 @@ Each maintenance activity is assigned a priority level that dictates its schedul
 * **Recommended**: Updates that improve system stability or address lower-risk issues. These remain in the _Available_ state until you act. You may schedule or defer these within allowed limits.
 * **Required**: Updates necessary to maintain system security, cloud provider compliance, or platform reliability. These feature a **target completion date**. You can defer required maintenance temporarily, but it will be automatically and forcibly applied in your last available maintenance window prior to the target completion date.
 
+How long an update stays _Recommended_ before it becomes _Required_ varies. See the [Frequently Asked Questions](#frequently-asked-questions) for details.
+
 {% hint style="info" %}
 Updates addressing immediate, severe security vulnerabilities cannot be deferred and will be scheduled in the first available window.
 {% endhint %}
@@ -115,6 +117,8 @@ API responses include the key attributes of each item, such as priority, classif
 **Q: What happens if I don't apply a "Required" upgrade by the deadline?** A: To maintain cloud provider compliance, MariaDB's security compliance SLA, and platform stability, MariaDB Cloud will automatically perform the upgrade in the final maintenance window prior to the target completion date.
 
 **Q: Will my data be affected during the upgrade?** A: No. Maintenance activities only update the infrastructure or database engine software — your data remains intact and unchanged. Database upgrades additionally run compatibility and integrity checks, and automatically roll back if an upgrade fails.
+
+**Q: What is the difference between "Recommended" and "Required" maintenance, and how long does an update stay Recommended?** A: MariaDB Cloud keeps these flags as permissive as practical, to give you the most flexibility in your deployments. Some updates stay _Recommended_ for a very broad window of time. Others become _Required_ fairly soon, or immediately. This depends on the nature of the update or upgrade and on the cadence of the product teams driving the requirement, so the time an update spends as _Recommended_ varies widely between situations. See [Priority Levels and Enforcement](#priority-levels-and-enforcement).
 
 **Q: Can I opt out of infrastructure or security upgrades entirely?** A: No, these upgrades are mandatory to maintain SOC 2 compliance, security standards, and cloud provider support.
 
