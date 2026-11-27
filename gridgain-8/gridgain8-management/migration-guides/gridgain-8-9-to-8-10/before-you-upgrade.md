@@ -96,6 +96,7 @@ A range such as *Mechanical to Code* means that the effort depends on what you u
 | Rolling Upgrades and snapshots on 8.9 | You use the rolling upgrade path | Config-only | [Upgrade Procedure](upgrade-procedure.md) |
 | Per-feature license checks | Always. Compare your license with your configuration | Config-only | [Per-Feature License Checks](security-and-licensing.md#per-feature-license-checks) |
 | Jetty 12 | You use a custom `jetty.xml` for the REST connector | Config-only | [Jetty 12 Is the Only REST Implementation](platform-and-modules.md#jetty-12-is-the-only-rest-implementation) |
+| Jackson 3 in the REST module (8.10.2 and later) | Your code loads Jackson 2 from the `ignite-rest-http` folder, or parses REST error messages | Config-only | [REST Responses Use Jackson 3](platform-and-modules.md#rest-responses-use-jackson-3) |
 | Lucene lines | You run `ignite-lucene-8`, or want to use Lucene 10 | Mechanical | [Lucene](platform-and-modules.md#lucene) |
 | `ignite-ssh` module removed | You start remote nodes with `startNodes()` | Contact Support | [SSH Module Removed](platform-and-modules.md#ssh-module-removed) |
 | SFTP host key verification | You send snapshots to an SFTP destination | Config-only | [SFTP Snapshot Transport Verifies the Host Key by Default](configuration-and-defaults.md#sftp-snapshot-transport-verifies-the-host-key-by-default) |
