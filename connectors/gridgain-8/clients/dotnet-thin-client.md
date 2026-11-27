@@ -136,6 +136,42 @@ value to both the handshake and the request timeout, so existing configurations 
 two phases independently.
 {% endhint %}
 
+### User Attributes
+
+You can send custom attributes to the server when the client connects. Set them with the `IgniteClientConfiguration.UserAttributes` property. The attributes of each connection are available on the server in the [CLIENT_CONNECTION_ATTRIBUTES](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53/reference/monitoring/system-views#client_connection_attributes) system view.
+
+{% tabs %}
+{% tab title="C#" %}
+```csharp
+var cfg = new IgniteClientConfiguration
+{
+    Endpoints = new[] {"127.0.0.1:10800"},
+    UserAttributes = new Dictionary<string, string>
+    {
+        ["app.name"] = "billing-service",
+        ["app.instance"] = "node-1"
+    }
+};
+```
+{% endtab %}
+
+{% tab title="app.config" %}
+```xml
+<igniteClientConfiguration>
+    <endpoints>
+        <string>127.0.0.1:10800</string>
+    </endpoints>
+    <userAttributes>
+        <pair key="app.name" value="billing-service" />
+        <pair key="app.instance" value="node-1" />
+    </userAttributes>
+</igniteClientConfiguration>
+```
+{% endtab %}
+{% endtabs %}
+
+The `client.user-agent` attribute is reserved. The client always sets it to `GridGain-DotNet/<version>` and ignores a value you set for it.
+
 ## Partition Awareness
 
 Partition awareness allows the thin client to send query requests directly to the node that owns the queried data.

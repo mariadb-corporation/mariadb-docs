@@ -809,7 +809,9 @@ This view exposes information about currently opened client connections: JDBC, O
 
 ## CLIENT_CONNECTION_ATTRIBUTES
 
-The CLIENT_CONNECTION_ATTRIBUTES view exposes user defined attributes of client connections (thin, JDBC, ODBC). Attributes for the connection are provided by clients. For example, attributes for java thin client can be specified using `ClientConfiguration.setUserAttributes` method.
+The CLIENT_CONNECTION_ATTRIBUTES view exposes user-defined attributes of client connections (thin, JDBC, ODBC). Attributes for the connection are provided by clients. For example, you can set attributes for the Java thin client with the `ClientConfiguration.setUserAttributes` method, and for the .NET thin client with the `IgniteClientConfiguration.UserAttributes` property.
+
+The Java, .NET, and C++ thin clients also send the reserved `client.user-agent` attribute, which holds the client name and version: `GridGain-Java/<version>`, `GridGain-DotNet/<version>`, or `GridGain-Cpp/<version>`.
 
 |Column|Data Type|Description|
 |---|---|---|
