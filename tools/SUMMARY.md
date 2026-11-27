@@ -93,6 +93,7 @@
       * [26.06.7 version update guide](enterprise/mariadb-enterprise-operator/updates/update-26.06.7.md)
       * [26.06.8 version update guide](enterprise/mariadb-enterprise-operator/updates/update-26.06.8.md)
       * [26.06.9 version update guide](enterprise/mariadb-enterprise-operator/updates/update-26.06.9.md)
+      * [26.06.10 version update guide](enterprise/mariadb-enterprise-operator/updates/update-26.06.10.md)
       * [26.10 LTS version update guide](enterprise/mariadb-enterprise-operator/updates/update-26.10.md)
       * [26.10.1 version update guide](enterprise/mariadb-enterprise-operator/updates/update-26.10.1.md)
       * [26.10.2 version update guide](enterprise/mariadb-enterprise-operator/updates/update-26.10.2.md)

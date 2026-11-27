@@ -2816,6 +2816,7 @@
     * [MariaDB Enterprise Kubernetes Operator 26.06.7](enterprise-operator/26.06/26.06.7.md)
     * [MariaDB Enterprise Kubernetes Operator 26.06.8](enterprise-operator/26.06/26.06.8.md)
     * [MariaDB Enterprise Kubernetes Operator 26.06.9](enterprise-operator/26.06/26.06.9.md)
+    * [MariaDB Enterprise Kubernetes Operator 26.06.10](enterprise-operator/26.06/26.06.10.md)
   * [MariaDB Enterprise Kubernetes Operator 26.10](enterprise-operator/26.10/README.md)
     * [MariaDB Enterprise Kubernetes Operator 26.10.1](enterprise-operator/26.10/26.10.1.md)
     * [MariaDB Enterprise Kubernetes Operator 26.10.2](enterprise-operator/26.10/26.10.2.md)
