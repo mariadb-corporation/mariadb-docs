@@ -212,6 +212,8 @@ spec:
   # [...]
 ```
 
+Changes to `spec.podDisruptionBudget` are applied to the existing `PodDisruptionBudget`. If you remove the field, HA clusters go back to the default (`minAvailable: 50%`), and non-HA clusters get no `PodDisruptionBudget`: the operator deletes the one it created. Manual changes to the operator-managed `PodDisruptionBudget` are reverted.
+
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

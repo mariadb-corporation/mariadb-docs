@@ -2820,6 +2820,7 @@
   * [MariaDB Enterprise Kubernetes Operator 26.10](enterprise-operator/26.10/README.md)
     * [MariaDB Enterprise Kubernetes Operator 26.10.1](enterprise-operator/26.10/26.10.1.md)
     * [MariaDB Enterprise Kubernetes Operator 26.10.2](enterprise-operator/26.10/26.10.2.md)
+    * [MariaDB Enterprise Kubernetes Operator 26.10.3](enterprise-operator/26.10/26.10.3.md)
   * [All Releases](enterprise-operator/all-releases.md)
 * [MariaDB GridGain 8 Kubernetes Operator Release Notes](gridgain8-operator/README.md)
   * [MariaDB GridGain 8 Kubernetes Operator 1.0.0](gridgain8-operator/1.0.0.md)
