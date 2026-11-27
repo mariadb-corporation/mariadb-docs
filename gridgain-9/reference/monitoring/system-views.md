@@ -733,6 +733,7 @@ From GridGain 9.2:
 | ZONE_ID | INT32 | Unique zone identifier. |
 | ZONE_QUORUM_SIZE | INT32 | The quorum size of the distribution zone. It depends on the number of replicas and ranges from 1 to `round(replicas / 2)`. |
 | CATALOG_VERSION | INT32 | The version of the current catalog that contains this distribution zone. |
+| ZONE_REPLICA_FILTER_ATTRIBUTE | STRING | The name of the node attribute that defines the [fault domains](../../architecture/storage/distribution-zones.md#fault-domains) of the distribution zone. `NULL` if the distribution zone does not use fault domains. |
 {% endtab %}
 
 {% tab title="< 9.2" %}

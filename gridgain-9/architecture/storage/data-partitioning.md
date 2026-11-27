@@ -43,7 +43,7 @@ By default, GridGain automatically calculates the recommended number of partitio
 dataNodesCount * coresOnNode * 2 / replicas
 ```
 
-In this case, the `dataNodesCount` is the estimated number of nodes that will be in the distribution zone when it is created, according to its [filter](distribution-zones.md#node-filtering) and [storage profiles](README.md). At least 1 partition is always created.
+In this case, the `dataNodesCount` is the estimated number of nodes that will be in the distribution zone when it is created, according to its [filter](distribution-zones.md#node-filtering), its [storage profiles](README.md), and, starting with GridGain 9.2, its [replica filter attribute](distribution-zones.md#fault-domains). At least 1 partition is always created.
 
 Partition maintenance is mostly CPU-bound, so the optimal number of partitions depends on the total number of CPUs available to the zone, not on the amount of data. In most cases, we recommend using 2, 3, or 4 times the number of total available cores, divided by the number of replicas. For example:
 
@@ -246,6 +246,10 @@ This approach minimizes unnecessary data movement during cluster scaling operati
 The Fair distribution algorithm calculates placement separately for voting replicas and learner replicas to ensure fair load distribution across cluster nodes. As described in the [quorum size](distribution-zones.md#quorum-size) configuration, some replicas participate in the consensus group for each partition while others serve as learners. The algorithm ensures that both types of replicas are evenly distributed, preventing scenarios where certain nodes bear a disproportionate burden of consensus operations while others primarily handle learner workload.
 
 This separation is particularly important for performance management, as voting replicas participate in write coordination and leader election while learners passively receive updates. By balancing both types of replicas independently, the algorithm ensures that consensus-related load is spread evenly across the cluster alongside the overall data storage load.
+
+### Fault Domain Consideration
+
+Starting with GridGain 9.2, when [fault domains](distribution-zones.md#fault-domains) are configured for the distribution zone, they become an additional constraint for the Fair distribution algorithm, and this constraint takes priority over fairness. If all fault domains have the same number of nodes, the distribution is fair. If the fault domains have different numbers of nodes, the distribution can deviate from fair.
 
 ## Primary Replicas and Leases
 

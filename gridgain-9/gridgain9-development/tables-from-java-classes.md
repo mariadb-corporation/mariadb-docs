@@ -265,6 +265,46 @@ The value returned by `partitionFunction` depends on how you got the `TableDefin
 
 Caches work the same way. Use the `partitionFunction` attribute of the `@Cache` annotation, the `partitionFunction` method of `CacheDefinition.Builder`, and the `cacheDefinition` method of `IgniteCatalog`.
 
+## Fault Domains
+
+To spread the replicas of a zone across [fault domains](../architecture/storage/distribution-zones.md#fault-domains), set the name of the node attribute that defines the fault domains. Use the `replicaFilterAttribute` attribute of the `@Zone` annotation or the `replicaFilterAttribute` method of `ZoneDefinition.Builder`.
+
+The example below creates the `rack_pojo` table by using the `@Table` annotation. If the `zone_rack` zone does not exist, it is created with 3 replicas of each partition, spread across the fault domains defined by the `rack` node attribute:
+
+```java
+@Table(value = "rack_pojo",
+        zone = @Zone(value = "zone_rack", replicas = 3, replicaFilterAttribute = "rack", storageProfiles = "default"))
+public static class PojoValue {
+    // Table columns.
+}
+```
+
+The example below creates the same zone by using the builder:
+
+```java
+client.catalog().createZone(
+        ZoneDefinition.builder("zone_rack")
+                .replicas(3)
+                .replicaFilterAttribute("rack")
+                .storageProfiles("default")
+                .build()
+);
+```
+
+{% hint style="warning" %}
+Servers of versions earlier than GridGain 9.2 do not support the replica filter attribute. If you create a zone with this attribute on such a server, the operation fails with a parse error.
+{% endhint %}
+
+To get the replica filter attribute of an existing zone, use the `zoneDefinition` method of `IgniteCatalog`:
+
+```java
+ZoneDefinition zone = client.catalog().zoneDefinition("zone_rack");
+
+String attribute = zone.replicaFilterAttribute(); // rack
+```
+
+If the zone does not use fault domains, or the client is connected to a server of a version earlier than GridGain 9.2, the value is `null`.
+
 ## Next Steps
 
 Once you have created a table using the Java API, you can manipulate it using the [SQL commands](../reference/sql/ddl.md).

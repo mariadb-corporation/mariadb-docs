@@ -468,7 +468,7 @@ In GridGain 9, you can choose between two node discovery types. With `STATIC` ty
 
 |Property|Default|Description|Acceptable Values|
 |---|---|---|---|
-|userAttributes||A collection of node attributes used for dynamically distributing data only to those nodes that have the specified attribute values. Replaces `nodeAttributes.nodeAttributes` (deprecated in 9.1.27, removed in 9.2). In 9.1, a non-default value of `nodeAttributes.nodeAttributes` is migrated to this property.|A JSON-formatted object|
+|userAttributes||A collection of node attributes used for dynamically distributing data only to those nodes that have the specified attribute values. Starting with GridGain 9.2, node attributes also define [fault domains](../../architecture/storage/distribution-zones.md#fault-domains). Replaces `nodeAttributes.nodeAttributes` (deprecated in 9.1.27, removed in 9.2). In 9.1, a non-default value of `nodeAttributes.nodeAttributes` is migrated to this property.|A JSON-formatted object|
 |nodeAttributes||A collection of node attributes (nested `nodeAttributes.nodeAttributes` section). Use `userAttributes`. Deprecated in 9.1.27, removed in 9.2. In 9.1, its values are migrated to `userAttributes`.|A JSON-formatted object|
 
 {% hint style="info" %}

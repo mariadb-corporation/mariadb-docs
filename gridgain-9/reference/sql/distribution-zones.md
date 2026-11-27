@@ -73,6 +73,7 @@ It's also possible to combine multiple attribute-related expressions in one filt
 
   Please see JSONPath [documentation](https://docs.oracle.com/cd/E60058_01/PDF/8.0.8.x/8.0.8.0.0/PMF_HTML/JsonPath_Expressions.htm) for more details.
 
+* `REPLICA FILTER ATTRIBUTE` - the name of the node attribute that defines [fault domains](../../architecture/storage/distribution-zones.md#fault-domains). Nodes with the same value of the attribute form a fault domain, and the replicas of each partition are spread across the fault domains. Nodes that do not have the attribute, or have an empty or whitespace-only value of it, are not used to store data in the distribution zone. At least one node in the cluster must have the attribute, match the node filter, and have the storage profiles of the distribution zone. Only one attribute can be specified. By default, fault domains are not used. Available starting with GridGain 9.2.
 * `AUTO SCALE UP` - Configures automatic scaling up of the distribution zone. Possible values:
   - `OFF` - disables the automatic distribution zone adjustment.
   - `integer` - the delay in seconds between the new node joining and the start of distribution zone adjustment. Possible values are between 0 and 2147483647. Default value: 5.
@@ -121,6 +122,16 @@ It's also possible to combine multiple attribute-related expressions in one filt
 
   {% hint style="info" %}
   The example above assumes that there are nodes that have the attribute set in [node filtering](../../architecture/storage/distribution-zones.md#node-filtering) example.
+  {% endhint %}
+
+- Creates an `exampleZone` distribution zone that spreads 3 replicas of each partition across the fault domains defined by the `rack` node attribute:
+
+  ```sql
+  CREATE ZONE IF NOT EXISTS exampleZone (REPLICAS 3, REPLICA FILTER ATTRIBUTE 'rack') STORAGE PROFILES['default'];
+  ```
+
+  {% hint style="info" %}
+  The example above assumes that there are nodes that have the attribute set in [fault domains](../../architecture/storage/distribution-zones.md#fault-domains) example.
   {% endhint %}
 
 - Creates an `exampleZone` distribution zone with consistency mode set to `HIGH_AVAILABILITY`:
@@ -197,6 +208,7 @@ NonTerminal('parameter', {href:'./grammar-reference/#parameter'})
   - `PARTITIONS` - the number of partitions.
   - `REPLICAS` - the number of copies of each partition.
   - `NODES FILTER` - specifies the nodes that can be used to store data in the distribution zone based on node attributes.
+  - `REPLICA FILTER ATTRIBUTE` - the name of the node attribute that defines [fault domains](../../architecture/storage/distribution-zones.md#fault-domains). At least one node in the cluster must have the attribute, match the node filter, and have the storage profiles of the distribution zone. Available starting with GridGain 9.2.
   - `AUTO SCALE` - Configures automatic distribution zone adjustment. Possible values:
     - `OFF` - disables the automatic distribution zone adjustment. Default value.
     - `integer` - the delay in seconds between the new node joining and the start of distribution zone adjustment. Possible values are between 0 and 2147483647.
@@ -226,6 +238,12 @@ NonTerminal('parameter', {href:'./grammar-reference/#parameter'})
   ALTER ZONE IF EXISTS exampleZone SET (REPLICAS 5, QUORUM SIZE 3, NODES FILTER '$[?(@.region == "US")]');
   ```
 
+- Spreads the replicas of each partition across the fault domains defined by the `rack` node attribute:
+
+  ```sql
+  ALTER ZONE IF EXISTS exampleZone SET (REPLICA FILTER ATTRIBUTE 'rack');
+  ```
+
 ### ALTER ZONE SET DEFAULT
 
 Sets the zone as the default zone to use if no other zone is specified.
@@ -250,6 +268,44 @@ Terminal('DEFAULT')
 
   ```sql
   ALTER ZONE IF EXISTS exampleZone SET DEFAULT;
+  ```
+
+### ALTER ZONE DROP REPLICA FILTER ATTRIBUTE
+
+Removes the replica filter attribute from the distribution zone. Available starting with GridGain 9.2.
+
+```bnf
+ALTER ZONE [ IF EXISTS ] zone_name
+  DROP { REPLICA FILTER ATTRIBUTE | ( REPLICA FILTER ATTRIBUTE ) }
+```
+
+<!-- Diagram(
+Terminal('ALTER ZONE'),
+Optional(Terminal('IF EXISTS')),
+NonTerminal('zone_name'),
+Terminal('DROP'),
+Choice(0,
+Terminal('REPLICA FILTER ATTRIBUTE'),
+Sequence(
+Terminal('('),
+Terminal('REPLICA FILTER ATTRIBUTE'),
+Terminal(')')
+)
+)
+) -->
+
+**Keywords and parameters**
+
+* `IF EXISTS` - do not throw an error if a zone with the specified name does not exist.
+* `zone_name` - a name of the distribution zone. Must be a simple identifier.
+* `DROP REPLICA FILTER ATTRIBUTE` - removes the [fault domain](../../architecture/storage/distribution-zones.md#fault-domains) configuration of the distribution zone. The replicas are no longer spread across the fault domains, and the nodes that do not have the attribute can store data of the distribution zone again if they match its node filter and have its storage profiles.
+
+**Examples**
+
+- Removes the replica filter attribute from the distribution zone:
+
+  ```sql
+  ALTER ZONE IF EXISTS exampleZone DROP REPLICA FILTER ATTRIBUTE;
   ```
 
 ## DROP ZONE
