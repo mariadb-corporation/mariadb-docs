@@ -43,6 +43,18 @@ Complete system-versioned tables: WITH SYSTEM VERSIONING syntax, FOR SYSTEM_TIME
 {% endcolumn %}
 {% endcolumns %}
 
+{% columns %}
+{% column %}
+{% content-ref url="loading-existing-history.md" %}
+[loading-existing-history.md](loading-existing-history.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Load history that already exists, such as a change log, into a system-versioned table with its original dates.
+{% endcolumn %}
+{% endcolumns %}
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

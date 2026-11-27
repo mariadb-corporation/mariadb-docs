@@ -1313,6 +1313,7 @@
       * [Application-Time Periods](reference/sql-structure/temporal-tables/application-time-periods.md)
       * [Bitemporal Tables](reference/sql-structure/temporal-tables/bitemporal-tables.md)
       * [System-Versioned Tables](reference/sql-structure/temporal-tables/system-versioned-tables.md)
+      * [Loading Existing History](reference/sql-structure/temporal-tables/loading-existing-history.md)
     * [Vectors](reference/sql-structure/vectors/README.md)
       * [Vector Overview](reference/sql-structure/vectors/vector-overview.md)
       * [CREATE TABLE with Vectors](reference/sql-structure/vectors/create-table-with-vectors.md)
